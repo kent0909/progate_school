@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta charset="utf-8">
-	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>EigoBit - AI英語トレーニング</title>
 	<link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
-<!-- headerここから -->
+	<!-- headerここから -->
+	<header class="app-header">
+		<div class="logo">Eigo<span>Bit</span></div>
+		<div class="streak" id="header-streak" title="連続学習日数">🔥 0日</div>
+	</header>
 
-<h1>hello!!!</h1>
+	<main id="app" class="app-main"></main>
+
+	<nav class="tab-bar">
+		<button class="tab" data-view="home"><span class="tab-icon">🏠</span>ホーム</button>
+		<button class="tab" data-view="shadowing"><span class="tab-icon">🎧</span>シャドーイング</button>
+		<button class="tab" data-view="composition"><span class="tab-icon">⚡</span>瞬間英作文</button>
+		<button class="tab" data-view="conversation"><span class="tab-icon">💬</span>英会話</button>
+		<button class="tab" data-view="records"><span class="tab-icon">📊</span>記録</button>
+	</nav>
+
+	<script src="data.js"></script>
+	<script src="script.js"></script>
 </body>
 </html>
-
-
