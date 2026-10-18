@@ -56,7 +56,7 @@
   const DEF = () => ({
     name: '', xp: 0, coins: 20, stars: {}, best: {}, cards: [], wrong: {}, boss: {}, rush: {}, exams: [], badges: [],
     streak: { last: '', days: 0 }, daily: { date: '', correct: 0, stages: 0, rush: 0, claimed: [] },
-    total: { answered: 0, correct: 0, maxCombo: 0, reviewOk: 0 }, read: {}, hist: {}, mastered: 0, settings: { sound: true, free: false },
+    total: { answered: 0, correct: 0, maxCombo: 0, reviewOk: 0 }, read: {}, hist: {}, mastered: 0, lastPlay: {}, examSeen: [], examDate: '', askedDate: false, settings: { sound: true, free: false },
   });
   function load() {
     const d = DEF();
@@ -515,15 +515,18 @@
     modal(`<div class="eyebrow">LEVEL UP</div><div class="pix" style="font-size:54px;color:var(--brand);line-height:1">Lv.${b}</div>${newTitle ? `<p>昇進！ 肩書きが <b>${titleOf(b)}</b> になった！</p>` : `<p>${esc(S.name || 'キミ')}さんの経理力がアップした！</p>`}`, [{ t: 'やったね', on: then }], { sticky: true });
   }
   const DAY = 864e5;
-  // Leitner-style: a miss is due now; one correct answer pushes it to tomorrow; two corrects graduate it.
+  // Leitner-style: a miss is due now; each correct answer on its due day pushes it out 1, 3, then 7 days; the next correct graduates it.
+  const SRS = [1, 3, 7];
   function recordAnswer(q, ok, review, last) {
     ensureDaily(); markStudy();
     S.total.answered++;
+    if (q._ch && q._ch.id) S.lastPlay[q._ch.id] = Date.now();
     if (q._key) { const h = S.hist[q._key] || (S.hist[q._key] = [0, 0]); h[0]++; if (ok) h[1]++; }
     if (ok) {
       S.total.correct++; S.daily.correct++;
       const w = S.wrong[q._key];
-      if (w) { w.ok = (w.ok || 0) + 1; if (w.ok >= 2) { delete S.wrong[q._key]; S.mastered = (S.mastered || 0) + 1; } else w.due = Date.now() + DAY; }
+      // only an answer given when the item is due moves it up a step
+      if (w && (w.due || 0) <= Date.now()) { w.ok = (w.ok || 0) + 1; if (w.ok > SRS.length) { delete S.wrong[q._key]; S.mastered = (S.mastered || 0) + 1; } else w.due = Date.now() + SRS[w.ok - 1] * DAY; }
       if (review) S.total.reviewOk++;
     } else if (q._key) {
       const p = S.wrong[q._key] || {};
@@ -624,6 +627,11 @@
       return `<div class="mission ${done ? 'done' : ''}"><div>${t} <span class="num muted">${v}/${n}</span></div><div class="bar gold"><i style="width:${(v / n) * 100}%"></i></div>${done ? '<span class="tag">受取済</span>' : `<button class="btn gold sm" data-claim="${id}" ${v < n ? 'disabled' : ''}>受け取る</button>`}</div>`;
     }).join('');
     let html = `<div class="stack"><div class="hero">${PIYO}<div class="stack" style="gap:6px"><h1>${S.name ? `<span class="hero-name">${esc(S.name)}さん</span>` : ''}今日も仕訳を切ろう</h1><div class="bubble">${pick(TIPS)}</div></div></div>`;
+    if (S.examDate) {
+      const days = Math.ceil((new Date(S.examDate + 'T00:00:00') - new Date(today() + 'T00:00:00')) / DAY);
+      const left = CHAPTERS.filter((c) => !cleared(c.id)).length;
+      if (days >= 0) html += `<div class="card countdown"><div><div class="eyebrow">本試験まで</div><span class="pix" style="font-size:30px;color:var(--cr)">${days}</span><b> 日</b></div><div style="font-size:13px;text-align:right">残り ${left} ステージ<br>${left ? `1日 <b>${days ? Math.ceil(left / Math.max(1, days - 7)) : left}</b> ステージで、最後の1週間を模試にあてられる` : '全ステージクリア！ 模試と復習で仕上げよう'}</div></div>`;
+    } else html += '<button class="link" data-go="settings" style="justify-self:start">受験予定日を設定すると、残り日数と1日の目安が出るよ</button>';
     html += cur ? `<button class="btn wide" data-stage="${cur.id}">${I.pin}<span>つづきから：${esc(cur.title)}</span></button>` : `<button class="btn gold wide" data-go="exam">${I.paper}<span>全ステージクリア！ 模擬試験で満点をねらう</span></button>`;
     html += `<div class="card"><div class="row" style="justify-content:space-between;margin-bottom:8px"><h3>今日のミッション</h3><span class="muted" style="font-size:12px">報酬 各 ${'コイン15・XP40'}</span></div><div class="missions">${mis}</div></div>`;
     const weak = THEMES.map((t) => ({ t, s: themeStats(t) })).filter((r) => r.s.wrong > 0).sort((a, b) => b.s.wrong - a.s.wrong).slice(0, 3);
@@ -635,8 +643,8 @@
       html += `<section class="world ${un ? '' : 'locked'}" style="--h:${w.hue}"><div class="world-head"><div class="eyebrow">WORLD ${wi + 1} ・ ${esc(w.area)}</div><h2>${esc(w.name)}</h2><div style="font-size:12px;opacity:.9">${esc(w.theme)}</div><div class="wprog">${un ? `${done}/${w.chapters.length}` : I.lock.replace('<svg', '<svg width="22" height="22"')}</div></div><div class="path">`;
       const X = [0, 46, 80, 46, 0, 30, 64, 30];
       w.chapters.forEach((c, i) => {
-        const u = chapterUnlocked(c), st = S.stars[c.id] || 0;
-        html += `<div class="node ${u ? '' : 'locked'} ${cur === c ? 'current' : ''}" style="padding-left:${X[i % X.length]}px"><button class="node-btn" data-stage="${c.id}" aria-label="${esc(c.title)}" ${u ? '' : 'aria-disabled="true"'}>${u ? chNum(c.id) : I.lock.replace('<svg', '<svg width="24" height="24"')}</button><div class="node-info"><div class="node-title">${esc(c.title)}</div><div class="node-sub">${esc(c.sub || '')}</div><div class="stars">${[1, 2, 3].map((k) => `<span class="${k <= st ? 'star-on' : 'star-off'}">${I.star}</span>`).join('')}</div></div></div>`;
+        const u = chapterUnlocked(c), rusty = cleared(c.id) && S.lastPlay[c.id] && Date.now() - S.lastPlay[c.id] > 30 * DAY, st = Math.max(0, (S.stars[c.id] || 0) - (rusty ? 1 : 0));
+        html += `<div class="node ${u ? '' : 'locked'} ${cur === c ? 'current' : ''}" style="padding-left:${X[i % X.length]}px"><button class="node-btn" data-stage="${c.id}" aria-label="${esc(c.title)}" ${u ? '' : 'aria-disabled="true"'}>${u ? chNum(c.id) : I.lock.replace('<svg', '<svg width="24" height="24"')}</button><div class="node-info"><div class="node-title">${esc(c.title)}</div><div class="node-sub">${esc(c.sub || '')}</div>${rusty ? '<span class="tag lv2">30日ぶり・復習どき</span> ' : ''}<div class="stars">${[1, 2, 3].map((k) => `<span class="${k <= st ? 'star-on' : 'star-off'}">${I.star}</span>`).join('')}</div></div></div>`;
       });
       const bu = bossUnlocked(w) && un;
       html += `<div class="node boss ${bu ? '' : 'locked'}" style="padding-left:30px"><button class="node-btn" data-boss="${w.id}" aria-label="ボス ${esc(w.boss.name)}">${monster(w.hue, wi)}</button><div class="node-info"><div class="eyebrow">BOSS</div><div class="node-title">${esc(w.boss.name)}</div><div class="node-sub">${S.boss[w.id] ? '撃破済み・再戦OK' : bu ? '挑戦できる！' : 'ワールドの全ステージをクリアで出現'}</div></div></div></div></section>`;
@@ -653,6 +661,7 @@
       if (cl) { S.daily.claimed.push(cl.dataset.claim); gainCoins(15); gainXP(40); SFX.coin(); floaty('+15', cl); save(); flushLevelUps(() => SCREENS.home()); }
     };
     if (!S.name) setTimeout(askName, 300);
+    else if (!S.examDate && !S.askedDate && today() >= '2027-04-01') { S.askedDate = true; save(); modal('<h2>受験予定日を教えて</h2><p style="margin:0">2027年度（2027年4月〜）の試験から出題範囲が変わる見込みです。受験日を設定すると、範囲に合わせて模試を出題します。</p>', [{ t: 'あとで', cls: 'ghost' }, { t: '設定する', on: () => go('settings') }]); }
     else flushLevelUps();
   };
 
@@ -694,9 +703,10 @@
       let i = 0;
       const draw = () => {
         const L = c.lessons[i];
+        const notice = i === 0 && OUT27_CH.has(c.id) ? `<div class="warn notice" style="margin:0 0 12px">${c.id === 'c11' ? '日商の発表では、2027年度（2027年4月〜）の試験から手形は出題範囲外になる見込み' : '日商の発表では、2027年度（2027年4月〜）の試験からリースの処理が新しい会計基準に合わせて変わる見込み'}です（公式の区分表で要確認）。${examYear() >= 2027 ? 'キミの受験は2027年度なので、この章は参考として読んでね。模試からは外してあるよ。' : '2026年度（〜2027年3月）の試験は、このまま出題範囲だよ。'}</div>` : '';
         const k = `${cid}:${i}`;
         if (!S.read[k]) { S.read[k] = 1; gainXP(3); save(); }
-        main.innerHTML = `${top(10 + (i / c.lessons.length) * 30, `レッスン ${i + 1}/${c.lessons.length}`)}<div class="card lesson stack" style="gap:6px"><div class="eyebrow">LESSON ${i + 1}</div><h2>${esc(L.t)}</h2><div class="rich">${rich(L.h)}</div></div><div class="row" style="margin-top:14px">${i > 0 ? '<button class="btn ghost" data-prev>もどる</button>' : ''}${i < c.lessons.length - 1 ? '<button class="btn" data-nx>つぎへ</button>' : '<button class="btn gold" data-go-quiz>クイズに挑戦！</button>'}</div>`;
+        main.innerHTML = `${top(10 + (i / c.lessons.length) * 30, `レッスン ${i + 1}/${c.lessons.length}`)}${notice}<div class="card lesson stack" style="gap:6px"><div class="eyebrow">LESSON ${i + 1}</div><h2>${esc(L.t)}</h2><div class="rich">${rich(L.h)}</div></div><div class="row" style="margin-top:14px">${i > 0 ? '<button class="btn ghost" data-prev>もどる</button>' : ''}${i < c.lessons.length - 1 ? '<button class="btn" data-nx>つぎへ</button>' : '<button class="btn gold" data-go-quiz>クイズに挑戦！</button>'}</div>`;
         window.scrollTo(0, 0);
       };
       draw();
@@ -720,6 +730,7 @@
     const firstClear = stars > 0 && prev === 0;
     if (stars > prev) S.stars[c.id] = stars;
     S.best[c.id] = Math.max(S.best[c.id] || 0, Math.round(ratio * 100));
+    S.lastPlay[c.id] = Date.now();
     let bonus = 0;
     if (stars > 0) { bonus = 30 + stars * 10; ensureDaily(); S.daily.stages++; gainCoins(5 + stars); }
     if (firstClear && !S.cards.includes(c.id)) S.cards.push(c.id);
@@ -901,14 +912,14 @@
       const worlds = [['all', 'すべて']].concat(WORLDS.map((w) => [w.id, w.name]), B.exams.length ? [['exam', '模試大問']] : []);
       const list = wk.filter((k) => noteWorld === 'all' || (QBYKEY[k]._ch && QBYKEY[k]._ch.world) === noteWorld || (noteWorld === 'exam' && k.startsWith('exam:')))
         .sort((a, b) => S.wrong[b].n - S.wrong[a].n || S.wrong[b].t - S.wrong[a].t);
-      body = `<select id="note-world" class="search">${worlds.map(([id, n]) => `<option value="${id}" ${id === noteWorld ? 'selected' : ''}>${esc(n)}</option>`).join('')}</select>${list.length ? `<div class="note-list">${list.map((k) => { const q = QBYKEY[k], w = S.wrong[k]; return `<div class="note"><div class="qmeta"><span class="tag">${TYPE_LABEL[q.type]}</span><span class="tag lv3">×${w.n}</span>${w.ok ? '<span class="tag lv2">あと1回で卒業</span>' : ''}<span class="muted">${esc(q._ch ? q._ch.title : '')}</span></div><div class="note-q">${esc(strip(q.q).slice(0, 90))}${strip(q.q).length > 90 ? '…' : ''}</div>${w.last ? `<div class="muted" style="font-size:12px">前回の答え：${esc(w.last)}</div>` : ''}<div class="row"><button class="btn ghost sm" data-ans="${esc(k)}">答えと解説</button><button class="btn sm" data-one="${esc(k)}">解き直す</button></div></div>`; }).join('')}</div>` : '<div class="card center muted">このワールドのまちがいノートは空っぽ。いい調子！</div>'}`;
+      body = `<select id="note-world" class="search">${worlds.map(([id, n]) => `<option value="${id}" ${id === noteWorld ? 'selected' : ''}>${esc(n)}</option>`).join('')}</select>${list.length ? `<div class="note-list">${list.map((k) => { const q = QBYKEY[k], w = S.wrong[k]; return `<div class="note"><div class="qmeta"><span class="tag">${TYPE_LABEL[q.type]}</span><span class="tag lv3">×${w.n}</span>${w.ok ? `<span class="tag lv2">${w.ok >= SRS.length ? 'あと1回で卒業' : `卒業まで ${SRS.length + 1 - w.ok} 回`}</span>` : ''}${(w.due || 0) > Date.now() ? `<span class="tag">次は ${Math.ceil(((w.due || 0) - Date.now()) / DAY)}日後</span>` : ''}<span class="muted">${esc(q._ch ? q._ch.title : '')}</span></div><div class="note-q">${esc(strip(q.q).slice(0, 90))}${strip(q.q).length > 90 ? '…' : ''}</div>${w.last ? `<div class="muted" style="font-size:12px">前回の答え：${esc(w.last)}</div>` : ''}<div class="row"><button class="btn ghost sm" data-ans="${esc(k)}">答えと解説</button><button class="btn sm" data-one="${esc(k)}">解き直す</button></div></div>`; }).join('')}</div>` : '<div class="card center muted">このワールドのまちがいノートは空っぽ。いい調子！</div>'}`;
     }
-    main.innerHTML = `<div class="stack"><div class="hero">${PIYO}<div><h1>復習の部屋</h1><div class="muted" style="font-size:13px">まちがえた問題は、正解すると翌日にもう一度出てくる。2回正解で卒業。時間をあけて解き直すのが、いちばん記憶に残るピヨ。</div></div></div><div class="card stack"><div class="stats3"><div class="stat"><b style="color:var(--cr)">${due.length}</b><span>今日の復習</span></div><div class="stat"><b>${wk.length}</b><span>まちがいノート</span></div><div class="stat"><b style="color:var(--good)">${S.mastered || 0}</b><span>卒業した問題</span></div></div><button class="btn wide" data-due ${due.length ? '' : 'disabled'}>今日の復習をはじめる（${Math.min(10, due.length)}問）</button><div class="row"><button class="btn ghost sm" data-allwrong ${wk.length ? '' : 'disabled'}>まちがいから10問</button><button class="btn ghost sm" data-mix ${clearedQs.length ? '' : 'disabled'}>ミックス10問</button></div></div><div class="seg"><button data-rt="theme" aria-pressed="${reviewTab === 'theme'}">テーマ別</button><button data-rt="note" aria-pressed="${reviewTab === 'note'}">まちがいノート</button></div>${body}</div>`;
+    main.innerHTML = `<div class="stack"><div class="hero">${PIYO}<div><h1>復習の部屋</h1><div class="muted" style="font-size:13px">まちがえた問題は、正解すると翌日・3日後・7日後にもう一度出てくる。そのたびに正解できたら卒業。時間をあけて解き直すのが、いちばん記憶に残るピヨ。</div></div></div><div class="card stack"><div class="stats3"><div class="stat"><b style="color:var(--cr)">${due.length}</b><span>今日の復習</span></div><div class="stat"><b>${wk.length}</b><span>まちがいノート</span></div><div class="stat"><b style="color:var(--good)">${S.mastered || 0}</b><span>卒業した問題</span></div></div><button class="btn wide" data-due ${due.length ? '' : 'disabled'}>今日の復習をはじめる（${Math.min(10, due.length)}問）</button><div class="row"><button class="btn ghost sm" data-allwrong ${wk.length ? '' : 'disabled'}>まちがいから10問</button><button class="btn ghost sm" data-mix ${clearedQs.length ? '' : 'disabled'}>ミックス10問</button></div></div><div class="seg"><button data-rt="theme" aria-pressed="${reviewTab === 'theme'}">テーマ別</button><button data-rt="note" aria-pressed="${reviewTab === 'note'}">まちがいノート</button></div>${body}</div>`;
     const sel = $('#note-world'); if (sel) sel.onchange = (e) => { noteWorld = e.target.value; SCREENS.review(); };
     main.onclick = (e) => {
       const g = (s) => e.target.closest(s);
       if (g('[data-rt]')) SCREENS.review(g('[data-rt]').dataset.rt);
-      else if (g('[data-due]')) startReview(shuffle(dueKeys()).sort((a, b) => S.wrong[b].n - S.wrong[a].n).slice(0, 10).map((k) => QBYKEY[k]), '今日の復習');
+      else if (g('[data-due]')) startReview(dueKeys().sort((a, b) => (S.wrong[a].due || 0) - (S.wrong[b].due || 0)).slice(0, 10).map((k) => QBYKEY[k]), '今日の復習');
       else if (g('[data-allwrong]')) startReview(shuffle(wrongKeys()).slice(0, 10).map((k) => QBYKEY[k]), 'まちがい復習');
       else if (g('[data-mix]')) startReview(shuffle(clearedQs).slice(0, 10), 'ミックス');
       else if (g('[data-drill]')) { const t = TH[g('[data-drill]').dataset.drill]; startReview(drillItems(t, 10), `${t.title} 特訓`); }
@@ -1011,20 +1022,42 @@
     { k: 5, t: '第5問', d: '標準原価・CVPなど', pts: 12 },
   ];
   const INDUSTRIAL = new Set(['w8', 'w9']);
+  // 2027年度（2027/4〜）の区分表で範囲外・処理変更の見込みとされる論点。内容は書き換えず、表示と模試の出題だけを切り替える。
+  const OUT27_CH = new Set(['c11', 'c19']), OUT27_X = new Set(['x2e']);
+  const fiscalYear = (d) => (d.getMonth() >= 3 ? d.getFullYear() : d.getFullYear() - 1);
+  const examYear = () => fiscalYear(S.examDate ? new Date(S.examDate + 'T00:00:00') : new Date());
+  const CH_FREQ = { c01: 2, c02: 2, c04: 2, c07: 2, c13: 2, c14: 2, c16: 2, c17: 2, c18: 2, c19: 2, c21: 2, c22: 2, c24: 2, c28: 2, c34: 2, c35: 2, c37: 2, c43: 2, c45: 2 };
+  // weighted sample, one question per chapter, avoiding recently seen keys
+  function sampleExam(pool, n, recent) {
+    const fresh = pool.filter((q) => !recent.has(q._key));
+    const use = fresh.length >= n * 3 ? fresh : pool;
+    const keyed = use.map((q) => ({ q, k: Math.pow(Math.random(), 1 / (CH_FREQ[q._ch.id] || 1)) })).sort((a, b) => b.k - a.k);
+    const out = [], used = new Set();
+    for (const { q } of keyed) { if (out.length >= n) break; if (!used.has(q._ch.id)) { out.push(q); used.add(q._ch.id); } }
+    for (const { q } of keyed) { if (out.length >= n) break; if (!out.includes(q)) out.push(q); }
+    return out;
+  }
+  const PART_MIN = { 1: 15, 4: 20, 5: 10, 2: 20, 3: 25 };
   SCREENS.exam = function () {
     main.onclick = null;
     const hist = S.exams.slice(-5).reverse();
     const best = S.exams.reduce((m, e) => Math.max(m, e.score), 0);
     const counts = [2, 3, 4, 5].map((p) => B.exams.filter((x) => x.part === p).length);
-    main.innerHTML = `<div class="stack"><div><div class="eyebrow">MOCK EXAM</div><h1>本試験シミュレーター</h1><p class="muted" style="margin:4px 0 0;font-size:13px">日商簿記2級と同じ5問構成・90分・100点満点。70点で合格。毎回ちがう組み合わせで出題される。</p></div><div class="card"><table class="score-table">${PARTS.map((p) => `<tr><th style="text-align:left">${p.t}</th><td class="muted" style="font-size:13px">${p.d}</td><td>${p.pts}点</td></tr>`).join('')}</table><p class="muted" style="font-size:12px;margin:8px 0 0">問題バンク：第2問 ${counts[0]}・第3問 ${counts[1]}・第4問(2) ${counts[2]}・第5問 ${counts[3]} 題 ＋ 仕訳 ${CHAPTERS.flatMap((c) => c.qs).filter((q) => q.type === 'journal').length} 題</p></div><div class="row"><button class="btn gold" data-start>${I.paper}90分 本番モード</button><button class="btn ghost" data-start="practice">時間無制限</button></div>${best ? `<div class="card"><div class="row" style="justify-content:space-between"><h3>これまでの成績</h3><span class="pix" style="color:var(--brand)">BEST ${best}点</span></div><table class="score-table" style="margin-top:6px">${hist.map((e) => `<tr><td>${esc(e.date)}</td><td>${e.score >= 70 ? '<b style="color:var(--good)">合格</b>' : '<span class="muted">不合格</span>'}</td><td>${e.score}点</td></tr>`).join('')}</table></div>` : ''}</div>`;
+    main.innerHTML = `<div class="stack"><div><div class="eyebrow">MOCK EXAM</div><h1>本試験シミュレーター</h1><p class="muted" style="margin:4px 0 0;font-size:13px">日商簿記2級と同じ5問構成・90分・100点満点。70点で合格。毎回ちがう組み合わせで出題される。</p></div><div class="card"><table class="score-table">${PARTS.map((p) => `<tr><th style="text-align:left">${p.t}</th><td class="muted" style="font-size:13px">${p.d}</td><td>${p.pts}点</td></tr>`).join('')}</table><p class="muted" style="font-size:12px;margin:8px 0 0">問題バンク：第2問 ${counts[0]}・第3問 ${counts[1]}・第4問(2) ${counts[2]}・第5問 ${counts[3]} 題 ＋ 仕訳 ${CHAPTERS.flatMap((c) => c.qs).filter((q) => q.type === 'journal').length} 題</p></div><div class="card" style="font-size:13px"><b>おすすめの解く順番</b><br>第1問（15分）→ 第4問（20分）→ 第5問（10分）→ 第2問（20分）→ 第3問（25分）<br><span class="muted">確実に点が取れる仕訳と工業簿記を先に終わらせ、重い第2問・第3問に残り時間を使う。結果画面で大問ごとにかけた時間がわかる。</span>${examYear() >= 2027 ? '<br><b style="color:var(--cr)">2027年度モード：</b>手形・リースの区分は模試から外しています。' : ''}</div><div class="row"><button class="btn gold" data-start>${I.paper}90分 本番モード</button><button class="btn ghost" data-start="practice">時間無制限</button></div>${best ? `<div class="card"><div class="row" style="justify-content:space-between"><h3>これまでの成績</h3><span class="pix" style="color:var(--brand)">BEST ${best}点</span></div><table class="score-table" style="margin-top:6px">${hist.map((e) => `<tr><td>${esc(e.date)}</td><td>${e.score >= 70 ? '<b style="color:var(--good)">合格</b>' : '<span class="muted">不合格</span>'}</td><td>${e.score}点</td></tr>`).join('')}</table></div>` : ''}</div>`;
     main.onclick = (e) => { const s = e.target.closest('[data-start]'); if (s) go('examplay', s.dataset.start === 'practice'); };
   };
   SCREENS.examplay = function (practice) {
-    const allQ = CHAPTERS.flatMap((c) => c.qs.filter((q) => q.type === 'journal'));
-    const strong = (list) => { const s = list.filter((q) => (q.lv || 1) >= 2); return s.length >= 5 ? s : list; };
-    const com = shuffle(strong(allQ.filter((q) => !INDUSTRIAL.has(q._ch.world)))).slice(0, 5);
-    const ind = shuffle(strong(allQ.filter((q) => INDUSTRIAL.has(q._ch.world)))).slice(0, 3);
-    const big = {}; [2, 3, 4, 5].forEach((p) => { const pool = B.exams.filter((x) => x.part === p); big[p] = pool.length ? pick(pool) : null; });
+    const y27 = examYear() >= 2027;
+    const allQ = CHAPTERS.filter((c) => c.id !== 'c00' && !(y27 && OUT27_CH.has(c.id))).flatMap((c) => c.qs.filter((q) => q.type === 'journal'));
+    const strong = (list) => { const s = list.filter((q) => (q.lv || 1) >= 2); return s.length >= 15 ? s : list; };
+    const recent = new Set(S.examSeen);
+    const com = sampleExam(strong(allQ.filter((q) => !INDUSTRIAL.has(q._ch.world))), 5, recent);
+    const ind = sampleExam(strong(allQ.filter((q) => INDUSTRIAL.has(q._ch.world))), 3, recent);
+    const big = {}; [2, 3, 4, 5].forEach((p) => { const pool = B.exams.filter((x) => x.part === p && !(y27 && OUT27_X.has(x.id))); const fresh = pool.filter((x) => !recent.has(x._key)); big[p] = pool.length ? pick(fresh.length ? fresh : pool) : null; });
+    S.examSeen = [...com, ...ind, ...Object.values(big).filter(Boolean)].map((q) => q._key).concat(S.examSeen).slice(0, 80);
+    save();
+    const partTime = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    let partT0 = performance.now();
     const comps = {};
     let curPart = 1, submitted = false, raf = null;
     const end = performance.now() + 90 * 60000;
@@ -1050,7 +1083,7 @@
     ind.forEach((q, i) => sec(4).appendChild(sub(`問${i + 1}`, q, `4-${i}`)));
     sec(4).insertAdjacentHTML('beforeend', `<h3 style="margin-top:10px">(2) ${big[4] ? esc(big[4].title) : ''}（16点）</h3>`);
     if (big[4]) sec(4).appendChild(sub('', big[4], '4b'));
-    function show(k) { curPart = k; $$('.exam-tab', main).forEach((t) => t.setAttribute('aria-current', String(+t.dataset.part === k))); $$('[data-sec]', main).forEach((s) => { s.hidden = +s.dataset.sec !== k; }); window.scrollTo(0, 0); }
+    function show(k) { if (!submitted) { partTime[curPart] += performance.now() - partT0; partT0 = performance.now(); } curPart = k; $$('.exam-tab', main).forEach((t) => t.setAttribute('aria-current', String(+t.dataset.part === k))); $$('[data-sec]', main).forEach((s) => { s.hidden = +s.dataset.sec !== k; }); window.scrollTo(0, 0); }
     show(1);
     function tick() {
       const left = Math.max(0, end - performance.now());
@@ -1076,11 +1109,13 @@
       Object.keys(score).forEach((k) => { score[k] = Math.round(score[k]); });
       const total = Object.values(score).reduce((a, b) => a + b, 0);
       const pass = total >= 70;
-      S.exams.push({ date: today(), score: total, parts: score });
+      partTime[curPart] += performance.now() - partT0;
+      const mins = {}; Object.keys(partTime).forEach((k) => { mins[k] = Math.round(partTime[k] / 60000); });
+      S.exams.push({ date: today(), score: total, parts: score, mins });
       gainXP(total * 3); gainCoins(Math.floor(total / 5));
       save(); checkBadges();
       if (pass) { SFX.win(); confetti(260); } else SFX.lose();
-      $('[data-score]', main).innerHTML = `<div class="card result" style="margin-bottom:14px"><div class="eyebrow">RESULT</div><div class="pix" style="font-size:60px;line-height:1">${total}<span style="font-size:22px">点</span></div><span class="pass-stamp ${pass ? '' : 'fail'}">${pass ? '合格' : '不合格'}</span><table class="score-table">${PARTS.map((p) => `<tr><th style="text-align:left">${p.t}</th><td>${score[p.k]} / ${p.pts}</td></tr>`).join('')}</table><p class="muted" style="margin:0;font-size:13px">${total === 100 ? '満点！ 本番もこの調子ピヨ！' : pass ? '合格ライン突破！ 落とした問題の解説を見て満点をねらおう。' : 'まちがえた仕訳は「復習」に入ったよ。各問の解説を確認しよう。'}</p></div>`;
+      $('[data-score]', main).innerHTML = `<div class="card result" style="margin-bottom:14px"><div class="eyebrow">RESULT</div><div class="pix" style="font-size:60px;line-height:1">${total}<span style="font-size:22px">点</span></div><span class="pass-stamp ${pass ? '' : 'fail'}">${pass ? '合格' : '不合格'}</span><table class="score-table"><tr><th></th><th>得点</th><th>かけた時間</th><th>目安</th></tr>${PARTS.map((p) => `<tr><th style="text-align:left">${p.t}</th><td>${score[p.k]} / ${p.pts}</td><td class="num ${mins[p.k] > PART_MIN[p.k] + 3 ? 'over' : ''}">${mins[p.k]}分</td><td class="num muted">${PART_MIN[p.k]}分</td></tr>`).join('')}</table><p class="muted" style="margin:0;font-size:13px">${total === 100 ? '満点！ 本番もこの調子ピヨ！' : pass ? '合格ライン突破！ 落とした問題の解説を見て満点をねらおう。' : 'まちがえた仕訳は「復習」に入ったよ。各問の解説を確認しよう。'}</p></div>`;
       $('[data-submit]', main).outerHTML = '<button class="btn" data-go="exam">試験メニューへ</button>';
       $('[data-quit-exam]', main).remove();
       window.scrollTo(0, 0);
@@ -1132,12 +1167,13 @@
   /* ---------- settings ---------- */
   SCREENS.settings = function () {
     const t = S.total;
-    main.innerHTML = `<div class="stack"><div><div class="eyebrow">SETTINGS</div><h1>設定と記録</h1></div><div class="card stack"><label for="nm"><b>なまえ</b></label><div class="row"><input id="nm" class="search" style="flex:1" maxlength="12" value="${esc(S.name)}"><button class="btn sm" data-savename>変更</button></div><label class="row" style="justify-content:space-between"><span><b>効果音</b></span><input type="checkbox" id="snd" ${S.settings.sound ? 'checked' : ''}></label><label class="row" style="justify-content:space-between"><span><b>フリーモード</b><br><span class="muted" style="font-size:12px">全ステージ・全ボスを最初から開放（得意・苦手な論点だけ練習したい人向け）</span></span><input type="checkbox" id="free" ${S.settings.free ? 'checked' : ''}></label></div><div class="card"><h3 style="margin-bottom:6px">学習の記録</h3><table class="score-table"><tr><th style="text-align:left">解いた問題</th><td>${t.answered}</td></tr><tr><th style="text-align:left">正解</th><td>${t.correct}（${t.answered ? Math.round((t.correct / t.answered) * 100) : 0}%）</td></tr><tr><th style="text-align:left">最大コンボ</th><td>${t.maxCombo}</td></tr><tr><th style="text-align:left">クリアしたステージ</th><td>${CHAPTERS.filter((c) => cleared(c.id)).length} / ${CHAPTERS.length}</td></tr><tr><th style="text-align:left">倒したボス</th><td>${Object.keys(S.boss).length} / ${WORLDS.length}</td></tr><tr><th style="text-align:left">累計XP</th><td>${S.xp}</td></tr></table></div><div class="card stack"><h3>データ</h3><p class="muted" style="margin:0;font-size:13px">進み具合はこのブラウザだけに保存されます。</p><button class="btn bad" data-reset>データをすべて消す</button></div></div>`;
+    main.innerHTML = `<div class="stack"><div><div class="eyebrow">SETTINGS</div><h1>設定と記録</h1></div><div class="card stack"><label for="nm"><b>なまえ</b></label><div class="row"><input id="nm" class="search" style="flex:1" maxlength="12" value="${esc(S.name)}"><button class="btn sm" data-savename>変更</button></div><label class="row" style="justify-content:space-between" for="exam-date"><span><b>受験予定日</b><br><span class="muted" style="font-size:12px">残り日数の表示と、試験年度（${examYear()}年度）に合わせた模試の出題に使う</span></span><input type="date" id="exam-date" class="search" style="width:auto" value="${esc(S.examDate)}"></label><label class="row" style="justify-content:space-between"><span><b>効果音</b></span><input type="checkbox" id="snd" ${S.settings.sound ? 'checked' : ''}></label><label class="row" style="justify-content:space-between"><span><b>フリーモード</b><br><span class="muted" style="font-size:12px">全ステージ・全ボスを最初から開放（得意・苦手な論点だけ練習したい人向け）</span></span><input type="checkbox" id="free" ${S.settings.free ? 'checked' : ''}></label></div><div class="card"><h3 style="margin-bottom:6px">学習の記録</h3><table class="score-table"><tr><th style="text-align:left">解いた問題</th><td>${t.answered}</td></tr><tr><th style="text-align:left">正解</th><td>${t.correct}（${t.answered ? Math.round((t.correct / t.answered) * 100) : 0}%）</td></tr><tr><th style="text-align:left">最大コンボ</th><td>${t.maxCombo}</td></tr><tr><th style="text-align:left">クリアしたステージ</th><td>${CHAPTERS.filter((c) => cleared(c.id)).length} / ${CHAPTERS.length}</td></tr><tr><th style="text-align:left">倒したボス</th><td>${Object.keys(S.boss).length} / ${WORLDS.length}</td></tr><tr><th style="text-align:left">累計XP</th><td>${S.xp}</td></tr></table></div><div class="card stack"><h3>データ</h3><p class="muted" style="margin:0;font-size:13px">進み具合はこのブラウザだけに保存されます。</p><button class="btn bad" data-reset>データをすべて消す</button></div></div>`;
     main.onclick = (e) => {
       if (e.target.closest('[data-savename]')) { S.name = $('#nm').value.trim().slice(0, 12) || S.name; save(); renderHUD(); toast('なまえを変更したよ'); }
       if (e.target.closest('[data-reset]')) confirmBox('本当にすべてのデータを消す？', '消す', () => { S = DEF(); save(); go('home'); });
     };
     $('#snd').onchange = (e) => { S.settings.sound = e.target.checked; save(); SFX.tap(); };
+    $('#exam-date').onchange = (e) => { S.examDate = e.target.value || ''; save(); toast(S.examDate ? `受験日を ${S.examDate}（${examYear()}年度）に設定したよ` : '受験日を消したよ'); SCREENS.settings(); };
     $('#free').onchange = (e) => { S.settings.free = e.target.checked; save(); toast(e.target.checked ? 'フリーモード ON' : 'フリーモード OFF'); };
   };
 

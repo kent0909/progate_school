@@ -207,6 +207,8 @@ body.focus #main { padding-bottom: 40px; }
 .point::before { content: "POINT"; color: var(--gold); }
 .warn::before { content: "ひっかけ注意"; color: var(--bad); }
 .real::before { content: "実務では"; color: var(--brand); }
+.warn.notice::before { content: "試験範囲のお知らせ"; }
+.countdown { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; }
 
 /* journal example */
 .je { width: 100%; border-collapse: separate !important; border-spacing: 0; margin: 10px 0; font-size: 13.5px; border-radius: var(--r-sm); overflow: hidden; border: 2px solid var(--line); }
@@ -404,6 +406,7 @@ body.focus #main { padding-bottom: 40px; }
 .score-table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .score-table td, .score-table th { border-bottom: 1.5px solid var(--line); padding: 6px; }
 .score-table td:last-child { text-align: right; font-family: var(--f-pixel); }
+.score-table td.over { color: var(--bad); }
 .pass-stamp { display: inline-block; border: 4px solid var(--cr); color: var(--cr); border-radius: 12px; padding: 2px 18px; font-family: var(--f-display); font-weight: 800; font-size: 30px; transform: rotate(-8deg); letter-spacing: .1em; animation: stamp .5s cubic-bezier(.2, 1.6, .4, 1) both; }
 .pass-stamp.fail { border-color: var(--muted); color: var(--muted); }
 
