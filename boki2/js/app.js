@@ -4,6 +4,7 @@
   const B = window.BOKI;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const strip = (s) => String(s || '').replace(/\[\[[\s\S]*?\]\]/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fmt = (n) => {
     if (n === null || n === undefined || n === '') return '';
@@ -55,7 +56,7 @@
   const DEF = () => ({
     name: '', xp: 0, coins: 20, stars: {}, best: {}, cards: [], wrong: {}, boss: {}, rush: {}, exams: [], badges: [],
     streak: { last: '', days: 0 }, daily: { date: '', correct: 0, stages: 0, rush: 0, claimed: [] },
-    total: { answered: 0, correct: 0, maxCombo: 0, reviewOk: 0 }, read: {}, settings: { sound: true, free: false },
+    total: { answered: 0, correct: 0, maxCombo: 0, reviewOk: 0 }, read: {}, hist: {}, mastered: 0, settings: { sound: true, free: false },
   });
   function load() {
     const d = DEF();
@@ -82,6 +83,7 @@
   const CH = {};
   CHAPTERS.forEach((c) => { CH[c.id] = c; (c.qs || []).forEach((q, i) => { q._key = `${c.id}:${i}`; q._ch = c; }); });
   const QBYKEY = {};
+  B.exams.forEach((x) => { x.type = 'fill'; x._key = `exam:${x.id}`; x._ch = { title: `模試 第${x.part}問 ${x.title}`, world: 'exam' }; QBYKEY[x._key] = x; });
   CHAPTERS.forEach((c) => (c.qs || []).forEach((q) => { QBYKEY[q._key] = q; }));
   const WORLDS = B.worlds.map((w) => Object.assign(w, { chapters: CHAPTERS.filter((c) => c.world === w.id) })).filter((w) => w.chapters.length);
   const W = {}; WORLDS.forEach((w) => { W[w.id] = w; });
@@ -374,6 +376,7 @@
       answerHTML: () => entryTable(q.ans),
       hint: () => (q.ans === 'none' ? 'この取引は…本当に仕訳が必要かな？' : `使う科目 → 借方：${q.ans.dr.map((x) => x[0]).join('・')} ／ 貸方：${q.ans.cr.map((x) => x[0]).join('・')}`),
       hintCost: 5,
+      summary() { const u = userEntry(); if (u === 'none') return '仕訳なし'; const f = (m) => Object.entries(m).map(([a, v]) => `${a} ${fmt(v)}`).join('・') || '（なし）'; return `借方 ${f(u.dr)} ／ 貸方 ${f(u.cr)}`; },
     };
   }
 
@@ -396,6 +399,7 @@
       answerHTML: () => `<p>正解：<b>${rich(q.c[q.a])}</b></p>`,
       hint() { const wrong = $$('.choice', el).filter((x) => +x.dataset.i !== q.a && !x.classList.contains('gone')); if (wrong.length > 1) pick(wrong).classList.add('gone'); return 'まちがいの選択肢を1つ消したよ'; },
       hintCost: 3,
+      summary: () => (sel >= 0 ? strip(q.c[sel]) : '未回答'),
     };
   }
 
@@ -411,6 +415,7 @@
       check: () => ({ ok: ok(), ratio: ok() ? 1 : 0 }),
       reveal() { locked = true; btn.classList.add(ok() ? 'ok' : 'ng'); },
       answerHTML: () => `<p>正解：<b class="num">${fmt(q.a)}</b> ${esc(q.unit || '')}</p>`,
+      summary: () => (v == null ? '未回答' : fmt(v) + (q.unit || '')),
     };
   }
 
@@ -439,6 +444,7 @@
     const right = (i) => { const b = q.blanks[i], v = vals[i]; if (v == null) return false; return typeof b === 'object' ? v === b.a : Math.abs(v - b) < 1e-6; };
     ctx.ready(false);
     return {
+      summary() { let n = 0; q.blanks.forEach((_, i) => { if (right(i)) n++; }); return `${n}/${q.blanks.length} 欄正解`; },
       check() { let n = 0; q.blanks.forEach((_, i) => { if (right(i)) n++; }); return { ok: n === q.blanks.length, ratio: n / q.blanks.length, got: n, of: q.blanks.length }; },
       reveal() {
         locked = true;
@@ -479,7 +485,7 @@
     });
     show();
     ctx.ready(false);
-    return { check: () => ({ ok: log.every((x) => x.ok), ratio: log.filter((x) => x.ok).length / queue.length }), reveal() {}, answerHTML: () => '' };
+    return { check: () => ({ ok: log.every((x) => x.ok), ratio: log.filter((x) => x.ok).length / queue.length }), reveal() {}, answerHTML: () => '', summary: () => { const m = log.filter((x) => !x.ok).map((x) => x.t); return m.length ? `まちがえた：${m.join('、')}` : ''; } };
   }
   const MOUNT = { journal: mountJournal, choice: mountChoice, number: mountNumber, fill: mountFill, sort: mountSort };
 
@@ -508,16 +514,20 @@
     SFX.level(); confetti(160);
     modal(`<div class="eyebrow">LEVEL UP</div><div class="pix" style="font-size:54px;color:var(--brand);line-height:1">Lv.${b}</div>${newTitle ? `<p>昇進！ 肩書きが <b>${titleOf(b)}</b> になった！</p>` : `<p>${esc(S.name || 'キミ')}さんの経理力がアップした！</p>`}`, [{ t: 'やったね', on: then }], { sticky: true });
   }
-  function recordAnswer(q, ok, review) {
+  const DAY = 864e5;
+  // Leitner-style: a miss is due now; one correct answer pushes it to tomorrow; two corrects graduate it.
+  function recordAnswer(q, ok, review, last) {
     ensureDaily(); markStudy();
     S.total.answered++;
+    if (q._key) { const h = S.hist[q._key] || (S.hist[q._key] = [0, 0]); h[0]++; if (ok) h[1]++; }
     if (ok) {
       S.total.correct++; S.daily.correct++;
       const w = S.wrong[q._key];
-      if (w) { w.ok = (w.ok || 0) + 1; if (w.ok >= 2) delete S.wrong[q._key]; }
+      if (w) { w.ok = (w.ok || 0) + 1; if (w.ok >= 2) { delete S.wrong[q._key]; S.mastered = (S.mastered || 0) + 1; } else w.due = Date.now() + DAY; }
       if (review) S.total.reviewOk++;
     } else if (q._key) {
-      S.wrong[q._key] = { n: ((S.wrong[q._key] || {}).n || 0) + 1, ok: 0, t: Date.now() };
+      const p = S.wrong[q._key] || {};
+      S.wrong[q._key] = { n: (p.n || 0) + 1, ok: 0, t: Date.now(), due: Date.now(), last: last || '' };
     }
   }
 
@@ -565,7 +575,8 @@
   }
   const TABS = [['home', 'マップ', I.map], ['review', '復習', I.redo], ['rush', 'ラッシュ', I.bolt], ['exam', '模試', I.paper], ['zukan', '図鑑', I.book]];
   function renderTabs(cur) {
-    tabbar.innerHTML = TABS.map(([k, t, ic]) => `<button data-go="${k}" ${k === cur ? 'aria-current="page"' : ''}>${ic}<span>${t}</span></button>`).join('');
+    const nDue = (() => { const now = Date.now(); return Object.keys(S.wrong).filter((k) => QBYKEY[k] && (S.wrong[k].due || 0) <= now).length; })();
+    tabbar.innerHTML = TABS.map(([k, t, ic]) => `<button data-go="${k}" ${k === cur ? 'aria-current="page"' : ''}>${ic}<span>${t}</span>${k === 'review' && nDue ? `<em class="tab-badge" aria-label="今日の復習 ${nDue}問">${nDue > 99 ? '99+' : nDue}</em>` : ''}</button>`).join('');
   }
   document.addEventListener('click', (e) => {
     const g = e.target.closest('[data-go]');
@@ -615,6 +626,8 @@
     let html = `<div class="stack"><div class="hero">${PIYO}<div class="stack" style="gap:6px"><h1>${S.name ? `<span class="hero-name">${esc(S.name)}さん</span>` : ''}今日も仕訳を切ろう</h1><div class="bubble">${pick(TIPS)}</div></div></div>`;
     html += cur ? `<button class="btn wide" data-stage="${cur.id}">${I.pin}<span>つづきから：${esc(cur.title)}</span></button>` : `<button class="btn gold wide" data-go="exam">${I.paper}<span>全ステージクリア！ 模擬試験で満点をねらう</span></button>`;
     html += `<div class="card"><div class="row" style="justify-content:space-between;margin-bottom:8px"><h3>今日のミッション</h3><span class="muted" style="font-size:12px">報酬 各 ${'コイン15・XP40'}</span></div><div class="missions">${mis}</div></div>`;
+    const weak = THEMES.map((t) => ({ t, s: themeStats(t) })).filter((r) => r.s.wrong > 0).sort((a, b) => b.s.wrong - a.s.wrong).slice(0, 3);
+    if (weak.length) html += `<div class="card stack" style="gap:8px"><div class="row" style="justify-content:space-between"><h3>苦手テーマ</h3><button class="link" data-go="review">復習の部屋へ</button></div>${weak.map(({ t, s }) => `<div class="row" style="justify-content:space-between;flex-wrap:nowrap"><span style="min-width:0"><b>${esc(t.title)}</b> <span class="muted" style="font-size:12px">まちがい ${s.wrong}・正答率 ${s.acc ?? '-'}%</span></span><button class="btn sm" style="flex:none" data-homedrill="${t.id}">特訓</button></div>`).join('')}</div>`;
     html += `<div class="muted" style="font-size:13px">ステージ ${nClear} / ${CHAPTERS.length} クリア ・ 実務カード ${S.cards.length} 枚</div></div>`;
     WORLDS.forEach((w, wi) => {
       const un = worldUnlocked(w);
@@ -634,6 +647,8 @@
       if (s) { const c = CH[s.dataset.stage]; if (chapterUnlocked(c)) { SFX.tap(); go('stage', c.id); } else { shakeEl(s); toast('前のステージをクリアすると開くよ'); } return; }
       const bo = e.target.closest('[data-boss]');
       if (bo) { const w = W[bo.dataset.boss]; if (bossUnlocked(w) && worldUnlocked(w)) go('boss', w.id); else { shakeEl(bo); toast('このワールドの全ステージをクリアしよう'); } return; }
+      const hd = e.target.closest('[data-homedrill]');
+      if (hd) { const t = TH[hd.dataset.homedrill]; startReview(drillItems(t, 10), `${t.title} 特訓`); return; }
       const cl = e.target.closest('[data-claim]');
       if (cl) { S.daily.claimed.push(cl.dataset.claim); gainCoins(15); gainXP(40); SFX.coin(); floaty('+15', cl); save(); flushLevelUps(() => SCREENS.home()); }
     };
@@ -650,6 +665,7 @@
 
   /* ---------- stage: scene → lessons → quiz → result ---------- */
   SCREENS.stage = function (cid, phase) {
+    if (cleanup) { cleanup(); cleanup = null; }
     const c = CH[cid];
     const w = W[c.world];
     const again = cleared(cid);
@@ -714,10 +730,11 @@
     if (stars > 0) { SFX.win(); confetti(stars * 60); } else SFX.lose();
     const card = firstClear ? `<div class="realcard flip-in"><div class="eyebrow">NEW 実務カード</div><h3>${esc(c.real.t)}</h3><div class="where">${esc(c.real.where || '')}</div><div class="rich">${rich(c.real.h)}</div></div>` : '';
     const next = CHAPTERS[CHAPTERS.indexOf(c) + 1];
-    main.innerHTML = `<div class="result"><div class="eyebrow">STAGE ${chNum(c.id)} ・ ${esc(c.title)}</div><h1 style="font-size:28px">${stars > 0 ? (stars === 3 ? 'パーフェクト！' : 'ステージクリア！') : 'あと少し！'}</h1><div class="big-stars">${[1, 2, 3].map((k) => `<span class="${k <= stars ? 'star-on' : 'star-off'}">${I.star}</span>`).join('')}</div><div class="stats3"><div class="stat"><b>${r.correct}/${r.total}</b><span>正解</span></div><div class="stat"><b>${r.maxCombo}</b><span>最大コンボ</span></div><div class="stat"><b>+${r.xp + bonus}</b><span>XP</span></div></div>${stars === 0 ? '<p class="muted" style="margin:0">6割正解でクリア。まちがえた問題は「復習」に入ったよ。レッスンを読み直してもう一度！</p>' : ''}${card}<div class="row" style="width:100%"><button class="btn ghost" data-retry>もう一度</button>${stars > 0 && next && chapterUnlocked(next) ? `<button class="btn" data-next="${next.id}">次のステージへ</button>` : '<button class="btn" data-go="home">マップへ</button>'}</div><button class="link" data-relearn>レッスンを読み直す</button></div>`;
+    main.innerHTML = `<div class="result"><div class="eyebrow">STAGE ${chNum(c.id)} ・ ${esc(c.title)}</div><h1 style="font-size:28px">${stars > 0 ? (stars === 3 ? 'パーフェクト！' : 'ステージクリア！') : 'あと少し！'}</h1><div class="big-stars">${[1, 2, 3].map((k) => `<span class="${k <= stars ? 'star-on' : 'star-off'}">${I.star}</span>`).join('')}</div><div class="stats3"><div class="stat"><b>${r.correct}/${r.total}</b><span>正解</span></div><div class="stat"><b>${r.maxCombo}</b><span>最大コンボ</span></div><div class="stat"><b>+${r.xp + bonus}</b><span>XP</span></div></div>${stars === 0 ? '<p class="muted" style="margin:0">6割正解でクリア。まちがえた問題は「復習」に入ったよ。レッスンを読み直してもう一度！</p>' : ''}${card}<div class="row" style="width:100%"><button class="btn ghost" data-retry>もう一度</button>${stars > 0 && next && chapterUnlocked(next) ? `<button class="btn" data-next="${next.id}">次のステージへ</button>` : '<button class="btn" data-go="home">マップへ</button>'}</div>${r.missed.length ? `<button class="btn gold wide" data-redo>まちがえた ${r.missed.length} 問をすぐ解き直す</button>` : ''}<button class="link" data-relearn>レッスンを読み直す</button></div>`;
     main.onclick = (e) => {
       if (e.target.closest('[data-retry]')) go('stage', c.id, 'quiz');
       else if (e.target.closest('[data-relearn]')) go('stage', c.id, 'lesson');
+      else if (e.target.closest('[data-redo]')) startReview(r.missed, `${c.title} 解き直し`);
       else { const n = e.target.closest('[data-next]'); if (n) go('stage', n.dataset.next); }
     };
     flushLevelUps();
@@ -725,13 +742,13 @@
 
   /* ---------- generic quiz runner (stage / review / boss) ---------- */
   function runQuiz(o) {
-    const st = { i: 0, correct: 0, combo: 0, maxCombo: 0, xp: 0, total: 0, hearts: 3, hp: o.bossHP || 0, timer: null };
+    const st = { missed: [], i: 0, correct: 0, combo: 0, maxCombo: 0, xp: 0, total: 0, hearts: 3, hp: o.bossHP || 0, timer: null };
     leaveGuard = 'クイズをやめる？ここまでの結果は保存されないよ';
     const items = o.items;
     const stopTimer = () => { if (st.timer) { cancelAnimationFrame(st.timer); st.timer = null; } };
     const prevCleanup = cleanup;
     cleanup = () => { stopTimer(); if (prevCleanup) prevCleanup(); };
-    function finish() { stopTimer(); leaveGuard = null; o.onDone({ correct: st.correct, total: st.total, maxCombo: st.maxCombo, xp: st.xp, hearts: st.hearts, hp: st.hp }); }
+    function finish() { stopTimer(); leaveGuard = null; o.onDone({ correct: st.correct, total: st.total, maxCombo: st.maxCombo, xp: st.xp, hearts: st.hearts, hp: st.hp, missed: st.missed }); }
     function render() {
       if (o.mode === 'boss' && (st.hp <= 0 || st.hearts <= 0)) return finish();
       if (o.mode !== 'boss' && st.i >= items.length) return finish();
@@ -773,7 +790,8 @@
         comp.reveal(r.ok);
         st.total++;
         const ok = r.ok;
-        recordAnswer(q, ok, o.mode === 'review');
+        recordAnswer(q, ok, o.mode === 'review', !ok && comp.summary ? comp.summary() : '');
+        if (!ok) st.missed.push(q);
         let gained = 0;
         if (ok) {
           st.correct++; st.combo++; st.maxCombo = Math.max(st.maxCombo, st.combo);
@@ -838,22 +856,70 @@
   }
 
   /* ---------- review ---------- */
-  SCREENS.review = function () {
-    const keys = Object.keys(S.wrong).filter((k) => QBYKEY[k]);
-    const byCh = {};
-    keys.forEach((k) => { const c = QBYKEY[k]._ch; byCh[c.id] = (byCh[c.id] || 0) + 1; });
-    const ranks = Object.entries(byCh).sort((a, b) => b[1] - a[1]);
+  // Themes = chapters, plus the mock-exam big problems grouped by part.
+  const THEMES = CHAPTERS.map((c) => ({ id: c.id, title: c.title, hue: W[c.world] ? W[c.world].hue : 190, wid: c.world, qs: c.qs }))
+    .concat([2, 3, 4, 5].map((p) => ({ id: `exam${p}`, title: `模試 第${p}問の大問`, hue: 45, wid: 'exam', qs: B.exams.filter((x) => x.part === p), exam: true })).filter((t) => t.qs.length));
+  const TH = {}; THEMES.forEach((t) => { TH[t.id] = t; });
+  function themeStats(t) {
+    let a = 0, c = 0, wrong = 0, due = 0;
+    const now = Date.now();
+    t.qs.forEach((q) => { const h = S.hist[q._key]; if (h) { a += h[0]; c += h[1]; } const w = S.wrong[q._key]; if (w) { wrong++; if ((w.due || 0) <= now) due++; } });
+    return { a, c, wrong, due, acc: a ? Math.round((c / a) * 100) : null, tried: t.qs.filter((q) => S.hist[q._key]).length };
+  }
+  const wrongKeys = () => Object.keys(S.wrong).filter((k) => QBYKEY[k]);
+  const dueKeys = () => { const now = Date.now(); return wrongKeys().filter((k) => (S.wrong[k].due || 0) <= now); };
+  function drillItems(t, n) {
+    // missed first (most-missed first), then never-tried, then lowest accuracy
+    const score = (q) => { const w = S.wrong[q._key], h = S.hist[q._key]; if (w) return -1000 - w.n; if (!h) return -500; return h[1] / h[0]; };
+    return shuffle(t.qs).sort((a, b) => score(a) - score(b)).slice(0, n);
+  }
+  function answerView(q) {
+    let ans = '';
+    if (q.type === 'journal') ans = entryTable(q.ans);
+    else if (q.type === 'choice') ans = `<p>正解：<b>${rich(q.c[q.a])}</b></p>`;
+    else if (q.type === 'number') ans = `<p>正解：<b class="num">${fmt(q.a)}</b> ${esc(q.unit || '')}</p>`;
+    else if (q.type === 'fill') ans = `<div class="sheet-wrap rich">${rich(q.sheet).replace(/\{\{(\d+)\}\}/g, (m, i) => { const b = q.blanks[+i]; return `<b class="ans-fill">${esc(typeof b === 'object' ? b.opts[b.a] : fmt(b))}</b>`; })}</div>`;
+    else if (q.type === 'sort') ans = `<div class="acc-list">${q.bins.map((bn, j) => `<div class="acc-item"><i style="background:hsl(${CAT_HUE[bn] || 190} 55% 52%)"></i><b>${esc(bn)}</b><span>${q.items.filter((x) => x[1] === j).map((x) => esc(x[0])).join('、')}</span></div>`).join('')}</div>`;
+    return ans;
+  }
+  function showAnswer(key) {
+    const q = QBYKEY[key], w = S.wrong[key];
+    modal(`<div style="text-align:left" class="stack"><div class="qmeta"><span class="tag">${TYPE_LABEL[q.type]}</span><span class="muted">${esc(q._ch ? q._ch.title : '')}</span></div><div class="qtext rich">${rich(q.q)}</div>${w && w.last ? `<div class="hintbox">前回のキミの答え：${esc(w.last)}</div>` : ''}<div><div class="eyebrow">正解</div>${answerView(q)}</div><div class="rich">${rich(q.exp)}</div>${q.real ? `<div class="real rich">${rich(q.real)}</div>` : ''}</div>`, [{ t: 'とじる', cls: 'ghost' }, { t: 'この問題を解く', on: () => startReview([q], '1問') }]);
+  }
+  let reviewTab = 'theme', noteWorld = 'all';
+  SCREENS.review = function (tab) {
+    if (tab) reviewTab = tab;
+    const wk = wrongKeys(), due = dueKeys();
     const clearedQs = CHAPTERS.filter((c) => cleared(c.id)).flatMap((c) => c.qs);
-    main.innerHTML = `<div class="stack"><div class="hero">${PIYO}<div><h1>復習の部屋</h1><div class="muted" style="font-size:13px">まちがえた問題は2回正解すると卒業。間隔をあけて解き直すのが、記憶に残るいちばんの近道ピヨ。</div></div></div><div class="card stack"><div class="row" style="justify-content:space-between"><h2>まちがえた問題</h2><span class="pix" style="font-size:26px;color:var(--cr)">${keys.length}</span></div><button class="btn wide" data-rv ${keys.length ? '' : 'disabled'}>復習スタート（最大10問）</button></div><div class="card stack"><h2>ミックス10問</h2><p class="muted" style="margin:0;font-size:13px">クリア済みステージから、ランダムに10問。論点を混ぜて解くと本試験に強くなる。</p><button class="btn ghost wide" data-mix ${clearedQs.length ? '' : 'disabled'}>ミックスで解く</button></div>${ranks.length ? `<div class="card"><h3 style="margin-bottom:8px">苦手ランキング</h3><div class="acc-list">${ranks.slice(0, 8).map(([cid, n]) => `<button class="acc-item" style="text-align:left" data-learn="${cid}"><i style="background:hsl(${W[CH[cid].world].hue} 60% 50%)"></i><b>${esc(CH[cid].title)}</b><span>まちがい ${n} 問 ・ タップでレッスンを読み直す</span></button>`).join('')}</div></div>` : ''}</div>`;
+    let body = '';
+    if (reviewTab === 'theme') {
+      const rows = THEMES.map((t) => ({ t, s: themeStats(t) })).filter((r) => r.s.a > 0 || r.s.wrong > 0);
+      rows.sort((a, b) => b.s.wrong - a.s.wrong || (a.s.acc ?? 101) - (b.s.acc ?? 101));
+      body = rows.length ? `<p class="muted" style="margin:0;font-size:13px">挑戦したテーマを苦手な順に表示。「要点」でレッスンを読み直し、「特訓」でそのテーマだけを集中的に解く。</p><div class="theme-list">${rows.map(({ t, s }) => `<div class="theme" style="--h:${t.hue}"><div class="theme-top"><b>${esc(t.title)}</b>${s.wrong ? `<span class="tag lv3">まちがい ${s.wrong}</span>` : '<span class="tag">ミスなし</span>'}</div><div class="theme-acc"><div class="bar ${s.acc != null && s.acc < 70 ? 'bad' : ''}"><i style="width:${s.acc ?? 0}%"></i></div><span class="num">${s.acc ?? '-'}%</span></div><div class="muted" style="font-size:11.5px">解いた ${s.tried}/${t.qs.length}問 ・ 正答率 ${s.c}/${s.a}</div><div class="row">${t.exam ? '' : `<button class="btn ghost sm" data-learn="${t.id}">要点</button>`}<button class="btn sm" data-drill="${t.id}">特訓 ${Math.min(10, t.qs.length)}問</button></div></div>`).join('')}</div>` : '<div class="card center muted">まだ問題を解いていないよ。ステージに挑戦すると、ここにテーマごとの成績が出る。</div>';
+      body += `<div class="card stack"><h3>ワールド特訓</h3><p class="muted" style="margin:0;font-size:13px">ワールド全体から、まちがえた問題と未挑戦の問題を優先して15問。</p><div class="row">${WORLDS.filter(worldUnlocked).map((w) => `<button class="btn ghost sm" style="flex:none" data-wdrill="${w.id}">${esc(w.name)}</button>`).join('')}</div></div>`;
+    } else {
+      const worlds = [['all', 'すべて']].concat(WORLDS.map((w) => [w.id, w.name]), B.exams.length ? [['exam', '模試大問']] : []);
+      const list = wk.filter((k) => noteWorld === 'all' || (QBYKEY[k]._ch && QBYKEY[k]._ch.world) === noteWorld || (noteWorld === 'exam' && k.startsWith('exam:')))
+        .sort((a, b) => S.wrong[b].n - S.wrong[a].n || S.wrong[b].t - S.wrong[a].t);
+      body = `<select id="note-world" class="search">${worlds.map(([id, n]) => `<option value="${id}" ${id === noteWorld ? 'selected' : ''}>${esc(n)}</option>`).join('')}</select>${list.length ? `<div class="note-list">${list.map((k) => { const q = QBYKEY[k], w = S.wrong[k]; return `<div class="note"><div class="qmeta"><span class="tag">${TYPE_LABEL[q.type]}</span><span class="tag lv3">×${w.n}</span>${w.ok ? '<span class="tag lv2">あと1回で卒業</span>' : ''}<span class="muted">${esc(q._ch ? q._ch.title : '')}</span></div><div class="note-q">${esc(strip(q.q).slice(0, 90))}${strip(q.q).length > 90 ? '…' : ''}</div>${w.last ? `<div class="muted" style="font-size:12px">前回の答え：${esc(w.last)}</div>` : ''}<div class="row"><button class="btn ghost sm" data-ans="${esc(k)}">答えと解説</button><button class="btn sm" data-one="${esc(k)}">解き直す</button></div></div>`; }).join('')}</div>` : '<div class="card center muted">このワールドのまちがいノートは空っぽ。いい調子！</div>'}`;
+    }
+    main.innerHTML = `<div class="stack"><div class="hero">${PIYO}<div><h1>復習の部屋</h1><div class="muted" style="font-size:13px">まちがえた問題は、正解すると翌日にもう一度出てくる。2回正解で卒業。時間をあけて解き直すのが、いちばん記憶に残るピヨ。</div></div></div><div class="card stack"><div class="stats3"><div class="stat"><b style="color:var(--cr)">${due.length}</b><span>今日の復習</span></div><div class="stat"><b>${wk.length}</b><span>まちがいノート</span></div><div class="stat"><b style="color:var(--good)">${S.mastered || 0}</b><span>卒業した問題</span></div></div><button class="btn wide" data-due ${due.length ? '' : 'disabled'}>今日の復習をはじめる（${Math.min(10, due.length)}問）</button><div class="row"><button class="btn ghost sm" data-allwrong ${wk.length ? '' : 'disabled'}>まちがいから10問</button><button class="btn ghost sm" data-mix ${clearedQs.length ? '' : 'disabled'}>ミックス10問</button></div></div><div class="seg"><button data-rt="theme" aria-pressed="${reviewTab === 'theme'}">テーマ別</button><button data-rt="note" aria-pressed="${reviewTab === 'note'}">まちがいノート</button></div>${body}</div>`;
+    const sel = $('#note-world'); if (sel) sel.onchange = (e) => { noteWorld = e.target.value; SCREENS.review(); };
     main.onclick = (e) => {
-      if (e.target.closest('[data-rv]')) {
-        const items = shuffle(keys).sort((a, b) => (S.wrong[b].n || 0) - (S.wrong[a].n || 0)).slice(0, 10).map((k) => QBYKEY[k]);
-        startReview(items, '復習');
-      } else if (e.target.closest('[data-mix]')) startReview(shuffle(clearedQs).slice(0, 10), 'ミックス');
-      else { const l = e.target.closest('[data-learn]'); if (l) go('stage', l.dataset.learn, 'lesson'); }
+      const g = (s) => e.target.closest(s);
+      if (g('[data-rt]')) SCREENS.review(g('[data-rt]').dataset.rt);
+      else if (g('[data-due]')) startReview(shuffle(dueKeys()).sort((a, b) => S.wrong[b].n - S.wrong[a].n).slice(0, 10).map((k) => QBYKEY[k]), '今日の復習');
+      else if (g('[data-allwrong]')) startReview(shuffle(wrongKeys()).slice(0, 10).map((k) => QBYKEY[k]), 'まちがい復習');
+      else if (g('[data-mix]')) startReview(shuffle(clearedQs).slice(0, 10), 'ミックス');
+      else if (g('[data-drill]')) { const t = TH[g('[data-drill]').dataset.drill]; startReview(drillItems(t, 10), `${t.title} 特訓`); }
+      else if (g('[data-wdrill]')) { const w = W[g('[data-wdrill]').dataset.wdrill]; startReview(drillItems({ qs: w.chapters.flatMap((c) => c.qs) }, 15), `${w.name} 特訓`); }
+      else if (g('[data-learn]')) go('stage', g('[data-learn]').dataset.learn, 'lesson');
+      else if (g('[data-ans]')) showAnswer(g('[data-ans]').dataset.ans);
+      else if (g('[data-one]')) startReview([QBYKEY[g('[data-one]').dataset.one]], '1問');
     };
   };
   function startReview(items, label) {
+    if (!items.length) return;
     go('quiz');
     const quit = (e) => { if (e.target.closest('[data-quit]')) guardLeave(() => go('review')); };
     main.addEventListener('click', quit);
@@ -862,7 +928,8 @@
       checkBadges();
       main.onclick = null;
       if (r.correct === r.total) { SFX.win(); confetti(100); }
-      main.innerHTML = `<div class="result"><div class="eyebrow">${label} 結果</div><h1 style="font-size:28px">${r.correct}/${r.total} 正解</h1><div class="stats3"><div class="stat"><b>${r.maxCombo}</b><span>最大コンボ</span></div><div class="stat"><b>+${r.xp}</b><span>XP</span></div><div class="stat"><b>${Object.keys(S.wrong).length}</b><span>残り復習</span></div></div><div class="row" style="width:100%"><button class="btn ghost" data-go="home">マップへ</button><button class="btn" data-go="review">復習の部屋へ</button></div></div>`;
+      main.innerHTML = `<div class="result"><div class="eyebrow">${esc(label)} 結果</div><h1 style="font-size:28px">${r.correct}/${r.total} 正解</h1><div class="stats3"><div class="stat"><b>${r.maxCombo}</b><span>最大コンボ</span></div><div class="stat"><b>+${r.xp}</b><span>XP</span></div><div class="stat"><b>${dueKeys().length}</b><span>今日の残り</span></div></div>${r.missed.length ? `<p class="muted" style="margin:0">まちがえた ${r.missed.length} 問はノートに残ったよ。解説を読んでからもう一度！</p>` : ''}<div class="row" style="width:100%">${r.missed.length ? '<button class="btn ghost" data-redo>まちがいを解き直す</button>' : ''}<button class="btn" data-go="review">復習の部屋へ</button></div></div>`;
+      main.onclick = (e) => { if (e.target.closest('[data-redo]')) startReview(r.missed, 'もう一度'); };
       flushLevelUps();
     } });
   }
@@ -957,7 +1024,7 @@
     const strong = (list) => { const s = list.filter((q) => (q.lv || 1) >= 2); return s.length >= 5 ? s : list; };
     const com = shuffle(strong(allQ.filter((q) => !INDUSTRIAL.has(q._ch.world)))).slice(0, 5);
     const ind = shuffle(strong(allQ.filter((q) => INDUSTRIAL.has(q._ch.world)))).slice(0, 3);
-    const big = {}; [2, 3, 4, 5].forEach((p) => { const pool = B.exams.filter((x) => x.part === p); big[p] = pool.length ? Object.assign({ type: 'fill' }, pick(pool)) : null; });
+    const big = {}; [2, 3, 4, 5].forEach((p) => { const pool = B.exams.filter((x) => x.part === p); big[p] = pool.length ? pick(pool) : null; });
     const comps = {};
     let curPart = 1, submitted = false, raf = null;
     const end = performance.now() + 90 * 60000;
@@ -967,7 +1034,7 @@
     const sub = (title, q, key) => {
       const box = document.createElement('div');
       box.className = 'exam-sub';
-      box.innerHTML = `<div class="qmeta"><b>${title}</b>${q._ch ? `<span class="muted">${esc(q._ch.title)}</span>` : ''}</div><div class="qtext rich">${rich(q.q)}</div><div data-b></div><div data-x></div>`;
+      box.innerHTML = `<div class="qmeta"><b>${title}</b>${q._ch && q._ch.world !== 'exam' ? `<span class="muted">${esc(q._ch.title)}</span>` : ''}</div><div class="qtext rich">${rich(q.q)}</div><div data-b></div><div data-x></div>`;
       comps[key] = { q, comp: MOUNT[q.type](q, $('[data-b]', box), { ready() {}, instant: false, submit() {}, autoDone() {} }), box };
       return box;
     };
@@ -1000,7 +1067,7 @@
       submitted = true; leaveGuard = null;
       if (raf) cancelAnimationFrame(raf);
       const score = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-      const add = (p, pts, key) => { const c = comps[key]; if (!c) return 0; const r = c.comp.check(); c.comp.reveal(r.ok); const got = Math.round(pts * r.ratio * 10) / 10; score[p] += got; recordAnswer(c.q, r.ok, false); $('[data-x]', c.box).innerHTML = `<div class="fb ${r.ok ? 'ok' : 'ng'}"><div class="fb-title">${r.ok ? '正解' : '不正解'} <span class="pix" style="font-size:15px">${got} / ${pts}点</span></div>${r.ok ? '' : c.comp.answerHTML()}<div class="rich">${rich(c.q.exp)}</div></div>`; return got; };
+      const add = (p, pts, key) => { const c = comps[key]; if (!c) return 0; const r = c.comp.check(); c.comp.reveal(r.ok); const got = Math.round(pts * r.ratio * 10) / 10; score[p] += got; recordAnswer(c.q, r.ok, false, !r.ok && c.comp.summary ? c.comp.summary() : ''); $('[data-x]', c.box).innerHTML = `<div class="fb ${r.ok ? 'ok' : 'ng'}"><div class="fb-title">${r.ok ? '正解' : '不正解'} <span class="pix" style="font-size:15px">${got} / ${pts}点</span></div>${r.ok ? '' : c.comp.answerHTML()}<div class="rich">${rich(c.q.exp)}</div></div>`; return got; };
       com.forEach((_, i) => add(1, 4, `1-${i}`));
       [2, 3, 5].forEach((p) => add(p, PARTS[p - 1].pts, `${p}`));
       ind.forEach((_, i) => add(4, 4, `4-${i}`));
