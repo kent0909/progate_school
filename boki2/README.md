@@ -26,3 +26,4 @@
 - `tools/validate.js` — データ検証（貸借一致・勘定科目・穴埋め数など）: `node boki2/tools/validate.js`
 - `tools/build.js` — 1ファイルにまとめる: `node boki2/tools/build.js dist/boki2-quest.html --full`
 - `docs/UPDATE_PLAN.md` — 網羅性の検証結果とアップデート計画
+- `docs/CRAWL.md` — 外部の学習サイトを取得して教材と突き合わせる手順（`tools/crawl.js`・`tools/compare-crawl.js`）
