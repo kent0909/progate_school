@@ -794,7 +794,7 @@
         $('[data-fb]', main).innerHTML = `<div class="fb ${ok ? 'ok' : 'ng'}"><div class="fb-title">${ok ? (st.combo >= 3 ? `正解！ ${st.combo}コンボ` : '正解！') : r.timeout ? '時間切れ！' : 'おしい！'} ${partial}</div>${answer ? `<div>${answer}</div>` : ''}<div class="rich">${rich(q.exp)}</div>${q.real ? `<div class="real rich">${rich(q.real)}</div>` : ''}</div>`;
         $('[data-act]', main).innerHTML = `<button class="btn ${ok ? '' : 'ghost'}" data-nextq>${(o.mode === 'boss' && (st.hp <= 0 || st.hearts <= 0)) || (o.mode !== 'boss' && st.i + 1 >= items.length) ? '結果を見る' : 'つぎの問題'}</button>`;
         $('[data-nextq]', main).onclick = () => { st.i++; render(); window.scrollTo(0, 0); };
-        if (!ok || q.type === 'fill') setTimeout(() => $('[data-fb]', main).scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'nearest' }), 80);
+        if (!ok || q.type === 'fill') setTimeout(() => { const f = $('[data-fb]', main); if (f) f.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'nearest' }); }, 80);
       }
     }
     main.onclick = null;
