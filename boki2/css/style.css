@@ -480,3 +480,8 @@ body.focus #main { padding-bottom: 40px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* grid children holding wide tables must shrink so the table scrolls inside its own box */
+.stack, .qcard, .exam-part, .exam-sub, .fb, .modal, .result { grid-template-columns: minmax(0, 1fr); }
+.qcard > *, .stack > *, .exam-sub > *, .fb > * { min-width: 0; }
+.sheet-wrap th:first-child, .sheet-wrap td:first-child, .rich table th:first-child, .rich table td:first-child { min-width: 7.5em; }
