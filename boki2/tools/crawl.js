@@ -6,6 +6,11 @@
 // - keeps only titles and headings by default (no body text); pass --text to also keep up to 20k chars of body text
 // - writes <out>/pages.jsonl (one page per line) and <out>/summary.json
 const fs = require('fs');
+// Node's fetch ignores HTTPS_PROXY unless NODE_USE_ENV_PROXY is set; re-run once with it so proxied environments work.
+if ((process.env.HTTPS_PROXY || process.env.https_proxy) && !process.env.NODE_USE_ENV_PROXY) {
+  const r = require('child_process').spawnSync(process.execPath, ['--no-warnings', ...process.argv.slice(1)], { stdio: 'inherit', env: { ...process.env, NODE_USE_ENV_PROXY: '1' } });
+  process.exit(r.status == null ? 1 : r.status);
+}
 const path = require('path');
 
 const args = process.argv.slice(2);
