@@ -316,13 +316,12 @@
     // もう一度見るときは、記録（1回目の正誤・分かれ道）に数えない
     const m = isReplay ? { tries: 0, first: null, hand: 0, forks: [] } : (S.metrics.disc[ev.id] = S.metrics.disc[ev.id] || { tries: 0, first: null, hand: 0, forks: [] });
     const metrics = isReplay ? { forks: {}, hand: 0 } : S.metrics;
-    let beat = 1, picked = null, sorted = {}, reason = null;
-    const steps = ['困りごと', '考える', '結果', '名前'];
-    const stepper = () => `<div class="s-steps">${steps.map((s, i) => `<span class="${i + 1 === beat ? 'on' : i + 1 < beat ? 'done' : ''}">${s}</span>`).join('')}</div>`;
+    // 4拍（困りごと→問い→結果→名前）は設計の言葉。画面には出さず、ボタンは次の行動の言葉にする
+    let beat = 1, picked = null, sorted = {}, reason = null, hintLv = 0;
     const draw = () => {
       let body = '';
       if (beat === 1) {
-        body = `${talk(ev.b1.talk)}${ev.b1.dyn ? `<p class="s-dyn">${esc(ev.b1.dyn(S))}</p>` : ''}${docHTML(ev.b1.doc)}<button class="btn wide" data-b="2">考える</button>`;
+        body = `${talk(ev.b1.talk)}${ev.b1.dyn ? `<p class="s-dyn">${esc(ev.b1.dyn(S))}</p>` : ''}${docHTML(ev.b1.doc)}<button class="btn wide" data-b="2">${esc(ev.b1.go || 'ピヨといっしょに考える')}</button>`;
       } else if (beat === 2) {
         const b2 = ev.b2;
         let field = '';
@@ -332,29 +331,31 @@
           field = `${b2.token ? `<div class="s-token ${picked ? 'placed' : ''}">${esc(b2.token)}</div>` : ''}<div class="s-targets ${b2.layout}">${b2.targets.map((g) => `<button class="s-target ${picked === g.id ? 'on' : ''}" data-pick="${g.id}"><b>${esc(g.label)}</b>${g.sub ? `<small>${esc(g.sub)}</small>` : ''}</button>`).join('')}</div>`;
         }
         const placed = b2.layout === 'sort' ? b2.tokens.every((t) => sorted[t.id]) : !!picked;
-        body = `<p class="s-q">${esc(b2.q)}</p>${field}${placed ? `<p class="s-q small">なぜそうした？</p><div class="s-reasons">${b2.reasons.map((r, i) => `<button class="s-reason ${reason === i ? 'on' : ''}" data-reason="${i}">${esc(r.t)}</button>`).join('')}</div>` : ''}<button class="btn wide" data-decide ${placed && reason !== null ? '' : 'disabled'}>決める</button>`;
+        body = `<p class="s-q">${esc(b2.q)}</p>${field}${placed ? `<p class="s-q small">なぜそうした？</p><div class="s-reasons">${b2.reasons.map((r, i) => `<button class="s-reason ${reason === i ? 'on' : ''}" data-reason="${i}">${esc(r.t)}</button>`).join('')}</div>` : ''}<div class="s-hint" ${hintLv ? '' : 'hidden'}>${(b2.hints || []).slice(0, hintLv).map((h) => `<p>${esc(h)}</p>`).join('')}</div><button class="btn wide" data-decide ${placed && reason !== null ? '' : 'disabled'}>これで決める</button><div class="s-actions"><button class="btn ghost sm" data-b="1">← もどる</button>${(b2.hints || []).length > hintLv ? '<button class="btn ghost sm" data-hint>ヒント</button>' : ''}</div>`;
       } else if (beat === 3) {
         const b2 = ev.b2;
         const tgtOk = b2.layout === 'sort' ? b2.tokens.every((t) => sorted[t.id] === t.target) : b2.targets.find((g) => g.id === picked).ok;
         const r = b2.reasons[reason];
         if (tgtOk && r.ok) {
           const g = b2.layout === 'sort' ? null : b2.targets.find((x) => x.id === picked);
-          body = `${g && g.react ? `<p class="s-react">${esc(g.react)}</p>` : ''}<p class="s-result">${esc(ev.b3.ok)}</p>${ev.b3.bs ? miniBS(ev.b3.bs) : ''}${ev.b3.bars ? barsHTML(ev.b3.bars) : ''}<button class="btn wide" data-b="4">名前を知る</button>`;
+          body = `${g && g.react ? `<p class="s-react">${esc(g.react)}</p>` : ''}<p class="s-result">${esc(ev.b3.ok)}</p>${ev.b3.bs ? miniBS(ev.b3.bs) : ''}${ev.b3.bars ? barsHTML(ev.b3.bars) : ''}<button class="btn wide" data-b="4">これ、なんて呼ぶの？</button>`;
         } else {
           const why = !tgtOk ? (b2.layout === 'sort' ? b2.wrongReact : b2.targets.find((x) => x.id === picked).react) : r.react;
-          body = `<p class="s-react ng">${esc(why)}</p><button class="btn wide ghost" data-retry>もう一度考える</button>`;
+          body = `<p class="s-react ng">${esc(why)}</p><button class="btn wide ghost" data-retry>もう一度えらぶ</button>`;
         }
       } else {
         const b4 = ev.b4;
-        body = `<div class="s-name"><small>この考え方の名前</small><h2>${esc(b4.name)}</h2><p>${esc(b4.line)}</p>${b4.rule ? `<p class="s-rule">${esc(b4.rule)}</p>` : ''}<p class="s-exam">本試験では ${esc(b4.exam)}</p><p class="s-leaf">原理マップ ${esc(b4.leaf.p)}「${esc(D.principles[b4.leaf.p].name)}」に「${esc(b4.leaf.label)}」が加わった</p></div><button class="btn wide" data-done>つぎへ</button>`;
+        body = `<div class="s-name"><small>この考え方の名前</small><h2>${esc(b4.name)}</h2><p>${esc(b4.line)}</p>${b4.rule ? `<p class="s-rule">${esc(b4.rule)}</p>` : ''}<p class="s-exam">本試験では ${esc(b4.exam)}</p><p class="s-leaf">マップの「${esc(D.principles[b4.leaf.p].name)}」に「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
       }
-      frame(`<div class="s-card s-disc"><div class="s-disc-head"><small>${esc(ev.p)} ${esc(D.principles[ev.p].name)}｜${esc(D.principles[ev.p].q)}</small><h3>${esc(ev.title)}</h3>${stepper()}</div>${body}${beat < 4 ? '<button class="link" data-hand>先輩の手帳を見る</button>' : ''}</div>`);
+      // 手帳（説明）は名前がついてから読める。考えている途中で答えを見せない
+      frame(`<div class="s-card s-disc"><div class="s-disc-head"><h3>${esc(ev.title)}</h3></div>${body}</div>`);
     };
     draw();
     app.onclick = (e) => {
       const g = (s) => e.target.closest(s);
       if (g('[data-hand]')) { m.hand++; metrics.hand++; save(); overlay(`<h3>先輩の手帳</h3><p>${esc(ev.hand)}</p>`); return; }
       if (g('[data-b]')) { beat = +g('[data-b]').dataset.b; draw(); return; }
+      if (g('[data-hint]')) { hintLv++; m.hints = (m.hints || 0) + 1; save(); draw(); return; }
       if (g('[data-pick]')) { picked = g('[data-pick]').dataset.pick; draw(); return; }
       if (g('[data-sort]')) { const x = g('[data-sort]'); sorted[x.dataset.sort] = x.dataset.to; draw(); return; }
       if (g('[data-reason]')) { reason = +g('[data-reason]').dataset.reason; draw(); return; }
