@@ -195,3 +195,15 @@
 ruby rt { font-size: .5em; font-weight: 500; color: var(--muted); }
 .s-name h2 ruby rt { font-size: .38em; }
 details.s-exam summary { cursor: pointer; font-weight: 700; }
+
+/* 判断の試算・結末 */
+.s-trial td.neg { color: var(--bad); }
+.s-seen { font-style: normal; font-size: 11px; color: var(--muted); }
+.s-ending.heavy { border-color: var(--bad); }
+.s-ending > small, .s-ending .s-disc-head small { color: var(--bad); }
+.s-paper { background: #fffdf6; color: #222; border: 1px solid #d8d2c0; border-radius: 4px; padding: 14px 14px 10px; box-shadow: 2px 3px 0 #e5dfcc; font-size: 14px; line-height: 1.8; font-family: 'Zen Kaku Gothic New', serif; }
+.s-paper-head { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; color: #555; flex-wrap: wrap; }
+.s-paper h4 { text-align: center; margin: 8px 0; font-size: 17px; letter-spacing: .1em; }
+.s-paper p { margin: 0 0 6px; }
+.s-mark { display: inline; text-align: left; white-space: normal; border: 0; padding: 0 2px; font: inherit; color: inherit; background: linear-gradient(transparent 55%, #ffe36e 55%); cursor: pointer; }
+.s-plain { margin-top: 8px; padding: 8px 10px; background: #fff3c4; border-radius: 6px; font-size: 14px; }

@@ -94,6 +94,8 @@ D.months.forEach((m, mi) => {
     }
     if (e.t === 'decision') {
       check(w, [e.q, talkText(e.talk), ...e.options.map((o) => `${o.label} ${o.desc} ${o.result || ''}`)].join(' '), e.teaches);
+      // 試算は「すぐ動く数字」だけ。外の反応（表情・結末）を判断の前に見せない
+      if (e.trial) for (const b of branches) for (const o of e.options) { const rows = e.trial({ ...fake, decisions: b }, o.id); check(`${w} 試算`, rows.map((x) => `${x[0]} ${typeof x[1] === 'string' ? x[1] : ''}`).join(' '), e.teaches); if (/田中|森さん|表情|結末|倒産|つぶれ/.test(JSON.stringify(rows))) errors.push(`${w}：試算に外の反応や結末が入っている（答え合わせになる）`); }
       shown(w, e.teaches, e.options.map((o) => o.label).join(' '));
       if (e.options.some((o) => !o.result)) errors.push(`${w}：判断の結果（result）がない選択肢がある`);
       teach(e.teaches);
@@ -118,6 +120,16 @@ D.months.forEach((m, mi) => {
       }
     }
     if (e.t === 'report') teach(e.teaches);
+    if (e.t === 'ending') {
+      const E = D.endings[e.id];
+      if (!E) { errors.push(`${w}：結末 ${e.id} がない`); continue; }
+      const S0 = { ...fake, decisions: branches[0] };
+      check(`${w} 結末`, [E.title, E.cause(S0), ...E.numbers(S0).rows.map((x) => x[0]), talkText(E.scene(S0)), E.lesson].join(' '));
+      const lawUnknown = LX.unknown(E.reality, taught);
+      if (lawUnknown.length) notes.push(`${w} 現実では：教えていない語 ${lawUnknown.join('・')}（現実の制度の説明として許す）`);
+      // 不意打ちにしない：重い結末の前に、同じ判断の警告（中）を通っていること
+      if (E.level === '重' && !E.ifOnly && !Object.values(D.endings).some((x) => x.level === '中' && x.back === E.back)) errors.push(`${w}：重い結末の前に、警告（中）の段がない`);
+    }
   }
   // 自動仕訳ルールの提案が出はじめるのは、同じ種類を3回正しく書いたあと（8月ごろ）
   if (m.label === '8月') teach(['自動仕訳']), Object.entries(D.rules).forEach(([k, r]) => check(`ルール ${k}`, [r.label, ...r.conds.map((c) => `${c.t} ${c.why || ''}`), ...r.entry.flat()].join(' ')));
@@ -131,6 +143,8 @@ D.months.forEach((m, mi) => {
 const seenP = new Set(['P1']);
 D.months.forEach((m) => { const fresh = m._p.filter((p) => !seenP.has(p)); if (fresh.length > 1) errors.push(`${m.label}：新しい原理が${fresh.length}つ（${fresh.join('・')}）`); m._p.forEach((p) => seenP.add(p)); });
 
+// 事後のもしも（ifOnly）の結末は、1年を通して教えた語で読めること
+for (const [id, E] of Object.entries(D.endings)) if (E.ifOnly) { const S0 = { ...fake, decisions: branches[0] }; check(`もしも ${id}`, [E.title, E.cause(S0), ...E.numbers(S0).rows.map((x) => x[0]), talkText(E.scene(S0)), E.lesson].join(' ')); }
 if (notes.length) console.log(notes.join('\n'));
 if (errors.length) { console.error('\n' + errors.join('\n')); console.error(`\n${errors.length} 件`); process.exit(1); }
 console.log(`OK：教えた語 ${taught.size}`);
