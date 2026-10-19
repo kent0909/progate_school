@@ -3,6 +3,7 @@
 //   node boki2/tools/crawl.js https://www.cpa-learning.com/ [--out boki2/crawl] [--max 400] [--delay 1500] [--include 'boki|簿記|column']
 // - honours robots.txt (User-agent: *), reads sitemap.xml first, stays on the start host
 // - one request at a time with a delay, backs off on 429/5xx, never sends cookies or logs in
+// - keeps only titles and headings by default (no body text); pass --text to also keep up to 20k chars of body text
 // - writes <out>/pages.jsonl (one page per line) and <out>/summary.json
 const fs = require('fs');
 const path = require('path');
@@ -14,6 +15,7 @@ const OUT = opt('--out', path.join(__dirname, '..', 'crawl'));
 const MAX = +opt('--max', 400);
 const DELAY = +opt('--delay', 1500);
 const INCLUDE = new RegExp(opt('--include', 'boki|%E7%B0%BF%E8%A8%98|簿記|column|course|lecture|kyu|2級'), 'i');
+const KEEP_TEXT = args.includes('--text');
 const UA = 'boki2-quest-coverage-check/1.0 (+study material comparison; 1 req per ' + DELAY + 'ms)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -99,7 +101,7 @@ function parse(html, base) {
     if (r.status !== 200 || !/html/i.test(r.type)) { errors++; out.write(JSON.stringify({ url, status: r.status, error: r.error || r.type }) + '\n'); }
     else {
       const p = parse(r.body, r.url);
-      out.write(JSON.stringify({ url, final: r.url, status: 200, title: p.title, heads: p.heads, text: p.text, at: new Date().toISOString() }) + '\n');
+      out.write(JSON.stringify({ url, final: r.url, status: 200, title: p.title, heads: p.heads, ...(KEEP_TEXT ? { text: p.text } : {}), at: new Date().toISOString() }) + '\n');
       p.links.forEach(enqueue);
     }
     if (n % 20 === 0) console.log(`${n} pages, queue ${queue.length}`);
