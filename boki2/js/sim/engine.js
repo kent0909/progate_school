@@ -260,6 +260,8 @@
   }
   function talkScreen(ev) {
     teach(ev.teaches);
+    // 判断の結果が返ってきた場面は、経営日誌に「判断→返った結果」として残す
+    if (ev.diary && !S.diary.some((d) => d.t === ev.diary)) { S.diary.push({ m: month().label, t: ev.diary, ret: true }); save(); }
     frame(`<div class="s-card">${talk(ev.lines)}<button class="btn wide" data-n>つぎへ</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-n]')) next(); };
   }
@@ -582,7 +584,7 @@
   function docPaper(d) {
     let body = d.body.map((p) => esc(p)).join('</p><p>');
     (d.marks || []).forEach((m, i) => { body = body.split(esc(m.text)).join(`<button class="s-mark" data-mark="${i}">${esc(m.text)}</button>`); });
-    return `<div class="s-paper"><div class="s-paper-head"><span>${esc(d.from)} → ${esc(d.to)}</span><span>${esc(d.date)}</span></div><h4>${esc(d.title)}</h4><p>${body}</p><div class="s-plain" hidden></div></div>`;
+    return `<div class="s-paper"><div class="s-paper-head"><span>${esc(d.from)} → ${esc(d.to)}</span><span>${esc(d.date)}</span></div><h4>${LX.ruby(esc(d.title))}</h4><p>${LX.ruby(body)}</p><div class="s-plain" hidden></div></div>`;
   }
   function endingScreen(id, view) {
     const E = D.endings[id];
@@ -591,7 +593,7 @@
     S.__ni = pl(balances(S.L)).ni;
     const docs = E.docs(S);
     const steps = ['cause', 'numbers', ...docs.map((_, i) => 'doc' + i), 'scene', 'reality', 'lesson'];
-    let i = 0;
+    let i = 0, answered = !E.check, msg = '';
     const draw = () => {
       const st = steps[i];
       let body = '';
@@ -600,9 +602,9 @@
       else if (st.startsWith('doc')) { const d = docs[+st.slice(3)]; body = `<small>届いた書類</small>${docPaper(d)}<p class="muted" style="font-size:13px;margin:0">色のついたところをタップすると、何が起きたかが分かる。</p>`; }
       else if (st === 'scene') body = `<small>そして</small>${talk(E.scene(S))}`;
       else if (st === 'reality') body = `<small>現実では</small><p>${LX.ruby(esc(E.reality))}</p>`;
-      else body = `<small>学び</small><p>${LX.ruby(esc(E.lesson))}</p>`;
-      const last = i === steps.length - 1;
-      const btns = !last ? '<button class="btn wide" data-en>つぎへ</button>' : view ? '<button class="btn wide" data-back-view>もどる</button>'
+      else body = `<small>学び</small><p>${LX.ruby(esc(E.lesson))}</p>${E.check ? `<p class="s-q small">${esc(E.check.q)}</p><div class="s-opts">${E.check.opts.map((o, k) => `<button class="s-opt ${answered && o.ok ? 'on' : ''}" data-chk="${k}"><b>${esc(o.t)}</b></button>`).join('')}</div>${msg}` : ''}`;
+      const last = i === steps.length - 1 && answered;
+      const btns = i === steps.length - 1 && !answered ? '' : !last ? '<button class="btn wide" data-en>つぎへ</button>' : view ? '<button class="btn wide" data-back-view>もどる</button>'
         : `${S.bm[E.back] ? `<button class="btn wide" data-bm>栞（しおり）にもどる：その判断のところから</button>` : ''}${E.final ? '<button class="btn wide ghost" data-restart>会社をたたんで、最初から</button>' : '<button class="btn wide ghost" data-cont>このまま続ける</button>'}`;
       frame(`<div class="s-card s-ending ${E.level === '重' ? 'heavy' : ''}"><div class="s-disc-head"><small>${view ? 'もしも' : E.level === '重' ? '結末' : '警告'}</small><h3>${esc(E.title)}</h3></div>${body}${btns}${i > 0 ? '<button class="btn ghost sm" data-enback>← もどる</button>' : ''}</div>`);
     };
@@ -610,6 +612,8 @@
     app.onclick = (e) => {
       const m = e.target.closest('[data-mark]');
       if (m) { const d = docs[+steps[i].slice(3)]; const pl_ = $('.s-plain', app); pl_.hidden = false; pl_.textContent = d.marks[+m.dataset.mark].plain; return; }
+      const ck = e.target.closest('[data-chk]');
+      if (ck) { const o = E.check.opts[+ck.dataset.chk]; if (o.ok) { answered = true; msg = '<p class="s-react">そのとおり。</p>'; } else msg = `<p class="s-react ng">${esc(o.react)}</p>`; draw(); return; }
       if (e.target.closest('[data-en]')) { i++; draw(); return; }
       if (e.target.closest('[data-enback]')) { i--; draw(); return; }
       if (e.target.closest('[data-back-view]')) { render(); return; }
@@ -624,7 +628,7 @@
     for (const m of D.months) for (const ev of m.events) {
       if (ev.t !== 'decision' || !S.decisions[ev.id]) continue;
       const o = ev.options.find((x) => x.id === S.decisions[ev.id]);
-      (o && o.ending || []).forEach((id) => { if (!S.seenEnds.includes(id) && !out.some((x) => x.id === id)) out.push({ id, q: ev.q, alt: ev.options.filter((x) => !x.ending).map((x) => x.label).join('／') }); });
+      ev.options.flatMap((x) => x.ending || []).forEach((id) => { if (!S.seenEnds.includes(id) && !out.some((x) => x.id === id)) out.push({ id, q: ev.q, alt: ev.options.filter((x) => !x.ending).map((x) => x.label).join('／') }); });
     }
     return out;
   }
@@ -735,7 +739,7 @@
     teach(ev.teaches);
     const { b } = statements();
     S.reportSeen = true; save();
-    frame(`<div class="s-card"><small>1年目の決算書</small><div class="s-name"><p>1年の終わりの棚の絵を「貸借対照表」、1年のもうけの中身を「損益計算書」、2つあわせて「決算書」という。銀行や株主は、これを見て会社を判断する。</p></div>${companyView(b)}<button class="btn wide" data-n>銀行へ持っていく</button></div>`);
+    frame(`<div class="s-card"><small>${ev.redo ? '作り直した決算書' : '1年目の決算書'}</small><div class="s-name"><p>1年の終わりの棚の絵を「貸借対照表」、1年のもうけの中身を「損益計算書」、2つあわせて「決算書」という。銀行や株主は、これを見て会社を判断する。</p></div>${companyView(b)}<button class="btn wide" data-n>銀行へ持っていく</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-n]')) { S.diary.push({ m: '決算', t: `1年目のもうけ ${fmt(statements().p.ni)}円` }); next(); } };
   }
   // 銀行の見方：1年の判断と、帳簿の正しさで決まる（乱数なし）
@@ -759,7 +763,7 @@
     else lines.push(['ginko', 'トラックを毎年同じ額ずつ費用にしているので、来年からのもうけの見通しが立てやすいですね。']);
     if (d.crunch === 'loan') lines.push(['ginko', '11月のお金不足は、うちからの借入で乗り切りましたね。お礼（利息）は、D社のお金を待つための費用でした。']);
     else if (d.crunch === 'discount') lines.push(['ginko', '11月はD社にまけて早く払ってもらいましたね。1万円の値引きも、お金を早く手に入れるための費用です。']);
-    else lines.push(['ginko', '11月末にE社への支払いが遅れたことは、当行も把握しています。急ぎのご融資の利息は12％でした。支払いを遅らせた会社には、慎重にならざるを得ません。']);
+    else lines.push(['ginko', '11月末にE社への支払いが遅れたことは、当行も把握しています。急ぎのご融資の利息は、1年で15％でした。支払いを遅らせた会社には、慎重にならざるを得ません。']);
     if (d.credit === 'credit') lines.push(['ginko', 'A社の件で、もらえない見込みを貸倒引当金にしたのは誠実です。ただ、支払いが遅れている噂のある相手に掛けで売ったのは、心配な点ですね。']);
     else if (d.credit === 'cash') lines.push(['ginko', 'A社に、すぐ払ってもらう取引を求めたのは、いい判断でした。']);
     else lines.push(['ginko', 'A社との取引を見送ったのは慎重でしたね。']);
@@ -769,8 +773,11 @@
     const offer = r >= 3 ? Math.max(100000, Math.round((eq * 0.8) / 10000) * 10000) : r === 2 ? Math.round((eq * 0.4) / 10000) * 10000 : 0;
     lines.push(['ginko', offer ? `2号店のために、${offer.toLocaleString()}円までお貸しできます。` : '申し訳ありませんが、2号店のためのご融資は、今はお受けできません。']);
     S.diary.push({ m: '翌年4月', t: offer ? `銀行（見方：${RATING[r]}）：2号店のために ${fmt(offer)}円まで借りられる` : `銀行（見方：${RATING[r]}）：2号店のための融資を断られた` });
-    frame(`<div class="s-card"><small>翌年4月</small><h3>みらい銀行の審査</h3><p class="s-dyn">銀行の見方：<b>${RATING[r]}</b></p>${talk(lines)}<button class="btn wide" data-n>つぎへ</button></div>`);
-    app.onclick = (e) => { if (e.target.closest('[data-n]')) next(); };
+    // 1画面に1つの発言。最後に銀行の見方
+    let k = 0;
+    const draw = () => frame(`<div class="s-card"><small>翌年4月 みらい銀行の審査（${k + 1}/${lines.length}）</small>${talk([lines[k]])}${k === lines.length - 1 ? `<p class="s-dyn">銀行の見方：<b>${RATING[r]}</b></p>` : ''}<button class="btn wide" data-n>つぎへ</button></div>`);
+    draw();
+    app.onclick = (e) => { if (e.target.closest('[data-n]')) { if (k < lines.length - 1) { k++; draw(); } else next(); } };
   }
   // 腕だめし：体験した論点のうち、教わった言葉だけで読める本試験形式の問題を選ぶ
   function pickQuiz() {
