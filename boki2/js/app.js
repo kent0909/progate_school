@@ -487,6 +487,99 @@
     ctx.ready(false);
     return { check: () => ({ ok: log.every((x) => x.ok), ratio: log.filter((x) => x.ok).length / queue.length }), reveal() {}, answerHTML: () => '', summary: () => { const m = log.filter((x) => !x.ok).map((x) => x.t); return m.length ? `まちがえた：${m.join('、')}` : ''; } };
   }
+  /* ---------- CBT-style inputs (used by the mock exam) ---------- */
+  // Accepts what people type in the real CBT: half/full-width digits, commas, 円, and △/▲/- for negatives.
+  function toNum(s) {
+    if (s == null) return null;
+    let t = String(s).trim().replace(/[０-９．]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0)).replace(/[,，\s円]/g, '');
+    if (t === '') return null;
+    let neg = false;
+    if (/^[△▲\-−－ー]/.test(t)) { neg = true; t = t.replace(/^[△▲\-−－ー]/, ''); }
+    if (!/^\d*\.?\d+$/.test(t)) return NaN;
+    return (neg ? -1 : 1) * Number(t);
+  }
+  function mountJournalCBT(q, el) {
+    const need = q.ans === 'none' ? 1 : Math.max(q.ans.dr.length, q.ans.cr.length);
+    const N = Math.max(4, need + 1);
+    const opts = accOrder(accOptions(q));
+    const optHTML = `<option value="">　</option><option value="__none">仕訳なし</option>${opts.map((a) => `<option value="${esc(a)}">${esc(a)}</option>`).join('')}`;
+    el.innerHTML = `<div class="cbt-je"><table><thead><tr><th colspan="2" class="d">借方</th><th colspan="2" class="c">貸方</th></tr><tr><th>勘定科目</th><th>金額</th><th>勘定科目</th><th>金額</th></tr></thead><tbody>${Array.from({ length: N }, (_, i) => `<tr data-r="${i}">${['dr', 'cr'].map((s) => `<td><select data-s="${s}" aria-label="${s === 'dr' ? '借方' : '貸方'}の勘定科目 ${i + 1}行目">${optHTML}</select></td><td><input data-s="${s}" inputmode="numeric" autocomplete="off" spellcheck="false" aria-label="${s === 'dr' ? '借方' : '貸方'}の金額 ${i + 1}行目"></td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+    const rows = () => $$('tbody tr', el).map((tr) => ({ tr, dr: { a: $('select[data-s="dr"]', tr).value, v: toNum($('input[data-s="dr"]', tr).value) }, cr: { a: $('select[data-s="cr"]', tr).value, v: toNum($('input[data-s="cr"]', tr).value) } }));
+    function userEntry() {
+      const rs = rows();
+      if (rs.some((r) => r.dr.a === '__none' || r.cr.a === '__none')) return 'none';
+      const e = { dr: [], cr: [] };
+      for (const r of rs) for (const s of ['dr', 'cr']) if (r[s].a && r[s].v > 0) e[s].push([r[s].a, Math.round(r[s].v)]);
+      return normEntry(e);
+    }
+    return {
+      answered: () => $$('select, input', el).some((x) => x.value.trim() !== ''),
+      check() { const u = userEntry(); const ok = [q.ans, ...(q.alt || [])].some((e) => sameEntry(u, normEntry(e))); return { ok, ratio: ok ? 1 : 0 }; },
+      reveal(allOk) {
+        const a = normEntry(q.ans), u = userEntry();
+        rows().forEach((r) => {
+          for (const s of ['dr', 'cr']) {
+            const cells = $$(`[data-s="${s}"]`, r.tr);
+            if (!r[s].a && r[s].v == null) continue;
+            const good = allOk || (a !== 'none' && u !== 'none' && r[s].a && a[s][r[s].a] != null && a[s][r[s].a] === u[s][r[s].a]);
+            cells.forEach((c) => c.classList.add(good ? 'ok' : 'ng'));
+          }
+        });
+        $$('select, input', el).forEach((x) => { x.disabled = true; });
+      },
+      answerHTML: () => entryTable(q.ans),
+      summary() { const u = userEntry(); if (u === 'none') return '仕訳なし'; const f = (m) => Object.entries(m).map(([k, v]) => `${k} ${fmt(v)}`).join('・') || '（なし）'; return `借方 ${f(u.dr)} ／ 貸方 ${f(u.cr)}`; },
+    };
+  }
+  function mountFillCBT(q, el) {
+    const html = rich(q.sheet).replace(/\{\{(\d+)\}\}/g, (m, n) => {
+      const b = q.blanks[+n];
+      if (b && typeof b === 'object') return `<select class="blank-sel" data-i="${n}" aria-label="空欄${+n + 1}"><option value="">　</option>${b.opts.map((o, j) => `<option value="${j}">${esc(o)}</option>`).join('')}</select>`;
+      return `<input class="blank-in" data-i="${n}" inputmode="decimal" autocomplete="off" spellcheck="false" aria-label="空欄${+n + 1}">`;
+    });
+    el.innerHTML = `<div class="sheet-wrap rich">${html}</div>`;
+    const val = (i) => { const x = $(`[data-i="${i}"]`, el); if (!x) return null; if (x.tagName === 'SELECT') return x.value === '' ? null : +x.value; return toNum(x.value); };
+    const right = (i) => { const b = q.blanks[i], v = val(i); if (v == null || Number.isNaN(v)) return false; return typeof b === 'object' ? v === b.a : Math.abs(v - b) < 1e-6; };
+    const count = () => q.blanks.reduce((n, _, i) => n + (right(i) ? 1 : 0), 0);
+    return {
+      answered: () => $$('[data-i]', el).some((x) => x.value.trim() !== ''),
+      check() { const n = count(); return { ok: n === q.blanks.length, ratio: n / q.blanks.length, got: n, of: q.blanks.length }; },
+      reveal() {
+        $$('[data-i]', el).forEach((x) => {
+          const i = +x.dataset.i, ok = right(i), b = q.blanks[i];
+          x.classList.add(ok ? 'ok' : 'ng'); x.disabled = true;
+          if (!ok) x.insertAdjacentHTML('afterend', `<span class="fix">正解 ${esc(typeof b === 'object' ? b.opts[b.a] : fmt(b))}</span>`);
+        });
+      },
+      answerHTML: () => '',
+      summary: () => `${count()}/${q.blanks.length} 欄正解`,
+    };
+  }
+  // On-screen calculator for practice without a physical one (the real exam allows bringing your own).
+  function calcPanel() {
+    let cur = '0', acc = null, op = null, fresh = true;
+    const keys = ['C', '←', '%', '÷', '7', '8', '9', '×', '4', '5', '6', '−', '1', '2', '3', '+', '0', '00', '.', '='];
+    const el = document.createElement('div');
+    el.className = 'cbt-tool calc';
+    el.innerHTML = `<div class="tool-head"><b>電卓</b><button class="icon-btn" data-close aria-label="電卓を閉じる">${I.x}</button></div><div class="calc-disp" data-d>0</div><div class="calc-keys">${keys.map((k) => `<button data-k="${k}" class="${/[÷×−+=]/.test(k) ? 'op' : ''}">${k}</button>`).join('')}</div>`;
+    const disp = $('[data-d]', el);
+    const ap = (a, b, o) => (o === '+' ? a + b : o === '−' ? a - b : o === '×' ? a * b : o === '÷' ? (b === 0 ? NaN : a / b) : b);
+    const show = () => { const n = Number(cur); disp.textContent = Number.isFinite(n) ? n.toLocaleString('ja-JP', { maximumFractionDigits: 6 }) + (cur.endsWith('.') ? '.' : '') : 'エラー'; };
+    el.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-k]');
+      if (!b) return;
+      const k = b.dataset.k;
+      if (/^\d+$/.test(k)) { cur = fresh || cur === '0' ? (k === '00' ? '0' : k) : cur + k; fresh = false; }
+      else if (k === '.') { if (fresh) { cur = '0.'; fresh = false; } else if (!cur.includes('.')) cur += '.'; }
+      else if (k === 'C') { cur = '0'; acc = null; op = null; fresh = true; }
+      else if (k === '←') { cur = cur.length > 1 ? cur.slice(0, -1) : '0'; }
+      else if (k === '%') { cur = String((acc != null ? acc : 1) * Number(cur) / 100); fresh = true; }
+      else if (k === '=') { if (op) { cur = String(ap(acc, Number(cur), op)); acc = null; op = null; } fresh = true; }
+      else { acc = op && !fresh ? ap(acc, Number(cur), op) : acc == null ? Number(cur) : op && fresh ? acc : Number(cur); if (!op || !fresh) cur = String(acc); op = k; fresh = true; }
+      show();
+    });
+    return el;
+  }
   const MOUNT = { journal: mountJournal, choice: mountChoice, number: mountNumber, fill: mountFill, sort: mountSort };
 
   /* ================= progress helpers ================= */
@@ -1043,12 +1136,12 @@
     const hist = S.exams.slice(-5).reverse();
     const best = S.exams.reduce((m, e) => Math.max(m, e.score), 0);
     const counts = [2, 3, 4, 5].map((p) => B.exams.filter((x) => x.part === p).length);
-    main.innerHTML = `<div class="stack"><div><div class="eyebrow">MOCK EXAM</div><h1>本試験シミュレーター</h1><p class="muted" style="margin:4px 0 0;font-size:13px">日商簿記2級と同じ5問構成・90分・100点満点。70点で合格。毎回ちがう組み合わせで出題される。</p></div><div class="card"><table class="score-table">${PARTS.map((p) => `<tr><th style="text-align:left">${p.t}</th><td class="muted" style="font-size:13px">${p.d}</td><td>${p.pts}点</td></tr>`).join('')}</table><p class="muted" style="font-size:12px;margin:8px 0 0">問題バンク：第2問 ${counts[0]}・第3問 ${counts[1]}・第4問(2) ${counts[2]}・第5問 ${counts[3]} 題 ＋ 仕訳 ${CHAPTERS.flatMap((c) => c.qs).filter((q) => q.type === 'journal').length} 題</p></div><div class="card" style="font-size:13px"><b>おすすめの解く順番</b><br>第1問（15分）→ 第4問（20分）→ 第5問（10分）→ 第2問（20分）→ 第3問（25分）<br><span class="muted">確実に点が取れる仕訳と工業簿記を先に終わらせ、重い第2問・第3問に残り時間を使う。結果画面で大問ごとにかけた時間がわかる。</span>${CH.c47 ? '<br><button class="link" data-guide style="padding-left:0">本試験の戦い方（ネット試験の操作・取引文の読み方・捨て問）を読む</button>' : ''}${examYear() >= 2027 ? '<br><b style="color:var(--cr)">2027年度モード：</b>手形・リースの区分は模試から外しています。' : ''}</div><div class="row"><button class="btn gold" data-start>${I.paper}90分 本番モード</button><button class="btn ghost" data-start="practice">時間無制限</button></div>${best ? `<div class="card"><div class="row" style="justify-content:space-between"><h3>これまでの成績</h3><span class="pix" style="color:var(--brand)">BEST ${best}点</span></div><table class="score-table" style="margin-top:6px">${hist.map((e) => `<tr><td>${esc(e.date)}</td><td>${e.score >= 70 ? '<b style="color:var(--good)">合格</b>' : '<span class="muted">不合格</span>'}</td><td>${e.score}点</td></tr>`).join('')}</table></div>` : ''}</div>`;
+    main.innerHTML = `<div class="stack"><div><div class="eyebrow">MOCK EXAM</div><h1>本試験シミュレーター</h1><p class="muted" style="margin:4px 0 0;font-size:13px">日商簿記2級と同じ5問構成・90分・100点満点。70点で合格。毎回ちがう組み合わせで出題される。</p></div><div class="card"><table class="score-table">${PARTS.map((p) => `<tr><th style="text-align:left">${p.t}</th><td class="muted" style="font-size:13px">${p.d}</td><td>${p.pts}点</td></tr>`).join('')}</table><p class="muted" style="font-size:12px;margin:8px 0 0">問題バンク：第2問 ${counts[0]}・第3問 ${counts[1]}・第4問(2) ${counts[2]}・第5問 ${counts[3]} 題 ＋ 仕訳 ${CHAPTERS.flatMap((c) => c.qs).filter((q) => q.type === 'journal').length} 題</p></div><div class="card" style="font-size:13px"><b>おすすめの解く順番</b><br>第1問（15分）→ 第4問（20分）→ 第5問（10分）→ 第2問（20分）→ 第3問（25分）<br><span class="muted">確実に点が取れる仕訳と工業簿記を先に終わらせ、重い第2問・第3問に残り時間を使う。結果画面で大問ごとにかけた時間がわかる。</span>${CH.c47 ? '<br><button class="link" data-guide style="padding-left:0">本試験の戦い方（ネット試験の操作・取引文の読み方・捨て問）を読む</button>' : ''}${examYear() >= 2027 ? '<br><b style="color:var(--cr)">2027年度モード：</b>手形・リースの区分は模試から外しています。' : ''}</div><div class="row"><button class="btn gold" data-start>${I.paper}90分 本番（ネット試験形式）</button><button class="btn ghost" data-start="practice">時間無制限</button></div>${best ? `<div class="card"><div class="row" style="justify-content:space-between"><h3>これまでの成績</h3><span class="pix" style="color:var(--brand)">BEST ${best}点</span></div><table class="score-table" style="margin-top:6px">${hist.map((e) => `<tr><td>${esc(e.date)}</td><td>${e.score >= 70 ? '<b style="color:var(--good)">合格</b>' : '<span class="muted">不合格</span>'}</td><td>${e.score}点</td></tr>`).join('')}</table></div>` : ''}</div>`;
     main.onclick = (e) => { if (e.target.closest('[data-guide]')) { go('stage', 'c47', 'lesson'); return; } const s = e.target.closest('[data-start]'); if (s) go('examplay', s.dataset.start === 'practice'); };
   };
   SCREENS.examplay = function (practice) {
     const y27 = examYear() >= 2027;
-    const allQ = CHAPTERS.filter((c) => c.id !== 'c00' && !(y27 && OUT27_CH.has(c.id))).flatMap((c) => c.qs.filter((q) => q.type === 'journal'));
+    const allQ = CHAPTERS.filter((c) => c.id !== 'c00' && c.id !== 'c47' && !(y27 && OUT27_CH.has(c.id))).flatMap((c) => c.qs.filter((q) => q.type === 'journal'));
     const strong = (list) => { const s = list.filter((q) => (q.lv || 1) >= 2); return s.length >= 15 ? s : list; };
     const recent = new Set(S.examSeen);
     const com = sampleExam(strong(allQ.filter((q) => !INDUSTRIAL.has(q._ch.world))), 5, recent);
@@ -1058,43 +1151,83 @@
     save();
     const partTime = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     let partT0 = performance.now();
-    const comps = {};
-    let curPart = 1, submitted = false, raf = null;
+    const comps = {}, flags = new Set(), keysOf = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+    window.__bokiExam = comps;
+    let curPart = 1, submitted = false, raf = null, memo = '';
     const end = performance.now() + 90 * 60000;
     leaveGuard = '試験を途中でやめる？解答は保存されないよ';
     main.onclick = null;
-    main.innerHTML = `<div class="exam-bar">${PARTS.map((p) => `<button class="exam-tab" data-part="${p.k}">${p.t}</button>`).join('')}<span class="exam-timer" data-timer>${practice ? '∞' : '90:00'}</span></div><div data-score></div>${PARTS.map((p) => `<section class="exam-part" data-sec="${p.k}" hidden></section>`).join('')}<div class="row" style="margin-top:18px"><button class="btn ghost" data-quit-exam>中断</button><button class="btn gold" data-submit>答案を提出</button></div>`;
-    const sub = (title, q, key) => {
+    main.innerHTML = `<div class="cbt"><div class="cbt-head"><b class="cbt-title">日商簿記2級 模擬試験（ネット試験形式）</b><span class="exam-timer" data-timer title="残り時間">${practice ? '時間無制限' : '残り 90:00'}</span><div class="cbt-tools"><button class="btn ghost sm" data-tool="memo">計算用紙</button><button class="btn ghost sm" data-tool="calc">電卓</button><button class="btn bad sm" data-submit>試験終了</button></div></div><nav class="cbt-nav" aria-label="大問の切り替え">${PARTS.map((p) => `<button class="cbt-q" data-part="${p.k}"><b>${p.t}</b><small data-st="${p.k}"></small></button>`).join('')}</nav><div data-score></div>${PARTS.map((p) => `<section class="exam-part" data-sec="${p.k}" hidden></section>`).join('')}<div class="cbt-foot"><button class="btn ghost" data-step="-1">◀ 前の問題</button><button class="btn ghost" data-step="1">次の問題 ▶</button></div><p class="muted" style="font-size:12px;margin:10px 0 0">本番と同じく、勘定科目はプルダウンから選び、金額は数字をキーボードで入力します（カンマは不要）。マイナスは先頭に「-」または「△」。本番では電卓は持ち込み、計算用紙はA4が2枚配られます。</p></div>`;
+    const sub = (title, q, key, part) => {
       const box = document.createElement('div');
       box.className = 'exam-sub';
-      box.innerHTML = `<div class="qmeta"><b>${title}</b>${q._ch && q._ch.world !== 'exam' ? `<span class="muted">${esc(q._ch.title)}</span>` : ''}</div><div class="qtext rich">${rich(q.q)}</div><div data-b></div><div data-x></div>`;
-      comps[key] = { q, comp: MOUNT[q.type](q, $('[data-b]', box), { ready() {}, instant: false, submit() {}, autoDone() {} }), box };
+      box.dataset.key = key;
+      box.innerHTML = `<div class="qmeta"><b>${title}</b><button class="cbt-flag" data-flag="${key}" aria-pressed="false">見直す</button></div><div class="qtext rich">${rich(q.q)}</div><div data-b></div><div data-x></div>`;
+      const target = $('[data-b]', box);
+      comps[key] = { q, comp: q.type === 'journal' ? mountJournalCBT(q, target) : mountFillCBT(q, target), box };
+      keysOf[part].push(key);
       return box;
     };
     const sec = (k) => $(`[data-sec="${k}"]`, main);
-    sec(1).insertAdjacentHTML('beforeend', '<h2>第1問（20点）</h2><p class="muted" style="margin:0;font-size:13px">次の取引について仕訳しなさい。勘定科目は候補から選ぶこと。</p>');
-    com.forEach((q, i) => sec(1).appendChild(sub(`問${i + 1}`, q, `1-${i}`)));
+    sec(1).insertAdjacentHTML('beforeend', '<h2>第1問（20点）</h2><p class="muted" style="margin:0;font-size:13px">次の各取引について仕訳しなさい。勘定科目は各問のプルダウンの中から最も適当なものを選ぶこと。</p>');
+    com.forEach((q, i) => sec(1).appendChild(sub(`問${i + 1}`, q, `1-${i}`, 1)));
     [2, 3, 5].forEach((p) => {
       const P = PARTS[p - 1];
       sec(p).insertAdjacentHTML('beforeend', `<h2>${P.t}（${P.pts}点）${big[p] ? ` ${esc(big[p].title)}` : ''}</h2>`);
-      if (big[p]) sec(p).appendChild(sub('', big[p], `${p}`)); else sec(p).insertAdjacentHTML('beforeend', '<p class="muted">この大問は準備中です（配点は満点扱いにしません）。</p>');
+      if (big[p]) sec(p).appendChild(sub('', big[p], `${p}`, p)); else sec(p).insertAdjacentHTML('beforeend', '<p class="muted">この大問は準備中です。</p>');
     });
     sec(4).insertAdjacentHTML('beforeend', '<h2>第4問（28点）</h2><h3>(1) 仕訳（12点）</h3>');
-    ind.forEach((q, i) => sec(4).appendChild(sub(`問${i + 1}`, q, `4-${i}`)));
+    ind.forEach((q, i) => sec(4).appendChild(sub(`問${i + 1}`, q, `4-${i}`, 4)));
     sec(4).insertAdjacentHTML('beforeend', `<h3 style="margin-top:10px">(2) ${big[4] ? esc(big[4].title) : ''}（16点）</h3>`);
-    if (big[4]) sec(4).appendChild(sub('', big[4], '4b'));
-    function show(k) { if (!submitted) { partTime[curPart] += performance.now() - partT0; partT0 = performance.now(); } curPart = k; $$('.exam-tab', main).forEach((t) => t.setAttribute('aria-current', String(+t.dataset.part === k))); $$('[data-sec]', main).forEach((s) => { s.hidden = +s.dataset.sec !== k; }); window.scrollTo(0, 0); }
-    show(1);
+    if (big[4]) sec(4).appendChild(sub('', big[4], '4b', 4));
+    function status() {
+      PARTS.forEach((p) => {
+        const ks = keysOf[p.k], done = ks.filter((k) => comps[k].comp.answered()).length, fl = ks.filter((k) => flags.has(k)).length;
+        const el = $(`[data-st="${p.k}"]`, main);
+        if (el) el.innerHTML = ks.length ? `${done}/${ks.length}${fl ? ` <span class="flagmark">見直し${fl}</span>` : ''}` : '-';
+        const btn = el && el.parentElement; if (btn) btn.classList.toggle('done', ks.length > 0 && done === ks.length);
+      });
+    }
+    function show(k) {
+      if (!submitted) { partTime[curPart] += performance.now() - partT0; partT0 = performance.now(); }
+      curPart = k;
+      $$('.cbt-q', main).forEach((t) => t.setAttribute('aria-current', String(+t.dataset.part === k)));
+      $$('[data-sec]', main).forEach((s) => { s.hidden = +s.dataset.sec !== k; });
+      $('[data-step="-1"]', main).disabled = k === 1; $('[data-step="1"]', main).disabled = k === 5;
+      window.scrollTo(0, 0);
+    }
+    show(1); status();
+    main.addEventListener('input', status);
+    main.addEventListener('change', status);
     function tick() {
       const left = Math.max(0, end - performance.now());
       const m = Math.floor(left / 60000), s = Math.floor((left % 60000) / 1000);
       const t = $('[data-timer]', main);
-      if (t) { t.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`; t.classList.toggle('low', left < 600000); }
-      if (left <= 0) { toast('試験終了！ 自動で提出したよ'); grade(); return; }
+      if (t) { t.textContent = `残り ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`; t.classList.toggle('low', left < 600000); }
+      if (left <= 0) { toast('試験時間が終了しました。自動で採点します'); grade(); return; }
       raf = requestAnimationFrame(tick);
     }
     if (!practice) raf = requestAnimationFrame(tick);
-    cleanup = () => { if (raf) cancelAnimationFrame(raf); };
+    // floating tools
+    let memoEl = null, calcEl = null;
+    function toggleTool(kind) {
+      if (kind === 'memo') {
+        if (memoEl) { memo = $('textarea', memoEl).value; memoEl.remove(); memoEl = null; return; }
+        memoEl = document.createElement('div');
+        memoEl.className = 'cbt-tool memo';
+        memoEl.innerHTML = `<div class="tool-head"><b>計算用紙</b><button class="icon-btn" data-close aria-label="計算用紙を閉じる">${I.x}</button></div><textarea id="cbt-memo" placeholder="下書き・計算メモ（試験が終わると消えます）"></textarea>`;
+        $('textarea', memoEl).value = memo;
+        memoEl.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) toggleTool('memo'); });
+        document.body.appendChild(memoEl);
+        $('textarea', memoEl).focus();
+      } else {
+        if (calcEl) { calcEl.remove(); calcEl = null; return; }
+        calcEl = calcPanel();
+        calcEl.addEventListener('click', (e) => { if (e.target.closest('[data-close]')) toggleTool('calc'); });
+        document.body.appendChild(calcEl);
+      }
+    }
+    cleanup = () => { if (raf) cancelAnimationFrame(raf); if (memoEl) memoEl.remove(); if (calcEl) calcEl.remove(); };
     function grade() {
       if (submitted) return;
       submitted = true; leaveGuard = null;
@@ -1105,27 +1238,34 @@
       [2, 3, 5].forEach((p) => add(p, PARTS[p - 1].pts, `${p}`));
       ind.forEach((_, i) => add(4, 4, `4-${i}`));
       add(4, 16, '4b');
-      // round each part to whole points like the real exam
       Object.keys(score).forEach((k) => { score[k] = Math.round(score[k]); });
       const total = Object.values(score).reduce((a, b) => a + b, 0);
       const pass = total >= 70;
       partTime[curPart] += performance.now() - partT0;
       const mins = {}; Object.keys(partTime).forEach((k) => { mins[k] = Math.round(partTime[k] / 60000); });
-      S.exams.push({ date: today(), score: total, parts: score, mins });
+      S.exams.push({ date: today(), score: total, parts: score, mins, cbt: true });
       gainXP(total * 3); gainCoins(Math.floor(total / 5));
       save(); checkBadges();
       if (pass) { SFX.win(); confetti(260); } else SFX.lose();
-      $('[data-score]', main).innerHTML = `<div class="card result" style="margin-bottom:14px"><div class="eyebrow">RESULT</div><div class="pix" style="font-size:60px;line-height:1">${total}<span style="font-size:22px">点</span></div><span class="pass-stamp ${pass ? '' : 'fail'}">${pass ? '合格' : '不合格'}</span><table class="score-table"><tr><th></th><th>得点</th><th>かけた時間</th><th>目安</th></tr>${PARTS.map((p) => `<tr><th style="text-align:left">${p.t}</th><td>${score[p.k]} / ${p.pts}</td><td class="num ${mins[p.k] > PART_MIN[p.k] + 3 ? 'over' : ''}">${mins[p.k]}分</td><td class="num muted">${PART_MIN[p.k]}分</td></tr>`).join('')}</table><p class="muted" style="margin:0;font-size:13px">${total === 100 ? '満点！ 本番もこの調子ピヨ！' : pass ? '合格ライン突破！ 落とした問題の解説を見て満点をねらおう。' : 'まちがえた仕訳は「復習」に入ったよ。各問の解説を確認しよう。'}</p></div>`;
-      $('[data-submit]', main).outerHTML = '<button class="btn" data-go="exam">試験メニューへ</button>';
-      $('[data-quit-exam]', main).remove();
+      $$('.cbt-flag', main).forEach((b) => { b.disabled = true; });
+      $('[data-score]', main).innerHTML = `<div class="card result" style="margin-bottom:14px"><div class="eyebrow">試験結果</div><div class="pix" style="font-size:60px;line-height:1">${total}<span style="font-size:22px">点</span></div><span class="pass-stamp ${pass ? '' : 'fail'}">${pass ? '合格' : '不合格'}</span><table class="score-table"><tr><th></th><th>得点</th><th>かけた時間</th><th>目安</th></tr>${PARTS.map((p) => `<tr><th style="text-align:left">${p.t}</th><td>${score[p.k]} / ${p.pts}</td><td class="num ${mins[p.k] > PART_MIN[p.k] + 3 ? 'over' : ''}">${mins[p.k]}分</td><td class="num muted">${PART_MIN[p.k]}分</td></tr>`).join('')}</table><p class="muted" style="margin:0;font-size:13px">${total === 100 ? '満点！ 本番もこの調子ピヨ！' : pass ? '合格ライン突破！ 落とした問題の解説を見て満点をねらおう。' : 'まちがえた問題は「復習」に入ったよ。各問の解説を確認しよう。'}</p></div>`;
+      $('[data-submit]', main).outerHTML = '<button class="btn sm" data-go="exam">試験メニューへ</button>';
       window.scrollTo(0, 0);
       flushLevelUps();
     }
     main.onclick = (e) => {
       const t = e.target.closest('[data-part]');
       if (t) { show(+t.dataset.part); return; }
-      if (e.target.closest('[data-submit]')) { modal('<h2>答案を提出する？</h2><p class="muted" style="margin:0">提出すると採点されます。</p>', [{ t: 'まだ解く', cls: 'ghost' }, { t: '提出する', cls: 'gold', on: grade }]); return; }
-      if (e.target.closest('[data-quit-exam]')) guardLeave(() => go('exam'));
+      const st = e.target.closest('[data-step]');
+      if (st) { show(Math.min(5, Math.max(1, curPart + +st.dataset.step))); return; }
+      const fl = e.target.closest('[data-flag]');
+      if (fl) { const k = fl.dataset.flag; if (flags.has(k)) flags.delete(k); else flags.add(k); fl.setAttribute('aria-pressed', String(flags.has(k))); status(); return; }
+      const tool = e.target.closest('[data-tool]');
+      if (tool) { toggleTool(tool.dataset.tool); return; }
+      if (e.target.closest('[data-submit]')) {
+        const keys = Object.keys(comps), empty = keys.filter((k) => !comps[k].comp.answered()).length;
+        modal(`<h2>試験を終了しますか？</h2><p style="margin:0">終了すると採点され、解答は変更できません。</p>${empty || flags.size ? `<p class="muted" style="margin:0">${empty ? `未回答 ${empty} 問` : ''}${empty && flags.size ? '・' : ''}${flags.size ? `見直しマーク ${flags.size} 問` : ''}があります。</p>` : ''}`, [{ t: '問題に戻る', cls: 'ghost' }, { t: '終了して採点', cls: 'bad', on: grade }]);
+      }
     };
   };
 

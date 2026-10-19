@@ -37,6 +37,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { height: 100%; }
 body {
   margin: 0; background: var(--bg); color: var(--ink);
@@ -485,3 +486,44 @@ body.focus #main { padding-bottom: 40px; }
 .stack, .qcard, .exam-part, .exam-sub, .fb, .modal, .result { grid-template-columns: minmax(0, 1fr); }
 .qcard > *, .stack > *, .exam-sub > *, .fb > * { min-width: 0; }
 .sheet-wrap th:first-child, .sheet-wrap td:first-child, .rich table th:first-child, .rich table td:first-child { min-width: 7.5em; }
+
+/* CBT mock exam */
+.cbt { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+.cbt-head { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 58px); z-index: 15; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: var(--surface); border: 2px solid var(--line); border-radius: var(--r); padding: 8px 10px; }
+.cbt-title { font-size: 13px; flex: 1 1 100%; }
+.cbt-tools { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+.cbt-tools .btn { flex: none; }
+.cbt-nav { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.cbt-q { border: 2px solid var(--line); background: var(--surface); border-radius: 10px; padding: 6px 2px; display: grid; justify-items: center; line-height: 1.3; }
+.cbt-q b { font-size: 13px; }
+.cbt-q small { font-size: 11px; color: var(--muted); font-family: var(--f-pixel); }
+.cbt-q.done { border-color: var(--good); }
+.cbt-q[aria-current="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.cbt-q[aria-current="true"] small { color: var(--bg); }
+.flagmark { color: var(--gold); font-family: var(--f-body); }
+.cbt-flag { margin-left: auto; border: 2px solid var(--line); background: var(--surface); border-radius: 8px; font-size: 12px; font-weight: 700; padding: 2px 10px; }
+.cbt-flag[aria-pressed="true"] { background: var(--gold-soft); border-color: var(--gold); }
+.cbt-foot { display: flex; gap: 10px; }
+.cbt-foot .btn { flex: 1; }
+.cbt-je { overflow-x: auto; max-width: 100%; }
+.cbt-je table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 13.5px; }
+.cbt-je th, .cbt-je td { border: 1.5px solid var(--line); padding: 3px; }
+.cbt-je th { background: var(--surface2); font-size: 12px; }
+.cbt-je th.d { color: var(--dr); } .cbt-je th.c { color: var(--cr); }
+.cbt-je select, .cbt-je input, .blank-in { width: 100%; min-height: 34px; font: inherit; color: var(--ink); background: var(--surface); border: 1.5px solid var(--muted); border-radius: 4px; padding: 2px 6px; }
+.cbt-je input, .blank-in { text-align: right; font-family: var(--f-pixel); font-size: 15px; }
+.blank-in { min-width: 100px; }
+.cbt-je .ok, .blank-in.ok { border: 2px solid var(--good); background: var(--good-soft); }
+.cbt-je .ng, .blank-in.ng { border: 2px solid var(--bad); background: var(--bad-soft); }
+.cbt-tool { position: fixed; z-index: 45; right: max(12px, env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); width: min(340px, calc(100vw - 24px)); background: var(--surface); border: 2px solid var(--ink); border-radius: 14px; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); padding: 10px; display: grid; gap: 8px; }
+.cbt-tool.memo { left: max(12px, env(safe-area-inset-left, 0px)); right: auto; }
+.tool-head { display: flex; justify-content: space-between; align-items: center; }
+.cbt-tool textarea { width: 100%; height: 38vh; resize: vertical; font: 14px/1.6 var(--f-pixel); color: var(--ink); background: var(--surface2); border: 1.5px solid var(--line); border-radius: 8px; padding: 8px; }
+.calc-disp { font-family: var(--f-pixel); font-size: 26px; text-align: right; background: var(--surface2); border: 1.5px solid var(--line); border-radius: 8px; padding: 6px 10px; overflow-wrap: anywhere; }
+.calc-keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.calc-keys button { border: 0; border-radius: 8px; padding: 10px 0; font-family: var(--f-pixel); font-size: 18px; background: var(--surface2); box-shadow: 0 2px 0 var(--line); }
+.calc-keys button.op { background: var(--brand-soft); }
+.cbt-head { flex-wrap: nowrap; }
+.cbt-head .exam-timer { margin-left: 0; white-space: nowrap; font-size: 15px; }
+.cbt-title { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 520px) { .cbt-title { display: none; } .cbt-tools { margin-left: auto; flex-wrap: nowrap; } .cbt-tools .btn { padding: 6px 8px; font-size: 12px; } }
