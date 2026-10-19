@@ -35,6 +35,11 @@ const acc = B.accounts;
 
 function checkHtml(where, s) {
   if (typeof s !== 'string') return;
+  for (const m of s.matchAll(/\[\[try:([\s\S]*?)\]\](?![^\[]*\]\])/g)) {
+    const body = m[1];
+    if (body.split('|').length < 3) err(where, `try needs "問い | 選択肢 | 解説": ${body.slice(0, 40)}`);
+    else { const a = body.indexOf('|'), b = body.lastIndexOf('|'); const opts = body.slice(a + 1, b).split(';'); if (opts.filter((o) => o.trim().startsWith('*')).length !== 1) err(where, `try needs exactly one *answer: ${body.slice(0, 40)}`); }
+  }
   for (const tag of ['div', 'table', 'tr', 'ul', 'ol', 'b', 'em', 'span', 'p']) {
     const open = (s.match(new RegExp(`<${tag}(\\s|>)`, 'g')) || []).length;
     const close = (s.match(new RegExp(`</${tag}>`, 'g')) || []).length;
@@ -51,6 +56,37 @@ function checkHtml(where, s) {
     }, 0);
     const ds = sum(d), cs = sum(c);
     if (ds && cs && ds !== cs) err(where, `je shortcode unbalanced ${ds} vs ${cs}: ${m[0].slice(0, 80)}`);
+  }
+}
+
+function checkViz(where, viz) {
+  if (!viz) return;
+  for (const [k, v] of [].concat(viz).entries()) {
+    const w = `${where}.viz${k}`;
+    const steps = v.steps || [];
+    if (v.type === 'bs') {
+      if (!steps.length) err(w, 'bs needs steps');
+      steps.forEach((s, i) => {
+        const sum = (g) => (s[g] || []).reduce((t, r) => t + r[1], 0);
+        for (const g of ['資産', '負債', '純資産', '収益', '費用']) (s[g] || []).forEach((r) => { if (!acc[r[0]]) warn(w, `unknown account "${r[0]}"`); if (typeof r[1] !== 'number') err(w, `step${i} ${g} amount must be number`); });
+        const L = sum('資産'), R = sum('負債') + sum('純資産') + sum('収益') - sum('費用');
+        if (L !== R) err(w, `step${i} unbalanced: 資産 ${L} vs 負債+純資産+収益-費用 ${R}`);
+        if (!s.t) err(w, `step${i} needs t`);
+        checkHtml(`${w}.step${i}`, s.t);
+      });
+    } else if (v.type === 'flow') {
+      if (!Array.isArray(v.boxes) || v.boxes.length < 2) err(w, 'flow needs boxes');
+      steps.forEach((s, i) => { Object.keys(s.vals || {}).forEach((b) => { if (!v.boxes.includes(b)) err(w, `step${i} vals key "${b}" not in boxes`); }); if (s.move && (!v.boxes.includes(s.move[0]) || !v.boxes.includes(s.move[1]))) err(w, `step${i} move not in boxes`); if (!s.t) err(w, `step${i} needs t`); });
+    } else if (v.type === 'timeline') {
+      const n = (v.units || []).length;
+      if (!n) err(w, 'timeline needs units');
+      steps.forEach((s, i) => { (s.spans || []).forEach((sp) => { if (!(sp.from >= 0 && sp.to <= n && sp.from < sp.to)) err(w, `step${i} span out of range`); }); (s.marks || []).forEach((m) => { if (!(m.at >= 0 && m.at <= n)) err(w, `step${i} mark out of range`); }); if (!s.t) err(w, `step${i} needs t`); });
+    } else if (v.type === 'bars') {
+      const n = (v.labels || []).length;
+      if (!n) err(w, 'bars needs labels');
+      (v.series || []).forEach((s) => { if ((s.vals || []).length !== n) err(w, `series "${s.name}" length ${(s.vals || []).length} != labels ${n}`); });
+    } else err(w, `unknown viz type ${v.type}`);
+    if (v.steps) for (const s of v.steps) if (s.je) checkHtml(`${w}.je`, `[[je: ${s.je}]]`);
   }
 }
 
@@ -132,7 +168,7 @@ for (const c of B.chapters) {
   if (!c.scene || !Array.isArray(c.scene.lines) || !c.scene.mission) err(w, 'scene needs lines + mission');
   else c.scene.lines.forEach(([k], i) => { if (!castIds.has(k)) err(`${w}.scene[${i}]`, `unknown speaker ${k}`); });
   if (!Array.isArray(c.lessons) || c.lessons.length < 3) err(w, 'needs >=3 lessons');
-  (c.lessons || []).forEach((l, i) => { if (!l.t || !l.h) err(`${w}.lesson${i}`, 'needs t/h'); checkHtml(`${w}.lesson${i}`, l.h); });
+  (c.lessons || []).forEach((l, i) => { if (!l.t || !l.h) err(`${w}.lesson${i}`, 'needs t/h'); checkHtml(`${w}.lesson${i}`, l.h); checkViz(`${w}.lesson${i}`, l.viz); });
   if (!c.real || !c.real.t || !c.real.h) err(w, 'needs real card');
   else checkHtml(`${w}.real`, c.real.h);
   (c.accounts || []).forEach((a) => { if (!acc[a]) err(w, `unknown pool account "${a}"`); });

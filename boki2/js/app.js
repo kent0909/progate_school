@@ -202,10 +202,140 @@
       if (k === 'je') { const [d, c] = body.split('|'); return jeTable(parseRows(d), parseRows(c)); }
       return tAcc(body, k);
     });
+    // try boxes last, so a [[je]] inside one has already become html
+    out = out.replace(/\[\[try:([\s\S]*?)\]\]/g, (m, body) => tryHTML(body));
     // wrap bare tables so they scroll instead of widening the page
     out = out.replace(/<table(?![^>]*class="je")/g, '<div class="tbl-wrap"><table').replace(/<\/table>(?!<\/div>)/g, '</table></div>');
     return out;
   }
+  /* ================= lesson visuals ================= */
+  // A lesson may carry `viz` (one object or an array). Each renders where the lesson html says [[viz]], or at the end.
+  // Types: bs (balance sheet / P/L boxes stepping through transactions), flow (amounts moving between accounts),
+  // timeline (a period split into parts), bars (values over time). All step with 前へ / 次へ.
+  const VZ = [];
+  const vizSlot = (v) => `<div class="viz viz-${esc(v.type)}" data-viz="${VZ.push(v) - 1}"></div>`;
+  function withViz(html, viz) {
+    if (!viz) return html;
+    const list = [].concat(viz);
+    let n = 0;
+    let out = html.replace(/\[\[viz\]\]/g, () => (n < list.length ? vizSlot(list[n++]) : ''));
+    while (n < list.length) out += vizSlot(list[n++]);
+    return out;
+  }
+  function mountViz(root) {
+    $$('[data-viz]', root).forEach((el) => {
+      if (el.dataset.on) return;
+      el.dataset.on = '1';
+      const v = VZ[+el.dataset.viz];
+      if (v && VIZ[v.type]) VIZ[v.type](el, v);
+    });
+  }
+  function stepper(el, n, render, label) {
+    let i = 0;
+    if (n <= 1) { render(0, 0); return; }
+    el.insertAdjacentHTML('beforeend', `<div class="viz-nav"><button class="btn ghost sm" data-vp aria-label="前の場面">◀ 前へ</button><span class="viz-count num"></span><button class="btn sm" data-vn aria-label="次の場面">次へ ▶</button></div>`);
+    const nav = el.lastElementChild;
+    const go = (k) => {
+      const prev = i; i = Math.max(0, Math.min(n - 1, k));
+      $('.viz-count', nav).textContent = `${label || '場面'} ${i + 1} / ${n}`;
+      $('[data-vp]', nav).disabled = i === 0; $('[data-vn]', nav).disabled = i === n - 1;
+      render(i, prev);
+    };
+    nav.addEventListener('click', (e) => { if (e.target.closest('[data-vp]')) { SFX.tap(); go(i - 1); } else if (e.target.closest('[data-vn]')) { SFX.tap(); go(i + 1); } });
+    go(0);
+  }
+  const vsum = (rows) => (rows || []).reduce((t, r) => t + r[1], 0);
+  const vcap = (s) => `${s.je ? `<div class="viz-je">${rich('[[je: ' + s.je + ']]')}</div>` : ''}<div class="viz-cap">${rich(s.t || '')}</div>`;
+  function segs(rows, cat, scale, prev, H) {
+    return (rows || []).filter((r) => r[1] > 0).map(([name, val]) => {
+      const p = prev ? (prev.find((x) => x[0] === name) || [])[1] : undefined;
+      const cls = p === undefined ? 'new' : p !== val ? 'chg' : '';
+      const h = Math.max(36, (val / scale) * H);
+      return `<div class="seg ${prev ? cls : ''}" style="--ch:${CAT_HUE[cat] || 190};height:${h}px"><span>${esc(name)}</span><b class="num">${fmt(val)}</b></div>`;
+    }).join('');
+  }
+  const VIZ = {
+    bs(el, v) {
+      const H = 210, steps = v.steps, showPL = v.pl !== false;
+      const prof = (s) => vsum(s.収益) - vsum(s.費用);
+      const scaleBS = Math.max(1, ...steps.map((s) => Math.max(vsum(s.資産) + Math.max(0, -prof(s)), vsum(s.負債) + vsum(s.純資産) + Math.max(0, prof(s)))));
+      const scalePL = Math.max(1, ...steps.map((s) => Math.max(vsum(s.費用) + Math.max(0, prof(s)), vsum(s.収益) + Math.max(0, -prof(s)))));
+      el.innerHTML = '<div class="viz-body"></div>';
+      const body = el.firstChild;
+      stepper(el, steps.length, (i, pi) => {
+        const s = steps[i], p = i === pi ? null : steps[pi], pr = prof(s);
+        const pseg = (label, val, cat, scale) => (val > 0 ? `<div class="seg ghost" style="--ch:${CAT_HUE[cat]};height:${Math.max(36, (val / scale) * H)}px"><span>${label}</span><b class="num">${fmt(val)}</b></div>` : '');
+        const pick = (k) => (p ? p[k] || [] : null);
+        const bs = `<div class="sheet"><div class="sheet-t">貸借対照表 <small>持っているもの ／ そのお金の出どころ</small></div><div class="sheet-cols"><div class="col">${segs(s.資産, '資産', scaleBS, pick('資産'), H)}${showPL ? pseg('損失', -pr, '費用', scaleBS) : ''}</div><div class="col">${segs(s.負債, '負債', scaleBS, pick('負債'), H)}${segs(s.純資産, '純資産', scaleBS, pick('純資産'), H)}${showPL ? pseg('もうけ', pr, '純資産', scaleBS) : ''}</div></div><div class="col-labels"><span>資産</span><span>負債 ＋ 純資産</span></div></div>`;
+        const plEmpty = !vsum(s.収益) && !vsum(s.費用);
+        const pl = showPL ? `<div class="sheet"><div class="sheet-t">損益計算書 <small>この期間のもうけの計算</small></div>${plEmpty ? '<div class="sheet-empty">まだ（または決算で締め切って）空っぽ</div>' : ''}<div class="sheet-cols"><div class="col">${segs(s.費用, '費用', scalePL, pick('費用'), H)}${pseg('もうけ', pr, '純資産', scalePL)}</div><div class="col">${segs(s.収益, '収益', scalePL, pick('収益'), H)}${pseg('損失', -pr, '費用', scalePL)}</div></div><div class="col-labels"><span>費用</span><span>収益</span></div></div>` : '';
+        const a = vsum(s.資産), l = vsum(s.負債), e = vsum(s.純資産);
+        const eq = `<div class="viz-eq">資産 <b class="num">${fmt(a)}</b> ＝ 負債 <b class="num">${fmt(l)}</b> ＋ 純資産 <b class="num">${fmt(e)}</b>${showPL && (vsum(s.収益) || vsum(s.費用)) ? ` ＋ もうけ <b class="num">${fmt(pr)}</b>` : ''}</div>`;
+        body.innerHTML = `<div class="sheets">${bs}${pl}</div>${eq}${vcap(s)}`;
+      }, v.label);
+    },
+    flow(el, v) {
+      const steps = v.steps;
+      const vals = []; let cur = {};
+      steps.forEach((s) => { cur = Object.assign({}, cur, s.vals || {}); vals.push(cur); });
+      const mx = Math.max(1, ...vals.flatMap((m) => Object.values(m)));
+      el.innerHTML = '<div class="viz-body"></div>';
+      const body = el.firstChild;
+      stepper(el, steps.length, (i, pi) => {
+        const s = steps[i], m = vals[i], pm = i === pi ? {} : vals[pi];
+        const mv = s.move || [];
+        const boxes = v.boxes.map((b, k) => {
+          const val = m[b] || 0, d = val - (pm[b] || 0);
+          const arrow = k < v.boxes.length - 1 ? `<div class="flow-arrow ${mv[0] === b && mv[1] === v.boxes[k + 1] ? 'on' : ''}">${mv[0] === b && mv[1] === v.boxes[k + 1] ? `<b class="num">${fmt(mv[2])}</b>` : ''}→</div>` : '';
+          const hue = CAT_HUE[(B.accounts[b] || {}).cat] || 190;
+          return `<div class="flow-box ${d ? 'chg' : ''}" style="--ch:${hue}"><span>${esc(b)}</span><b class="num">${fmt(val)}</b><i style="height:${(val / mx) * 100}%"></i>${d ? `<em class="num">${d > 0 ? '+' : '−'}${fmt(Math.abs(d))}</em>` : ''}</div>${arrow}`;
+        }).join('');
+        body.innerHTML = `<div class="flow-row">${boxes}</div>${vcap(s)}`;
+      }, v.label);
+    },
+    timeline(el, v) {
+      const n = v.units.length;
+      el.innerHTML = '<div class="viz-body"></div>';
+      const body = el.firstChild;
+      stepper(el, v.steps.length, (i) => {
+        const s = v.steps[i];
+        const spans = (s.spans || []).map((sp) => `<div class="tl-span" style="--ch:${CAT_HUE[sp.cat] || 190};left:${(sp.from / n) * 100}%;width:${((sp.to - sp.from) / n) * 100}%"><span>${esc(sp.label)}</span></div>`).join('');
+        const marks = (s.marks || []).map((mk) => `<div class="tl-mark" style="left:${(mk.at / n) * 100}%"><span>${esc(mk.label)}</span></div>`).join('');
+        body.innerHTML = `<div class="tl"><div class="tl-units">${v.units.map((u) => `<span>${esc(u)}</span>`).join('')}</div><div class="tl-track">${spans}${marks}</div></div>${vcap(s)}`;
+      }, v.label);
+    },
+    bars(el, v) {
+      const n = v.labels.length;
+      const mx = Math.max(1, ...v.labels.map((_, k) => v.series.reduce((t, s) => t + (s.vals[k] || 0), 0)));
+      el.innerHTML = '<div class="viz-body"></div>';
+      const body = el.firstChild;
+      stepper(el, n, (i) => {
+        const cols = v.labels.map((lb, k) => `<div class="bar-col ${k > i ? 'later' : ''} ${k === i ? 'now' : ''}"><div class="bar-stack">${v.series.map((s) => (s.vals[k] ? `<div class="bar-seg" style="--ch:${CAT_HUE[s.cat] || 190};height:${(s.vals[k] / mx) * 170}px"><b class="num">${fmt(s.vals[k])}</b></div>` : '')).join('')}</div><span>${esc(lb)}</span></div>`).join('');
+        const legend = v.series.map((s) => `<span><i style="background:hsl(${CAT_HUE[s.cat] || 190} 55% 55%)"></i>${esc(s.name)}</span>`).join('');
+        body.innerHTML = `<div class="bars-legend">${legend}</div><div class="bars">${cols}</div>${vcap({ t: (v.notes || [])[i] || '', je: (v.jes || [])[i] })}`;
+      }, v.label || '時点');
+    },
+  };
+  // [[try: 問い | 選択肢 ; *正解 ; 選択肢 | 解説]] — predict before reading on
+  function tryHTML(body) {
+    const a = body.indexOf('|'), b = body.lastIndexOf('|');
+    const q = body.slice(0, a).trim(), opts = body.slice(a + 1, b).split(';').map((x) => x.trim()).filter(Boolean), ex = body.slice(b + 1).trim();
+    return `<div class="try"><div class="try-q">考えてみよう：${q}</div><div class="try-opts">${opts.map((o) => `<button type="button" data-try="${o.startsWith('*') ? 1 : 0}">${o.replace(/^\*/, '')}</button>`).join('')}</div><div class="try-a" hidden>${ex}</div></div>`;
+  }
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-try]');
+    if (!b) return;
+    const box = b.closest('.try');
+    if (box.dataset.done) return;
+    box.dataset.done = '1';
+    const ok = b.dataset.try === '1';
+    b.classList.add(ok ? 'ok' : 'ng');
+    $$('[data-try="1"]', box).forEach((x) => x.classList.add('ok'));
+    $('.try-a', box).hidden = false;
+    (ok ? SFX.ok : SFX.ng)(0);
+    if (ok) { gainXP(2); floaty('+2 XP', b); }
+  });
+
   const entryTable = (e) => (e === 'none' ? '<p><b>仕訳なし</b></p>' : jeTable(e.dr.map(([a, v]) => ({ label: a, amt: v })), e.cr.map(([a, v]) => ({ label: a, amt: v }))));
 
   /* ================= overlays ================= */
@@ -799,7 +929,8 @@
         const notice = i === 0 && OUT27_CH.has(c.id) ? `<div class="warn notice" style="margin:0 0 12px">${c.id === 'c11' ? '日商の発表では、2027年度（2027年4月〜）の試験から手形は出題範囲外になる見込み' : '日商の発表では、2027年度（2027年4月〜）の試験からリースの処理が新しい会計基準に合わせて変わる見込み'}です（公式の区分表で要確認）。${examYear() >= 2027 ? 'キミの受験は2027年度なので、この章は参考として読んでね。模試からは外してあるよ。' : '2026年度（〜2027年3月）の試験は、このまま出題範囲だよ。'}</div>` : '';
         const k = `${cid}:${i}`;
         if (!S.read[k]) { S.read[k] = 1; gainXP(3); save(); }
-        main.innerHTML = `${top(10 + (i / c.lessons.length) * 30, `レッスン ${i + 1}/${c.lessons.length}`)}${notice}<div class="card lesson stack" style="gap:6px"><div class="eyebrow">LESSON ${i + 1}</div><h2>${esc(L.t)}</h2><div class="rich">${rich(L.h)}</div></div><div class="row" style="margin-top:14px">${i > 0 ? '<button class="btn ghost" data-prev>もどる</button>' : ''}${i < c.lessons.length - 1 ? '<button class="btn" data-nx>つぎへ</button>' : '<button class="btn gold" data-go-quiz>クイズに挑戦！</button>'}</div>`;
+        main.innerHTML = `${top(10 + (i / c.lessons.length) * 30, `レッスン ${i + 1}/${c.lessons.length}`)}${notice}<div class="card lesson stack" style="gap:6px"><div class="eyebrow">LESSON ${i + 1}</div><h2>${esc(L.t)}</h2><div class="rich">${withViz(rich(L.h), L.viz)}</div></div><div class="row" style="margin-top:14px">${i > 0 ? '<button class="btn ghost" data-prev>もどる</button>' : ''}${i < c.lessons.length - 1 ? '<button class="btn" data-nx>つぎへ</button>' : '<button class="btn gold" data-go-quiz>クイズに挑戦！</button>'}</div>`;
+        mountViz(main);
         window.scrollTo(0, 0);
       };
       draw();
