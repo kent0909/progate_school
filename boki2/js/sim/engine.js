@@ -30,6 +30,8 @@
   // 5つのグループの呼び方。名前を教わる前は、プロローグの棚の言葉で言う
   const PLAIN = { 資産: 'もっているもの', 負債: '返すお金', 純資産: '返さないお金', 収益: 'じぶんのお金を増やした原因', 費用: 'じぶんのお金をへらした原因' };
   const gw = (c) => (knows(c) ? c : PLAIN[c] || c);
+  // 名前カードなどでは、用語にふりがなをつける
+  const rb = (t) => LX.ruby(esc(t));
 
   /* ---------- ledgers ---------- */
   function balances(entries) {
@@ -288,10 +290,13 @@
       } else if (s.k === 'note') {
         const all = s.lines.flatMap((l, li) => l.cards.map((c, ci) => ({ ...c, key: `${li}-${ci}`, li })));
         ready = all.every((c) => sub[c.key]);
-        body = `<table class="s-note"><tr><th></th><th>左の列</th><th>右の列</th></tr>${s.lines.map((l, li) => { const cs = all.filter((c) => c.li === li); const put = (side) => cs.filter((c) => sub[c.key] === side).map((c) => `${esc(c.label)} ${fmt(amt(c.amt))}`).join('<br>'); return `<tr><td>${esc(l.title)}</td><td>${put('L')}</td><td>${put('R')}</td></tr>`; }).join('')}</table>${all.filter((c) => !sub[c.key]).slice(0, 2).map((c) => `<div class="s-sorti"><span>${esc(s.lines[c.li].title)}：${esc(c.label)} ${fmt(amt(c.amt))}</span><div><button class="s-pill" data-note="${c.key}" data-side="L">左の列</button><button class="s-pill" data-note="${c.key}" data-side="R">右の列</button></div></div>`).join('')}`;
+        // その行で新しい困りごとがあるときは、先に問う（マイナスは書かない→へったら反対の列）
+        const curLi = (all.find((c) => !sub[c.key]) || {}).li;
+        const ask = curLi != null && s.lines[curLi].ask && !sub['ask' + curLi] ? s.lines[curLi].ask : null;
+        body = `<table class="s-note"><tr><th></th><th>左の列</th><th>右の列</th></tr>${s.lines.map((l, li) => { const cs = all.filter((c) => c.li === li); const put = (side) => cs.filter((c) => sub[c.key] === side).map((c) => `${esc(c.label)} ${fmt(amt(c.amt))}`).join('<br>'); return `<tr><td>${esc(l.title)}</td><td>${put('L')}</td><td>${put('R')}</td></tr>`; }).join('')}</table>${sub.askOk ? `<p class="s-react">${esc(sub.askOk)}</p>` : ''}${ask ? `${talk(ask.say)}<div class="s-opts">${ask.opts.map((o, k) => `<button class="s-opt" data-ask="${curLi}-${k}"><b>${esc(o.t)}</b></button>`).join('')}</div>` : all.filter((c) => !sub[c.key]).slice(0, 2).map((c) => `<div class="s-sorti"><span>${esc(s.lines[c.li].title)}：${esc(c.label)} ${fmt(amt(c.amt))}</span><div><button class="s-pill" data-note="${c.key}" data-side="L">左の列</button><button class="s-pill" data-note="${c.key}" data-side="R">右の列</button></div></div>`).join('')}${ready && s.showShelf ? shelf(true) : ''}`;
       } else if (s.k === 'card') {
         ready = true;
-        body = `<div class="s-name"><small>この書き方の名前</small><h2>${esc(s.name)}</h2><p>${esc(s.line)}</p><p class="s-leaf">マップに「${esc(s.leaf.label)}」が加わった</p></div>`;
+        body = `<div class="s-name"><small>この書き方の名前</small><h2>${rb(s.name)}</h2><p>${rb(s.line)}</p><p class="s-leaf">マップに「${esc(s.leaf.label)}」が加わった</p></div>`;
       }
       const after = ready && s.after ? talk(s.after) : '';
       frame(`<div class="s-card">${talk(s.say)}${s.q && !(ready && s.k !== 'card') ? `<p class="s-q">${esc(s.q)}</p>` : ''}${body}${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}${after}${ready ? '<button class="btn wide" data-step>つぎへ</button>' : ''}${i > 0 ? '<button class="btn ghost sm" data-back>← もどる</button>' : ''}</div>`);
@@ -306,6 +311,11 @@
         sub[t.id] = b.dataset.to; st[t.ok].push({ id: t.id, label: t.label, amt: amt(t.amt) }); if (t.coin) coin(amt(t.coin)); msg = ''; draw(); return;
       }
       if (g('[data-pick]')) { const o = s.opts.find((x) => x.id === g('[data-pick]').dataset.pick); sub.pick = o.id; sale = o.sale; if (!isReplay) S.decisions.price = o.id; msg = ''; draw(); return; }
+      if (g('[data-ask]')) {
+        const [li, k] = g('[data-ask]').dataset.ask.split('-').map(Number), o = s.lines[li].ask.opts[k];
+        if (!o.ok) { msg = o.react; draw(); return; }
+        sub['ask' + li] = true; sub.askOk = o.react; msg = ''; draw(); return;
+      }
       if (g('[data-note]')) {
         const b = g('[data-note]'), [li, ci] = b.dataset.note.split('-').map(Number), c = s.lines[li].cards[ci];
         if (b.dataset.side !== c.side) { msg = s.react[c.kind]; draw(); return; }
@@ -325,14 +335,15 @@
   /* ---- 書類を帳簿に書く ---- */
   function autoRule(ev) {
     if (ev.trapFor && S.rules[ev.trapFor] && S.rules[ev.trapFor].broad) return { trap: true, cond: S.rules[ev.trapFor].cond };
-    return S.rules[ev.kind] ? { cond: S.rules[ev.kind].cond } : null;
+    // 大口の注文など、manual の書類は自動にしない
+    return S.rules[ev.kind] && !ev.manual ? { cond: S.rules[ev.kind].cond } : null;
   }
   // まだ教わっていない科目が答えに出てくるときは、先に小さな問いで見つける
   function namingScreen(acc, cont) {
     const N = D.namings[acc];
     if (!N) { teach([acc]); return cont(); }
     let msg = '', solved = false;
-    const draw = () => frame(`<div class="s-card"><small>新しい札</small><p class="s-q">${esc(N.q)}</p>${solved ? `<div class="s-name"><h2>${esc(acc)}</h2><p>${esc(N.line)}</p></div><button class="btn wide" data-n>帳簿に書く</button>` : `<div class="s-opts">${N.opts.map((o, i) => `<button class="s-opt" data-o="${i}"><b>${esc(o.t)}</b></button>`).join('')}</div>${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`}</div>`);
+    const draw = () => frame(`<div class="s-card"><small>新しい札</small><p class="s-q">${esc(N.q)}</p>${solved ? `<div class="s-name"><h2>${rb(acc)}</h2><p>${rb(N.line)}</p></div><button class="btn wide" data-n>帳簿に書く</button>` : `<div class="s-opts">${N.opts.map((o, i) => `<button class="s-opt" data-o="${i}"><b>${esc(o.t)}</b></button>`).join('')}</div>${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`}</div>`);
     draw();
     app.onclick = (e) => {
       const b = e.target.closest('[data-o]');
@@ -340,7 +351,25 @@
       if (e.target.closest('[data-n]')) cont();
     };
   }
+  // はじめての「動き」（負債がへる・権利がお金に変わる・2行で書く など）は、書く前に小さな問いで確かめる
+  function introScreen(kind, cont) {
+    const N = D.kindIntro[kind];
+    let msg = '', solved = false;
+    const draw = () => frame(`<div class="s-card"><small>はじめての書類</small><p class="s-q">${esc(N.q)}</p>${solved ? `<p class="s-react">${rb(N.line)}</p><button class="btn wide" data-n>帳簿に書く</button>` : `<div class="s-opts">${N.opts.map((o, i) => `<button class="s-opt" data-o="${i}"><b>${esc(o.t)}</b></button>`).join('')}</div>${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`}</div>`);
+    draw();
+    app.onclick = (e) => {
+      const b = e.target.closest('[data-o]');
+      if (b) { const o = N.opts[+b.dataset.o]; if (o.ok) { solved = true; (S.introSeen = S.introSeen || {})[kind] = true; save(); } else msg = o.react; draw(); return; }
+      if (e.target.closest('[data-n]')) cont();
+    };
+  }
+  // これまでに教わった札の一覧（記帳画面から開ける）
+  function cardList() {
+    const accs = S.taught.filter((w) => B.accounts[w]).sort((a, b) => order(a) - order(b));
+    return `<h3>札の一覧</h3><p class="muted" style="font-size:13px;margin:0">これまでに見つけた札。どの棚の札かと、ひとこと。</p><table class="s-tb">${accs.map((a) => `<tr><td>${rb(a)}</td><td>${esc(CONTRA.has(a) ? 'マイナスの札' : cat(a))}</td><td>${esc((B.accounts[a] || {}).d || '')}</td></tr>`).join('')}</table>`;
+  }
   function docScreen(ev, fixMode) {
+    if (!fixMode && D.kindIntro[ev.kind] && !(S.introSeen || {})[ev.kind]) return introScreen(ev.kind, () => docScreen(ev, fixMode));
     if (!fixMode && autoRule(ev)) return autoScreen();
     const truth = val(ev.ans, S);
     const need = [...truth.dr, ...truth.cr].map(([a]) => a).find((a) => !knows(a));
@@ -352,7 +381,7 @@
       return;
     }
     // 慣れるまでは、書いたその場で結果が返る。慣れたら、月末の見直しで確かめる
-    const coach = !fixMode && !mastered(ev.kind);
+    const coach = fixMode || !mastered(ev.kind);
     const opts = [...new Set([...(ev.opts || []), ...truth.dr.map((x) => x[0]), ...truth.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
     const prev = fixMode ? S.L.find((x) => x.id === ev.id + '@' + S.mi) : null;
     const rows = { dr: prev ? prev.dr.map(([a, v]) => ({ a, v })) : [{ a: '', v: '' }], cr: prev ? prev.cr.map(([a, v]) => ({ a, v })) : [{ a: '', v: '' }] };
@@ -367,7 +396,7 @@
       $('.s-panel', app).innerHTML = panel;
       $('.s-actions', app).hidden = !!panel;
     };
-    frame(`<div class="s-card">${fixMode ? '<p class="s-fix">森さん「この書類、もう一度見てみよう」</p>' : ''}<p class="s-ask">この書類の出来事を、帳簿に書こう。金額は、書類の数字をタップしても入る。</p>${docHTML(ev.doc, true)}<div class="s-entry"></div><div class="s-hint" hidden></div><div class="s-panel"></div><div class="s-actions"><button class="btn ghost" data-hint>ヒント</button><button class="btn" data-ok>帳簿に書く</button></div></div>`);
+    frame(`<div class="s-card">${fixMode ? '<p class="s-fix">森さん「この書類、もう一度見てみよう」</p>' : ''}<p class="s-ask">この書類の出来事を、帳簿に書こう。金額は、書類の数字をタップしても入る。</p>${docHTML(ev.doc, true)}<div class="s-entry"></div><div class="s-hint" hidden></div><div class="s-panel"></div><div class="s-actions"><button class="btn ghost" data-hint>ヒント</button><button class="btn" data-ok>帳簿に書く</button></div><button class="link" data-cards>札の一覧を見る</button></div>`);
     draw();
     app.oninput = (e) => {
       const x = e.target.closest('[data-s]');
@@ -397,12 +426,13 @@
       const add = e.target.closest('[data-add]');
       if (add) { rows[add.dataset.add].push({ a: '', v: '' }); draw(); return; }
       if (e.target.closest('[data-hint]')) return hint();
+      if (e.target.closest('[data-cards]')) { overlay(cardList()); return; }
       if (e.target.closest('[data-redo]')) { panel = ''; draw(); return; }
       if (e.target.closest('[data-n]')) { next(); return; }
       if (e.target.closest('[data-ok]')) {
         const entry = { dr: rows.dr.filter((r) => r.a && Number(r.v)).map((r) => [r.a, Number(r.v)]), cr: rows.cr.filter((r) => r.a && Number(r.v)).map((r) => [r.a, Number(r.v)]) };
         const d = entry.dr.reduce((t, x) => t + x[1], 0), c = entry.cr.reduce((t, x) => t + x[1], 0);
-        if (!entry.dr.length || !entry.cr.length || d !== c) { const bl = $('.s-bal', app); bl.classList.add('shake'); setTimeout(() => bl.classList.remove('shake'), 400); return; }
+        if (!entry.dr.length || !entry.cr.length || d !== c) { const bl = $('.s-bal', app); bl.textContent = !entry.dr.length || !entry.cr.length ? '左と右の両方に、札と金額を入れよう' : '左と右を同じ数にしてから書こう'; bl.classList.add('shake'); setTimeout(() => bl.classList.remove('shake'), 400); return; }
         const ok = sameEntry(entry, truth);
         tries++;
         if (!fixMode && tries === 1) { S.docLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi, ok }); S.metrics.docs.n++; if (ok) { S.metrics.docs.first++; if (ev.kind) (S.kinds[ev.kind] = S.kinds[ev.kind] || []).push(S.mi); } }
@@ -428,7 +458,7 @@
   // 自動仕訳ルールで書ける書類は、まとめて1画面で見せる
   function autoScreen() {
     const evs = events(), done = [];
-    while (S.ei < evs.length && evs[S.ei].t === 'doc' && autoRule(evs[S.ei])) {
+    while (S.ei < evs.length && evs[S.ei].t === 'doc' && autoRule(evs[S.ei]) && !(D.kindIntro[evs[S.ei].kind] && !(S.introSeen || {})[evs[S.ei].kind])) {
       const x = evs[S.ei], r = autoRule(x);
       const entry = r.trap ? x.trapEntry : val(x.ans, S);
       if (r.trap) S.trapHit = true;
@@ -463,7 +493,7 @@
           field = `${b2.token ? `<div class="s-token ${picked ? 'placed' : ''}">${esc(b2.token)}</div>` : ''}<div class="s-targets ${b2.layout}">${b2.targets.map((g) => `<button class="s-target ${picked === g.id ? 'on' : ''}" data-pick="${g.id}"><b>${esc(g.label)}</b>${g.sub ? `<small>${esc(g.sub)}</small>` : ''}</button>`).join('')}</div>`;
         }
         const placed = b2.layout === 'sort' ? b2.tokens.every((t) => sorted[t.id]) : !!picked;
-        body = `${ev.b1.doc ? `<details class="s-redoc"><summary>書類をもう一度見る</summary>${docHTML(ev.b1.doc)}</details>` : ''}<p class="s-q">${esc(b2.q)}</p>${field}${placed ? `<p class="s-q small">どうしてそう思った？</p><div class="s-reasons">${b2.reasons.map((r, i) => `<button class="s-reason ${reason === i ? 'on' : ''}" data-reason="${i}">${esc(r.t)}</button>`).join('')}</div>` : ''}<div class="s-hint" ${hintLv ? '' : 'hidden'}>${(b2.hints || []).slice(0, hintLv).map((h) => `<p>${esc(h)}</p>`).join('')}</div><button class="btn wide" data-decide ${placed && reason !== null ? '' : 'disabled'}>これで決める</button><div class="s-actions"><button class="btn ghost sm" data-b="1">← もどる</button>${(b2.hints || []).length > hintLv ? '<button class="btn ghost sm" data-hint>ヒント</button>' : ''}</div>`;
+        body = `${ev.b1.doc ? `<details class="s-redoc"><summary>書類をもう一度見る</summary>${docHTML(ev.b1.doc)}</details>` : ''}<p class="s-q">${esc(b2.q)}</p>${field}${placed ? `${talk([['piyo', 'どうしてそう思ったピヨ？']])}<div class="s-reasons">${b2.reasons.map((r, i) => `<button class="s-reason ${reason === i ? 'on' : ''}" data-reason="${i}">${esc(r.t)}</button>`).join('')}</div>` : ''}<div class="s-hint" ${hintLv ? '' : 'hidden'}>${(b2.hints || []).slice(0, hintLv).map((h) => `<p>${esc(h)}</p>`).join('')}</div><button class="btn wide" data-decide ${placed && reason !== null ? '' : 'disabled'}>これで決める</button><div class="s-actions"><button class="btn ghost sm" data-b="1">← もどる</button>${(b2.hints || []).length > hintLv ? '<button class="btn ghost sm" data-hint>ヒント</button>' : ''}</div>`;
       } else if (beat === 3) {
         const b2 = ev.b2;
         const tgtOk = b2.layout === 'sort' ? b2.tokens.every((t) => sorted[t.id] === t.target) : b2.targets.find((g) => g.id === picked).ok;
@@ -477,7 +507,7 @@
         }
       } else {
         const b4 = ev.b4;
-        body = `<div class="s-name"><small>この考え方の名前</small><h2>${esc(b4.name)}</h2><p>${esc(b4.line)}</p><p class="s-exam">本試験では、こんな文章で出る：${esc(b4.exam)}</p><p class="s-leaf">マップに「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
+        body = `<div class="s-name"><small>この考え方の名前</small><h2>${rb(b4.name)}</h2><p>${rb(b4.line)}</p><details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc(b4.exam)}</details><p class="s-leaf">マップに「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
       }
       // 手帳（説明）は名前がついてから読める。考えている途中で答えを見せない
       frame(`<div class="s-card s-disc"><div class="s-disc-head"><h3>${esc(ev.title)}</h3></div>${body}</div>`);
@@ -536,7 +566,7 @@
   function ruleOffer() {
     for (const [k, list] of Object.entries(S.kinds)) {
       if (S.rules[k] || !D.rules[k] || (S.declined || []).includes(k + '@' + S.mi)) continue;
-      if (list.length >= 3 && mastered(k)) return k;
+      if (mastered(k)) return k;
     }
     return null;
   }
@@ -544,13 +574,13 @@
     const R = D.rules[k];
     if (!S.ruleIntro) {
       S.ruleIntro = true; teach(['自動仕訳']);
-      frame(`<div class="s-card">${talk([['senpai', '毎月来る書類は、書き方がいつも同じだね。パソコンに「この条件のときは、こう書く」と覚えさせると、自動で帳簿に書いてくれる。これを「自動仕訳」というんだ。'], ['senpai', 'ただし、条件の決め方には気をつけて。広すぎると、ちがう書類まで同じように書いてしまう。']])}<button class="btn wide" data-n>やってみる</button></div>`);
+      frame(`<div class="s-card">${talk([['piyo', 'また同じ書き方の書類ピヨ…。毎回同じなら、パソコンに覚えさせられないピヨ？'], ['senpai', 'いいところに気づいたね。「この条件のときは、こう書く」と覚えさせると、自動で帳簿に書いてくれる。これを「自動仕訳」というんだ。'], ['senpai', 'ただし、条件の決め方には気をつけて。広すぎると、ちがう書類まで同じように書いてしまう。']])}<button class="btn wide" data-n>やってみる</button></div>`);
       app.onclick = (e) => { if (e.target.closest('[data-n]')) ruleScreen(k); };
       return;
     }
     let msg = '';
     const ent = `借方 ${R.entry[0].join('・')} ／ 貸方 ${R.entry[1].join('・')}`;
-    const draw = () => frame(`<div class="s-card"><small>自動仕訳</small><h3>「${esc(R.label)}」は、もう3回正しく書けた</h3><p>どんな条件のとき、自動で「${esc(ent)}」と書かせる？</p><div class="s-opts">${R.conds.map((c, i) => `<button class="s-opt" data-cond="${i}"><b>${esc(c.t)}</b></button>`).join('')}</div>${msg}<button class="link" data-skip>今は登録しない</button></div>`);
+    const draw = () => frame(`<div class="s-card"><small>自動仕訳</small><h3>「${esc(R.label)}」の書類には、もう慣れた</h3><p>どんな条件のとき、自動で「${esc(ent)}」と書かせる？</p><div class="s-opts">${R.conds.map((c, i) => `<button class="s-opt" data-cond="${i}"><b>${esc(c.t)}</b></button>`).join('')}</div>${msg}<button class="link" data-skip>今は登録しない</button></div>`);
     draw();
     app.onclick = (e) => {
       if (e.target.closest('[data-skip]')) { (S.declined = S.declined || []).push(k + '@' + S.mi); save(); render(); return; }

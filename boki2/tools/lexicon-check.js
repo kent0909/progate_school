@@ -35,6 +35,20 @@ function leak(where, targets, reasons) {
   if (okR.length && ngR.length) { const mx = Math.max(...ngR.map((r) => r.t.length)); okR.forEach((r) => { if (r.t.length > mx * 1.6) errors.push(`${where}：正解の理由だけ長い（${r.t.length}字 / ほか最大${mx}字）`); }); }
 }
 const teach = (list) => (list || []).forEach((w) => taught.add(w));
+// 教えた語は、その場の本文（名前カード・台詞）に出ていること
+const shown = (where, list, text) => (list || []).forEach((w) => { if (!String(text).includes(w)) errors.push(`${where}：teaches の「${w}」が本文に出てこない`); });
+// 仕訳の「動き」（資産+ など）。初めての動きは、それより前に発見・プロローグ・はじめての問いで練習していること
+const practiced = new Set(['資産+', '資産-', '負債+', '純資産+', '純資産-']);
+function moves(entry) {
+  const out = [];
+  for (const s of ['dr', 'cr']) for (const [a] of entry[s]) {
+    const c = /累計額|貸倒引当金$/.test(a) ? 'マイナス' : (B.accounts[a] || {}).cat;
+    const up = c === '資産' || c === '費用' ? s === 'dr' : s === 'cr';
+    out.push(`${c}${up ? '+' : '-'}`);
+  }
+  if (entry.dr.length + entry.cr.length > 2) out.push('2行');
+  return out;
+}
 const isAccount = (w) => !!B.accounts[w];
 
 D.months.forEach((m, mi) => {
@@ -45,12 +59,12 @@ D.months.forEach((m, mi) => {
   const evs = m.events;
   for (const e of evs) {
     const w = `${m.label} ${e.id || e.t}`;
-    if (e.t === 'talk') { check(w, talkText(e.lines), e.teaches); len(w, talkText(e.lines)); teach(e.teaches); }
+    if (e.t === 'talk') { check(w, talkText(e.lines), e.teaches); len(w, talkText(e.lines)); shown(w, e.teaches, talkText(e.lines)); teach(e.teaches); }
     if (e.t === 'board') {
       for (const [i, st] of e.steps.entries()) {
         const ww = `${w} 手順${i + 1}`;
         const pre = [talkText(st.say), st.q, ...(st.tokens || []).map((t) => `${t.label} ${t.react || ''}`), ...(st.dests || []).map((d) => d.label), ...(st.opts || []).map((o) => `${o.t} ${o.result || ''}`), ...(st.lines || []).flatMap((l) => [l.title, ...l.cards.map((c) => c.label)]), ...Object.values(st.react || {}), talkText(st.after)].join(' ');
-        if (st.k === 'card') { check(ww, `${st.name} ${st.line}`, st.teaches); len(ww, st.line); teach(st.teaches); } else { check(ww, pre); len(ww, `${talkText(st.say)}${st.q}`); }
+        if (st.k === 'card') { check(ww, `${st.name} ${st.line}`, st.teaches); len(ww, st.line); shown(ww, st.teaches, st.line); teach(st.teaches); } else { check(ww, pre); len(ww, `${talkText(st.say)}${st.q}`); }
       }
       check(`${w} つづき`, talkText(e.next));
     }
@@ -63,12 +77,15 @@ D.months.forEach((m, mi) => {
       check(`${w} 問い`, [b2.q, b2.token, b2.wrongReact, ...(b2.tokens || []).map((t) => t.label), ...b2.targets.map((t) => `${t.label} ${t.sub || ''} ${t.react || ''}`), ...b2.reasons.map((r) => `${r.t} ${r.react || ''}`), ...(b2.hints || [])].join(' '));
       if (!(b2.hints || []).length) errors.push(`${w}：ヒント（hints）がない`);
       leak(w, b2.layout === 'sort' ? [] : b2.targets, b2.reasons);
+      if (b2.layout !== 'sort' && b2.targets.filter((t) => t.ok).length > 1) errors.push(`${w}：正解の選択肢が2つ以上ある（理由と選択が噛み合わなくなる）`);
       check(`${w} 結果`, [e.b3.ok, ...Object.values(e.b3.bs || {}).flat().map((x) => x[0]), ...((e.b3.bars || {}).series || []).map((s) => s.name)].join(' '));
       len(`${w} 結果`, e.b3.ok);
       const tt = e.b4.teaches || [];
       if (!tt.length) errors.push(`${w}：名前カードに teaches がない`);
       check(`${w} 名前`, `${e.b4.name} ${e.b4.line} ${e.b4.rule || ''}`, tt);
       len(`${w} 名前`, e.b4.line);
+      shown(`${w} 名前`, tt, `${e.b4.name} ${e.b4.line}`);
+      (e.moves || []).forEach((mv) => practiced.add(mv));
       teach(tt);
       const exam = LX.unknown(e.b4.exam, taught);
       if (exam.length) notes.push(`${w} 本試験の文言で先に出る語：${exam.join('・')}`);
@@ -77,13 +94,17 @@ D.months.forEach((m, mi) => {
     }
     if (e.t === 'decision') {
       check(w, [e.q, talkText(e.talk), ...e.options.map((o) => `${o.label} ${o.desc} ${o.result || ''}`)].join(' '), e.teaches);
+      shown(w, e.teaches, e.options.map((o) => o.label).join(' '));
       if (e.options.some((o) => !o.result)) errors.push(`${w}：判断の結果（result）がない選択肢がある`);
       teach(e.teaches);
     }
     if (e.t === 'doc') {
       docCheck(w, e.doc);
+      const ki = D.kindIntro[e.kind];
+      if (ki && !practiced.has(ki.move)) { check(`${w} はじめての問い`, [ki.q, ...ki.opts.map((o) => `${o.t} ${o.react || ''}`), ki.line].join(' ')); practiced.add(ki.move); }
       for (const b of branches) {
         const a = val(typeof e.ans === 'function' ? e.ans({ ...fake, decisions: b }) : e.ans);
+        moves(a).forEach((mv) => { if (!practiced.has(mv)) { errors.push(`${w}：はじめての動き「${mv}」を、それまでに練習していない（発見の moves か kindIntro が要る）`); practiced.add(mv); } });
         for (const [acc] of a.dr.concat(a.cr)) {
           if (!before.has(acc)) used.add(acc);
           if (taught.has(acc)) continue;
@@ -91,6 +112,7 @@ D.months.forEach((m, mi) => {
           if (!nm) { errors.push(`${w}：記帳に使う「${acc}」を、それまでに教えていない（名前の札もない）`); taught.add(acc); continue; }
           check(`${w} 名前の札 ${acc}`, [nm.q, ...nm.opts.map((o) => `${o.t} ${o.react || ''}`)].join(' '));
           check(`${w} 名前の札 ${acc}`, nm.line, nm.teaches);
+          shown(`${w} 名前の札`, nm.teaches, nm.line);
           teach(nm.teaches);
         }
       }
