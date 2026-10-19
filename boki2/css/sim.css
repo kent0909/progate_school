@@ -141,3 +141,28 @@
 .s-autoi summary { display: flex; justify-content: space-between; gap: 8px; cursor: pointer; font-size: 14px; }
 .s-autoi summary b { font-family: var(--f-pixel); font-weight: 400; }
 .s-autoi[open] { background: var(--surface2); }
+
+/* map: 原理で見る／試験範囲で見る */
+.s-maptabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--surface2); border-radius: 999px; padding: 3px; }
+.s-maptabs button { border: 0; background: none; border-radius: 999px; padding: 6px; font-weight: 700; font-size: 14px; color: var(--muted); }
+.s-maptabs button.on { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px var(--shadow-c); }
+.s-mapbody { display: flex; flex-direction: column; gap: 10px; }
+.s-mapnote { margin: 0; font-size: 13px; }
+.s-area h4 { margin: 4px 0 6px; font-family: var(--f-display); font-size: 15px; }
+.s-sec { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: 8px; align-items: start; padding: 6px 0; border-top: 1px solid var(--line); }
+.s-secname { font-size: 12px; font-weight: 700; color: var(--muted); padding-top: 2px; }
+.s-cells { display: flex; flex-wrap: wrap; gap: 6px; min-width: 0; }
+.s-cell { text-align: left; border-radius: 8px; padding: 6px 8px; display: flex; flex-direction: column; gap: 1px; font-size: 13px; line-height: 1.4; min-width: 0; max-width: 100%; border: 2px solid var(--line); background: var(--surface); }
+.s-cell small { font-size: 11px; color: var(--muted); }
+.s-cell em { font-style: normal; font-size: 11px; font-weight: 700; color: var(--good); }
+.s-cell.miss em { color: var(--bad); }
+.s-cell i { font-style: normal; font-size: 11px; color: var(--muted); }
+.s-cell .s-p { font-size: 10px; color: hsl(var(--h) 55% var(--wl)); font-weight: 700; }
+.s-cell.fog { width: 22px; height: 22px; padding: 0; border: 2px dashed var(--line); background: none; }
+.s-cell.next { border: 2px dashed var(--gold); background: var(--gold-soft); }
+.s-cell.met { border-color: hsl(var(--h) 50% var(--wmid)); }
+.s-cell.own { border-color: hsl(var(--h) 55% var(--wl)); background: hsl(var(--h) 60% var(--wsoft)); }
+.s-cell.shaky { border-style: dashed; border-color: var(--bad); background: repeating-linear-gradient(135deg, var(--surface), var(--surface) 6px, var(--bad-soft) 6px, var(--bad-soft) 9px); }
+.s-cell.dev { border-style: dotted; opacity: .7; }
+.s-cell.dev.built { border-style: solid; border-color: var(--brand); opacity: 1; }
+.s-devtoggle { font-size: 12px; color: var(--muted); display: flex; gap: 6px; align-items: center; padding-top: 8px; border-top: 1px solid var(--line); }

@@ -19,6 +19,7 @@
 
   /* ---------- state ---------- */
   const fresh = () => ({ v: 1, mi: 0, ei: 0, phase: 'title', L: [], T: [], decisions: {}, rules: {}, kinds: {}, leaves: [], diary: [], trapHit: false,
+    discDone: {}, docLog: [], fixLog: [], closes: [], examLog: [], reportSeen: false,
     metrics: { started: Date.now(), disc: {}, docs: { n: 0, first: 0 }, fixes: 0, hints: 0, hand: 0, autoPosted: 0, quiz: null, forks: {} } });
   let S = fresh();
   try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(fresh(), JSON.parse(raw)); } catch (e) { /* play without saving */ }
@@ -86,7 +87,7 @@
   function header() {
     const b = balances(S.L), p = pl(b);
     const m = month();
-    return `<header class="s-head"><div class="s-month"><small>株式会社ピヨ商店</small><b>${m ? esc(m.label) : ''}</b></div><div class="s-kpi"><small>お金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b></div><div class="s-kpi"><small>今期のもうけ</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div><div class="s-kpi"><small>自動仕訳</small><b>${Object.values(S.rules).length}</b></div><nav class="s-nav"><button data-ov="co">会社</button><button data-ov="map">原理</button><button data-ov="log">日誌</button></nav></header>`;
+    return `<header class="s-head"><div class="s-month"><small>株式会社ピヨ商店</small><b>${m ? esc(m.label) : ''}</b></div><div class="s-kpi"><small>お金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b></div><div class="s-kpi"><small>今期のもうけ</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div><div class="s-kpi"><small>自動仕訳</small><b>${Object.values(S.rules).length}</b></div><nav class="s-nav"><button data-ov="co">会社</button><button data-ov="map">マップ</button><button data-ov="log">日誌</button></nav></header>`;
   }
   let onFocus = null;
   app.addEventListener('focusin', (e) => { const x = e.target.closest('input[data-s]'); if (x && onFocus) onFocus(x); });
@@ -116,11 +117,90 @@
     if (!b) return;
     const k = b.dataset.ov;
     if (k === 'co') overlay(companyView(balances(S.L)));
-    if (k === 'map') overlay(mapView());
+    if (k === 'map') mapOverlay();
     if (k === 'log') overlay(`<h3>経営日誌</h3>${S.diary.length ? `<ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul>` : '<p class="muted">まだ記録はない。</p>'}`);
   });
-  function mapView() {
-    return `<h3>原理マップ</h3><p class="muted" style="margin:0 0 8px;font-size:13px">見つけた言葉は、どの原理から生まれたか。</p><div class="s-map">${Object.entries(D.principles).map(([k, p]) => { const ls = S.leaves.filter((l) => l.p === k); return `<div class="s-node ${ls.length ? 'on' : ''}"><b>${k} ${esc(p.name)}</b><small>${esc(p.q)}</small><div class="s-leaves">${ls.map((l) => `<span>${esc(l.label)}</span>`).join('') || '<em>まだ見つけていない</em>'}</div></div>`; }).join('')}</div>`;
+  function principleView() {
+    return `<p class="muted s-mapnote">見つけた言葉は、どの原理から生まれたか。</p><div class="s-map">${Object.entries(D.principles).map(([k, p]) => { const ls = S.leaves.filter((l) => l.p === k); return `<div class="s-node ${ls.length ? 'on' : ''}"><b>${k} ${esc(p.name)}</b><small>${esc(p.q)}</small><div class="s-leaves">${ls.map((l) => `<span>${esc(l.label)}</span>`).join('') || '<em>まだ見つけていない</em>'}</div></div>`; }).join('')}</div>`;
+  }
+
+  /* ---------- 試験範囲マップ（原理マップのもう一つの並べ方） ----------
+     数や％は出さない。各項目の状態を、会社で起きたことの言葉で示す。
+     未体験の項目は、次に起きる3件だけ困りごとを見せ、それより先は輪郭だけ。名前は体験してから。 */
+  let DEV = /[?&]dev\b/.test(location.search);
+  const allEvents = D.months.flatMap((m, mi) => m.events.map((e) => ({ e, mi })));
+  const monthLabel = (mi) => (D.months[mi] || {}).label || '';
+  function scopeState(it) {
+    const x = it.sim || {}, disc = x.disc || [], docs = x.docs || [], kinds = x.kinds || [];
+    const mets = [];
+    disc.forEach((d) => { if (S.discDone[d] != null) mets.push(S.discDone[d]); });
+    S.L.forEach((l) => { if (docs.includes(l.ev) || kinds.includes(l.kind)) mets.push(l.mi); });
+    if (x.close && S.closes.length) mets.push(S.closes[0].mi);
+    if (x.report && S.reportSeen) mets.push(D.months.length - 2);
+    const met = mets.length ? Math.min(...mets) : null;
+    // 自力で：発見は1回目から理由まで正しく、書類は1回目で正しく、同じ種類は別の月にもう一度正しく（＝自動仕訳ルールの条件）
+    const parts = [];
+    if (disc.length) parts.push(disc.every((d) => S.discDone[d] != null && (S.metrics.disc[d] || {}).first));
+    if (docs.length) { const seen = S.docLog.filter((l) => docs.includes(l.ev)); parts.push(seen.length > 0 && seen.every((l) => l.ok)); }
+    if (kinds.length) parts.push(kinds.some((k) => S.rules[k] || new Set(S.docLog.filter((l) => l.kind === k && l.ok).map((l) => l.mi)).size >= 2));
+    if (x.close) parts.push(S.closes.filter((c) => !c.fixed).length >= 2);
+    let own = met != null && parts.length > 0 && parts.every(Boolean);
+    // 月末に直した取引は「ゆらぎ」。同じ種類を、直した月より後に1回目で正しく記帳できたら戻る
+    const fixes = S.fixLog.filter((f) => docs.includes(f.ev) || kinds.includes(f.kind));
+    const shaky = fixes.some((f) => !S.docLog.some((l) => l.ok && l.mi > f.mi && (l.kind === f.kind || l.ev === f.ev)));
+    if (shaky) own = false;
+    const ex = S.examLog.filter((l) => (it.q || []).includes(l.key));
+    const okT = ex.filter((l) => l.ok).map((l) => l.t);
+    const exam = !ex.length ? null : !ex[ex.length - 1].ok ? 'miss' : okT.length >= 2 && Math.max(...okT) - Math.min(...okT) >= 7 * 864e5 ? 'exam2' : 'exam1';
+    return { met, own, shaky, exam, built: !!(disc.length || docs.length || kinds.length || x.close || x.report) };
+  }
+  function upcoming() {
+    // まだ起きていない項目を、台本で起きる順に
+    const firstMi = (it) => { const x = it.sim || {}; const hit = allEvents.filter(({ e, mi }) => mi >= S.mi && ((x.disc || []).includes(e.id) || (x.docs || []).includes(e.id) || (x.kinds || []).includes(e.kind) || (x.report && e.t === 'report'))); return hit.length ? Math.min(...hit.map((h) => h.mi)) : null; };
+    return B.scope.map((it) => ({ it, st: scopeState(it), at: firstMi(it) })).filter((o) => o.st.met == null && o.at != null).sort((a, b) => a.at - b.at).slice(0, 3).map((o) => o.it.id);
+  }
+  const EXAM_WORD = { exam1: '本試験の文章でも書けた', exam2: '本試験の文章で、日をあけても書けた', miss: '本試験の文章で間違えた' };
+  function scopeView() {
+    const next = upcoming();
+    const cell = (it) => {
+      const st = scopeState(it), principle = D.principles[it.p] ? `${it.p} ${D.principles[it.p].name}` : it.p;
+      if (DEV) return `<button class="s-cell dev ${st.built ? 'built' : ''}" data-scope="${it.id}"><b>${esc(it.name)}</b><small>${it.id}・${it.ch}・${it.p}${st.built ? '' : '・未実装'}${(it.q || []).length ? '・問' + it.q.length : ''}</small></button>`;
+      if (st.met == null && !st.exam) {
+        if (next.includes(it.id)) return `<button class="s-cell next" data-scope="${it.id}"><small>これから起きること</small><span>${esc(it.teaser)}</span></button>`;
+        return '<span class="s-cell fog" aria-hidden="true"></span>';
+      }
+      const word = st.met == null ? 'まだ会社では起きていない' : st.shaky ? '締めで直した。もう一度で定着' : st.own ? '自分で記帳・判断できた' : `${monthLabel(st.met)}に起きた`;
+      return `<button class="s-cell ${st.shaky ? 'shaky' : st.own ? 'own' : 'met'} ${st.exam || ''}" data-scope="${it.id}" style="--h:${PHUE[it.p] || 190}"><b>${esc(it.name)}</b><small>${esc(word)}</small>${st.exam ? `<em>${esc(EXAM_WORD[st.exam])}</em>` : ''}${it.ref ? '<i>2027年度から変更</i>' : ''}<span class="s-p">${esc(principle)}</span></button>`;
+    };
+    const legend = DEV ? '<p class="s-mapnote">開発者表示：全項目の名前・章・原理と、まだゲームにない項目（点線）。数は <code>node boki2/tools/coverage.js</code> で。</p>'
+      : '<p class="muted s-mapnote">日商簿記2級の出題範囲を、区分ごとに並べた地図。会社で起きたことから順に明るくなる。まだ先のことは輪郭だけ。</p>';
+    const devToggle = `<label class="s-devtoggle"><input type="checkbox" data-dev ${DEV ? 'checked' : ''}> 開発者表示（全項目の名前と、まだゲームにない項目が見える）</label>`;
+    return legend + B.scopeAreas.map((a) => `<section class="s-area"><h4>${esc(a.label)}</h4>${a.secs.map((sec) => { const list = B.scope.filter((it) => it.sec === sec); return `<div class="s-sec"><span class="s-secname">${esc(sec)}</span><div class="s-cells">${list.map(cell).join('')}</div></div>`; }).join('')}</section>`).join('') + devToggle;
+  }
+  const PHUE = { P1: 212, P2: 272, P3: 30, P4: 142, P5: 190, P6: 48, P7: 338, P8: 2 };
+  function scopeDetail(id) {
+    const it = B.scope.find((x) => x.id === id), st = scopeState(it);
+    const known = DEV || st.met != null || st.exam;
+    const disc = ((it.sim || {}).disc || []).find((d) => S.discDone[d] != null);
+    const p = D.principles[it.p];
+    return `<h3>${esc(known ? it.name : 'まだ名前のない困りごと')}</h3><p>${esc(it.teaser)}</p>${p ? `<p class="muted">${esc(it.p)} ${esc(p.name)}：${esc(p.q)}</p>` : ''}${st.met != null ? `<p>${esc(monthLabel(st.met))}に会社で起きた。${st.shaky ? '月末の締めで直したので、次に同じ取引が来たときが確かめどき。' : st.own ? '自分で記帳・判断できた。' : ''}</p>` : '<p class="muted">会社ではまだ起きていない。</p>'}${st.exam ? `<p>${esc(EXAM_WORD[st.exam])}。${st.exam === 'exam1' ? '日をあけてもう一度解けたら定着。' : ''}</p>` : ''}${it.ref ? '<p class="muted">2027年度の出題区分の変更で、扱いが変わる論点（いまは参考として扱う）。</p>' : ''}${disc ? `<button class="btn wide ghost" data-replay="${disc}">生まれた場面をもう一度</button>` : ''}`;
+  }
+  let mapTab = 'p';
+  function mapOverlay() {
+    const o = overlay('<div class="s-maptabs"><button data-maptab="p">原理で見る</button><button data-maptab="s">試験範囲で見る</button></div><div class="s-mapbody"></div>');
+    const paint = () => { $$('[data-maptab]', o).forEach((b) => b.classList.toggle('on', b.dataset.maptab === mapTab)); $('.s-mapbody', o).innerHTML = mapTab === 'p' ? principleView() : scopeView(); };
+    paint();
+    o.addEventListener('click', (e) => {
+      const t = e.target.closest('[data-maptab]');
+      if (t) { mapTab = t.dataset.maptab; paint(); return; }
+      if (e.target.closest('[data-dev]')) { DEV = e.target.closest('[data-dev]').checked; paint(); return; }
+      const c = e.target.closest('[data-scope]');
+      if (c) { const d = overlay(scopeDetail(c.dataset.scope)); d.addEventListener('click', (ev) => { const r = ev.target.closest('[data-replay]'); if (r) { d.remove(); o.remove(); replay(r.dataset.replay); } }); }
+    });
+  }
+  function replay(id) {
+    const ev = allEvents.find(({ e }) => e.id === id).e;
+    discoverScreen(ev, true);
   }
 
   /* ---------- screens ---------- */
@@ -224,7 +304,7 @@
         const d = entry.dr.reduce((t, x) => t + x[1], 0), c = entry.cr.reduce((t, x) => t + x[1], 0);
         if (!entry.dr.length || !entry.cr.length || d !== c) { const bl = $('.s-bal', app); bl.classList.add('shake'); setTimeout(() => bl.classList.remove('shake'), 400); return; }
         const ok = post(ev, entry, false);
-        if (!fixMode) { S.metrics.docs.n++; if (ok) S.metrics.docs.first++; if (ok && ev.kind) { (S.kinds[ev.kind] = S.kinds[ev.kind] || []).push(S.mi); } }
+        if (!fixMode) { S.docLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi, ok }); S.metrics.docs.n++; if (ok) S.metrics.docs.first++; if (ok && ev.kind) { (S.kinds[ev.kind] = S.kinds[ev.kind] || []).push(S.mi); } }
         save();
         if (fixMode) closeScreen(); else next();
       }
@@ -232,8 +312,10 @@
   }
 
   /* ---- discover: 4 beats ---- */
-  function discoverScreen(ev) {
-    const m = (S.metrics.disc[ev.id] = S.metrics.disc[ev.id] || { tries: 0, first: null, hand: 0, forks: [] });
+  function discoverScreen(ev, isReplay) {
+    // もう一度見るときは、記録（1回目の正誤・分かれ道）に数えない
+    const m = isReplay ? { tries: 0, first: null, hand: 0, forks: [] } : (S.metrics.disc[ev.id] = S.metrics.disc[ev.id] || { tries: 0, first: null, hand: 0, forks: [] });
+    const metrics = isReplay ? { forks: {}, hand: 0 } : S.metrics;
     let beat = 1, picked = null, sorted = {}, reason = null;
     const steps = ['困りごと', '考える', '結果', '名前'];
     const stepper = () => `<div class="s-steps">${steps.map((s, i) => `<span class="${i + 1 === beat ? 'on' : i + 1 < beat ? 'done' : ''}">${s}</span>`).join('')}</div>`;
@@ -271,7 +353,7 @@
     draw();
     app.onclick = (e) => {
       const g = (s) => e.target.closest(s);
-      if (g('[data-hand]')) { m.hand++; S.metrics.hand++; save(); overlay(`<h3>先輩の手帳</h3><p>${esc(ev.hand)}</p>`); return; }
+      if (g('[data-hand]')) { m.hand++; metrics.hand++; save(); overlay(`<h3>先輩の手帳</h3><p>${esc(ev.hand)}</p>`); return; }
       if (g('[data-b]')) { beat = +g('[data-b]').dataset.b; draw(); return; }
       if (g('[data-pick]')) { picked = g('[data-pick]').dataset.pick; draw(); return; }
       if (g('[data-sort]')) { const x = g('[data-sort]'); sorted[x.dataset.sort] = x.dataset.to; draw(); return; }
@@ -282,12 +364,14 @@
         const r = b2.reasons[reason];
         m.tries++;
         if (m.first === null) m.first = !!(tgtOk && r.ok);
-        if (!r.ok && r.fork) { m.forks.push(r.fork); S.metrics.forks[r.fork] = (S.metrics.forks[r.fork] || 0) + 1; }
-        if (!tgtOk) { const f = b2.layout === 'sort' ? '日付のずれと記録漏れの区別' : (b2.targets.find((x) => x.id === picked).fork || `${ev.id}:${picked}`); m.forks.push(f); S.metrics.forks[f] = (S.metrics.forks[f] || 0) + 1; }
+        if (!r.ok && r.fork) { m.forks.push(r.fork); metrics.forks[r.fork] = (metrics.forks[r.fork] || 0) + 1; }
+        if (!tgtOk) { const f = b2.layout === 'sort' ? '日付のずれと記録漏れの区別' : (b2.targets.find((x) => x.id === picked).fork || `${ev.id}:${picked}`); m.forks.push(f); metrics.forks[f] = (metrics.forks[f] || 0) + 1; }
         save(); beat = 3; draw(); return;
       }
       if (g('[data-retry]')) { beat = 2; picked = null; sorted = {}; reason = null; draw(); return; }
       if (g('[data-done]')) {
+        if (isReplay) { render(); return; }
+        S.discDone[ev.id] = S.mi;
         if (!S.leaves.some((l) => l.label === ev.b4.leaf.label)) S.leaves.push({ p: ev.b4.leaf.p, label: ev.b4.leaf.label, mi: S.mi });
         next();
       }
@@ -339,7 +423,7 @@
       const p = pl(bt);
       const note = p.ni < 0 && (bt['仕入'] || 0) > 0 && !bt['繰越商品'] ? '<p class="muted" style="font-size:13px;margin:0">仕入れた商品は、売れ残りも全部「仕入」（費用）に入れている。売れ残りを資産に戻すのは決算の日だから、それまでは、もうけが小さく見える。</p>' : '';
       frame(`<div class="s-card"><small>${esc(month().label)}の締め</small><h3>試算表が合った</h3>${miniBS(bsFrom(bt))}<p style="margin:0">お金 <b>${fmt(cashOf(bt))}</b>　今期のもうけ <b>${fmt(p.ni)}</b></p>${note}<button class="btn wide" data-next>${S.mi + 1 < D.months.length ? '次の月へ' : 'つぎへ'}</button></div>`);
-      app.onclick = (e) => { if (e.target.closest('[data-next]')) advanceMonth(); };
+      app.onclick = (e) => { if (e.target.closest('[data-next]')) { S.closes.push({ mi: S.mi, fixed: S.fixLog.some((f) => f.mi === S.mi) }); advanceMonth(); } };
       return;
     }
     // which of this month's entries disagree with the documents
@@ -351,6 +435,7 @@
       if (!b) return;
       S.metrics.fixes++;
       const ev = events().find((x) => x.id === b.dataset.fix);
+      S.fixLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi });
       if (ev.trapFor && S.rules[ev.trapFor] && S.rules[ev.trapFor].broad) {
         S.rules[ev.trapFor].broad = false; S.rules[ev.trapFor].cond = D.rules[ev.trapFor].conds.find((c) => c.ok && !c.broad).t;
         S.diary.push({ m: month().label, t: `自動仕訳ルールを修正：${S.rules[ev.trapFor].cond}（チラシ代まで仕入にしていた）` });
@@ -391,6 +476,7 @@
   }
   function reportScreen() {
     const { b } = statements();
+    S.reportSeen = true; save();
     frame(`<div class="s-card"><small>決算</small><h3>1年目の決算書ができた</h3>${companyView(b)}<button class="btn wide" data-n>銀行へ持っていく</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-n]')) { S.diary.push({ m: '3月', t: `決算：もうけ ${fmt(statements().p.ni)}円` }); next(); } };
   }
@@ -415,8 +501,8 @@
   }
   function quizScreen() {
     // 本試験の文言で、体験した論点を測る（処理の層）
-    const pickQ = (cid, n) => { const js = (B.chapters.find((c) => c.id === cid) || { qs: [] }).qs.filter((q) => q.type === 'journal'); return js.slice(0, n); };
-    const qs = [...pickQ('c13', 2), ...pickQ('c16', 2), ...pickQ('c15', 1)];
+    const byKey = Object.fromEntries(B.chapters.flatMap((c) => c.qs.map((q, k) => [`${c.id}:${k}`, q])));
+    const qs = D.quiz.map((k) => byKey[k]);
     let i = 0, score = 0;
     const results = [];
     const draw = () => {
@@ -441,7 +527,8 @@
           for (const s of ['dr', 'cr']) { const sels = $$(`select[data-s="${s}"]`, app), ins = $$(`input[data-s="${s}"]`, app); sels.forEach((x, k) => { const v = Number((ins[k].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[s].push([x.value, v]); }); }
           const ok = [q.ans, ...(q.alt || [])].some((a) => entry.dr.length && entry.cr.length && sameEntry(entry, a));
           if (ok) score++;
-          results.push({ key: q._key || `${i}`, ok });
+          results.push({ key: q._key, ok });
+          S.examLog.push({ key: q._key, ok, t: Date.now() });
           $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '正解' : '不正解。正しくは：'}</p>${ok ? '' : jeTable(q.ans)}`;
           e.target.closest('[data-check]').outerHTML = '<button class="btn wide" data-nextq>つぎへ</button>';
           return;
