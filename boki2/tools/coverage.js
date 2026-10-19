@@ -9,12 +9,12 @@ const fs = require('fs');
 const root = path.join(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const files = [...html.matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]).filter((f) => !f.endsWith('app.js'));
-[...files, 'js/scope.js', 'js/sim/scenario.js'].forEach((f) => require(path.join(root, f)));
+[...files, 'js/scope.js', 'js/sim/lexicon.js', 'js/sim/scenario.js'].forEach((f) => require(path.join(root, f)));
 const B = window.BOKI, D = window.SIMDATA;
 const md = process.argv.includes('--md');
 
 const evs = D.months.flatMap((m) => m.events);
-const discIds = new Set(evs.filter((e) => e.t === 'discover').map((e) => e.id));
+const discIds = new Set(evs.filter((e) => e.t === 'discover' || e.t === 'board').map((e) => e.id));
 const docIds = new Set(evs.filter((e) => e.t === 'doc').map((e) => e.id));
 const kinds = new Set(evs.filter((e) => e.t === 'doc').map((e) => e.kind));
 const qKeys = new Set(B.chapters.flatMap((c) => c.qs.map((_, i) => `${c.id}:${i}`)));
@@ -33,7 +33,6 @@ for (const s of B.scope) {
 }
 for (const c of B.chapters) if (c.id !== 'c47' && !B.scope.some((s) => s.ch === c.id)) errors.push(`章 ${c.id}（${c.title}）がどの項目にも属していない`);
 for (const d of discIds) if (!B.scope.some((s) => ((s.sim || {}).disc || []).includes(d))) errors.push(`発見イベント ${d} がどの項目にも属していない`);
-for (const q of D.quiz || []) if (!B.scope.some((s) => (s.q || []).includes(q))) errors.push(`検定ミニの問題 ${q} がどの項目にも属していない`);
 
 const has = (s) => { const x = s.sim || {}; return !!((x.disc || []).length || (x.docs || []).length || (x.kinds || []).length || x.close || x.report); };
 const lines = [];

@@ -12,13 +12,13 @@
   ];
   B.scope = [
     ...it('仕訳のしくみ', [
-      ['b-je', '仕訳と5つのグループ', 'お金が増えたら、もう一つの面には何を書く？', 'c00', 'P1', { base: true, sim: { disc: ['d-capital', 'd-siire'] } }],
+      ['b-je', '仕訳と5つのグループ', 'お金が増えたら、もう一つの面には何を書く？', 'c00', 'P1', { base: true, sim: { disc: ['prologue', 'd-capital'] } }],
       ['b-tb', '試算表と月次の締め', '1か月分の記帳、どこかで間違えていないか確かめるには？', 'c00', 'P1', { base: true, sim: { close: true } }],
     ]),
     ...it('日々の取引', [
       ['b-credit', '掛け取引（売掛金・買掛金）', '代金をあとで受け取る・払う約束は、どう残す？', 'c00', 'P1', { base: true, sim: { kinds: ['sell_credit', 'buy_credit', 'collect_ar', 'pay_ap'] } }],
       ['b-mibarai', '未払金（商品以外の後払い）', '商品ではないものを後払いで買ったら？', 'c15', 'P1', { base: true, sim: { docs: ['truck', 'flyer', 'pay-truck', 'pay-flyer'] } }],
-      ['b-expense', '給料・広告費などの費用', '働いてもらったお金、チラシの代金はどの箱？', 'c00', 'P2', { base: true, sim: { kinds: ['pay_salary'], docs: ['flyer'] } }],
+      ['b-expense', '給料・広告費などの費用', '働いてもらったお金、チラシの代金はどの箱？', 'c00', 'P2', { base: true, sim: { disc: ['d-sales'], kinds: ['pay_salary', 'cash_sale'], docs: ['flyer'] } }],
       ['b-loan', '借入金と支払利息', 'お金が足りないとき、銀行から借りたら？', 'c00', 'P2', { base: true, sim: { docs: ['loan', 'repay'] } }],
       ['b-accrual', '利益と現金のズレ（発生主義）', 'もうけているのに、お金が足りない？', 'c07', 'P3', { base: true, sim: { disc: ['d-cash'] } }],
     ]),

@@ -166,3 +166,29 @@
 .s-cell.dev { border-style: dotted; opacity: .7; }
 .s-cell.dev.built { border-style: solid; border-color: var(--brand); opacity: 1; }
 .s-devtoggle { font-size: 12px; color: var(--muted); display: flex; gap: 6px; align-items: center; padding-top: 8px; border-top: 1px solid var(--line); }
+
+/* prologue: 棚とノート */
+.s-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+.s-shelf { border: 2px solid hsl(212 50% var(--wmid)); background: hsl(212 70% var(--wsoft)); border-radius: var(--r-sm); padding: 8px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.s-shelf.r { border-color: hsl(272 40% var(--wmid)); background: hsl(272 60% var(--wsoft)); }
+.s-shelf h4 { margin: 0; font-size: 13px; }
+.s-shelf em { font-size: 12px; color: var(--muted); }
+.s-item { display: flex; justify-content: space-between; gap: 6px; background: var(--surface); border-radius: 6px; padding: 3px 8px; font-size: 13px; }
+.s-item b { font-family: var(--f-pixel); font-weight: 400; }
+.s-row2 { border-top: 1px dashed var(--line); padding-top: 4px; display: flex; flex-direction: column; gap: 3px; min-height: 30px; }
+.s-row2 small { font-size: 11px; color: var(--muted); font-weight: 700; }
+.s-sum { margin-top: auto; text-align: right; font-family: var(--f-pixel); border-top: 2px solid var(--ink); padding-top: 2px; }
+.s-tokens { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.s-tokens .s-token { cursor: pointer; }
+.s-note { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface2); }
+.s-note th, .s-note td { border: 1px solid var(--line); padding: 4px 6px; vertical-align: top; }
+.s-note th:nth-child(2) { color: var(--dr); } .s-note th:nth-child(3) { color: var(--cr); }
+/* その場で返る結果 */
+.s-check { border: 2px solid var(--line); border-radius: var(--r-sm); padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+.s-check.good { border-color: var(--good); background: var(--good-soft); }
+.s-check p { margin: 0; }
+.s-check ul { margin: 0; padding-left: 4px; list-style: none; display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+.s-check li.q { color: var(--bad); font-weight: 700; }
+.s-gl { border: 0; background: none; padding: 0; font: inherit; color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
+.s-redoc summary, .s-devlog summary { cursor: pointer; font-size: 13px; color: var(--muted); font-weight: 700; }
+.s-devlog { font-size: 13px; }

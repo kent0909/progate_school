@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // ピヨ商店の台本（js/sim/scenario.js）を、正しい答えだけで1年進めて検算する。
 // ・すべての選択肢の組み合わせで、仕訳の貸借一致・科目の存在・月末の現金がマイナスにならないこと
-// ・資金不足の手当てをしなければ、9月に初めて預金がマイナスになること
+// ・資金不足の手当てをしなければ、資金不足の発見イベントがある月に初めて預金がマイナスになること
 // Usage: node boki2/tools/sim-check.js
 global.window = global;
 const path = require('path');
@@ -39,8 +39,11 @@ function play(dec, { skipCrunch = false } = {}) {
   return { bal, months };
 }
 
-const crunchMonths = play(combos[0], { skipCrunch: true }).months.filter((x) => x.bank < 0).map((x) => x.label);
-if (crunchMonths[0] !== '9月') err(`手当てなしで最初に預金がマイナスになる月が9月でない：${crunchMonths.join('・') || 'なし'}`);
+// 資金不足の発見イベント（d-cash）がある月に、初めて預金がマイナスになること
+const crunchIdx = D.months.findIndex((m) => m.events.some((e) => e.id === 'd-cash'));
+const noAction = play(combos[0], { skipCrunch: true }).months;
+const firstNeg = noAction.findIndex((x) => x.bank < 0);
+if (firstNeg !== crunchIdx) err(`手当てなしで最初に預金がマイナスになる月（${(noAction[firstNeg] || {}).label || 'なし'}）が、資金不足の月（${D.months[crunchIdx].label}）でない`);
 
 for (const c of combos) {
   const { bal, months } = play(c);
@@ -49,12 +52,11 @@ for (const c of combos) {
   if (total !== 0) err(`${JSON.stringify(c)}: 試算表の合計が合わない ${total}`);
 }
 
-// 物語の中の数字と、帳簿の数字の照合
-const base = play(combos[0], { skipCrunch: true }).months;
-const aug = base.find((x) => x.label === '8月');
-console.log('月末の預金・現金（手当てなし）：', base.map((x) => `${x.label} ${x.bank}/${x.cash}`).join('  '));
-const sepTalk = D.months.find((m) => m.m === 9).events[0].b1.talk.map((x) => x[1]).join('');
-if (!sepTalk.includes(`${Math.floor(aug.bank / 10000)}万${(aug.bank % 10000).toLocaleString('ja-JP')}円`)) err(`9月の台詞の預金残高が8月末の預金 ${aug.bank} と合わない`);
+// 物語の中の数字と、帳簿の数字の照合（資金不足の台詞に、前の月末の預金残高が出てくる）
+console.log('月末の預金（手当てなし）：', noAction.map((x) => `${x.label} ${x.bank}`).join('  '));
+const prev = noAction[crunchIdx - 1].bank;
+const talkTxt = D.months[crunchIdx].events.find((e) => e.id === 'd-cash').b1.talk.map((x) => x[1]).join('');
+if (!talkTxt.includes(`${Math.floor(prev / 10000)}万${(prev % 10000).toLocaleString('ja-JP')}円`)) err(`資金不足の台詞の預金残高が、前の月末の預金 ${prev} と合わない`);
 
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log(`OK：${combos.length} 通りの選択で検算した`);

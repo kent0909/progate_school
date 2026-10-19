@@ -1,0 +1,114 @@
+#!/usr/bin/env node
+// 言葉の関所：台本（js/sim/scenario.js）を遊ぶ順に読み、まだ教えていない会計用語が画面に出ていないかを調べる。
+// あわせて、答えの先出し（正解の選択肢だけ補足・説明が長い）と、負荷の約束（1か月の新しい科目2つ・発見2つ・新しい原理1つ・1画面180字）も調べる。
+// 本試験の文言（b4.exam）は例外として、先に出している語を一覧で出すだけにする。
+// Usage: node boki2/tools/lexicon-check.js
+global.window = global;
+const path = require('path');
+const root = path.join(__dirname, '..');
+['js/core.js', 'js/data/accounts.js', 'js/sim/lexicon.js', 'js/sim/scenario.js'].forEach((f) => require(path.join(root, f)));
+const B = window.BOKI, D = window.SIMDATA, LX = B.lex;
+const errors = [], notes = [];
+const taught = new Set();
+const fake = { decisions: {}, T: [], L: [] };
+const val = (x) => (typeof x === 'function' ? x(fake) : x);
+const branches = [{ crunch: 'loan', credit: 'credit', dep: 'straight' }, { crunch: 'discount', credit: 'cash', dep: 'rate' }];
+
+function check(where, text, extra = [], { doc = false } = {}) {
+  if (text == null || text === '') return;
+  const ok = new Set([...taught, ...extra]);
+  let bad = LX.unknown(String(text), ok);
+  if (doc) bad = bad.filter((w) => !(w in LX.docWords));
+  if (bad.length) errors.push(`${where}：まだ教えていない語 ${bad.join('・')} 「${String(text).slice(0, 40)}…」`);
+}
+const len = (where, text, max = 180) => { if (String(text).length > max) errors.push(`${where}：${String(text).length}字（${max}字まで）`); };
+const talkText = (lines) => (lines || []).map((l) => l[1]).join('');
+function docCheck(where, doc) {
+  if (!doc) return;
+  check(`${where} 書類`, [doc.title, doc.type, doc.from, doc.to].join(' '), [], { doc: true });
+  for (const r of val(doc.rows)) check(`${where} 書類`, `${r[0]} ${typeof r[1] === 'string' ? r[1] : ''}`, [], { doc: true });
+}
+function leak(where, targets, reasons) {
+  const oks = (targets || []).filter((t) => t.ok), ngs = (targets || []).filter((t) => !t.ok);
+  if (ngs.length && oks.some((t) => t.sub) && ngs.every((t) => !t.sub)) errors.push(`${where}：正解の選択肢にだけ補足がある`);
+  const okR = (reasons || []).filter((r) => r.ok), ngR = (reasons || []).filter((r) => !r.ok);
+  if (okR.length && ngR.length) { const mx = Math.max(...ngR.map((r) => r.t.length)); okR.forEach((r) => { if (r.t.length > mx * 1.6) errors.push(`${where}：正解の理由だけ長い（${r.t.length}字 / ほか最大${mx}字）`); }); }
+}
+const teach = (list) => (list || []).forEach((w) => taught.add(w));
+const isAccount = (w) => !!B.accounts[w];
+
+D.months.forEach((m, mi) => {
+  const before = new Set(taught);
+  const used = new Set();
+  let discs = 0;
+  const principles = new Set(Object.keys(D.principles).filter(() => false));
+  const evs = m.events;
+  for (const e of evs) {
+    const w = `${m.label} ${e.id || e.t}`;
+    if (e.t === 'talk') { check(w, talkText(e.lines), e.teaches); len(w, talkText(e.lines)); teach(e.teaches); }
+    if (e.t === 'board') {
+      for (const [i, st] of e.steps.entries()) {
+        const ww = `${w} 手順${i + 1}`;
+        const pre = [talkText(st.say), st.q, ...(st.tokens || []).map((t) => `${t.label} ${t.react || ''}`), ...(st.dests || []).map((d) => d.label), ...(st.opts || []).map((o) => `${o.t} ${o.result || ''}`), ...(st.lines || []).flatMap((l) => [l.title, ...l.cards.map((c) => c.label)]), ...Object.values(st.react || {}), talkText(st.after)].join(' ');
+        if (st.k === 'card') { check(ww, `${st.name} ${st.line}`, st.teaches); len(ww, st.line); teach(st.teaches); } else { check(ww, pre); len(ww, `${talkText(st.say)}${st.q}`); }
+      }
+      check(`${w} つづき`, talkText(e.next));
+    }
+    if (e.t === 'discover') {
+      discs++;
+      check(`${w} 困りごと`, talkText(e.b1.talk) + (e.b1.dyn ? branches.map((b) => e.b1.dyn({ ...fake, decisions: b })).join('') : ''));
+      len(`${w} 困りごと`, talkText(e.b1.talk));
+      docCheck(w, e.b1.doc);
+      const b2 = e.b2;
+      check(`${w} 問い`, [b2.q, b2.token, b2.wrongReact, ...(b2.tokens || []).map((t) => t.label), ...b2.targets.map((t) => `${t.label} ${t.sub || ''} ${t.react || ''}`), ...b2.reasons.map((r) => `${r.t} ${r.react || ''}`), ...(b2.hints || [])].join(' '));
+      if (!(b2.hints || []).length) errors.push(`${w}：ヒント（hints）がない`);
+      leak(w, b2.layout === 'sort' ? [] : b2.targets, b2.reasons);
+      check(`${w} 結果`, [e.b3.ok, ...Object.values(e.b3.bs || {}).flat().map((x) => x[0]), ...((e.b3.bars || {}).series || []).map((s) => s.name)].join(' '));
+      len(`${w} 結果`, e.b3.ok);
+      const tt = e.b4.teaches || [];
+      if (!tt.length) errors.push(`${w}：名前カードに teaches がない`);
+      check(`${w} 名前`, `${e.b4.name} ${e.b4.line} ${e.b4.rule || ''}`, tt);
+      len(`${w} 名前`, e.b4.line);
+      teach(tt);
+      const exam = LX.unknown(e.b4.exam, taught);
+      if (exam.length) notes.push(`${w} 本試験の文言で先に出る語：${exam.join('・')}`);
+      check(`${w} 手帳`, e.hand);
+      if (!taught.has(e.p)) principles.add(e.p);
+    }
+    if (e.t === 'decision') {
+      check(w, [e.q, talkText(e.talk), ...e.options.map((o) => `${o.label} ${o.desc} ${o.result || ''}`)].join(' '), e.teaches);
+      if (e.options.some((o) => !o.result)) errors.push(`${w}：判断の結果（result）がない選択肢がある`);
+      teach(e.teaches);
+    }
+    if (e.t === 'doc') {
+      docCheck(w, e.doc);
+      for (const b of branches) {
+        const a = val(typeof e.ans === 'function' ? e.ans({ ...fake, decisions: b }) : e.ans);
+        for (const [acc] of a.dr.concat(a.cr)) {
+          if (!before.has(acc)) used.add(acc);
+          if (taught.has(acc)) continue;
+          const nm = D.namings[acc];
+          if (!nm) { errors.push(`${w}：記帳に使う「${acc}」を、それまでに教えていない（名前の札もない）`); taught.add(acc); continue; }
+          check(`${w} 名前の札 ${acc}`, [nm.q, ...nm.opts.map((o) => `${o.t} ${o.react || ''}`)].join(' '));
+          check(`${w} 名前の札 ${acc}`, nm.line, nm.teaches);
+          teach(nm.teaches);
+        }
+      }
+    }
+    if (e.t === 'report') teach(e.teaches);
+  }
+  // 自動仕訳ルールの提案が出はじめるのは、同じ種類を3回正しく書いたあと（8月ごろ）
+  if (m.label === '8月') teach(['自動仕訳']), Object.entries(D.rules).forEach(([k, r]) => check(`ルール ${k}`, [r.label, ...r.conds.map((c) => `${c.t} ${c.why || ''}`), ...r.entry.flat()].join(' ')));
+  // 新しく記帳に使う勘定科目（説明の中で触れるだけの科目名は数えない）
+  const newAcc = [...used].filter(isAccount);
+  if (newAcc.length > 2) errors.push(`${m.label}：記帳に使う新しい勘定科目が${newAcc.length}つ（${newAcc.join('・')}）。1か月2つまで`);
+  if (discs > 2) errors.push(`${m.label}：発見が${discs}つ。1か月2つまで`);
+  m._p = [...new Set(evs.filter((e) => e.t === 'discover').map((e) => e.p))];
+});
+// 新しい原理は1か月に1つまで
+const seenP = new Set(['P1']);
+D.months.forEach((m) => { const fresh = m._p.filter((p) => !seenP.has(p)); if (fresh.length > 1) errors.push(`${m.label}：新しい原理が${fresh.length}つ（${fresh.join('・')}）`); m._p.forEach((p) => seenP.add(p)); });
+
+if (notes.length) console.log(notes.join('\n'));
+if (errors.length) { console.error('\n' + errors.join('\n')); console.error(`\n${errors.length} 件`); process.exit(1); }
+console.log(`OK：教えた語 ${taught.size}`);
