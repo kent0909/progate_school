@@ -15,7 +15,7 @@
   const CONTRA_OF = { 貸倒引当金: '売掛金', 車両運搬具減価償却累計額: '車両運搬具', 備品減価償却累計額: '備品', 建物減価償却累計額: '建物' };
   const CONTRA = new Set(Object.keys(CONTRA_OF));
   const order = (a) => (CONTRA.has(a) ? 0.5 : CATS.indexOf(cat(a)) < 0 ? 9 : CATS.indexOf(cat(a)));
-  const CAST = { piyo: ['ピヨ', 48], haha: ['お母さん', 330], esha: ['E社の担当者', 100], senpai: ['タカシ先輩', 205], shacho: ['ミライ社長', 24], eigyo: ['ハルカ（営業）', 12], ginko: ['田中さん（銀行）', 222], kansa: ['森さん（会計士）', 150] };
+  const CAST = { piyo: ['ピヨ', 48], haha: ['お母さん', 330], esha: ['E社の担当者', 100], senpai: ['タカシ先輩', 205], shacho: ['ミライ社長', 24], eigyo: ['ハルカ（営業）', 12], ginko: ['田中さん（銀行）', 222], kansa: ['森さん（会計士）', 150], zeirishi: ['岩田さん（税理士）', 285] };
   const KEY = 'boki2sim.v3';
 
   /* ---------- state ---------- */
@@ -72,12 +72,17 @@
 
   /* ---------- flow ---------- */
   const month = () => D.months[S.mi];
+  // 年：1年目の月には year がない（1）。2年目からは month.year
+  const yearOf = (mi) => (D.months[mi] || {}).year || 1;
+  // いまの年の締め切りの前の帳簿（決算書・ヘッダーのもうけは、締め切りの前の姿で見せる）
+  const preClose = (entries) => entries.filter((e) => !(e.closing && yearOf(e.mi) === yearOf(S.mi)));
   const events = () => (month() ? month().events.filter((e) => !e.when || e.when(S)) : []);
   function post(ev, userEntry, auto) {
     const truth = val(ev.ans, S);
     const id = ev.id + '@' + S.mi;
-    S.L = S.L.filter((x) => x.id !== id).concat([{ id, mi: S.mi, ev: ev.id, kind: ev.kind, dr: userEntry.dr, cr: userEntry.cr, auto: !!auto }]);
-    S.T = S.T.filter((x) => x.id !== id).concat([{ id, mi: S.mi, ev: ev.id, dr: truth.dr, cr: truth.cr }]);
+    const y = yearOf(S.mi);
+    S.L = S.L.filter((x) => x.id !== id).concat([{ id, mi: S.mi, y, ev: ev.id, kind: ev.kind, dr: userEntry.dr, cr: userEntry.cr, auto: !!auto }]);
+    S.T = S.T.filter((x) => x.id !== id).concat([{ id, mi: S.mi, y, ev: ev.id, dr: truth.dr, cr: truth.cr }]);
     return sameEntry(userEntry, truth);
   }
   function next() { S.ei++; S.phase = 'event'; save(); render(); }
@@ -117,7 +122,7 @@
   /* ---------- header ---------- */
   const app = document.getElementById('sim');
   function header() {
-    const b = balances(S.L), p = pl(b);
+    const b = balances(preClose(S.L)), p = pl(b);
     const m = month();
     const inShop = S.mi > 0;
     const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b></div>${knows('収益') ? `<div class="s-kpi"><small>この1年のもうけ</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
@@ -296,7 +301,7 @@
     const evs = events();
     if (S.ei >= evs.length) return m.closeless ? advanceMonth() : closeScreen();
     const ev = evs[S.ei];
-    ({ desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
+    ({ desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, closing: closingScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
   }
   function saveWord() {
     const st = ST.status();
@@ -1034,7 +1039,7 @@
 
   /* ---- 1年の終わり（自分の帳簿＝月末に直した帳簿から作る） ---- */
   function statements() {
-    const b = balances(S.L), p = pl(b);
+    const b = balances(preClose(S.L)), p = pl(b);
     const assets = Object.entries(b).filter(([a, v]) => v && (cat(a) === '資産' || CONTRA.has(a)));
     const ta = assets.reduce((t, [, v]) => t + v, 0);
     const eq = Object.entries(b).filter(([a]) => cat(a) === '純資産').reduce((t, [, v]) => t - v, 0) + p.ni;
@@ -1086,6 +1091,64 @@
     frame(`<div class="s-card"><small>${ev.redo ? '作り直した決算書' : '1年目の決算書'}</small><div class="s-name"><p>1年の終わりの棚の絵を「貸借対照表」、1年のもうけの中身を「損益計算書」、2つあわせて「決算書」という。銀行や株主は、これを見て会社を判断する。</p></div>${companyView(b)}<button class="btn wide" data-n>銀行へ持っていく</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-n]')) { S.diary.push({ m: '決算', t: `1年目のもうけ ${fmt(statements().p.ni)}円` }); next(); } };
   }
+  // 締め切り（簿記一巡）：収益と費用の札を「損益」の箱に集め、差（1年のもうけ）を繰越利益剰余金へ運ぶ。
+  // 来年のノートは収益・費用が0から始まり、もうけは純資産の中に残る（docs/YEAR2.md 2.1-B）
+  const closingEntries = (entries, mi) => {
+    const b = balances(entries), rev = [], exp = [];
+    for (const [a, v] of Object.entries(b)) { if (!v) continue; if (cat(a) === '収益') rev.push([a, -v]); else if (cat(a) === '費用') exp.push([a, v]); }
+    const R = rev.reduce((t, [, v]) => t + v, 0), X = exp.reduce((t, [, v]) => t + v, 0), ni = R - X, y = yearOf(mi);
+    const out = [];
+    if (rev.length) out.push({ dr: rev, cr: [['損益', R]] });
+    if (exp.length) out.push({ dr: [['損益', X]], cr: exp });
+    if (ni > 0) out.push({ dr: [['損益', ni]], cr: [['繰越利益剰余金', ni]] }); else if (ni < 0) out.push({ dr: [['繰越利益剰余金', -ni]], cr: [['損益', -ni]] });
+    return out.map((e, k) => Object.assign(e, { id: `closing${k}@${mi}`, mi, y, ev: 'closing', closing: true }));
+  };
+  function closingScreen(ev) {
+    if (S.discDone[ev.id] != null) return next();
+    const b = balances(S.L);
+    const cards = Object.entries(b).filter(([a, v]) => v && (cat(a) === '収益' || cat(a) === '費用')).map(([a, v]) => ({ a, v: Math.abs(v), side: cat(a) === '収益' ? 'R' : 'L' })).sort((x, y) => order(x.a) - order(y.a));
+    const moved = new Set(); let step = 'move', msg = '', miss = 0;
+    const R = cards.filter((c) => c.side === 'R').reduce((t, c) => t + c.v, 0), X = cards.filter((c) => c.side === 'L').reduce((t, c) => t + c.v, 0), ni = R - X;
+    const kuri = knows('繰越利益剰余金') ? '繰越利益剰余金' : 'これまでのもうけの貯まり';
+    const tbox = () => `<table class="s-tb s-tacc"><tr><th colspan="2">${knows('損益') ? '損益' : '1年のもうけを集める箱'}</th></tr><tr><td>${cards.filter((c) => c.side === 'L' && moved.has(c.a)).map((c) => `${esc(c.a)} ${fmt(c.v)}`).join('<br>') || '　'}</td><td>${cards.filter((c) => c.side === 'R' && moved.has(c.a)).map((c) => `${esc(c.a)} ${fmt(c.v)}`).join('<br>') || '　'}</td></tr></table>`;
+    const draw = () => {
+      let body;
+      const left = cards.filter((c) => !moved.has(c.a));
+      if (step === 'move') {
+        body = `${talk([['senpai', moved.size ? '収益の札は箱の右、費用の札は箱の左に入る。' : `1年が終わった。来年のノートを、${gw('収益')}と${gw('費用')}が0の状態から始めたい。今年の札を、1つの箱に集めよう。`]])}${tbox()}${left.length ? `<div class="s-sorti"><span><b>${esc(left[0].a)}</b> ${fmt(left[0].v)}（${gw(cat(left[0].a))}）</span><div><button class="s-pill" data-cl="${esc(left[0].a)}">箱へ運ぶ</button></div></div>${moved.size >= 2 && left.length > 1 ? `<button class="link" data-clall>残りの ${left.length} 枚も同じように運ぶ</button>` : ''}` : ''}<p class="muted" style="font-size:12px">のこり ${left.length} 枚</p>`;
+        if (!left.length) step = 'ask';
+      }
+      if (step === 'ask') {
+        body = `${tbox()}<p class="s-dyn">箱の右 ${fmt(R)} − 左 ${fmt(X)} ＝ ${fmt(ni)}（1年のもうけ）</p>${talk([['senpai', `箱の右と左の差 ${fmt(ni)} が残った。この差は、どこへ運ぶ？`]])}<div class="s-opts"><button class="s-opt" data-ca="re"><b>${esc(gw('純資産'))}の「${esc(kuri)}」へ</b></button><button class="s-opt" data-ca="cap"><b>${esc(gw('純資産'))}の「資本金」へ</b></button><button class="s-opt" data-ca="cash"><b>普通預金へ</b></button></div>${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`;
+      }
+      if (step === 'name') {
+        body = `<div class="s-name"><small>この書き方の名前</small><h2>${rb('損益・繰越利益剰余金・締め切り')}</h2><p>${rb('1年の終わりに、収益と費用の札を「損益」の箱に集め、差の「当期純利益」を純資産の「繰越利益剰余金」へ移す。これを「締め切り」（決算振替）という。来年のノートは、収益と費用が0から始まる。')}</p><details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc('「損益勘定で算定した当期純利益を、繰越利益剰余金勘定に振り替える」')}</details><p class="s-leaf">マップに「締め切り」が加わった</p></div><button class="btn wide" data-cdone>つぎへ</button>`;
+      }
+      frame(`<div class="s-card"><small>1年の締め切り</small>${body}</div>`);
+    };
+    draw();
+    app.onclick = (e) => {
+      const c = e.target.closest('[data-cl]');
+      if (c) { moved.add(c.dataset.cl); draw(); return; }
+      if (e.target.closest('[data-clall]')) { cards.forEach((x) => moved.add(x.a)); draw(); return; }
+      const a = e.target.closest('[data-ca]');
+      if (a) {
+        if (a.dataset.ca !== 're') { miss++; msg = a.dataset.ca === 'cap' ? '資本金は、株主が出したお金の札。会社が自分でかせいだもうけは、別の札に貯める。' : 'もうけは、お金の形で残っているとは限らない。売掛金やトラックになっているかもしれない。もうけが増やしたのは、返さないお金のほう。'; draw(); return; }
+        step = 'name'; msg = ''; draw(); return;
+      }
+      if (e.target.closest('[data-cdone]')) {
+        teach(['損益', '繰越利益剰余金', '締め切り', '当期純利益', '決算振替']);
+        const mi = S.mi;
+        S.L = S.L.filter((x) => !(x.closing && x.mi === mi)).concat(closingEntries(S.L, mi));
+        S.T = S.T.filter((x) => !(x.closing && x.mi === mi)).concat(closingEntries(S.T, mi));
+        S.discDone[ev.id] = mi; S.metrics.disc[ev.id] = { first: miss === 0, forks: [] };
+        if (!S.leaves.some((l) => l.label === '締め切り')) S.leaves.push({ p: 'P2', label: '締め切り', mi });
+        S.diary.push({ m: month().label, t: `締め切り：1年のもうけ ${fmt(ni)}円を繰越利益剰余金へ` });
+        grew('締め切り');
+        next();
+      }
+    };
+  }
   // 銀行の見方：1年の判断と、帳簿の正しさで決まる（乱数なし）
   function bankRating() {
     const d = S.decisions;
@@ -1124,6 +1187,7 @@
     if (ledgerGap().length) lines.push(['ginko', `決算書に、書類と合わない数字が残っています（${ledgerGap().slice(0, 3).join('・')}）。毎月の締めで直しておけば、ここで困らずに済みました。`]);
     const offer = r >= 3 ? Math.max(100000, Math.round((eq * 0.8) / 10000) * 10000) : r === 2 ? Math.round((eq * 0.4) / 10000) * 10000 : 0;
     lines.push(['ginko', offer ? `2号店のために、${offer.toLocaleString()}円までお貸しできます。` : '申し訳ありませんが、2号店のためのご融資は、今はお受けできません。']);
+    S.carry = Object.assign(S.carry || {}, { [`y${yearOf(S.mi)}`]: { offer, rating: r, ni: p.ni, ratio } });
     S.diary.push({ m: '翌年4月', t: offer ? `銀行（見方：${RATING[r]}）：2号店のために ${fmt(offer)}円まで借りられる` : `銀行（見方：${RATING[r]}）：2号店のための融資を断られた` });
     // 1画面に1つの発言。最後に銀行の見方
     let k = 0;
@@ -1190,8 +1254,8 @@
     const firstOk = disc.filter(([, d]) => d.first).length;
     const mins = Math.round((Date.now() - M.started) / 60000);
     const forks = Object.entries(M.forks).sort((a, c) => c[1] - a[1]);
-    frame(`<div class="s-card"><small>1年のふりかえり</small><h3>1年目、おつかれさま</h3><p>屋台の小銭2,000円から始まった会社は、1年でもうけ <b>${fmt(p.ni)}円</b>、口座のお金 <b>${fmt(cashOf(b))}円</b> になった。</p><h4>あなたが決めたこと</h4><ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul><button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button><details class="s-devlog"><summary>開発用の記録</summary><table class="s-tb"><tr><td>考える場面で、1回目から正しくたどり着いた</td><td class="n">${firstOk} / ${disc.length}</td></tr><tr><td>先輩の手帳を開いた回数</td><td class="n">${M.hand}</td></tr><tr><td>書類の記帳で、1回目から正しかった</td><td class="n">${M.docs.first} / ${M.docs.n}</td></tr><tr><td>月末に直した回数</td><td class="n">${M.fixes}</td></tr><tr><td>ヒントを見た回数</td><td class="n">${M.hints}</td></tr><tr><td>自動仕訳で進んだ書類</td><td class="n">${M.autoPosted}</td></tr><tr><td>腕だめし</td><td class="n">${M.quiz ? `${M.quiz.score} / ${M.quiz.of}` : '-'}</td></tr><tr><td>予想が当たった（発見の前・月末の締めの前）</td><td class="n">${disc.filter(([, d]) => d.predict && d.predict.ok).length} / ${disc.filter(([, d]) => d.predict).length}・${Object.values(S.predicts || {}).filter((x) => x.ok).length} / ${Object.values(S.predicts || {}).filter((x) => x.act).length}</td></tr><tr><td>ヒントなしで1回目から正しく書けた書類</td><td class="n">${S.docLog.filter((l) => l.ok && !l.hint).length} / ${S.docLog.length}</td></tr><tr><td>月はじめの思い出し</td><td class="n">${(S.recall || []).filter((r) => r.ok).length} / ${(S.recall || []).filter((r) => !r.due).length}</td></tr><tr><td>決算の机（1回目で全部見つけた）</td><td class="n">${S.metrics.desk ? (S.metrics.desk.first ? 'はい' : 'いいえ') : '-'}</td></tr><tr><td>かかった時間</td><td class="n">${mins}分</td></tr></table>${forks.length ? `<p>迷ったところ</p><ul class="s-diary">${forks.map(([f, n]) => `<li>${esc(f)} <b>${n}</b></li>`).join('')}</ul>` : ''}</details><button class="btn wide ghost" data-again>最初からもう一度</button></div>`);
-    app.onclick = (e) => { if (e.target.closest('[data-again]')) { S = fresh(); S.phase = 'monthIntro'; save(); render(); } };
+    frame(`<div class="s-card"><small>1年のふりかえり</small><h3>${yearOf(S.mi)}年目、おつかれさま</h3><p>${yearOf(S.mi) === 1 ? '屋台の小銭2,000円から始まった会社は、1年で' : `${yearOf(S.mi)}年目の1年で、会社は`}もうけ <b>${fmt(p.ni)}円</b>、口座のお金 <b>${fmt(cashOf(b))}円</b> になった。</p><h4>あなたが決めたこと</h4><ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul><button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button><details class="s-devlog"><summary>開発用の記録</summary><table class="s-tb"><tr><td>考える場面で、1回目から正しくたどり着いた</td><td class="n">${firstOk} / ${disc.length}</td></tr><tr><td>先輩の手帳を開いた回数</td><td class="n">${M.hand}</td></tr><tr><td>書類の記帳で、1回目から正しかった</td><td class="n">${M.docs.first} / ${M.docs.n}</td></tr><tr><td>月末に直した回数</td><td class="n">${M.fixes}</td></tr><tr><td>ヒントを見た回数</td><td class="n">${M.hints}</td></tr><tr><td>自動仕訳で進んだ書類</td><td class="n">${M.autoPosted}</td></tr><tr><td>腕だめし</td><td class="n">${M.quiz ? `${M.quiz.score} / ${M.quiz.of}` : '-'}</td></tr><tr><td>予想が当たった（発見の前・月末の締めの前）</td><td class="n">${disc.filter(([, d]) => d.predict && d.predict.ok).length} / ${disc.filter(([, d]) => d.predict).length}・${Object.values(S.predicts || {}).filter((x) => x.ok).length} / ${Object.values(S.predicts || {}).filter((x) => x.act).length}</td></tr><tr><td>ヒントなしで1回目から正しく書けた書類</td><td class="n">${S.docLog.filter((l) => l.ok && !l.hint).length} / ${S.docLog.length}</td></tr><tr><td>月はじめの思い出し</td><td class="n">${(S.recall || []).filter((r) => r.ok).length} / ${(S.recall || []).filter((r) => !r.due).length}</td></tr><tr><td>決算の机（1回目で全部見つけた）</td><td class="n">${S.metrics.desk ? (S.metrics.desk.first ? 'はい' : 'いいえ') : '-'}</td></tr><tr><td>かかった時間</td><td class="n">${mins}分</td></tr></table>${forks.length ? `<p>迷ったところ</p><ul class="s-diary">${forks.map(([f, n]) => `<li>${esc(f)} <b>${n}</b></li>`).join('')}</ul>` : ''}</details>${month() && D.months[S.mi + 1] ? `<button class="btn wide" data-n>${yearOf(S.mi) + 1}年目へ進む</button>` : ''}<button class="btn wide ghost" data-again>最初からもう一度</button></div>`);
+    app.onclick = (e) => { if (e.target.closest('[data-n]')) { next(); return; } if (e.target.closest('[data-again]')) { S = fresh(); S.phase = 'monthIntro'; save(); render(); } };
   }
 
   B.chapters.forEach((c) => c.qs.forEach((q, i) => { q._key = `${c.id}:${i}`; }));

@@ -52,7 +52,13 @@
   const bankOf = (S) => S.T.reduce((t, e) => t + e.dr.filter(([a]) => a === '普通預金').reduce((x, [, v]) => x + v, 0) - e.cr.filter(([a]) => a === '普通預金').reduce((x, [, v]) => x + v, 0), 0);
   const yen = (n) => n.toLocaleString('ja-JP');
   // 帳簿（正しいほう）の、この1年のもうけ（収益−費用）
-  const niOf = (S) => S.T.reduce((t, e) => t - e.dr.reduce((x, [a, v]) => x + ((window.BOKI.accounts[a] || {}).cat === '費用' ? v : (window.BOKI.accounts[a] || {}).cat === '収益' ? -v : 0), 0) + e.cr.reduce((x, [a, v]) => x + ((window.BOKI.accounts[a] || {}).cat === '収益' ? v : (window.BOKI.accounts[a] || {}).cat === '費用' ? -v : 0), 0), 0);
+  // 帳簿（正しいほう）の、いまの年のもうけ（収益−費用）。締め切りの仕訳と、ほかの年の仕訳は数えない
+  const yearOfMi = (mi) => ((SIM.months || [])[mi] || {}).year || 1;
+  const niOf = (S, opt = {}) => { const y = yearOfMi(S.mi); const c = (a) => (window.BOKI.accounts[a] || {}).cat; return S.T.filter((e) => !e.closing && (e.y || 1) === y).reduce((t, e) => t - e.dr.reduce((x, [a, v]) => x + (opt.pre && a === '法人税等' ? 0 : c(a) === '費用' ? v : c(a) === '収益' ? -v : 0), 0) + e.cr.reduce((x, [a, v]) => x + (opt.pre && a === '法人税等' ? 0 : c(a) === '収益' ? v : c(a) === '費用' ? -v : 0), 0), 0); };
+
+  // 税金の見込み：もうけのおよそ3割（ゲームの約束）、100円未満は切り捨て
+  const taxOf = (S) => Math.max(0, Math.floor((niOf(S, { pre: true }) * 0.3) / 100) * 100);
+  SIM.__taxOf = (S) => taxOf(S);
 
   // ---------- まだ教えていない勘定科目が記帳に出たとき、その場で見つける小さな問い（名前の札） ----------
   SIM.namings = {
@@ -76,6 +82,14 @@
       { t: 'お金を借りたり、待ってもらったりしたことへのお礼', ok: true },
       { t: '借りたお金や、払う約束の一部', react: '借りた額や約束の額は、それとは別にちゃんと払う。足して払うのは、それとは別のお金' },
     ], line: 'お金を借りたお礼や、払うのが遅れたぶんに払うお金は、費用の「支払利息」。純資産をへらす。', teaches: ['支払利息'] },
+    法人税等: { q: '1年のもうけに対して、国などに納める税金。これは何の札？', opts: [
+      { t: 'じぶんのお金をへらした原因（費用）', ok: true },
+      { t: 'もっているもの（資産）', react: '納めたら戻ってこないお金だね。もうけの一部を、国などに渡すことになる' },
+    ], line: 'もうけにかかる税金は、費用の「法人税等」。その年のもうけで決まるので、その年の費用にする。', teaches: ['法人税等'] },
+    未払法人税等: { q: '税金は、決算のあと2か月以内に納める。いま、まだ納めていない税金は、右の棚のどっち？', opts: [
+      { t: '返すお金（負債）', ok: true },
+      { t: '返さないお金（純資産）', react: '国に「納める約束」がある。払う約束のあるお金は、どっちだった？' },
+    ], line: 'まだ納めていない税金は、負債の「未払法人税等」。翌年の5月に納めたら、この札がへる。', teaches: ['未払法人税等'] },
     広告宣伝費: { q: 'チラシの印刷代2万円。チラシは配ったらなくなる。これは？', opts: [
       { t: '純資産をへらす原因（費用）', ok: true },
       { t: 'もっているもの（資産）', react: '配ったチラシは、もうお店にない。お客さんを呼ぶために使い切ったお金だね' },
@@ -679,6 +693,15 @@
       { ...depEntry(), when: (S) => D_(S).kessan !== 'follow' || D_(S).kessan2 === 'fix' },
     ] },
 
+    // ===== 決算の最後：税金の見込み（2年目の5月に納める。docs/YEAR2.md 2.1-A） =====
+    { m: 3, label: '決算（税金）', title: 'もうけには、税金がかかる', events: [
+      { t: 'talk', lines: [['zeirishi', '税理士の岩田です。会社のもうけには、税金がかかります。申告して納めるのは、決算から2か月以内です。'], ['shacho', 'えっ、まだ払ってないのに、今年の分なの？']] },
+      { t: 'talk', lines: [['senpai', '税金は、今年のもうけで決まる。だから今年の費用にして、まだ払っていない分は「払う約束」として残すんだ。'], ['zeirishi', 'このゲームでは、税金は「もうけのおよそ3割」と約束します。本当は、税の種類ごとに計算が分かれています。']] },
+      { t: 'doc', kind: 'tax', id: 'tax1', when: (S) => taxOf(S) > 0,
+        doc: { type: '税金の見込み（計算メモ）', title: '法人税・住民税・事業税の見込み', from: '岩田税理士事務所', to: SHOP, date: '3月31日', rows: (S) => [['税金をかける前の、この1年のもうけ', niOf(S, { pre: true }), 'amt'], ['税金（およそ3割・100円未満は切り捨て）', taxOf(S), 'amt'], ['納める期限', '5月31日']] },
+        ans: (S) => je([['法人税等', taxOf(S)]], [['未払法人税等', taxOf(S)]]), opts: opts('法人税等', '未払法人税等', '支払手数料') },
+    ] },
+
     // ===== E09 銀行に見せる成績表 =====
     { m: 4, label: '翌年4月', title: '1年目の決算書と、銀行の審査', closeless: true, events: [
       { t: 'report', teaches: ['決算書', '貸借対照表', '損益計算書'] },
@@ -688,6 +711,7 @@
       { ...accumDisc(), when: (S) => D_(S).kessan2 === 'keep' },
       { ...depEntry(), id: 'dep-entry-fix', when: (S) => D_(S).kessan2 === 'keep' },
       { t: 'report', when: (S) => D_(S).kessan2 === 'keep', redo: true },
+      { t: 'closing', id: 'closing1' },
       { t: 'ifonly' },
       { t: 'quiz' },
       { t: 'end' },
