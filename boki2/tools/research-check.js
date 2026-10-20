@@ -100,9 +100,11 @@ for (const e of ledger) {
 for (const [id, hs] of Object.entries(tosHits)) err(id, `規約で自動取得が禁止されている取得元を自動で取得した記録が ${hs.length} 件（${[...new Set(hs.map((h) => h.t.slice(0, 10)))].join('・')}。例 ${hs[0].url}）。${srcById[id].tos.remedy || '対処を決めて sources.json の tos.remedy に書くこと'}`);
 for (const s of sources) {
   if (s.tos.verdict === 'unchecked' && ledger.some((e) => e.src === s.id)) err(s.id, '利用規約を確認してから取得すること（sources.json の tos を埋める）');
-  const hits = ledger.filter((e) => e.src === s.id && e.via !== 'backfill' && e.t && e.status !== 'skipped').sort((a, b) => Date.parse(a.t) - Date.parse(b.t));
+  const hostOf = (e) => { try { return new URL(e.url).host; } catch (x) { return ''; } };
+  const hits = ledger.filter((e) => e.src === s.id && e.via !== 'backfill' && e.t && e.status !== 'skipped' && e.status !== 'headings-only').sort((a, b) => Date.parse(a.t) - Date.parse(b.t));
   let fast = 0;
-  for (let i = 1; i < hits.length; i++) if ((Date.parse(hits[i].t) - Date.parse(hits[i - 1].t)) / 1000 < (s.tos.min_interval_s || 3) - 0.5) fast++;
+  const lastAt = {};
+  for (const h of hits) { const k = hostOf(h); if (lastAt[k] != null && (Date.parse(h.t) - lastAt[k]) / 1000 < (s.tos.min_interval_s || 3) - 0.5) fast++; lastAt[k] = Date.parse(h.t); }
   if (fast) err(s.id, `アクセス間隔が ${s.tos.min_interval_s || 3} 秒未満の取得が ${fast} 回ある`);
 }
 
@@ -142,7 +144,7 @@ for (const s of sources) {
     for (const d of expected) {
       const es = L.filter((e) => e.doc === d);
       const parts = c.parts && c.parts.length ? c.parts : [null];
-      const got = parts.every((p) => es.some((e) => okFetch(e) && (p == null || e.part === p || (!e.part && parts.length === 1))));
+      const got = parts.every((p) => es.some((e) => okFetch(e) && (p == null || e.part === p || (p.endsWith('*') && String(e.part || '').startsWith(p.slice(0, -1))) || (!e.part && parts.length === 1))));
       if (!got) {
         const sk = es.find((e) => e.status === 'skipped');
         if (sk) err(tag, `${d} を取得せずに飛ばしている（${sk.reason || '理由なし'}）。対象外にするなら sources.json の excluded に理由を書く`);
@@ -156,10 +158,21 @@ for (const s of sources) {
         if (f && /\.html?$/i.test(f) && /type=["']?password/i.test(fs.readFileSync(f, 'utf8')) && (textOf(f) || '').length < 3000) { r.bad++; err(tag, `${d} はログイン画面を取得しているように見える`); }
       }
       if (!c.need_notes) continue;
-      const n = notes.find((x) => x.src === s.id && x.coll === c.id && x.doc === d);
-      if (!n) { r.unread.push(d); continue; }
+      // 厚い資料は章ごとのノート（doc: 30002#ch01 のように # で区切る）に分けてよい
+      const ns = notes.filter((x) => x.src === s.id && x.coll === c.id && (x.doc === d || x.doc.startsWith(d + '#')));
+      if (!ns.length) {
+        // 中身がまったく同じファイル（sha256 一致）を別の名前で読了済みなら、読了として数える
+        const hs = new Set(es.map((e) => e.sha256).filter(Boolean));
+        const twin = hs.size && notes.find((x) => x.src === s.id && x.coll === c.id && hs.has(x.sha256));
+        if (twin) { r.noted++; r.dup = (r.dup || 0) + 1; continue; }
+        r.unread.push(d); continue;
+      }
       r.noted++;
-      checkNote(n, es.filter(okFetch), tag, indexText, generic.get(tag) || new Map(), r);
+      const before = r.verified;
+      for (const n of ns) checkNote(n, es.filter(okFetch), tag, indexText, generic.get(tag) || new Map(), { ...r, verified: 0, partial: 0, unverifiable: 0, _sub: true }, ns.length > 1);
+      const ok = coverage(ns, es.filter(okFetch), tag);
+      if (ok === null) r.unverifiable++; else if (ok && !errors.some((e) => ns.some((n) => e.includes(n._path)))) r.verified = before + 1;
+      if (ns.some((n) => n.read === 'partial')) { r.partial++; warn(tag, `${d} は一部だけ読了（${ns.filter((n) => n.read === 'partial').map((n) => n.pages || n.doc).join('・')}）`); }
     }
     if (r.unread.length) err(tag, `取得したが読了ノートがない（読んでいない）${r.unread.length} 件：${r.unread.slice(0, 12).join(' ')}${r.unread.length > 12 ? ' …' : ''}`);
     if (r.missing.length) err(tag, `未取得 ${r.missing.length} 件：${r.missing.slice(0, 12).join(' ')}${r.missing.length > 12 ? ' …' : ''}`);
@@ -167,7 +180,7 @@ for (const s of sources) {
   }
 }
 
-function checkNote(n, es, tag, indexText, gen, r) {
+function checkNote(n, es, tag, indexText, gen, r, isSection) {
   const where = n._path;
   const hashes = es.map((e) => e.sha256).filter(Boolean);
   if (!n.sha256) err(tag, `${where} に sha256 がない`);
@@ -176,8 +189,7 @@ function checkNote(n, es, tag, indexText, gen, r) {
   if (body.length < 150) err(tag, `${where} の本文が短すぎる（${body.length} 字）。何を読み取ったかが書かれていない`);
   const anchors = (n.anchors || []).map(norm).filter(Boolean);
   if (anchors.length < 5) err(tag, `${where} の anchors が ${anchors.length} 個（5個以上）`);
-  if (n.read === 'partial') { r.partial++; warn(tag, `${where} は一部だけ読了（${n.pages || '範囲不明'}）`); }
-  else if (n.read !== 'full') err(tag, `${where} の read が full / partial のどちらでもない`);
+  if (n.read !== 'full' && n.read !== 'partial') err(tag, `${where} の read が full / partial のどちらでもない`);
   // 原文と照合
   const files = es.map(rawFile).filter(Boolean);
   const target = files.find((f) => sha(fs.readFileSync(f)) === n.sha256) || files[0];
@@ -188,7 +200,7 @@ function checkNote(n, es, tag, indexText, gen, r) {
   const idx = norm(indexText);
   const unique = anchors.filter((a) => text.includes(a) && a.length >= 6 && !idx.includes(a) && (gen.get(a) || 0) <= 2);
   // 全部読んだと書くなら、証拠の語句が文書の前・中・後ろの3つの区間すべてから出ていること（冒頭だけの拾い読みを見つける）
-  if (n.read === 'full' && text.length > 3000) {
+  if (!isSection && n.read === 'full' && text.length > 3000 && text.length <= 45000) {
     const zones = new Set(anchors.map((x) => text.indexOf(x)).filter((i) => i >= 0).map((i) => Math.min(2, Math.floor((i / text.length) * 3))));
     if (zones.size < 3) err(tag, `${where} は read: full だが、anchors が文書の${['前', '中', '後ろ'].filter((_, z) => !zones.has(z)).join('・')}の区間から出ていない（全部読んだ証拠にならない）`);
   }
@@ -203,6 +215,23 @@ function checkNote(n, es, tag, indexText, gen, r) {
   if (!absent.length && unique.length >= 3 && !copied) r.verified++;
 }
 
+// 文書全体の読了範囲：本文を約15,000字ごとの区間（3〜40区間）に分け、すべての区間からノートの anchors が出ていること。
+// 厚い資料（教科書など）を冒頭や目次だけで済ませていないかを見る。原文が手元になければ null
+function coverage(ns, es, tag) {
+  const files = es.map(rawFile).filter(Boolean);
+  const f = files.find((x) => ns.some((n) => sha(fs.readFileSync(x)) === n.sha256)) || files[0];
+  if (!f) return null;
+  const text = norm(textOf(f));
+  if (text.length <= 45000 && ns.length === 1) return true; // 短い文書は checkNote の前・中・後ろで見ている
+  const Z = Math.max(3, Math.min(40, Math.ceil(text.length / 15000)));
+  const hit = new Set();
+  for (const n of ns) for (const a of (n.anchors || []).map(norm)) { let i = text.indexOf(a); while (i >= 0) { hit.add(Math.min(Z - 1, Math.floor((i / text.length) * Z))); i = text.indexOf(a, i + 1); if (hit.size >= Z) break; } }
+  const full = ns.every((n) => n.read === 'full');
+  const miss = [...Array(Z).keys()].filter((z) => !hit.has(z));
+  if (full && miss.length) { err(tag, `${ns[0].doc.split('#')[0]} は全部読んだことになっているが、本文を${Z}区間に分けたうち ${miss.length} 区間（${miss.slice(0, 8).map((z) => `${Math.round((z / Z) * 100)}%付近`).join('・')}${miss.length > 8 ? '…' : ''}）から anchors が出ていない`); return false; }
+  return true;
+}
+
 // ---------- 出典の参照（docs の [[src:coll:doc]]） ----------
 const cited = new Set();
 for (const f of lsr(DOCS).filter((p) => p.endsWith('.md'))) {
@@ -213,14 +242,24 @@ for (const f of lsr(DOCS).filter((p) => p.endsWith('.md'))) {
     if (!notes.some((n) => `${n.src}:${n.coll}:${n.doc}` === k)) err('出典', `${path.relative(DOCS, f)} が ${k} を引いているが、その読了ノートがない`);
   }
 }
+// 外部資料にもとづいて書いた文書は、取得元ごとに少なくとも1本の読了ノートを出典として引くこと（引いていなければ未検査の分析）
+const derivedRows = [];
+for (const d of JSON.parse(fs.readFileSync(path.join(R, 'sources.json'), 'utf8')).derived_docs || []) {
+  const f = path.join(__dirname, '..', d.path);
+  if (!fs.existsSync(f)) { warn('分析文書', `${d.path} はまだない（作業中）`); derivedRows.push(`| ${d.path} | （未作成） | ${d.note} |`); continue; }
+  const txt = fs.readFileSync(f, 'utf8');
+  const per = d.sources.map((sid) => [sid, new Set([...txt.matchAll(new RegExp(`\\[\\[${sid}:([\\w-]+):([\\w.-]+)\\]\\]`, 'g'))].map((m) => m[0])).size]);
+  for (const [sid, n] of per) if (!n) err('分析文書', `${d.path} は ${sid} の資料にもとづくが、読了ノートを1本も出典に引いていない（未検査の分析）。${d.note}`);
+  derivedRows.push(`| ${d.path} | ${per.map(([sid, n]) => `${sid} ${n}本`).join('・')} | ${d.note} |`);
+}
 const uncited = notes.filter((n) => !cited.has(`${n.src}:${n.coll}:${n.doc}`)).length;
 for (const n of notes) if (!srcById[n.src] || !srcById[n.src].collections.some((c) => c.id === n.coll)) err('ノート', `${n._path} の src/coll が台帳にない`);
 
 // ---------- 出力 ----------
-const tos = sources.map((s) => `- ${s.name}（${s.id}）：規約 ${({ ok: '確認済み・問題なし', gray: '確認済み・グレー（判断を記録）', 'no-automation': '確認済み・自動取得禁止', unchecked: '未確認' })[s.tos.verdict] || s.tos.verdict}${s.tos.checked ? `（${s.tos.checked}）` : ''}。${s.tos.note}`);
+const tos = sources.map((s) => `- ${s.name}（${s.id}）：規約 ${({ ok: '確認済み・問題なし', gray: '確認済み・グレー（判断を記録）', 'owner-approved': '規約上は制限ありだがオーナーが条件付きで許可（判断を記録）', 'no-automation': '確認済み・自動取得禁止', unchecked: '未確認' })[s.tos.verdict] || s.tos.verdict}${s.tos.checked ? `（${s.tos.checked}）` : ''}。${s.tos.note}`);
 const table = ['| 集合 | 内容 | 一覧上 | 対象 | 対象外(理由あり) | 取得済 | 読了ノート | 原文で照合済 | 一部読了 | 照合不能 |', '|---|---|---|---|---|---|---|---|---|---|',
   ...rows.map((r) => `| ${r.tag} | ${r.desc} | ${r.listed} | ${r.target} | ${r.excl} | ${r.fetched} | ${r.noted} | ${r.verified} | ${r.partial} | ${r.unverifiable} |`)];
-const out = [`# 情報収集の証跡（自動集計）`, '', `\`node boki2/tools/research-check.js --write\` が生成。手で編集しない。`, '', `取得記録 ${ledger.length} 行・読了ノート ${notes.length} 本（うち docs から出典として引かれていない ${uncited} 本）`, '', '## 利用規約', ...tos, '', '## 集合ごとの状況', ...table, '', `## 検査結果：エラー ${errors.length}・注意 ${warns.length}`, ...errors.map((e) => `- ✗ ${e}`), ...warns.map((w) => `- △ ${w}`), ''].join('\n');
+const out = [`# 情報収集の証跡（自動集計）`, '', `\`node boki2/tools/research-check.js --write\` が生成。手で編集しない。`, '', `取得記録 ${ledger.length} 行・読了ノート ${notes.length} 本（うち docs から出典として引かれていない ${uncited} 本）`, '', '## 利用規約', ...tos, '', '## 集合ごとの状況', ...table, '', '## 外部資料にもとづく文書と出典の引用', '| 文書 | 引いている読了ノート | 説明 |', '|---|---|---|', ...derivedRows, '', `## 検査結果：エラー ${errors.length}・注意 ${warns.length}`, ...errors.map((e) => `- ✗ ${e}`), ...warns.map((w) => `- △ ${w}`), ''].join('\n');
 console.log(out);
 if (args.includes('--write')) fs.writeFileSync(path.join(R, 'STATUS.md'), out);
 

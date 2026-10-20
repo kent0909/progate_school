@@ -320,9 +320,9 @@
      },
      "parts": [
       "detail",
-      "pdf1"
+      "pdf*"
      ],
-     "note": "解答・解説PDFは会員ログインが必要なため取得しない"
+     "note": "解答・解説PDFは会員ログインが必要なため取得しない。練習問題は download/1・2、過去問は download/3・4 が公開の問題用紙・答案用紙"
     }
    ]
   },
@@ -332,19 +332,72 @@
    "hosts": [
     "www.cpa-learning.com",
     "cpa-learning.com",
-    "api.cpa-learning.com"
+    "api.cpa-learning.com",
+    "cpa-learning-content-prod.s3.ap-northeast-1.amazonaws.com"
    ],
    "tos": {
     "checked": "2026-10-20",
-    "verdict": "no-automation",
-    "min_interval_s": 3,
+    "verdict": "owner-approved",
+    "min_interval_s": 5,
     "urls": [
-     "https://www.cpa-learning.com/"
+     "https://www.cpa-learning.com/terms-of-service/"
     ],
-    "note": "利用規約 第4条18号が自動的なダウンロード・複製・保存を禁止、第5条が複製を禁止。自動取得はしない（進め方はオーナーに相談中）",
-    "remedy": "2026-10-19 に規約を確認する前にコラム446ページのタイトル・見出しを自動取得していた（記録は ledger に後から登録）。オーナーに報告済み。作業用フォルダの取得物の扱い（削除するか）はオーナーの判断待ち。以後の自動取得はしない"
+    "note": "利用規約 第4条18号は自動的なダウンロード・複製・保存を禁止、第5条は複製を禁止している。オーナー判断（2026-10-20）：個人利用・非商用で、サイトを見て本人が勉強するのと実態が変わらないため、取得と分析を許可。条件：速さは問わない（5秒以上の間隔）、さぼり・斜め読みは禁止（全文の読了ノート必須）、ログインはしない、原文はリポジトリに入れない・転載しない",
+    "history": "2026-10-19 に規約確認の前にコラム446ページのタイトル・見出しを自動取得していた（ledger に backfill で記録）。2026-10-20 オーナーに報告し、取得物の削除は不要との判断"
    },
-   "collections": []
+   "collections": [
+    {
+     "id": "courses2",
+     "desc": "日商簿記2級ジャンル（genreId 30004）の講座情報とレッスン一覧（公開API）",
+     "need_notes": true,
+     "index": {
+      "doc": "_index",
+      "pattern": "\"id\":(\\d{5,6}),\"genreId\":30004"
+     },
+     "expected": "index",
+     "excluded": {
+      "550006": "レッスン0本（中身なし）"
+     },
+     "parts": [
+      "course",
+      "lessons"
+     ]
+    },
+    {
+     "id": "texts2",
+     "desc": "2級講座の教材PDF（教科書・問題集・模擬試験）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": [
+      "pdf"
+     ]
+    },
+    {
+     "id": "column",
+     "desc": "簿記・経理のコラム（post-sitemap.xml の全記事：boki 95・keiri 135・technique 9・career 13）",
+     "need_notes": true,
+     "index": {
+      "doc": "_index",
+      "pattern": "cpa-learning\\.com/column/[a-z]+/([^/\\]]+)/"
+     },
+     "expected": "index",
+     "excluded": {},
+     "parts": [
+      "html"
+     ]
+    },
+    {
+     "id": "videos",
+     "desc": "講義動画",
+     "need_notes": false,
+     "expected": [],
+     "excluded": {
+      "all": "Brightcove の動画で文字情報（字幕・台本）がなく、文字として分析できない。内容は教材PDFとレッスン説明で代える"
+     },
+     "parts": []
+    }
+   ]
   },
   {
    "id": "law",
@@ -365,7 +418,8 @@
     "www.johas.go.jp",
     "www.chusho.meti.go.jp",
     "www.mof.go.jp",
-    "elaws.e-gov.go.jp"
+    "elaws.e-gov.go.jp",
+    "jpx-gr.info"
    ],
    "tos": {
     "checked": "2026-10-20",
@@ -386,6 +440,93 @@
      "parts": []
     }
    ]
+  }
+ ],
+ "derived_docs": [
+  {
+   "path": "docs/UPDATE_PLAN.md",
+   "sources": [
+    "cpa-learning"
+   ],
+   "note": "2026-10-18〜19。検索結果の要約と、cpa-learning コラムの見出しだけ（本文未読）から作った計画。これにもとづいて c47「本試験の戦い方」と問題23問を追加した。本文を読んだ読了ノートで裏づけ直すまで未検査"
+  },
+  {
+   "path": "docs/CRAWL.md",
+   "sources": [
+    "cpa-learning",
+    "bokipedia"
+   ],
+   "note": "取得手順と、見出しの突き合わせ・簿記ペディアの取得状況のメモ"
+  },
+  {
+   "path": "docs/EXAM-ANALYSIS.md",
+   "sources": [
+    "kentei"
+   ],
+   "note": "日商の講評・連載・サンプル問題の分析"
+  },
+  {
+   "path": "docs/EPISODES.md",
+   "sources": [
+    "law"
+   ],
+   "note": "法令・制度の記述（付録C）。2026-10-20 一次資料で照合"
+  },
+  {
+   "path": "docs/analysis/cpa-shobo-text.md",
+   "sources": [
+    "cpa-learning"
+   ],
+   "note": "CPA 商簿教科書の分析"
+  },
+  {
+   "path": "docs/analysis/cpa-shobo-mondai.md",
+   "sources": [
+    "cpa-learning"
+   ],
+   "note": "CPA 商簿問題集の分析"
+  },
+  {
+   "path": "docs/analysis/cpa-kobo-text.md",
+   "sources": [
+    "cpa-learning"
+   ],
+   "note": "CPA 工簿教科書の分析"
+  },
+  {
+   "path": "docs/analysis/cpa-kobo-mondai-moshi.md",
+   "sources": [
+    "cpa-learning"
+   ],
+   "note": "CPA 工簿問題集・模試の分析"
+  },
+  {
+   "path": "docs/analysis/bokipedia-a.md",
+   "sources": [
+    "bokipedia"
+   ],
+   "note": "簿記ペディア前半の分析"
+  },
+  {
+   "path": "docs/analysis/bokipedia-b.md",
+   "sources": [
+    "bokipedia"
+   ],
+   "note": "簿記ペディア後半の分析"
+  },
+  {
+   "path": "docs/analysis/cpa-courses-column-a.md",
+   "sources": [
+    "cpa-learning"
+   ],
+   "note": "CPA 講座とコラム（簿記・テクニック）の分析"
+  },
+  {
+   "path": "docs/analysis/cpa-column-b.md",
+   "sources": [
+    "cpa-learning"
+   ],
+   "note": "CPA コラム（経理・キャリア）の分析"
   }
  ]
 }
