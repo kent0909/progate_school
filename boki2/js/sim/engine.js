@@ -624,7 +624,7 @@
      台本の、これからの書類から作る：口座のお金が動く書類（でんさいの期日の引き落とし・入金は除く）、でんさいの「支払期日」、社長が約束した支払い（予定）。
      でんさいの期日は、帳簿の電子記録債務・債権の残りからも出す（期日に自動で動く） */
   const parseDay = (t) => { const m = String(t || '').match(/(\d+)月(\d+日|末)/); return m ? { m: +m[1], d: m[2] === '末' ? 31 : parseInt(m[2], 10) } : null; };
-  const DUE_PLAN = new Set(['pay_ap', 'collect_ar', 'pay_salary', 'pay_wage', 'cash_sale', 'cash_sale_vat', 'pay_tax', 'dividend_pay', 'rent', 'collect_card', 'construction', 'factoring', 'pay_other', 'repay', 'oh_power']);
+  const DUE_PLAN = new Set(['pay_ap', 'collect_ar', 'pay_salary', 'pay_wage', 'cash_sale', 'cash_sale_vat', 'cash_sale_point', 'pay_tax', 'dividend_pay', 'rent', 'collect_card', 'construction', 'factoring', 'pay_other', 'repay', 'oh_power']);
   const DUE_FIXED = new Set(['pay_ap', 'collect_ar', 'pay_tax', 'dividend_pay', 'rent', 'collect_card', 'construction', 'factoring', 'repay']);
   function dueItems() {
     const cur = (month() || {}).m || 4, key = (x) => (((x.m - cur) % 12) + 12) % 12 * 100 + x.d;
@@ -781,7 +781,7 @@
     const draw = () => {
       const found = traps.filter((x) => sel.has(x.id)).length, extra = [...sel].filter((id) => !trapIds.has(id)).length;
       const res = checked ? `<p class="s-react ${found === traps.length && !extra ? '' : 'ng'}">${found === traps.length && !extra ? 'あやしい書類を、ぜんぶ見つけた。' : `ちがっていたのは${traps.length}枚。見つけたのは${found}枚${extra ? `、合っているのに選んだのが${extra}枚` : ''}。`}</p>${talk([['kansa', found === traps.length ? '自動仕訳と同じ形でも、中身がちがう取引でしたね。では、書き直しましょう。' : '形が同じだと、見落としやすいんです。ちがっていた書類を、書き直しましょう。']])}<button class="btn wide" data-afix>書き直す</button>` : `<button class="btn wide" data-acheck ${sel.size ? '' : 'disabled'}>選んだ書類を、森さんと確かめる</button>`;
-      frame(`<div class="s-card">${talk(ev.talk)}<p class="s-q">帳簿の6枚。書類とちがう書き方をしているのは、どれ？（いくつでも）</p><div class="s-desk">${items.map(card).join('')}</div>${res}</div>`);
+      frame(`<div class="s-card">${talk(ev.talk)}<p class="s-q">帳簿の${items.length}枚。書類とちがう書き方をしているのは、どれ？（いくつでも）</p><div class="s-desk">${items.map(card).join('')}</div>${res}</div>`);
     };
     const fixNext = () => {
       const x = traps.find((t) => !sameEntry(S.L.find((l) => l.id === t.id), S.T.find((y) => y.id === t.id)));
@@ -1504,9 +1504,11 @@
       S.fixLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi });
       if (ev.trapFor && S.rules[ev.trapFor] && S.rules[ev.trapFor].broad) {
         S.rules[ev.trapFor].broad = false; S.rules[ev.trapFor].cond = D.rules[ev.trapFor].conds.find((c) => c.ok && !c.broad).t;
-        S.diary.push({ m: month().label, t: `自動仕訳の条件を直した：${S.rules[ev.trapFor].cond}（チラシ代まで仕入にしていた）` });
+        // 罠ごとの言葉（書類の trapNote）。ないときは1年目のチラシの言葉
+        const tn = ev.trapNote || { was: '掛けで何かを買ったとき', what: 'チラシ代まで「仕入／買掛金」と書いてしまった', ask: 'この請求書は、手で書き直そう。チラシは商品？' };
+        S.diary.push({ m: month().label, t: `自動仕訳の条件を直した：${S.rules[ev.trapFor].cond}（${tn.was}、という広い条件だった）` });
         save();
-        overlay(`<h3>自動仕訳の条件を直した</h3><p>「掛けで何かを買ったとき」という条件では、チラシ代まで「仕入／買掛金」と書いてしまった。条件を「商品を掛けで仕入れたとき」に直した。</p><p>この請求書は、手で書き直そう。チラシは商品？</p>`);
+        overlay(`<h3>自動仕訳の条件を直した</h3><p>「${esc(tn.was)}」という条件では、${esc(tn.what || 'ちがう取引まで同じ形で書いてしまった')}。条件を「${esc(S.rules[ev.trapFor].cond)}」に直した。</p><p>${esc(tn.ask)}</p>`);
       }
       docScreen(ev, true);
     };

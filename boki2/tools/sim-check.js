@@ -81,6 +81,18 @@ function run(i, S) {
     for (const [acc] of a.dr.concat(a.cr)) if (!B.accounts[acc]) err(`${label} ${e.id}: 科目がない ${acc}`);
     const taps = val(e.doc.rows, S).filter((r) => r[2] === 'amt').map((r) => r[1]);
     for (const [, v] of a.dr.concat(a.cr)) if (!taps.includes(v)) err(`${label} ${e.id}: 金額 ${v} が書類のタップ欄にない`);
+    // 消費税の端数：書類の「消費税（8％）」「（10％）」の行は、その前の金額の行（前の消費税の行のあとから）の合計×率の切り捨て
+    // （「税抜」と書いた行があれば、その行がもとの金額）
+    { const rows = val(e.doc.rows, S); let base = 0, nuki = null;
+      for (const r of rows) {
+        const m = String(r[0]).match(/消費税（(8|10)％）/);
+        if (m && r[2] === 'amt') { const b = nuki != null ? nuki : base, want = Math.floor((b * +m[1]) / 100); if (r[1] !== want) err(`${label} ${e.id}：消費税 ${r[1]} が、${b}×${m[1]}％の切り捨て ${want} と合わない`); base = 0; nuki = null; continue; }
+        if (r[2] !== 'amt') continue;
+        if (/税抜/.test(r[0])) nuki = r[1];
+        else if (!/合計|入金|税込|売上にする額|お支払|お預け入れ|お引出し|^うち/.test(r[0])) base += r[1];
+      } }
+    // 罠（trapEntry）と、社長が書いた帳簿（wrote）：貸借が合い、正しい仕訳と違う（月末の見直し・監査の点検で必ず差が出る）
+    for (const k of ['trapEntry', 'wrote']) if (e[k]) { const w = val(e[k], S), sw = (x) => w[x].reduce((t, y) => t + y[1], 0); if (sw('dr') !== sw('cr')) err(`${label} ${e.id}：${k} の貸借が合わない`); if (JSON.stringify(w) === JSON.stringify(a)) err(`${label} ${e.id}：${k} が正しい仕訳と同じ`); }
     // 税金の見込み：その年の収益−費用（法人税等を除く）の3割、100円未満切り捨て
     if (e.kind === 'tax') {
       const y = D.months[mi].year || 1, plA = (x) => ['収益', '費用'].includes((B.accounts[x] || {}).cat) && x !== '法人税等';
@@ -102,6 +114,11 @@ function run(i, S) {
   finish(S, '1年の終わり');
 }
 // その後に起きたことの記録（判断そのものは含めない）
+// ポイント（2号店）：配分と使われた分が割り切れ、使われた累計がつけた累計を超えない
+{ const P = (D.__y2 || {}).points; if (P) {
+  if (P.PT_N * P.PT_PTS % (P.PT_N + P.PT_PTS) || P.PT_N * P.PT_PTS / (P.PT_N + P.PT_PTS) !== P.PT_ALLOC) err(`ポイント：配分 ${P.PT_ALLOC} が ${P.PT_N}×${P.PT_PTS}÷${P.PT_N + P.PT_PTS} と合わない`);
+  let got = 0, used = 0; for (const m of [9, 10, 11, 12, 1, 2, 3]) { got += P.PT_PTS; used += P.PT_USE[m] || 0; if (P.PT_USE[m] && !Number.isInteger(P.ptB(P.PT_USE[m]))) err(`ポイント：${m}月の使われた分が割り切れない`); if (used > got) err(`ポイント：${m}月に、使われた累計が、つけた累計を超えた`); }
+} }
 function trace(e, S) {
   if (e.t === 'doc') return `${e.id}:${JSON.stringify(val(e.ans, S))}`;
   if (e.t === 'talk') return `${e.id || ''}:${JSON.stringify(val(e.lines, S))}`;
