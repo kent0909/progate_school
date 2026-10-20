@@ -124,12 +124,26 @@ function checkFill(where, q) {
   checkHtml(where + '.sheet', q.sheet);
 }
 
+// 教材の誤りの型を見る（DESIGN-REVISION 6.4）：答えの数字が問題文にも解説にも出ていない／資料の表に同じ行が2回ある
+const numsIn = (t) => new Set([...String(t || '').replace(/<[^>]+>/g, ' ').normalize('NFKC').matchAll(/\d[\d,]*(?:\.\d+)?/g)].map((m) => Number(m[0].replace(/,/g, ''))));
+function consistency(where, q) {
+  const nums = numsIn(`${q.q} ${q.exp} ${q.sheet || ''}`);
+  const need = q.type === 'journal' && q.ans && q.ans.dr ? [...q.ans.dr, ...q.ans.cr].map((x) => x[1]) : q.type === 'number' ? [q.a] : q.type === 'fill' ? (q.blanks || []).filter((b) => typeof b === 'number') : [];
+  const miss = [...new Set(need.filter((v) => typeof v === 'number' && v !== 0 && !nums.has(Math.abs(v))))];
+  if (miss.length) warn(where, `答えの数字 ${miss.slice(0, 4).join('・')} が問題文にも解説にも出ていない（解説に計算を書く）`);
+  for (const t of [q.q, q.sheet].flatMap((x) => String(x || '').split(/<\/table>/))) {
+    const rows = [...String(t || '').matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((m) => m[1].replace(/\s+/g, '')).filter((r) => /\d/.test(r) && !/\{\{/.test(r));
+    const dup = rows.filter((r, i) => rows.indexOf(r) !== i);
+    if (dup.length) warn(where, `資料の表に同じ行が2回ある：${dup[0].replace(/<[^>]+>/g, ' ').slice(0, 40)}`);
+  }
+}
 function checkQ(where, q) {
   if (!q.q) err(where, 'missing q');
   if (!q.exp) err(where, 'missing exp');
   checkHtml(where + '.q', q.q);
   checkHtml(where + '.exp', q.exp);
   checkHtml(where + '.real', q.real);
+  consistency(where, q);
   switch (q.type) {
     case 'journal':
       checkEntry(where, q.ans);
