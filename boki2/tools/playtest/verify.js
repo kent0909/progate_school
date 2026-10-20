@@ -78,6 +78,21 @@ for (const R of cfg.reviewers) {
     miss.length ? ng(who, `ペルソナの見出しが足りない：${miss.join('・')}`) : ok(who, `ペルソナ ${ptxt.replace(/\s/g, '').length}字・見出しそろう`);
     if (ptxt.replace(/\s/g, '').length < (min.persona || 2500)) ng(who, `ペルソナが短い（${ptxt.replace(/\s/g, '').length}字）`);
   }
+  // 3b. 前提知識の棚卸し：固定・見出し・深さ。専門家の役は、実際に読んだ資料（読了ノート）を根拠に引く
+  const kf = path.join(dir, 'knowledge.md');
+  if (!fs.existsSync(kf)) ng(who, 'knowledge.md がない');
+  else {
+    const ktxt = fs.readFileSync(kf, 'utf8'), ksha = sha(fs.readFileSync(kf)), klen = ktxt.replace(/\s/g, '').length;
+    if (sess.some((s) => s.knowledge_sha !== ksha)) ng(who, 'knowledge.md が遊んだあとに変わっている');
+    const heads = min.kheads || ['知っていること', '知らないこと', '物差し', '確かめ方'];
+    const miss = heads.filter((h) => !new RegExp(`^#+.*${h}`, 'm').test(ktxt));
+    miss.length ? ng(who, `前提知識の見出しが足りない：${miss.join('・')}`) : ok(who, `前提知識 ${klen}字・見出しそろう`);
+    if (klen < (min.knowledge || 3000)) ng(who, `前提知識が浅い（${klen}字）`);
+    const refs = [...new Set([...ktxt.matchAll(/\[\[([\w-]+):([\w-]+):([\w.-]+)\]\]/g)].map((m) => m.slice(1).join('/')))];
+    const notes = refs.filter((r) => fs.existsSync(path.join(cfg.notes, ...r.split('/')) + '.md'));
+    if ((min.krefs || 0) > 0) (notes.length >= min.krefs ? ok(who, `前提知識の根拠に読んだ資料 ${notes.length}本`) : ng(who, `前提知識の根拠の資料が少ない：${notes.length}本（${min.krefs}本以上。読了ノートのあるもの）`));
+    if (refs.length > notes.length) ng(who, `読了ノートのない資料を引いている：${refs.filter((r) => !notes.includes(r)).slice(0, 3).join(', ')}`);
+  }
   // 4. 遊んだ量
   const man = E.filter((e) => MANUAL.has(e.kind)), feel = E.filter((e) => e.kind === 'feel');
   const t0 = Date.parse(E[0].t), t1 = Date.parse(E[E.length - 1].t), mins = Math.round((t1 - t0) / 60000);
@@ -113,7 +128,7 @@ for (const R of cfg.reviewers) {
   outS.length ? ng(who, `本人の Bash の呼び出しの外で記録された session が ${outS.length} 回（本人が遊んでいない疑い）`) : ok(who, `全 session が本人の Bash の呼び出しの中（${sess.length}回）`);
   // persona.md・report.md は、本人が Write で丸ごと書いた最後の中身と、いまのファイルが1字も違わないこと（あとから誰かが直すと合わなくなる）
   const lastWrite = (f) => { const ws = T.writes.filter((w) => w.tool === 'Write' && path.resolve(w.file) === path.join(dir, f)); return ws.length ? ws[ws.length - 1].content : null; };
-  for (const f of ['persona.md', 'report.md']) {
+  for (const f of ['persona.md', 'knowledge.md', 'report.md']) {
     const w = lastWrite(f), cur = fs.existsSync(path.join(dir, f)) ? fs.readFileSync(path.join(dir, f), 'utf8') : null;
     w == null ? ng(who, `本人の会話記録に、${f} を Write で書いた跡がない`) : w !== cur ? ng(who, `${f} が、本人が最後に Write で書いた中身と違う（あとから変えられた疑い）`) : ok(who, `${f} は本人が書いた中身のまま`);
   }

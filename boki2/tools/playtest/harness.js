@@ -1,6 +1,6 @@
 // 遊びの検査（プレイテスト）の記録係。検査する人は、ゲームをこの道具を通してだけ操作する。
 // すべての操作（押した所・ねらい・その前後のゲームの状態・画面写真の sha256）と、その場の気持ちを log.jsonl に1行ずつ残す。
-// 各行は1つ前の行の sha256 を持つ（あとから書き換えると鎖が切れる）。persona.md は最初の操作の前に固定され、あとから変えると開けない。
+// 各行は1つ前の行の sha256 を持つ（あとから書き換えると鎖が切れる）。persona.md（人物像）と knowledge.md（前提知識の棚卸し）は最初に開いた時点で固定され、あとから変えると開けない。
 // 検証は verify.js（ログの鎖・ペルソナ・画面写真・報告の引用・会話記録の時刻との突き合わせ）。
 //
 // 使い方（検査する人のスクリプトの中で）：
@@ -28,13 +28,16 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
   dir = path.resolve(dir);
   const persona = path.join(dir, 'persona.md');
   if (!fs.existsSync(persona)) throw new Error('persona.md がない。遊ぶ前に、人物像を書いて固定すること');
+  const knowledge = path.join(dir, 'knowledge.md');
+  if (!fs.existsSync(knowledge)) throw new Error('knowledge.md がない。遊ぶ前に、前提知識の棚卸しを書いて固定すること');
   const logFile = path.join(dir, 'log.jsonl');
   const shots = path.join(dir, 'shots');
   fs.mkdirSync(shots, { recursive: true });
   const lines = fs.existsSync(logFile) ? fs.readFileSync(logFile, 'utf8').split('\n').filter(Boolean) : [];
-  const personaSha = fileSha(persona);
+  const personaSha = fileSha(persona), knowledgeSha = fileSha(knowledge);
   const first = lines.length ? JSON.parse(lines[0]) : null;
   if (first && first.persona_sha !== personaSha) throw new Error('persona.md が、最初に遊んだときから変わっている。人物像は遊ぶ前に固定する（変えたいときは、遊んだあとの気づきを report.md に書く）');
+  if (first && first.knowledge_sha !== knowledgeSha) throw new Error('knowledge.md が、最初に遊んだときから変わっている。前提知識は遊ぶ前に固定する');
   let prev = lines.length ? sha(lines[lines.length - 1]) : '0';
   let n = lines.length;
   const sid = crypto.randomBytes(6).toString('hex');
@@ -50,7 +53,7 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
   p.on('pageerror', (e) => errs.push(e.message));
   await p.goto('file://' + GAME);
   if (reset) { await p.evaluate(() => localStorage.clear()); await p.reload(); }
-  write({ kind: 'session', game_sha: fileSha(GAME), harness_sha: fileSha(__filename), auto_sha: fileSha(path.join(__dirname, 'auto.js')), persona_sha: personaSha, viewport, colorScheme, reset });
+  write({ kind: 'session', game_sha: fileSha(GAME), harness_sha: fileSha(__filename), auto_sha: fileSha(path.join(__dirname, 'auto.js')), persona_sha: personaSha, knowledge_sha: knowledgeSha, viewport, colorScheme, reset });
   const state = () => p.evaluate(() => { try { const S = window.__sim.S; const ev = (window.__sim.events() || [])[S.ei]; return { mi: S.mi, ei: S.ei, phase: S.phase, ev: ev ? `${ev.t}:${ev.id || ''}` : null, label: (document.querySelector('.s-month b') || document.querySelector('.s-head b') || {}).textContent || '' }; } catch (e) { return { err: String(e).slice(0, 80) }; } });
   let shotN = fs.readdirSync(shots).length;
   const shoot = async (label) => {
