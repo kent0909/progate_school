@@ -12,6 +12,11 @@
 //   await s.feel('いま、ここで分からなくなった');  // その場の気持ち（あとで書かない）
 //   await s.shot('名前');                      // 画面写真（操作のたびにも自動で撮る）
 //   await s.auto({ months: 2 }, 'ねらい');     // 長い区間を自動で進める（自動の区間もログに残る）
+//   人がする操作（ゲームの中の答えは読めないが、ふつうの人ができる操作は全部できる）：
+//   s.tap(sel)・s.tapAt(x, y)（押し損ね）・s.type(sel, '１０００')（1字ずつ打つ）・s.hover・s.longPress・s.drag(from, to)・s.scroll(dy)・s.swipe(dy)
+//   s.press('Tab')（キーボードだけで進める）と s.focus()（いま選ばれている所が見えるか）・s.a11y()（読み上げソフトから見た画面）
+//   s.back()・s.reload()（中断して戻る）・s.rotate()（画面を回す）・s.textScale(150)（文字を大きく）・s.offline(true)（ネットが切れる）・s.inspect(sel)（大きさ・色・コントラスト比）
+//   ※ どの操作にも、最後の引数に「ねらい」を必ず書く
 //   await s.close();
 const fs = require('fs');
 const path = require('path');
@@ -24,7 +29,7 @@ const sha = (buf) => crypto.createHash('sha256').update(buf).digest('hex');
 const fileSha = (f) => sha(fs.readFileSync(f));
 
 exports.GAME = GAME;
-exports.open = async function open(dir, { viewport = { width: 375, height: 760 }, colorScheme = 'light', reset = false } = {}) {
+exports.open = async function open(dir, { viewport = { width: 375, height: 760 }, colorScheme = 'light', reset = false, touch = null } = {}) {
   dir = path.resolve(dir);
   const persona = path.join(dir, 'persona.md');
   if (!fs.existsSync(persona)) throw new Error('persona.md がない。遊ぶ前に、人物像を書いて固定すること');
@@ -49,13 +54,15 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
     prev = sha(line);
     return n - 1;
   };
-  const ctx = await chromium.launchPersistentContext(path.join(dir, 'profile'), { executablePath: '/opt/pw-browsers/chromium', viewport, colorScheme });
+  // スマホ・タブレット（幅が1024未満）は指で押す端末として開く（tap が使える）
+  const isTouch = touch == null ? viewport.width < 1024 : !!touch;
+  const ctx = await chromium.launchPersistentContext(path.join(dir, 'profile'), { executablePath: '/opt/pw-browsers/chromium', viewport, colorScheme, hasTouch: isTouch, isMobile: isTouch && viewport.width < 900, deviceScaleFactor: isTouch ? 2 : 1 });
   const p = ctx.pages()[0] || (await ctx.newPage());
   const errs = [];
   p.on('pageerror', (e) => errs.push(e.message));
   await p.goto('file://' + GAME);
   if (reset) { await p.evaluate(() => localStorage.clear()); await p.reload(); }
-  write({ kind: 'session', game_sha: fileSha(GAME), harness_sha: fileSha(__filename), auto_sha: fileSha(path.join(__dirname, 'auto.js')), persona_sha: personaSha, knowledge_sha: knowledgeSha, pretest_sha: preSha, viewport, colorScheme, reset });
+  write({ kind: 'session', touch: isTouch, game_sha: fileSha(GAME), harness_sha: fileSha(__filename), auto_sha: fileSha(path.join(__dirname, 'auto.js')), persona_sha: personaSha, knowledge_sha: knowledgeSha, pretest_sha: preSha, viewport, colorScheme, reset });
   const state = () => p.evaluate(() => { try { const S = window.__sim.S; const ev = (window.__sim.events() || [])[S.ei]; return { mi: S.mi, ei: S.ei, phase: S.phase, ev: ev ? `${ev.t}:${ev.id || ''}` : null, label: (document.querySelector('.s-month b') || document.querySelector('.s-head b') || {}).textContent || '' }; } catch (e) { return { err: String(e).slice(0, 80) }; } });
   let shotN = fs.readdirSync(shots).length;
   const shoot = async (label) => {
@@ -92,6 +99,24 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
     fill: (sel, v, why) => act('fill', sel, why, () => p.fill(sel, String(v))),
     select: (sel, v, why) => act('select', sel, why, () => p.selectOption(sel, v)),
     press: (key, why) => act('press', key, why, () => p.keyboard.press(key)),
+    // ── 人がする操作を、そのまま試す（答えは読めない） ──
+    tap: (sel, why) => act('tap', sel, why, () => p.tap(sel)),                                   // 指で押す（タッチの端末）
+    tapAt: (x, y, why) => act('tapAt', `${x},${y}`, why, () => (isTouch ? p.touchscreen.tap(x, y) : p.mouse.click(x, y))), // 画面の場所を押す（押し損ね・端の小さな所）
+    type: (sel, text, why) => act('type', sel, why, async () => { await p.click(sel); await p.keyboard.type(String(text), { delay: 30 }); }), // 1字ずつ打つ（全角・半角のまちがいも試せる）
+    hover: (sel, why) => act('hover', sel, why, () => p.hover(sel)),
+    longPress: (sel, why) => act('longPress', sel, why, async () => { const b = await p.locator(sel).first().boundingBox(); await p.mouse.move(b.x + b.width / 2, b.y + b.height / 2); await p.mouse.down(); await p.waitForTimeout(800); await p.mouse.up(); }),
+    drag: (from, to, why) => act('drag', `${from} -> ${to}`, why, () => p.dragAndDrop(from, to)),
+    scroll: (dy, why) => act('scroll', String(dy), why, () => p.mouse.wheel(0, dy)),
+    swipe: (dy, why) => act('swipe', String(dy), why, async () => { const w = viewport.width / 2, h = viewport.height / 2; await p.mouse.move(w, h); await p.mouse.down(); await p.mouse.move(w, h - dy, { steps: 8 }); await p.mouse.up(); }),
+    back: (why) => act('back', 'history.back', why, () => p.goBack().catch(() => null)),
+    reload: (why) => act('reload', 'reload', why, () => p.reload()),                              // 中断して戻ったとき、続きから遊べるか
+    rotate: (why) => act('rotate', 'rotate', why, async () => { viewport = { width: viewport.height, height: viewport.width }; await p.setViewportSize(viewport); }), // 画面を回す
+    textScale: (pct, why) => act('textScale', String(pct), why, () => p.addStyleTag({ content: `html{font-size:${pct}% !important}` })), // 文字を大きくする設定のかわり
+    offline: (on, why) => act('offline', String(on), why, () => ctx.setOffline(!!on)),           // ネットが切れたとき（保存・再開）
+    // キーボードだけで進めるか：いま選ばれている所（フォーカス）の名前・役割・枠線が見えるか
+    async focus(why) { if (!why) throw new Error('ねらいを書くこと'); const r = await p.evaluate(() => { const e = document.activeElement; if (!e || e === document.body) return null; const cs = getComputedStyle(e), b = e.getBoundingClientRect(); return { tag: e.tagName, role: e.getAttribute('role'), label: (e.getAttribute('aria-label') || e.innerText || e.value || '').slice(0, 40), outline: `${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor}`, boxShadow: cs.boxShadow !== 'none', w: Math.round(b.width), h: Math.round(b.height) }; }); write({ kind: 'focus', why, state: await state(), result: r }); return r; },
+    // 読み上げソフトから見た画面（アクセシビリティの木）。見えている部品の役割と名前だけ
+    async a11y(why) { if (!why) throw new Error('ねらいを書くこと'); const t = await p.locator('body').ariaSnapshot().catch((e) => `取れなかった：${e.message}`); write({ kind: 'a11y', why, state: await state(), text_sha: sha(t), chars: t.length }); return t; },
     async feel(text) { if (!text || text.length < 6) throw new Error('気持ちは6字以上で'); return write({ kind: 'feel', text, state: await state() }); },
     async shot(label) { return write({ kind: 'shot', label, state: await state(), shot: await shoot(label) }); },
     async auto(opts = {}, why) {

@@ -23,7 +23,7 @@ const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const cfg = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 const HARNESS = path.join(__dirname, 'harness.js'), AUTO = path.join(__dirname, 'auto.js');
 const PERSONA_HEADS = ['名前', '年齢', '経歴', '知識', 'ゲーム歴', '動機', '環境', '性格', '物差し', '偏り', 'やめる'];
-const MANUAL = new Set(['click', 'fill', 'select', 'press']);
+const MANUAL = new Set(['click', 'fill', 'select', 'press', 'tap', 'tapAt', 'type', 'hover', 'longPress', 'drag', 'scroll', 'swipe', 'back', 'reload', 'rotate', 'textScale', 'offline']);
 const out = [];
 let bad = 0;
 const ng = (who, m) => { bad++; out.push(`✗ ${who}：${m}`); };
