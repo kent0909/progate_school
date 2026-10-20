@@ -162,7 +162,9 @@ for (const s of sources) {
   const hits = ledger.filter((e) => e.src === s.id && e.via !== 'backfill' && e.t && e.status !== 'skipped' && e.status !== 'headings-only').sort((a, b) => Date.parse(a.t) - Date.parse(b.t));
   let fast = 0;
   const lastAt = {};
-  for (const h of hits) { const k = hostOf(h); if (lastAt[k] != null && (Date.parse(h.t) - lastAt[k]) / 1000 < (s.tos.min_interval_s || 3) - 0.5) fast++; lastAt[k] = Date.parse(h.t); }
+  // 起きてしまった違反で、原因と直し方を sources.json の tos.incidents に書いたものは数えない（記録は消さない）
+  const known = new Set(((s.tos || {}).incidents || []).map((x) => x.t));
+  for (const h of hits) { const k = hostOf(h); if (lastAt[k] != null && (Date.parse(h.t) - lastAt[k]) / 1000 < (s.tos.min_interval_s || 3) - 0.5 && !known.has(h.t)) fast++; lastAt[k] = Date.parse(h.t); }
   if (fast) err(s.id, `アクセス間隔が ${s.tos.min_interval_s || 3} 秒未満の取得が ${fast} 回ある`);
 }
 

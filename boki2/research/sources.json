@@ -477,7 +477,24 @@
      "www.soumu.go.jp": "総務省ホームページの著作権について（https://www.soumu.go.jp/menu_kyotsuu/policy/tyosaku.html）：公共データ利用規約（第1.0版）に準拠、出典を書けば利用可。2026-10-20 まとめ役が確認（law:primary:soumu-terms）",
      "elaws.e-gov.go.jp": "law 全体の確認（官公庁は PDL・政府標準利用規約で出典を書けば複製・加工可。業界団体は閲覧のみ・原文はリポジトリに入れない）。2026-10-20 以前",
      "jpx-gr.info": "law 全体の確認（官公庁は PDL・政府標準利用規約で出典を書けば複製・加工可。業界団体は閲覧のみ・原文はリポジトリに入れない）。2026-10-20 以前"
-    }
+    },
+    "incidents": [
+     {
+      "t": "2026-10-20T17:29:46.476Z",
+      "host": "www.kentei.ne.jp",
+      "why": "2026-10-20 17:29〜17:30、検査者4人（learner・retaker・hs・accountant）が並行して日商のサイトから取得し、間隔の確認が並行の取得を知らなかった（ledger-pending を見ていなかった）。最短0.3秒ほど。ホストごとの鍵と全取得記録の確認を research-fetch に入れて直した（同日）。記録は追記だけなので残す"
+     },
+     {
+      "t": "2026-10-20T17:29:48.954Z",
+      "host": "www.kentei.ne.jp",
+      "why": "2026-10-20 17:29〜17:30、検査者4人（learner・retaker・hs・accountant）が並行して日商のサイトから取得し、間隔の確認が並行の取得を知らなかった（ledger-pending を見ていなかった）。最短0.3秒ほど。ホストごとの鍵と全取得記録の確認を research-fetch に入れて直した（同日）。記録は追記だけなので残す"
+     },
+     {
+      "t": "2026-10-20T17:30:23.087Z",
+      "host": "www.kentei.ne.jp",
+      "why": "2026-10-20 17:29〜17:30、検査者4人（learner・retaker・hs・accountant）が並行して日商のサイトから取得し、間隔の確認が並行の取得を知らなかった（ledger-pending を見ていなかった）。最短0.3秒ほど。ホストごとの鍵と全取得記録の確認を research-fetch に入れて直した（同日）。記録は追記だけなので残す"
+     }
+    ]
    },
    "collections": [
     {
