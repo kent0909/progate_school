@@ -66,6 +66,8 @@ D.months.forEach((m, mi) => {
   const evs = m.events;
   for (const e of evs) {
     const w = `${m.label} ${e.id || e.t}`;
+    // 決算の机：書類の題名は書類の言葉（タップで説明が出る）、ほかはふつうの文
+    if (e.t === 'desk') { check(`${w} 書類の題名`, e.items.map((it) => it.title).join(' '), [], { doc: true }); check(w, `${talkText(e.talk)} ${e.q} ${e.items.map((it) => `${typeof it.line === 'function' ? ['credit', 'cash', 'none'].map((c) => it.line({ decisions: { credit: c } })).join(' ') : it.line} ${it.why}`).join(' ')}`); len(w, `${talkText(e.talk)}${e.q}`); }
     if (e.t === 'talk') { check(w, talkText(e.lines), e.teaches); len(w, talkText(e.lines)); shown(w, e.teaches, talkText(e.lines)); teach(e.teaches); }
     if (e.t === 'board') {
       for (const [i, st] of e.steps.entries()) {

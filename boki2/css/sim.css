@@ -253,3 +253,9 @@ i.lv0 { border: 1px solid var(--line); }
 .s-ledger { border-collapse: collapse; font-size: 12px; min-width: 100%; }
 .s-ledger th, .s-ledger td { border-bottom: 1px solid var(--line); padding: 4px 6px; white-space: nowrap; text-align: left; }
 .s-ledger td.n { text-align: right; font-variant-numeric: tabular-nums; }
+.s-desk { display: grid; gap: 6px; }
+.s-deskit { text-align: left; border: 2px solid var(--line); border-radius: 8px; background: var(--surface2); padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; }
+.s-deskit.on { border-color: var(--brand); background: var(--surface); }
+.s-deskit small { color: var(--muted); font-size: 12px; }
+.s-deskit em { font-style: normal; font-size: 12px; margin-top: 4px; }
+.s-deskit.ok em { color: hsl(150 45% 35%); } .s-deskit.ng { border-color: var(--bad); } .s-deskit.ng em { color: var(--bad); }
