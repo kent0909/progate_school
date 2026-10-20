@@ -128,7 +128,7 @@
     // 預かった消費税に線を引いた会社（判断 vat）は、口座のお金のうち預かり分を見せる
     const azu = S.decisions.vat === 'line' && knows('仮受消費税') ? Math.max(0, -(b['仮受消費税'] || 0) - (b['仮払消費税'] || 0)) : 0;
     const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>この1年のもうけ</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
-    const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button></nav>' : '';
+    const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button><button data-ov="hall">検定会場</button></nav>' : '';
     return `<header class="s-head"><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
   }
   let onFocus = null;
@@ -166,6 +166,7 @@
     if (k === 'co') coOverlay();
     if (k === 'map') mapOverlay();
     if (k === 'grow') overlay(B.growth.view(GAPI));
+    if (k === 'hall') { document.querySelectorAll('.s-ov').forEach((o) => o.remove()); hallScreen(); return; }
     if (k === 'log') overlay(`<h3>経営日誌</h3>${S.diary.length ? `<ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul>` : '<p class="muted">まだ記録はない。</p>'}`);
   });
   // 会社の棚：棚の絵と、元帳（勘定ごとに、日付・摘要・相手の札・残高）
@@ -234,7 +235,7 @@
     const fixes = S.fixLog.filter((f) => docs.includes(f.ev) || kinds.includes(f.kind));
     const shaky = fixes.some((f) => !S.docLog.some((l) => l.ok && l.mi > f.mi && (l.kind === f.kind || l.ev === f.ev)));
     if (shaky) own = false;
-    const ex = S.examLog.filter((l) => (it.q || []).includes(l.key));
+    const ex = S.examLog.filter((l) => (it.q || []).includes(l.key) || (B.examScope && (B.examScope[l.key] || []).includes(it.id)));
     const okT = ex.filter((l) => l.ok).map((l) => l.t);
     const exam = !ex.length ? null : !ex[ex.length - 1].ok ? 'miss' : okT.length >= 2 && Math.max(...okT) - Math.min(...okT) >= 7 * 864e5 ? 'exam2' : 'exam1';
     return { met, own, shaky, exam, built: !!(disc.length || docs.length || kinds.length || x.close || x.report) };
@@ -292,6 +293,43 @@
   function replay(id) {
     const ev = allEvents.find(({ e }) => e.id === id).e;
     if (ev.t === 'board') boardScreen(ev, true); else discoverScreen(ev, true);
+  }
+
+  /* ---------- 検定会場（js/hall.js。会社の外の第2のループ。合否は会社に影響しない：docs/DESIGN-REVISION.md 3.4） ---------- */
+  const chNum = (id) => parseInt(String(id).replace(/\D/g, ''), 10) || 0;
+  const HCH = B.chapters.slice().sort((a, b) => chNum(a.id) - chNum(b.id));
+  HCH.forEach((c) => (c.qs || []).forEach((q, i) => { q._key = q._key || `${c.id}:${i}`; q._ch = c; }));
+  (B.exams || []).forEach((x) => { x.type = 'fill'; x._key = `exam:${x.id}`; x._ch = { title: `模試 第${x.part}問 ${x.title}`, world: 'exam' }; });
+  // 大問の範囲タグ：成長の記録で、大問の正誤をその項目に数える
+  B.examScope = {}; (B.exams || []).forEach((x) => { B.examScope[x._key] = x.scope || []; });
+  let hallGuard = null, hallClean = null;
+  const hallCtx = (root) => ({
+    root, state: (S.hall = S.hall || { exams: [], examSeen: [] }), chapters: HCH, save,
+    hist: (k) => { const l = S.examLog.filter((x) => x.key === k); return [l.length, l.filter((x) => x.ok).length]; },
+    // 会社で起きた論点なら「習った」
+    cleared: (ch) => B.scope.some((it) => it.ch === ch && scopeState(it).met != null),
+    record: (q, ok) => { S.examLog.push({ key: q._key, ok, t: Date.now(), hall: true }); save(); },
+    y27: () => S.mode !== '2026', today: () => new Date().toISOString().slice(0, 10),
+    go: (name, arg) => (name === 'exam' ? hallScreen() : hallScreen({ play: arg === undefined ? true : arg })),
+    // 習っていない → その論点の会社の場面へ（見つけていれば、もう一度見る）
+    lesson: (ch) => { if (ch === 'c47') { const c = HCH.find((x) => x.id === 'c47'); overlay(`<h3>${esc(c.title)}</h3>${c.lessons.map((l) => `<h4>${esc(l.t)}</h4><div class="rich">${B.hall.rich(l.h)}</div>`).join('')}`); return; } const it = B.scope.find((x) => x.ch === ch && ((x.sim || {}).disc || []).some((d) => S.discDone[d] != null)); if (it) { leaveHall(); replay(it.sim.disc.find((d) => S.discDone[d] != null)); } else { const n = B.scope.find((x) => x.ch === ch); toast(`「${n ? n.name : ch}」は、会社でまだ起きていない。先の月で出会う。`); } },
+    review: () => overlay(B.growth.view(GAPI)),
+    guard: (m) => { hallGuard = m; }, cleanup: (fn) => { hallClean = fn; },
+    after: () => grew('検定会場'), toast,
+    icons: { paper: '', x: '×' },
+  });
+  function leaveHall() { if (hallClean) { hallClean(); hallClean = null; } hallGuard = null; }
+  function hallScreen(arg) {
+    leaveHall();
+    frame(`<div class="s-hallbar"><button class="btn sm ghost" data-hallback>← 会社へもどる</button><small>検定会場（本試験の形の模試）。合否は会社に影響しない</small></div><div class="s-hall"></div>`);
+    const root = $('.s-hall', app);
+    app.onclick = (e) => {
+      if (!e.target.closest('[data-hallback]')) return;
+      if (hallGuard) { const o = overlay(`<p>${esc(hallGuard)}</p><button class="btn wide bad" data-hallquit>やめて会社へもどる</button>`); o.addEventListener('click', (x) => { if (x.target.closest('[data-hallquit]')) { o.remove(); leaveHall(); render(); } }); return; }
+      leaveHall(); render();
+    };
+    const H = B.hall.use(hallCtx(root));
+    if (arg && arg.play !== undefined) H.play(arg.play); else H.menu();
   }
 
   /* ---------- screens ---------- */
@@ -1384,7 +1422,7 @@
     const firstOk = disc.filter(([, d]) => d.first).length;
     const mins = Math.round((Date.now() - M.started) / 60000);
     const forks = Object.entries(M.forks).sort((a, c) => c[1] - a[1]);
-    frame(`<div class="s-card"><small>1年のふりかえり</small><h3>${endY}年目、おつかれさま</h3><p>${endY === 1 ? '屋台の小銭2,000円から始まった会社は、1年で' : `${endY}年目の1年で、会社は`}もうけ <b>${fmt(p.ni)}円</b>、口座のお金 <b>${fmt(cashOf(b))}円</b> になった。</p><h4>あなたが決めたこと</h4><ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul><button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button><details class="s-devlog"><summary>開発用の記録</summary><table class="s-tb"><tr><td>考える場面で、1回目から正しくたどり着いた</td><td class="n">${firstOk} / ${disc.length}</td></tr><tr><td>先輩の手帳を開いた回数</td><td class="n">${M.hand}</td></tr><tr><td>書類の記帳で、1回目から正しかった</td><td class="n">${M.docs.first} / ${M.docs.n}</td></tr><tr><td>月末に直した回数</td><td class="n">${M.fixes}</td></tr><tr><td>ヒントを見た回数</td><td class="n">${M.hints}</td></tr><tr><td>自動仕訳で進んだ書類</td><td class="n">${M.autoPosted}</td></tr><tr><td>腕だめし</td><td class="n">${M.quiz ? `${M.quiz.score} / ${M.quiz.of}` : '-'}</td></tr><tr><td>予想が当たった（発見の前・月末の締めの前）</td><td class="n">${disc.filter(([, d]) => d.predict && d.predict.ok).length} / ${disc.filter(([, d]) => d.predict).length}・${Object.values(S.predicts || {}).filter((x) => x.ok).length} / ${Object.values(S.predicts || {}).filter((x) => x.act).length}</td></tr><tr><td>ヒントなしで1回目から正しく書けた書類</td><td class="n">${S.docLog.filter((l) => l.ok && !l.hint).length} / ${S.docLog.length}</td></tr><tr><td>月はじめの思い出し</td><td class="n">${(S.recall || []).filter((r) => r.ok).length} / ${(S.recall || []).filter((r) => !r.due).length}</td></tr><tr><td>決算の机（1回目で全部見つけた）</td><td class="n">${S.metrics.desk ? (S.metrics.desk.first ? 'はい' : 'いいえ') : '-'}</td></tr><tr><td>かかった時間</td><td class="n">${mins}分</td></tr></table>${forks.length ? `<p>迷ったところ</p><ul class="s-diary">${forks.map(([f, n]) => `<li>${esc(f)} <b>${n}</b></li>`).join('')}</ul>` : ''}</details>${month() && D.months[S.mi + 1] ? `<button class="btn wide" data-n>${endY + 1}年目へ進む</button>` : ''}<button class="btn wide ghost" data-again>最初からもう一度</button></div>`);
+    frame(`<div class="s-card"><small>1年のふりかえり</small><h3>${endY}年目、おつかれさま</h3><p>${endY === 1 ? '屋台の小銭2,000円から始まった会社は、1年で' : `${endY}年目の1年で、会社は`}もうけ <b>${fmt(p.ni)}円</b>、口座のお金 <b>${fmt(cashOf(b))}円</b> になった。</p><h4>あなたが決めたこと</h4><ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul><button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button><details class="s-devlog"><summary>開発用の記録</summary><table class="s-tb"><tr><td>考える場面で、1回目から正しくたどり着いた</td><td class="n">${firstOk} / ${disc.length}</td></tr><tr><td>先輩の手帳を開いた回数</td><td class="n">${M.hand}</td></tr><tr><td>書類の記帳で、1回目から正しかった</td><td class="n">${M.docs.first} / ${M.docs.n}</td></tr><tr><td>月末に直した回数</td><td class="n">${M.fixes}</td></tr><tr><td>ヒントを見た回数</td><td class="n">${M.hints}</td></tr><tr><td>自動仕訳で進んだ書類</td><td class="n">${M.autoPosted}</td></tr><tr><td>腕だめし</td><td class="n">${M.quiz ? `${M.quiz.score} / ${M.quiz.of}` : '-'}</td></tr><tr><td>予想が当たった（発見の前・月末の締めの前）</td><td class="n">${disc.filter(([, d]) => d.predict && d.predict.ok).length} / ${disc.filter(([, d]) => d.predict).length}・${Object.values(S.predicts || {}).filter((x) => x.ok).length} / ${Object.values(S.predicts || {}).filter((x) => x.act).length}</td></tr><tr><td>ヒントなしで1回目から正しく書けた書類</td><td class="n">${S.docLog.filter((l) => l.ok && !l.hint).length} / ${S.docLog.length}</td></tr><tr><td>月はじめの思い出し</td><td class="n">${(S.recall || []).filter((r) => r.ok).length} / ${(S.recall || []).filter((r) => !r.due).length}</td></tr><tr><td>決算の机（1回目で全部見つけた）</td><td class="n">${S.metrics.desk ? (S.metrics.desk.first ? 'はい' : 'いいえ') : '-'}</td></tr><tr><td>かかった時間</td><td class="n">${mins}分</td></tr></table>${forks.length ? `<p>迷ったところ</p><ul class="s-diary">${forks.map(([f, n]) => `<li>${esc(f)} <b>${n}</b></li>`).join('')}</ul>` : ''}</details><button class="btn wide ghost" data-ov="hall">検定会場で、本試験の形で確かめる</button>${month() && D.months[S.mi + 1] ? `<button class="btn wide" data-n>${endY + 1}年目へ進む</button>` : ''}<button class="btn wide ghost" data-again>最初からもう一度</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-n]')) { next(); return; } if (e.target.closest('[data-again]')) { S = fresh(); S.phase = 'monthIntro'; save(); render(); } };
   }
 

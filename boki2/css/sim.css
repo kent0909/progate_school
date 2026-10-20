@@ -283,3 +283,9 @@ i.lv0 { border: 1px solid var(--line); }
 .s-sheet tr.todo td:first-child { color: var(--muted, #888); }
 .s-sheetrow { display: block; font-size: 11px; color: var(--muted, #777); }
 .s-azu { display: block; font-size: 10px; color: hsl(0 60% 45%); }
+/* 検定会場（hall.js）を試作の中で開くとき */
+.s-hallbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.s-hallbar small { color: var(--muted, #777); font-size: 11px; }
+.s-hall { display: block; }
+.s-nav { flex-wrap: wrap; }
+.s-nav button { white-space: nowrap; font-size: 12px; padding-left: 8px; padding-right: 8px; }

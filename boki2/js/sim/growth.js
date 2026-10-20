@@ -16,7 +16,7 @@
     const x = it.sim || {}, docs = x.docs || [], kinds = x.kinds || [];
     const tries = S.docLog.filter((l) => docs.includes(l.ev) || kinds.includes(l.kind));
     const fixes = S.fixLog.filter((f) => docs.includes(f.ev) || kinds.includes(f.kind)).length;
-    const exams = S.examLog.filter((l) => (it.q || []).includes(l.key));
+    const exams = S.examLog.filter((l) => (it.q || []).includes(l.key) || (B.examScope && (B.examScope[l.key] || []).includes(it.id)));
     const lv = st.exam === 'exam2' ? 4 : st.exam === 'exam1' ? 3 : st.own ? 2 : st.met != null ? 1 : 0;
     const okRate = tries.length ? tries.filter((l) => l.ok).length / tries.length : null;
     const lastExamOk = exams.filter((l) => l.ok).map((l) => l.t).sort().pop() || null;
