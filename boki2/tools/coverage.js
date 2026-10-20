@@ -14,7 +14,7 @@ const B = window.BOKI, D = window.SIMDATA;
 const md = process.argv.includes('--md');
 
 const evs = D.months.flatMap((m) => m.events);
-const discIds = new Set(evs.filter((e) => e.t === 'discover' || e.t === 'board' || e.t === 'closing' || e.t === 'opening').map((e) => e.id));
+const discIds = new Set(evs.filter((e) => e.t === 'discover' || e.t === 'board' || e.t === 'closing' || e.t === 'opening' || e.t === 'sheet').map((e) => e.id));
 const docIds = new Set(evs.filter((e) => e.t === 'doc').map((e) => e.id));
 const kinds = new Set(evs.filter((e) => e.t === 'doc').map((e) => e.kind));
 const qKeys = new Set(B.chapters.flatMap((c) => c.qs.map((_, i) => `${c.id}:${i}`)));

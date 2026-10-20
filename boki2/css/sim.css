@@ -276,3 +276,8 @@ i.lv0 { border: 1px solid var(--line); }
 .s-farrow { align-self: center; font-style: normal; color: hsl(200 30% 45%); }
 .s-ftok { display: block; background: #fff; border: 1px solid hsl(200 30% 70%); border-radius: 6px; padding: 2px 4px; font-size: 11px; }
 .s-fje { margin-top: 8px; }
+/* 精算表 */
+.s-sheetwrap { overflow-x: auto; max-width: 100%; }
+.s-sheet { font-size: 11px; min-width: 640px; }
+.s-sheet th, .s-sheet td { padding: 2px 4px; white-space: nowrap; }
+.s-sheet tr.todo td:first-child { color: var(--muted, #888); }
