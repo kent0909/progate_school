@@ -932,17 +932,22 @@
     };
   }
   // 事後のもしも：正しく選んだ人も、選ばなかった道の結末を見に行ける（会社の状態は動かない）
-  function ifOnlyList() {
+  // もしも：その年の判断のうち、選ばなかった道の先にあった結末。「もし〜を選んでいたら」には、その結末に届く選択肢（E.via）だけを出す
+  function ifOnlyList(y) {
     const out = [];
-    for (const m of D.months) for (const ev of m.events) {
+    D.months.forEach((m) => { if ((m.year || 1) !== y && (m.year || 1) !== y + 1) return; for (const ev of m.events) {
       if (ev.t !== 'decision' || !S.decisions[ev.id]) continue;
-      const o = ev.options.find((x) => x.id === S.decisions[ev.id]);
-      ev.options.flatMap((x) => x.ending || []).forEach((id) => { if (!S.seenEnds.includes(id) && !out.some((x) => x.id === id)) out.push({ id, q: ev.q, alt: ev.options.filter((x) => !x.ending).map((x) => x.label).join('／') }); });
-    }
+      ev.options.flatMap((x) => x.ending || []).forEach((id) => {
+        if (S.seenEnds.includes(id) || out.some((x) => x.id === id)) return;
+        const E = D.endings[id] || {};
+        const alts = ev.options.filter((x) => (E.via ? E.via.includes(x.id) : !x.ending));
+        out.push({ id, q: ev.q, alt: alts.map((x) => x.label).join('／') });
+      });
+    } });
     return out;
   }
-  function ifOnlyScreen() {
-    const list = ifOnlyList();
+  function ifOnlyScreen(ev) {
+    const list = ifOnlyList((ev && ev.y) || yearOf(S.mi));
     frame(`<div class="s-card"><small>1年のふりかえり</small><h3>もしも、あのとき…</h3>${talk([['senpai', 'あの判断で、ちがう道を選んでいたら何が起きていたか。見ておくと、なぜ今の処理が必要だったかが分かるよ。']])}${list.length ? `<div class="s-opts">${list.map((x) => `<button class="s-opt" data-if="${x.id}"><b>${esc(D.endings[x.id].title)}</b><small>${esc(x.q)} → もし「${esc(x.alt)}」を選んでいたら</small>${S.ifSeen.includes(x.id) ? '<i class="s-seen">見た</i>' : ''}</button>`).join('')}</div>` : '<p class="muted">見に行ける「もしも」はない。</p>'}<button class="btn wide" data-n>つぎへ</button></div>`);
     app.onclick = (e) => {
       const b = e.target.closest('[data-if]');

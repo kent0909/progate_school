@@ -88,7 +88,7 @@ function run(i, S) {
       const want = Math.max(0, Math.floor((pre * 0.3) / 100) * 100);
       if (a.dr[0][1] !== want) err(`${label} ${e.id}：税金 ${a.dr[0][1]} が、もうけ ${pre} の3割 ${want} と合わない`);
     }
-    S.T.push({ dr: a.dr, cr: a.cr, y: D.months[mi].year || 1 });
+    S.T.push({ dr: a.dr, cr: a.cr, y: D.months[mi].year || 1, ev: e.id });
     const b = bank(S);
     if (b < 0) err(`${label} ${e.id}: 預金がマイナス ${b}（${JSON.stringify(S.decisions)}）`);
   }
