@@ -6,7 +6,7 @@
 global.window = global;
 const path = require('path');
 const root = path.join(__dirname, '..');
-['js/core.js', 'js/data/accounts.js', 'js/sim/lexicon.js', 'js/sim/scenario.js'].forEach((f) => require(path.join(root, f)));
+['js/core.js', 'js/data/accounts.js', 'js/sim/lexicon.js', 'js/sim/scenario.js', 'js/sim/year2.js'].forEach((f) => require(path.join(root, f)));
 const B = window.BOKI, D = window.SIMDATA, LX = B.lex;
 const errors = [], notes = [];
 const taught = new Set();
@@ -29,7 +29,7 @@ const len = (where, text, max = 180) => {
   const nom = t.match(/[^、。]{0,6}(の計上|の実施|を行う|の処理を|の把握|の確認を)/g);
   if (nom) notes.push(`${where} 名詞化：${[...new Set(nom)].join('・')}`);
 };
-const talkText = (lines) => (lines || []).map((l) => l[1]).join('');
+const talkText = (lines) => (typeof lines === 'function' ? branches.flatMap((b) => lines({ ...fake, decisions: b })) : lines || []).map((l) => l[1]).join('');
 function docCheck(where, doc) {
   if (!doc) return;
   check(`${where} 書類`, [doc.title, doc.type, doc.from, doc.to].join(' '), [], { doc: true });
@@ -68,7 +68,7 @@ D.months.forEach((m, mi) => {
     const w = `${m.label} ${e.id || e.t}`;
     // 決算の机：書類の題名は書類の言葉（タップで説明が出る）、ほかはふつうの文
     if (e.t === 'desk') { check(`${w} 書類の題名`, e.items.map((it) => it.title).join(' '), [], { doc: true }); check(w, `${talkText(e.talk)} ${e.q} ${e.items.map((it) => `${typeof it.line === 'function' ? ['credit', 'cash', 'none'].map((c) => it.line({ decisions: { credit: c } })).join(' ') : it.line} ${it.why}`).join(' ')}`); len(w, `${talkText(e.talk)}${e.q}`); }
-    if (e.t === 'talk') { check(w, talkText(e.lines), e.teaches); len(w, talkText(e.lines)); shown(w, e.teaches, talkText(e.lines)); teach(e.teaches); }
+    if (e.t === 'talk') { check(w, talkText(e.lines), e.teaches); (typeof e.lines === 'function' ? branches.map((b) => talkText(e.lines({ ...fake, decisions: b }))) : [talkText(e.lines)]).forEach((t) => len(w, t)); shown(w, e.teaches, talkText(e.lines)); teach(e.teaches); }
     if (e.t === 'board') {
       for (const [i, st] of e.steps.entries()) {
         const ww = `${w} 手順${i + 1}`;
@@ -83,7 +83,7 @@ D.months.forEach((m, mi) => {
       len(`${w} 困りごと`, talkText(e.b1.talk));
       docCheck(w, e.b1.doc);
       const b2 = e.b2;
-      check(`${w} 問い`, [b2.q, b2.token, b2.wrongReact, ...(b2.tokens || []).map((t) => t.label), ...b2.targets.map((t) => `${t.label} ${t.sub || ''} ${t.react || ''}`), ...b2.reasons.map((r) => `${r.t} ${r.react || ''}`), ...(b2.hints || [])].join(' '));
+      check(`${w} 問い`, [b2.q, b2.token, b2.wrongReact, ...(typeof b2.tokens === 'function' ? branches.flatMap((b) => b2.tokens({ ...fake, decisions: b })) : b2.tokens || []).map((t) => t.label), ...b2.targets.map((t) => `${t.label} ${t.sub || ''} ${t.react || ''}`), ...b2.reasons.map((r) => `${r.t} ${r.react || ''}`), ...(b2.hints || [])].join(' '));
       if (!(b2.hints || []).length) errors.push(`${w}：ヒント（hints）がない`);
       leak(w, b2.layout === 'sort' ? [] : b2.targets, b2.reasons);
       if (b2.layout !== 'sort' && b2.targets.filter((t) => t.ok).length > 1) errors.push(`${w}：正解の選択肢が2つ以上ある（理由と選択が噛み合わなくなる）`);
@@ -129,6 +129,9 @@ D.months.forEach((m, mi) => {
       }
     }
     if (e.t === 'report') teach(e.teaches);
+    // 締め切り・開始記入の画面（engine の closingScreen・openingScreen）が教える語
+    if (e.t === 'closing') teach(['損益', '繰越利益剰余金', '締め切り', '当期純利益', '決算振替']);
+    if (e.t === 'opening') teach(['前期繰越', '開始記入']);
     if (e.t === 'ending') {
       const E = D.endings[e.id];
       if (!E) { errors.push(`${w}：結末 ${e.id} がない`); continue; }
@@ -141,7 +144,9 @@ D.months.forEach((m, mi) => {
     }
   }
   // 自動仕訳ルールの提案が出はじめるのは、同じ種類を3回正しく書いたあと（8月ごろ）
-  if (m.label === '8月') teach(['自動仕訳']), Object.entries(D.rules).forEach(([k, r]) => check(`ルール ${k}`, [r.label, ...r.conds.map((c) => `${c.t} ${c.why || ''}`), ...r.entry.flat()].join(' ')));
+  // 2年目の型は、その型の書類が出た月の終わりに調べる（ルールの提案は、慣れたあとの月のはじめ）
+  if (m.label === '8月') teach(['自動仕訳']);
+  if (taught.has('自動仕訳')) Object.entries(D.rules).forEach(([k, r]) => { if (r._checked || (r.y ? !evs.some((e) => e.kind === k) : m.label !== '8月')) return; r._checked = true; check(`ルール ${k}`, [r.label, ...r.conds.map((c) => `${c.t} ${c.why || ''}`), ...r.entry.flat()].join(' ')); });
   // 新しく記帳に使う勘定科目（説明の中で触れるだけの科目名は数えない）
   const newAcc = [...used].filter(isAccount);
   if (newAcc.length > 2) errors.push(`${m.label}：記帳に使う新しい勘定科目が${newAcc.length}つ（${newAcc.join('・')}）。1か月2つまで`);

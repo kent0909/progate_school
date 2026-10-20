@@ -6,7 +6,7 @@ global.window = global;
 const fs = require('fs');
 const path = require('path');
 const root = path.join(__dirname, '..');
-['js/core.js', 'js/data/accounts.js', 'js/sim/scenario.js'].forEach((f) => require(path.join(root, f)));
+['js/core.js', 'js/data/accounts.js', 'js/sim/scenario.js', 'js/sim/year2.js'].forEach((f) => require(path.join(root, f)));
 const D = window.SIMDATA;
 const dir = path.join(root, 'research', 'notes', 'law');
 const lsr = (d) => (fs.existsSync(d) ? fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? lsr(path.join(d, e.name)) : [path.join(d, e.name)])) : []);

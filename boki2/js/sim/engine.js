@@ -15,7 +15,7 @@
   const CONTRA_OF = { 貸倒引当金: '売掛金', 車両運搬具減価償却累計額: '車両運搬具', 備品減価償却累計額: '備品', 建物減価償却累計額: '建物' };
   const CONTRA = new Set(Object.keys(CONTRA_OF));
   const order = (a) => (CONTRA.has(a) ? 0.5 : CATS.indexOf(cat(a)) < 0 ? 9 : CATS.indexOf(cat(a)));
-  const CAST = { piyo: ['ピヨ', 48], haha: ['お母さん', 330], esha: ['E社の担当者', 100], senpai: ['タカシ先輩', 205], shacho: ['ミライ社長', 24], eigyo: ['ハルカ（営業）', 12], ginko: ['田中さん（銀行）', 222], kansa: ['森さん（会計士）', 150], zeirishi: ['岩田さん（税理士）', 285] };
+  const CAST = { piyo: ['ピヨ', 48], haha: ['お母さん', 330], esha: ['E社の担当者', 100], senpai: ['タカシ先輩', 205], shacho: ['ミライ社長', 24], eigyo: ['ハルカ（営業）', 12], ginko: ['田中さん（銀行）', 222], kansa: ['森さん（会計士）', 150], zeirishi: ['岩田さん（税理士）', 285], kabunushi: ['佐藤さん（株主）', 330], kojo: ['大山さん（工場長）', 60] };
   const KEY = 'boki2sim.v3';
 
   /* ---------- state ---------- */
@@ -301,7 +301,7 @@
     const evs = events();
     if (S.ei >= evs.length) return m.closeless ? advanceMonth() : closeScreen();
     const ev = evs[S.ei];
-    ({ desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, closing: closingScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
+    ({ desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, closing: closingScreen, opening: openingScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
   }
   function saveWord() {
     const st = ST.status();
@@ -436,7 +436,7 @@
     teach(ev.teaches);
     // 判断の結果が返ってきた場面は、経営日誌に「判断→返った結果」として残す
     if (ev.diary && !S.diary.some((d) => d.t === ev.diary)) { S.diary.push({ m: month().label, t: ev.diary, ret: true }); save(); }
-    frame(`<div class="s-card">${talk(ev.lines)}<button class="btn wide" data-n>つぎへ</button></div>`);
+    frame(`<div class="s-card">${talk(val(ev.lines, S))}<button class="btn wide" data-n>つぎへ</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-n]')) next(); };
   }
 
@@ -746,6 +746,8 @@
     return c ? c.qs.find((q) => readableQ(q) && !seen.has(q._key)) || null : null;
   }
   function discoverScreen(ev, isReplay) {
+    // 判断しだいで札が変わる発見（株主資本等変動計算書など）は、いまの帳簿で札を作る
+    if (ev.b2 && typeof ev.b2.tokens === 'function') ev = Object.assign({}, ev, { b2: Object.assign({}, ev.b2, { tokens: ev.b2.tokens(S) }) });
     // もう一度見るときは、記録（1回目の正誤・分かれ道）に数えない
     const m = isReplay ? { tries: 0, first: null, hand: 0, forks: [] } : (S.metrics.disc[ev.id] = S.metrics.disc[ev.id] || { tries: 0, first: null, hand: 0, forks: [] });
     const metrics = isReplay ? { forks: {}, hand: 0 } : S.metrics;
@@ -1146,6 +1148,35 @@
         S.diary.push({ m: month().label, t: `締め切り：1年のもうけ ${fmt(ni)}円を繰越利益剰余金へ` });
         grew('締め切り');
         next();
+      }
+    };
+  }
+  // 開始記入：去年の終わりの棚（資産・負債・純資産）を、今年のノートの1行目に書き写す（docs/YEAR2.md 2.1-C）。
+  // 帳簿は年をまたいで続いているので、新しい仕訳は作らない。画面で「何が引き継がれ、何が0から始まるか」を確かめる
+  function openingScreen(ev) {
+    if (S.discDone[ev.id] != null) return next();
+    const b = balances(S.L);
+    const cards = Object.entries(b).filter(([a, v]) => v && (cat(a) === '資産' || cat(a) === '負債' || cat(a) === '純資産' || CONTRA.has(a))).map(([a, v]) => ({ a, v: Math.abs(v), to: cat(a) === '資産' && !CONTRA.has(a) ? 'L' : 'R' })).sort((x, y) => order(x.a) - order(y.a));
+    const put = {}; let msg = '', miss = 0, done = false;
+    const col = (k) => cards.filter((c) => put[c.a] === k).map((c) => `${esc(c.a)} ${fmt(c.v)}`).join('<br>') || '　';
+    const draw = () => {
+      const left = cards.filter((c) => !put[c.a]);
+      const body = done
+        ? `<div class="s-name"><small>この書き方の名前</small><h2>${rb('前期繰越・開始記入')}</h2><p>${rb('去年の終わりの資産・負債・純資産は、そのまま今年のはじめの姿になる。今年のノートの1行目に「前期繰越」として書き写すことを「開始記入」という。収益と費用は締め切りで0になったので、書き写さない。')}</p><details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc('「各勘定の前期繰越を記入し、開始記入を行う」')}</details><p class="s-leaf">マップに「前期繰越」が加わった</p></div><button class="btn wide" data-odone>2年目をはじめる</button>`
+        : `${talk([['senpai', '2年目の朝だ。去年の終わりの棚を、今年のノートの1行目に写そう。左の列と右の列、どちらに書く？']])}<table class="s-tb s-tacc"><tr><th>今年のノートの1行目（左）</th><th>（右）</th></tr><tr><td>${col('L')}</td><td>${col('R')}</td></tr></table>${left.length ? `<div class="s-sorti"><span><b>${esc(left[0].a)}</b> ${fmt(left[0].v)}${CONTRA.has(left[0].a) ? '（マイナスの札）' : ''}</span><div><button class="s-pill" data-op="L">左の列</button><button class="s-pill" data-op="R">右の列</button></div></div>` : `${talk([['senpai', `左も右も ${fmt(cards.filter((c) => c.to === 'L').reduce((t, c) => t + c.v, 0))}。去年の売上や給料は、写さなくていいのかな？`]])}<div class="s-opts"><button class="s-opt" data-oq="ok"><b>写さない。締め切りで0になって、もうけは繰越利益剰余金に入っている</b></button><button class="s-opt" data-oq="ng"><b>写す。去年の売上も、今年の売上に足す</b></button></div>`}${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}<p class="muted" style="font-size:12px">のこり ${left.length} 枚</p>`;
+      frame(`<div class="s-card"><small>${esc(month().label)} 1日</small>${body}</div>`);
+    };
+    draw();
+    app.onclick = (e) => {
+      const o = e.target.closest('[data-op]');
+      if (o) { const c = cards.find((x) => !put[x.a]); if (o.dataset.op === c.to) { put[c.a] = c.to; msg = ''; } else { miss++; msg = CONTRA.has(c.a) ? `${c.a}はマイナスの札。資産から引くので、去年の仕訳でも右に書いていたね。` : c.to === 'L' ? '資産は、増えたら左に書いた。はじめの残りも左。' : '負債と純資産は、増えたら右に書いた。はじめの残りも右。'; } draw(); return; }
+      const q = e.target.closest('[data-oq]');
+      if (q) { if (q.dataset.oq === 'ok') { done = true; msg = ''; } else { miss++; msg = '去年の売上を今年に足すと、今年のもうけが去年の分まで大きく見えてしまう。去年のもうけは、もう繰越利益剰余金の中にある。'; } draw(); return; }
+      if (e.target.closest('[data-odone]')) {
+        teach(['前期繰越', '開始記入']);
+        S.discDone[ev.id] = S.mi; S.metrics.disc[ev.id] = { first: miss === 0, forks: [] };
+        if (!S.leaves.some((l) => l.label === '前期繰越')) S.leaves.push({ p: 'P1', label: '前期繰越', mi: S.mi });
+        grew('開始記入'); next();
       }
     };
   }

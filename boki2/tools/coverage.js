@@ -9,7 +9,7 @@ const fs = require('fs');
 const root = path.join(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const files = [...html.matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]).filter((f) => !f.endsWith('app.js'));
-[...files, 'js/scope.js', 'js/sim/lexicon.js', 'js/sim/scenario.js'].forEach((f) => require(path.join(root, f)));
+[...files, 'js/scope.js', 'js/sim/lexicon.js', 'js/sim/scenario.js', 'js/sim/year2.js'].forEach((f) => require(path.join(root, f)));
 const B = window.BOKI, D = window.SIMDATA;
 const md = process.argv.includes('--md');
 

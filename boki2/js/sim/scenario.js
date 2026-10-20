@@ -717,4 +717,6 @@
       { t: 'end' },
     ] },
   ];
+  // 2年目の台本（js/sim/year2.js）が使う部品
+  SIM.__h = { SHOP, BASE, opts, je, passbook, buy, sell, cashSale, salary, payAP, collect, bankOf, yen, niOf, taxOf, D_, bSale, yearOfMi };
 })();
