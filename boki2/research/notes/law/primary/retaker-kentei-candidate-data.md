@@ -5,7 +5,7 @@ doc: retaker-kentei-candidate-data
 file: retaker-kentei-candidate-data.html
 sha256: 46fcf61fc2fd32ab109daa651aca3f1cd4ccd21dbfd1dc52e96fda7d2fd7b1a5
 read: full
-anchors: [2,900万人以上の方にご受験いただきました, 141,072名, 46,351名, 64,183名, 276,477名, 1,424名, 12,286名]
+anchors: ["2,900万人以上の方にご受験いただきました", "141,072名", "46,351名", "64,183名", "276,477名", "1,424名", "12,286名"]
 ---
 日商簿記の受験者データ（全級の最近の分）。2級について自分の言葉でまとめる。
 
