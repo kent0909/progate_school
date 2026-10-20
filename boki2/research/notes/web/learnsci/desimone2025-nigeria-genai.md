@@ -8,7 +8,7 @@ read: full
 anchors: ["From Chalkboards to Chatbots", "two-sigma problem", "52% of eligible students expressed interest", "Teaching at the Right Level", "Students worked in pairs, sharing a computer", "desirable difficulties", "only 422 students in the treatment group and 337 in the control group", "0.206 standard deviation", "a girls-only school", "approximately 0.031 standard deviation per additional day", "per-pupil cost of approximately $48", "cognitive offloading", "Cognitive Ease at a Cost", "Table 12: Analysis of selection into lottery", "Samples of student guidelines"]
 ---
 ## 何の資料か
-De Simone ら（世界銀行 Policy Research Working Paper 11125、2025年5月、12月改訂版）。ナイジェリア・ベニンシティの公立中等学校9校で、高校1年相当（15歳前後）の希望者を個人単位で無作為に分けた RCT。介入群は放課後に週2回×90分×6週間、2人1組で Microsoft Copilot（GPT-4）を英語の個別指導役として使った。教師は直接教えず、見守りと誘導を担当した。証拠の強さ：中規模フィールド RCT（ワーキングペーパー、脱落が非対称）。表・付録まで全部読んだ。
+De Simone ら（世界銀行の政策研究ワーキングペーパー WPS11125、2025年5月、12月改訂版）。ナイジェリア・ベニンシティの公立中等学校9校で、高校1年相当（15歳前後）の希望者を個人単位で無作為に分けた RCT。介入群は放課後に週2回×90分×6週間、2人1組で Microsoft Copilot（GPT-4）を英語の個別指導役として使った。教師は直接教えず、見守りと誘導を担当した。証拠の強さ：中規模フィールド RCT（ワーキングペーパー、脱落が非対称）。表・付録まで全部読んだ。
 
 ## 分かったこと
 - 介入直後の総合テストで +0.31SD（IRT 尺度で 0.26）。内訳は英語 0.24、AI 知識 0.31、デジタル技能 0.14。
