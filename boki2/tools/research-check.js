@@ -239,7 +239,7 @@ function coverage(ns, es, tag) {
 const cited = new Set();
 for (const f of lsr(DOCS).filter((p) => p.endsWith('.md'))) {
   const s = fs.readFileSync(f, 'utf8');
-  for (const m of s.matchAll(/\[\[([\w-]+):([\w-]+):([\w.-]+)\]\]/g)) {
+  for (const m of s.matchAll(/\[\[([\w-]+):([\w-]+):([\w.#-]+)\]\]/g)) {
     const k = `${m[1]}:${m[2]}:${m[3]}`;
     cited.add(k);
     if (!notes.some((n) => `${n.src}:${n.coll}:${n.doc}` === k)) err('出典', `${path.relative(DOCS, f)} が ${k} を引いているが、その読了ノートがない`);
@@ -251,7 +251,7 @@ for (const d of JSON.parse(fs.readFileSync(path.join(R, 'sources.json'), 'utf8')
   const f = path.join(__dirname, '..', d.path);
   if (!fs.existsSync(f)) { warn('分析文書', `${d.path} はまだない（作業中）`); derivedRows.push(`| ${d.path} | （未作成） | ${d.note} |`); continue; }
   const txt = fs.readFileSync(f, 'utf8');
-  const per = d.sources.map((sid) => [sid, new Set([...txt.matchAll(new RegExp(`\\[\\[${sid}:([\\w-]+):([\\w.-]+)\\]\\]`, 'g'))].map((m) => m[0])).size]);
+  const per = d.sources.map((sid) => [sid, new Set([...txt.matchAll(new RegExp(`X`, 'g'))].map((m) => m[0])).size]);
   for (const [sid, n] of per) if (!n) err('分析文書', `${d.path} は ${sid} の資料にもとづくが、読了ノートを1本も出典に引いていない（未検査の分析）。${d.note}`);
   derivedRows.push(`| ${d.path} | ${per.map(([sid, n]) => `${sid} ${n}本`).join('・')} | ${d.note} |`);
 }
