@@ -15,7 +15,7 @@
      "https://www.kentei.ne.jp/privacy",
      "https://www.kentei.ne.jp/robots.txt"
     ],
-    "note": "robots.txt は /wp/wp-admin/ のみ禁止。サイト上に転載・自動取得を禁じる規約ページは見当たらない（privacy に著作権の条項なし）。著作物なので原文はリポジトリに入れない"
+    "note": "robots.txt は /wp/wp-admin/ のみ禁止。自動取得を禁じる規約ページは見当たらない。ただしサンプル問題のページに「著作権は日本商工会議所に帰属、無断転載・無断の営利利用を厳禁」と明記されている。原文はリポジトリに入れず、転載しない（分析・数字と設定を変えたオリジナル問題のみ）"
    },
    "collections": [
     {
@@ -119,6 +119,27 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "bokizaka",
+     "desc": "簿記坂（日商サイトの読み物）のうち2級学習に関わる記事",
+     "need_notes": true,
+     "index": {
+      "doc": "_index"
+     },
+     "expected": [
+      "44220",
+      "42053",
+      "42064",
+      "25984",
+      "45677"
+     ],
+     "excluded": {
+      "others": "一覧ページ3枚に載る残り42本は学校の沿革・部活動の紹介が中心で、2級学習の設計に関係しない"
+     },
+     "parts": [
+      "html"
+     ]
     }
    ]
   },
@@ -129,11 +150,14 @@
     "www.biznavi.jp"
    ],
    "tos": {
-    "checked": null,
-    "verdict": "unchecked",
+    "checked": "2026-10-20",
+    "verdict": "gray",
     "min_interval_s": 3,
-    "urls": [],
-    "note": "利用規約の確認がまだ"
+    "urls": [
+     "https://www.biznavi.jp/terms"
+    ],
+    "note": "https://www.biznavi.jp/terms は個人情報保護方針（第一〜六条）のみで、転載・自動取得・著作権の条項なし。robots.txt は 404。著作物なので原文はリポジトリに入れず転載しない",
+    "history": "2026-10-20 02:09 に規約確認（02:15）より前に 540・561 を取得していた（作業役の報告）"
    },
    "collections": [
     {
@@ -440,6 +464,46 @@
      "parts": []
     }
    ]
+  },
+  {
+   "id": "web",
+   "name": "学習科学・会計教育・簿記教材の調査（論文・公的資料・出版社・学習者の声など、サイトを横断）",
+   "hosts": [
+    "*"
+   ],
+   "tos": {
+    "checked": null,
+    "verdict": "per-site",
+    "min_interval_s": 3,
+    "urls": [],
+    "note": "サイトごとに取得前に利用規約・robots.txt を確認し、取得記録の tos 欄（checked・verdict・basis）に残す。verdict が no-automation のサイトは取得しない（オーナーの個別許可がない限り）。論文はオープンアクセス（J-STAGE、ERIC、PMC、arXiv、機関リポジトリ等）のみ。有料・ログインが必要なものは取らない"
+   },
+   "collections": [
+    {
+     "id": "learnsci",
+     "desc": "理解されやすい教え方・伝え方の研究（学習科学・認知心理・教育工学・ゲーム学習、〜2026年10月）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
+    },
+    {
+     "id": "acctedu",
+     "desc": "簿記・会計教育の研究と実践報告（国内外）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
+    },
+    {
+     "id": "boki2content",
+     "desc": "簿記2級の教材・講座・アプリ・動画の教え方と見せ方、学習者の声",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
+    }
+   ]
   }
  ],
  "derived_docs": [
@@ -527,6 +591,27 @@
     "cpa-learning"
    ],
    "note": "CPA コラム（経理・キャリア）の分析"
+  },
+  {
+   "path": "docs/analysis/learning-science.md",
+   "sources": [
+    "web"
+   ],
+   "note": "理解されやすい教え方の研究の分析"
+  },
+  {
+   "path": "docs/analysis/accounting-education.md",
+   "sources": [
+    "web"
+   ],
+   "note": "簿記・会計教育研究の分析"
+  },
+  {
+   "path": "docs/analysis/boki2-presentation.md",
+   "sources": [
+    "web"
+   ],
+   "note": "簿記2級コンテンツの教え方・見せ方の分析"
   }
  ]
 }

@@ -92,7 +92,9 @@ for (const e of ledger) {
   if (!s) { err('記録', `${e._at} 台帳にない取得元 ${e.src}`); continue; }
   let host = '';
   try { host = new URL(e.url).host; } catch (x) { err('記録', `${e._at} URL が不正`); }
-  if (host && !s.hosts.includes(host)) err(e.src, `${e._at} ${host} は台帳の hosts にない（取得元の登録漏れ）`);
+  if (s.tos.verdict === 'per-site' && e.status !== 'skipped' && (!e.tos || !e.tos.verdict || !e.tos.basis)) err(e.src, `${e._at} サイトごとの規約確認の記録（tos.verdict・tos.basis）がない（${e.url}）`);
+  if (s.tos.verdict === 'per-site' && e.tos && e.tos.verdict === 'no-automation' && !e.tos.owner_approved) err(e.src, `${e._at} 規約で自動取得が禁止のサイトを取得した（${e.url}）`);
+  if (host && !s.hosts.includes('*') && !s.hosts.includes(host)) err(e.src, `${e._at} ${host} は台帳の hosts にない（取得元の登録漏れ）`);
   const auto = e.via && e.via !== 'manual-view';
   if (auto && s.tos.verdict === 'no-automation' && !(e.purpose === 'tos-check' && (s.tos.urls || []).includes(e.url))) (tosHits[e.src] = tosHits[e.src] || []).push(e);
   if (!e.t) err(e.src, `${e._at} 取得時刻がない`);
@@ -153,7 +155,8 @@ for (const s of sources) {
       }
       r.fetched++;
       for (const e of es.filter(okFetch)) {
-        if (!e.bytes || e.bytes < 200) { r.bad++; err(tag, `${d} の取得物が小さすぎる（${e.bytes} バイト）`); }
+        const fj = rawFile(e); let isJson = false; try { if (fj) { JSON.parse(fs.readFileSync(fj, 'utf8')); isJson = true; } } catch (x) {}
+        if (!isJson && (!e.bytes || e.bytes < 200)) { r.bad++; err(tag, `${d} の取得物が小さすぎる（${e.bytes} バイト）`); }
         const f = rawFile(e);
         if (f && /\.html?$/i.test(f) && /type=["']?password/i.test(fs.readFileSync(f, 'utf8')) && (textOf(f) || '').length < 3000) { r.bad++; err(tag, `${d} はログイン画面を取得しているように見える`); }
       }
@@ -255,11 +258,21 @@ for (const d of JSON.parse(fs.readFileSync(path.join(R, 'sources.json'), 'utf8')
 const uncited = notes.filter((n) => !cited.has(`${n.src}:${n.coll}:${n.doc}`)).length;
 for (const n of notes) if (!srcById[n.src] || !srcById[n.src].collections.some((c) => c.id === n.coll)) err('ノート', `${n._path} の src/coll が台帳にない`);
 
+// 検索の記録（research/searches/*.jsonl：{t, query, used:[採用したURL], note}）。検索結果の要約は根拠にしない（取得して読んだ資料だけが根拠）
+const searchRows = [];
+for (const f of lsr(path.join(R, 'searches')).filter((p) => p.endsWith('.jsonl'))) {
+  const qs = fs.readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => { try { return JSON.parse(l); } catch (x) { err('検索', `${path.relative(R, f)} にJSONとして読めない行`); return null; } }).filter(Boolean);
+  const used = new Set(qs.flatMap((q) => q.used || []));
+  const fetched = used.size ? [...used].filter((u) => ledger.some((e) => e.url === u && okFetch(e))).length : 0;
+  if (used.size && fetched < used.size) warn('検索', `${path.relative(R, f)}：採用したURL ${used.size} 件のうち ${used.size - fetched} 件に取得記録がない`);
+  searchRows.push(`- ${path.relative(R, f)}：検索 ${qs.length} 回、採用したURL ${used.size} 件（うち取得済み ${fetched}）`);
+}
+
 // ---------- 出力 ----------
-const tos = sources.map((s) => `- ${s.name}（${s.id}）：規約 ${({ ok: '確認済み・問題なし', gray: '確認済み・グレー（判断を記録）', 'owner-approved': '規約上は制限ありだがオーナーが条件付きで許可（判断を記録）', 'no-automation': '確認済み・自動取得禁止', unchecked: '未確認' })[s.tos.verdict] || s.tos.verdict}${s.tos.checked ? `（${s.tos.checked}）` : ''}。${s.tos.note}`);
+const tos = sources.map((s) => `- ${s.name}（${s.id}）：規約 ${({ ok: '確認済み・問題なし', gray: '確認済み・グレー（判断を記録）', 'owner-approved': '規約上は制限ありだがオーナーが条件付きで許可（判断を記録）', 'per-site': 'サイトごとに確認して取得記録に残す', 'no-automation': '確認済み・自動取得禁止', unchecked: '未確認' })[s.tos.verdict] || s.tos.verdict}${s.tos.checked ? `（${s.tos.checked}）` : ''}。${s.tos.note}`);
 const table = ['| 集合 | 内容 | 一覧上 | 対象 | 対象外(理由あり) | 取得済 | 読了ノート | 原文で照合済 | 一部読了 | 照合不能 |', '|---|---|---|---|---|---|---|---|---|---|',
   ...rows.map((r) => `| ${r.tag} | ${r.desc} | ${r.listed} | ${r.target} | ${r.excl} | ${r.fetched} | ${r.noted} | ${r.verified} | ${r.partial} | ${r.unverifiable} |`)];
-const out = [`# 情報収集の証跡（自動集計）`, '', `\`node boki2/tools/research-check.js --write\` が生成。手で編集しない。`, '', `取得記録 ${ledger.length} 行・読了ノート ${notes.length} 本（うち docs から出典として引かれていない ${uncited} 本）`, '', '## 利用規約', ...tos, '', '## 集合ごとの状況', ...table, '', '## 外部資料にもとづく文書と出典の引用', '| 文書 | 引いている読了ノート | 説明 |', '|---|---|---|', ...derivedRows, '', `## 検査結果：エラー ${errors.length}・注意 ${warns.length}`, ...errors.map((e) => `- ✗ ${e}`), ...warns.map((w) => `- △ ${w}`), ''].join('\n');
+const out = [`# 情報収集の証跡（自動集計）`, '', `\`node boki2/tools/research-check.js --write\` が生成。手で編集しない。`, '', `取得記録 ${ledger.length} 行・読了ノート ${notes.length} 本（うち docs から出典として引かれていない ${uncited} 本）`, '', '## 利用規約', ...tos, '', '## 集合ごとの状況', ...table, '', '## 検索の記録', ...(searchRows.length ? searchRows : ['- なし']), '', '## 外部資料にもとづく文書と出典の引用', '| 文書 | 引いている読了ノート | 説明 |', '|---|---|---|', ...derivedRows, '', `## 検査結果：エラー ${errors.length}・注意 ${warns.length}`, ...errors.map((e) => `- ✗ ${e}`), ...warns.map((w) => `- △ ${w}`), ''].join('\n');
 console.log(out);
 if (args.includes('--write')) fs.writeFileSync(path.join(R, 'STATUS.md'), out);
 

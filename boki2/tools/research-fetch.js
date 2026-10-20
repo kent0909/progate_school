@@ -24,9 +24,15 @@ const append = (o) => fs.appendFileSync(L, JSON.stringify({ t: new Date().toISOS
 if (skip) { append({ url: url || '', status: 'skipped', reason: skip, via: 'research-fetch' }); console.log('取得しないことを記録した'); process.exit(0); }
 if (!url) die('--url が必要');
 if (S.tos.verdict === 'no-automation') die(`${S.name} は利用規約で自動取得が禁止されている（${S.tos.note}）`);
+// サイトを横断する取得元（tos.verdict が per-site）は、取得ごとにそのサイトの規約確認の結果を付ける
+const [tosV, tosB, tosC] = ['--tos-verdict', '--tos-basis', '--tos-checked'].map(opt);
+if (S.tos.verdict === 'per-site') {
+  if (!tosV || !tosB) die('このサイトの利用規約・robots.txt を確認し、--tos-verdict ok|gray|no-automation と --tos-basis "根拠（規約のURLと条項、robotsの結果）" を付けること');
+  if (tosV === 'no-automation') die('規約で自動取得が禁止されているサイトは取得しない');
+}
 if (S.tos.verdict === 'unchecked') die(`${S.name} の利用規約がまだ確認されていない。sources.json の tos を埋めてから取得すること`);
 const host = new URL(url).host;
-if (!S.hosts.includes(host)) die(`${host} は ${src} の hosts にない`);
+if (!S.hosts.includes('*') && !S.hosts.includes(host)) die(`${host} は ${src} の hosts にない`);
 
 // アクセス間隔：同じホストへの直前の取得から min_interval_s 秒あける
 const prev = fs.existsSync(L) ? fs.readFileSync(L, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)).filter((e) => { try { return new URL(e.url).host === host && e.status !== 'skipped'; } catch (x) { return false; } }) : [];
@@ -42,6 +48,6 @@ if (fs.existsSync(file) && !a.includes('--force')) die(`${path.relative(R, file)
 const r = spawnSync('curl', ['-sS', '-L', '-m', '90', '-A', 'boki2-quest-research (personal study design)', '-o', file, '-w', '%{http_code}', url], { encoding: 'utf8' });
 const status = Number((r.stdout || '').trim()) || 0;
 const buf = fs.existsSync(file) ? fs.readFileSync(file) : Buffer.alloc(0);
-append({ url, status, bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex'), file: path.relative(R, file), via: 'research-fetch' });
+append({ url, status, bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex'), file: path.relative(R, file), via: 'research-fetch', ...(S.tos.verdict === 'per-site' ? { tos: { verdict: tosV, basis: tosB, checked: tosC || new Date().toISOString().slice(0, 10) } } : {}) });
 console.log(`${status} ${buf.length}B → ${path.relative(R, file)}`);
 if (status !== 200) process.exit(1);
