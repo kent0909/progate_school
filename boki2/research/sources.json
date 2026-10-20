@@ -502,6 +502,14 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "simgames",
+     "desc": "既存の会計・財務・経営シミュレーションゲーム（ボードゲーム・研修ゲーム・デジタルゲーム・教育用シミュレーション）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   }
@@ -612,6 +620,13 @@
     "web"
    ],
    "note": "簿記2級コンテンツの教え方・見せ方の分析"
+  },
+  {
+   "path": "docs/analysis/sim-games.md",
+   "sources": [
+    "web"
+   ],
+   "note": "既存の会計・財務シミュレーションゲームの分析と取り入れる要素"
   }
  ]
 }
