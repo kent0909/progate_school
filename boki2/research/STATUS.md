@@ -2,7 +2,7 @@
 
 `node boki2/tools/research-check.js --write` が生成。手で編集しない。
 
-取得記録 1644 行・読了ノート 790 本（うち docs から出典として引かれていない 205 本）
+取得記録 1644 行・読了ノート 803 本（うち docs から出典として引かれていない 178 本）
 
 ## 利用規約
 - 商工会議所の検定試験（日本商工会議所）（kentei）：規約 確認済み・問題なし（2026-10-20）。robots.txt は /wp/wp-admin/ のみ禁止。自動取得を禁じる規約ページは見当たらない。ただしサンプル問題のページに「著作権は日本商工会議所に帰属、無断転載・無断の営利利用を厳禁」と明記されている。原文はリポジトリに入れず、転載しない（分析・数字と設定を変えたオリジナル問題のみ）
@@ -28,13 +28,13 @@
 | cpa-learning:column | 簿記・経理のコラム（post-sitemap.xml の全記事：boki 95・keiri 135・technique 9・career 13） | 252 | 252 | 0 | 252 | 252 | 252 | 0 | 0 |
 | cpa-learning:videos | 講義動画 | — | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
 | law:primary | EPISODES.md・scenario.js の法令・制度の記述を照合した一次資料 | — | 76 | 0 | 76 | 76 | 76 | 59 | 0 |
-| web:learnsci | 理解されやすい教え方・伝え方の研究（学習科学・認知心理・教育工学・ゲーム学習、〜2026年10月） | — | 37 | 0 | 37 | 32 | 32 | 0 | 0 |
-| web:acctedu | 簿記・会計教育の研究と実践報告（国内外） | — | 49 | 0 | 49 | 41 | 41 | 0 | 0 |
+| web:learnsci | 理解されやすい教え方・伝え方の研究（学習科学・認知心理・教育工学・ゲーム学習、〜2026年10月） | — | 37 | 0 | 37 | 37 | 37 | 0 | 0 |
+| web:acctedu | 簿記・会計教育の研究と実践報告（国内外） | — | 49 | 0 | 49 | 49 | 49 | 0 | 0 |
 | web:boki2content | 簿記2級の教材・講座・アプリ・動画の教え方と見せ方、学習者の声 | — | 33 | 0 | 33 | 33 | 33 | 0 | 0 |
 | web:simgames | 既存の会計・財務・経営シミュレーションゲーム（ボードゲーム・研修ゲーム・デジタルゲーム・教育用シミュレーション） | — | 57 | 0 | 57 | 57 | 57 | 0 | 0 |
 
 ## 検索の記録
-- searches/acctedu.jsonl：検索 18 回、採用したURL 0 件（うち取得済み 0）
+- searches/acctedu.jsonl：検索 21 回、採用したURL 49 件（うち取得済み 49）
 - searches/boki2content.jsonl：検索 31 回、採用したURL 33 件（うち取得済み 33）
 - searches/learnsci.jsonl：検索 31 回、採用したURL 40 件（うち取得済み 37）
 - searches/simgames.jsonl：検索 20 回、採用したURL 36 件（うち取得済み 34）
@@ -42,8 +42,8 @@
 ## 外部資料にもとづく文書と出典の引用
 | 文書 | 引いている読了ノート | 説明 |
 |---|---|---|
-| docs/UPDATE_PLAN.md | cpa-learning 0本 | 2026-10-18〜19。検索結果の要約と、cpa-learning コラムの見出しだけ（本文未読）から作った計画。これにもとづいて c47「本試験の戦い方」と問題23問を追加した。本文を読んだ読了ノートで裏づけ直すまで未検査 |
-| docs/CRAWL.md | cpa-learning 0本・bokipedia 0本 | 取得手順と、見出しの突き合わせ・簿記ペディアの取得状況のメモ |
+| docs/UPDATE_PLAN.md | cpa-learning 28本 | 2026-10-18〜19 に検索結果の要約とコラムの見出しだけから作った計画。2026-10-20 に読了ノートで主張ごとに検証し、判定（裏づけあり・誤り・未確認）と出典を付けた。c47 と追加23問の検証を含む |
+| docs/CRAWL.md | cpa-learning 7本・bokipedia 4本 | 取得の手順（research-fetch.js・research-check.js）と、cpa-learning・簿記ペディアの取得範囲・規約の扱い。2026-10-20 に読了ノートで検証 |
 | docs/EXAM-ANALYSIS.md | kentei 88本 | 日商の講評・連載・サンプル問題の分析 |
 | docs/EPISODES.md | law 60本 | 法令・制度の記述（付録C）。2026-10-20 一次資料で照合 |
 | docs/analysis/cpa-shobo-text.md | cpa-learning 18本 | CPA 商簿教科書の分析 |
@@ -54,20 +54,12 @@
 | docs/analysis/bokipedia-b.md | bokipedia 55本 | 簿記ペディア後半の分析 |
 | docs/analysis/cpa-courses-column-a.md | cpa-learning 94本 | CPA 講座とコラム（簿記・テクニック）の分析 |
 | docs/analysis/cpa-column-b.md | cpa-learning 115本 | CPA コラム（経理・キャリア）の分析 |
-| docs/analysis/learning-science.md | （未作成） | 理解されやすい教え方の研究の分析 |
+| docs/analysis/learning-science.md | web 38本 | 理解されやすい教え方の研究の分析 |
 | docs/analysis/accounting-education.md | （未作成） | 簿記・会計教育研究の分析 |
 | docs/analysis/boki2-presentation.md | web 33本 | 簿記2級コンテンツの教え方・見せ方の分析 |
 | docs/analysis/sim-games.md | web 52本 | 既存の会計・財務シミュレーションゲームの分析と取り入れる要素 |
 
-## 検査結果：エラー 8・注意 67
-- ✗ web:learnsci: 取得したが読了ノートがない（読んでいない）5 件：desimone2025-nigeria-genai lehmann2025-llm-harm-learning llamalima2026-genai-math-living-meta doo2026-chatgpt-meta-irrodl wangfan2026-retraction-notice
-- ✗ web:acctedu: ipu-mokuhyo2021 には文字のないページが 1 ある。うち 1 ページ（10）を画像として見たという申告（ノートの image_pages:、白紙なら白紙と本文に書く）がない
-- ✗ web:acctedu: kentan-kogyo2016 には文字のないページが 1 ある。うち 1 ページ（20）を画像として見たという申告（ノートの image_pages:、白紙なら白紙と本文に書く）がない
-- ✗ web:acctedu: doshisha-renketsu3-2025 には文字のないページが 1 ある。うち 1 ページ（7）を画像として見たという申告（ノートの image_pages:、白紙なら白紙と本文に書く）がない
-- ✗ web:acctedu: 取得したが読了ノートがない（読んでいない）8 件：eric-ej1478916 eric-ej1313426 eric-ej1338437 eric-ej955535 hrmars-gamislr2024 access-preconceptions pmc9958451-gamified arxiv2404-19699-genai
-- ✗ 分析文書: docs/UPDATE_PLAN.md は cpa-learning の資料にもとづくが、読了ノートを1本も出典に引いていない（未検査の分析）。2026-10-18〜19。検索結果の要約と、cpa-learning コラムの見出しだけ（本文未読）から作った計画。これにもとづいて c47「本試験の戦い方」と問題23問を追加した。本文を読んだ読了ノートで裏づけ直すまで未検査
-- ✗ 分析文書: docs/CRAWL.md は cpa-learning の資料にもとづくが、読了ノートを1本も出典に引いていない（未検査の分析）。取得手順と、見出しの突き合わせ・簿記ペディアの取得状況のメモ
-- ✗ 分析文書: docs/CRAWL.md は bokipedia の資料にもとづくが、読了ノートを1本も出典に引いていない（未検査の分析）。取得手順と、見出しの突き合わせ・簿記ペディアの取得状況のメモ
+## 検査結果：エラー 0・注意 66
 - △ cpa-learning:texts2: 480123 は一部だけ読了（150110との差分箇所（PDF 4・9・11・187・270・329・330ページ）。全330ページを150110とページごとに比べ（文字は pdftotext の全ページ比較、図や枠は40dpiの画像の画素比較）、差分が出た7ページだけを読んだ。それ以外の323ページは150110と同一と判定し、中身は 150110 の章ノートで読んでいる）
 - △ cpa-learning:texts2: 600037 は一部だけ読了（全302ページを 180063 とページ単位で機械比較（pdftotext を NFKC・空白除去で正規化）し、差分のあった p.4, 8, 11, 13〜17, 20, 74, 77, 193, 301, 302 を読んだ。さらに全302ページを30dpiの画像で画素比較し、文字の差分がないページに図や枠の差分がないことも確かめた（画素差が出たのは p.8・11・13〜17・193・301・302 で、すべて上の差分ページに含まれる）。その他の288ページは 180063 と文字列が完全に一致したため 180063 の読了ノート（180063#ch01〜ch14, q4, q5）で代える。p.301（奥付）は文字が抽出できず画像でも空白に見えるため読めなかった）
 - △ law:primary: nta-sozei-taino-r7 は一部だけ読了（1〜3ページ、7ページ（主要税目別の表））
@@ -131,7 +123,6 @@
 - △ law:primary: egov-servicer-ho は一部だけ読了（第18条）
 - △ web:boki2content: lec-topic33066 は取得に失敗した（404）。読んでいないので根拠にしない
 - △ web:simgames: panasonic-smg-202405 は取得に失敗した（404）。読んでいないので根拠にしない
-- △ 分析文書: docs/analysis/learning-science.md はまだない（作業中）
 - △ 分析文書: docs/analysis/accounting-education.md はまだない（作業中）
 - △ 検索: searches/learnsci.jsonl：採用したURL 40 件のうち 3 件に取得記録がない
 - △ 検索: searches/simgames.jsonl：採用したURL 36 件のうち 2 件に取得記録がない
