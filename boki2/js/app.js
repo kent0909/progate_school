@@ -573,9 +573,11 @@
     });
     const right = (i) => { const b = q.blanks[i], v = vals[i]; if (v == null) return false; return typeof b === 'object' ? v === b.a : Math.abs(v - b) < 1e-6; };
     ctx.ready(false);
+    const allSame = () => !!q.tf && vals.every((x) => x != null) && vals.every((x) => x === vals[0]);
+    const count = () => (allSame() ? 0 : q.blanks.reduce((n, _, i) => n + (right(i) ? 1 : 0), 0));
     return {
-      summary() { let n = 0; q.blanks.forEach((_, i) => { if (right(i)) n++; }); return `${n}/${q.blanks.length} 欄正解`; },
-      check() { let n = 0; q.blanks.forEach((_, i) => { if (right(i)) n++; }); return { ok: n === q.blanks.length, ratio: n / q.blanks.length, got: n, of: q.blanks.length }; },
+      summary() { return allSame() ? '全部同じ答えなので0点' : `${count()}/${q.blanks.length} 欄正解`; },
+      check() { const n = count(); return { ok: n === q.blanks.length, ratio: n / q.blanks.length, got: n, of: q.blanks.length }; },
       reveal() {
         locked = true;
         $$('[data-i]', el).forEach((x) => {
@@ -705,7 +707,9 @@
     if (o.exam) el.addEventListener('input', (e) => { if (e.target.matches('input')) halfOnlyWarn(e.target); });
     const val = (i) => { const x = $(`[data-i="${i}"]`, el); if (!x) return null; if (x.tagName === 'SELECT') return x.value === '' ? null : +x.value; return num(x.value); };
     const right = (i) => { const b = q.blanks[i], v = val(i); if (v == null || Number.isNaN(v)) return false; return typeof b === 'object' ? v === b.a : Math.abs(v - b) < 1e-6; };
-    const count = () => q.blanks.reduce((n, _, i) => n + (right(i) ? 1 : 0), 0);
+    // ○×の正誤問題（tf）は、全部○・全部×の解答を0点にする（当て推量の防止）
+    const allSame = () => { if (!q.tf) return false; const v = q.blanks.map((_, i) => val(i)); return v.every((x) => x != null) && v.every((x) => x === v[0]); };
+    const count = () => (allSame() ? 0 : q.blanks.reduce((n, _, i) => n + (right(i) ? 1 : 0), 0));
     return {
       answered: () => $$('[data-i]', el).some((x) => x.value.trim() !== ''),
       check() {
@@ -721,7 +725,7 @@
         });
       },
       answerHTML: () => '',
-      summary: () => `${count()}/${q.blanks.length} 欄正解`,
+      summary: () => (allSame() ? '全部同じ答えなので0点' : `${count()}/${q.blanks.length} 欄正解`),
     };
   }
   // On-screen calculator for practice without a physical one (the real exam allows bringing your own).
