@@ -13,6 +13,7 @@ const load = (f) => vm.runInContext(fs.readFileSync(f, 'utf8'), ctx, { filename:
 
 load(path.join(root, 'js', 'core.js'));
 load(path.join(dataDir, 'accounts.js'));
+load(path.join(root, 'js', 'scope.js'));
 const files = fs.readdirSync(dataDir).filter((f) => f.endsWith('.js') && f !== 'accounts.js').sort();
 for (const f of files) {
   try {
@@ -194,6 +195,7 @@ for (const c of B.chapters) {
   s.journal += (c.qs || []).filter((q) => q.type === 'journal').length;
 }
 const exParts = {};
+const scopeById = Object.fromEntries((B.scope || []).map((s) => [s.id, s]));
 for (const x of B.exams) {
   if (filter && !String(x.id).includes(filter)) continue;
   const w = `exam:${x.id}`;
@@ -202,6 +204,16 @@ for (const x of B.exams) {
   if (![2, 3, 4, 5].includes(x.part)) err(w, 'part must be 2-5');
   if (!x.title) err(w, 'missing title');
   checkQ(w, { ...x, type: 'fill' });
+  // 範囲タグ（js/scope.js の項目 id。2027年度に出ない項目は付けない）と先輩の下書き（解く手順）
+  if (x.scope !== undefined) {
+    if (!Array.isArray(x.scope) || !x.scope.length || x.scope.length > 5) err(w, 'scope must be an array of 1-5 scope ids');
+    else for (const id of x.scope) { const s = scopeById[id]; if (!s) err(w, `unknown scope id "${id}"`); else if (s.y27 === 'out') err(w, `scope "${id}" is out of the 2027 exam range`); }
+    if (Array.isArray(x.scope) && new Set(x.scope).size !== x.scope.length) err(w, 'duplicate scope id');
+  } else warn(w, 'no scope tags');
+  if (x.draft !== undefined) {
+    if (!Array.isArray(x.draft) || x.draft.length < 4 || x.draft.length > 7) err(w, 'draft must be an array of 4-7 steps');
+    else x.draft.forEach((d, i) => { if (!d || typeof d.t !== 'string' || !d.t.trim() || typeof d.h !== 'string' || !d.h.trim()) err(`${w}.draft${i}`, 'draft step needs t and h (non-empty strings)'); });
+  } else warn(w, 'no draft');
   exParts[x.part] = (exParts[x.part] || 0) + 1;
 }
 
