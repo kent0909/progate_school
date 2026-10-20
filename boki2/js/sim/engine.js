@@ -189,6 +189,14 @@
     const firstMi = (it) => { const x = it.sim || {}; const hit = allEvents.filter(({ e, mi }) => mi >= S.mi && ((x.disc || []).includes(e.id) || (x.docs || []).includes(e.id) || (x.kinds || []).includes(e.kind) || (x.report && e.t === 'report'))); return hit.length ? Math.min(...hit.map((h) => h.mi)) : null; };
     return B.scope.map((it) => ({ it, st: scopeState(it), at: firstMi(it) })).filter((o) => o.st.met == null && o.at != null).sort((a, b) => a.at - b.at).slice(0, 3).map((o) => o.it.id);
   }
+  // 2027年4月施行の出題区分表での扱い（scope.js の y27）
+  const Y27 = { out: '2027年度から出ない', to3: '2027年度から3級', chg: '2027年度から変更', new: '2027年度に明記' };
+  const Y27_LONG = {
+    out: '紙の手形・小切手がなくなるため、2027年4月からの試験には出ない。会社の歴史として知っておく程度でよい。',
+    to3: '2027年4月から3級の範囲に移る。2級でも前提として使うので、できるようにしておく。',
+    chg: '2027年4月からの出題区分表で、扱いや範囲が変わった論点。',
+    new: '2027年4月からの出題区分表で、新しくはっきり書かれた論点。',
+  };
   const EXAM_WORD = { exam1: '本試験の文章でも書けた', exam2: '本試験の文章で、日をあけても書けた', miss: '本試験の文章で間違えた' };
   const PHUE = { P1: 212, P2: 272, P3: 30, P4: 142, P5: 190, P6: 48, P7: 338, P8: 2 };
   function scopeView() {
@@ -201,7 +209,7 @@
         return '<span class="s-cell fog" aria-hidden="true"></span>';
       }
       const word = st.met == null ? 'まだ会社では起きていない' : st.shaky ? '月末に直した。もう一度で定着' : st.own ? '自分でできた' : `${monthLabel(st.met)}に起きた`;
-      return `<button class="s-cell ${st.shaky ? 'shaky' : st.own ? 'own' : 'met'} ${st.exam || ''}" data-scope="${it.id}" style="--h:${PHUE[it.p] || 190}"><b>${esc(it.name)}</b><small>${esc(word)}</small>${st.exam ? `<em>${esc(EXAM_WORD[st.exam])}</em>` : ''}${it.ref ? '<i>2027年度から変更</i>' : ''}</button>`;
+      return `<button class="s-cell ${st.shaky ? 'shaky' : st.own ? 'own' : 'met'} ${st.exam || ''}" data-scope="${it.id}" style="--h:${PHUE[it.p] || 190}"><b>${esc(it.name)}</b><small>${esc(word)}</small>${st.exam ? `<em>${esc(EXAM_WORD[st.exam])}</em>` : ''}${it.y27 ? `<i>${esc(Y27[it.y27])}</i>` : ''}</button>`;
     };
     const legend = DEV ? '<p class="s-mapnote">開発者表示：全項目の名前・章・原理と、まだゲームにない項目（点線）。数は <code>node boki2/tools/coverage.js</code> で。</p>'
       : '<p class="muted s-mapnote">日商簿記2級の試験に出るところを、まとまりごとに並べた地図。会社で起きたことから順に明るくなる。まだ先のことは輪郭だけ。</p>';
@@ -212,7 +220,7 @@
     const it = B.scope.find((x) => x.id === id), st = scopeState(it);
     const known = DEV || st.met != null || st.exam;
     const disc = ((it.sim || {}).disc || []).find((d) => S.discDone[d] != null);
-    return `<h3>${esc(known ? it.name : 'まだ名前のない困りごと')}</h3><p>${esc(it.teaser)}</p>${st.met != null ? `<p>${esc(monthLabel(st.met))}に会社で起きた。${st.shaky ? '月末に直したので、次に同じ書類が来たときが確かめどき。' : st.own ? '自分でできた。' : ''}</p>` : '<p class="muted">会社ではまだ起きていない。</p>'}${st.exam ? `<p>${esc(EXAM_WORD[st.exam])}。${st.exam === 'exam1' ? '日をあけてもう一度解けたら定着。' : ''}</p>` : ''}${it.ref ? '<p class="muted">2027年度の出題区分の変更で、扱いが変わる論点（いまは参考として扱う）。</p>' : ''}${disc ? `<button class="btn wide ghost" data-replay="${disc}">生まれた場面をもう一度</button>` : ''}`;
+    return `<h3>${esc(known ? it.name : 'まだ名前のない困りごと')}</h3><p>${esc(it.teaser)}</p>${st.met != null ? `<p>${esc(monthLabel(st.met))}に会社で起きた。${st.shaky ? '月末に直したので、次に同じ書類が来たときが確かめどき。' : st.own ? '自分でできた。' : ''}</p>` : '<p class="muted">会社ではまだ起きていない。</p>'}${st.exam ? `<p>${esc(EXAM_WORD[st.exam])}。${st.exam === 'exam1' ? '日をあけてもう一度解けたら定着。' : ''}</p>` : ''}${it.y27 ? `<p class="muted">${esc(Y27_LONG[it.y27])}</p>` : ''}${disc ? `<button class="btn wide ghost" data-replay="${disc}">生まれた場面をもう一度</button>` : ''}`;
   }
   let mapTab = 'p';
   function mapOverlay() {
@@ -785,7 +793,7 @@
     // 2級の論点を先に、3級の土台はあとに。1つの章から2問まで
     const items = B.scope.filter((it) => scopeState(it).met != null).sort((x, y) => (x.base ? 1 : 0) - (y.base ? 1 : 0));
     const byKey = Object.fromEntries(B.chapters.flatMap((c) => c.qs.map((q, k) => [`${c.id}:${k}`, q])));
-    const readable = (q) => q && q.type === 'journal' && !/上記|前問/.test(q.q) && !LX.unknown(q.q, taught).length && [...q.ans.dr, ...q.ans.cr].every(([a]) => taught.has(a));
+    const readable = (q) => q && q.type === 'journal' && !B.outdated27(q) && !/上記|前問/.test(q.q) && !LX.unknown(q.q, taught).length && [...q.ans.dr, ...q.ans.cr].every(([a]) => taught.has(a));
     const keys = [...items.flatMap((it) => it.q || []), ...items.flatMap((it) => (B.chapters.find((c) => c.id === it.ch) || { qs: [] }).qs.map((_, k) => `${it.ch}:${k}`))];
     const out = [];
     const perCh = {};
