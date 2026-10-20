@@ -5,7 +5,7 @@ doc: theory-intrinsic-habgood2011
 file: theory-intrinsic-habgood2011.pdf
 sha256: 55ecfa3c0b429035ccedbb7ffa818b870c039a9c32c62e28de4fbf56a83b514c
 read: full
-anchors: ["chocolate-covered broccoli", "Trash Zapper", "Smurf volleyball", "five-fingered", "cursed Olympic athletes", "clockwork", "Target Left Incorrectly", "subliminal advertising", "Yerkes", "logical hierarchy"]
+anchors: ["chocolate-covered broccoli", "Trash Zapper", "Smurf volleyball", "five-fingered", "cursed Olympic athletes", "clockwork", "Division as sharing", "one hundred minutes", "Target Left Incorrectly", "subliminal advertising", "Yerkes", "logical hierarchy"]
 ---
 ## 何の資料か
 Habgood & Ainsworth（2011, Journal of the Learning Sciences、著者受理稿39ページ）。7〜11歳向けの割り算ゲーム Zombie Division を、学習内容を戦闘の操作そのものに組み込んだ版（内在的）、同じ問題を面の終わりの4択クイズにした版（外在的）、数学なしの版（統制）の3つ作り比べた。研究1は58人（分析は51人）、研究2は16人の自由選択。全部読んだ。
