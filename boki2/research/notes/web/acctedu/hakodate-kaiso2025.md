@@ -2,8 +2,8 @@
 src: web
 coll: acctedu
 doc: hakodate-kaiso2025
-file: x
-sha256: x
+file: hakodate-kaiso2025.pdf
+sha256: d5aaf0f8833b6101992d44143b29e05ab45724a741e482de53728a3fcf2ce83d
 read: full
 anchors: ["きゅうりの輪切り", "平均伸び幅は 42.7 点", "相関係数 R＝0.6838", "簿記テストにおいては 40 点と 47 点", "特に 5 回目以降の後半で得点の下降が目立つ", "白矢印が示す部分", "N/N/N グループの得点推移"]
 ---
