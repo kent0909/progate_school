@@ -54,4 +54,5 @@
 ## 7. 守っている作業ルール
 - コミットはこまめに、`boki2-quest` へ push。コミットメッセージ末尾に指定の Co-Authored-By / Claude-Session 行
 - 公開前に validate とブラウザ通し試験
+- 情報収集の証跡：取得は `tools/research-fetch.js`、読了ノートは `research/notes/`、検査は `tools/research-check.js`（`--write` で `research/STATUS.md`、`--spot N` で抜き打ち）。エラーが残っているのに「全部読んだ」と報告しない
 - 外部サイトは利用規約を確認する。原文はリポジトリに保存しない（分析・要約のみ）。問題は数字・設定・文章を変えたオリジナルにする

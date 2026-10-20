@@ -1,0 +1,391 @@
+{
+ "_about": "情報収集の台帳。どのサイトの何を集めるか（対象）、何を対象外にしたか（理由）、利用規約の確認結果を書く。tools/research-check.js がこれと ledger・notes を照合する",
+ "sources": [
+  {
+   "id": "kentei",
+   "name": "商工会議所の検定試験（日本商工会議所）",
+   "hosts": [
+    "www.kentei.ne.jp"
+   ],
+   "tos": {
+    "checked": "2026-10-20",
+    "verdict": "ok",
+    "min_interval_s": 3,
+    "urls": [
+     "https://www.kentei.ne.jp/privacy",
+     "https://www.kentei.ne.jp/robots.txt"
+    ],
+    "note": "robots.txt は /wp/wp-admin/ のみ禁止。サイト上に転載・自動取得を禁じる規約ページは見当たらない（privacy に著作権の条項なし）。著作物なので原文はリポジトリに入れない"
+   },
+   "collections": [
+    {
+     "id": "kouhyou2",
+     "desc": "2級 出題の意図・講評（PDF）",
+     "need_notes": true,
+     "index": {
+      "doc": "_index",
+      "pattern": "第(\\d{3})回"
+     },
+     "expected": [
+      "139",
+      "140",
+      "141",
+      "142",
+      "143",
+      "144",
+      "145",
+      "146",
+      "147",
+      "148",
+      "149",
+      "150",
+      "151",
+      "152",
+      "153",
+      "154",
+      "156",
+      "157"
+     ],
+     "excluded": {
+      "155": "試験中止（講評ページに「中止」）",
+      "158-173": "講評ページに2級の掲載がない（1級のみ）"
+     },
+     "parts": [
+      "pdf"
+     ]
+    },
+    {
+     "id": "kubun2027",
+     "desc": "2027年4月施行の出題区分表・改定趣旨・勘定科目表",
+     "need_notes": true,
+     "index": {
+      "doc": "_index",
+      "pattern": "uploads/20\\d\\d/\\d\\d/(2027[a-z_]+)\\.pdf"
+     },
+     "expected": [
+      "2027kubunhyo_fixed",
+      "2027_kaitei_shushi_fixed",
+      "2027kamokuhyo_fixed",
+      "2027kubunhyo_track"
+     ],
+     "excluded": {
+      "2027kamokuhyo_track": "勘定科目表の変更履歴版。確定版（2027kamokuhyo_fixed）で足りる",
+      "2027shokyu_fixed": "簿記初級は対象外",
+      "2027shokyu_track": "簿記初級は対象外",
+      "2027kubunhyo": "2025年12月の案。確定版（_fixed）に置き換わった",
+      "2027kamokuhyo": "2025年12月の案。確定版に置き換わった",
+      "2027setsumeishiryo": "2025年12月の説明資料（案）。確定版の改定趣旨に置き換わった",
+      "2027shokyu": "簿記初級は対象外"
+     },
+     "parts": [
+      "pdf"
+     ]
+    },
+    {
+     "id": "renketsukaikei",
+     "desc": "連結会計の学習連載",
+     "need_notes": true,
+     "index": {
+      "doc": "_index",
+      "pattern": "renketsukaikei/(\\d+)"
+     },
+     "expected": "index",
+     "excluded": {},
+     "parts": [
+      "html"
+     ]
+    },
+    {
+     "id": "genkakeisan",
+     "desc": "原価計算の学習連載",
+     "need_notes": true,
+     "index": {
+      "doc": "_index",
+      "pattern": "genkakeisan/(\\d+)"
+     },
+     "expected": "index",
+     "excluded": {},
+     "parts": [
+      "html"
+     ]
+    },
+    {
+     "id": "sample2",
+     "desc": "2級サンプル問題",
+     "need_notes": true,
+     "index": {
+      "doc": "_index"
+     },
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
+    }
+   ]
+  },
+  {
+   "id": "biznavi",
+   "name": "業務の教科書（biznavi.jp）",
+   "hosts": [
+    "www.biznavi.jp"
+   ],
+   "tos": {
+    "checked": null,
+    "verdict": "unchecked",
+    "min_interval_s": 3,
+    "urls": [],
+    "note": "利用規約の確認がまだ"
+   },
+   "collections": [
+    {
+     "id": "biznavi",
+     "desc": "給与計算・期末処理などの実務解説",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": [
+      "html"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bokipedia",
+   "name": "簿記ペディア（株式会社CPA）",
+   "hosts": [
+    "bokipedia.jp"
+   ],
+   "tos": {
+    "checked": "2026-10-20",
+    "verdict": "gray",
+    "min_interval_s": 3,
+    "urls": [
+     "https://bokipedia.jp/policies/terms"
+    ],
+    "note": "robots.txt なし（404）。規約に自動取得の明文の禁止はない。ただし6条(6)「本来のサービス提供の目的とは異なる目的で利用する行為」、7条「提供目的を超えて利用」の禁止がある。オーナー判断（2026-10-20）：個人の学習設計の分析に限り、原文の転載はせず、数字・設定を変えたオリジナル問題にする。会員ログインはしない。運営会社は cpa-learning.com と同じで、そちらの規約は自動取得を明示的に禁止している点に注意"
+   },
+   "collections": [
+    {
+     "id": "sets",
+     "desc": "2級の練習問題（65）と検定別過去問（44）。詳細ページと問題PDF",
+     "need_notes": true,
+     "index": {
+      "doc": "_index",
+      "pattern": "/questions/details/(\\d+)"
+     },
+     "expected": [
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "59",
+      "60",
+      "61",
+      "62",
+      "63",
+      "64",
+      "65",
+      "66",
+      "67",
+      "68",
+      "104",
+      "105",
+      "106",
+      "107",
+      "108",
+      "109",
+      "135",
+      "136",
+      "137",
+      "138",
+      "139",
+      "140",
+      "151",
+      "152",
+      "154",
+      "155",
+      "156",
+      "157",
+      "158",
+      "159",
+      "168",
+      "169",
+      "171",
+      "172",
+      "173",
+      "174",
+      "175",
+      "176",
+      "177",
+      "185",
+      "186",
+      "192",
+      "193",
+      "194",
+      "195",
+      "196",
+      "197",
+      "205",
+      "206",
+      "211",
+      "212",
+      "213",
+      "214",
+      "215",
+      "216",
+      "221",
+      "223",
+      "226",
+      "227",
+      "228",
+      "229",
+      "234",
+      "235",
+      "241",
+      "242",
+      "243",
+      "244",
+      "245",
+      "246",
+      "254",
+      "255",
+      "259",
+      "260",
+      "261",
+      "262",
+      "263",
+      "264",
+      "270",
+      "271",
+      "272",
+      "273",
+      "280",
+      "281",
+      "287",
+      "288",
+      "290",
+      "291",
+      "292",
+      "293",
+      "304",
+      "305",
+      "309",
+      "310",
+      "311",
+      "312"
+     ],
+     "excluded": {
+      "308": "2級以外の練習問題",
+      "307": "2級以外の練習問題",
+      "282": "2級以外の練習問題",
+      "249": "2級以外の練習問題",
+      "210": "2級以外の練習問題",
+      "200": "2級以外の練習問題",
+      "180": "2級以外の練習問題",
+      "162": "2級以外の練習問題",
+      "142": "2級以外の練習問題",
+      "112": "2級以外の練習問題",
+      "170": "2級以外の練習問題",
+      "295": "2級以外の練習問題",
+      "294": "2級以外の練習問題",
+      "275": "2級以外の練習問題",
+      "274": "2級以外の練習問題",
+      "258": "2級以外の練習問題",
+      "257": "2級以外の練習問題",
+      "248": "2級以外の練習問題",
+      "247": "2級以外の練習問題",
+      "225": "2級以外の練習問題",
+      "224": "2級以外の練習問題",
+      "209": "2級以外の練習問題",
+      "208": "2級以外の練習問題",
+      "199": "2級以外の練習問題",
+      "198": "2級以外の練習問題",
+      "179": "2級以外の練習問題",
+      "178": "2級以外の練習問題",
+      "161": "2級以外の練習問題",
+      "160": "2級以外の練習問題",
+      "143": "2級以外の練習問題",
+      "141": "2級以外の練習問題",
+      "111": "2級以外の練習問題",
+      "110": "2級以外の練習問題"
+     },
+     "parts": [
+      "detail",
+      "pdf1"
+     ],
+     "note": "解答・解説PDFは会員ログインが必要なため取得しない"
+    }
+   ]
+  },
+  {
+   "id": "cpa-learning",
+   "name": "CPAラーニング",
+   "hosts": [
+    "www.cpa-learning.com",
+    "cpa-learning.com",
+    "api.cpa-learning.com"
+   ],
+   "tos": {
+    "checked": "2026-10-20",
+    "verdict": "no-automation",
+    "min_interval_s": 3,
+    "urls": [
+     "https://www.cpa-learning.com/"
+    ],
+    "note": "利用規約 第4条18号が自動的なダウンロード・複製・保存を禁止、第5条が複製を禁止。自動取得はしない（進め方はオーナーに相談中）",
+    "remedy": "2026-10-19 に規約を確認する前にコラム446ページのタイトル・見出しを自動取得していた（記録は ledger に後から登録）。オーナーに報告済み。作業用フォルダの取得物の扱い（削除するか）はオーナーの判断待ち。以後の自動取得はしない"
+   },
+   "collections": []
+  },
+  {
+   "id": "law",
+   "name": "法令・官公庁・業界団体の一次資料（e-Gov法令、国税庁、法務省、裁判所、厚労省、全銀協、でんさいネット、JPX、金融庁など）",
+   "hosts": [
+    "laws.e-gov.go.jp",
+    "www.nta.go.jp",
+    "www.moj.go.jp",
+    "www.courts.go.jp",
+    "www.mhlw.go.jp",
+    "www.zenginkyo.or.jp",
+    "www.densai.net",
+    "www.jpx.co.jp",
+    "www.fsa.go.jp",
+    "www.jftc.go.jp",
+    "www.kentei.ne.jp",
+    "www.caa.go.jp",
+    "www.johas.go.jp",
+    "www.chusho.meti.go.jp",
+    "www.mof.go.jp",
+    "elaws.e-gov.go.jp"
+   ],
+   "tos": {
+    "checked": "2026-10-20",
+    "verdict": "ok",
+    "min_interval_s": 1,
+    "urls": [
+     "https://www.digital.go.jp/resources/open_data/public_data_license_v1.0"
+    ],
+    "note": "官公庁サイトの多くは公共データ利用規約（PDL1.0）や政府標準利用規約で出典を示せば複製・加工を認める。法令の条文は著作権の対象外（著作権法13条）。業界団体（全銀協・でんさいネット・JPX）は規則類の閲覧のみ・原文はリポジトリに入れない"
+   },
+   "collections": [
+    {
+     "id": "primary",
+     "desc": "EPISODES.md・scenario.js の法令・制度の記述を照合した一次資料",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
+    }
+   ]
+  }
+ ]
+}
