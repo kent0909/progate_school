@@ -128,7 +128,7 @@
     // 預かった消費税に線を引いた会社（判断 vat）は、口座のお金のうち預かり分を見せる
     const azu = S.decisions.vat === 'line' && knows('仮受消費税') ? Math.max(0, -(b['仮受消費税'] || 0) - (b['仮払消費税'] || 0)) : 0;
     const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>この1年のもうけ</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
-    const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button><button data-ov="hall">検定会場</button></nav>' : '';
+    const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button><button data-ov="room">練習室</button></nav>' : '';
     return `<header class="s-head"><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
   }
   let onFocus = null;
@@ -167,6 +167,7 @@
     if (k === 'map') mapOverlay();
     if (k === 'grow') overlay(B.growth.view(GAPI));
     if (k === 'hall') { document.querySelectorAll('.s-ov').forEach((o) => o.remove()); hallScreen(); return; }
+    if (k === 'room') { document.querySelectorAll('.s-ov').forEach((o) => o.remove()); practiceScreen(); return; }
     if (k === 'log') overlay(`<h3>経営日誌</h3>${S.diary.length ? `<ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul>` : '<p class="muted">まだ記録はない。</p>'}`);
   });
   // 会社の棚：棚の絵と、元帳（勘定ごとに、日付・摘要・相手の札・残高）
@@ -330,6 +331,61 @@
     };
     const H = B.hall.use(hallCtx(root));
     if (arg && arg.play !== undefined) H.play(arg.play); else H.menu();
+  }
+
+  /* ---------- 練習室：論点ごとの問題・まちがいノート・検定会場（学習ゲームの章の問題をここへ移した） ---------- */
+  // 会社で出会った論点は「会社の場面をもう一度」、まだの論点は「参考書」（章の説明）を読んでから問題へ。受験が近い人のため、全範囲を開いておく
+  const roomQs = (it) => { const c = HCH.find((x) => x.id === it.ch); return c ? c.qs.filter((q) => !B.outOfScope2(q) && !(S.mode !== '2026' && B.outdated27(q)) && !/上記|前問/.test(q.q || '')) : []; };
+  const lastOf = (k) => { const l = S.examLog.filter((x) => x.key === k); return l.length ? l[l.length - 1] : null; };
+  let roomTab = 'items';
+  function practiceScreen(tab) {
+    if (tab) roomTab = tab;
+    leaveHall();
+    let body = '';
+    if (roomTab === 'items') {
+      body = B.scopeAreas.map((a) => `<section class="s-room-area"><h4>${esc(a.label)}</h4>${B.scope.filter((it) => a.secs.includes(it.sec) && it.y27 !== 'out').map((it) => {
+        const r = B.growth.item(GAPI, it), n = roomQs(it).length, met = r.lv > 0;
+        return `<div class="s-room-it"><div><b>${esc(it.name)}</b><small>${esc(B.growth.LV[r.lv])}${met ? '' : '・会社ではまだ'}</small></div><div class="s-room-btns">${met ? '' : `<button class="btn ghost sm" data-ref="${it.id}">参考書</button>`}${n ? `<button class="btn sm" data-drill="${it.id}">問題 ${Math.min(5, n)}</button>` : ''}</div></div>`;
+      }).join('')}</section>`).join('');
+    } else {
+      const keys = [...new Set(S.examLog.map((l) => l.key))].filter((k) => { const l = lastOf(k); return l && !l.ok; });
+      body = keys.length ? keys.map((k) => { const q = k.startsWith('exam:') ? (B.exams || []).find((x) => x._key === k) : qByKey(k); if (!q) return ''; const t = String(q.title || q.q || '').replace(/<[^>]+>/g, '').slice(0, 70); return `<div class="s-room-it"><div><b>${esc(t)}</b><small>${esc(q._ch ? q._ch.title : '')}</small></div><div class="s-room-btns"><button class="btn sm" data-redo="${esc(k)}">解き直す</button></div></div>`; }).join('') : '<p class="muted">いまは、間違えたままの問題はない。</p>';
+    }
+    frame(`<div class="s-hallbar"><button class="btn sm ghost" data-hallback>← 会社へもどる</button><small>練習室（会社の外で練習する。会社の数字には影響しない）</small></div><div class="seg s-room-tabs"><button data-rt="items" aria-pressed="${roomTab === 'items'}">論点ごと</button><button data-rt="miss" aria-pressed="${roomTab === 'miss'}">まちがいノート</button><button data-rhall>検定会場</button></div><div class="s-room">${body}</div>`);
+    app.onclick = (e) => {
+      const g = (x) => e.target.closest(x);
+      if (g('[data-hallback]')) { render(); return; }
+      if (g('[data-rt]')) { practiceScreen(g('[data-rt]').dataset.rt); return; }
+      if (g('[data-rhall]')) { hallScreen(); return; }
+      if (g('[data-ref]')) { const it = B.scope.find((x) => x.id === g('[data-ref]').dataset.ref), c = HCH.find((x) => x.id === it.ch); overlay(`<h3>参考書：${esc(it.name)}</h3><p class="muted" style="font-size:12px">会社でこの論点に出会う前に、試験のために先に読む人のための説明。</p>${c && c.lessons ? c.lessons.map((l) => `<h4>${esc(l.t)}</h4><div class="rich">${B.hall.rich(l.h)}</div>`).join('') : '<p>まだ説明がない。</p>'}`); return; }
+      if (g('[data-drill]')) { const it = B.scope.find((x) => x.id === g('[data-drill]').dataset.drill); const qs = roomQs(it); const pref = qs.filter((q) => { const l = lastOf(q._key); return !l || !l.ok; }); const pickQ = (pref.length >= 3 ? pref : qs).slice().sort(() => Math.random() - 0.5).slice(0, 5); roomDrill(pickQ, it.name, () => practiceScreen()); return; }
+      if (g('[data-redo]')) { const k = g('[data-redo]').dataset.redo; if (k.startsWith('exam:')) { const x = (B.exams || []).find((y) => y._key === k); hallScreen({ play: { part: x.part, mode: 'self', key: k } }); } else roomDrill([qByKey(k)], 'まちがいノート', () => practiceScreen('miss')); }
+    };
+  }
+  // 1問ずつ：仕訳と穴埋めは検定会場と同じ入力（半角・候補から選ぶ）、選択・計算・仕分けはこの場の部品
+  function roomDrill(qs, label, done) {
+    let i = 0;
+    const draw = () => {
+      if (i >= qs.length) { grew('練習室'); return done(); }
+      const q = qs[i];
+      frame(`<div class="s-card s-roomq"><small>${esc(label)} ${i + 1} / ${qs.length}</small><div class="qtext rich">${B.hall.rich(q.q)}</div><div data-qb></div><div data-res></div><button class="btn wide" data-qcheck>答え合わせ</button></div>`);
+      const box = $('[data-qb]', app);
+      let comp;
+      if (q.type === 'journal') comp = B.hall.mountJournalCBT(q, box, { exam: true });
+      else if (q.type === 'fill') comp = B.hall.mountFillCBT(q, box, { exam: true });
+      else if (q.type === 'choice') { let pick = null; box.innerHTML = `<div class="s-opts">${q.c.map((c, k) => `<button class="s-opt" data-ch="${k}"><b>${B.hall.rich(c)}</b></button>`).join('')}</div>`; box.onclick = (e) => { const b = e.target.closest('[data-ch]'); if (!b) return; pick = +b.dataset.ch; $$('[data-ch]', box).forEach((x) => x.classList.toggle('on', x === b)); }; comp = { check: () => ({ ok: pick === q.a, ratio: pick === q.a ? 1 : 0 }), reveal() { $$('[data-ch]', box).forEach((x) => x.classList.add(+x.dataset.ch === q.a ? 'ok' : 'ng')); }, answerHTML: () => `<p>正解：${B.hall.rich(q.c[q.a])}</p>` }; }
+      else if (q.type === 'number') { box.innerHTML = `<div class="s-row"><input data-num inputmode="decimal" placeholder="答え"><span>${esc(q.unit || '')}</span></div>`; const v = () => B.hall.toNum($('[data-num]', box).value); comp = { check: () => { const ok = Math.abs((v() || 0) - q.a) < 1e-6; return { ok, ratio: ok ? 1 : 0 }; }, reveal() {}, answerHTML: () => `<p>正解：${fmt(q.a)}${esc(q.unit || '')}</p>` }; }
+      else { box.innerHTML = q.items.map(([t], k) => `<div class="s-sorti"><span>${esc(t)}</span><select data-so="${k}"><option value="">えらぶ</option>${q.bins.map((b2, j) => `<option value="${j}">${esc(b2)}</option>`).join('')}</select></div>`).join(''); const got = () => q.items.filter(([, a], k) => $(`[data-so="${k}"]`, box).value === String(a)).length; comp = { check: () => ({ ok: got() === q.items.length, ratio: got() / q.items.length }), reveal() {}, answerHTML: () => `<p>${q.items.map(([t, a]) => `${esc(t)}→${esc(q.bins[a])}`).join('、')}</p>` }; }
+      app.onclick = (e) => {
+        if (e.target.closest('[data-qnext]')) { i++; draw(); return; }
+        if (!e.target.closest('[data-qcheck]')) return;
+        const r = comp.check(); comp.reveal(r.ok);
+        S.examLog.push({ key: q._key, ok: !!r.ok, t: Date.now(), room: true }); save();
+        $('[data-res]', app).innerHTML = `<div class="fb ${r.ok ? 'ok' : 'ng'}"><p class="s-react ${r.ok ? '' : 'ng'}">${r.ok ? '正解' : '正しくは：'}</p>${r.ok ? '' : comp.answerHTML()}<div class="rich">${B.hall.rich(q.exp || '')}</div></div><button class="btn wide" data-qnext>${i + 1 < qs.length ? 'つぎへ' : '練習室へもどる'}</button>`;
+        e.target.closest('[data-qcheck]').remove();
+      };
+    };
+    draw();
   }
 
   /* ---------- screens ---------- */

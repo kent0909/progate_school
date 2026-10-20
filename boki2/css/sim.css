@@ -289,3 +289,12 @@ i.lv0 { border: 1px solid var(--line); }
 .s-hall { display: block; }
 .s-nav { flex-wrap: wrap; }
 .s-nav button { white-space: nowrap; font-size: 12px; padding-left: 8px; padding-right: 8px; }
+/* 練習室 */
+.s-room-tabs { margin: 6px 0 10px; }
+.s-room-area h4 { margin: 12px 0 4px; }
+.s-room-it { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px dashed var(--line, #ddd); }
+.s-room-it small { display: block; color: var(--muted, #777); font-size: 11px; }
+.s-room-btns { display: flex; gap: 4px; flex: none; }
+.s-roomq .s-opt.on { outline: 3px solid hsl(160 60% 40%); }
+.s-roomq .s-opt.ok { background: hsl(140 50% 92%); }
+.s-roomq .s-opt.ng { opacity: .6; }
