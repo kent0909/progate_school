@@ -6,7 +6,7 @@
 global.window = global;
 const path = require('path');
 const root = path.join(__dirname, '..');
-['js/core.js', 'js/data/accounts.js', 'js/sim/lexicon.js', 'js/sim/scenario.js', 'js/sim/year2.js'].forEach((f) => require(path.join(root, f)));
+['js/core.js', 'js/data/accounts.js', 'js/data/siblings.js', 'js/sim/lexicon.js', 'js/sim/scenario.js', 'js/sim/year2.js'].forEach((f) => require(path.join(root, f)));
 const B = window.BOKI, D = window.SIMDATA, LX = B.lex;
 const errors = [], notes = [];
 const taught = new Set();
@@ -151,6 +151,8 @@ D.months.forEach((m, mi) => {
   const newAcc = [...used].filter(isAccount);
   if (newAcc.length > 2) errors.push(`${m.label}：記帳に使う新しい勘定科目が${newAcc.length}つ（${newAcc.join('・')}）。1か月2つまで`);
   if (discs > 2) errors.push(`${m.label}：発見が${discs}つ。1か月2つまで`);
+  // 札の兄弟の違いの1行（js/data/siblings.js）は、兄弟の札がぜんぶ教わった月から出る。その月までの語で読めること
+  for (const sb of B.siblings) if (!sb._checked && sb.accs.every((a) => taught.has(a))) { sb._checked = true; check(`${m.label} 札の兄弟 ${sb.accs.join('・')}`, sb.line); len(`${m.label} 札の兄弟`, sb.line, 90); }
   m._p = [...new Set(evs.filter((e) => e.t === 'discover').map((e) => e.p))];
 });
 // 新しい原理は1か月に1つまで
@@ -168,4 +170,5 @@ for (const [id, E] of Object.entries(D.endings)) if (E.ifOnly) { const S0 = { ..
 }
 if (notes.length) console.log(notes.join('\n'));
 if (errors.length) { console.error('\n' + errors.join('\n')); console.error(`\n${errors.length} 件`); process.exit(1); }
-console.log(`OK：教えた語 ${taught.size}`);
+B.siblings.filter((s) => !s._checked).forEach((s) => notes.length && console.log(`（まだ出ない札の兄弟：${s.accs.join('・')}）`));
+console.log(`OK：教えた語 ${taught.size}・札の兄弟 ${B.siblings.filter((s) => s._checked).length}/${B.siblings.length}`);

@@ -108,6 +108,8 @@
     const set = new Set(ans);
     const add = (list) => { for (const a of shuffle(list)) { if (set.size >= n) return; if (!set.has(a)) set.add(a); } };
     add(q.opts || []);
+    // 取り違えやすい兄弟の札（ピヨ商店では、札の速さで本人が迷った札を先に）
+    if (ctx().confused) add(ctx().confused(ans));
     add((q._ch && q._ch.accounts) || []);
     const cats = new Set(ans.map((a) => (B.accounts[a] || {}).cat));
     add(Object.keys(B.accounts).filter((a) => cats.has(B.accounts[a].cat)));
@@ -274,10 +276,12 @@
     main.innerHTML = `<div class="stack"><div><div class="eyebrow">MOCK EXAM</div><h1>本試験シミュレーター</h1><p class="muted" style="margin:4px 0 0;font-size:13px">日商簿記2級と同じ5問構成・90分・100点満点。70点で合格。毎回ちがう組み合わせで出題される。</p></div>`
       + `<div class="card"><table class="score-table">${PARTS.map((p) => `<tr><th style="text-align:left">${p.t}</th><td class="muted" style="font-size:13px">${p.d}</td><td>${p.pts}点</td></tr>`).join('')}</table><p class="muted" style="font-size:12px;margin:8px 0 0">問題バンク：第2問 ${counts[0]}・第3問 ${counts[1]}・第4問(2) ${counts[2]}・第5問 ${counts[3]} 題 ＋ 仕訳 ${ctx().chapters.flatMap((c) => c.qs).filter((q) => q.type === 'journal').length} 題</p></div>`
       + `<div class="card" style="font-size:13px"><b>本番の画面の決まり</b><ul class="exam-rules"><li>勘定科目は、問題ごとの候補（5〜8個）から選ぶ。使わない科目もまざっている。</li><li>同じ科目は、借方・貸方それぞれ1行だけ。2行に分けるとその問は0点。</li><li>金額は半角の数字だけ。カンマ・円・全角は入らない。</li><li>問題文には書き込めない。計算用紙はA4で2枚。</li><li>終わると点数だけが出る。どこを間違えたかは本物では返ってこない。</li></ul><b>おすすめの解く順番</b><br>第1問（15分）→ 第4問（20分）→ 第5問（10分）→ 第2問（20分）→ 第3問（25分）<br><span class="muted">確実に点が取れる仕訳と工業簿記を先に終わらせ、重い第2問・第3問に残り時間を使う。</span>${CH.c47 ? '<br><button class="link" data-guide style="padding-left:0">本試験の戦い方（ネット試験の操作・取引文の読み方・捨て問）を読む</button>' : ''}${ctx().y27() ? '<br><b style="color:var(--cr)">2027年度モード：</b>手形・リースの区分は模試から外しています。' : ''}</div>`
+      + (ctx().extras ? ctx().extras() : '')
       + `<div class="card stack"><h3>通しで解く（2段）</h3><p class="muted" style="margin:0;font-size:13px">1段目は時間なしで本番の形に慣れる。2段目で90分を計る。時間に追われる練習は、形に慣れてからのほうが身につく。</p><div class="row"><button class="btn ${untimed ? 'ghost' : 'gold'}" data-start="practice">1段目 時間なし${untimed ? `（${untimed}回）` : ''}</button><button class="btn ${untimed ? 'gold' : 'ghost'}" data-start>${ctx().icons.paper}2段目 90分 本番</button></div><button class="link" data-op style="padding-left:0;font-size:13px">はじめての人：操作の練習（1題・採点しない）</button></div>`
       + `<div class="card stack"><h3>大問別の連続練習</h3><p class="muted" style="margin:0;font-size:13px">同じ大問を続けて解く。先輩の手本 → なぞる → 自分で → 時間あり、の順に進めるのがおすすめ。</p><div class="seg exam-modes">${EXAM_MODES.map(([k, t, d]) => `<button data-dm="${k}" aria-pressed="${k === drillMode}" title="${esc(d)}">${t}</button>`).join('')}</div><p class="muted" style="margin:0;font-size:12px" data-dmd>${esc(EXAM_MODES.find((m) => m[0] === drillMode)[2])}</p><div class="row">${PARTS.map((p) => `<button class="btn ghost sm" style="flex:none" data-drillpart="${p.k}">${p.t}</button>`).join('')}</div></div>`
       + `${hist.length ? `<div class="card"><div class="row" style="justify-content:space-between"><h3>これまでの成績</h3>${best ? `<span class="pix" style="color:var(--brand)">自己ベスト ${best}点</span>` : ''}</div><table class="score-table" style="margin-top:6px">${hist.map((e) => `<tr><td>${esc(e.date)}</td><td class="muted" style="font-size:12px">${e.mode === 'untimed' ? '時間なし' : '90分'}</td><td>${e.score >= 70 ? '<b style="color:var(--good)">合格</b>' : '<span class="muted">不合格</span>'}</td><td>${e.score}点</td></tr>`).join('')}</table></div>` : ''}</div>`;
     main.onclick = (e) => {
+      const xt = e.target.closest('[data-hall-extra]'); if (xt && ctx().extra) { ctx().extra(xt.dataset.hallExtra); return; }
       if (e.target.closest('[data-guide]')) { ctx().lesson('c47'); return; }
       if (e.target.closest('[data-op]')) { ctx().go('examplay', { part: 1, op: true }); return; }
       const dm = e.target.closest('[data-dm]');

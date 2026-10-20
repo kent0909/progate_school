@@ -143,8 +143,8 @@
 .s-autoi[open] { background: var(--surface2); }
 
 /* map: 原理で見る／試験範囲で見る */
-.s-maptabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; background: var(--surface2); border-radius: 999px; padding: 3px; }
-.s-maptabs button { border: 0; background: none; border-radius: 999px; padding: 6px; font-weight: 700; font-size: 14px; color: var(--muted); }
+.s-maptabs { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); grid-auto-flow: column; gap: 4px; background: var(--surface2); border-radius: 999px; padding: 3px; }
+.s-maptabs button { border: 0; background: none; border-radius: 999px; padding: 6px; font-weight: 700; font-size: 13px; color: var(--muted); }
 .s-maptabs button.on { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px var(--shadow-c); }
 .s-mapbody { display: flex; flex-direction: column; gap: 10px; }
 .s-mapnote { margin: 0; font-size: 13px; }
@@ -278,9 +278,9 @@ i.lv0 { border: 1px solid var(--line); }
 .s-fje { margin-top: 8px; }
 /* 精算表 */
 .s-sheetwrap { overflow-x: auto; max-width: 100%; }
-.s-sheet { font-size: 11px; min-width: 640px; }
-.s-sheet th, .s-sheet td { padding: 2px 4px; white-space: nowrap; }
-.s-sheet tr.todo td:first-child { color: var(--muted, #888); }
+.s-wsheet { font-size: 11px; min-width: 640px; }
+.s-wsheet th, .s-wsheet td { padding: 2px 4px; white-space: nowrap; }
+.s-wsheet tr.todo td:first-child { color: var(--muted, #888); }
 .s-sheetrow { display: block; font-size: 11px; color: var(--muted, #777); }
 .s-azu { display: block; font-size: 10px; color: hsl(0 60% 45%); }
 /* 検定会場（hall.js）を試作の中で開くとき */
@@ -299,3 +299,19 @@ i.lv0 { border: 1px solid var(--line); }
 .s-roomq .s-opt.ok { background: hsl(140 50% 92%); }
 .s-roomq .s-opt.ng { opacity: .6; }
 .s-tb .s-sub { display: block; font-size: 0.75em; color: var(--muted, #667); font-weight: normal; }
+/* 札で見る */
+.s-cardq { width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; font: inherit; margin: 6px 0 10px; background: var(--surface); color: inherit; }
+.s-cardsec h4 { margin: 12px 0 6px; font-size: 13px; }
+.s-cardgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
+.s-cardbtn { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: inherit; font: inherit; text-align: left; cursor: pointer; min-width: 0; }
+.s-cardbtn b { font-size: 13px; overflow-wrap: anywhere; }
+.s-cardbtn small { font-size: 11px; color: var(--muted); }
+.s-sibs { list-style: none; padding: 0; margin: 0; }
+.s-sibs li { border-top: 1px solid var(--line); padding: 6px 0; }
+.s-sibs li p { margin: 4px 0 0; font-size: 13px; }
+/* 札の速さ */
+.s-speed { align-items: stretch; }
+.s-speedcard { font-size: 22px; font-weight: 700; text-align: center; margin: 18px 0; overflow-wrap: anywhere; }
+.s-speedbins { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; }
+.s-speedwhy { background: var(--surface2); border-radius: 8px; padding: 10px; margin: 0; font-size: 14px; }
+.s-room-tabs { flex-wrap: wrap; }
