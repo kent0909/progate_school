@@ -511,6 +511,14 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "uiux",
+     "desc": "UI・UX デザインのセオリー（ヒューリスティック・アクセシビリティ・ガイドライン）と、学習アプリ・ゲーム・業務ソフトの UI・UX の成功事例",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   }
