@@ -248,3 +248,8 @@ i.lv0 { border: 1px solid var(--line); }
 .s-guess { font-size: 13px; color: var(--muted); }
 .s-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 6px; }
 .s-pair small { color: var(--muted); font-weight: 700; display: block; margin-bottom: 2px; }
+.s-boxbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; } .s-boxbtns .s-pill { white-space: normal; text-align: left; }
+.s-scrollx { overflow-x: auto; max-width: 100%; }
+.s-ledger { border-collapse: collapse; font-size: 12px; min-width: 100%; }
+.s-ledger th, .s-ledger td { border-bottom: 1px solid var(--line); padding: 4px 6px; white-space: nowrap; text-align: left; }
+.s-ledger td.n { text-align: right; font-variant-numeric: tabular-nums; }

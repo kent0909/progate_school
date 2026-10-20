@@ -154,11 +154,44 @@
     const b = e.target.closest('[data-ov]');
     if (!b) return;
     const k = b.dataset.ov;
-    if (k === 'co') overlay(companyView(balances(S.L)));
+    if (k === 'co') coOverlay();
     if (k === 'map') mapOverlay();
     if (k === 'grow') overlay(B.growth.view(GAPI));
     if (k === 'log') overlay(`<h3>経営日誌</h3>${S.diary.length ? `<ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul>` : '<p class="muted">まだ記録はない。</p>'}`);
   });
+  // 会社の棚：棚の絵と、元帳（勘定ごとに、日付・摘要・相手の札・残高）
+  function ledgerView(acc) {
+    const rows = [];
+    let bal = 0;
+    const plus = cat(acc) === '資産' || cat(acc) === '費用';
+    for (const x of S.L) {
+      const ev = (allEvents.find(({ e }) => e.id === x.ev) || {}).e;
+      const date = ev && ev.doc ? ev.doc.date : monthLabel(x.mi);
+      const memo = ev && ev.doc ? ev.doc.title : '';
+      for (const [side, other] of [['dr', 'cr'], ['cr', 'dr']]) for (const [a, v] of x[side]) {
+        if (a !== acc) continue;
+        bal += (side === 'dr') === plus ? v : -v;
+        rows.push(`<tr><td>${esc(date)}</td><td>${esc(memo)}</td><td>${esc(x[other].map((o) => o[0]).join('・'))}</td><td class="n">${side === 'dr' ? fmt(v) : ''}</td><td class="n">${side === 'cr' ? fmt(v) : ''}</td><td class="n">${fmt(bal)}</td></tr>`);
+      }
+    }
+    return rows.length ? `<table class="s-ledger"><tr><th>日付</th><th>摘要</th><th>相手の札</th><th>借方</th><th>貸方</th><th>残高</th></tr>${rows.join('')}</table>` : '<p class="muted">まだ記録はない。</p>';
+  }
+  function coOverlay() {
+    const b = balances(S.L);
+    const accs = ['普通預金', '売掛金', '買掛金', '未払金', '借入金'].filter((a) => b[a] !== undefined && knows(a));
+    let tab = 'bs';
+    const o = overlay(`<div class="s-maptabs"><button data-cotab="bs">棚の絵</button>${accs.length ? '<button data-cotab="gl">元帳</button>' : ''}</div><div class="s-cobody"></div>`);
+    let acc = accs[0];
+    const paint = () => {
+      $$('[data-cotab]', o).forEach((x) => x.classList.toggle('on', x.dataset.cotab === tab));
+      $('.s-cobody', o).innerHTML = tab === 'bs' ? companyView(b) : `<p class="muted" style="font-size:12px">札ごとに、いつ・何の書類で・相手の札は何で動いたかが並ぶ。あとから森さんや銀行が「この日に何があったの？」と読むための記録。</p><div class="s-maptabs">${accs.map((a) => `<button data-glacc="${esc(a)}" class="${a === acc ? 'on' : ''}">${esc(a)}</button>`).join('')}</div><div class="s-scrollx">${ledgerView(acc)}</div>`;
+    };
+    paint();
+    o.addEventListener('click', (e) => {
+      const t = e.target.closest('[data-cotab]'); if (t) { tab = t.dataset.cotab; paint(); return; }
+      const g = e.target.closest('[data-glacc]'); if (g) { acc = g.dataset.glacc; paint(); }
+    });
+  }
   function principleView() {
     const seen = Object.entries(D.principles).filter(([k]) => S.leaves.some((l) => l.p === k));
     return `<p class="muted s-mapnote">見つけた考え方は、どの「ものの見方」から生まれたか。まだ見つけていない見方は、輪郭だけ。</p><div class="s-map">${Object.entries(D.principles).map(([k, p]) => { const ls = S.leaves.filter((l) => l.p === k); return ls.length ? `<div class="s-node on"><b>${esc(p.q)}</b><small>${esc(p.name)}</small><div class="s-leaves">${ls.map((l) => `<span>${esc(l.label)}</span>`).join('')}</div></div>` : '<div class="s-node"><em>まだ見つけていない見方</em></div>'; }).join('')}</div>${seen.length ? '' : ''}`;
@@ -344,7 +377,32 @@
   function monthIntro() {
     const m = month();
     frame(`<div class="s-card s-intro"><small>${esc(m.label)}</small><h2>${esc(m.title)}</h2><button class="btn wide" data-go>${S.mi === 0 ? '屋台へ行く' : '机に向かう'}</button></div>`);
-    app.onclick = (e) => { if (e.target.closest('[data-go]')) { S.phase = 'event'; S.ei = 0; save(); render(); } };
+    app.onclick = (e) => { if (e.target.closest('[data-go]')) { S.phase = 'event'; S.ei = 0; save(); recallScreen(render); } };
+  }
+  // 月のはじめに、先月の書類と同じ種類を、金額を変えて1つ思い出して書く（想起。答えは書いたあとに見せる）
+  function recallScreen(done) {
+    S.recall = S.recall || [];
+    if (S.recall.some((r) => r.mi === S.mi)) return done();
+    const prev = S.L.filter((x) => x.mi === S.mi - 1 && x.kind && !x.auto).map((x) => ({ x, ev: (allEvents.find(({ e }) => e.id === x.ev) || {}).e })).filter((o) => o.ev && o.ev.doc && o.ev.opts);
+    const pick = prev.filter((o) => { const t = S.T.find((y) => y.id === o.x.id); return t && [...t.dr, ...t.cr].every(([a]) => knows(a)); }).pop();
+    if (!pick) return done();
+    const t = S.T.find((y) => y.id === pick.x.id), k = S.mi % 2 ? 3 : 2;
+    const truth = { dr: t.dr.map(([a, v]) => [a, v * k]), cr: t.cr.map(([a, v]) => [a, v * k]) };
+    const opts = [...new Set([...(pick.ev.opts || []), ...truth.dr.map((x) => x[0]), ...truth.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
+    const opt = `<option value="">札をえらぶ</option>${opts.map((a) => `<option>${esc(a)}</option>`).join('')}`;
+    const side = (sd) => [0, 1].map((i) => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の札">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
+    frame(`<div class="s-card"><small>${esc(month().label)}のはじめに 思い出す</small>${talk([['senpai', `先月の「${pick.ev.doc.title}」を思い出して。同じ種類の書類で、金額が${k}倍だったら、どう書く？ 書類は見ないで。`]])}<div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-rc>書いた</button><button class="link" data-rskip>思い出せないので、今月へ進む</button></div>`);
+    app.onclick = (e) => {
+      if (e.target.closest('[data-rnext]')) { done(); return; }
+      const skip = e.target.closest('[data-rskip]');
+      if (!skip && !e.target.closest('[data-rc]')) return;
+      const entry = { dr: [], cr: [] };
+      for (const sd of ['dr', 'cr']) { const sel = $$(`select[data-s="${sd}"]`, app), ins = $$(`input[data-s="${sd}"]`, app); sel.forEach((x, i) => { const v = Number((ins[i].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }); }
+      const ok = !skip && entry.dr.length && entry.cr.length && sameEntry(entry, truth);
+      S.recall.push({ mi: S.mi, kind: pick.x.kind, ok: !!ok, skipped: !!skip }); save();
+      $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '思い出せた。' : '先月の書き方は、こうだった（金額は' + k + '倍）。'}</p>${ok ? '' : jeTable(truth)}<button class="btn wide" data-rnext>今月へ</button>`;
+      $$('[data-rc], [data-rskip]', app).forEach((x) => x.remove());
+    };
   }
   function talkScreen(ev) {
     teach(ev.teaches);
@@ -748,8 +806,16 @@
       else if (st === 'reality') body = `<small>現実では</small><p>${LX.ruby(esc(E.reality))}</p>`;
       else body = `<small>学び</small><p>${LX.ruby(esc(E.lesson))}</p>${E.check ? `<p class="s-q small">${esc(E.check.q)}</p><div class="s-opts">${E.check.opts.map((o, k) => `<button class="s-opt ${answered && o.ok ? 'on' : ''}" data-chk="${k}"><b>${esc(o.t)}</b></button>`).join('')}</div>${msg}` : ''}`;
       const last = i === steps.length - 1 && answered;
+      // 振り返りの3段目：判断したときに分かっていた数字（試算）を、選択肢ごとにもう一度見せる。どこで何を変えるかを考えてから栞へ
+      if (last && !view && S.bm[E.back]) {
+        const dev = (allEvents.find(({ e }) => e.t === 'decision' && e.id === E.back) || {}).e;
+        if (dev && dev.trial) {
+          const snapS = Object.assign(fresh(), JSON.parse(JSON.stringify(S.bm[E.back])));
+          body += `<div class="s-why"><p><b>もう一度やるなら：「${esc(dev.q)}」のとき分かっていた数字</b></p>${dev.options.map((o) => `<p class="small"><b>${esc(o.label)}</b></p>${trialHTML(dev.trial(snapS, o.id))}`).join('')}<p class="muted">結末を知る前でも、この数字は見えていた。どこで何を変える？</p></div>`;
+        }
+      }
       const btns = i === steps.length - 1 && !answered ? '' : !last ? '<button class="btn wide" data-en>つぎへ</button>' : view ? '<button class="btn wide" data-back-view>もどる</button>'
-        : `${S.bm[E.back] ? `<button class="btn wide" data-bm>栞（しおり）にもどる：その判断のところから</button>` : ''}${E.final ? '<button class="btn wide ghost" data-restart>会社をたたんで、最初から</button>' : '<button class="btn wide ghost" data-cont>このまま続ける</button>'}`;
+        : `${S.bm[E.back] ? `<button class="btn wide" data-bm>栞（しおり）にもどる：その判断のところから</button>` : ''}${E.final ? `<button class="btn wide ghost" data-restart>${E.level === '重' ? '会社をたたんで、最初から' : '最初からやり直す'}</button>` : '<button class="btn wide ghost" data-cont>このまま続ける</button>'}`;
       frame(`<div class="s-card s-ending ${E.level === '重' ? 'heavy' : ''}"><div class="s-disc-head"><small>${view ? 'もしも' : E.level === '重' ? '結末' : '警告'}</small><h3>${esc(E.title)}</h3></div>${body}${btns}${i > 0 ? '<button class="btn ghost sm" data-enback>← もどる</button>' : ''}</div>`);
     };
     draw();
@@ -821,13 +887,31 @@
   }
 
   /* ---- 月末の見直し ---- */
+  // 月末の締めの前に、今月の口座のお金がどうなったかを予想する（当たり外れは数ではなく、実際と並べて見せる）
+  const cashBefore = () => cashOf(balances(S.L.filter((x) => x.mi < S.mi)));
+  function predictClose(done) {
+    S.predicts = S.predicts || {};
+    if (S.mi < 2 || S.predicts[S.mi]) return done();
+    const before = cashBefore();
+    frame(`<div class="s-card"><small>${esc(month().label)}の締めの前に</small>${talk([['senpai', `先月の終わり、口座のお金は ${fmt(before)} だった。今月の終わりは、どうなっていると思う？ 見直しの前に予想してみよう。`]])}<div class="s-opts">${[['up', '増えた'], ['down', 'へった'], ['flat', 'ほとんど変わらない']].map(([k, t]) => `<button class="s-opt" data-pc="${k}"><b>${t}</b></button>`).join('')}</div></div>`);
+    app.onclick = (e) => { const b = e.target.closest('[data-pc]'); if (!b) return; S.predicts[S.mi] = { g: b.dataset.pc, before }; save(); done(); };
+  }
+  function predictLine(bu) {
+    const pr = (S.predicts || {})[S.mi];
+    if (!pr) return '';
+    const d = cashOf(bu) - pr.before, act = Math.abs(d) <= Math.max(2000, Math.abs(pr.before) * 0.03) ? 'flat' : d > 0 ? 'up' : 'down';
+    const W = { up: '増えた', down: 'へった', flat: 'ほとんど変わらない' };
+    pr.act = act; pr.ok = act === pr.g;
+    return `<p class="s-guess">予想「${W[pr.g]}」→ 実際「${W[act]}」（${d >= 0 ? '+' : '−'}${fmt(Math.abs(d))}）${pr.ok ? '' : '。何が予想とちがった？'}</p>`;
+  }
   function closeScreen() {
+    if (!(S.predicts || {})[S.mi] && S.mi >= 2) return predictClose(closeScreen);
     const bu = balances(S.L), bt = balances(S.T);
     const diff = [...new Set([...Object.keys(bu), ...Object.keys(bt)])].filter((a) => (bu[a] || 0) !== (bt[a] || 0));
     if (!diff.length) {
       const p = pl(bu);
       const note = knows('収益') && p.ni < 0 && (bu['仕入'] || 0) > 0 && !bu['繰越商品'] ? '<p class="muted" style="font-size:13px;margin:0">仕入れた商品は、売れ残りも全部「仕入」（費用）に入れている。売れ残りを資産に戻すのは1年の終わりだから、それまでは、もうけが小さく見える。</p>' : '';
-      frame(`<div class="s-card"><small>${esc(month().label)}の見直し</small><h3>帳簿と書類が、ぜんぶ合った</h3>${miniBS(bsFrom(bu))}<p style="margin:0">口座のお金 <b>${fmt(cashOf(bu))}</b>${knows('収益') ? `　この1年のもうけ <b>${fmt(p.ni)}</b>` : ''}</p>${note}<button class="btn wide" data-next>${S.mi + 1 < D.months.length ? '次の月へ' : 'つぎへ'}</button></div>`);
+      frame(`<div class="s-card"><small>${esc(month().label)}の見直し</small><h3>帳簿と書類が、ぜんぶ合った</h3>${miniBS(bsFrom(bu))}<p style="margin:0">口座のお金 <b>${fmt(cashOf(bu))}</b>${knows('収益') ? `　この1年のもうけ <b>${fmt(p.ni)}</b>` : ''}</p>${predictLine(bu)}${note}<button class="btn wide" data-next>${S.mi + 1 < D.months.length ? '次の月へ' : 'つぎへ'}</button></div>`);
       app.onclick = (e) => { if (e.target.closest('[data-next]')) { S.closes.push({ mi: S.mi, fixed: S.fixLog.some((f) => f.mi === S.mi) }); grew('月末の締め'); advanceMonth(); } };
       return;
     }
@@ -879,7 +963,46 @@
     const eq = Object.entries(b).filter(([a]) => cat(a) === '純資産').reduce((t, [, v]) => t - v, 0) + p.ni;
     return { b, p, ta, eq };
   }
+  // 決算書を自分で組む：自分の帳簿の残高を札にして、決算書の4つの箱へ運ぶ（本試験の第3問と同じ部品）
+  function buildScreen(ev, done) {
+    const b = balances(S.L);
+    const cards = Object.entries(b).filter(([, v]) => v).map(([a, v]) => ({ a, v: Math.abs(v), to: CONTRA.has(a) || cat(a) === '資産' ? 'A' : cat(a) === '負債' || cat(a) === '純資産' ? 'R' : cat(a) === '収益' ? 'I' : 'E' })).sort((x, y) => order(x.a) - order(y.a));
+    // 名前（貸借対照表・損益計算書）は、組み終わってから教える
+    const T1 = knows('貸借対照表') ? '貸借対照表' : '1年の終わりの棚の絵', T2 = knows('損益計算書') ? '損益計算書' : '1年のもうけの中身';
+    const BOX = { A: `${T1}の左（${gw('資産')}）`, R: `${T1}の右（${gw('負債')}・${gw('純資産')}）`, I: `${T2}（${gw('収益')}）`, E: `${T2}（${gw('費用')}）` };
+    const put = {}; let msg = '', step = 'cards', miss = 0;
+    const sum = (k) => cards.filter((c) => put[c.a] === k).reduce((t, c) => t + (CONTRA.has(c.a) ? -c.v : c.v), 0);
+    const draw = () => {
+      const left = cards.filter((c) => !put[c.a]);
+      let body;
+      if (step === 'cards') {
+        body = `${talk([['kansa', '1年の終わりの帳簿の残高を、決算書の箱へ運ぼう。1枚ずつ、どの箱か選んでね。']])}${left.slice(0, 1).map((c) => `<div class="s-sorti"><span><b>${esc(c.a)}</b> ${fmt(c.v)}${CONTRA.has(c.a) ? '（マイナスの札）' : ''}</span><div class="s-boxbtns">${Object.entries(BOX).map(([k, t]) => `<button class="s-pill" data-box="${k}" data-acc="${esc(c.a)}">${esc(t)}</button>`).join('')}</div></div>`).join('')}${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}<p class="muted" style="font-size:12px">のこり ${left.length} 枚</p>`;
+        if (!left.length) step = 'join';
+      }
+      if (step === 'join') {
+        const ni = sum('I') - sum('E');
+        body = `<div class="s-two"><div><small>${esc(BOX.A)}</small><b>${fmt(sum('A'))}</b></div><div><small>${esc(BOX.R)}</small><b>${fmt(sum('R'))}</b></div></div><div class="s-two"><div><small>${esc(BOX.I)}</small><b>${fmt(sum('I'))}</b></div><div><small>${esc(BOX.E)}</small><b>${fmt(sum('E'))}</b></div></div>${talk([['kansa', `${T1}の左と右が ${fmt(Math.abs(sum('A') - sum('R')))} ずれているね。${T2}で分かった1年のもうけ ${fmt(ni)} は、どこへ行く？`]])}<div class="s-opts"><button class="s-opt" data-join="R"><b>${esc(T1)}の右（${esc(gw('純資産'))}）に足す</b></button><button class="s-opt" data-join="A"><b>${esc(T1)}の左（${esc(gw('資産'))}）に足す</b></button><button class="s-opt" data-join="none"><b>${esc(T1)}には入れない</b></button></div>${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`;
+      }
+      frame(`<div class="s-card"><small>決算書を組む</small>${body}</div>`);
+    };
+    draw();
+    app.onclick = (e) => {
+      const bx = e.target.closest('[data-box]');
+      if (bx) {
+        const c = cards.find((x) => x.a === bx.dataset.acc);
+        if (bx.dataset.box === c.to) { put[c.a] = c.to; msg = ''; }
+        else { miss++; msg = c.to === 'A' && CONTRA.has(c.a) ? `${c.a}は、${gw('資産')}の箱の中でマイナスとして置く札だよ。` : `この札は ${cat(c.a)} の札。${cat(c.a) === '収益' || cat(c.a) === '費用' ? '1年のもうけの中身を見せる箱' : '1年の終わりの棚の絵の箱'}のどちら側？`; }
+        draw(); return;
+      }
+      const j = e.target.closest('[data-join]');
+      if (j) {
+        if (j.dataset.join !== 'R') { miss++; msg = j.dataset.join === 'A' ? `もうけは、会社が自分でふやした「${gw('純資産')}」。右の側だよ。` : `入れないと、左と右がそろわない。もうけは${gw('純資産')}をふやしている。`; draw(); return; }
+        S.metrics.build = { miss }; save(); done();
+      }
+    };
+  }
   function reportScreen(ev) {
+    if (!ev.redo && !(S.metrics.build)) return buildScreen(ev, () => reportScreen(ev));
     teach(ev.teaches);
     const { b } = statements();
     S.reportSeen = true; save();

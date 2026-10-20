@@ -21,7 +21,14 @@ function check(where, text, extra = [], { doc = false } = {}) {
   if (doc) bad = bad.filter((w) => !(w in LX.docWords));
   if (bad.length) errors.push(`${where}：まだ教えていない語 ${bad.join('・')} 「${String(text).slice(0, 40)}…」`);
 }
-const len = (where, text, max = 180) => { if (String(text).length > max) errors.push(`${where}：${String(text).length}字（${max}字まで）`); };
+// 1画面の字数に加えて、1文の長さ（60字まで）と名詞化（「〜の計上」「〜を行う」など。子どもには読みにくい）を注意として出す
+const len = (where, text, max = 180) => {
+  const t = String(text || '');
+  if (t.length > max) errors.push(`${where}：${t.length}字（${max}字まで）`);
+  for (const sen of t.split(/[。！？]/)) if (sen.length > 60) notes.push(`${where} 1文が${sen.length}字：「${sen.slice(0, 24)}…」`);
+  const nom = t.match(/[^、。]{0,6}(の計上|の実施|を行う|の処理を|の把握|の確認を)/g);
+  if (nom) notes.push(`${where} 名詞化：${[...new Set(nom)].join('・')}`);
+};
 const talkText = (lines) => (lines || []).map((l) => l[1]).join('');
 function docCheck(where, doc) {
   if (!doc) return;
@@ -145,6 +152,13 @@ D.months.forEach((m) => { const fresh = m._p.filter((p) => !seenP.has(p)); if (f
 
 // 事後のもしも（ifOnly）の結末は、1年を通して教えた語で読めること
 for (const [id, E] of Object.entries(D.endings)) if (E.ifOnly) { const S0 = { ...fake, decisions: branches[0] }; check(`もしも ${id}`, [E.title, E.cause(S0), ...E.numbers(S0).rows.map((x) => x[0]), talkText(E.scene(S0)), E.lesson].join(' ')); }
+// 反例：「資産が増えたら収益」「お金が出たら費用」と覚えてしまわないように、1年のうちに反例の書類があること
+{
+  const yearMoves = [];
+  D.months.forEach((m) => m.events.filter((e) => e.t === 'doc').forEach((e) => { try { yearMoves.push(moves(typeof e.ans === 'function' ? e.ans({ decisions: {} }) : e.ans)); } catch (x) { /* 判断しだいの書類は飛ばす */ } }));
+  if (!yearMoves.some((mv) => mv.includes('資産+') && !mv.includes('収益+'))) errors.push('反例がない：資産が増えて収益ではない書類（借入・出資など）が1年に1つもない');
+  if (!yearMoves.some((mv) => mv.includes('資産-') && !mv.includes('費用+'))) errors.push('反例がない：お金が出て費用ではない書類（買掛金の支払い・返済など）が1年に1つもない');
+}
 if (notes.length) console.log(notes.join('\n'));
 if (errors.length) { console.error('\n' + errors.join('\n')); console.error(`\n${errors.length} 件`); process.exit(1); }
 console.log(`OK：教えた語 ${taught.size}`);
