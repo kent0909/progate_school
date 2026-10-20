@@ -912,7 +912,7 @@
         }
       }
       const btns = i === steps.length - 1 && !answered ? '' : !last ? '<button class="btn wide" data-en>つぎへ</button>' : view ? '<button class="btn wide" data-back-view>もどる</button>'
-        : `${S.bm[E.back] ? `<button class="btn wide" data-bm>栞（しおり）にもどる：その判断のところから</button>` : ''}${E.final ? `<button class="btn wide ghost" data-restart>${E.level === '重' ? '会社をたたんで、最初から' : '最初からやり直す'}</button>` : '<button class="btn wide ghost" data-cont>このまま続ける</button>'}`;
+        : `${S.bm[E.back] ? `<button class="btn wide" data-bm>栞（しおり）にもどる：その判断のところから</button>` : ''}${E.final ? `<button class="btn wide ghost" data-restart>${E.level === '重' && E.closes !== false ? '会社をたたんで、最初から' : '最初からやり直す'}</button>` : '<button class="btn wide ghost" data-cont>このまま続ける</button>'}`;
       frame(`<div class="s-card s-ending ${E.level === '重' ? 'heavy' : ''}"><div class="s-disc-head"><small>${view ? 'もしも' : E.level === '重' ? '結末' : '警告'}</small><h3>${esc(E.title)}</h3></div>${body}${btns}${i > 0 ? '<button class="btn ghost sm" data-enback>← もどる</button>' : ''}</div>`);
     };
     draw();
