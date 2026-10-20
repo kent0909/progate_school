@@ -31,7 +31,7 @@ const ok = (who, m) => out.push(`✓ ${who}：${m}`);
 
 // 会話記録（jsonl）から、Bash の呼び出しの時間帯と、書いたファイル・実行したコマンドを取り出す
 function transcript(file) {
-  const calls = [], writes = [], cmds = [];
+  const calls = [], writes = [], cmds = [], wtimes = {};
   if (!file || !fs.existsSync(file)) return null;
   const pend = {};
   for (const l of fs.readFileSync(file, 'utf8').split('\n')) {
@@ -41,13 +41,14 @@ function transcript(file) {
     for (const x of c) {
       if (x.type === 'tool_use') {
         pend[x.id] = { t0: Date.parse(d.timestamp), name: x.name, input: x.input || {} };
+        if (['Write', 'Edit', 'NotebookEdit'].includes(x.name)) { wtimes[path.resolve((x.input || {}).file_path || '.')] = Date.parse(d.timestamp); }
         if (['Write', 'Edit', 'NotebookEdit'].includes(x.name)) writes.push({ tool: x.name, file: (x.input || {}).file_path || '', content: String((x.input || {}).content || (x.input || {}).new_string || '') });
         if (x.name === 'Bash') cmds.push(String((x.input || {}).command || ''));
       }
       if (x.type === 'tool_result' && pend[x.tool_use_id]) { const q = pend[x.tool_use_id]; q.t1 = Date.parse(d.timestamp); if (q.name === 'Bash') calls.push(q); }
     }
   }
-  return { calls, writes, cmds };
+  return { calls, writes, cmds, wtimes };
 }
 const grams = (t, k = 10) => { const s = new Set(); const z = t.replace(/\s+/g, ''); for (let i = 0; i + k <= z.length; i++) s.add(z.slice(i, i + k)); return s; };
 
@@ -63,6 +64,8 @@ for (const R of cfg.reviewers) {
   let chain = true, prev = '0', lastT = 0;
   E.forEach((e, i) => { if (e.n !== i || e.prev !== prev) chain = false; prev = sha(lines[i]); const t = Date.parse(e.t); if (t < lastT) chain = false; lastT = t; });
   chain ? ok(who, `ログの鎖がつながっている（${E.length}行）`) : ng(who, 'ログの鎖が切れている（書き換え・差し込み・並べ替えの疑い）');
+  // 1b. 割り当てられた端末の画面の大きさで遊んだ（panel.json）
+  if (R.viewport && E.some((e) => e.kind === 'session' && e.viewport && (e.viewport.width !== R.viewport[0] || e.viewport.height !== R.viewport[1])) && !R.extraViewports) ng(who, `割り当ての端末（${R.viewport.join('×')}）と違う画面の大きさで遊んだ回がある`);
   // 2. 同じゲーム・道具
   const sess = E.filter((e) => e.kind === 'session');
   if (!sess.length) ng(who, 'session 行がない');
@@ -142,6 +145,37 @@ for (const R of cfg.reviewers) {
   const touch = T.cmds.filter((c) => /log\.jsonl/.test(c) && !/^\s*(cat|head|tail|wc|grep|jq|node [^|]*verify\.js|less|ls)\b/.test(c.replace(/^cd [^&;]+(&&|;)\s*/, '')));
   const touchW = T.writes.filter((w) => /log\.jsonl/.test(w.file));
   touch.length || touchW.length ? ng(who, `log.jsonl に読む以外で触れたコマンドが ${touch.length + touchW.length} 個（中身を確かめること）`) : ok(who, 'log.jsonl を書き換えていない');
+}
+// 7b. 人物像の重なり（オーナー：1人の頭で何役も演じる形を防ぐ）。persona.md の先頭の属性と、文の重なり
+const fm = (t) => { const m = t.match(/^---\n([\s\S]*?)\n---/); const o = {}; if (!m) return null; for (const l of m[1].split('\n')) { const k = l.match(/^(\w+):\s*(.*)$/); if (k) o[k[1]] = k[2].replace(/^\[|\]$/g, '').split(/[,、]\s*/).map((x) => x.trim()).filter(Boolean); } return o; };
+const P = {};
+for (const R of cfg.reviewers) { const f = path.join(path.resolve(R.dir), 'persona.md'); if (fs.existsSync(f)) { const t = fs.readFileSync(f, 'utf8'); P[R.id] = { t, a: fm(t) }; if (!P[R.id].a) ng(R.id, 'persona.md の先頭に属性（--- で囲んだ id・age・gender・region・devices・play_slots・background・games）がない'); } }
+const pid = Object.keys(P);
+for (let i = 0; i < pid.length; i++) for (let j = i + 1; j < pid.length; j++) {
+  const A = P[pid[i]], Bp = P[pid[j]]; if (!A.a || !Bp.a) continue;
+  const same = (k) => (A.a[k] || []).some((x) => (Bp.a[k] || []).includes(x));
+  const age = Math.abs(+((A.a.age || [])[0]) - +((Bp.a.age || [])[0])) <= 4;
+  const ga = new Set(A.a.games || []), gb = new Set(Bp.a.games || []); let gi = 0; for (const x of ga) if (gb.has(x)) gi++;
+  const gj = gi / (ga.size + gb.size - gi || 1);
+  const score = [age, same('gender'), same('region'), same('devices'), same('play_slots'), same('background')].filter(Boolean).length + (gj > 0.25 ? 1 : 0);
+  const a = grams(A.t), b = grams(Bp.t); let inter = 0; for (const x of a) if (b.has(x)) inter++; const jac = inter / (a.size + b.size - inter || 1);
+  if (score >= 4) ng(`${pid[i]}×${pid[j]}`, `人物像の属性が重なりすぎ（${score}/7：年齢・性別・地域・端末・遊ぶ時間・経歴・好きな作品）`);
+  if (jac > 0.05) ng(`${pid[i]}×${pid[j]}`, `人物像の文が似すぎ（重なり ${(jac * 100).toFixed(1)}%）`);
+}
+if (pid.length > 1) ok('人物像', `${pid.length}人の属性と文の重なりを調べた`);
+// 7c. 遊ぶ前と後のテスト（受験する役）：pretest.md は遊ぶ前に本人が書き固定、posttest.md は遊んだあとに本人が書く
+for (const R of cfg.reviewers.filter((r) => r.tests)) {
+  const dir = path.resolve(R.dir), T = transcript(R.transcript); if (!T) continue;
+  const E = fs.existsSync(path.join(dir, 'log.jsonl')) ? fs.readFileSync(path.join(dir, 'log.jsonl'), 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : [];
+  const first = E.find((e) => e.kind === 'session'), last = E[E.length - 1];
+  for (const [f, cond] of [['pretest.md', (t) => first && t < Date.parse(first.t)], ['posttest.md', (t) => last && t > Date.parse(last.t)]]) {
+    const ws = T.writes.filter((w) => w.tool === 'Write' && path.resolve(w.file) === path.join(dir, f));
+    if (!ws.length) { ng(R.id, `${f} を本人が Write で書いていない`); continue; }
+    const cur = fs.existsSync(path.join(dir, f)) ? fs.readFileSync(path.join(dir, f), 'utf8') : null;
+    if (ws[ws.length - 1].content !== cur) ng(R.id, `${f} が本人の書いた中身と違う`);
+    const call = T.calls.length ? null : null; // Write の時刻は会話記録の並びで見る
+    const tw = T.wtimes && T.wtimes[path.join(dir, f)]; if (tw && !cond(tw)) ng(R.id, `${f} を書いた時刻が決まりと合わない（pretest は遊ぶ前、posttest は遊んだあと）`); else ok(R.id, `${f} の時刻が決まりどおり`);
+  }
 }
 // 8. まとめ役
 const M = transcript(cfg.main);

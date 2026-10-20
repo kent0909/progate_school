@@ -34,10 +34,12 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
   const shots = path.join(dir, 'shots');
   fs.mkdirSync(shots, { recursive: true });
   const lines = fs.existsSync(logFile) ? fs.readFileSync(logFile, 'utf8').split('\n').filter(Boolean) : [];
-  const personaSha = fileSha(persona), knowledgeSha = fileSha(knowledge);
+  const pre = path.join(dir, 'pretest.md');
+  const personaSha = fileSha(persona), knowledgeSha = fileSha(knowledge), preSha = fs.existsSync(pre) ? fileSha(pre) : null;
   const first = lines.length ? JSON.parse(lines[0]) : null;
   if (first && first.persona_sha !== personaSha) throw new Error('persona.md が、最初に遊んだときから変わっている。人物像は遊ぶ前に固定する（変えたいときは、遊んだあとの気づきを report.md に書く）');
   if (first && first.knowledge_sha !== knowledgeSha) throw new Error('knowledge.md が、最初に遊んだときから変わっている。前提知識は遊ぶ前に固定する');
+  if (first && (first.pretest_sha || null) !== preSha) throw new Error('pretest.md（遊ぶ前のテスト）が、最初に遊んだときから変わっている');
   let prev = lines.length ? sha(lines[lines.length - 1]) : '0';
   let n = lines.length;
   const sid = crypto.randomBytes(6).toString('hex');
@@ -53,7 +55,7 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
   p.on('pageerror', (e) => errs.push(e.message));
   await p.goto('file://' + GAME);
   if (reset) { await p.evaluate(() => localStorage.clear()); await p.reload(); }
-  write({ kind: 'session', game_sha: fileSha(GAME), harness_sha: fileSha(__filename), auto_sha: fileSha(path.join(__dirname, 'auto.js')), persona_sha: personaSha, knowledge_sha: knowledgeSha, viewport, colorScheme, reset });
+  write({ kind: 'session', game_sha: fileSha(GAME), harness_sha: fileSha(__filename), auto_sha: fileSha(path.join(__dirname, 'auto.js')), persona_sha: personaSha, knowledge_sha: knowledgeSha, pretest_sha: preSha, viewport, colorScheme, reset });
   const state = () => p.evaluate(() => { try { const S = window.__sim.S; const ev = (window.__sim.events() || [])[S.ei]; return { mi: S.mi, ei: S.ei, phase: S.phase, ev: ev ? `${ev.t}:${ev.id || ''}` : null, label: (document.querySelector('.s-month b') || document.querySelector('.s-head b') || {}).textContent || '' }; } catch (e) { return { err: String(e).slice(0, 80) }; } });
   let shotN = fs.readdirSync(shots).length;
   const shoot = async (label) => {
@@ -71,7 +73,20 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
     return write({ kind, sel, why, before, after, shot, errs: errs.splice(0) });
   };
   return {
-    page: p,
+    // page（ブラウザそのもの）は渡さない。ゲームの中の答えを読めてしまうため。見た目を調べるときは inspect() を使う
+    // 読み飛ばす人物は glance()（各まとまりの最初の1行・40字まで）を使い、read() で全文を読んだときは、読んだことになる
+    async glance() { const parts = await p.evaluate(() => [...document.querySelectorAll('h2,h3,h4,p,button,small,b,li,td,th,label')].filter((e) => e.offsetParent !== null).map((e) => (e.innerText || '').split('\n')[0].slice(0, 40)).filter(Boolean)); const txt = parts.join('\n'); write({ kind: 'glance', state: await state(), text_sha: sha(txt), chars: txt.length }); return txt; },
+    // 見た目の検査：要素の大きさ・文字の大きさ・色・背景色・コントラスト比だけを返す（文字の中身は返さない）
+    async inspect(sel, why) {
+      if (!why) throw new Error('調べるねらいを書くこと');
+      const r = await p.evaluate((sel) => {
+        const lum = (c) => { const m = c.match(/[\d.]+/g); if (!m) return null; const [r, g, b] = m.slice(0, 3).map((v) => { v = v / 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+        const bgOf = (e) => { while (e) { const c = getComputedStyle(e).backgroundColor; if (c && !/rgba\(0, 0, 0, 0\)|transparent/.test(c)) return c; e = e.parentElement; } return 'rgb(255, 255, 255)'; };
+        return [...document.querySelectorAll(sel)].slice(0, 40).map((e) => { const b = e.getBoundingClientRect(), cs = getComputedStyle(e), fg = cs.color, bg = bgOf(e), L1 = lum(fg), L2 = lum(bg); return { w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.x), y: Math.round(b.y), font: cs.fontSize, weight: cs.fontWeight, color: fg, bg, contrast: L1 != null && L2 != null ? +((Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)).toFixed(2) : null, visible: e.offsetParent !== null }; });
+      }, sel);
+      write({ kind: 'inspect', sel, why, state: await state(), n: r.length, result: r });
+      return r;
+    },
     async read() { const txt = await p.evaluate(() => document.body.innerText); write({ kind: 'read', state: await state(), text_sha: sha(txt), chars: txt.length }); return txt; },
     click: (sel, why) => act('click', sel, why, () => p.click(sel)),
     fill: (sel, v, why) => act('fill', sel, why, () => p.fill(sel, String(v))),

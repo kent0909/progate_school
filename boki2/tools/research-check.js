@@ -79,6 +79,19 @@ function pdfText(file) {
   fs.writeFileSync(c, t);
   return t;
 }
+// 2段組みの PDF は -layout だと隣の段が文の途中に混ざり、正しく写した語句が見つからない（誤検出）。段組みの順の抽出（-layout なし）も持つ
+function pdfTextFlow(file) {
+  const dir = path.join(R, 'raw', '.text');
+  const c = path.join(dir, fileSha(file) + '.flow.txt');
+  if (fs.existsSync(c)) return fs.readFileSync(c, 'utf8');
+  const t = spawnSync('pdftotext', [file, '-'], { encoding: 'utf8', maxBuffer: 1 << 28 }).stdout || '';
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(c, t);
+  return t;
+}
+// 語句が文書のどこにあるか（0〜1）。どちらの抽出にもなければ -1
+function posIn(texts, a) { for (const t of texts) { const i = t.indexOf(a); if (i >= 0) return i / t.length; } return -1; }
+const textsOf = (file) => { const a = norm(textOf(file)); return /\.pdf$/i.test(file) ? [a, norm(pdfTextFlow(file))] : [a]; };
 function textOf(file) {
   if (!file) return null;
   if (textCache.has(file)) return textCache.get(file);
@@ -235,13 +248,14 @@ function checkNote(n, es, tag, indexText, gen, r, isSection) {
   const target = files.find((f) => fileSha(f) === n.sha256) || files[0];
   const text = target ? norm(textOf(target)) : null;
   if (!text) { r.unverifiable++; return; }
-  const absent = anchors.filter((a) => !text.includes(a));
+  const texts = textsOf(target);
+  const absent = anchors.filter((a) => posIn(texts, a) < 0);
   if (absent.length) err(tag, `${where} の anchors が原文に出てこない：${absent.slice(0, 4).join(' / ')}（本文を読まずに書いた疑い）`);
   const idx = norm(indexText);
-  const unique = anchors.filter((a) => text.includes(a) && a.length >= 6 && !idx.includes(a) && (gen.get(a) || 0) <= 2);
+  const unique = anchors.filter((a) => posIn(texts, a) >= 0 && a.length >= 6 && !idx.includes(a) && (gen.get(a) || 0) <= 2);
   // 全部読んだと書くなら、証拠の語句が文書の前・中・後ろの3つの区間すべてから出ていること（冒頭だけの拾い読みを見つける）
   if (!isSection && n.read === 'full' && text.length > 3000 && text.length <= 45000) {
-    const zones = new Set(anchors.map((x) => text.indexOf(x)).filter((i) => i >= 0).map((i) => Math.min(2, Math.floor((i / text.length) * 3))));
+    const zones = new Set(anchors.map((x) => posIn(texts, x)).filter((q) => q >= 0).map((q) => Math.min(2, Math.floor(q * 3))));
     if (zones.size < 3) err(tag, `${where} は read: full だが、anchors が文書の${['前', '中', '後ろ'].filter((_, z) => !zones.has(z)).join('・')}の区間から出ていない（全部読んだ証拠にならない）`);
   }
   if (unique.length < 3) err(tag, `${where} の anchors のうち、一覧やタイトルに出ない・その文書に固有の語が ${unique.length} 個（3個以上）。タイトルだけで書いた疑い`);
@@ -265,7 +279,8 @@ function coverage(ns, es, tag) {
   if (text.length <= 45000 && ns.length === 1) return true; // 短い文書は checkNote の前・中・後ろで見ている
   const Z = Math.max(3, Math.min(40, Math.ceil(text.length / 15000)));
   const hit = new Set();
-  for (const n of ns) for (const a of (n.anchors || []).map(norm)) { let i = text.indexOf(a); while (i >= 0) { hit.add(Math.min(Z - 1, Math.floor((i / text.length) * Z))); i = text.indexOf(a, i + 1); if (hit.size >= Z) break; } }
+  const texts = textsOf(f);
+  for (const n of ns) for (const a of (n.anchors || []).map(norm)) for (const t of texts) { let i = t.indexOf(a); if (i < 0) continue; while (i >= 0) { hit.add(Math.min(Z - 1, Math.floor((i / t.length) * Z))); i = t.indexOf(a, i + 1); if (hit.size >= Z) break; } break; }
   const full = ns.every((n) => n.read === 'full');
   const miss = [...Array(Z).keys()].filter((z) => !hit.has(z));
   if (full && miss.length) { err(tag, `${ns[0].doc.split('#')[0]} は全部読んだことになっているが、本文を${Z}区間に分けたうち ${miss.length} 区間（${miss.slice(0, 8).map((z) => `${Math.round((z / Z) * 100)}%付近`).join('・')}${miss.length > 8 ? '…' : ''}）から anchors が出ていない`); return false; }
