@@ -1,650 +1,654 @@
 {
- "_about": "情報収集の台帳。どのサイトの何を集めるか（対象）、何を対象外にしたか（理由）、利用規約の確認結果を書く。tools/research-check.js がこれと ledger・notes を照合する",
- "sources": [
-  {
-   "id": "kentei",
-   "name": "商工会議所の検定試験（日本商工会議所）",
-   "hosts": [
-    "www.kentei.ne.jp"
-   ],
-   "tos": {
-    "checked": "2026-10-20",
-    "verdict": "ok",
-    "min_interval_s": 3,
-    "urls": [
-     "https://www.kentei.ne.jp/privacy",
-     "https://www.kentei.ne.jp/robots.txt"
-    ],
-    "note": "robots.txt は /wp/wp-admin/ のみ禁止。自動取得を禁じる規約ページは見当たらない。ただしサンプル問題のページに「著作権は日本商工会議所に帰属、無断転載・無断の営利利用を厳禁」と明記されている。原文はリポジトリに入れず、転載しない（分析・数字と設定を変えたオリジナル問題のみ）"
-   },
-   "collections": [
+  "_about": "情報収集の台帳。どのサイトの何を集めるか（対象）、何を対象外にしたか（理由）、利用規約の確認結果を書く。tools/research-check.js がこれと ledger・notes を照合する",
+  "sources": [
     {
-     "id": "kouhyou2",
-     "desc": "2級 出題の意図・講評（PDF）",
-     "need_notes": true,
-     "index": {
-      "doc": "_index",
-      "pattern": "第(\\d{3})回"
-     },
-     "expected": [
-      "139",
-      "140",
-      "141",
-      "142",
-      "143",
-      "144",
-      "145",
-      "146",
-      "147",
-      "148",
-      "149",
-      "150",
-      "151",
-      "152",
-      "153",
-      "154",
-      "156",
-      "157"
-     ],
-     "excluded": {
-      "155": "試験中止（講評ページに「中止」）",
-      "158-173": "講評ページに2級の掲載がない（1級のみ）"
-     },
-     "parts": [
-      "pdf"
-     ]
+      "id": "kentei",
+      "name": "商工会議所の検定試験（日本商工会議所）",
+      "hosts": [
+        "www.kentei.ne.jp"
+      ],
+      "tos": {
+        "checked": "2026-10-20",
+        "verdict": "ok",
+        "min_interval_s": 3,
+        "urls": [
+          "https://www.kentei.ne.jp/privacy",
+          "https://www.kentei.ne.jp/robots.txt"
+        ],
+        "note": "robots.txt は /wp/wp-admin/ のみ禁止。自動取得を禁じる規約ページは見当たらない。ただしサンプル問題のページに「著作権は日本商工会議所に帰属、無断転載・無断の営利利用を厳禁」と明記されている。原文はリポジトリに入れず、転載しない（分析・数字と設定を変えたオリジナル問題のみ）"
+      },
+      "collections": [
+        {
+          "id": "kouhyou2",
+          "desc": "2級 出題の意図・講評（PDF）",
+          "need_notes": true,
+          "index": {
+            "doc": "_index",
+            "pattern": "第(\\d{3})回"
+          },
+          "expected": [
+            "139",
+            "140",
+            "141",
+            "142",
+            "143",
+            "144",
+            "145",
+            "146",
+            "147",
+            "148",
+            "149",
+            "150",
+            "151",
+            "152",
+            "153",
+            "154",
+            "156",
+            "157"
+          ],
+          "excluded": {
+            "155": "試験中止（講評ページに「中止」）",
+            "158-173": "講評ページに2級の掲載がない（1級のみ）"
+          },
+          "parts": [
+            "pdf"
+          ]
+        },
+        {
+          "id": "kubun2027",
+          "desc": "2027年4月施行の出題区分表・改定趣旨・勘定科目表。工業簿記・原価計算の区分表は2022年度版（2022_kogen）が2027年度にもそのまま適用される（区分表ページの記載）",
+          "need_notes": true,
+          "index": {
+            "doc": "_index",
+            "pattern": "uploads/20\\d\\d/\\d\\d/(2027[a-z_]+)\\.pdf"
+          },
+          "expected": [
+            "2027kubunhyo_fixed",
+            "2027_kaitei_shushi_fixed",
+            "2027kamokuhyo_fixed",
+            "2027kubunhyo_track",
+            "2022_kogen"
+          ],
+          "excluded": {
+            "2027kamokuhyo_track": "勘定科目表の変更履歴版。確定版（2027kamokuhyo_fixed）で足りる",
+            "2027shokyu_fixed": "簿記初級は対象外",
+            "2027shokyu_track": "簿記初級は対象外",
+            "2027kubunhyo": "2025年12月の案。確定版（_fixed）に置き換わった",
+            "2027kamokuhyo": "2025年12月の案。確定版に置き換わった",
+            "2027setsumeishiryo": "2025年12月の説明資料（案）。確定版の改定趣旨に置き換わった",
+            "2027shokyu": "簿記初級は対象外"
+          },
+          "parts": [
+            "pdf"
+          ]
+        },
+        {
+          "id": "renketsukaikei",
+          "desc": "連結会計の学習連載",
+          "need_notes": true,
+          "index": {
+            "doc": "_index",
+            "pattern": "renketsukaikei/(\\d+)"
+          },
+          "expected": "index",
+          "excluded": {},
+          "parts": [
+            "html"
+          ]
+        },
+        {
+          "id": "genkakeisan",
+          "desc": "原価計算の学習連載",
+          "need_notes": true,
+          "index": {
+            "doc": "_index",
+            "pattern": "genkakeisan/(\\d+)"
+          },
+          "expected": "index",
+          "excluded": {},
+          "parts": [
+            "html"
+          ]
+        },
+        {
+          "id": "sample2",
+          "desc": "2級サンプル問題",
+          "need_notes": true,
+          "index": {
+            "doc": "_index"
+          },
+          "expected": "ledger",
+          "excluded": {},
+          "parts": []
+        },
+        {
+          "id": "bokizaka",
+          "desc": "簿記坂（日商サイトの読み物）のうち2級学習に関わる記事",
+          "need_notes": true,
+          "index": {
+            "doc": "_index"
+          },
+          "expected": [
+            "44220",
+            "42053",
+            "42064",
+            "25984",
+            "45677"
+          ],
+          "excluded": {
+            "others": "一覧ページ3枚に載る残り42本は学校の沿革・部活動の紹介が中心で、2級学習の設計に関係しない"
+          },
+          "parts": [
+            "html"
+          ]
+        }
+      ]
     },
     {
-     "id": "kubun2027",
-     "desc": "2027年4月施行の出題区分表・改定趣旨・勘定科目表。工業簿記・原価計算の区分表は2022年度版（2022_kogen）が2027年度にもそのまま適用される（区分表ページの記載）",
-     "need_notes": true,
-     "index": {
-      "doc": "_index",
-      "pattern": "uploads/20\\d\\d/\\d\\d/(2027[a-z_]+)\\.pdf"
-     },
-     "expected": [
-      "2027kubunhyo_fixed",
-      "2027_kaitei_shushi_fixed",
-      "2027kamokuhyo_fixed",
-      "2027kubunhyo_track",
-      "2022_kogen"
-     ],
-     "excluded": {
-      "2027kamokuhyo_track": "勘定科目表の変更履歴版。確定版（2027kamokuhyo_fixed）で足りる",
-      "2027shokyu_fixed": "簿記初級は対象外",
-      "2027shokyu_track": "簿記初級は対象外",
-      "2027kubunhyo": "2025年12月の案。確定版（_fixed）に置き換わった",
-      "2027kamokuhyo": "2025年12月の案。確定版に置き換わった",
-      "2027setsumeishiryo": "2025年12月の説明資料（案）。確定版の改定趣旨に置き換わった",
-      "2027shokyu": "簿記初級は対象外"
-     },
-     "parts": [
-      "pdf"
-     ]
+      "id": "biznavi",
+      "name": "業務の教科書（biznavi.jp）",
+      "hosts": [
+        "www.biznavi.jp"
+      ],
+      "tos": {
+        "checked": "2026-10-20",
+        "verdict": "gray",
+        "min_interval_s": 3,
+        "urls": [
+          "https://www.biznavi.jp/terms"
+        ],
+        "note": "https://www.biznavi.jp/terms は個人情報保護方針（第一〜六条）のみで、転載・自動取得・著作権の条項なし。robots.txt は 404。著作物なので原文はリポジトリに入れず転載しない",
+        "history": "2026-10-20 02:09 に規約確認（02:15）より前に 540・561 を取得していた（作業役の報告）"
+      },
+      "collections": [
+        {
+          "id": "biznavi",
+          "desc": "給与計算・期末処理などの実務解説",
+          "need_notes": true,
+          "expected": "ledger",
+          "excluded": {},
+          "parts": [
+            "html"
+          ]
+        }
+      ]
     },
     {
-     "id": "renketsukaikei",
-     "desc": "連結会計の学習連載",
-     "need_notes": true,
-     "index": {
-      "doc": "_index",
-      "pattern": "renketsukaikei/(\\d+)"
-     },
-     "expected": "index",
-     "excluded": {},
-     "parts": [
-      "html"
-     ]
+      "id": "bokipedia",
+      "name": "簿記ペディア（株式会社CPA）",
+      "hosts": [
+        "bokipedia.jp"
+      ],
+      "tos": {
+        "checked": "2026-10-20",
+        "verdict": "gray",
+        "min_interval_s": 3,
+        "urls": [
+          "https://bokipedia.jp/policies/terms"
+        ],
+        "note": "robots.txt なし（404）。規約に自動取得の明文の禁止はない。ただし6条(6)「本来のサービス提供の目的とは異なる目的で利用する行為」、7条「提供目的を超えて利用」の禁止がある。オーナー判断（2026-10-20）：個人の学習設計の分析に限り、原文の転載はせず、数字・設定を変えたオリジナル問題にする。会員ログインはしない。運営会社は cpa-learning.com と同じで、そちらの規約は自動取得を明示的に禁止している点に注意"
+      },
+      "collections": [
+        {
+          "id": "sets",
+          "desc": "2級の練習問題（65）と検定別過去問（44）。詳細ページと問題PDF",
+          "need_notes": true,
+          "index": {
+            "doc": "_index",
+            "pattern": "/questions/details/(\\d+)"
+          },
+          "expected": [
+            "45",
+            "46",
+            "47",
+            "48",
+            "49",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "55",
+            "56",
+            "57",
+            "58",
+            "59",
+            "60",
+            "61",
+            "62",
+            "63",
+            "64",
+            "65",
+            "66",
+            "67",
+            "68",
+            "104",
+            "105",
+            "106",
+            "107",
+            "108",
+            "109",
+            "135",
+            "136",
+            "137",
+            "138",
+            "139",
+            "140",
+            "151",
+            "152",
+            "154",
+            "155",
+            "156",
+            "157",
+            "158",
+            "159",
+            "168",
+            "169",
+            "171",
+            "172",
+            "173",
+            "174",
+            "175",
+            "176",
+            "177",
+            "185",
+            "186",
+            "192",
+            "193",
+            "194",
+            "195",
+            "196",
+            "197",
+            "205",
+            "206",
+            "211",
+            "212",
+            "213",
+            "214",
+            "215",
+            "216",
+            "221",
+            "223",
+            "226",
+            "227",
+            "228",
+            "229",
+            "234",
+            "235",
+            "241",
+            "242",
+            "243",
+            "244",
+            "245",
+            "246",
+            "254",
+            "255",
+            "259",
+            "260",
+            "261",
+            "262",
+            "263",
+            "264",
+            "270",
+            "271",
+            "272",
+            "273",
+            "280",
+            "281",
+            "287",
+            "288",
+            "290",
+            "291",
+            "292",
+            "293",
+            "304",
+            "305",
+            "309",
+            "310",
+            "311",
+            "312"
+          ],
+          "excluded": {
+            "110": "2級以外の練習問題",
+            "111": "2級以外の練習問題",
+            "112": "2級以外の練習問題",
+            "141": "2級以外の練習問題",
+            "142": "2級以外の練習問題",
+            "143": "2級以外の練習問題",
+            "160": "2級以外の練習問題",
+            "161": "2級以外の練習問題",
+            "162": "2級以外の練習問題",
+            "170": "2級以外の練習問題",
+            "178": "2級以外の練習問題",
+            "179": "2級以外の練習問題",
+            "180": "2級以外の練習問題",
+            "198": "2級以外の練習問題",
+            "199": "2級以外の練習問題",
+            "200": "2級以外の練習問題",
+            "208": "2級以外の練習問題",
+            "209": "2級以外の練習問題",
+            "210": "2級以外の練習問題",
+            "224": "2級以外の練習問題",
+            "225": "2級以外の練習問題",
+            "247": "2級以外の練習問題",
+            "248": "2級以外の練習問題",
+            "249": "2級以外の練習問題",
+            "257": "2級以外の練習問題",
+            "258": "2級以外の練習問題",
+            "274": "2級以外の練習問題",
+            "275": "2級以外の練習問題",
+            "282": "2級以外の練習問題",
+            "294": "2級以外の練習問題",
+            "295": "2級以外の練習問題",
+            "307": "2級以外の練習問題",
+            "308": "2級以外の練習問題"
+          },
+          "parts": [
+            "detail",
+            "pdf*"
+          ],
+          "note": "練習問題は download/1＝問題用紙・2＝答案用紙・3＝模範解答（公開されていた）。過去問は download/3＝模範解答・4＝解説で、本試験の問題用紙は公開されていない（解説から設定を逆算して分析）。解説・質問の本文など会員ログインが必要なものは取得しない"
+        }
+      ]
     },
     {
-     "id": "genkakeisan",
-     "desc": "原価計算の学習連載",
-     "need_notes": true,
-     "index": {
-      "doc": "_index",
-      "pattern": "genkakeisan/(\\d+)"
-     },
-     "expected": "index",
-     "excluded": {},
-     "parts": [
-      "html"
-     ]
+      "id": "cpa-learning",
+      "name": "CPAラーニング",
+      "hosts": [
+        "www.cpa-learning.com",
+        "cpa-learning.com",
+        "api.cpa-learning.com",
+        "cpa-learning-content-prod.s3.ap-northeast-1.amazonaws.com"
+      ],
+      "tos": {
+        "checked": "2026-10-20",
+        "verdict": "owner-approved",
+        "min_interval_s": 5,
+        "urls": [
+          "https://www.cpa-learning.com/terms-of-service/"
+        ],
+        "note": "利用規約 第4条18号は自動的なダウンロード・複製・保存を禁止、第5条は複製を禁止している。オーナー判断（2026-10-20）：個人利用・非商用で、サイトを見て本人が勉強するのと実態が変わらないため、取得と分析を許可。条件：速さは問わない（5秒以上の間隔）、さぼり・斜め読みは禁止（全文の読了ノート必須）、ログインはしない、原文はリポジトリに入れない・転載しない",
+        "history": "2026-10-19 に規約確認の前にコラム446ページのタイトル・見出しを自動取得していた（ledger に backfill で記録）。2026-10-20 オーナーに報告し、取得物の削除は不要との判断"
+      },
+      "collections": [
+        {
+          "id": "courses2",
+          "desc": "日商簿記2級ジャンル（genreId 30004）の講座情報とレッスン一覧（公開API）",
+          "need_notes": true,
+          "index": {
+            "doc": "_index",
+            "pattern": "\"id\":(\\d{5,6}),\"genreId\":30004"
+          },
+          "expected": "index",
+          "excluded": {
+            "550006": "レッスン0本（中身なし）"
+          },
+          "parts": [
+            "course",
+            "lessons"
+          ]
+        },
+        {
+          "id": "texts2",
+          "desc": "2級講座の教材PDF（教科書・問題集・模擬試験）",
+          "need_notes": true,
+          "expected": "ledger",
+          "excluded": {},
+          "parts": [
+            "pdf"
+          ]
+        },
+        {
+          "id": "column",
+          "desc": "簿記・経理のコラム（post-sitemap.xml の全記事：boki 95・keiri 135・technique 9・career 13）",
+          "need_notes": true,
+          "index": {
+            "doc": "_index",
+            "pattern": "cpa-learning\\.com/column/[a-z]+/([^/\\]]+)/"
+          },
+          "expected": "index",
+          "excluded": {},
+          "parts": [
+            "html"
+          ]
+        },
+        {
+          "id": "videos",
+          "desc": "講義動画",
+          "need_notes": false,
+          "expected": [],
+          "excluded": {
+            "all": "Brightcove の動画で文字情報（字幕・台本）がなく、文字として分析できない。内容は教材PDFとレッスン説明で代える"
+          },
+          "parts": []
+        }
+      ]
     },
     {
-     "id": "sample2",
-     "desc": "2級サンプル問題",
-     "need_notes": true,
-     "index": {
-      "doc": "_index"
-     },
-     "expected": "ledger",
-     "excluded": {},
-     "parts": []
+      "id": "law",
+      "name": "法令・官公庁・業界団体の一次資料（e-Gov法令、国税庁、法務省、裁判所、厚労省、全銀協、でんさいネット、JPX、金融庁など）",
+      "hosts": [
+        "laws.e-gov.go.jp",
+        "www.nta.go.jp",
+        "www.moj.go.jp",
+        "www.courts.go.jp",
+        "www.mhlw.go.jp",
+        "www.zenginkyo.or.jp",
+        "www.densai.net",
+        "www.jpx.co.jp",
+        "www.fsa.go.jp",
+        "www.jftc.go.jp",
+        "www.kentei.ne.jp",
+        "www.caa.go.jp",
+        "www.johas.go.jp",
+        "www.chusho.meti.go.jp",
+        "www.mof.go.jp",
+        "elaws.e-gov.go.jp",
+        "jpx-gr.info"
+      ],
+      "tos": {
+        "checked": "2026-10-20",
+        "verdict": "ok",
+        "min_interval_s": 1,
+        "urls": [
+          "https://www.digital.go.jp/resources/open_data/public_data_license_v1.0"
+        ],
+        "note": "官公庁サイトの多くは公共データ利用規約（PDL1.0）や政府標準利用規約で出典を示せば複製・加工を認める。法令の条文は著作権の対象外（著作権法13条）。業界団体（全銀協・でんさいネット・JPX）は規則類の閲覧のみ・原文はリポジトリに入れない"
+      },
+      "collections": [
+        {
+          "id": "primary",
+          "desc": "EPISODES.md・scenario.js の法令・制度の記述を照合した一次資料",
+          "need_notes": true,
+          "expected": "ledger",
+          "excluded": {},
+          "parts": []
+        }
+      ]
     },
     {
-     "id": "bokizaka",
-     "desc": "簿記坂（日商サイトの読み物）のうち2級学習に関わる記事",
-     "need_notes": true,
-     "index": {
-      "doc": "_index"
-     },
-     "expected": [
-      "44220",
-      "42053",
-      "42064",
-      "25984",
-      "45677"
-     ],
-     "excluded": {
-      "others": "一覧ページ3枚に載る残り42本は学校の沿革・部活動の紹介が中心で、2級学習の設計に関係しない"
-     },
-     "parts": [
-      "html"
-     ]
+      "id": "web",
+      "name": "学習科学・会計教育・簿記教材の調査（論文・公的資料・出版社・学習者の声など、サイトを横断）",
+      "hosts": [
+        "*"
+      ],
+      "tos": {
+        "checked": null,
+        "verdict": "per-site",
+        "min_interval_s": 3,
+        "urls": [],
+        "note": "サイトごとに取得前に利用規約・robots.txt を確認し、取得記録の tos 欄（checked・verdict・basis）に残す。verdict が no-automation のサイトは取得しない（オーナーの個別許可がない限り）。論文はオープンアクセス（J-STAGE、ERIC、PMC、arXiv、機関リポジトリ等）のみ。有料・ログインが必要なものは取らない"
+      },
+      "collections": [
+        {
+          "id": "learnsci",
+          "desc": "理解されやすい教え方・伝え方の研究（学習科学・認知心理・教育工学・ゲーム学習、〜2026年10月）",
+          "need_notes": true,
+          "expected": "ledger",
+          "excluded": {
+            "theory-flow-chen2007": "ホストのTLS証明書が検証できず取得できなかった。フローの基準は GameFlow（Sweetser & Wyeth 2005）で代えた",
+            "theory-gamification-sailer2020": "Augsburg大学リポジトリが接続を切り、Springer は robots.txt で自動取得を禁止。代わりに Li ほか（2023）のメタ分析を読んだ",
+            "theory-gee2004-learningbydesign": "raco.cat が 403 を返した。読んでいないので根拠にしない"
+          },
+          "parts": []
+        },
+        {
+          "id": "acctedu",
+          "desc": "簿記・会計教育の研究と実践報告（国内外）",
+          "need_notes": true,
+          "expected": "ledger",
+          "excluded": {},
+          "parts": []
+        },
+        {
+          "id": "boki2content",
+          "desc": "簿記2級の教材・講座・アプリ・動画の教え方と見せ方、学習者の声",
+          "need_notes": true,
+          "expected": "ledger",
+          "excluded": {},
+          "parts": []
+        },
+        {
+          "id": "simgames",
+          "desc": "既存の会計・財務・経営シミュレーションゲーム（ボードゲーム・研修ゲーム・デジタルゲーム・教育用シミュレーション）",
+          "need_notes": true,
+          "expected": "ledger",
+          "excluded": {},
+          "parts": []
+        },
+        {
+          "id": "uiux",
+          "desc": "UI・UX デザインのセオリー（ヒューリスティック・アクセシビリティ・ガイドライン）と、学習アプリ・ゲーム・業務ソフトの UI・UX の成功事例",
+          "need_notes": true,
+          "expected": "ledger",
+          "excluded": {},
+          "parts": []
+        }
+      ]
     }
-   ]
-  },
-  {
-   "id": "biznavi",
-   "name": "業務の教科書（biznavi.jp）",
-   "hosts": [
-    "www.biznavi.jp"
-   ],
-   "tos": {
-    "checked": "2026-10-20",
-    "verdict": "gray",
-    "min_interval_s": 3,
-    "urls": [
-     "https://www.biznavi.jp/terms"
-    ],
-    "note": "https://www.biznavi.jp/terms は個人情報保護方針（第一〜六条）のみで、転載・自動取得・著作権の条項なし。robots.txt は 404。著作物なので原文はリポジトリに入れず転載しない",
-    "history": "2026-10-20 02:09 に規約確認（02:15）より前に 540・561 を取得していた（作業役の報告）"
-   },
-   "collections": [
+  ],
+  "derived_docs": [
     {
-     "id": "biznavi",
-     "desc": "給与計算・期末処理などの実務解説",
-     "need_notes": true,
-     "expected": "ledger",
-     "excluded": {},
-     "parts": [
-      "html"
-     ]
+      "path": "docs/UPDATE_PLAN.md",
+      "sources": [
+        "cpa-learning"
+      ],
+      "note": "2026-10-18〜19 に検索結果の要約とコラムの見出しだけから作った計画。2026-10-20 に読了ノートで主張ごとに検証し、判定（裏づけあり・誤り・未確認）と出典を付けた。c47 と追加23問の検証を含む"
+    },
+    {
+      "path": "docs/CRAWL.md",
+      "sources": [
+        "cpa-learning",
+        "bokipedia"
+      ],
+      "note": "取得の手順（research-fetch.js・research-check.js）と、cpa-learning・簿記ペディアの取得範囲・規約の扱い。2026-10-20 に読了ノートで検証"
+    },
+    {
+      "path": "docs/EXAM-ANALYSIS.md",
+      "sources": [
+        "kentei"
+      ],
+      "note": "日商の講評・連載・サンプル問題の分析"
+    },
+    {
+      "path": "docs/EPISODES.md",
+      "sources": [
+        "law"
+      ],
+      "note": "法令・制度の記述（付録C）。2026-10-20 一次資料で照合"
+    },
+    {
+      "path": "docs/analysis/cpa-shobo-text.md",
+      "sources": [
+        "cpa-learning"
+      ],
+      "note": "CPA 商簿教科書の分析"
+    },
+    {
+      "path": "docs/analysis/cpa-shobo-mondai.md",
+      "sources": [
+        "cpa-learning"
+      ],
+      "note": "CPA 商簿問題集の分析"
+    },
+    {
+      "path": "docs/analysis/cpa-kobo-text.md",
+      "sources": [
+        "cpa-learning"
+      ],
+      "note": "CPA 工簿教科書の分析"
+    },
+    {
+      "path": "docs/analysis/cpa-kobo-mondai-moshi.md",
+      "sources": [
+        "cpa-learning"
+      ],
+      "note": "CPA 工簿問題集・模試の分析"
+    },
+    {
+      "path": "docs/analysis/bokipedia-a.md",
+      "sources": [
+        "bokipedia"
+      ],
+      "note": "簿記ペディア前半の分析"
+    },
+    {
+      "path": "docs/analysis/bokipedia-b.md",
+      "sources": [
+        "bokipedia"
+      ],
+      "note": "簿記ペディア後半の分析"
+    },
+    {
+      "path": "docs/analysis/cpa-courses-column-a.md",
+      "sources": [
+        "cpa-learning"
+      ],
+      "note": "CPA 講座とコラム（簿記・テクニック）の分析"
+    },
+    {
+      "path": "docs/analysis/cpa-column-b.md",
+      "sources": [
+        "cpa-learning"
+      ],
+      "note": "CPA コラム（経理・キャリア）の分析"
+    },
+    {
+      "path": "docs/analysis/learning-science.md",
+      "sources": [
+        "web"
+      ],
+      "note": "理解されやすい教え方の研究の分析"
+    },
+    {
+      "path": "docs/analysis/accounting-education.md",
+      "sources": [
+        "web"
+      ],
+      "note": "簿記・会計教育研究の分析"
+    },
+    {
+      "path": "docs/analysis/boki2-presentation.md",
+      "sources": [
+        "web"
+      ],
+      "note": "簿記2級コンテンツの教え方・見せ方の分析"
+    },
+    {
+      "path": "docs/analysis/sim-games.md",
+      "sources": [
+        "web"
+      ],
+      "note": "既存の会計・財務シミュレーションゲームの分析と取り入れる要素"
+    },
+    {
+      "path": "docs/DESIGN-REVISION.md",
+      "sources": [
+        "web",
+        "kentei",
+        "cpa-learning"
+      ],
+      "note": "全分析を統合した設計改訂案（Fable、2026-10-20）"
     }
-   ]
-  },
-  {
-   "id": "bokipedia",
-   "name": "簿記ペディア（株式会社CPA）",
-   "hosts": [
-    "bokipedia.jp"
-   ],
-   "tos": {
-    "checked": "2026-10-20",
-    "verdict": "gray",
-    "min_interval_s": 3,
-    "urls": [
-     "https://bokipedia.jp/policies/terms"
-    ],
-    "note": "robots.txt なし（404）。規約に自動取得の明文の禁止はない。ただし6条(6)「本来のサービス提供の目的とは異なる目的で利用する行為」、7条「提供目的を超えて利用」の禁止がある。オーナー判断（2026-10-20）：個人の学習設計の分析に限り、原文の転載はせず、数字・設定を変えたオリジナル問題にする。会員ログインはしない。運営会社は cpa-learning.com と同じで、そちらの規約は自動取得を明示的に禁止している点に注意"
-   },
-   "collections": [
-    {
-     "id": "sets",
-     "desc": "2級の練習問題（65）と検定別過去問（44）。詳細ページと問題PDF",
-     "need_notes": true,
-     "index": {
-      "doc": "_index",
-      "pattern": "/questions/details/(\\d+)"
-     },
-     "expected": [
-      "45",
-      "46",
-      "47",
-      "48",
-      "49",
-      "50",
-      "51",
-      "52",
-      "53",
-      "54",
-      "55",
-      "56",
-      "57",
-      "58",
-      "59",
-      "60",
-      "61",
-      "62",
-      "63",
-      "64",
-      "65",
-      "66",
-      "67",
-      "68",
-      "104",
-      "105",
-      "106",
-      "107",
-      "108",
-      "109",
-      "135",
-      "136",
-      "137",
-      "138",
-      "139",
-      "140",
-      "151",
-      "152",
-      "154",
-      "155",
-      "156",
-      "157",
-      "158",
-      "159",
-      "168",
-      "169",
-      "171",
-      "172",
-      "173",
-      "174",
-      "175",
-      "176",
-      "177",
-      "185",
-      "186",
-      "192",
-      "193",
-      "194",
-      "195",
-      "196",
-      "197",
-      "205",
-      "206",
-      "211",
-      "212",
-      "213",
-      "214",
-      "215",
-      "216",
-      "221",
-      "223",
-      "226",
-      "227",
-      "228",
-      "229",
-      "234",
-      "235",
-      "241",
-      "242",
-      "243",
-      "244",
-      "245",
-      "246",
-      "254",
-      "255",
-      "259",
-      "260",
-      "261",
-      "262",
-      "263",
-      "264",
-      "270",
-      "271",
-      "272",
-      "273",
-      "280",
-      "281",
-      "287",
-      "288",
-      "290",
-      "291",
-      "292",
-      "293",
-      "304",
-      "305",
-      "309",
-      "310",
-      "311",
-      "312"
-     ],
-     "excluded": {
-      "308": "2級以外の練習問題",
-      "307": "2級以外の練習問題",
-      "282": "2級以外の練習問題",
-      "249": "2級以外の練習問題",
-      "210": "2級以外の練習問題",
-      "200": "2級以外の練習問題",
-      "180": "2級以外の練習問題",
-      "162": "2級以外の練習問題",
-      "142": "2級以外の練習問題",
-      "112": "2級以外の練習問題",
-      "170": "2級以外の練習問題",
-      "295": "2級以外の練習問題",
-      "294": "2級以外の練習問題",
-      "275": "2級以外の練習問題",
-      "274": "2級以外の練習問題",
-      "258": "2級以外の練習問題",
-      "257": "2級以外の練習問題",
-      "248": "2級以外の練習問題",
-      "247": "2級以外の練習問題",
-      "225": "2級以外の練習問題",
-      "224": "2級以外の練習問題",
-      "209": "2級以外の練習問題",
-      "208": "2級以外の練習問題",
-      "199": "2級以外の練習問題",
-      "198": "2級以外の練習問題",
-      "179": "2級以外の練習問題",
-      "178": "2級以外の練習問題",
-      "161": "2級以外の練習問題",
-      "160": "2級以外の練習問題",
-      "143": "2級以外の練習問題",
-      "141": "2級以外の練習問題",
-      "111": "2級以外の練習問題",
-      "110": "2級以外の練習問題"
-     },
-     "parts": [
-      "detail",
-      "pdf*"
-     ],
-     "note": "練習問題は download/1＝問題用紙・2＝答案用紙・3＝模範解答（公開されていた）。過去問は download/3＝模範解答・4＝解説で、本試験の問題用紙は公開されていない（解説から設定を逆算して分析）。解説・質問の本文など会員ログインが必要なものは取得しない"
-    }
-   ]
-  },
-  {
-   "id": "cpa-learning",
-   "name": "CPAラーニング",
-   "hosts": [
-    "www.cpa-learning.com",
-    "cpa-learning.com",
-    "api.cpa-learning.com",
-    "cpa-learning-content-prod.s3.ap-northeast-1.amazonaws.com"
-   ],
-   "tos": {
-    "checked": "2026-10-20",
-    "verdict": "owner-approved",
-    "min_interval_s": 5,
-    "urls": [
-     "https://www.cpa-learning.com/terms-of-service/"
-    ],
-    "note": "利用規約 第4条18号は自動的なダウンロード・複製・保存を禁止、第5条は複製を禁止している。オーナー判断（2026-10-20）：個人利用・非商用で、サイトを見て本人が勉強するのと実態が変わらないため、取得と分析を許可。条件：速さは問わない（5秒以上の間隔）、さぼり・斜め読みは禁止（全文の読了ノート必須）、ログインはしない、原文はリポジトリに入れない・転載しない",
-    "history": "2026-10-19 に規約確認の前にコラム446ページのタイトル・見出しを自動取得していた（ledger に backfill で記録）。2026-10-20 オーナーに報告し、取得物の削除は不要との判断"
-   },
-   "collections": [
-    {
-     "id": "courses2",
-     "desc": "日商簿記2級ジャンル（genreId 30004）の講座情報とレッスン一覧（公開API）",
-     "need_notes": true,
-     "index": {
-      "doc": "_index",
-      "pattern": "\"id\":(\\d{5,6}),\"genreId\":30004"
-     },
-     "expected": "index",
-     "excluded": {
-      "550006": "レッスン0本（中身なし）"
-     },
-     "parts": [
-      "course",
-      "lessons"
-     ]
-    },
-    {
-     "id": "texts2",
-     "desc": "2級講座の教材PDF（教科書・問題集・模擬試験）",
-     "need_notes": true,
-     "expected": "ledger",
-     "excluded": {},
-     "parts": [
-      "pdf"
-     ]
-    },
-    {
-     "id": "column",
-     "desc": "簿記・経理のコラム（post-sitemap.xml の全記事：boki 95・keiri 135・technique 9・career 13）",
-     "need_notes": true,
-     "index": {
-      "doc": "_index",
-      "pattern": "cpa-learning\\.com/column/[a-z]+/([^/\\]]+)/"
-     },
-     "expected": "index",
-     "excluded": {},
-     "parts": [
-      "html"
-     ]
-    },
-    {
-     "id": "videos",
-     "desc": "講義動画",
-     "need_notes": false,
-     "expected": [],
-     "excluded": {
-      "all": "Brightcove の動画で文字情報（字幕・台本）がなく、文字として分析できない。内容は教材PDFとレッスン説明で代える"
-     },
-     "parts": []
-    }
-   ]
-  },
-  {
-   "id": "law",
-   "name": "法令・官公庁・業界団体の一次資料（e-Gov法令、国税庁、法務省、裁判所、厚労省、全銀協、でんさいネット、JPX、金融庁など）",
-   "hosts": [
-    "laws.e-gov.go.jp",
-    "www.nta.go.jp",
-    "www.moj.go.jp",
-    "www.courts.go.jp",
-    "www.mhlw.go.jp",
-    "www.zenginkyo.or.jp",
-    "www.densai.net",
-    "www.jpx.co.jp",
-    "www.fsa.go.jp",
-    "www.jftc.go.jp",
-    "www.kentei.ne.jp",
-    "www.caa.go.jp",
-    "www.johas.go.jp",
-    "www.chusho.meti.go.jp",
-    "www.mof.go.jp",
-    "elaws.e-gov.go.jp",
-    "jpx-gr.info"
-   ],
-   "tos": {
-    "checked": "2026-10-20",
-    "verdict": "ok",
-    "min_interval_s": 1,
-    "urls": [
-     "https://www.digital.go.jp/resources/open_data/public_data_license_v1.0"
-    ],
-    "note": "官公庁サイトの多くは公共データ利用規約（PDL1.0）や政府標準利用規約で出典を示せば複製・加工を認める。法令の条文は著作権の対象外（著作権法13条）。業界団体（全銀協・でんさいネット・JPX）は規則類の閲覧のみ・原文はリポジトリに入れない"
-   },
-   "collections": [
-    {
-     "id": "primary",
-     "desc": "EPISODES.md・scenario.js の法令・制度の記述を照合した一次資料",
-     "need_notes": true,
-     "expected": "ledger",
-     "excluded": {},
-     "parts": []
-    }
-   ]
-  },
-  {
-   "id": "web",
-   "name": "学習科学・会計教育・簿記教材の調査（論文・公的資料・出版社・学習者の声など、サイトを横断）",
-   "hosts": [
-    "*"
-   ],
-   "tos": {
-    "checked": null,
-    "verdict": "per-site",
-    "min_interval_s": 3,
-    "urls": [],
-    "note": "サイトごとに取得前に利用規約・robots.txt を確認し、取得記録の tos 欄（checked・verdict・basis）に残す。verdict が no-automation のサイトは取得しない（オーナーの個別許可がない限り）。論文はオープンアクセス（J-STAGE、ERIC、PMC、arXiv、機関リポジトリ等）のみ。有料・ログインが必要なものは取らない"
-   },
-   "collections": [
-    {
-     "id": "learnsci",
-     "desc": "理解されやすい教え方・伝え方の研究（学習科学・認知心理・教育工学・ゲーム学習、〜2026年10月）",
-     "need_notes": true,
-     "expected": "ledger",
-     "excluded": {},
-     "parts": []
-    },
-    {
-     "id": "acctedu",
-     "desc": "簿記・会計教育の研究と実践報告（国内外）",
-     "need_notes": true,
-     "expected": "ledger",
-     "excluded": {},
-     "parts": []
-    },
-    {
-     "id": "boki2content",
-     "desc": "簿記2級の教材・講座・アプリ・動画の教え方と見せ方、学習者の声",
-     "need_notes": true,
-     "expected": "ledger",
-     "excluded": {},
-     "parts": []
-    },
-    {
-     "id": "simgames",
-     "desc": "既存の会計・財務・経営シミュレーションゲーム（ボードゲーム・研修ゲーム・デジタルゲーム・教育用シミュレーション）",
-     "need_notes": true,
-     "expected": "ledger",
-     "excluded": {},
-     "parts": []
-    },
-    {
-     "id": "uiux",
-     "desc": "UI・UX デザインのセオリー（ヒューリスティック・アクセシビリティ・ガイドライン）と、学習アプリ・ゲーム・業務ソフトの UI・UX の成功事例",
-     "need_notes": true,
-     "expected": "ledger",
-     "excluded": {},
-     "parts": []
-    }
-   ]
-  }
- ],
- "derived_docs": [
-  {
-   "path": "docs/UPDATE_PLAN.md",
-   "sources": [
-    "cpa-learning"
-   ],
-   "note": "2026-10-18〜19 に検索結果の要約とコラムの見出しだけから作った計画。2026-10-20 に読了ノートで主張ごとに検証し、判定（裏づけあり・誤り・未確認）と出典を付けた。c47 と追加23問の検証を含む"
-  },
-  {
-   "path": "docs/CRAWL.md",
-   "sources": [
-    "cpa-learning",
-    "bokipedia"
-   ],
-   "note": "取得の手順（research-fetch.js・research-check.js）と、cpa-learning・簿記ペディアの取得範囲・規約の扱い。2026-10-20 に読了ノートで検証"
-  },
-  {
-   "path": "docs/EXAM-ANALYSIS.md",
-   "sources": [
-    "kentei"
-   ],
-   "note": "日商の講評・連載・サンプル問題の分析"
-  },
-  {
-   "path": "docs/EPISODES.md",
-   "sources": [
-    "law"
-   ],
-   "note": "法令・制度の記述（付録C）。2026-10-20 一次資料で照合"
-  },
-  {
-   "path": "docs/analysis/cpa-shobo-text.md",
-   "sources": [
-    "cpa-learning"
-   ],
-   "note": "CPA 商簿教科書の分析"
-  },
-  {
-   "path": "docs/analysis/cpa-shobo-mondai.md",
-   "sources": [
-    "cpa-learning"
-   ],
-   "note": "CPA 商簿問題集の分析"
-  },
-  {
-   "path": "docs/analysis/cpa-kobo-text.md",
-   "sources": [
-    "cpa-learning"
-   ],
-   "note": "CPA 工簿教科書の分析"
-  },
-  {
-   "path": "docs/analysis/cpa-kobo-mondai-moshi.md",
-   "sources": [
-    "cpa-learning"
-   ],
-   "note": "CPA 工簿問題集・模試の分析"
-  },
-  {
-   "path": "docs/analysis/bokipedia-a.md",
-   "sources": [
-    "bokipedia"
-   ],
-   "note": "簿記ペディア前半の分析"
-  },
-  {
-   "path": "docs/analysis/bokipedia-b.md",
-   "sources": [
-    "bokipedia"
-   ],
-   "note": "簿記ペディア後半の分析"
-  },
-  {
-   "path": "docs/analysis/cpa-courses-column-a.md",
-   "sources": [
-    "cpa-learning"
-   ],
-   "note": "CPA 講座とコラム（簿記・テクニック）の分析"
-  },
-  {
-   "path": "docs/analysis/cpa-column-b.md",
-   "sources": [
-    "cpa-learning"
-   ],
-   "note": "CPA コラム（経理・キャリア）の分析"
-  },
-  {
-   "path": "docs/analysis/learning-science.md",
-   "sources": [
-    "web"
-   ],
-   "note": "理解されやすい教え方の研究の分析"
-  },
-  {
-   "path": "docs/analysis/accounting-education.md",
-   "sources": [
-    "web"
-   ],
-   "note": "簿記・会計教育研究の分析"
-  },
-  {
-   "path": "docs/analysis/boki2-presentation.md",
-   "sources": [
-    "web"
-   ],
-   "note": "簿記2級コンテンツの教え方・見せ方の分析"
-  },
-  {
-   "path": "docs/analysis/sim-games.md",
-   "sources": [
-    "web"
-   ],
-   "note": "既存の会計・財務シミュレーションゲームの分析と取り入れる要素"
-  },
-  {
-   "path": "docs/DESIGN-REVISION.md",
-   "sources": [
-    "web",
-    "kentei",
-    "cpa-learning"
-   ],
-   "note": "全分析を統合した設計改訂案（Fable、2026-10-20）"
-  }
- ]
+  ]
 }

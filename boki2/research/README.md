@@ -14,6 +14,8 @@
 
 ## 取得する
 
+**取得記録（ledger.jsonl・ledger-pending/）は追記だけ。消したり書き換えたりしない**。中身のない殻しか取れなかった・取れなかったときは、消さずに `--skip "理由"` で「読まない」記録を足す（読了ノートは要らない）。
+
 ```
 node boki2/tools/research-fetch.js --src kentei --coll kouhyou2 --doc 139 --part pdf --url <URL>
 node boki2/tools/research-fetch.js --src … --coll … --doc … --skip "取らない理由"

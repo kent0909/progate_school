@@ -117,6 +117,8 @@ for (const e of ledger) {
   const s = srcById[e.src];
   if (!s) { err('記録', `${e._at} 台帳にない取得元 ${e.src}`); continue; }
   let host = '';
+  // 取得しなかった記録（skipped）は、URL がなくてよい（取得できなかった・取らないと決めた理由が要る）
+  if (e.status === 'skipped' && !e.url) { if (!e.reason) err('記録', `${e._at} 取得しなかった理由がない`); continue; }
   try { host = new URL(e.url).host; } catch (x) { err('記録', `${e._at} URL が不正`); }
   if (s.tos.verdict === 'per-site' && e.status !== 'skipped' && (!e.tos || !e.tos.verdict || !e.tos.basis)) err(e.src, `${e._at} サイトごとの規約確認の記録（tos.verdict・tos.basis）がない（${e.url}）`);
   if (s.tos.verdict === 'per-site' && e.tos && e.tos.verdict === 'no-automation' && !e.tos.owner_approved) err(e.src, `${e._at} 規約で自動取得が禁止のサイトを取得した（${e.url}）`);
