@@ -1,7 +1,7 @@
 // 取り違えやすい札の兄弟と、違いの1行（札で見る・札の速さ・監査の点検で使う）
 // 違いの1行は、兄弟の札がぜんぶ教わったあとにだけ出す（言葉の関所。tools/lexicon-check.js が検査する）
 (function () {
-  const B = (window.BOKI = window.BOKI || {});
+  const B = typeof BOKI !== 'undefined' ? BOKI : (window.BOKI = window.BOKI || {});
   B.siblings = [
     { accs: ['買掛金', '未払金'], line: '店で売る商品の後払いだけが買掛金。トラックや印刷代など、それ以外の後払いは未払金。' },
     { accs: ['売掛金', '電子記録債権', 'クレジット売掛金'], line: '売った代金をもらう権利。ふつうの約束は売掛金、でんさいで記録した約束は電子記録債権、カード会社からもらう分はクレジット売掛金。' },

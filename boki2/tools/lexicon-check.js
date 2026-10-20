@@ -29,7 +29,8 @@ const len = (where, text, max = 180) => {
   const nom = t.match(/[^、。]{0,6}(の計上|の実施|を行う|の処理を|の把握|の確認を)/g);
   if (nom) notes.push(`${where} 名詞化：${[...new Set(nom)].join('・')}`);
 };
-const talkText = (lines) => (typeof lines === 'function' ? branches.flatMap((b) => lines({ ...fake, decisions: b })) : lines || []).map((l) => l[1]).join('');
+// 判断の枝と、2026／2027年度モード（S.mode）の両方の台詞を読む
+const talkText = (lines) => (typeof lines === 'function' ? branches.flatMap((b) => [...lines({ ...fake, decisions: b }), ...lines({ ...fake, decisions: b, mode: '2026' })]) : lines || []).map((l) => l[1]).join('');
 function docCheck(where, doc) {
   if (!doc) return;
   check(`${where} 書類`, [doc.title, doc.type, doc.from, doc.to].join(' '), [], { doc: true });
@@ -68,6 +69,8 @@ D.months.forEach((m, mi) => {
     const w = `${m.label} ${e.id || e.t}`;
     // 決算の机：書類の題名は書類の言葉（タップで説明が出る）、ほかはふつうの文
     if (e.t === 'desk') { check(`${w} 書類の題名`, e.items.map((it) => it.title).join(' '), [], { doc: true }); check(w, `${talkText(e.talk)} ${e.q} ${e.items.map((it) => `${typeof it.line === 'function' ? ['credit', 'cash', 'none'].map((c) => it.line({ decisions: { credit: c } })).join(' ') : it.line} ${it.why}`).join(' ')}`); len(w, `${talkText(e.talk)}${e.q}`); }
+    if (e.t === 'bank' && e.lines) { const all = [{}, { due: 'list', vat: 'line', divfix: 'keep', fix15: 'keep', crunch2: 'hiloan' }, { due: 'none', vat: 'follow', revenue: 'follow', fix15: 'fix' }].flatMap((dd) => e.lines({ ...fake, decisions: dd, T: [] })); check(w, all.map((l) => l[1]).join('')); all.forEach((l) => len(w, l[1])); }
+    if (e.t === 'audit' || e.t === 'duelist') { check(w, talkText(e.talk)); len(w, talkText(e.talk)); }
     if (e.t === 'talk') { check(w, talkText(e.lines), e.teaches); (typeof e.lines === 'function' ? branches.map((b) => talkText(e.lines({ ...fake, decisions: b }))) : [talkText(e.lines)]).forEach((t) => len(w, t)); shown(w, e.teaches, talkText(e.lines)); teach(e.teaches); }
     if (e.t === 'board') {
       for (const [i, st] of e.steps.entries()) {
@@ -111,6 +114,7 @@ D.months.forEach((m, mi) => {
     }
     if (e.t === 'doc') {
       docCheck(w, e.doc);
+      if (e.auditWhy) { check(`${w} 監査の点検`, e.auditWhy); len(`${w} 監査の点検`, e.auditWhy, 90); }
       const ki = D.kindIntro[e.kind];
       if (ki && !practiced.has(ki.move)) { check(`${w} はじめての問い`, [ki.q, ...ki.opts.map((o) => `${o.t} ${o.react || ''}`), ki.line].join(' ')); practiced.add(ki.move); }
       for (const b of branches) {
@@ -151,6 +155,8 @@ D.months.forEach((m, mi) => {
   const newAcc = [...used].filter(isAccount);
   if (newAcc.length > 2) errors.push(`${m.label}：記帳に使う新しい勘定科目が${newAcc.length}つ（${newAcc.join('・')}）。1か月2つまで`);
   if (discs > 2) errors.push(`${m.label}：発見が${discs}つ。1か月2つまで`);
+  // 前の判断の返り（SIM.returns）は、その月のはじめに出る。その月の前までに教えた語で読めること
+  for (const r of D.returns || []) if ((m.year || 1) === r.y && m.m === r.m && (r.seg || null) === (m.seg || null) && !String(m.label).includes('後半')) { check(`${m.label} 返り ${r.id}`, talkText(r.lines)); len(`${m.label} 返り ${r.id}`, talkText(r.lines)); }
   // 札の兄弟の違いの1行（js/data/siblings.js）は、兄弟の札がぜんぶ教わった月から出る。その月までの語で読めること
   for (const sb of B.siblings) if (!sb._checked && sb.accs.every((a) => taught.has(a))) { sb._checked = true; check(`${m.label} 札の兄弟 ${sb.accs.join('・')}`, sb.line); len(`${m.label} 札の兄弟`, sb.line, 90); }
   m._p = [...new Set(evs.filter((e) => e.t === 'discover').map((e) => e.p))];

@@ -315,3 +315,22 @@ i.lv0 { border: 1px solid var(--line); }
 .s-speedbins { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; }
 .s-speedwhy { background: var(--surface2); border-radius: 8px; padding: 10px; margin: 0; font-size: 14px; }
 .s-room-tabs { flex-wrap: wrap; }
+/* 期日の一覧（資金繰り表） */
+.s-due { font-size: 12px; width: 100%; table-layout: auto; }
+.s-due td:nth-child(2) { overflow-wrap: anywhere; }
+.s-due td.n { white-space: nowrap; }
+.s-due td, .s-due th { padding: 3px 5px; }
+.s-due tr.min td { background: hsl(45 90% 88%); font-weight: 700; }
+.s-due td.neg { color: hsl(0 65% 45%); }
+.s-due tr:not(.fixed) td:nth-child(2) { color: var(--muted); }
+/* 株主資本等変動計算書 */
+.s-ss { font-size: 11px; min-width: 560px; }
+.s-ss td, .s-ss th { padding: 3px 4px; white-space: nowrap; }
+.s-ss input { width: 76px; font: inherit; padding: 3px; border: 1px solid var(--line); border-radius: 4px; text-align: right; background: var(--surface); color: inherit; }
+.s-ss td.ok input { border-color: hsl(150 50% 40%); }
+.s-ss td.ng input { border-color: hsl(0 65% 50%); background: hsl(0 80% 96%); }
+.s-ssmemo { margin: 0; padding-left: 18px; font-size: 13px; }
+/* 表情（銀行・株主・会計士・税理士） */
+.s-ava { position: relative; }
+.s-mood { position: absolute; right: -5px; bottom: -5px; width: 19px; height: 19px; }
+.s-return > small { color: hsl(30 70% 38%); }

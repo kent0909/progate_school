@@ -2,7 +2,7 @@
 // pl：損益計算書のどの区分か。bs：貸借対照表のどの区分か。show：決算書に書く名前（勘定科目と違うもの）
 // byContext：相手で区分が変わる札（貸倒引当金繰入は、売掛金の分なら販管費、貸付金の分なら営業外費用）
 (function () {
-  const B = (window.BOKI = window.BOKI || {});
+  const B = typeof BOKI !== 'undefined' ? BOKI : (window.BOKI = window.BOKI || {});
   const PL_BINS = ['売上高', '売上原価', '販売費及び一般管理費', '営業外収益', '営業外費用', '特別利益', '特別損失', '法人税等'];
   const pl = {};
   const put = (bin, list) => list.forEach((a) => { pl[a] = bin; });

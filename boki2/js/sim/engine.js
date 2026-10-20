@@ -90,7 +90,10 @@
   const mastered = (kind) => !!kind && new Set(S.docLog.filter((l) => l.kind === kind && l.ok && !l.hint).map((l) => l.mi)).size >= 2;
 
   /* ---------- small renderers ---------- */
-  const avatar = (k) => { const [n, h] = CAST[k] || [k, 190]; return `<span class="s-ava" style="--h:${h}">${esc(n.slice(0, 1))}</span>`; };
+  // 表情：銀行・株主・会計士・税理士は、これまでの判断で顔が変わる（year2.js の SIM.moods。1〜5）
+  const MOOD_WORD = ['', 'とても心配', '心配', 'ふつう', '少し安心', '安心'];
+  const moodOf = (k) => { if (!D.moods || S.mi === 0) return 0; try { return D.moods(S)[k] || 0; } catch (x) { return 0; } };
+  const avatar = (k) => { const [n, h] = CAST[k] || [k, 190]; const md = moodOf(k); const mouth = md ? `<svg class="s-mood" viewBox="0 0 20 20" role="img" aria-label="表情：${MOOD_WORD[md]}"><circle cx="10" cy="10" r="9" fill="#fff" stroke="hsl(${h} 40% 45%)" stroke-width="1.5"/><circle cx="7" cy="8" r="1.3" fill="#334"/><circle cx="13" cy="8" r="1.3" fill="#334"/><path d="M6 ${14 - (md - 3)} Q10 ${14 + (md - 3) * 1.6} 14 ${14 - (md - 3)}" fill="none" stroke="#334" stroke-width="1.4" stroke-linecap="round"/></svg>` : ''; return `<span class="s-ava" style="--h:${h}">${esc(n.slice(0, 1))}${mouth}</span>`; };
   const talk = (lines) => (lines || []).map(([k, t]) => `<div class="s-line">${avatar(k)}<div><small>${esc((CAST[k] || [k])[0])}</small><p>${esc(t)}</p></div></div>`).join('');
   // 書類だけの言葉（摘要など）は、タップすると一言の説明が出る
   const gloss = (text) => {
@@ -128,7 +131,7 @@
     // 預かった消費税に線を引いた会社（判断 vat）は、口座のお金のうち預かり分を見せる
     const azu = S.decisions.vat === 'line' && knows('仮受消費税') ? Math.max(0, -(b['仮受消費税'] || 0) - (b['仮払消費税'] || 0)) : 0;
     const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>${yearOf(S.mi) > 1 ? `${yearOf(S.mi)}年目のもうけ（4月から）` : 'この1年のもうけ'}</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
-    const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button><button data-ov="room">練習室</button></nav>' : '';
+    const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button>' + (S.dueBuilt ? '<button data-ov="due">期日</button>' : '') + '<button data-ov="room">練習室</button></nav>' : '';
     return `<header class="s-head"><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
   }
   let onFocus = null;
@@ -171,6 +174,7 @@
     if (k === 'grow') overlay(B.growth.view(GAPI));
     if (k === 'hall') { document.querySelectorAll('.s-ov').forEach((o) => o.remove()); hallScreen(); return; }
     if (k === 'room') { document.querySelectorAll('.s-ov').forEach((o) => o.remove()); practiceScreen(); return; }
+    if (k === 'due') overlay(`<h3>払う約束・もらう約束の期日（資金繰り）</h3><p class="muted" style="font-size:13px;margin:0">これからの口座の出入りを、期日の順に。いまの口座のお金から、1行ずつ足し引きした残り。</p>${dueTable(dueItems())}`);
     if (k === 'log') overlay(`<h3>経営日誌</h3>${S.diary.length ? `<ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul>` : '<p class="muted">まだ記録はない。</p>'}`);
   });
   // 会社の棚：棚の絵と、元帳（勘定ごとに、日付・摘要・相手の札・残高）
@@ -319,7 +323,7 @@
     record: (q, ok) => { S.examLog.push({ key: q._key, ok, t: Date.now(), hall: true }); save(); },
     // 第1問の候補に混ぜる札：答えの札の兄弟（js/data/siblings.js）。札の速さで迷った札を先に
     confused: (ans) => { const miss = new Set([...speedMissed('shelf'), ...speedMissed('side'), ...speedMissed('kubun')]); const sibs = [...new Set(B.siblings.filter((sb) => sb.accs.some((a) => ans.includes(a))).flatMap((sb) => sb.accs))].filter((a) => !ans.includes(a)); return [...sibs.filter((a) => miss.has(a)), ...sibs.filter((a) => !miss.has(a))]; },
-    extras: () => `<div class="card stack"><h3>第1問の前に：札の速さ</h3><p class="muted" style="margin:0;font-size:13px">候補の札から選ぶ前に、札の置き場所を速く。教わった札だけが出る。</p>${speedMenu()}</div>`,
+    extras: () => autoMenu() + `<div class="card stack"><h3>第1問の前に：札の速さ</h3><p class="muted" style="margin:0;font-size:13px">候補の札から選ぶ前に、札の置き場所を速く。教わった札だけが出る。</p>${speedMenu()}</div>`,
     y27: () => S.mode !== '2026', today: () => new Date().toISOString().slice(0, 10),
     go: (name, arg) => (name === 'exam' ? hallScreen() : hallScreen({ play: arg === undefined ? true : arg })),
     // 習っていない → その論点の会社の場面へ（見つけていれば、もう一度見る）
@@ -335,6 +339,7 @@
     frame(`<div class="s-hallbar"><button class="btn sm ghost" data-hallback>← 会社へもどる</button><small>検定会場（本試験の形の模試）。合否は会社に影響しない</small></div><div class="s-hall"></div>`);
     const root = $('.s-hall', app);
     app.onclick = (e) => {
+      if (e.target.closest('[data-autoinv]')) { roomDrill(autoQs(), '自動仕訳の棚卸', () => hallScreen()); return; }
       const sp = e.target.closest('[data-speed]');
       if (sp) { speedScreen(sp.dataset.speed, () => hallScreen()); return; }
       if (!e.target.closest('[data-hallback]')) return;
@@ -355,7 +360,7 @@
     leaveHall();
     let body = '';
     if (roomTab === 'items') {
-      body = B.scopeAreas.map((a) => `<section class="s-room-area"><h4>${esc(a.label)}</h4>${B.scope.filter((it) => a.secs.includes(it.sec) && it.y27 !== 'out').map((it) => {
+      body = B.scopeAreas.map((a) => `<section class="s-room-area"><h4>${esc(a.label)}</h4>${B.scope.filter((it) => a.secs.includes(it.sec) && (it.y27 !== 'out' || S.mode === '2026')).map((it) => {
         const r = B.growth.item(GAPI, it), n = roomQs(it).length, met = r.lv > 0;
         return `<div class="s-room-it"><div><b>${esc(it.name)}</b><small>${esc(B.growth.LV[r.lv])}${met ? '' : '・会社ではまだ'}</small></div><div class="s-room-btns"><button class="btn ghost sm" data-ref="${it.id}">参考書</button>${n ? `<button class="btn sm" data-drill="${it.id}">問題 ${Math.min(5, n)}</button>` : ''}</div></div>`;
       }).join('')}</section>`).join('');
@@ -492,6 +497,19 @@
       wrong = true; draw();
     };
   }
+  /* ---------- 自動仕訳の棚卸（PEDAGOGY 1.6・docs/CLASSIC-MIGRATION.md 3章）：本試験では自動仕訳は効かない。自動で書いている書類を、本番の入力で手で書き直す ---------- */
+  function autoQ(kind) {
+    const x = S.L.filter((l) => l.kind === kind).pop();
+    if (!x) return null;
+    const ev = (allEvents.find(({ e }) => e.id === x.ev) || {}).e, t = S.T.find((y) => y.id === x.id);
+    if (!ev || !ev.doc || !t) return null;
+    const rows = val(ev.doc.rows, S) || [];
+    const text = `${esc(ev.doc.type)}「${esc(ev.doc.title)}」（${esc(ev.doc.date)}）<br>${rows.map((r) => `${esc(r[0])}：${typeof r[1] === 'number' ? `${fmt(r[1])}円` : esc(r[1])}`).join('<br>')}<br>この書類の仕訳を書きなさい。`;
+    return { type: 'journal', q: text, ans: { dr: t.dr, cr: t.cr }, opts: (ev.opts || []).filter(knows), _key: `auto:${kind}`, _ch: { title: '自動仕訳の棚卸', world: 'auto' }, exp: S.rules[kind] ? `自動で書いていた条件：${esc(S.rules[kind].cond || '')}` : '' };
+  }
+  const autoQs = () => Object.keys(S.rules).map(autoQ).filter(Boolean).slice(0, 10);
+  const autoMenu = () => { const n = autoQs().length; return n ? `<div class="card stack"><h3>自動仕訳の棚卸</h3><p class="muted" style="margin:0;font-size:13px">本試験では、自動仕訳は効かない。会社で自動にしている書類を、本番と同じ入力で手で書き直す。</p><button class="btn" data-autoinv>${n}枚を手で書く</button></div>` : ''; };
+
   const speedMenu = () => `<div class="s-speedmenu">${Object.entries(SPEED).map(([k, M]) => `<div class="s-room-it"><div><b>${esc(M.t)}</b><small>${esc(M.open() ? M.d : M.lock)}</small></div><div class="s-room-btns">${M.open() ? `<button class="btn sm" data-speed="${k}">20枚</button>` : ''}</div></div>`).join('')}</div>`;
 
   /* ---------- screens ---------- */
@@ -502,10 +520,24 @@
     if (S.phase === 'monthIntro') return monthIntro();
     // 月のはじめ：自動仕訳ルールの提案
     if (S.ei === 0 && S.phase === 'event') { const k = ruleOffer(); if (k) return ruleScreen(k); }
+    // 月のはじめ：前の判断の返り（遅延反応のキュー：year2.js の SIM.returns）
+    if (S.ei === 0 && S.phase === 'event') { const r = pendingReturn(); if (r) return returnScreen(r); }
     const evs = events();
     if (S.ei >= evs.length) return m.closeless ? advanceMonth() : closeScreen();
     const ev = evs[S.ei];
-    ({ desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, closing: closingScreen, opening: openingScreen, sheet: sheetScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
+    // 社長が自分で書いた書類（監査の点検で見つける）：画面は出さず、社長の書いた形で帳簿に入る
+    if (ev.t === 'doc' && ev.byPres) { post(ev, val(ev.wrote, S), false); const x = S.L.find((l) => l.id === ev.id + '@' + S.mi); if (x) x.pres = true; return next(); }
+    ({ ss: ssScreen, duelist: duelistScreen, audit: auditScreen, desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, closing: closingScreen, opening: openingScreen, sheet: sheetScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
+  }
+  // 前の判断の返り：いまの月（年・月・区切り）に当たり、条件が真で、まだ見ていないもの
+  function pendingReturn() {
+    const m = month(); if (!m) return null;
+    const seen = S.returnsSeen || {};
+    return (D.returns || []).find((r) => !seen[r.id] && (m.year || 1) === r.y && m.m === r.m && (r.seg || null) === (m.seg || null) && !m.label.includes('後半') && (() => { try { return r.cond(S); } catch (x) { return false; } })()) || null;
+  }
+  function returnScreen(r) {
+    frame(`<div class="s-card s-return"><small>前の判断が、返ってきた：${esc(r.from)}</small>${talk(r.lines)}<button class="btn wide" data-n>つぎへ</button></div>`);
+    app.onclick = (e) => { if (e.target.closest('[data-n]')) { (S.returnsSeen = S.returnsSeen || {})[r.id] = S.mi; S.diary.push({ m: month().label, t: `前の判断の返り：${r.from}` }); save(); render(); } };
   }
   function saveWord() {
     const st = ST.status();
@@ -515,7 +547,7 @@
     const started = S.mi > 0 || S.ei > 0;
     const ps = ST.profiles(), cur = ST.currentProfile();
     const who = ps.length > 1 || (ps[0] && ps[0].name) ? `<div class="s-who"><small>だれが遊ぶ？</small>${ps.map((p, k) => `<button class="${p.id === cur ? 'on' : ''}" data-prof="${p.id}">${esc(p.name || `${k + 1}人目`)}</button>`).join('')}<button data-addprof>＋</button></div>` : '<button class="link" data-addprof>ほかの人もこの端末で遊ぶ</button>';
-    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨの<br><b>レモネード</b></div><p>小さな屋台が、会社になるまでの1年。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:12px">試作版（約40分）</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・保存と引っ越し・確認テスト</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${S.mode === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${S.mode !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
+    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:12px">試作版（約40分）</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・保存と引っ越し・確認テスト</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${S.mode === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${S.mode !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
     app.onclick = (e) => {
       if (e.target.closest('[data-start]')) { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }
       if (e.target.closest('[data-reset]')) { if (!confirm('この人の記録を消して、最初からやり直しますか？')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); }
@@ -586,6 +618,190 @@
   }
 
   // 決算の机：どの書類が決算で直すものかを選ぶ。答えは選び終えてから、1枚ずつ理由つきで返す
+  /* ---------- 期日一覧と資金繰り表（docs/YEAR2.md 12項・2年目2月の判断 due と、3年目4月の fund） ----------
+     台本の、これからの書類から作る：口座のお金が動く書類（でんさいの期日の引き落とし・入金は除く）、でんさいの「支払期日」、社長が約束した支払い（予定）。
+     でんさいの期日は、帳簿の電子記録債務・債権の残りからも出す（期日に自動で動く） */
+  const parseDay = (t) => { const m = String(t || '').match(/(\d+)月(\d+日|末)/); return m ? { m: +m[1], d: m[2] === '末' ? 31 : parseInt(m[2], 10) } : null; };
+  const DUE_PLAN = new Set(['pay_ap', 'collect_ar', 'pay_salary', 'pay_wage', 'cash_sale', 'cash_sale_vat', 'pay_tax', 'dividend_pay', 'rent', 'collect_card', 'construction', 'factoring', 'pay_other', 'repay', 'oh_power']);
+  const DUE_FIXED = new Set(['pay_ap', 'collect_ar', 'pay_tax', 'dividend_pay', 'rent', 'collect_card', 'construction', 'factoring', 'repay']);
+  function dueItems() {
+    const cur = (month() || {}).m || 4, key = (x) => (((x.m - cur) % 12) + 12) % 12 * 100 + x.d;
+    const items = [];
+    const add = (o) => { if (o.date && key(o.date) <= 3 * 100 + 31) items.push(o); };
+    const memo = (e, pay) => { const rows = val(e.doc.rows, S) || []; const r = rows.find((x) => x[0] === '摘要') || rows.find((x) => x[0] === (pay ? '受け取る人' : '払う人')); return r ? String(r[1]) : e.doc.title; };
+    const bank = (t) => { const d = t.dr.filter(([a]) => a === '普通預金').reduce((x, [, v]) => x + v, 0), c = t.cr.filter(([a]) => a === '普通預金').reduce((x, [, v]) => x + v, 0); return d - c; };
+    // 帳簿にある、でんさいの約束（まだ期日が来ていないもの）
+    const denshi = (acc, sign) => {
+      let bal = (balances(S.T)[acc] || 0) * sign;
+      const made = S.T.filter((t) => (sign > 0 ? t.dr : t.cr).some(([a]) => a === acc)).map((t) => { const e = (allEvents.find(({ e: x }) => x.id === t.ev) || {}).e; const r = e && e.doc && (val(e.doc.rows, S) || []).find((x) => x[0] === '支払期日'); return r ? { e, t, date: parseDay(r[1]), amt: (sign > 0 ? t.dr : t.cr).filter(([a]) => a === acc).reduce((x, [, v]) => x + v, 0) } : null; }).filter(Boolean).reverse();
+      for (const o of made) { if (bal <= 0) break; const amt = Math.min(o.amt, bal); bal -= amt; add({ date: o.date, what: `でんさい：${memo(o.e, sign < 0)}`, amt: sign > 0 ? amt : -amt, fixed: true, top: true }); }
+    };
+    denshi('電子記録債務', -1); denshi('電子記録債権', 1);
+    // これからの書類
+    const evs0 = events();
+    for (let mi = S.mi; mi < Math.min(D.months.length, S.mi + 6); mi++) {
+      const list = mi === S.mi ? evs0.slice(S.ei + 1) : D.months[mi].events.filter((e) => { try { return !e.when || e.when(S); } catch (x) { return false; } });
+      for (const e of list) {
+        if (e.t !== 'doc' || !e.doc || e.byPres || e.kind === 'denshi_settle') continue;
+        // 前もって分かっている出入りだけ（貸倒れのお知らせのような、起きてから分かることは入れない）
+        const plan = DUE_PLAN.has(e.kind);
+        let t; try { t = val(e.ans, S); } catch (x) { continue; }
+        const rows = val(e.doc.rows, S) || [], due = rows.find((x) => x[0] === '支払期日');
+        const dn = [...t.cr.filter(([a]) => a === '電子記録債務').map(([, v]) => -v), ...t.dr.filter(([a]) => a === '電子記録債権').map(([, v]) => v)];
+        if (due && dn.length) { add({ date: parseDay(due[1]), what: `でんさい：${memo(e, dn[0] < 0)}`, amt: dn[0], fixed: true, top: true }); continue; }
+        const v = plan ? bank(t) : 0;
+        if (v) add({ date: parseDay(e.doc.date), what: memo(e), amt: v, fixed: DUE_FIXED.has(e.kind), top: ['construction', 'pay_tax', 'dividend_pay'].includes(e.kind) });
+      }
+    }
+    // 社長が約束した支払い（まだ書類が来ていないもの）
+    for (const o of (D.__y2 && D.__y2.duePlanned ? D.__y2.duePlanned(S) : [])) add(Object.assign({ fixed: true }, o, { date: parseDay(o.date) }));
+    // ふだんの出入り（売上・給料・電気代など）は、月ごとに1行にまとめる（約束の期日が見えるように）
+    const out = items.filter((o) => o.fixed), byM = {};
+    items.filter((o) => !o.fixed).forEach((o) => { const k = o.date.m; byM[k] = byM[k] || { date: { m: k, d: 31 }, what: `${k}月のふだんの出入り（売上・給料など）`, amt: 0, fixed: false }; byM[k].amt += o.amt; });
+    out.push(...Object.values(byM).filter((o) => o.amt));
+    out.sort((a, b) => key(a.date) - key(b.date) || (a.fixed === b.fixed ? a.amt - b.amt : a.fixed ? 1 : -1));
+    return out;
+  }
+  function dueTable(items, mark) {
+    let bal = cashOf(balances(S.T));
+    const start = bal;
+    let min = { bal: Infinity };
+    const rows = items.map((o, k) => { bal += o.amt; if (bal < min.bal) min = { bal, k }; return { o, bal }; });
+    const tr = rows.map(({ o, bal: b }, k) => `<tr class="${k === min.k && mark !== false ? 'min' : ''} ${o.fixed ? 'fixed' : ''}"><td>${o.date.m}/${o.date.d === 31 ? '末' : o.date.d}</td><td>${esc(o.what)}</td><td class="n">${o.amt > 0 ? '+' : '−'}${fmt(Math.abs(o.amt))}</td><td class="n ${b < 0 ? 'neg' : ''}">${fmt(b)}</td></tr>`).join('');
+    return `<table class="s-tb s-due"><tr><th>期日</th><th>内容</th><th>入る＋<br>出る−</th><th>口座の<br>残り</th></tr><tr><td></td><td>いまの口座のお金</td><td></td><td class="n">${fmt(start)}</td></tr>${tr}</table>`;
+  }
+  // 一覧を作る（2年目2月）／見直す（3年目4月、手付金のあと）
+  function duelistScreen(ev) {
+    const items = dueItems();
+    const fixed = [...items.filter((o) => o.top), ...items.filter((o) => o.fixed && !o.top)].slice(0, 6).sort((a, b) => items.indexOf(a) - items.indexOf(b));
+    const order = fixed.slice().sort(() => Math.random() - 0.5);
+    const picked = [];
+    let stage = ev.review ? 'table' : 'order', msg = '', ans = null;
+    const lowest = () => { let bal = cashOf(balances(S.T)), m = { bal: Infinity }; items.forEach((o, k) => { bal += o.amt; if (bal < m.bal) m = { bal, k, o }; }); return m; };
+    const draw = () => {
+      let body = '';
+      if (stage === 'order') {
+        body = `${talk(ev.talk)}<p class="s-q">払う約束・もらう約束を、期日の早い順に押そう。</p><div class="s-desk">${order.map((o) => { const k = picked.indexOf(o); return `<div class="s-deskit ${k >= 0 ? 'on' : ''}" data-do="${order.indexOf(o)}" role="button" tabindex="0"><b>${k >= 0 ? `${k + 1}. ` : ''}${esc(o.what)}</b><small>${o.amt > 0 ? '入る' : '出る'} ${fmt(Math.abs(o.amt))}円・${o.date.m}月${o.date.d === 31 ? '末' : `${o.date.d}日`}</small></div>`; }).join('')}</div>${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`;
+      } else {
+        const lo = lowest(), opts = [...new Set([lo.k, ...items.map((_, k) => k).filter((k) => k !== lo.k && items[k].fixed).slice(0, 2)])].sort((a, b) => a - b);
+        if (!ev.review) { S.dueBuilt = true; save(); body = `${talk([['senpai', '期日の順に並べて、いまの口座のお金から1行ずつ足し引きした表を「資金繰り表」という。もうけの表とはちがう。お金がいつ足りなくなるかを見る表だ。'], ['senpai', 'この表は、上の「期日」からいつでも見られる。新しい約束が増えたら、表も増える。']])}${dueTable(items)}<button class="btn wide" data-n>つぎへ</button>`; frame(`<div class="s-card"><small>期日の一覧</small>${body}</div>`); return; }
+        body = `${talk(ev.talk)}${dueTable(items, ans !== null)}<p class="s-q">口座のお金が、いちばん少なくなるのはどこ？</p>${ans === null ? `<div class="s-opts">${opts.map((k) => `<button class="s-opt" data-dl="${k}"><b>${items[k].date.m}月${items[k].date.d === 31 ? '末' : `${items[k].date.d}日`}：${esc(items[k].what)}</b></button>`).join('')}</div>` : `<p class="s-react ${ans === lo.k ? '' : 'ng'}">${ans === lo.k ? 'そう。' : `いちばん少ないのは、${lo.o.date.m}月${lo.o.date.d === 31 ? '末' : `${lo.o.date.d}日`}の「${esc(lo.o.what)}」のあと。`}残りは ${fmt(lo.bal)}円。${lo.bal < 0 ? '口座が足りない。期日の前に手を打たないと、払えない。' : 'その日の前に、口座のお金を減らしすぎないようにする。'}</p><button class="btn wide" data-n>つぎへ</button>`}`;
+      }
+      frame(`<div class="s-card"><small>期日の一覧</small>${body}</div>`);
+    };
+    draw();
+    app.onclick = (e) => {
+      const d = e.target.closest('[data-do]');
+      if (d && stage === 'order') {
+        const o = order[+d.dataset.do]; if (picked.includes(o)) return;
+        const rest = fixed.filter((x) => !picked.includes(x));
+        const kd = (x) => fixed.indexOf(x);
+        if (kd(o) !== Math.min(...rest.map(kd)) && !(rest.some((x) => x !== o && x.date.m === o.date.m && x.date.d === o.date.d && kd(x) < kd(o)))) { msg = 'もっと早い期日の約束がある。'; draw(); return; }
+        picked.push(o); msg = '';
+        if (picked.length === fixed.length) stage = 'table';
+        draw(); return;
+      }
+      const l = e.target.closest('[data-dl]');
+      if (l && ans === null) { ans = +l.dataset.dl; S.dueBuilt = true; save(); draw(); return; }
+      if (e.target.closest('[data-n]')) next();
+    };
+  }
+
+  /* ---------- 株主資本等変動計算書の本番（docs/YEAR2.md 3.3・付録の ssScreen）：この1年の純資産の動きを、資料から表に埋める ----------
+     行＝変動の理由（当期首残高・新株の発行・剰余金の配当・利益準備金の積立・当期純利益・当期末残高）、列＝資本金・資本準備金・利益準備金・繰越利益剰余金・合計（本試験の S/S と同じ向き） */
+  const SS_COLS = ['資本金', '資本準備金', '利益準備金', '繰越利益剰余金'];
+  const SS_ROWS = [['start', '当期首残高'], ['new', '新株の発行'], ['div', '剰余金の配当'], ['res', '利益準備金の積立'], ['ni', '当期純利益'], ['end', '当期末残高']];
+  function ssData() {
+    const y = yearOf(S.mi), cr = (e, a) => e.cr.filter(([x]) => x === a).reduce((t, [, v]) => t + v, 0) - e.dr.filter(([x]) => x === a).reduce((t, [, v]) => t + v, 0);
+    const M = {}; SS_ROWS.forEach(([r]) => { M[r] = {}; SS_COLS.forEach((c) => { M[r][c] = 0; }); });
+    const before = S.T.filter((e) => (e.y || 1) < y);
+    SS_COLS.forEach((c) => { M.start[c] = before.reduce((t, e) => t + cr(e, c), 0); });
+    const memo = [];
+    for (const e of S.T.filter((x) => (x.y || 1) === y && !x.closing)) {
+      const dv = Math.max(0, cr(e, '未払配当金')), rs = Math.max(0, cr(e, '利益準備金')), cap = cr(e, '資本金'), cap2 = cr(e, '資本準備金'), re = cr(e, '繰越利益剰余金');
+      if (dv) { M.div['繰越利益剰余金'] -= dv; memo.push(['剰余金の配当（株主総会の決議）', dv]); }
+      if (rs) { M.res['利益準備金'] += rs; M.res['繰越利益剰余金'] -= rs; memo.push(['利益準備金の積立', rs]); }
+      if (cap || cap2) { M.new['資本金'] += cap; M.new['資本準備金'] += cap2; memo.push([`新株の発行（払込 ${fmt(cap + cap2)}円のうち、資本金 ${fmt(cap)}円・資本準備金 ${fmt(cap2)}円）`, cap + cap2]); }
+      const rest = re + dv + rs; // 配当と積立のほかに、繰越利益剰余金が動いた分（配当の返還など）
+      if (rest && !cap && !cap2) { M.div['繰越利益剰余金'] += rest; memo.push([rest > 0 ? '配当の返還（剰余金の配当の取消し）' : '剰余金の配当', rest]); }
+    }
+    const ni = pl(balances(S.T.filter((e) => (e.y || 1) === y && !e.closing))).ni;
+    M.ni['繰越利益剰余金'] = ni; memo.push(['当期純利益（損益計算書）', ni]);
+    SS_COLS.forEach((c) => { M.end[c] = SS_ROWS.slice(0, 5).reduce((t, [r]) => t + M[r][c], 0); });
+    return { M, memo };
+  }
+  function ssScreen(ev) {
+    const { M, memo } = ssData();
+    // 検算：当期末残高の合計は、貸借対照表の純資産（締め切りの前なので、今年のもうけを足す）と同じ
+    { const b = balances(S.T.filter((e) => !(e.closing && (e.y || 1) === yearOf(S.mi)))); const eq = SS_COLS.reduce((t, c) => t - (b[c] || 0), 0) + pl(b).ni; const end = SS_COLS.reduce((t, c) => t + M.end[c], 0); if (eq !== end) console.error(`S/S の当期末残高 ${end} が、純資産 ${eq} と合わない`); }
+    const blank = new Set();
+    for (const [r] of SS_ROWS.slice(1)) for (const c of SS_COLS) if (r !== 'ni' && M[r][c]) blank.add(`${r}:${c}`);
+    const vals = {};
+    let tries = 0, marks = null;
+    const num = (t) => { const z = String(t || '').normalize('NFKC').replace(/[,\s円]/g, ''); if (!/^[-−△▲]?\d+$/.test(z)) return null; const n = parseInt(z.replace(/^[-−△▲]/, ''), 10); return /^[-−△▲]/.test(z) ? -n : n; };
+    const cell = (r, c) => { const k = `${r}:${c}`; if (!blank.has(k)) { const v = M[r][c]; return `<td class="n">${v ? (v < 0 ? `△${fmt(-v)}` : fmt(v)) : '—'}</td>`; } return `<td class="n ${marks ? (marks[k] ? 'ok' : 'ng') : ''}"><input data-ssk="${k}" inputmode="text" value="${esc(vals[k] || '')}" aria-label="${esc(c)} の ${esc(SS_ROWS.find((x) => x[0] === r)[1])}"></td>`; };
+    const sumRow = (r) => SS_COLS.reduce((t, c) => t + M[r][c], 0);
+    const draw = () => {
+      const all = marks && Object.values(marks).every(Boolean);
+      frame(`<div class="s-card"><small>株主資本等変動計算書</small>${talk(ev.talk)}<h4>資料（この1年）</h4><ul class="s-ssmemo">${memo.map(([t, v]) => `<li>${esc(t)}：${fmt(Math.abs(v))}円</li>`).join('')}</ul><div class="s-sheetwrap"><table class="s-tb s-ss"><tr><th></th>${SS_COLS.map((c) => `<th>${esc(c)}</th>`).join('')}<th>合計</th></tr>${SS_ROWS.map(([r, lab]) => `<tr class="${r === 'start' || r === 'end' ? 'sum' : ''}"><td>${esc(lab)}</td>${SS_COLS.map((c) => cell(r, c)).join('')}<td class="n">${r === 'end' && !all ? '?' : (sumRow(r) < 0 ? `△${fmt(-sumRow(r))}` : fmt(sumRow(r)))}</td></tr>`).join('')}</table></div><p class="muted" style="font-size:12px;margin:0">表は横に動かせる（右に利益準備金・繰越利益剰余金・合計）。減った分は「−」か「△」をつけて書く。当期末残高は、上の行を足した額。</p>${all ? `<p class="s-react">表がそろった。当期末残高の合計 ${fmt(sumRow('end'))}円は、貸借対照表の純資産と同じ。</p><button class="btn wide" data-n>つぎへ</button>` : `${marks ? `<p class="s-react ng">赤いマスがちがう。${tries >= 2 ? '赤いマスに、正しい数字を入れておいた。たしかめてから、もう一度。' : '資料のどの行の数字かを、もう一度見よう。'}</p>` : ''}<button class="btn wide" data-sscheck>たしかめる</button>`}</div>`);
+    };
+    draw();
+    app.oninput = (e) => { const k = e.target.dataset && e.target.dataset.ssk; if (k) vals[k] = e.target.value; };
+    app.onclick = (e) => {
+      if (e.target.closest('[data-sscheck]')) {
+        tries++;
+        marks = {};
+        for (const k of blank) { const [r, c] = k.split(':'); marks[k] = num(vals[k]) === M[r][c]; }
+        if (tries >= 2) for (const k of blank) if (!marks[k]) { const [r, c] = k.split(':'); vals[k] = M[r][c] < 0 ? `△${M[r][c] * -1}` : String(M[r][c]); }
+        const m = (S.metrics.ss = S.metrics.ss || {}); if (m.first == null) m.first = Object.values(marks).every(Boolean);
+        save(); draw(); return;
+      }
+      if (e.target.closest('[data-n]')) { S.diary.push({ m: '決算', t: `株主資本等変動計算書：返さないお金の当期末残高 ${fmt(sumRow('end'))}円` }); next(); }
+    };
+  }
+
+  /* ---------- 監査の点検（docs/CLASSIC-MIGRATION.md 3章：旧版のボス戦の変形。HP・時間切れはない） ----------
+     社長が自分で書いた書類と、ふだんの書類（自動仕訳を含む）を混ぜて6枚。あやしいものを選び、答え合わせのあと、ちがっていたものを書き直す。
+     見落としたものも、森さんが示して書き直す（帳簿は最後には正しくなる）。結果は S.audits と S.fixLog（audit: true）に残る */
+  function auditScreen(ev) {
+    const traps = ev.traps.map((id) => S.L.find((l) => l.id === id + '@' + S.mi)).filter(Boolean);
+    const trapIds = new Set(traps.map((x) => x.id));
+    // ふだんの書類：今年の、記帳が書類と合っているもの。自動仕訳を先に、種類がちがうものを3枚
+    const kinds = new Set();
+    const normal = S.L.filter((l) => l.y === yearOf(S.mi) && !trapIds.has(l.id) && l.kind && !l.closing && sameEntry(l, S.T.find((t) => t.id === l.id) || { dr: [], cr: [] })).sort((a, b) => (b.auto ? 1 : 0) - (a.auto ? 1 : 0) || b.mi - a.mi).filter((l) => (kinds.has(l.kind) ? false : (kinds.add(l.kind), true))).slice(0, 3);
+    const seed = S.mi * 7 + 3;
+    const items = [...traps, ...normal].map((x, k) => ({ x, k: (k * 5 + seed) % 11 })).sort((a, b) => a.k - b.k).map((o) => o.x);
+    const evOf = (x) => (allEvents.find(({ e }) => e.id === x.ev) || {}).e || {};
+    const sel = new Set();
+    let checked = false;
+    const card = (x) => { const e = evOf(x), d = e.doc || {}; const rows = (val(d.rows, S) || []).filter((r) => r[2] === 'amt' || r[0] === '摘要' || r[0] === '品名').slice(0, 3); const bad = trapIds.has(x.id); const on = sel.has(x.id);
+      return `<div class="s-deskit ${on ? 'on' : ''} ${checked ? (on === bad ? 'ok' : 'ng') : ''}" data-ak="${esc(x.id)}" role="button" tabindex="0" aria-pressed="${on}"><b>${gloss(`${d.type || ''}（${d.date || ''}）`)}</b><small>${rows.map((r) => `${esc(r[0])}：${typeof r[1] === 'number' ? fmt(r[1]) : esc(r[1])}`).join('　')}</small>${jeTable(x)}${checked ? `<small class="muted">${x.pres ? '社長が書いた' : x.auto ? '自動で書いた' : 'ピヨが書いた'}</small>` : ''}${checked ? `<em>${bad ? `直す：${esc(e.auditWhy || '')}` : '合っている'}</em>` : ''}</div>`; };
+    const draw = () => {
+      const found = traps.filter((x) => sel.has(x.id)).length, extra = [...sel].filter((id) => !trapIds.has(id)).length;
+      const res = checked ? `<p class="s-react ${found === traps.length && !extra ? '' : 'ng'}">${found === traps.length && !extra ? 'あやしい書類を、ぜんぶ見つけた。' : `ちがっていたのは${traps.length}枚。見つけたのは${found}枚${extra ? `、合っているのに選んだのが${extra}枚` : ''}。`}</p>${talk([['kansa', found === traps.length ? '自動仕訳と同じ形でも、中身がちがう取引でしたね。では、書き直しましょう。' : '形が同じだと、見落としやすいんです。ちがっていた書類を、書き直しましょう。']])}<button class="btn wide" data-afix>書き直す</button>` : `<button class="btn wide" data-acheck ${sel.size ? '' : 'disabled'}>選んだ書類を、森さんと確かめる</button>`;
+      frame(`<div class="s-card">${talk(ev.talk)}<p class="s-q">帳簿の6枚。書類とちがう書き方をしているのは、どれ？（いくつでも）</p><div class="s-desk">${items.map(card).join('')}</div>${res}</div>`);
+    };
+    const fixNext = () => {
+      const x = traps.find((t) => !sameEntry(S.L.find((l) => l.id === t.id), S.T.find((y) => y.id === t.id)));
+      if (!x) {
+        const found = traps.filter((t) => sel.has(t.id)).map((t) => t.ev), missed = traps.filter((t) => !sel.has(t.id)).map((t) => t.ev);
+        (S.audits = S.audits || {})[ev.id] = { mi: S.mi, found, missed, extra: [...sel].filter((id) => !trapIds.has(id)).length };
+        traps.filter((t) => !sel.has(t.id)).forEach((t) => S.fixLog.push({ ev: t.ev, kind: evOf(t).kind, mi: S.mi, audit: true }));
+        missed.forEach((id) => { S.metrics.forks['自動仕訳の形に見える別の取引'] = (S.metrics.forks['自動仕訳の形に見える別の取引'] || 0) + 1; });
+        S.diary.push({ m: month().label, t: `監査の点検：社長が書いた${traps.length}枚のうち${found.length}枚を見つけ、書き直した` });
+        save(); return next();
+      }
+      docScreen(evOf(x), fixNext);
+    };
+    draw();
+    app.onclick = (e) => {
+      if (e.target.closest('[data-gl]')) return;
+      const d = e.target.closest('[data-ak]');
+      if (d && !checked) { const id = d.dataset.ak; if (sel.has(id)) sel.delete(id); else sel.add(id); draw(); return; }
+      if (e.target.closest('[data-acheck]')) { checked = true; save(); draw(); return; }
+      if (e.target.closest('[data-afix]')) fixNext();
+    };
+  }
   function deskScreen(ev) {
     const sel = new Set(); let checked = false;
     const draw = () => {
@@ -888,7 +1104,7 @@
         }
         post(ev, entry, false);
         save();
-        if (fixMode) return closeScreen();
+        if (fixMode) return typeof fixMode === 'function' ? fixMode() : closeScreen();
         if (coach) {
           panel = `<div class="s-check good"><p><b>帳簿に書けた</b></p><ul>${[...entry.dr.map(([a, v]) => moveText(a, 'dr', v)), ...entry.cr.map(([a, v]) => moveText(a, 'cr', v))].map((t) => `<li>${esc(t)}</li>`).join('')}</ul>${miniBS(bsFrom(balances(S.L)))}<button class="btn wide" data-n>つぎへ</button></div>`;
           draw(); return;
@@ -952,7 +1168,7 @@
       if (i >= qs.length) return done();
       const q = qs[i];
       const ch = B.chapters.find((c) => c.qs.includes(q));
-      const accs = [...new Set([...((ch || {}).accounts || []), ...q.ans.dr.map((x) => x[0]), ...q.ans.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
+      const accs = [...new Set([...((ch || {}).accounts || []), ...(q.opts || []), ...B.siblings.filter((sb) => sb.accs.some((a) => [...q.ans.dr, ...q.ans.cr].some(([x]) => x === a))).flatMap((sb) => sb.accs), ...q.ans.dr.map((x) => x[0]), ...q.ans.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
       const opt = `<option value="">札をえらぶ</option>${accs.map((a) => `<option>${esc(a)}</option>`).join('')}`;
       const side = (sd) => [0, 1].map(() => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の札">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
       frame(`<div class="s-card"><small>${esc(label)} ${i + 1} / ${qs.length}</small><p class="muted" style="font-size:12px;margin:0">本試験と同じ文章で出たら、書ける？</p><p class="s-q">${q.q}</p><div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-qq>答える</button></div>`);
@@ -979,11 +1195,17 @@
   // 日をあけて確かめる：6日以上前に間違えて、そのあと同じ型で書けていない問題があれば、同じ型の別の問題を1つ選ぶ。
   // 章の問題（会社の腕だめし・検定会場の第1問）は同じ章の別の問題を、検定会場の大問は範囲タグが重なる別の大問を
   const scopeOfKey = (k) => (k.startsWith('exam:') ? (B.examScope || {})[k] || [] : B.scope.filter((it) => it.ch === k.split(':')[0]).map((it) => it.id));
-  const sameKind = (a, b) => (a.startsWith('exam:') || b.startsWith('exam:') ? scopeOfKey(a).some((id) => scopeOfKey(b).includes(id)) : a.split(':')[0] === b.split(':')[0]);
+  const sameKind = (a, b) => (a.startsWith('auto:') || b.startsWith('auto:') ? a === b : a.startsWith('exam:') || b.startsWith('exam:') ? scopeOfKey(a).some((id) => scopeOfKey(b).includes(id)) : a.split(':')[0] === b.split(':')[0]);
   function dueReview() {
     const now = Date.now(), seen = new Set(S.examLog.map((l) => l.key)), done = new Set((S.recall || []).filter((r) => r.due).map((r) => r.due));
     const miss = S.examLog.filter((l) => !l.ok && now - l.t >= 6 * 864e5 && !S.examLog.some((x) => x.ok && x.t > l.t && sameKind(x.key, l.key)));
     for (const l of miss) {
+      // 自動仕訳の棚卸で書けなかった種類：その種類のいちばん新しい書類を、月はじめにもう一度（1行ずつの入力に収まるものだけ）
+      if (l.key.startsWith('auto:')) {
+        const q = autoQ(l.key.slice(5));
+        if (q && q.ans.dr.length <= 2 && q.ans.cr.length <= 2) return q;
+        continue;
+      }
       if (l.key.startsWith('exam:')) {
         const x0 = (B.exams || []).find((x) => x._key === l.key);
         const alt = (B.exams || []).find((x) => x._key !== l.key && !seen.has(x._key) && !done.has(x._key) && x.part === (x0 || {}).part && sameKind(x._key, l.key));
@@ -1052,7 +1274,7 @@
         const pair = (ev.b3.bs || je) ? `<div class="s-pair">${ev.b3.bs ? `<div><small>さっき動かした棚</small>${miniBS(ev.b3.bs)}</div>` : ''}${je ? `<div><small>帳簿にはこう書く（たとえば金額が2倍なら）</small>${jeTable(je)}</div>` : ''}</div>` : '';
         // 工場の川：運んだ1回が帳簿の1行（名前を教わってから、科目名で見せる）
         const flowJE = ev.b2.layout === 'flow' ? `<div class="s-pair"><div><small>さっきの運びを、帳簿にはこう書く</small><table class="s-tb"><tr><th>借方</th><th></th><th>貸方</th><th></th></tr>${ev.b2.tokens.filter((t) => t.je).map((t) => `<tr><td>${esc(t.je[0])}</td><td class="n">${fmt(t.je[2])}</td><td>${esc(t.je[1])}</td><td class="n">${fmt(t.je[2])}</td></tr>`).join('')}</table></div></div>` : '';
-        body = `<div class="s-name"><small>この考え方の名前</small><h2>${rb(b4.name)}</h2><p>${rb(b4.line)}</p>${pair}${flowJE}<details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc(b4.exam)}</details><p class="s-leaf">マップに「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
+        body = `<div class="s-name"><small>この考え方の名前</small><h2>${rb(b4.name)}</h2><p>${rb(b4.line)}</p>${pair}${flowJE}<details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc(S.mode === '2026' && b4.exam26 ? b4.exam26 : b4.exam)}</details><p class="s-leaf">マップに「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
       }
       // 手帳（説明）は名前がついてから読める。考えている途中で答えを見せない
       frame(`<div class="s-card s-disc"><div class="s-disc-head"><h3>${esc(ev.title)}</h3></div>${body}</div>`);
@@ -1541,10 +1763,19 @@
     return [...new Set([...Object.keys(u), ...Object.keys(t)])].filter((a) => (u[a] || 0) !== (t[a] || 0));
   }
   const RATING = ['とても心配', '心配', '少し心配', 'ふつう', '安心'];
-  function bankScreen() {
+  function bankScreen(ev) {
     const { p, ta, eq } = statements();
-    const d = S.decisions, ratio = Math.round((eq / ta) * 100), r = bankRating();
+    const d = S.decisions, ratio = Math.round((eq / ta) * 100), r = ev && ev.rating ? ev.rating(S) : bankRating();
     const lines = [];
+    // 2年目からの審査は、台本（year2.js の bank）の台詞で
+    if (ev && ev.lines) {
+      lines.push(...ev.lines(S));
+      const offer = r >= 3 ? Math.max(500000, Math.round((eq * 0.5) / 100000) * 100000) : r === 2 ? Math.round((eq * 0.2) / 100000) * 100000 : 0;
+      lines.push(['ginko', offer ? `工場を広げるなら、${offer.toLocaleString()}円まで、ご相談に乗れます。` : '申し訳ありませんが、今は、これ以上お貸しすることはできません。']);
+      S.carry = Object.assign(S.carry || {}, { [`y${yearOf(S.mi)}`]: { offer, rating: r, ni: p.ni, ratio } });
+      S.diary.push({ m: month().label, t: offer ? `銀行（見方：${RATING[r]}）：工場を広げるなら ${fmt(offer)}円まで相談できる` : `銀行（見方：${RATING[r]}）：追加の融資は断られた` });
+      return bankView(lines, r, ratio, `${yearOf(S.mi)}年目の決算のあと みらい銀行の審査`);
+    }
     lines.push(['ginko', `1年目のもうけは${p.ni.toLocaleString()}円。資産のうち、返さなくていいお金（純資産）でまかなっている割合は${ratio}%ですね。`]);
     if (d.kessan === 'follow') lines.push(['ginko', 'トラックの減価償却費が、ありませんね。今年のもうけは、そのぶん大きく見えています。当行では、もうけを直して判断します。それと…決算書の作り方を、説明していただく必要があります。']);
     else if (d.dep === 'rate') lines.push(['ginko', 'トラックを最初に多く費用にしているのは、慎重な会社という印象です。そのぶん今年のもうけは小さく見えますが、来年からは軽くなります。']);
@@ -1564,12 +1795,15 @@
     lines.push(['ginko', offer ? `2号店のために、${offer.toLocaleString()}円までお貸しできます。` : '申し訳ありませんが、2号店のためのご融資は、今はお受けできません。']);
     S.carry = Object.assign(S.carry || {}, { [`y${yearOf(S.mi)}`]: { offer, rating: r, ni: p.ni, ratio } });
     S.diary.push({ m: '翌年4月', t: offer ? `銀行（見方：${RATING[r]}）：2号店のために ${fmt(offer)}円まで借りられる` : `銀行（見方：${RATING[r]}）：2号店のための融資を断られた` });
+    return bankView(lines, r, ratio, '翌年4月 みらい銀行の審査');
+  }
+  function bankView(lines, r, ratio, label) {
     // 1画面に1つの発言。最後に銀行の見方
     let k = 0;
     // 銀行の見方は、数ではなく田中さんの表情と、返さなくていいお金の割合（会社の体力）の帯で見せる
     const face = `<svg class="s-face" viewBox="0 0 64 64" role="img" aria-label="田中さんの表情：${RATING[r]}"><circle cx="32" cy="32" r="28" fill="hsl(222 60% 92%)" stroke="hsl(222 40% 50%)" stroke-width="2"/><circle cx="23" cy="27" r="3" fill="#334"/><circle cx="41" cy="27" r="3" fill="#334"/><path d="M20 ${44 - (r - 2) * 3} Q32 ${44 + (r - 2) * 5} 44 ${44 - (r - 2) * 3}" fill="none" stroke="#334" stroke-width="3" stroke-linecap="round"/></svg>`;
     const stamina = knows('純資産') ? `<div class="s-stamina"><small>会社の体力（資産のうち、返さなくていいお金でまかなっている割合）</small><div class="s-gbar"><span class="lv2" style="flex:${Math.max(0, ratio)}"></span><span class="lv0" style="flex:${Math.max(0, 100 - ratio)}"></span></div><b>${ratio}%</b></div>` : '';
-    const draw = () => frame(`<div class="s-card"><small>翌年4月 みらい銀行の審査（${k + 1}/${lines.length}）</small>${talk([lines[k]])}${k === lines.length - 1 ? `<div class="s-bankview">${face}<p class="s-dyn">銀行の見方：<b>${RATING[r]}</b></p></div>${stamina}` : ''}<button class="btn wide" data-n>つぎへ</button></div>`);
+    const draw = () => frame(`<div class="s-card"><small>${esc(label)}（${k + 1}/${lines.length}）</small>${talk([lines[k]])}${k === lines.length - 1 ? `<div class="s-bankview">${face}<p class="s-dyn">銀行の見方：<b>${RATING[r]}</b></p></div>${stamina}` : ''}<button class="btn wide" data-n>つぎへ</button></div>`);
     draw();
     app.onclick = (e) => { if (e.target.closest('[data-n]')) { if (k < lines.length - 1) { k++; draw(); } else next(); } };
   }
