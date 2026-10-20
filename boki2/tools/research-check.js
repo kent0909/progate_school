@@ -294,6 +294,7 @@ const cited = new Set();
 for (const f of lsr(DOCS).filter((p) => p.endsWith('.md'))) {
   const s = fs.readFileSync(f, 'utf8');
   for (const m of s.matchAll(/\[\[([\w-]+):([\w-]+):([^\]\s]+)\]\]/g)) {
+    if (/[<>…]|\.\.\./.test(m[3])) continue; // 記法の説明に書いた見本（<ID>、…）は出典として数えない
     const k = `${m[1]}:${m[2]}:${m[3]}`;
     cited.add(k);
     if (!notes.some((n) => `${n.src}:${n.coll}:${n.doc}` === k)) err('出典', `${path.relative(DOCS, f)} が ${k} を引いているが、その読了ノートがない`);
