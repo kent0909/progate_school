@@ -142,10 +142,12 @@
     document.body.appendChild(o);
     return o;
   }
+  // 工場の途中の箱（製造間接費・賃金・差異など「その他」の札）は、借方の残りなら資産の側、貸方の残りなら負債の側に見せる（合計がそろうように）
+  const isOther = (a) => cat(a) === 'その他' && !CONTRA.has(a) && a !== '損益';
   function companyView(b) {
-    const rows = (pred) => Object.entries(b).filter(([a, v]) => v && pred(a)).map(([a, v]) => [a, v]);
-    const assets = rows((a) => cat(a) === '資産' || CONTRA.has(a));
-    const liab = rows((a) => cat(a) === '負債').map(([a, v]) => [a, -v]);
+    const rows = (pred) => Object.entries(b).filter(([a, v]) => v && pred(a, v)).map(([a, v]) => [a, v]);
+    const assets = rows((a, v) => cat(a) === '資産' || CONTRA.has(a) || (isOther(a) && v > 0));
+    const liab = rows((a, v) => cat(a) === '負債' || (isOther(a) && v < 0)).map(([a, v]) => [a, -v]);
     const eq = rows((a) => cat(a) === '純資産').map(([a, v]) => [a, -v]);
     const p = pl(b);
     const tbl = (list) => list.map(([a, v]) => `<tr><td>${CONTRA.has(a) ? '　− ' : ''}${esc(a)}</td><td class="n">${fmt(CONTRA.has(a) ? -v : v)}</td></tr>`).join('');
@@ -1038,8 +1040,8 @@
     for (const a of CONTRA) if (net[a]) { net[CONTRA_OF[a]] = (net[CONTRA_OF[a]] || 0) + net[a]; delete net[a]; }
     for (const [a, v] of Object.entries(net)) {
       if (!v) continue;
-      if (cat(a) === '資産') out.資産.push([a, v]);
-      else if (cat(a) === '負債') out.負債.push([a, -v]);
+      if (cat(a) === '資産' || (isOther(a) && v > 0)) out.資産.push([a, v]);
+      else if (cat(a) === '負債' || (isOther(a) && v < 0)) out.負債.push([a, -v]);
       else if (cat(a) === '純資産') out.純資産.push([a, -v]);
     }
     const p = pl(b);
@@ -1055,7 +1057,7 @@
   /* ---- 1年の終わり（自分の帳簿＝月末に直した帳簿から作る） ---- */
   function statements() {
     const b = balances(preClose(S.L)), p = pl(b);
-    const assets = Object.entries(b).filter(([a, v]) => v && (cat(a) === '資産' || CONTRA.has(a)));
+    const assets = Object.entries(b).filter(([a, v]) => v && (cat(a) === '資産' || CONTRA.has(a) || (isOther(a) && v > 0)));
     const ta = assets.reduce((t, [, v]) => t + v, 0);
     const eq = Object.entries(b).filter(([a]) => cat(a) === '純資産').reduce((t, [, v]) => t - v, 0) + p.ni;
     return { b, p, ta, eq };

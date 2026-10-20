@@ -714,7 +714,13 @@
     { t: 'doc', kind: 'vat_settle', id: 'vat-settle', doc: { type: '消費税の集計表', title: '消費税の集計表（1年分）', from: '経理', to: '経理', date: '3月31日', rows: (S) => { const u = -balEx(S, '仮受消費税', 'vat-settle'), p = balEx(S, '仮払消費税', 'vat-settle'); return [['預かった消費税', u, 'amt'], ['払った消費税', p, 'amt'], [u >= p ? '国に納める額' : '国から戻ってくる額', Math.abs(u - p), 'amt']]; } },
       ans: (S) => { const u = -balEx(S, '仮受消費税', 'vat-settle'), p = balEx(S, '仮払消費税', 'vat-settle'); return u >= p ? je([['仮受消費税', u]], [['仮払消費税', p], ['未払消費税', u - p]]) : je([['仮受消費税', u], ['未収還付消費税', p - u]], [['仮払消費税', p]]); }, opts: opts('仮受消費税', '仮払消費税', '未払消費税', '未収還付消費税') },
   ] };
+  // 3月31日に未払賃金にした額（3月の賃金の2割。翌年4月1日に戻す）
+  SIM.__y2.wageEnd = (S) => Math.round(wageAct(S, 3) * 0.2);
   Object.assign(SIM.namings, {
+    未払賃金: { q: '工員さんが3月26日から31日に働いた分は、4月25日に払う。いまは何の札？', opts: [
+      { t: '返すお金（負債）', ok: true },
+      { t: 'じぶんのお金をへらした原因（費用）', react: '働いてもらった分は、もう瓶に乗り移っている。残っているのは「払う約束」だけ' },
+    ], line: 'まだ払っていない工員さんの賃金は、決算で負債の「未払賃金」にする。翌年の4月1日に、賃金の箱へ戻す。', teaches: ['未払賃金'] },
     未払消費税: { q: '預かった消費税から払った消費税を引いた残りは、5月に国に納める。いまは何の札？', opts: [
       { t: '返すお金（負債）', ok: true },
       { t: 'じぶんのお金をへらした原因（費用）', react: '消費税はお客さんが負担したもの。ピヨ商店の費用ではなく、預かって納めるだけ' },
@@ -753,6 +759,8 @@
       hand: '年をまたぐお金の札：前払費用（来年の費用を先に払った・資産）、前受（来年の収益を先にもらった・負債）、未払（今年の費用をまだ払っていない・負債）、未収（今年の収益をまだもらっていない・資産）。来年の4月1日に、元の札に戻す。' },
     { t: 'doc', kind: 'prepaid', id: 'pre-rent', doc: { type: '家賃の計算表', title: '家賃の切り分け（3月31日）', from: '経理', to: '経理', date: '3月31日', rows: [['7月に払った家賃（12か月分・税抜）', RENT, 'amt'], ['来年4〜6月の3か月分', PRE_RENT, 'amt']] },
       ans: je([['前払家賃', PRE_RENT]], [['支払家賃', PRE_RENT]]), opts: opts('前払家賃', '支払家賃', '未払金') },
+    { t: 'doc', kind: 'wage_accrue', id: 'wage-accrue', doc: { type: '賃金の計算表', title: '賃金の未払分（3月31日）', from: '工場', to: '経理', date: '3月31日', rows: (S) => [['3月26日〜31日に働いて、まだ払っていない分', -balEx(S, '賃金', 'wage-accrue'), 'amt'], ['払う日', '4月25日']] },
+      ans: (S) => je([['賃金', -balEx(S, '賃金', 'wage-accrue')]], [['未払賃金', -balEx(S, '賃金', 'wage-accrue')]]), opts: opts('賃金', '未払賃金', '未払金', '給料') },
     { t: 'doc', kind: 'dep', id: 'dep-y2', doc: { type: '固定資産台帳', title: '固定資産台帳（トラック・2年目）', from: '経理', to: '経理', date: '3月31日', rows: (S) => [['トラック 取得原価', 240000, 'amt'], ['やり方', D_(S).dep === 'rate' ? '定率法（償却率0.4）' : '定額法（5年）'], ['今年の減価償却費（12か月）', depY2(S), 'amt']] },
       ans: (S) => je([['減価償却費', depY2(S)]], [['車両運搬具減価償却累計額', depY2(S)]]), opts: opts('減価償却費', '車両運搬具減価償却累計額', '減価償却累計額') },
     { t: 'doc', kind: 'allow', id: 'y2allow', doc: { type: '監査メモ', title: '貸倒れの見込み（2年目）', from: '森（会計士）', to: '経理', date: '3月31日', rows: (S) => [['売掛金と電子記録債権の残り', arEnd(S), 'amt'], ['その2％', Math.round(arEnd(S) * 0.02), 'amt'], ['いまのマイナスの札の残り', -balEx(S, '貸倒引当金', 'y2allow'), 'amt'], ['足りない分（今年の費用）', allowSet(S), 'amt']] },
@@ -833,6 +841,8 @@
   const CAPEX = 400000, REPAIR = 100000;
   const nx = { m: 4, year: 3, label: '3年目 4月', title: '2年目の決算書と、3年目のはじまり', closeless: true, events: [
     { t: 'talk', teaches: ['再振替'], lines: [['senpai', '4月1日。去年の3月に「来年の分」として切った家賃の3か月分を、今年の費用に戻す。年のはじめに戻すこの仕訳を「再振替」という。']] },
+    { t: 'doc', kind: 'reverse', id: 'rev-wage', doc: { type: '賃金の計算表', title: '未払賃金の戻し（4月1日）', from: '経理', to: '経理', date: '4月1日', rows: (S) => [['去年の3月31日に未払賃金にした分', SIM.__y2.wageEnd(S), 'amt']] },
+      ans: (S) => je([['未払賃金', SIM.__y2.wageEnd(S)]], [['賃金', SIM.__y2.wageEnd(S)]]), opts: opts('賃金', '未払賃金') },
     { t: 'doc', kind: 'reverse', id: 'rev-rent', doc: { type: '家賃の計算表', title: '前払家賃の戻し（4月1日）', from: '経理', to: '経理', date: '4月1日', rows: [['去年の3月31日に前払家賃にした3か月分', PRE_RENT, 'amt']] },
       ans: je([['支払家賃', PRE_RENT]], [['前払家賃', PRE_RENT]]), opts: opts('支払家賃', '前払家賃') },
     { t: 'ending', id: 'be5-final', when: (S) => D_(S).divfix === 'keep' },

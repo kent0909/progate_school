@@ -67,7 +67,13 @@ function run(i, S) {
       if (pre !== D.__preBank(S)) err(`11月10日の前の預金 ${pre} が台本の preBank ${D.__preBank(S)} と合わない（${JSON.stringify(S.decisions)}）`);
       if (pre >= 300000) err(`手を打たなくても11月10日に払えてしまう（${pre}）`);
     }
-    if (e.t === 'closing') { S.T.push(...closingOf(S.T, mi)); continue; }
+    if (e.t === 'closing') {
+      // 締め切りの前に、工場の途中の箱（製造間接費・賃金・差異）が空になっていること（決算書に載せる場所がない）
+      const y = D.months[mi].year || 1, b = {};
+      for (const x of S.T) { for (const [a, v] of x.dr) b[a] = (b[a] || 0) + v; for (const [a, v] of x.cr) b[a] = (b[a] || 0) - v; }
+      for (const [a, v] of Object.entries(b)) if (v && (B.accounts[a] || {}).cat === 'その他' && !/累計額$|^貸倒引当金$/.test(a) && a !== '損益') err(`${label}：締め切りの前に ${a} の残高 ${v} が残っている（${JSON.stringify(S.decisions)}）`);
+      S.T.push(...closingOf(S.T, mi)); continue;
+    }
     if (e.t !== 'doc') continue;
     const a = val(e.ans, S);
     const sum = (s) => a[s].reduce((t, x) => t + x[1], 0);
@@ -75,6 +81,13 @@ function run(i, S) {
     for (const [acc] of a.dr.concat(a.cr)) if (!B.accounts[acc]) err(`${label} ${e.id}: 科目がない ${acc}`);
     const taps = val(e.doc.rows, S).filter((r) => r[2] === 'amt').map((r) => r[1]);
     for (const [, v] of a.dr.concat(a.cr)) if (!taps.includes(v)) err(`${label} ${e.id}: 金額 ${v} が書類のタップ欄にない`);
+    // 税金の見込み：その年の収益−費用（法人税等を除く）の3割、100円未満切り捨て
+    if (e.kind === 'tax') {
+      const y = D.months[mi].year || 1, plA = (x) => ['収益', '費用'].includes((B.accounts[x] || {}).cat) && x !== '法人税等';
+      const pre = S.T.filter((x) => !x.closing && (x.y || 1) === y).reduce((t, x) => t + x.cr.reduce((u, [k, v]) => u + (plA(k) ? v : 0), 0) - x.dr.reduce((u, [k, v]) => u + (plA(k) ? v : 0), 0), 0);
+      const want = Math.max(0, Math.floor((pre * 0.3) / 100) * 100);
+      if (a.dr[0][1] !== want) err(`${label} ${e.id}：税金 ${a.dr[0][1]} が、もうけ ${pre} の3割 ${want} と合わない`);
+    }
     S.T.push({ dr: a.dr, cr: a.cr, y: D.months[mi].year || 1 });
     const b = bank(S);
     if (b < 0) err(`${label} ${e.id}: 預金がマイナス ${b}（${JSON.stringify(S.decisions)}）`);

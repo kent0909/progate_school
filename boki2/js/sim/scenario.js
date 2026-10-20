@@ -54,7 +54,7 @@
   // 帳簿（正しいほう）の、この1年のもうけ（収益−費用）
   // 帳簿（正しいほう）の、いまの年のもうけ（収益−費用）。締め切りの仕訳と、ほかの年の仕訳は数えない
   const yearOfMi = (mi) => ((SIM.months || [])[mi] || {}).year || 1;
-  const niOf = (S, opt = {}) => { const y = yearOfMi(S.mi); const c = (a) => (window.BOKI.accounts[a] || {}).cat; return S.T.filter((e) => !e.closing && (e.y || 1) === y).reduce((t, e) => t - e.dr.reduce((x, [a, v]) => x + (opt.pre && a === '法人税等' ? 0 : c(a) === '費用' ? v : c(a) === '収益' ? -v : 0), 0) + e.cr.reduce((x, [a, v]) => x + (opt.pre && a === '法人税等' ? 0 : c(a) === '収益' ? v : c(a) === '費用' ? -v : 0), 0), 0); };
+  const niOf = (S, opt = {}) => { const y = yearOfMi(S.mi); const pl = (a) => !(opt.pre && a === '法人税等') && ['収益', '費用'].includes((window.BOKI.accounts[a] || {}).cat); return S.T.filter((e) => !e.closing && (e.y || 1) === y).reduce((t, e) => t + e.cr.reduce((x, [a, v]) => x + (pl(a) ? v : 0), 0) - e.dr.reduce((x, [a, v]) => x + (pl(a) ? v : 0), 0), 0); };
 
   // 税金の見込み：もうけのおよそ3割（ゲームの約束）、100円未満は切り捨て
   const taxOf = (S) => Math.max(0, Math.floor((niOf(S, { pre: true }) * 0.3) / 100) * 100);
