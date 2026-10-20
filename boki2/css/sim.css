@@ -266,3 +266,13 @@ i.lv0 { border: 1px solid var(--line); }
 .s-toast { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); max-width: min(92vw, 640px); background: var(--surface); border: 2px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 13px; box-shadow: 0 4px 12px rgba(0,0,0,.15); z-index: 50; }
 .s-tacc td { vertical-align: top; width: 50%; }
 .s-tacc th { text-align: center; }
+/* 工場の川（discover の layout: 'flow'） */
+.s-river { display: flex; align-items: stretch; gap: 4px; overflow-x: auto; padding: 6px 0; }
+.s-fbox { flex: 1 1 0; min-width: 64px; border: 2px solid hsl(200 40% 60%); background: hsl(200 60% 96%); border-radius: 10px; padding: 6px; display: grid; gap: 4px; align-content: start; font-size: 12px; }
+.s-fbox b { font-size: 12px; }
+.s-fbox.side { border-style: dashed; background: hsl(40 70% 95%); border-color: hsl(40 50% 55%); }
+.s-fside { display: flex; justify-content: center; margin-bottom: 4px; }
+.s-fside .s-fbox { max-width: 60%; }
+.s-farrow { align-self: center; font-style: normal; color: hsl(200 30% 45%); }
+.s-ftok { display: block; background: #fff; border: 1px solid hsl(200 30% 70%); border-radius: 6px; padding: 2px 4px; font-size: 11px; }
+.s-fje { margin-top: 8px; }

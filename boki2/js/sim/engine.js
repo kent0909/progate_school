@@ -12,7 +12,7 @@
   const CAT_HUE = { 資産: 212, 負債: 2, 純資産: 272, 収益: 142, 費用: 30, その他: 190 };
   const cat = (a) => (B.accounts[a] || {}).cat || 'その他';
   // マイナスの札（評価勘定）は、資産の側にマイナスとして置く
-  const CONTRA_OF = { 貸倒引当金: '売掛金', 車両運搬具減価償却累計額: '車両運搬具', 備品減価償却累計額: '備品', 建物減価償却累計額: '建物' };
+  const CONTRA_OF = { 貸倒引当金: '売掛金', 車両運搬具減価償却累計額: '車両運搬具', 備品減価償却累計額: '備品', 建物減価償却累計額: '建物', 減価償却累計額: '機械装置', 機械装置減価償却累計額: '機械装置' };
   const CONTRA = new Set(Object.keys(CONTRA_OF));
   const order = (a) => (CONTRA.has(a) ? 0.5 : CATS.indexOf(cat(a)) < 0 ? 9 : CATS.indexOf(cat(a)));
   const CAST = { piyo: ['ピヨ', 48], haha: ['お母さん', 330], esha: ['E社の担当者', 100], senpai: ['タカシ先輩', 205], shacho: ['ミライ社長', 24], eigyo: ['ハルカ（営業）', 12], ginko: ['田中さん（銀行）', 222], kansa: ['森さん（会計士）', 150], zeirishi: ['岩田さん（税理士）', 285], kabunushi: ['佐藤さん（株主）', 330], kojo: ['大山さん（工場長）', 60] };
@@ -745,6 +745,16 @@
     const c = B.chapters.find((x) => x.id === ch);
     return c ? c.qs.find((q) => readableQ(q) && !seen.has(q._key)) || null : null;
   }
+  // 札を箱に分ける問い（sort）と、工場の川（flow：材料→作っている途中→できあがり→売れた分へ価値を運ぶ）は同じしくみ
+  const isSort = (b2) => b2.layout === 'sort' || b2.layout === 'flow';
+  // 工場の川：箱を左から右へ並べ、運んだ札を箱の中に置く。運んだ札には、帳簿の1行（je）を添える
+  function flowHTML(b2, sorted, withJE) {
+    const box = (g) => { const inside = b2.tokens.filter((t) => sorted[t.id] === g.id); return `<div class="s-fbox ${g.side ? 'side' : ''}"><b>${esc(g.label)}</b>${inside.map((t) => `<span class="s-ftok">${esc(t.label)}</span>`).join('')}</div>`; };
+    const main = b2.targets.filter((g) => !g.side), side = b2.targets.filter((g) => g.side);
+    const next = b2.tokens.find((t) => !sorted[t.id]);
+    const lines = !withJE ? '' : b2.tokens.filter((t) => sorted[t.id] && t.je && sorted[t.id] === t.target).map((t) => `<tr><td>${esc(t.je[0])}</td><td class="n">${fmt(t.je[2])}</td><td>${esc(t.je[1])}</td><td class="n">${fmt(t.je[2])}</td></tr>`).join('');
+    return `${side.length ? `<div class="s-fside">${side.map(box).join('')}</div>` : ''}<div class="s-river">${main.map(box).join('<i class="s-farrow">→</i>')}</div>${next ? `<div class="s-sorti"><span><b>${esc(next.label)}</b></span><div>${b2.targets.map((g) => `<button class="s-pill" data-sort="${next.id}" data-to="${g.id}">${esc(g.label)}へ</button>`).join('')}</div></div>` : ''}${lines ? `<details class="s-fje" open><summary>この運びを、帳簿にはこう書く</summary><table class="s-tb"><tr><th>借方</th><th></th><th>貸方</th><th></th></tr>${lines}</table></details>` : ''}`;
+  }
   function discoverScreen(ev, isReplay) {
     // 判断しだいで札が変わる発見（株主資本等変動計算書など）は、いまの帳簿で札を作る
     if (ev.b2 && typeof ev.b2.tokens === 'function') ev = Object.assign({}, ev, { b2: Object.assign({}, ev.b2, { tokens: ev.b2.tokens(S) }) });
@@ -763,24 +773,25 @@
       } else if (beat === 2) {
         const b2 = ev.b2;
         let field = '';
-        if (b2.layout === 'sort') {
+        if (b2.layout === 'flow') field = flowHTML(b2, sorted);
+        else if (isSort(b2)) {
           field = `<div class="s-sort">${b2.tokens.map((t) => `<div class="s-sorti"><span>${esc(t.label)}</span><div>${b2.targets.map((g) => `<button class="s-pill ${sorted[t.id] === g.id ? 'on' : ''}" data-sort="${t.id}" data-to="${g.id}">${esc(g.label)}</button>`).join('')}</div></div>`).join('')}</div>`;
         } else {
           field = `${b2.token ? `<div class="s-token ${picked ? 'placed' : ''}">${esc(b2.token)}</div>` : ''}<div class="s-targets ${b2.layout}">${b2.targets.map((g) => `<button class="s-target ${picked === g.id ? 'on' : ''}" data-pick="${g.id}"><b>${esc(g.label)}</b>${g.sub ? `<small>${esc(g.sub)}</small>` : ''}</button>`).join('')}</div>`;
         }
-        const placed = b2.layout === 'sort' ? b2.tokens.every((t) => sorted[t.id]) : !!picked;
+        const placed = isSort(b2) ? b2.tokens.every((t) => sorted[t.id]) : !!picked;
         body = `${ev.b1.doc ? `<details class="s-redoc"><summary>書類をもう一度見る</summary>${docHTML(ev.b1.doc)}</details>` : ''}<p class="s-q">${esc(b2.q)}</p>${field}${placed ? `${talk([['piyo', 'どうしてそう思ったピヨ？']])}<div class="s-reasons">${b2.reasons.map((r, i) => `<button class="s-reason ${reason === i ? 'on' : ''}" data-reason="${i}">${esc(r.t)}</button>`).join('')}</div>` : ''}<div class="s-hint" ${hintLv ? '' : 'hidden'}>${(b2.hints || []).slice(0, hintLv).map((h) => `<p>${esc(h)}</p>`).join('')}</div><button class="btn wide" data-decide ${placed && reason !== null ? '' : 'disabled'}>これで決める</button><div class="s-actions"><button class="btn ghost sm" data-b="1">← もどる</button>${(b2.hints || []).length > hintLv ? '<button class="btn ghost sm" data-hint>ヒント</button>' : ''}</div>`;
       } else if (beat === 3) {
         const b2 = ev.b2;
-        const tgtOk = b2.layout === 'sort' ? b2.tokens.every((t) => sorted[t.id] === t.target) : b2.targets.find((g) => g.id === picked).ok;
+        const tgtOk = isSort(b2) ? b2.tokens.every((t) => sorted[t.id] === t.target) : b2.targets.find((g) => g.id === picked).ok;
         const r = b2.reasons[reason];
         if (tgtOk && r.ok) {
-          const g = b2.layout === 'sort' ? null : b2.targets.find((x) => x.id === picked);
+          const g = isSort(b2) ? null : b2.targets.find((x) => x.id === picked);
           const pg = ev.predict && guess !== null ? ev.predict.opts[guess] : null;
           const contrast = firstWrong ? `<div class="s-contrast"><div><small>最初に考えたこと</small><p>${esc(firstWrong.what)}</p></div><div><small>いま分かったこと</small><p>${esc(firstWrong.why)}</p></div></div>` : '';
-          body = `${g && g.react ? `<p class="s-react">${esc(g.react)}</p>` : ''}<p class="s-result">${esc(ev.b3.ok)}</p>${contrast}${pg ? `<p class="s-guess">あなたの予想：「${esc(pg.t)}」${pg.ok ? '。予想どおりだった' : '。結果とくらべて、どこがちがった？'}</p>` : ''}${ev.b3.bs ? miniBS(ev.b3.bs) : ''}${ev.b3.bars ? barsHTML(ev.b3.bars) : ''}<button class="btn wide" data-b="4">これ、なんて呼ぶの？</button>`;
+          body = `${g && g.react ? `<p class="s-react">${esc(g.react)}</p>` : ''}<p class="s-result">${esc(ev.b3.ok)}</p>${b2.layout === 'flow' ? flowHTML(b2, sorted, false) : ''}${contrast}${pg ? `<p class="s-guess">あなたの予想：「${esc(pg.t)}」${pg.ok ? '。予想どおりだった' : '。結果とくらべて、どこがちがった？'}</p>` : ''}${ev.b3.bs ? miniBS(ev.b3.bs) : ''}${ev.b3.bars ? barsHTML(ev.b3.bars) : ''}<button class="btn wide" data-b="4">これ、なんて呼ぶの？</button>`;
         } else {
-          const why = !tgtOk ? (b2.layout === 'sort' ? b2.wrongReact : b2.targets.find((x) => x.id === picked).react) : r.react;
+          const why = !tgtOk ? (isSort(b2) ? b2.wrongReact : b2.targets.find((x) => x.id === picked).react) : r.react;
           body = `<p class="s-react ng">${esc(why)}</p><button class="btn wide ghost" data-retry>もう一度えらぶ</button>`;
         }
       } else {
@@ -788,7 +799,9 @@
         // 名前カード：さっき手で動かした図と、帳簿の書き方（仕訳）を並べて、同じことの2つの表し方だと見せる
         const je = nameJE(ev);
         const pair = (ev.b3.bs || je) ? `<div class="s-pair">${ev.b3.bs ? `<div><small>さっき動かした棚</small>${miniBS(ev.b3.bs)}</div>` : ''}${je ? `<div><small>帳簿にはこう書く（たとえば金額が2倍なら）</small>${jeTable(je)}</div>` : ''}</div>` : '';
-        body = `<div class="s-name"><small>この考え方の名前</small><h2>${rb(b4.name)}</h2><p>${rb(b4.line)}</p>${pair}<details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc(b4.exam)}</details><p class="s-leaf">マップに「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
+        // 工場の川：運んだ1回が帳簿の1行（名前を教わってから、科目名で見せる）
+        const flowJE = ev.b2.layout === 'flow' ? `<div class="s-pair"><div><small>さっきの運びを、帳簿にはこう書く</small><table class="s-tb"><tr><th>借方</th><th></th><th>貸方</th><th></th></tr>${ev.b2.tokens.filter((t) => t.je).map((t) => `<tr><td>${esc(t.je[0])}</td><td class="n">${fmt(t.je[2])}</td><td>${esc(t.je[1])}</td><td class="n">${fmt(t.je[2])}</td></tr>`).join('')}</table></div></div>` : '';
+        body = `<div class="s-name"><small>この考え方の名前</small><h2>${rb(b4.name)}</h2><p>${rb(b4.line)}</p>${pair}${flowJE}<details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc(b4.exam)}</details><p class="s-leaf">マップに「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
       }
       // 手帳（説明）は名前がついてから読める。考えている途中で答えを見せない
       frame(`<div class="s-card s-disc"><div class="s-disc-head"><h3>${esc(ev.title)}</h3></div>${body}</div>`);
@@ -805,15 +818,15 @@
       if (g('[data-reason]')) { reason = +g('[data-reason]').dataset.reason; draw(); return; }
       if (g('[data-decide]')) {
         const b2 = ev.b2;
-        const tgtOk = b2.layout === 'sort' ? b2.tokens.every((t) => sorted[t.id] === t.target) : b2.targets.find((x) => x.id === picked).ok;
+        const tgtOk = isSort(b2) ? b2.tokens.every((t) => sorted[t.id] === t.target) : b2.targets.find((x) => x.id === picked).ok;
         const r = b2.reasons[reason];
         m.tries++;
         if (m.first === null) m.first = !!(tgtOk && r.ok);
         if (!r.ok && r.fork) { m.forks.push(r.fork); metrics.forks[r.fork] = (metrics.forks[r.fork] || 0) + 1; }
-        if (!tgtOk) { const f = b2.layout === 'sort' ? `${ev.id}:分け方` : (b2.targets.find((x) => x.id === picked).fork || `${ev.id}:${picked}`); m.forks.push(f); metrics.forks[f] = (metrics.forks[f] || 0) + 1; }
+        if (!tgtOk) { const f = isSort(b2) ? `${ev.id}:分け方` : (b2.targets.find((x) => x.id === picked).fork || `${ev.id}:${picked}`); m.forks.push(f); metrics.forks[f] = (metrics.forks[f] || 0) + 1; }
         if (!(tgtOk && r.ok) && !firstWrong) {
-          const what = b2.layout === 'sort' ? `分け方：${b2.tokens.map((t) => `${t.label.split('（')[0]}→${(b2.targets.find((x) => x.id === sorted[t.id]) || {}).label || ''}`).join('、')}` : `「${b2.targets.find((x) => x.id === picked).label}」、理由「${r.t}」`;
-          const why = !tgtOk ? (b2.layout === 'sort' ? b2.wrongReact : b2.targets.find((x) => x.id === picked).react) : r.react;
+          const what = isSort(b2) ? `分け方：${b2.tokens.map((t) => `${t.label.split('（')[0]}→${(b2.targets.find((x) => x.id === sorted[t.id]) || {}).label || ''}`).join('、')}` : `「${b2.targets.find((x) => x.id === picked).label}」、理由「${r.t}」`;
+          const why = !tgtOk ? (isSort(b2) ? b2.wrongReact : b2.targets.find((x) => x.id === picked).react) : r.react;
           firstWrong = { what, why };
         }
         save(); beat = 3; draw(); return;

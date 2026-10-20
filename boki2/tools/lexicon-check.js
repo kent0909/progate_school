@@ -85,8 +85,8 @@ D.months.forEach((m, mi) => {
       const b2 = e.b2;
       check(`${w} 問い`, [b2.q, b2.token, b2.wrongReact, ...(typeof b2.tokens === 'function' ? branches.flatMap((b) => b2.tokens({ ...fake, decisions: b })) : b2.tokens || []).map((t) => t.label), ...b2.targets.map((t) => `${t.label} ${t.sub || ''} ${t.react || ''}`), ...b2.reasons.map((r) => `${r.t} ${r.react || ''}`), ...(b2.hints || [])].join(' '));
       if (!(b2.hints || []).length) errors.push(`${w}：ヒント（hints）がない`);
-      leak(w, b2.layout === 'sort' ? [] : b2.targets, b2.reasons);
-      if (b2.layout !== 'sort' && b2.targets.filter((t) => t.ok).length > 1) errors.push(`${w}：正解の選択肢が2つ以上ある（理由と選択が噛み合わなくなる）`);
+      leak(w, b2.layout === 'sort' || b2.layout === 'flow' ? [] : b2.targets, b2.reasons);
+      if (b2.layout !== 'sort' && b2.layout !== 'flow' && b2.targets.filter((t) => t.ok).length > 1) errors.push(`${w}：正解の選択肢が2つ以上ある（理由と選択が噛み合わなくなる）`);
       check(`${w} 結果`, [e.b3.ok, ...Object.values(e.b3.bs || {}).flat().map((x) => x[0]), ...((e.b3.bars || {}).series || []).map((s) => s.name)].join(' '));
       len(`${w} 結果`, e.b3.ok);
       const tt = e.b4.teaches || [];

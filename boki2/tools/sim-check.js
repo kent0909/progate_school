@@ -38,7 +38,12 @@ function run(i, S) {
     if (e.when && !e.when(S)) continue;
     if (e.t !== 'decision') S.tr.push(trace(e, S));
     if (e.t === 'decision') {
-      for (const o of e.options) run(i + 1, { ...S, T: S.T.slice(), tr: S.tr.slice(), decisions: { ...S.decisions, [e.id]: o.id } });
+      // 2年目からは枝が多すぎるので、「ほかの判断は最初の選択肢のまま、1つだけ替える」で検算する。
+      // 結末に届く組み合わせ（SIM.combos）は、その組み合わせのとおりにも進める
+      const y2 = (D.months[mi].year || 1) >= 2;
+      const forced = S.combo && S.combo[e.id];
+      const opts = forced ? e.options.filter((o) => o.id === forced) : y2 && S.varied ? [e.options[0]] : e.options;
+      for (const o of opts) run(i + 1, { ...S, T: S.T.slice(), tr: S.tr.slice(), decisions: { ...S.decisions, [e.id]: o.id }, varied: S.varied || (y2 && !forced && o !== e.options[0]) });
       return;
     }
     if (e.t === 'ending') {
@@ -86,6 +91,8 @@ function finish(S, where) {
   if (total !== 0) err(`${where}：試算表の合計が合わない ${total}（${JSON.stringify(S.decisions)}）`);
 }
 run(0, { T: [], tr: [], decisions: {} });
+// 結末に届く2年目の判断の組み合わせ（1年目は標準の枝で）
+for (const combo of D.combos || []) run(0, { T: [], tr: [], decisions: {}, combo, varied: true });
 // 判断ごとに：ほかの判断をそろえたとき、選択肢を変えても後の出来事が同じなら「返りがない」
 for (const { e } of flat.filter((x) => x.e.t === 'decision')) {
   const groups = {};
