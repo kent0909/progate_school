@@ -298,3 +298,4 @@ i.lv0 { border: 1px solid var(--line); }
 .s-roomq .s-opt.on { outline: 3px solid hsl(160 60% 40%); }
 .s-roomq .s-opt.ok { background: hsl(140 50% 92%); }
 .s-roomq .s-opt.ng { opacity: .6; }
+.s-tb .s-sub { display: block; font-size: 0.75em; color: var(--muted, #667); font-weight: normal; }

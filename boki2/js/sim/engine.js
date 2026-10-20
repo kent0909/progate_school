@@ -127,7 +127,7 @@
     const inShop = S.mi > 0;
     // 預かった消費税に線を引いた会社（判断 vat）は、口座のお金のうち預かり分を見せる
     const azu = S.decisions.vat === 'line' && knows('仮受消費税') ? Math.max(0, -(b['仮受消費税'] || 0) - (b['仮払消費税'] || 0)) : 0;
-    const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>この1年のもうけ</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
+    const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>${yearOf(S.mi) > 1 ? `${yearOf(S.mi)}年目のもうけ（4月から）` : 'この1年のもうけ'}</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
     const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button><button data-ov="room">練習室</button></nav>' : '';
     return `<header class="s-head"><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
   }
@@ -152,7 +152,10 @@
     const liab = rows((a, v) => cat(a) === '負債' || (isOther(a) && v < 0)).map(([a, v]) => [a, -v]);
     const eq = rows((a) => cat(a) === '純資産').map(([a, v]) => [a, -v]);
     const p = pl(b);
-    const tbl = (list) => list.map(([a, v]) => `<tr><td>${CONTRA.has(a) ? '　− ' : ''}${esc(a)}</td><td class="n">${fmt(CONTRA.has(a) ? -v : v)}</td></tr>`).join('');
+    // 仕掛品の箱には、工場の瓶と教室のテキスト（役務の途中）の両方が入る。勘定は1つのまま、内訳を添える
+    const svcWip = S.L.filter((e) => e.kind === 'service_cost').reduce((t, e) => t + e.dr.reduce((x, [a, v]) => x + (a === '仕掛品' ? v : 0), 0) - e.cr.reduce((x, [a, v]) => x + (a === '仕掛品' ? v : 0), 0), 0);
+    const note = (a, v) => (a === '仕掛品' && svcWip > 0 && svcWip < v ? `<small class="s-sub">うち教室のテキスト ${fmt(svcWip)}・工場の瓶 ${fmt(v - svcWip)}</small>` : a === '仕掛品' && svcWip > 0 && svcWip === v ? '<small class="s-sub">教室のテキスト（まだ終わっていない回の分）</small>' : '');
+    const tbl = (list) => list.map(([a, v]) => `<tr><td>${CONTRA.has(a) ? '　− ' : ''}${esc(a)}${note(a, v)}</td><td class="n">${fmt(CONTRA.has(a) ? -v : v)}</td></tr>`).join('');
     const ta = assets.reduce((t, [, v]) => t + v, 0);
     if (!ta && !liab.length && !eq.length) return '<p class="muted">まだ、帳簿に何も書いていない。</p>';
     const bsTitle = knows('貸借対照表') ? '貸借対照表（いま）' : '会社の棚（いま）';

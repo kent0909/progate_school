@@ -12,7 +12,7 @@
   const bal = (S, acc) => S.T.reduce((t, e) => t + e.dr.filter(([a]) => a === acc).reduce((x, [, v]) => x + v, 0) - e.cr.filter(([a]) => a === acc).reduce((x, [, v]) => x + v, 0), 0);
   const credit = (S, acc) => -bal(S, acc);
   // 1年目の税金（3月に未払法人税等として書いた額）と、1年目の締め切りで繰越利益剰余金に移したもうけ。あとで動かない値
-  const tax1 = (S) => S.T.filter((e) => (e.y || 1) === 1).reduce((t, e) => t + e.cr.filter(([a]) => a === '未払法人税等').reduce((x, [, v]) => x + v, 0), 0);
+  const tax1 = (S) => S.T.filter((e) => (e.y || 1) === 1).reduce((t, e) => t + e.cr.filter(([a]) => a === '未払法人税等').reduce((x, [, v]) => x + v, 0) - e.dr.filter(([a]) => a === '未払法人税等').reduce((x, [, v]) => x + v, 0), 0);
   const re1 = (S) => S.T.filter((e) => e.closing && (e.y || 1) === 1).reduce((t, e) => t + e.cr.filter(([a]) => a === '繰越利益剰余金').reduce((x, [, v]) => x + v, 0) - e.dr.filter(([a]) => a === '繰越利益剰余金').reduce((x, [, v]) => x + v, 0), 0);
   const down = (n, u = 10000) => Math.floor(n / u) * u;
   const tax8 = (n) => Math.floor(n * 0.08), tax10 = (n) => Math.floor(n * 0.1);

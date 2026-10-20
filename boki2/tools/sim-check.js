@@ -90,6 +90,13 @@ function run(i, S) {
     }
     S.T.push({ dr: a.dr, cr: a.cr, y: D.months[mi].year || 1, ev: e.id });
     const b = bank(S);
+    // 税金の作り直し：書いたあと、その年の法人税等が作り直したもうけの3割と合う
+    if (e.kind === 'taxfix') {
+      const y = D.months[mi].year || 1, yr = S.T.filter((x) => !x.closing && (x.y || 1) === y), plA = (x) => ['収益', '費用'].includes((B.accounts[x] || {}).cat) && x !== '法人税等';
+      const pre = yr.reduce((t, x) => t + x.cr.reduce((u, [k, v]) => u + (plA(k) ? v : 0), 0) - x.dr.reduce((u, [k, v]) => u + (plA(k) ? v : 0), 0), 0);
+      const booked = yr.reduce((t, x) => t + x.dr.reduce((u, [k, v]) => u + (k === '法人税等' ? v : 0), 0) - x.cr.reduce((u, [k, v]) => u + (k === '法人税等' ? v : 0), 0), 0);
+      if (booked !== Math.max(0, Math.floor((pre * 0.3) / 100) * 100)) err(`${label} ${e.id}：作り直したあとの税金 ${booked} が、もうけ ${pre} の3割と合わない`);
+    }
     if (b < 0) err(`${label} ${e.id}: 預金がマイナス ${b}（${JSON.stringify(S.decisions)}）`);
   }
   finish(S, '1年の終わり');

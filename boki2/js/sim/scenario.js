@@ -59,6 +59,8 @@
   // 税金の見込み：もうけのおよそ3割（ゲームの約束）、100円未満は切り捨て
   const taxOf = (S) => Math.max(0, Math.floor((niOf(S, { pre: true }) * 0.3) / 100) * 100);
   SIM.__taxOf = (S) => taxOf(S);
+  // その年の帳簿に、もう書いてある税金（法人税等）
+  const taxBooked = (S) => { const y = yearOfMi(S.mi); return S.T.filter((e) => !e.closing && (e.y || 1) === y).reduce((t, e) => t + e.dr.reduce((x, [a, v]) => x + (a === '法人税等' ? v : 0), 0) - e.cr.reduce((x, [a, v]) => x + (a === '法人税等' ? v : 0), 0), 0); };
 
   // ---------- まだ教えていない勘定科目が記帳に出たとき、その場で見つける小さな問い（名前の札） ----------
   SIM.namings = {
@@ -710,6 +712,11 @@
       { ...decisionDep(), id: 'dep', when: (S) => D_(S).kessan2 === 'keep' },
       { ...accumDisc(), when: (S) => D_(S).kessan2 === 'keep' },
       { ...depEntry(), id: 'dep-entry-fix', when: (S) => D_(S).kessan2 === 'keep' },
+      // 費用を書き足すと、もうけが減る。先に書いた税金の見込みも作り直す
+      { t: 'talk', when: (S) => D_(S).kessan2 === 'keep' && taxBooked(S) - taxOf(S) > 0, lines: [['zeirishi', '費用が増えたので、もうけが減りました。税金の見込みも、作り直しましょう。'], ['senpai', '3月に書いた税金は、作り直す前のもうけで計算していた。多すぎた分を、取り消すんだ。']] },
+      { t: 'doc', kind: 'taxfix', id: 'tax1-fix', when: (S) => D_(S).kessan2 === 'keep' && taxBooked(S) - taxOf(S) > 0,
+        doc: { type: '税金の見込み（作り直し）', title: '法人税・住民税・事業税の見込み（決算書の作り直しのあと）', from: '岩田税理士事務所', to: SHOP, date: '4月10日', rows: (S) => [['作り直したあとの、税金をかける前のもうけ', niOf(S, { pre: true }), 'amt'], ['税金（およそ3割・100円未満は切り捨て）', taxOf(S), 'amt'], ['3月に書いた税金', taxBooked(S), 'amt'], ['多すぎた分', taxBooked(S) - taxOf(S), 'amt']] },
+        ans: (S) => je([['未払法人税等', taxBooked(S) - taxOf(S)]], [['法人税等', taxBooked(S) - taxOf(S)]]), opts: opts('未払法人税等', '法人税等', '普通預金') },
       { t: 'report', when: (S) => D_(S).kessan2 === 'keep', redo: true },
       { t: 'closing', id: 'closing1' },
       { t: 'ifonly' },
