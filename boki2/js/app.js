@@ -926,7 +926,7 @@
       let i = 0;
       const draw = () => {
         const L = c.lessons[i];
-        const notice = i === 0 && OUT27_CH.has(c.id) ? `<div class="warn notice" style="margin:0 0 12px">${c.id === 'c11' ? '日商の発表では、2027年度（2027年4月〜）の試験から手形は出題範囲外になる見込み' : '日商の発表では、2027年度（2027年4月〜）の試験からリースの処理が新しい会計基準に合わせて変わる見込み'}です（公式の区分表で要確認）。${examYear() >= 2027 ? 'キミの受験は2027年度なので、この章は参考として読んでね。模試からは外してあるよ。' : '2026年度（〜2027年3月）の試験は、このまま出題範囲だよ。'}</div>` : '';
+        const notice = i === 0 && OUT27_CH.has(c.id) ? `<div class="warn notice" style="margin:0 0 12px">${c.id === 'c11' ? '日商の発表では、2027年度（2027年4月〜）の試験から手形は出題範囲外になる見込み' : 'この章は2027年度（2027年4月〜）の試験に合わせた新しいリースの基準（使用権資産・リース負債）で書いている'}です（公式の区分表で要確認）。${examYear() >= 2027 ? 'キミの受験は2027年度なので、この章は参考として読んでね。模試からは外してあるよ。' : '2026年度（〜2027年3月）の試験は、このまま出題範囲だよ。'}</div>` : '';
         const k = `${cid}:${i}`;
         if (!S.read[k]) { S.read[k] = 1; gainXP(3); save(); }
         main.innerHTML = `${top(10 + (i / c.lessons.length) * 30, `レッスン ${i + 1}/${c.lessons.length}`)}${notice}<div class="card lesson stack" style="gap:6px"><div class="eyebrow">LESSON ${i + 1}</div><h2>${esc(L.t)}</h2><div class="rich">${withViz(rich(L.h), L.viz)}</div></div><div class="row" style="margin-top:14px">${i > 0 ? '<button class="btn ghost" data-prev>もどる</button>' : ''}${i < c.lessons.length - 1 ? '<button class="btn" data-nx>つぎへ</button>' : '<button class="btn gold" data-go-quiz>クイズに挑戦！</button>'}</div>`;
@@ -1247,7 +1247,9 @@
   ];
   const INDUSTRIAL = new Set(['w8', 'w9']);
   // 2027年度（2027/4〜）の区分表で範囲外・処理変更の見込みとされる論点。内容は書き換えず、表示と模試の出題だけを切り替える。
-  const OUT27_CH = new Set(['c11', 'c19']), OUT27_X = new Set(['x2e']);
+  const OUT27_CH = new Set(['c11']), OUT27_X = new Set();
+  // 範囲外の問題を模試から外す：未達（2級の範囲外）は常に、2027年度に出ない問題（手形・小切手・旧リース）は受験年度が2027年度以降のとき
+  const skipQ = (q, y27) => (B.outOfScope2 && B.outOfScope2(q)) || (y27 && B.outdated27 && B.outdated27(q));
   const fiscalYear = (d) => (d.getMonth() >= 3 ? d.getFullYear() : d.getFullYear() - 1);
   const examYear = () => fiscalYear(S.examDate ? new Date(S.examDate + 'T00:00:00') : new Date());
   const CH_FREQ = { c01: 2, c02: 2, c04: 2, c07: 2, c13: 2, c14: 2, c16: 2, c17: 2, c18: 2, c19: 2, c21: 2, c22: 2, c24: 2, c28: 2, c34: 2, c35: 2, c37: 2, c43: 2, c45: 2 };
@@ -1272,12 +1274,12 @@
   };
   SCREENS.examplay = function (practice) {
     const y27 = examYear() >= 2027;
-    const allQ = CHAPTERS.filter((c) => c.id !== 'c00' && c.id !== 'c47' && !(y27 && OUT27_CH.has(c.id))).flatMap((c) => c.qs.filter((q) => q.type === 'journal'));
+    const allQ = CHAPTERS.filter((c) => c.id !== 'c00' && c.id !== 'c47' && !(y27 && OUT27_CH.has(c.id))).flatMap((c) => c.qs.filter((q) => q.type === 'journal' && !skipQ(q, y27)));
     const strong = (list) => { const s = list.filter((q) => (q.lv || 1) >= 2); return s.length >= 15 ? s : list; };
     const recent = new Set(S.examSeen);
     const com = sampleExam(strong(allQ.filter((q) => !INDUSTRIAL.has(q._ch.world))), 5, recent);
     const ind = sampleExam(strong(allQ.filter((q) => INDUSTRIAL.has(q._ch.world))), 3, recent);
-    const big = {}; [2, 3, 4, 5].forEach((p) => { const pool = B.exams.filter((x) => x.part === p && !(y27 && OUT27_X.has(x.id))); const fresh = pool.filter((x) => !recent.has(x._key)); big[p] = pool.length ? pick(fresh.length ? fresh : pool) : null; });
+    const big = {}; [2, 3, 4, 5].forEach((p) => { const pool = B.exams.filter((x) => x.part === p && !(y27 && OUT27_X.has(x.id)) && !skipQ(x, y27)); const fresh = pool.filter((x) => !recent.has(x._key)); big[p] = pool.length ? pick(fresh.length ? fresh : pool) : null; });
     S.examSeen = [...com, ...ind, ...Object.values(big).filter(Boolean)].map((q) => q._key).concat(S.examSeen).slice(0, 80);
     save();
     const partTime = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };

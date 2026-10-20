@@ -793,7 +793,7 @@
     // 2級の論点を先に、3級の土台はあとに。1つの章から2問まで
     const items = B.scope.filter((it) => scopeState(it).met != null).sort((x, y) => (x.base ? 1 : 0) - (y.base ? 1 : 0));
     const byKey = Object.fromEntries(B.chapters.flatMap((c) => c.qs.map((q, k) => [`${c.id}:${k}`, q])));
-    const readable = (q) => q && q.type === 'journal' && !B.outdated27(q) && !/上記|前問/.test(q.q) && !LX.unknown(q.q, taught).length && [...q.ans.dr, ...q.ans.cr].every(([a]) => taught.has(a));
+    const readable = (q) => q && q.type === 'journal' && !B.outdated27(q) && !B.outOfScope2(q) && !/上記|前問/.test(q.q) && !LX.unknown(q.q, taught).length && [...q.ans.dr, ...q.ans.cr].every(([a]) => taught.has(a));
     const keys = [...items.flatMap((it) => it.q || []), ...items.flatMap((it) => (B.chapters.find((c) => c.id === it.ch) || { qs: [] }).qs.map((_, k) => `${it.ch}:${k}`))];
     const out = [];
     const perCh = {};

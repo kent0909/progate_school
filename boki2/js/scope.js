@@ -17,6 +17,8 @@
     const accs = q.ans ? [...(q.ans.dr || []), ...(q.ans.cr || [])].map((x) => x[0]) : [];
     return /手形|小切手|ファイナンス・リース|オペレーティング・リース/.test(q.q || '') || accs.some((a) => OLD_ACC.includes(a));
   };
+  // 2級の範囲外（平成28年度から）：本支店会計の未達事項の整理と内部利益（日商 第140・142・145回の講評、2027年度区分表でも1級側）
+  B.outOfScope2 = (q) => { const t = q ? `${q.q || ''}${q.title || ''}` : ''; return /未達/.test(t) && /支店/.test(t); };
   B.scope = [
     ...it('仕訳のしくみ', [
       ['b-je', '仕訳と5つのグループ', 'お金が増えたら、もう一つの面には何を書く？', 'c00', 'P1', { base: true, sim: { disc: ['prologue', 'd-capital'] } }],
