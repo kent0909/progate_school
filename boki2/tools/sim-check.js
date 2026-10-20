@@ -31,6 +31,10 @@ function closingOf(T, mi) {
 let leaves = 0;
 const ends = {};
 
+// 1年目の判断の最初の選択肢と、2年目を替えて試す1年目の代表の枝
+const Y1FIRST = {};
+D.months.forEach((m) => { if ((m.year || 1) === 1) m.events.filter((e) => e.t === 'decision').forEach((e) => { Y1FIRST[e.id] = e.options[0].id; }); });
+const Y1REPS = [{}, { uncle: 'equity', report: 'cash', volume: '3m' }, { recon: 'align', dun: 'send', credit: 'cash', dep: 'rate' }, { crunch: 'nothing', crunch2: 'hiloan', kessan: 'follow', kessan2: 'keep' }];
 function run(i, S) {
   for (; i < flat.length; i++) {
     const { e, label, mi } = flat[i];
@@ -42,7 +46,9 @@ function run(i, S) {
       // 結末に届く組み合わせ（SIM.combos）は、その組み合わせのとおりにも進める
       const y2 = (D.months[mi].year || 1) >= 2;
       const forced = S.combo && S.combo[e.id];
-      const opts = forced ? e.options.filter((o) => o.id === forced) : y2 && S.varied ? [e.options[0]] : e.options;
+      // 1年目のすべての枝は、2年目を最初の選択肢で通す。2年目の判断を替えるのは、1年目の代表の枝（Y1REPS）の上だけ
+      const rep = !y2 || Y1REPS.some((r) => Object.entries(S.decisions).every(([k, v]) => !(k in Y1FIRST) || (r[k] || Y1FIRST[k]) === v));
+      const opts = forced ? e.options.filter((o) => o.id === forced) : y2 && (S.varied || !rep) ? [e.options[0]] : e.options;
       for (const o of opts) run(i + 1, { ...S, T: S.T.slice(), tr: S.tr.slice(), decisions: { ...S.decisions, [e.id]: o.id }, varied: S.varied || (y2 && !forced && o !== e.options[0]) });
       return;
     }
