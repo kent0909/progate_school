@@ -125,7 +125,9 @@
     const b = balances(preClose(S.L)), p = pl(b);
     const m = month();
     const inShop = S.mi > 0;
-    const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b></div>${knows('収益') ? `<div class="s-kpi"><small>この1年のもうけ</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
+    // 預かった消費税に線を引いた会社（判断 vat）は、口座のお金のうち預かり分を見せる
+    const azu = S.decisions.vat === 'line' && knows('仮受消費税') ? Math.max(0, -(b['仮受消費税'] || 0) - (b['仮払消費税'] || 0)) : 0;
+    const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>この1年のもうけ</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
     const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button></nav>' : '';
     return `<header class="s-head"><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
   }
@@ -1105,7 +1107,33 @@
       }
     };
   }
+  // 区分のある決算書（2年目から。docs/YEAR2.md 3.3）：損益計算書は5つの利益、貸借対照表は流動・固定と表示科目
+  const NONOP = new Set(['支払利息', '株式交付費', '売掛債権売却損', '電子記録債権売却損']);
+  const COGS = new Set(['仕入', '売上原価', '役務原価']);
+  const FIXED = new Set(['車両運搬具', '機械装置', '建設仮勘定', '備品', '建物', '土地', '車両運搬具減価償却累計額', '減価償却累計額', '機械装置減価償却累計額']);
+  const SHOW = { 繰越商品: '商品', 前払家賃: '前払費用', 未払賃金: '未払費用', 仮払消費税: '仮払消費税', 減価償却累計額: '機械装置減価償却累計額' };
+  function kubunView(b) {
+    const v = (a) => b[a] || 0, list = (pred) => Object.keys(b).filter((a) => v(a) && pred(a)).sort((x, y) => order(x) - order(y));
+    const rev = list((a) => cat(a) === '収益'), cogs = list((a) => COGS.has(a)), nonop = list((a) => NONOP.has(a)), tax = list((a) => a === '法人税等');
+    const sga = list((a) => cat(a) === '費用' && !COGS.has(a) && !NONOP.has(a) && a !== '法人税等');
+    const sum = (l, sg) => l.reduce((t, a) => t + sg * v(a), 0);
+    const R = sum(rev, -1), C = sum(cogs, 1), G = R - C, X = sum(sga, 1), O = G - X, N = sum(nonop, 1), K = O - N, T = sum(tax, 1), NI = K - T;
+    const row = (a, val, ind) => `<tr><td>${ind ? '　' : ''}${esc(SHOW[a] || a)}</td><td class="n">${fmt(val)}</td></tr>`, tot = (t, val) => `<tr class="sum"><td>${esc(t)}</td><td class="n">${fmt(val)}</td></tr>`;
+    const plT = `<h3>損益計算書（区分）</h3><table class="s-tb">${rev.map((a) => row(a, -v(a))).join('')}${cogs.map((a) => row(a, -v(a), 1)).join('')}${tot('売上総利益', G)}${sga.map((a) => row(a, -v(a), 1)).join('')}${tot('営業利益', O)}${nonop.map((a) => row(a, -v(a), 1)).join('')}${tot('経常利益', K)}${tot('税引前当期純利益', K)}${tax.map((a) => row(a, -v(a), 1)).join('')}${tot('当期純利益', NI)}</table>`;
+    const asset = (a) => cat(a) === '資産' || CONTRA.has(a) || (isOther(a) && v(a) > 0);
+    const ca = list((a) => asset(a) && !FIXED.has(a)), fa = list((a) => asset(a) && FIXED.has(a));
+    const cl = list((a) => cat(a) === '負債' || (isOther(a) && v(a) < 0)), eq = list((a) => cat(a) === '純資産');
+    const bsT = `<h3>貸借対照表（区分）</h3><div class="s-two"><table class="s-tb"><tr><th colspan="2">流動資産</th></tr>${ca.map((a) => row(a, v(a), CONTRA.has(a))).join('')}${tot('流動資産 計', sum(ca, 1))}<tr><th colspan="2">固定資産</th></tr>${fa.map((a) => row(a, v(a), CONTRA.has(a))).join('')}${tot('固定資産 計', sum(fa, 1))}${tot('資産 合計', sum(ca, 1) + sum(fa, 1))}</table><table class="s-tb"><tr><th colspan="2">流動負債</th></tr>${cl.map((a) => row(a, -v(a))).join('')}${tot('流動負債 計', sum(cl, -1))}<tr><th colspan="2">純資産</th></tr>${eq.map((a) => row(a, -v(a))).join('')}${row('当期純利益', NI)}${tot('負債・純資産 合計', sum(cl, -1) + sum(eq, -1) + NI)}</table></div>`;
+    return bsT + plT;
+  }
   function reportScreen(ev) {
+    if (ev.kubun) {
+      const { b } = statements();
+      S.reportSeen = true; save();
+      frame(`<div class="s-card"><small>${yearOf(S.mi)}年目の決算書（区分）</small>${kubunView(b)}<button class="btn wide" data-n>つぎへ</button></div>`);
+      app.onclick = (e) => { if (e.target.closest('[data-n]')) { S.diary.push({ m: '決算', t: `${yearOf(S.mi)}年目のもうけ ${fmt(statements().p.ni)}円` }); next(); } };
+      return;
+    }
     if (!ev.redo && !(S.metrics.build)) return buildScreen(ev, () => reportScreen(ev));
     teach(ev.teaches);
     const { b } = statements();
@@ -1212,6 +1240,8 @@
     const accs = [...new Set([...Object.keys(pre), ...Object.keys(adj.dr), ...Object.keys(adj.cr)])].filter((a) => pre[a] || adj.dr[a] || adj.cr[a]).sort((x, z) => order(x) - order(z));
     const rows = accs.map((a) => { const after = (pre[a] || 0) + (adj.dr[a] || 0) - (adj.cr[a] || 0); return { a, pre: pre[a] || 0, adr: adj.dr[a] || 0, acr: adj.cr[a] || 0, after, to: cat(a) === '収益' || cat(a) === '費用' ? 'PL' : 'BS' }; }).filter((r) => r.pre || r.adr || r.acr || r.after);
     const put = {}; let step = 'rows', msg = '', miss = 0, eight = false;
+    // 整理したあとの残りが0の行（消費税の精算などで消えた札）は、運ぶものがないので聞かない
+    rows.filter((r) => !r.after).forEach((r) => { put[r.a] = r.to; });
     const plR = () => rows.filter((r) => r.to === 'PL'), ni = -plR().reduce((t, r) => t + r.after, 0);
     const n = (v) => (v ? fmt(v) : '');
     const table = () => `<div class="s-sheetwrap"><table class="s-tb s-sheet"><tr><th rowspan="2">勘定科目</th><th colspan="2">試算表</th><th colspan="2">整理記入</th>${eight ? '' : '<th colspan="2">整理後</th>'}<th colspan="2">損益計算書</th><th colspan="2">貸借対照表</th></tr><tr>${'<th>借方</th><th>貸方</th>'.repeat(eight ? 4 : 5)}</tr>${rows.map((r) => `<tr class="${put[r.a] ? '' : 'todo'}"><td>${esc(r.a)}</td><td class="n">${n(Math.max(0, r.pre))}</td><td class="n">${n(Math.max(0, -r.pre))}</td><td class="n">${n(r.adr)}</td><td class="n">${n(r.acr)}</td>${eight ? '' : `<td class="n">${n(Math.max(0, r.after))}</td><td class="n">${n(Math.max(0, -r.after))}</td>`}${['PL', 'BS'].map((k) => put[r.a] === k ? `<td class="n">${n(Math.max(0, r.after))}</td><td class="n">${n(Math.max(0, -r.after))}</td>` : '<td></td><td></td>').join('')}</tr>`).join('')}${step !== 'rows' && step !== 'ni' ? `<tr><td>当期純利益</td><td></td><td></td><td></td><td></td>${eight ? '' : '<td></td><td></td>'}<td class="n">${n(Math.max(0, ni))}</td><td class="n">${n(Math.max(0, -ni))}</td><td class="n">${n(Math.max(0, -ni))}</td><td class="n">${n(Math.max(0, ni))}</td></tr>` : ''}</table></div>`;
@@ -1220,7 +1250,7 @@
       let body = '';
       if (step === 'rows') {
         const r = left[0];
-        body = `${talk([['kansa', '1年の締めを、1枚の表にしよう。左から、整理する前の残り・決算で直した額・整理したあとの残り。整理したあとの残りを、損益計算書か貸借対照表へ運んで。']])}${table()}<div class="s-sorti"><span><b>${esc(r.a)}</b> ${fmt(Math.abs(r.after))}</span><div><button class="s-pill" data-sh="PL">損益計算書へ</button><button class="s-pill" data-sh="BS">貸借対照表へ</button></div></div>${Object.keys(put).length >= 4 && left.length > 1 ? `<button class="link" data-shall>残りの ${left.length} 行も同じように運ぶ</button>` : ''}${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`;
+        body = `${talk([['kansa', '1年の締めを、1枚の表にしよう。左から、整理する前の残り・決算で直した額・整理したあとの残り。整理したあとの残りを、損益計算書か貸借対照表へ運んで。']])}<details class="s-fje"><summary>表の全体を見る（横にスクロールできる）</summary>${table()}</details><div class="s-sorti"><span><b>${esc(r.a)}</b> ${fmt(Math.abs(r.after))}<small class="s-sheetrow">整理前 ${fmt(Math.abs(r.pre))}${r.adr ? `　＋整理（借方）${fmt(r.adr)}` : ''}${r.acr ? `　＋整理（貸方）${fmt(r.acr)}` : ''}　→ 整理後 ${fmt(Math.abs(r.after))}（${r.after > 0 ? '借方' : '貸方'}）</small></span><div><button class="s-pill" data-sh="PL">損益計算書へ</button><button class="s-pill" data-sh="BS">貸借対照表へ</button></div></div>${rows.filter((x) => put[x.a] && x.after).length >= 4 && left.length > 1 ? `<button class="link" data-shall>残りの ${left.length} 行も同じように運ぶ</button>` : ''}${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`;
       } else if (step === 'ni') {
         body = `${table()}<p class="s-dyn">損益計算書の右と左の差：${fmt(ni)}（当期純利益）</p>${talk([['kansa', 'この差を、貸借対照表のどちら側に書けば、左右がそろう？']])}<div class="s-opts"><button class="s-opt" data-ni="R"><b>貸借対照表の右（純資産が増える）</b></button><button class="s-opt" data-ni="L"><b>貸借対照表の左</b></button></div>${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`;
       } else if (step === 'fold') {

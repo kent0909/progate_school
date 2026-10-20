@@ -281,3 +281,5 @@ i.lv0 { border: 1px solid var(--line); }
 .s-sheet { font-size: 11px; min-width: 640px; }
 .s-sheet th, .s-sheet td { padding: 2px 4px; white-space: nowrap; }
 .s-sheet tr.todo td:first-child { color: var(--muted, #888); }
+.s-sheetrow { display: block; font-size: 11px; color: var(--muted, #777); }
+.s-azu { display: block; font-size: 10px; color: hsl(0 60% 45%); }
