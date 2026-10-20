@@ -382,7 +382,10 @@
   // 月のはじめに、先月の書類と同じ種類を、金額を変えて1つ思い出して書く（想起。答えは書いたあとに見せる）
   function recallScreen(done) {
     S.recall = S.recall || [];
-    if (S.recall.some((r) => r.mi === S.mi)) return done();
+    if (S.recall.some((r) => r.mi === S.mi && !r.due)) return done();
+    // 7日前後たった、間違えた論点の別の問題があれば、先にそれを1問
+    const due = dueReview();
+    if (due && !S.recall.some((r) => r.mi === S.mi && r.due)) { S.recall.push({ mi: S.mi, due: due._key }); save(); return quickQuiz([due], '日をあけて確かめる', () => recallScreen(done)); }
     const prev = S.L.filter((x) => x.mi === S.mi - 1 && x.kind && !x.auto).map((x) => ({ x, ev: (allEvents.find(({ e }) => e.id === x.ev) || {}).e })).filter((o) => o.ev && o.ev.doc && o.ev.opts);
     const pick = prev.filter((o) => { const t = S.T.find((y) => y.id === o.x.id); return t && [...t.dr, ...t.cr].every(([a]) => knows(a)); }).pop();
     if (!pick) return done();
@@ -664,6 +667,51 @@
     }
     return null;
   }
+  // 本試験の文で読める問題（教わった言葉と札だけ）。腕だめし・発見のあとの確かめ・想起で使う
+  function readableQ(q) {
+    const taught = new Set(S.taught);
+    return q && q.type === 'journal' && !B.outdated27(q) && !B.outOfScope2(q) && !/上記|前問/.test(q.q) && !LX.unknown(q.q, taught).length && [...q.ans.dr, ...q.ans.cr].every(([a]) => taught.has(a));
+  }
+  const qByKey = (k) => { const [c, i] = k.split(':'); const ch = B.chapters.find((x) => x.id === c); return ch ? ch.qs[+i] : null; };
+  // 本試験の文で1〜数問、その場で答え合わせ。結果は examLog（成長の記録・7日後の確かめに使う）
+  function quickQuiz(qs, label, done) {
+    let i = 0;
+    const draw = () => {
+      if (i >= qs.length) return done();
+      const q = qs[i];
+      const ch = B.chapters.find((c) => c.qs.includes(q));
+      const accs = [...new Set([...((ch || {}).accounts || []), ...q.ans.dr.map((x) => x[0]), ...q.ans.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
+      const opt = `<option value="">札をえらぶ</option>${accs.map((a) => `<option>${esc(a)}</option>`).join('')}`;
+      const side = (sd) => [0, 1].map(() => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の札">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
+      frame(`<div class="s-card"><small>${esc(label)} ${i + 1} / ${qs.length}</small><p class="muted" style="font-size:12px;margin:0">本試験と同じ文章で出たら、書ける？</p><p class="s-q">${q.q}</p><div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-qq>答える</button></div>`);
+      app.onclick = (e) => {
+        if (e.target.closest('[data-qn]')) { i++; draw(); return; }
+        if (!e.target.closest('[data-qq]')) return;
+        const entry = { dr: [], cr: [] };
+        for (const sd of ['dr', 'cr']) { const sel = $$(`select[data-s="${sd}"]`, app), ins = $$(`input[data-s="${sd}"]`, app); sel.forEach((x, k) => { const v = Number((ins[k].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }); }
+        const ok = entry.dr.length && entry.cr.length && [q.ans, ...(q.alt || [])].some((a) => sameEntry(entry, a));
+        S.examLog.push({ key: q._key, ok: !!ok, t: Date.now() }); save();
+        $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '書けた' : '本試験の文では、こう書く：'}</p>${ok ? '' : jeTable(q.ans)}${q.exp ? `<p class="muted" style="font-size:13px">${q.exp}</p>` : ''}<button class="btn wide" data-qn>つぎへ</button>`;
+        $('[data-qq]', app).remove();
+      };
+    };
+    draw();
+  }
+  function discQuiz(ev) {
+    const items = B.scope.filter((it) => ((it.sim || {}).disc || []).includes(ev.id));
+    const keys = [...items.flatMap((it) => it.q || []), ...items.flatMap((it) => ((B.chapters.find((c) => c.id === it.ch) || { qs: [] }).qs.map((_, k) => `${it.ch}:${k}`)))];
+    const seen = new Set(S.examLog.map((l) => l.key));
+    return [...new Set(keys)].map(qByKey).filter((q) => readableQ(q) && !seen.has(q._key)).slice(0, 1);
+  }
+  // 7日前後（現実の時間）たった、本試験の文で間違えた問題の章から、別の問題を1つ
+  function dueReview() {
+    const now = Date.now();
+    const miss = S.examLog.filter((l) => !l.ok && now - l.t >= 6 * 864e5 && !S.examLog.some((x) => x.ok && x.t > l.t && x.key.split(':')[0] === l.key.split(':')[0]));
+    if (!miss.length) return null;
+    const ch = miss[0].key.split(':')[0], seen = new Set(S.examLog.map((l) => l.key));
+    const c = B.chapters.find((x) => x.id === ch);
+    return c ? c.qs.find((q) => readableQ(q) && !seen.has(q._key)) || null : null;
+  }
   function discoverScreen(ev, isReplay) {
     // もう一度見るときは、記録（1回目の正誤・分かれ道）に数えない
     const m = isReplay ? { tries: 0, first: null, hand: 0, forks: [] } : (S.metrics.disc[ev.id] = S.metrics.disc[ev.id] || { tries: 0, first: null, hand: 0, forks: [] });
@@ -740,7 +788,8 @@
         if (isReplay) { render(); return; }
         S.discDone[ev.id] = S.mi;
         if (!S.leaves.some((l) => l.label === ev.b4.leaf.label)) S.leaves.push({ p: ev.b4.leaf.p, label: ev.b4.leaf.label, mi: S.mi });
-        next();
+        const qs = discQuiz(ev);
+        if (qs.length) quickQuiz(qs, '本試験の文で確かめる', () => { grew('発見のあとの確かめ'); next(); }); else next();
       }
     };
   }
