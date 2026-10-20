@@ -5,9 +5,9 @@ doc: designer-cook-loopsarcs2012
 file: designer-cook-loopsarcs2012.html
 sha256: 5455c85ddd272afbb2f6efa7199f1f695eae8ba89dd98f960341d9727d81b9ae
 read: full
-anchors: [Loops and Arcs, An arc is a broken loop you exit immediately, What repeats and what does not?, cutscene-gameplay-cutescene sandwich, content treadmill, A brilliant future for loops, Above all, evolve.]
+anchors: [Loops and Arcs, An arc is a broken loop you exit immediately, What repeats and what does not?, cutscene-gameplay-cutescene sandwich, content treadmill, A brilliant future for loops, Above all, evolve., Triple Town on Facebook, Expresso Indie]
 ---
-用途：くり返す遊びの輪（ループ）と、一度きりの物語の弧（アーク）を分けて設計を見る道具（Daniel Cook、Lost Garden、2012）。本作の「月ごとの記帳（ループ）」と「年の物語（アーク）」の配分を評価するための根拠。コメント欄（Tynan Sylvester、Triple Town の例など）も読んだが、本文だけを根拠にする。
+用途：くり返す遊びの輪（ループ）と、一度きりの物語の弧（アーク）を分けて設計を見る道具（Daniel Cook、Lost Garden、2012）。本作の「月ごとの記帳（ループ）」と「年の物語（アーク）」の配分を評価するための根拠。取得した HTML には本文の後ろにコメント欄（Tynan Sylvester の応答へのリンク、Triple Town をアークで進捗感を足した例とみる読者の投稿、後年のピンバック）まで含まれていて、そこも読んだが、根拠にするのは本文だけ。
 
 要点（自分の言葉で）：
 - ループ：遊び手の頭の中のモデル→行動→システム→フィードバック→モデルの更新、を何度も回す構造。入れ子になり、複数の周期で同時に回る。回すこと自体で価値を出すので、試行錯誤や反復で身につく「知恵」（枝分かれ・成功・失敗の実感を含む全体的な理解）を作るのに向く。
@@ -17,6 +17,7 @@ anchors: [Loops and Arcs, An arc is a broken loop you exit immediately, What rep
 - 歴史：コンピュータ以前のゲームはほぼループだけ。小売の商売（一度売って次を売る）がアーク重視のゲームを増やした。アーケードは逆に再プレイを求めたのでループ型が栄えた。市場が形を決める。
 - 演習：好きなジャンルからパズル・ミッション・機能的でない物語を取り除いても遊べるか。大抵は遊べる。アークは必須要素ではないが、なくしてよいわけでもなく、配合の問題。
 - 結論：自分のゲームの中のループとアークを見つけ、どちらがどれだけ必要かを問え。「何が埋め草か」「何が価値を生み続けるエンジンか」を理解する。
+- コメント欄で参考になった見方：ループ型の遊びに小さなアークを添えると「進んでいる感じ」が足される（Triple Town の例）。本作の「月ごとの記帳」に「年の物語」を添える構造を見るときの補助線になる（ただし読者の投稿なので根拠にはしない）。
 
 このゲームの評価に使うところ：
 1. 1 か月の記帳はループか。回すたびに頭の中のモデル（この取引はこう書く、月末にこう締まる）が更新されるか、それとも同じ内容の言い直しか。
