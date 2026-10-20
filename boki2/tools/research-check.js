@@ -139,6 +139,8 @@ function expandKeys(obj) {
 // ---------- 規約・アクセス間隔 ----------
 const srcById = Object.fromEntries(sources.map((s) => [s.id, s]));
 const tosHits = {};
+// 取得元の hosts は、1つずつ規約を確かめた根拠（tos.host_basis）があること（あとからホストだけ足すのを防ぐ）
+for (const S of Object.values(srcById)) if (S.tos && S.tos.host_basis) for (const h of S.hosts) if (h !== '*' && !(S.tos.host_basis[h] || '').trim()) err(S.id, `hosts の ${h} に、規約を確かめた根拠（tos.host_basis）がない`);
 for (const e of ledger) {
   const s = srcById[e.src];
   if (!s) { err('記録', `${e._at} 台帳にない取得元 ${e.src}`); continue; }
@@ -264,6 +266,8 @@ function checkNote(n, es, tag, indexText, gen, r, isSection) {
   const target = files.find((f) => fileSha(f) === n.sha256) || files[0];
   const text = target ? norm(textOf(target)) : null;
   if (!text) { r.unverifiable++; return; }
+  // 文字がほとんどない PDF（画像だけの講演スライドなど）は、語句で照合できない。照合できないもの（注意）として数え、画像として見たページの申告（image_pages）を求める
+  if (/\.pdf$/i.test(target)) { const pages = +((spawnSync('pdfinfo', [target], { encoding: 'utf8' }).stdout || '').match(/Pages:\s+(\d+)/) || [0, 0])[1]; if (pages && text.replace(/[•・\-]/g, '').length < pages * 3) { if (!n.image_pages) err(tag, `${where} は文字のない PDF（${pages}ページ）。画像として見たページを image_pages: に書くこと`); else warn(tag, `${where} は文字のない PDF（${pages}ページ）。語句では照合できない（画像として見たと申告：${n.image_pages}）`); r.unverifiable++; return; } }
   const texts = textsOf(target);
   const absent = anchors.filter((a) => posIn(texts, a) < 0);
   if (absent.length) err(tag, `${where} の anchors が原文に出てこない：${absent.slice(0, 4).join(' / ')}（本文を読まずに書いた疑い）`);

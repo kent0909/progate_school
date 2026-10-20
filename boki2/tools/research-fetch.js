@@ -34,10 +34,16 @@ if (S.tos.verdict === 'unchecked') die(`${S.name} の利用規約がまだ確認
 const host = new URL(url).host;
 if (!S.hosts.includes('*') && !S.hosts.includes(host)) die(`${host} は ${src} の hosts にない`);
 
-// アクセス間隔：同じホストへの直前の取得から min_interval_s 秒あける
-const prev = fs.existsSync(L) ? fs.readFileSync(L, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)).filter((e) => { try { return new URL(e.url).host === host && e.status !== 'skipped'; } catch (x) { return false; } }) : [];
-const last = prev.length ? Date.parse(prev[prev.length - 1].t) : 0;
-const wait = (S.tos.min_interval_s || 3) * 1000 - (Date.now() - last);
+// アクセス間隔：同じホストへの直前の取得から min_interval_s 秒あける。
+// 取得記録は ledger.jsonl と ledger-pending/ の両方を見る。何人もが同時に取りに行くので、ホストごとの鍵（mkdir）で順番に並べる
+const lockDir = path.join(R, '.locks', host.replace(/[^\w.-]/g, '_'));
+fs.mkdirSync(path.dirname(lockDir), { recursive: true });
+for (let i = 0; ; i++) { try { fs.mkdirSync(lockDir); break; } catch (x) { if (i > 600) { try { if (Date.now() - fs.statSync(lockDir).mtimeMs > 180000) fs.rmSync(lockDir, { recursive: true }); } catch (y) {} } spawnSync('sleep', ['0.5']); } }
+process.on('exit', () => { try { fs.rmSync(lockDir, { recursive: true }); } catch (x) {} });
+const allLedgers = [L, ...(fs.existsSync(path.join(R, 'ledger-pending')) ? fs.readdirSync(path.join(R, 'ledger-pending')).filter((f) => f.endsWith('.jsonl')).map((f) => path.join(R, 'ledger-pending', f)) : [])];
+const prev = allLedgers.filter((f) => fs.existsSync(f)).flatMap((f) => fs.readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => { try { return JSON.parse(l); } catch (x) { return {}; } })).filter((e) => { try { return new URL(e.url).host === host && e.status !== 'skipped'; } catch (x) { return false; } });
+const last = prev.reduce((m, e) => Math.max(m, Date.parse(e.t) || 0), 0);
+const wait = (S.tos.min_interval_s || 3) * 1000 - (Date.now() - last) + 300;
 if (wait > 0) spawnSync('sleep', [String(Math.ceil(wait / 1000))]);
 
 const ext = (url.match(/\.(pdf|html?|json|txt|xml)(?:$|\?)/i) || [, 'html'])[1].toLowerCase();
