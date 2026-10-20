@@ -67,7 +67,9 @@ for (const R of cfg.reviewers) {
   // 割り当て（panel.json）からいまの端末の画面の大きさを決める（引き直しを反映）
   if (cfg.panel && fs.existsSync(cfg.panel)) { const PN = JSON.parse(fs.readFileSync(cfg.panel, 'utf8')); const a = PN.panel[who]; if (a) R.viewport = PN.viewports[a.viewport_device || a.device] || R.viewport; }
   // 1b. 割り当てられた端末の画面の大きさで遊んだ（panel.json）
-  if (R.viewport && E.some((e) => e.kind === 'session' && e.viewport && (e.viewport.width !== R.viewport[0] || e.viewport.height !== R.viewport[1])) && !R.extraViewports) ng(who, `割り当ての端末（${R.viewport.join('×')}）と違う画面の大きさで遊んだ回がある`);
+  if (R.viewport && E.some((e) => e.kind === 'session' && e.viewport && (e.viewport.width !== R.viewport[0] || e.viewport.height !== R.viewport[1])) && !R.extraViewports && !(R.otherForm && E.filter((e) => e.kind === 'session' && e.viewport && (e.viewport.width !== R.viewport[0] || e.viewport.height !== R.viewport[1])).every((e) => (e.viewport.width < 1024) !== (R.viewport[0] < 1024)))) ng(who, `割り当ての端末（${R.viewport.join('×')}）と違う画面の大きさで遊んだ回がある`);
+  // 1c. スマホとPCの両方（オーナー：どちらで遊んでもよい体験に）。otherForm の人は、幅1024未満と1024以上の両方の回がある
+  if (R.otherForm) { const ws = E.filter((e) => e.kind === 'session' && e.viewport).map((e) => e.viewport.width); const small = ws.some((w) => w < 1024), big = ws.some((w) => w >= 1024); small && big ? ok(who, 'スマホ・タブレットの幅とPCの幅の両方で遊んだ') : ng(who, `スマホ・タブレットの幅とPCの幅の${small ? 'PC' : 'スマホ'}の側で遊んでいない`); }
   // 2. 同じゲーム・道具
   const sess = E.filter((e) => e.kind === 'session');
   if (!sess.length) ng(who, 'session 行がない');
