@@ -56,7 +56,7 @@
     },
     {
      "id": "kubun2027",
-     "desc": "2027年4月施行の出題区分表・改定趣旨・勘定科目表",
+     "desc": "2027年4月施行の出題区分表・改定趣旨・勘定科目表。工業簿記・原価計算の区分表は2022年度版（2022_kogen）が2027年度にもそのまま適用される（区分表ページの記載）",
      "need_notes": true,
      "index": {
       "doc": "_index",
@@ -66,7 +66,8 @@
       "2027kubunhyo_fixed",
       "2027_kaitei_shushi_fixed",
       "2027kamokuhyo_fixed",
-      "2027kubunhyo_track"
+      "2027kubunhyo_track",
+      "2022_kogen"
      ],
      "excluded": {
       "2027kamokuhyo_track": "勘定科目表の変更履歴版。確定版（2027kamokuhyo_fixed）で足りる",
@@ -627,6 +628,15 @@
     "web"
    ],
    "note": "既存の会計・財務シミュレーションゲームの分析と取り入れる要素"
+  },
+  {
+   "path": "docs/DESIGN-REVISION.md",
+   "sources": [
+    "web",
+    "kentei",
+    "cpa-learning"
+   ],
+   "note": "全分析を統合した設計改訂案（Fable、2026-10-20）"
   }
  ]
 }

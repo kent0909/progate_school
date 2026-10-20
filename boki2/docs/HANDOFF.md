@@ -41,7 +41,8 @@
 - 証跡の仕組み `research/`（README・sources.json・ledger・notes・STATUS.md、tools/research-fetch.js・research-check.js）。検査エラー0。読了ノート約1,000本
 - 分析文書：docs/EXAM-ANALYSIS.md（日商講評18回・連載・サンプル問題）、docs/analysis/*.md（CPA教科書・問題集・模試・講座・コラム252本、簿記ペディア109セット、学習科学37件、会計教育49件、簿記2級コンテンツ33件、既存の会計シミュレーションゲーム57件）
 - 反映済み：2027年度区分表への更新、未達（本支店）を2級範囲外として除外、c47 の検証と修正、UPDATE_PLAN.md・CRAWL.md の検証
-- 次：全分析を統合した設計改訂案（docs/DESIGN-REVISION.md、Fable と検討）→オーナー確認→PEDAGOGY・EPISODES・試作へ反映
+- 設計改訂案 docs/DESIGN-REVISION.md（Fable、推奨＝案F：二重ループ＋工場2年目）を作成。オーナーに7章の問い1〜9を確認中。確認後に PEDAGOGY・EPISODES・試作へ反映
+- 工業簿記・原価計算の区分表は2027年度も2022年度版のまま（副産物・連産品・異常仕損は1級）
 
 
 **段階1：縦切りの試作「ピヨのレモネード」**（`boki2/sim.html`）。公開：https://claude.ai/artifact/PxvGJeU1WaaXfWjDuUMo3G （`node boki2/tools/build.js <出力.html> --page sim.html` を同じファイルパスから publish。別の会話からは url にこのURL）
