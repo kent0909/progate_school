@@ -64,6 +64,8 @@ for (const R of cfg.reviewers) {
   let chain = true, prev = '0', lastT = 0;
   E.forEach((e, i) => { if (e.n !== i || e.prev !== prev) chain = false; prev = sha(lines[i]); const t = Date.parse(e.t); if (t < lastT) chain = false; lastT = t; });
   chain ? ok(who, `ログの鎖がつながっている（${E.length}行）`) : ng(who, 'ログの鎖が切れている（書き換え・差し込み・並べ替えの疑い）');
+  // 割り当て（panel.json）からいまの端末の画面の大きさを決める（引き直しを反映）
+  if (cfg.panel && fs.existsSync(cfg.panel)) { const PN = JSON.parse(fs.readFileSync(cfg.panel, 'utf8')); const a = PN.panel[who]; if (a) R.viewport = PN.viewports[a.viewport_device || a.device] || R.viewport; }
   // 1b. 割り当てられた端末の画面の大きさで遊んだ（panel.json）
   if (R.viewport && E.some((e) => e.kind === 'session' && e.viewport && (e.viewport.width !== R.viewport[0] || e.viewport.height !== R.viewport[1])) && !R.extraViewports) ng(who, `割り当ての端末（${R.viewport.join('×')}）と違う画面の大きさで遊んだ回がある`);
   // 2. 同じゲーム・道具
