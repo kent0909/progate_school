@@ -45,20 +45,22 @@ for (const d of discIds) if (!B.scope.some((s) => ((s.sim || {}).disc || []).inc
 
 const has = (s) => { const x = s.sim || {}; return !!((x.disc || []).length || (x.docs || []).length || (x.kinds || []).length || x.close || x.report); };
 const lines = [];
-let total = { n: 0, sim: 0, q: 0 };
+let total = { n: 0, sim: 0, q: 0, j: 0 };
+// 第1問の形（章の仕訳問題）がある項目。章は複数の項目で共有するので、大問の範囲タグとは別に数える
+const jOf = (s) => { const c = B.chapters.find((x) => x.id === s.ch); return c ? c.qs.filter((q) => q.type === 'journal').length : 0; };
 for (const a of B.scopeAreas) {
   const list = B.scope.filter((s) => a.secs.includes(s.sec));
   // 2027年度から出ない論点（y27: out）と3級へ移る論点（to3）は2級の分母に入れない
   const core = list.filter((s) => !s.y27 || s.y27 === 'chg' || s.y27 === 'new');
-  const n = core.length, sim = core.filter(has).length, q = core.filter((s) => qOf(s).length).length;
-  if (a.id !== 'base') { total.n += n; total.sim += sim; total.q += q; }
-  lines.push(md ? `\n### ${a.label}（${sim}/${n} 項目が体験できる）\n\n| 区分 | 項目 | 章 | 原理 | 体験 | 本試験形式 |\n|---|---|---|---|---|---|` : `\n■ ${a.label}　体験できる ${sim}/${n}　本試験形式の問題 ${q}/${n}`);
+  const n = core.length, sim = core.filter(has).length, q = core.filter((s) => qOf(s).length).length, j = core.filter((s) => jOf(s)).length;
+  if (a.id !== 'base') { total.n += n; total.sim += sim; total.q += q; total.j += j; }
+  lines.push(md ? `\n### ${a.label}（${sim}/${n} 項目が体験できる）\n\n| 区分 | 項目 | 章 | 原理 | 体験 | 本試験形式 |\n|---|---|---|---|---|---|` : `\n■ ${a.label}　体験できる ${sim}/${n}　本試験形式の大問 ${q}/${n}　章の仕訳（第1問の形）${j}/${n}`);
   for (const s of list) {
     const x = s.sim || {};
     const where = [...(x.disc || []), ...(x.docs || []), ...(x.kinds || []).map((k) => `種類:${k}`), x.close ? '月末締め' : '', x.report ? '決算書' : ''].filter(Boolean).join(' ');
     lines.push(md ? `| ${s.sec} | ${s.name} | ${s.ch} | ${s.p} | ${where || '—'} | ${qOf(s).join(' ') || '—'} |` : `  ${has(s) ? '●' : '・'} ${s.sec.padEnd(10, '　')} ${s.name}${s.y27 ? `〔2027:${s.y27}〕` : ''}  [${s.ch} ${s.p}]${where ? '  ← ' + where : ''}${qOf(s).length ? '  問:' + qOf(s).join(',') : ''}`);
   }
 }
-console.log(`2級の範囲（2027年4月施行の区分表）${total.n} 項目のうち、ゲームで体験できる ${total.sim}（${Math.round((total.sim / total.n) * 100)}%）、本試験形式の問題が付いている ${total.q}`);
+console.log(`2級の範囲（2027年4月施行の区分表）${total.n} 項目のうち、ゲームで体験できる ${total.sim}（${Math.round((total.sim / total.n) * 100)}%）、大問の範囲タグが付いている ${total.q}、章の仕訳（第1問の形）がある ${total.j}`);
 console.log(lines.join('\n'));
 if (errors.length) { console.error('\n' + errors.join('\n')); process.exit(1); }
