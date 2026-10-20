@@ -173,6 +173,7 @@ for (const s of sources) {
       r.noted++;
       const before = r.verified;
       for (const n of ns) checkNote(n, es.filter(okFetch), tag, indexText, generic.get(tag) || new Map(), { ...r, verified: 0, partial: 0, unverifiable: 0, _sub: true }, ns.length > 1);
+      checkImagePages(ns, es.filter(okFetch), tag);
       const ok = coverage(ns, es.filter(okFetch), tag);
       if (ok === null) r.unverifiable++; else if (ok && !errors.some((e) => ns.some((n) => e.includes(n._path)))) r.verified = before + 1;
       if (ns.some((n) => n.read === 'partial')) { r.partial++; warn(tag, `${d} は一部だけ読了（${ns.filter((n) => n.read === 'partial').map((n) => n.pages || n.doc).join('・')}）`); }
@@ -233,6 +234,27 @@ function coverage(ns, es, tag) {
   const miss = [...Array(Z).keys()].filter((z) => !hit.has(z));
   if (full && miss.length) { err(tag, `${ns[0].doc.split('#')[0]} は全部読んだことになっているが、本文を${Z}区間に分けたうち ${miss.length} 区間（${miss.slice(0, 8).map((z) => `${Math.round((z / Z) * 100)}%付近`).join('・')}${miss.length > 8 ? '…' : ''}）から anchors が出ていない`); return false; }
   return true;
+}
+
+// 文字のないページ（画像だけのページ）。PDFで全部読んだと言うなら、どれかのノートの image_pages: にそのページが入っていること（画像として見た申告）
+function imageOnlyPages(file) {
+  const imgCache = imageOnlyPages.cache || (imageOnlyPages.cache = new Map());
+  if (imgCache.has(file)) return imgCache.get(file);
+  const t = spawnSync('pdftotext', ['-layout', file, '-'], { encoding: 'utf8', maxBuffer: 1 << 28 }).stdout || '';
+  const pages = t.split('\f').map((x) => norm(x).length);
+  const out = pages.map((n, i) => (n < 30 ? i + 1 : 0)).filter(Boolean).filter((p) => p <= pages.length - (pages[pages.length - 1] === 0 ? 1 : 0));
+  imgCache.set(file, out);
+  return out;
+}
+function pageSet(v) { const s = new Set(); for (const part of String(v || '').split(/[,、・\s]+/)) { const m = part.match(/^(\d+)(?:[-〜~](\d+))?$/); if (m) for (let i = +m[1]; i <= +(m[2] || m[1]); i++) s.add(i); } return s; }
+function checkImagePages(ns, es, tag) {
+  const f = es.map(rawFile).find((x) => x && /\.pdf$/i.test(x));
+  if (!f || !ns.every((n) => n.read === 'full')) return;
+  const img = imageOnlyPages(f);
+  if (!img.length) return;
+  const claimed = new Set(ns.flatMap((n) => [...pageSet(n.image_pages)]));
+  const miss = img.filter((p) => !claimed.has(p));
+  if (miss.length) err(tag, `${ns[0].doc.split('#')[0]} には文字のないページが ${img.length} ある。うち ${miss.length} ページ（${miss.slice(0, 15).join(',')}${miss.length > 15 ? '…' : ''}）を画像として見たという申告（ノートの image_pages:、白紙なら白紙と本文に書く）がない`);
 }
 
 // ---------- 出典の参照（docs の [[src:coll:doc]]） ----------
