@@ -3,9 +3,9 @@ src: web
 coll: learnsci
 doc: donoghue2021-meta10
 file: donoghue2021-meta10.pdf
-sha256: SHA
+sha256: 5857649d7d474eff22edaef926672ab2719cd341fd8d0e68f96c7083ee61a6b4
 read: full
-anchors: ["overall mean of 0.56", "Most participants were undergraduates", "only six investigated High ability students", "Too many modern classrooms are still dominated", "the skill, the will, and the thrill", "Carvalho and Goldstone (2015) found", "no publications beyond 2014"]
+anchors: ["overall mean of 0.56", "Most participants were", "only six investigated High ability students", "modern classrooms are still dominated", "the skill, the will, and", "Carvalho and Goldstone (2015) found", "publications beyond 2014"]
 ---
 ## 何の資料か
 Donoghue & Hattie (2021, Frontiers in Education)。Dunlosky ら (2013) が文献レビューで「高・中・低」と格付けした10の学習技法について、Dunlosky らが引いた399本から実験データのある242研究・1,619効果を取り出し、効果量（Cohen の d）を計算し直したメタ分析。研究の強さ：メタ分析（ただし元の文献リストを再利用しており、2014年以降の研究は含まない）。
