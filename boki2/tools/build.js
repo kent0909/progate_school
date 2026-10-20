@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Bundles index.html + css + js into one self-contained page fragment (for Claude Artifacts or single-file sharing).
-// Usage: node boki2/tools/build.js <out.html> [--full] [--page sim.html]   (--full keeps the <!DOCTYPE>/<html> skeleton)
+// Usage: node boki2/tools/build.js <out.html> [--full] [--page classic.html]   (default: index.html = ピヨ商店)   (--full keeps the <!DOCTYPE>/<html> skeleton)
 const fs = require('fs');
 const path = require('path');
 const root = path.join(__dirname, '..');

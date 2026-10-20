@@ -4,9 +4,8 @@
 
 ## 1. これは何か
 日商簿記2級を「遊んでいるうちに身につく」ゲーム。ブランチ `boki2-quest`、フォルダ `boki2/`。
-公開版（Claude Artifact、ユーザー本人のみ閲覧可）：https://claude.ai/artifact/QpHMU1edQXWmZDD7vscbc9
-公開版の作り方：`node boki2/tools/build.js <出力.html>`（skeleton なしの1ファイル）を Artifact ツールで同じファイルパスから publish。
-試作「ピヨ商店の1年」（段階1）：https://claude.ai/artifact/PxvGJeU1WaaXfWjDuUMo3G 。作り方は `node boki2/tools/build.js <出力.html> --page sim.html`。別の会話から更新するときは url にこのURLを渡す。
+公開版（Claude Artifact、ユーザー本人のみ閲覧可）：**ピヨ商店** https://claude.ai/artifact/PxvGJeU1WaaXfWjDuUMo3G 。作り方は `node boki2/tools/build.js <出力.html>`（`index.html` を skeleton なしの1ファイルに）を Artifact ツールで同じファイルパスから publish。別の会話から更新するときは url にこのURLを渡す。
+旧版（章ごとの学習ゲーム `classic.html`）の公開版：https://claude.ai/artifact/QpHMU1edQXWmZDD7vscbc9（Version 8 で止める。作り方は `--page classic.html`）
 
 ## 2. ユーザーが求めていること（原文の要点。最優先）
 - 一周すれば本試験で満点。小学生でも飽きずに本質を理解できる。実務での使われ方も体得できる
@@ -28,7 +27,8 @@
 - 模試は「検定会場」として残す（CBT形式）
 
 ## 4. 現在の状態（2026-10-20）
-- 既存の学習ゲーム（`index.html`）：48章・714問前後・検定会場の大問61題（第2問22・第3問13・第4問14・第5問12）。validate の WARN 0（解説に計算がない問題も0）
+- **ゲームは1本（2026-10-20）**：`index.html` ＝ピヨ商店（旧 `sim.html`）。旧版の章ごとの学習ゲームは `classic.html`（`js/app.js`）に残し、新しい機能は入れない。章のレッスンと問題は、ピヨ商店の「練習室」（ヘッダー）から論点ごとに開く（参考書・問題5問ずつ・まちがいノート・検定会場）。練習室の答えは `S.examLog`（room:true）に入り、成長の記録と日をあけた想起に使われる
+- 章と問題（旧版から引き継ぎ）：48章・714問前後・検定会場の大問61題（第2問22・第3問13・第4問14・第5問12）。validate の WARN 0（解説に計算がない問題も0）
 - **検定会場（`js/app.js` の `SCREENS.exam` / `examplay`）は本番の形**（DESIGN-REVISION 6章 優先3）：
   - 第1問・第4問(1)の科目は問題ごとに5〜8個の候補（`shortOptions`：正解＋問題の opts→同じ章→同じ分類）
   - 同じ側に同じ科目を2行書くと0点（`form().dup`）、金額は半角数字だけ（`strictNum`、入力中に枠が赤くなる）
@@ -39,13 +39,13 @@
   - 操作の練習（1題・採点なし）：プルダウン・半角・2行に分けて0点を体験
   - 下書きは大問ごとの手順（`GEN_DRAFT`）。題ごとの `draft` と範囲タグ `scope` はエージェントが作成中
 - 章の問題：未達（範囲外）に「参考（2級では出ない）」、2027年度モードで出ない問題に印
-- 試作 `sim.html`（1年目＋2年目）：公開 Version 7（2026-10-20）。保存・成長の記録・確認テスト（docs/STORAGE.md）。学習ゲーム `index.html` も Version 7（検定会場を本番の形に）
-- 検査：validate / sim-check / lexicon-check / coverage / law-check / research-check。ブラウザ試験は scratchpad の `sim/play2.js`・`exam/exam-test.js`（新セッションでは消える）
+- ピヨ商店（1年目＋2年目）：公開 Version 10（2026-10-20）。保存・成長の記録・確認テスト（docs/STORAGE.md）
+- 検査：validate / sim-check / lexicon-check / coverage / law-check / research-check。ブラウザ試験は scratchpad の `sim/play2.js`・`sim/room-test.js`・`sim/hall-test.js`・`exam/exam-test.js`（新セッションでは消える）
 
 ## 5. いまやっていること
 - 2027年度区分表への更新、外部資料の全文読解、設計改訂（案F）、5章の試作改修、6章の問題と検定会場：**完了**
 - 検定会場の大問は85題（第2問30・第3問15・第4問22・第5問18）。全題に範囲タグと題ごとの先輩の下書き。2級65項目すべてに大問がある（coverage）
-- **2年目（docs/YEAR2.md、Fable の設計）を実装中**：`js/sim/year2.js`（sim.html で scenario.js の次に読む）
+- **2年目（docs/YEAR2.md、Fable の設計）を実装中**：`js/sim/year2.js`（index.html で scenario.js の次に読む）
   - 1年目の改修：決算③「税金の見込み」、翌年4月の「締め切り」（engine `closingScreen`、損益→繰越利益剰余金）、2年目4月1日の「開始記入」（`openingScreen`）。仕訳は `y`（年）を持ち、決算書は締め切り前の姿（`preClose`）
   - 4〜9月：増資・消費税・配当・株主資本等変動計算書・2号店と機械・保守つき販売とリベート・教室
   - 10〜1月（工場の月）：工場の川（discover の `layout: 'flow'`）、材料・仕掛品・製品・製造間接費・賃金（25日払い）・経費・予定価格と差異
@@ -56,7 +56,7 @@
   - 2年目で未実装：ポイント（契約負債）、株主一覧の画面、状態変数（佐藤さん・森さんの表情）、遅延反応のキュー、期日一覧の画面、2026/2027 モードの名前カード2版
 
 ## 6. 次にやること
-0. ゲームを1つにまとめる：①検定会場を共通部品 `js/hall.js` にし、sim のヘッダー「検定会場」と1年の終わりから開ける（**済**。sim Version 9・学習ゲーム Version 8）→ ②成長の記録と復習をそろえる（sim の想起・dueReview に、検定会場と章の問題の間違いを日をあけて出す）→ ③章の画面を外し、sim を1本に
+0. ゲームを1つにまとめる：①検定会場を共通部品 `js/hall.js` に（済）→ ②想起・dueReview に検定会場と章の問題の間違いを出す（済）→ ③練習室を作り、`index.html` をピヨ商店に、旧版を `classic.html` に（**済**）。残り：旧版にあって練習室にないもの（仕分けラッシュ＝科目の分類を速く、勘定科目図鑑、ワールドのボス戦）を入れるかどうか。バッジ・デイリーミッションは PEDAGOGY の方針（表層的な報酬は不可）で移さない。ラッシュと図鑑は Fable と相談して、言葉の関所・マップとの重なりを見てから決める
 1. 2年目の残り（YEAR2.md 付録D の未実装：S/S の本番、2年目の銀行の審査、期日一覧の画面、遅延反応のキュー、ポイント、2026/2027 の名前カード2版、BE1 の2回目）
 2. 初見監査の小の指摘の残り（3年目4月の「この1年のもうけ」が赤く見える、kessan=keep の枝の税金を作り直し後に再計算しない、教室の仕掛品が工場の箱と混ざる見え方）
 3. 3年目（工場の増築 E24〜E34、工場2年目 E39〜E45）

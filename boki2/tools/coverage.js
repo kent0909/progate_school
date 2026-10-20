@@ -7,7 +7,7 @@ global.window = global;
 const path = require('path');
 const fs = require('fs');
 const root = path.join(__dirname, '..');
-const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const html = fs.readFileSync(path.join(root, 'classic.html'), 'utf8'); // 章・大問のデータを読む順番は旧版（章ごとの学習ゲーム）の並びを使う
 const files = [...html.matchAll(/<script src="([^"]+)"><\/script>/g)].map((m) => m[1]).filter((f) => !f.endsWith('app.js'));
 [...files, 'js/scope.js', 'js/sim/lexicon.js', 'js/sim/scenario.js', 'js/sim/year2.js'].forEach((f) => require(path.join(root, f)));
 const B = window.BOKI, D = window.SIMDATA;
