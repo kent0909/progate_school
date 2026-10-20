@@ -452,7 +452,16 @@
     if (S.recall.some((r) => r.mi === S.mi && !r.due)) return done();
     // 7日前後たった、間違えた論点の別の問題があれば、先にそれを1問
     const due = dueReview();
-    if (due && !S.recall.some((r) => r.mi === S.mi && r.due)) { S.recall.push({ mi: S.mi, due: due._key }); save(); return quickQuiz([due], '日をあけて確かめる', () => recallScreen(done)); }
+    if (due && !S.recall.some((r) => r.mi === S.mi && r.due)) {
+      S.recall.push({ mi: S.mi, due: due._key }); save();
+      if (due._key.startsWith('exam:')) {
+        // 検定会場の大問：同じ型の別の大問を、自分で（時間なし）解き直すかを聞く
+        frame(`<div class="s-card"><small>日をあけて確かめる</small>${talk([['senpai', `前に検定会場で間違えた大問と同じ型の「${due.title}」がある。日をあけて解けたら、本当に身についている。`]])}<button class="btn wide" data-dueplay>検定会場で解き直す</button><button class="link" data-duelater>今はやめて、今月へ</button></div>`);
+        app.onclick = (e) => { if (e.target.closest('[data-dueplay]')) hallScreen({ play: { part: due.part, mode: 'self', key: due._key } }); else if (e.target.closest('[data-duelater]')) recallScreen(done); };
+        return;
+      }
+      return quickQuiz([due], '日をあけて確かめる', () => recallScreen(done));
+    }
     const prev = S.L.filter((x) => x.mi === S.mi - 1 && x.kind && !x.auto).map((x) => ({ x, ev: (allEvents.find(({ e }) => e.id === x.ev) || {}).e })).filter((o) => o.ev && o.ev.doc && o.ev.opts);
     const pick = prev.filter((o) => { const t = S.T.find((y) => y.id === o.x.id); return t && [...t.dr, ...t.cr].every(([a]) => knows(a)); }).pop();
     if (!pick) return done();
@@ -779,13 +788,25 @@
     return [...new Set(keys)].map(qByKey).filter((q) => readableQ(q) && !seen.has(q._key)).slice(0, 1);
   }
   // 7日前後（現実の時間）たった、本試験の文で間違えた問題の章から、別の問題を1つ
+  // 日をあけて確かめる：6日以上前に間違えて、そのあと同じ型で書けていない問題があれば、同じ型の別の問題を1つ選ぶ。
+  // 章の問題（会社の腕だめし・検定会場の第1問）は同じ章の別の問題を、検定会場の大問は範囲タグが重なる別の大問を
+  const scopeOfKey = (k) => (k.startsWith('exam:') ? (B.examScope || {})[k] || [] : B.scope.filter((it) => it.ch === k.split(':')[0]).map((it) => it.id));
+  const sameKind = (a, b) => (a.startsWith('exam:') || b.startsWith('exam:') ? scopeOfKey(a).some((id) => scopeOfKey(b).includes(id)) : a.split(':')[0] === b.split(':')[0]);
   function dueReview() {
-    const now = Date.now();
-    const miss = S.examLog.filter((l) => !l.ok && now - l.t >= 6 * 864e5 && !S.examLog.some((x) => x.ok && x.t > l.t && x.key.split(':')[0] === l.key.split(':')[0]));
-    if (!miss.length) return null;
-    const ch = miss[0].key.split(':')[0], seen = new Set(S.examLog.map((l) => l.key));
-    const c = B.chapters.find((x) => x.id === ch);
-    return c ? c.qs.find((q) => readableQ(q) && !seen.has(q._key)) || null : null;
+    const now = Date.now(), seen = new Set(S.examLog.map((l) => l.key)), done = new Set((S.recall || []).filter((r) => r.due).map((r) => r.due));
+    const miss = S.examLog.filter((l) => !l.ok && now - l.t >= 6 * 864e5 && !S.examLog.some((x) => x.ok && x.t > l.t && sameKind(x.key, l.key)));
+    for (const l of miss) {
+      if (l.key.startsWith('exam:')) {
+        const x0 = (B.exams || []).find((x) => x._key === l.key);
+        const alt = (B.exams || []).find((x) => x._key !== l.key && !seen.has(x._key) && !done.has(x._key) && x.part === (x0 || {}).part && sameKind(x._key, l.key));
+        if (alt) return alt;
+        continue;
+      }
+      const c = B.chapters.find((x) => x.id === l.key.split(':')[0]);
+      const q = c && c.qs.find((x) => readableQ(x) && !seen.has(x._key) && !done.has(x._key));
+      if (q) return q;
+    }
+    return null;
   }
   // 札を箱に分ける問い（sort）と、工場の川（flow：材料→作っている途中→できあがり→売れた分へ価値を運ぶ）は同じしくみ
   const isSort = (b2) => b2.layout === 'sort' || b2.layout === 'flow';
