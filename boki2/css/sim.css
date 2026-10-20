@@ -238,3 +238,13 @@ i.lv0 { border: 1px solid var(--line); }
 .s-file { display: block; text-align: center; cursor: pointer; }
 .s-field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
 .s-field input { font-size: 16px; padding: 6px 8px; border: 2px solid var(--line); border-radius: 6px; }
+.s-why { border-top: 1px dashed var(--line); padding-top: 8px; margin-top: 4px; }
+.s-contrast { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.s-contrast > div { border: 1px solid var(--line); border-radius: 6px; padding: 8px; background: var(--surface2); font-size: 13px; }
+.s-contrast > div:first-child { border-left: 4px solid var(--bad); }
+.s-contrast > div:last-child { border-left: 4px solid hsl(150 45% 45%); }
+.s-contrast small { color: var(--muted); font-weight: 700; }
+.s-contrast p { margin: 4px 0 0; }
+.s-guess { font-size: 13px; color: var(--muted); }
+.s-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 6px; }
+.s-pair small { color: var(--muted); font-weight: 700; display: block; margin-bottom: 2px; }

@@ -63,6 +63,12 @@
     const grp = c === 'マイナスの札' ? 'マイナスの札' : gw(c);
     return `${acc}（${grp}）が ${fmt(amt)} ${up ? '増えた' : 'へった'}`;
   }
+  // 科目名を出さずに、どの箱がどちらへ動いたかだけを言う（結果パネルの2段目）
+  function boxMove(acc, side) {
+    const c = CONTRA.has(acc) ? 'マイナスの札' : cat(acc);
+    const up = (c === '資産' || c === '費用') ? side === 'dr' : c === 'マイナスの札' ? side === 'cr' : side === 'cr';
+    return `${c === 'マイナスの札' ? 'マイナスの札' : gw(c)}が${up ? '増えた' : 'へった'}`;
+  }
 
   /* ---------- flow ---------- */
   const month = () => D.months[S.mi];
@@ -75,8 +81,8 @@
     return sameEntry(userEntry, truth);
   }
   function next() { S.ei++; S.phase = 'event'; save(); render(); }
-  // 同じ種類の書類を、別々の月に2回、1回目で正しく書けたら「慣れた」
-  const mastered = (kind) => !!kind && new Set(S.docLog.filter((l) => l.kind === kind && l.ok).map((l) => l.mi)).size >= 2;
+  // 同じ種類の書類を、別々の月に2回、ヒントなしで1回目から正しく書けたら「慣れた」（助けなしで書けたかで判定する）
+  const mastered = (kind) => !!kind && new Set(S.docLog.filter((l) => l.kind === kind && l.ok && !l.hint).map((l) => l.mi)).size >= 2;
 
   /* ---------- small renderers ---------- */
   const avatar = (k) => { const [n, h] = CAST[k] || [k, 190]; return `<span class="s-ava" style="--h:${h}">${esc(n.slice(0, 1))}</span>`; };
@@ -529,14 +535,31 @@
         if (!entry.dr.length || !entry.cr.length || d !== c) { const bl = $('.s-bal', app); bl.textContent = !entry.dr.length || !entry.cr.length ? '左と右の両方に、札と金額を入れよう' : '左と右を同じ数にしてから書こう'; bl.classList.add('shake'); setTimeout(() => bl.classList.remove('shake'), 400); return; }
         const ok = sameEntry(entry, truth);
         tries++;
-        if (!fixMode && tries === 1) { S.docLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi, ok }); S.metrics.docs.n++; if (ok) { S.metrics.docs.first++; if (ev.kind) (S.kinds[ev.kind] = S.kinds[ev.kind] || []).push(S.mi); } }
+        if (!fixMode && tries === 1) { S.docLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi, ok, hint: hintLv > 0 }); S.metrics.docs.n++; if (ok) { S.metrics.docs.first++; if (ev.kind) (S.kinds[ev.kind] = S.kinds[ev.kind] || []).push(S.mi); } }
         if (coach && !ok) {
-          // 正解は言わない。書類から確かに言えることと、自分の仕訳が言っていることを並べる
+          // 正解は言わない。1回目：書類から確かに言えることと、自分の仕訳が言っていること（？の行）を並べる
           const lines = [...entry.dr.map(([a, v]) => ['dr', a, v]), ...entry.cr.map(([a, v]) => ['cr', a, v])];
           const inTruth = ([s, a, v]) => truth[s].some(([ta, tv]) => ta === a && tv === v);
-          const anchor = [...truth.dr.map(([a, v]) => ['dr', a, v]), ...truth.cr.map(([a, v]) => ['cr', a, v])].find(([, a]) => ['普通預金', '売掛金', '買掛金', '未払金', '借入金'].includes(a));
-          panel = `<div class="s-check"><p><b>書類から確かに言えること</b><br>${anchor ? esc(moveText(anchor[1], anchor[0], anchor[2])) : '書類の金額と、何が起きたかをもう一度読もう'}</p><p><b>いまの仕訳が言っていること</b></p><ul>${lines.map((l) => `<li class="${inTruth(l) ? 'ok' : 'q'}">${inTruth(l) ? '✓' : '？'} ${esc(moveText(l[1], l[0], l[2]))}</li>`).join('')}</ul><p class="muted">「？」の行は、書類の出来事と合っている？</p><button class="btn wide ghost" data-redo>書き直す</button></div>`;
-          save(); draw(); if (tries >= 2) hint(); return;
+          const tlines = [...truth.dr.map(([a, v]) => ['dr', a, v]), ...truth.cr.map(([a, v]) => ['cr', a, v])];
+          const anchor = tlines.find(([, a]) => ['普通預金', '売掛金', '買掛金', '未払金', '借入金'].includes(a));
+          const first = `<p><b>書類から確かに言えること</b><br>${anchor ? esc(moveText(anchor[1], anchor[0], anchor[2])) : '書類の金額と、何が起きたかをもう一度読もう'}</p><p><b>いまの仕訳が言っていること</b></p><ul>${lines.map((l) => `<li class="${inTruth(l) ? 'ok' : 'q'}">${inTruth(l) ? '✓' : '？'} ${esc(moveText(l[1], l[0], l[2]))}</li>`).join('')}</ul>`;
+          let more = '';
+          if (tries === 1) more = '<p class="muted">いつ、何が起きた書類？ 書類の出来事と「？」の行は合っている？</p>';
+          else if (tries === 2) {
+            // 2回目：なぜ違うかを箱の動きで見せる（科目名は出さない）
+            const um = lines.map(([sd, a]) => boxMove(a, sd)), tm = tlines.map(([sd, a]) => boxMove(a, sd));
+            const extra = [...new Set(um.filter((m) => !tm.includes(m)))], missing = [...new Set(tm.filter((m) => !um.includes(m)))];
+            more = `<div class="s-why"><p><b>箱の動きでくらべると</b></p>${extra.length ? `<p>いまの仕訳では「${extra.map(esc).join('」「')}」。この書類の出来事には、その動きがない。</p>` : ''}${missing.length ? `<p>この書類の出来事には「${missing.map(esc).join('」「')}」という動きがあるのに、いまの仕訳にない。</p>` : ''}${!extra.length && !missing.length ? '<p>箱の動きは合っている。札の名前か金額が、書類とちがう。</p>' : ''}</div>`;
+          } else {
+            // 3回目から：別の事例の手本（同じ種類の、前に書いた書類）を見せてから、この書類にもう一度
+            const model = S.T.filter((x) => x.ev !== ev.id && S.L.some((l) => l.id === x.id && l.kind === ev.kind)).pop();
+            if (model) {
+              const me = allEvents.find(({ e }) => e.id === model.ev);
+              more = `<div class="s-why"><p><b>先輩「前に、同じ種類の書類をこう書いたよ」</b></p>${me ? `<p class="muted">${esc(me.e.doc.date)} ${esc(me.e.doc.title)}</p>` : ''}${jeTable(model)}<p>同じ考え方で、この書類の数字と相手で書いてみよう。</p></div>`;
+            } else { hint(); hint(); hint(); more = '<p class="muted">ヒントの3つめに、使う札が出ている。</p>'; }
+          }
+          panel = `<div class="s-check">${first}${more}<button class="btn wide ghost" data-redo>書き直す</button></div>`;
+          save(); draw(); return;
         }
         post(ev, entry, false);
         save();
@@ -568,16 +591,34 @@
   }
 
   /* ---- 困りごとから考え方を見つける ---- */
+  // 名前カードの仕訳：この発見のすぐあとに出てくる、同じ月の最初の書類の正しい書き方（教わった札だけで書けるもの）
+  function nameJE(ev) {
+    const mi = D.months.findIndex((m) => m.events.includes(ev));
+    if (mi < 0) return null;
+    const evs = D.months[mi].events, k = evs.indexOf(ev);
+    const teach = new Set([...(ev.b4.teaches || []), ...S.taught]);
+    for (const x of evs.slice(k + 1)) {
+      if (x.t !== 'doc' || (x.when && !x.when(S))) continue;
+      const a = val(x.ans, S);
+      // すぐあとの書類の答えそのものは見せない。同じ形で金額だけ変えた「たとえば」にする
+      if ([...a.dr, ...a.cr].every(([acc]) => teach.has(acc))) return { dr: a.dr.map(([x, v]) => [x, v * 2]), cr: a.cr.map(([x, v]) => [x, v * 2]) };
+      return null;
+    }
+    return null;
+  }
   function discoverScreen(ev, isReplay) {
     // もう一度見るときは、記録（1回目の正誤・分かれ道）に数えない
     const m = isReplay ? { tries: 0, first: null, hand: 0, forks: [] } : (S.metrics.disc[ev.id] = S.metrics.disc[ev.id] || { tries: 0, first: null, hand: 0, forks: [] });
     const metrics = isReplay ? { forks: {}, hand: 0 } : S.metrics;
-    // 4拍（困りごと→問い→結果→名前）は設計の言葉。画面には出さず、ボタンは次の行動の言葉にする
-    let beat = 1, picked = null, sorted = {}, reason = null, hintLv = 0;
+    // 5拍（困りごと→予想→手の操作と理由→結果（最初の誤りと並べる）→名前）は設計の言葉。画面には出さず、ボタンは次の行動の言葉にする
+    let beat = 1, picked = null, sorted = {}, reason = null, hintLv = 0, guess = null, firstWrong = null;
     const draw = () => {
       let body = '';
       if (beat === 1) {
-        body = `${talk(ev.b1.talk)}${ev.b1.dyn ? `<p class="s-dyn">${esc(ev.b1.dyn(S))}</p>` : ''}${docHTML(ev.b1.doc)}<button class="btn wide" data-b="2">${esc(ev.b1.go || 'ピヨといっしょに考える')}</button>`;
+        body = `${talk(ev.b1.talk)}${ev.b1.dyn ? `<p class="s-dyn">${esc(ev.b1.dyn(S))}</p>` : ''}${docHTML(ev.b1.doc)}<button class="btn wide" data-b="${ev.predict && guess === null ? 'p' : '2'}">${esc(ev.b1.go || 'ピヨといっしょに考える')}</button>`;
+      } else if (beat === 'p') {
+        // 予想：正しいかどうかは言わない。結果のあとで、自分の予想とくらべる
+        body = `${talk([['senpai', '考える前に、まず予想してみよう。当たっても外れてもいい。']])}<p class="s-q">${esc(ev.predict.q)}</p><div class="s-opts">${ev.predict.opts.map((o, k) => `<button class="s-opt" data-guess="${k}"><b>${esc(o.t)}</b></button>`).join('')}</div>`;
       } else if (beat === 2) {
         const b2 = ev.b2;
         let field = '';
@@ -594,14 +635,19 @@
         const r = b2.reasons[reason];
         if (tgtOk && r.ok) {
           const g = b2.layout === 'sort' ? null : b2.targets.find((x) => x.id === picked);
-          body = `${g && g.react ? `<p class="s-react">${esc(g.react)}</p>` : ''}<p class="s-result">${esc(ev.b3.ok)}</p>${ev.b3.bs ? miniBS(ev.b3.bs) : ''}${ev.b3.bars ? barsHTML(ev.b3.bars) : ''}<button class="btn wide" data-b="4">これ、なんて呼ぶの？</button>`;
+          const pg = ev.predict && guess !== null ? ev.predict.opts[guess] : null;
+          const contrast = firstWrong ? `<div class="s-contrast"><div><small>最初に考えたこと</small><p>${esc(firstWrong.what)}</p></div><div><small>いま分かったこと</small><p>${esc(firstWrong.why)}</p></div></div>` : '';
+          body = `${g && g.react ? `<p class="s-react">${esc(g.react)}</p>` : ''}<p class="s-result">${esc(ev.b3.ok)}</p>${contrast}${pg ? `<p class="s-guess">あなたの予想：「${esc(pg.t)}」${pg.ok ? '。予想どおりだった' : '。結果とくらべて、どこがちがった？'}</p>` : ''}${ev.b3.bs ? miniBS(ev.b3.bs) : ''}${ev.b3.bars ? barsHTML(ev.b3.bars) : ''}<button class="btn wide" data-b="4">これ、なんて呼ぶの？</button>`;
         } else {
           const why = !tgtOk ? (b2.layout === 'sort' ? b2.wrongReact : b2.targets.find((x) => x.id === picked).react) : r.react;
           body = `<p class="s-react ng">${esc(why)}</p><button class="btn wide ghost" data-retry>もう一度えらぶ</button>`;
         }
       } else {
         const b4 = ev.b4;
-        body = `<div class="s-name"><small>この考え方の名前</small><h2>${rb(b4.name)}</h2><p>${rb(b4.line)}</p><details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc(b4.exam)}</details><p class="s-leaf">マップに「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
+        // 名前カード：さっき手で動かした図と、帳簿の書き方（仕訳）を並べて、同じことの2つの表し方だと見せる
+        const je = nameJE(ev);
+        const pair = (ev.b3.bs || je) ? `<div class="s-pair">${ev.b3.bs ? `<div><small>さっき動かした棚</small>${miniBS(ev.b3.bs)}</div>` : ''}${je ? `<div><small>帳簿にはこう書く（たとえば金額が2倍なら）</small>${jeTable(je)}</div>` : ''}</div>` : '';
+        body = `<div class="s-name"><small>この考え方の名前</small><h2>${rb(b4.name)}</h2><p>${rb(b4.line)}</p>${pair}<details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc(b4.exam)}</details><p class="s-leaf">マップに「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
       }
       // 手帳（説明）は名前がついてから読める。考えている途中で答えを見せない
       frame(`<div class="s-card s-disc"><div class="s-disc-head"><h3>${esc(ev.title)}</h3></div>${body}</div>`);
@@ -610,8 +656,9 @@
     app.onclick = (e) => {
       const g = (s) => e.target.closest(s);
       if (g('[data-hand]')) { m.hand++; metrics.hand++; save(); overlay(`<h3>先輩の手帳</h3><p>${esc(ev.hand)}</p>`); return; }
-      if (g('[data-b]')) { beat = +g('[data-b]').dataset.b; if (beat === 4 && !isReplay) teach(ev.b4.teaches); draw(); return; }
+      if (g('[data-b]')) { const bv = g('[data-b]').dataset.b; beat = bv === 'p' ? 'p' : +bv; if (beat === 4 && !isReplay) teach(ev.b4.teaches); draw(); return; }
       if (g('[data-hint]')) { hintLv++; m.hints = (m.hints || 0) + 1; save(); draw(); return; }
+      if (g('[data-guess]')) { guess = +g('[data-guess]').dataset.guess; if (!isReplay) { m.predict = { k: guess, ok: !!ev.predict.opts[guess].ok }; save(); } beat = 2; draw(); return; }
       if (g('[data-pick]')) { picked = g('[data-pick]').dataset.pick; draw(); return; }
       if (g('[data-sort]')) { const x = g('[data-sort]'); sorted[x.dataset.sort] = x.dataset.to; draw(); return; }
       if (g('[data-reason]')) { reason = +g('[data-reason]').dataset.reason; draw(); return; }
@@ -623,6 +670,11 @@
         if (m.first === null) m.first = !!(tgtOk && r.ok);
         if (!r.ok && r.fork) { m.forks.push(r.fork); metrics.forks[r.fork] = (metrics.forks[r.fork] || 0) + 1; }
         if (!tgtOk) { const f = b2.layout === 'sort' ? `${ev.id}:分け方` : (b2.targets.find((x) => x.id === picked).fork || `${ev.id}:${picked}`); m.forks.push(f); metrics.forks[f] = (metrics.forks[f] || 0) + 1; }
+        if (!(tgtOk && r.ok) && !firstWrong) {
+          const what = b2.layout === 'sort' ? `分け方：${b2.tokens.map((t) => `${t.label.split('（')[0]}→${(b2.targets.find((x) => x.id === sorted[t.id]) || {}).label || ''}`).join('、')}` : `「${b2.targets.find((x) => x.id === picked).label}」、理由「${r.t}」`;
+          const why = !tgtOk ? (b2.layout === 'sort' ? b2.wrongReact : b2.targets.find((x) => x.id === picked).react) : r.react;
+          firstWrong = { what, why };
+        }
         save(); beat = 3; draw(); return;
       }
       if (g('[data-retry]')) { beat = 2; picked = null; sorted = {}; reason = null; draw(); return; }
@@ -841,8 +893,14 @@
     if (d.crunch === 'nothing') r -= 1;
     if (d.kessan === 'follow') r -= 2;
     if (d.credit === 'credit') r -= 1;
-    if (S.metrics.fixes >= 3) r -= 1;
+    // 直した回数では減らさない（直すのは良いこと）。書類と合わない数字が決算書に残ったときだけ減らす
+    if (ledgerGap().length) r -= 1;
     return Math.max(0, Math.min(4, r));
+  }
+  // 自分の帳簿（S.L）と、書類どおりの帳簿（S.T）で残高がちがう科目
+  function ledgerGap() {
+    const u = balances(S.L), t = balances(S.T);
+    return [...new Set([...Object.keys(u), ...Object.keys(t)])].filter((a) => (u[a] || 0) !== (t[a] || 0));
   }
   const RATING = ['とても心配', '心配', '少し心配', 'ふつう', '安心'];
   function bankScreen() {
@@ -861,7 +919,9 @@
     else lines.push(['ginko', 'A社との取引を見送ったのは慎重でしたね。']);
     if (d.volume === '3m') lines.push(['ginko', '倉庫の在庫が多いですね。まとめて払ったお金が、まだレモンのまま眠っています。']);
     if (d.recon === 'align') lines.push(['ginko', 'B社の注文が半分になったのは、帳簿のまちがいからだったと聞きました。帳簿は、お客さんとの信頼にもつながっています。']);
-    if (S.metrics.fixes >= 3) lines.push(['ginko', '月末の直しが多かったのは少し気になります。毎月の数字を早く正確に出すことが、信用のもとです。']);
+    if (d.uncle === 'equity') lines.push(['ginko', 'おじさまが株主になって、返さなくていいお金が厚くなりましたね。株主が3人になったぶん、もうけの分け方は3人で決めることになります。']);
+    else if (d.uncle === 'loan') lines.push(['ginko', 'おじさまからの10万円は借入で、3月にお返しになったのですね。返す約束を守ったことは確認しました。']);
+    if (ledgerGap().length) lines.push(['ginko', `決算書に、書類と合わない数字が残っています（${ledgerGap().slice(0, 3).join('・')}）。毎月の締めで直しておけば、ここで困らずに済みました。`]);
     const offer = r >= 3 ? Math.max(100000, Math.round((eq * 0.8) / 10000) * 10000) : r === 2 ? Math.round((eq * 0.4) / 10000) * 10000 : 0;
     lines.push(['ginko', offer ? `2号店のために、${offer.toLocaleString()}円までお貸しできます。` : '申し訳ありませんが、2号店のためのご融資は、今はお受けできません。']);
     S.diary.push({ m: '翌年4月', t: offer ? `銀行（見方：${RATING[r]}）：2号店のために ${fmt(offer)}円まで借りられる` : `銀行（見方：${RATING[r]}）：2号店のための融資を断られた` });

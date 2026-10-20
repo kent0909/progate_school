@@ -2,6 +2,7 @@
 // ピヨ商店の1年目（js/sim/scenario.js）を、正しい記帳で、すべての判断の分かれ道について進めて検算する。
 // ・判断ごとに枝分かれ（when のある判断は、その条件を満たす枝だけ）。会社がなくなる結末（final）でその枝は終わる
 // ・すべての枝で：仕訳の貸借一致、科目の存在、書類のタップ欄に金額があること、書類を記帳するたびに預金がマイナスにならないこと、試算表の合計0
+// ・判断の返り：同じ判断の別の選択肢を選んで、その後の出来事（書類の金額・会話・結末）がまったく同じになる判断は「返りのない判断」として失敗にする
 // ・11月の資金不足：E社への支払いの直前の預金が、台本の preBank と一致し、手を打たないと足りない（不足額が正）こと
 // Usage: node boki2/tools/sim-check.js
 global.window = global;
@@ -22,8 +23,9 @@ function run(i, S) {
   for (; i < flat.length; i++) {
     const { e, label } = flat[i];
     if (e.when && !e.when(S)) continue;
+    if (e.t !== 'decision') S.tr.push(trace(e, S));
     if (e.t === 'decision') {
-      for (const o of e.options) run(i + 1, { ...S, T: S.T.slice(), decisions: { ...S.decisions, [e.id]: o.id } });
+      for (const o of e.options) run(i + 1, { ...S, T: S.T.slice(), tr: S.tr.slice(), decisions: { ...S.decisions, [e.id]: o.id } });
       return;
     }
     if (e.t === 'ending') {
@@ -54,14 +56,33 @@ function run(i, S) {
   }
   finish(S, '1年の終わり');
 }
+// その後に起きたことの記録（判断そのものは含めない）
+function trace(e, S) {
+  if (e.t === 'doc') return `${e.id}:${JSON.stringify(val(e.ans, S))}`;
+  if (e.t === 'talk') return `${e.id || ''}:${JSON.stringify(val(e.lines, S))}`;
+  return `${e.t}:${e.id || ''}`;
+}
+const traces = [];
 function finish(S, where) {
   leaves++;
+  traces.push({ d: S.decisions, tr: S.tr.join('|') });
   const bal = {};
   for (const e of S.T) { for (const [a, v] of e.dr) bal[a] = (bal[a] || 0) + v; for (const [a, v] of e.cr) bal[a] = (bal[a] || 0) - v; }
   const total = Object.values(bal).reduce((t, v) => t + v, 0);
   if (total !== 0) err(`${where}：試算表の合計が合わない ${total}（${JSON.stringify(S.decisions)}）`);
 }
-run(0, { T: [], decisions: {} });
+run(0, { T: [], tr: [], decisions: {} });
+// 判断ごとに：ほかの判断をそろえたとき、選択肢を変えても後の出来事が同じなら「返りがない」
+for (const { e } of flat.filter((x) => x.e.t === 'decision')) {
+  const groups = {};
+  for (const t of traces) {
+    if (!(e.id in t.d)) continue;
+    const rest = JSON.stringify(Object.entries(t.d).filter(([k]) => k !== e.id).sort());
+    (groups[rest] = groups[rest] || {})[t.d[e.id]] = t.tr;
+  }
+  const same = Object.values(groups).filter((g) => Object.keys(g).length > 1 && new Set(Object.values(g)).size < Object.keys(g).length);
+  if (same.length && same.length === Object.values(groups).filter((g) => Object.keys(g).length > 1).length) err(`判断 ${e.id}：選択肢を変えても、その後の書類・会話・結末が変わらない（返りのない判断）`);
+}
 for (const id of Object.keys(D.endings)) if (!ends[id] && !D.endings[id].ifOnly) err(`結末 ${id} に、どの枝からも到達しない`);
 
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
