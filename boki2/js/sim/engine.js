@@ -355,6 +355,12 @@
     const amt = (a) => (a === 'sale' ? sale : a);
     const sum = (list) => list.reduce((t, x) => t + x.amt, 0);
     const coin = (d) => { const c = st.L.find((x) => x.id === 'coin'); if (c) c.amt += d; };
+    // 戻る・取り消すで棚が二重にならないように、段の始まりと一手ごとの状態を取っておく
+    const snap = () => JSON.stringify({ st, sale, sub });
+    const restore = (j) => { const o = JSON.parse(j); st.L = o.st.L; st.R1 = o.st.R1; st.R0 = o.st.R0; sale = o.sale; sub = o.sub; };
+    const stepStart = [snap()], subs = [];
+    let hist = [];
+    const mark = () => hist.push(snap());
     const shelf = (showR) => `<div class="s-board"><div class="s-shelf"><h4>もっているもの</h4>${st.L.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('') || '<em>（からっぽ）</em>'}<div class="s-sum">${fmt(sum(st.L))}</div></div>${showR ? `<div class="s-shelf r"><h4>どこから来たか</h4><div class="s-row2"><small>返すお金</small>${st.R1.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('')}</div><div class="s-row2"><small>返さないお金（じぶんのお金）</small>${st.R0.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('')}</div><div class="s-sum">${fmt(sum(st.R1) + sum(st.R0))}</div></div>` : ''}</div>`;
     const draw = () => {
       const s = ev.steps[i];
@@ -383,18 +389,20 @@
         body = `<div class="s-name"><small>この書き方の名前</small><h2>${rb(s.name)}</h2><p>${rb(s.line)}</p><p class="s-leaf">マップに「${esc(s.leaf.label)}」が加わった</p></div>`;
       }
       const after = ready && s.after ? talk(s.after) : '';
-      frame(`<div class="s-card">${talk(s.say)}${s.q && !(ready && s.k !== 'card') ? `<p class="s-q">${esc(s.q)}</p>` : ''}${body}${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}${after}${ready ? '<button class="btn wide" data-step>つぎへ</button>' : ''}${i > 0 ? '<button class="btn ghost sm" data-back>← もどる</button>' : ''}</div>`);
+      frame(`<div class="s-card">${talk(s.say)}${s.q && !(ready && s.k !== 'card') ? `<p class="s-q">${esc(s.q)}</p>` : ''}${body}${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}${after}${ready ? '<button class="btn wide" data-step>つぎへ</button>' : ''}${hist.length ? '<button class="btn ghost sm" data-undo>ひとつ取り消す</button>' : ''}${i > 0 ? '<button class="btn ghost sm" data-back>← もどる</button>' : ''}</div>`);
     };
     draw();
     app.onclick = (e) => {
       const s = ev.steps[i], g = (q) => e.target.closest(q);
-      if (g('[data-tok]')) { const t = s.tokens.find((x) => x.id === g('[data-tok]').dataset.tok); st.L.push({ id: t.id, label: t.label, amt: t.amt }); msg = ''; draw(); return; }
+      if (g('[data-undo]')) { if (hist.length) restore(hist.pop()); msg = ''; draw(); return; }
+      if (g('[data-tok]')) { const t = s.tokens.find((x) => x.id === g('[data-tok]').dataset.tok); if (st.L.some((x) => x.id === t.id)) return; mark(); st.L.push({ id: t.id, label: t.label, amt: t.amt }); msg = ''; draw(); return; }
       if (g('[data-put]')) {
         const b = g('[data-put]'), t = s.tokens.find((x) => x.id === b.dataset.put);
         if (b.dataset.to !== t.ok) { msg = t.react; draw(); return; }
-        sub[t.id] = b.dataset.to; st[t.ok].push({ id: t.id, label: t.label, amt: amt(t.amt) }); if (t.coin) coin(amt(t.coin)); msg = ''; draw(); return;
+        if (sub[t.id]) return;
+        mark(); sub[t.id] = b.dataset.to; st[t.ok].push({ id: t.id, label: t.label, amt: amt(t.amt) }); if (t.coin) coin(amt(t.coin)); msg = ''; draw(); return;
       }
-      if (g('[data-pick]')) { const o = s.opts.find((x) => x.id === g('[data-pick]').dataset.pick); sub.pick = o.id; sale = o.sale; if (!isReplay) S.decisions.price = o.id; msg = ''; draw(); return; }
+      if (g('[data-pick]')) { const o = s.opts.find((x) => x.id === g('[data-pick]').dataset.pick); mark(); sub.pick = o.id; sale = o.sale; if (!isReplay) S.decisions.price = o.id; msg = ''; draw(); return; }
       if (g('[data-ask]')) {
         const [li, k] = g('[data-ask]').dataset.ask.split('-').map(Number), o = s.lines[li].ask.opts[k];
         if (!o.ok) { msg = o.react; draw(); return; }
@@ -403,12 +411,14 @@
       if (g('[data-note]')) {
         const b = g('[data-note]'), [li, ci] = b.dataset.note.split('-').map(Number), c = s.lines[li].cards[ci];
         if (b.dataset.side !== c.side) { msg = s.react[c.kind]; draw(); return; }
-        sub[b.dataset.note] = c.side; msg = ''; draw(); return;
+        if (sub[b.dataset.note]) return;
+        mark(); sub[b.dataset.note] = c.side; msg = ''; draw(); return;
       }
-      if (g('[data-back]')) { i--; sub = {}; msg = ''; draw(); return; }
+      // もどる：この段でしたことを取り消してから、前の段を終えたときの状態に戻す
+      if (g('[data-back]')) { restore(stepStart[i]); i--; sub = subs[i] || {}; hist = []; msg = ''; draw(); return; }
       if (g('[data-step]')) {
         if (s.k === 'card' && !isReplay) { teach(s.teaches); if (!S.leaves.some((l) => l.label === s.leaf.label)) S.leaves.push({ p: s.leaf.p, label: s.leaf.label, mi: S.mi }); }
-        if (i + 1 < ev.steps.length) { i++; sub = {}; msg = ''; draw(); return; }
+        if (i + 1 < ev.steps.length) { subs[i] = JSON.parse(JSON.stringify(sub)); i++; sub = {}; hist = []; stepStart[i] = snap(); msg = ''; draw(); return; }
         if (isReplay) { render(); return; }
         if (!done && ev.next) { done = true; frame(`<div class="s-card">${talk(ev.next)}<button class="btn wide" data-fin>つぎへ</button></div>`); app.onclick = (x) => { if (x.target.closest('[data-fin]')) { S.discDone[ev.id] = S.mi; next(); } }; return; }
         S.discDone[ev.id] = S.mi; next();
