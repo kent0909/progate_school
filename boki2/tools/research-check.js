@@ -54,21 +54,47 @@ function readNote(p) {
 
 // ---------- 原文の場所と本文テキスト ----------
 const rawByHash = new Map();
-for (const p of lsr(path.join(R, 'raw'))) { if (!p.includes(`${path.sep}.text${path.sep}`)) rawByHash.set(sha(fs.readFileSync(p)), p); }
+// ファイルの sha256 は、パス・サイズ・更新時刻が同じなら research/raw/.hashcache.json の値を使う
+const HC = path.join(R, 'raw', '.hashcache.json');
+const hashCache = fs.existsSync(HC) ? JSON.parse(fs.readFileSync(HC, 'utf8')) : {};
+function fileSha(p) { const st = fs.statSync(p); const k = `${st.size}:${st.mtimeMs}`; if (hashCache[p] && hashCache[p].k === k) return hashCache[p].h; const h = sha(fs.readFileSync(p)); hashCache[p] = { k, h }; return h; }
+for (const p of lsr(path.join(R, 'raw'))) { if (!p.includes(`${path.sep}.text${path.sep}`) && !p.endsWith('.hashcache.json')) rawByHash.set(fileSha(p), p); }
+try { fs.writeFileSync(HC, JSON.stringify(hashCache)); } catch (x) {}
 function sha(buf) { return crypto.createHash('sha256').update(buf).digest('hex'); }
 function rawFile(e) {
   if (e.sha256 && rawByHash.has(e.sha256)) return rawByHash.get(e.sha256);
   const fp = e.file ? path.resolve(R, e.file) : null;
-  if (fp && fs.existsSync(fp) && (!e.sha256 || sha(fs.readFileSync(fp)) === e.sha256)) return fp;
+  if (fp && fs.existsSync(fp) && (!e.sha256 || fileSha(fp) === e.sha256)) return fp;
   return null;
 }
 const textCache = new Map();
+// pdftotext の結果は research/raw/.text/<sha256>.txt に保存して使い回す（毎回の抽出で検査が遅くならないように）
+function pdfText(file) {
+  const dir = path.join(R, 'raw', '.text');
+  const key = fileSha(file);
+  const c = path.join(dir, key + '.txt');
+  if (fs.existsSync(c)) return fs.readFileSync(c, 'utf8');
+  const t = spawnSync('pdftotext', ['-layout', file, '-'], { encoding: 'utf8', maxBuffer: 1 << 28 }).stdout || '';
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(c, t);
+  return t;
+}
 function textOf(file) {
   if (!file) return null;
   if (textCache.has(file)) return textCache.get(file);
   let t = '';
-  if (/\.pdf$/i.test(file)) t = spawnSync('pdftotext', ['-layout', file, '-'], { encoding: 'utf8', maxBuffer: 1 << 28 }).stdout || '';
-  else t = fs.readFileSync(file, 'utf8').replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'");
+  if (/\.pdf$/i.test(file)) t = pdfText(file);
+  else {
+    // 文字コード：Shift_JIS・EUC-JP のページも読む
+    const buf = fs.readFileSync(file);
+    const head = buf.slice(0, 3000).toString('latin1');
+    const cs = (head.match(/charset=["']?([\w-]+)/i) || [])[1] || 'utf-8';
+    let dec = 'utf-8';
+    if (/shift_?jis|sjis|windows-31j|cp932/i.test(cs)) dec = 'shift_jis'; else if (/euc-?jp/i.test(cs)) dec = 'euc-jp';
+    // 正しいUTF-8として読めるならUTF-8を優先（文字コードを変換した写しは meta の宣言と中身が食い違うため）
+    try { t = new TextDecoder('utf-8', { fatal: true }).decode(buf); } catch (x) { t = new TextDecoder(dec).decode(buf); }
+    t = t.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'");
+  }
   textCache.set(file, t);
   return t;
 }
@@ -137,7 +163,13 @@ for (const s of sources) {
     }
     let expected = c.expected;
     if (expected === 'index') expected = (universe || []).filter((d) => !excluded.has(d));
-    if (expected === 'ledger') expected = [...new Set(L.filter((e) => e.doc !== (c.index || {}).doc).map((e) => e.doc))];
+    if (expected === 'ledger') {
+      // 取得記録にあるものが対象。ただし取得に失敗しただけ（404など、成功した記録が1つもない）のものは、読んでいない資料として注意に出す
+      const docs = [...new Set(L.filter((e) => e.doc !== (c.index || {}).doc).map((e) => e.doc))];
+      const failed = docs.filter((d) => !L.some((e) => e.doc === d && okFetch(e)) && L.some((e) => e.doc === d && Number(e.status) >= 300));
+      for (const d of failed) warn(tag, `${d} は取得に失敗した（${L.filter((e) => e.doc === d).map((e) => e.status).join('・')}）。読んでいないので根拠にしない`);
+      expected = docs.filter((d) => !failed.includes(d));
+    }
     expected = expected.map(String);
     if (universe) for (const d of universe) if (!expected.includes(d) && !excluded.has(d)) err(tag, `一覧に載っている ${d} が、対象にも対象外（理由つき）にも入っていない`);
     for (const [d, why] of excluded) if (!why || why.length < 4) err(tag, `対象外 ${d} の理由が書かれていない`);
@@ -196,7 +228,7 @@ function checkNote(n, es, tag, indexText, gen, r, isSection) {
   if (n.read !== 'full' && n.read !== 'partial') err(tag, `${where} の read が full / partial のどちらでもない`);
   // 原文と照合
   const files = es.map(rawFile).filter(Boolean);
-  const target = files.find((f) => sha(fs.readFileSync(f)) === n.sha256) || files[0];
+  const target = files.find((f) => fileSha(f) === n.sha256) || files[0];
   const text = target ? norm(textOf(target)) : null;
   if (!text) { r.unverifiable++; return; }
   const absent = anchors.filter((a) => !text.includes(a));
@@ -223,7 +255,7 @@ function checkNote(n, es, tag, indexText, gen, r, isSection) {
 // 厚い資料（教科書など）を冒頭や目次だけで済ませていないかを見る。原文が手元になければ null
 function coverage(ns, es, tag) {
   const files = es.map(rawFile).filter(Boolean);
-  const f = files.find((x) => ns.some((n) => sha(fs.readFileSync(x)) === n.sha256)) || files[0];
+  const f = files.find((x) => ns.some((n) => fileSha(x) === n.sha256)) || files[0];
   if (!f) return null;
   const text = norm(textOf(f));
   if (text.length <= 45000 && ns.length === 1) return true; // 短い文書は checkNote の前・中・後ろで見ている
@@ -240,7 +272,7 @@ function coverage(ns, es, tag) {
 function imageOnlyPages(file) {
   const imgCache = imageOnlyPages.cache || (imageOnlyPages.cache = new Map());
   if (imgCache.has(file)) return imgCache.get(file);
-  const t = spawnSync('pdftotext', ['-layout', file, '-'], { encoding: 'utf8', maxBuffer: 1 << 28 }).stdout || '';
+  const t = pdfText(file);
   const pages = t.split('\f').map((x) => norm(x).length);
   const out = pages.map((n, i) => (n < 30 ? i + 1 : 0)).filter(Boolean).filter((p) => p <= pages.length - (pages[pages.length - 1] === 0 ? 1 : 0));
   imgCache.set(file, out);
