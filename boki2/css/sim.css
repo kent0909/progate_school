@@ -207,3 +207,34 @@ details.s-exam summary { cursor: pointer; font-weight: 700; }
 .s-paper p { margin: 0 0 6px; }
 .s-mark { display: inline; text-align: left; white-space: normal; border: 0; padding: 0 2px; font: inherit; color: inherit; background: linear-gradient(transparent 55%, #ffe36e 55%); cursor: pointer; }
 .s-plain { margin-top: 8px; padding: 8px 10px; background: #fff3c4; border-radius: 6px; font-size: 14px; }
+/* 成長の記録 */
+.s-glegend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+.s-glegend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+.s-garea { margin: 10px 0; }
+.s-garea h4 { margin: 0 0 4px; }
+.s-garea h4 small { color: var(--muted); font-weight: 500; font-size: 12px; margin-left: 6px; }
+.s-gbar { display: flex; height: 12px; border-radius: 6px; overflow: hidden; border: 1px solid var(--line); background: var(--surface2); }
+.s-gsec { display: grid; grid-template-columns: minmax(0, 9em) 1fr; gap: 8px; align-items: center; font-size: 12px; margin-top: 4px; }
+.s-gsec span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lv4 { background: hsl(150 55% 38%); } .lv3 { background: hsl(150 45% 55%); } .lv2 { background: hsl(205 60% 55%); } .lv1 { background: hsl(40 80% 62%); } .lv0 { background: transparent; }
+i.lv0 { border: 1px solid var(--line); }
+.s-glist { list-style: none; padding: 0; margin: 4px 0; display: grid; gap: 4px; }
+.s-glist li { border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; background: var(--surface2); }
+.s-glist li small { display: block; color: var(--muted); font-size: 12px; }
+.s-glist.weak li { border-left: 4px solid var(--bad); }
+.s-glist.due li { border-left: 4px solid hsl(40 80% 55%); }
+.s-gtrend { display: flex; gap: 4px; align-items: flex-end; overflow-x: auto; padding-bottom: 2px; }
+.s-gcol { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 28px; }
+.s-gstack { height: 80px; width: 18px; display: flex; flex-direction: column-reverse; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; background: var(--surface2); }
+.s-gcol small { font-size: 10px; color: var(--muted); }
+/* タイトルのプロフィール・保存 */
+.s-who { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center; }
+.s-who small { width: 100%; color: var(--muted); }
+.s-who button { border: 2px solid var(--line); background: var(--surface2); border-radius: 999px; padding: 4px 12px; font-weight: 700; }
+.s-who button.on { border-color: var(--brand); background: var(--surface); }
+.s-more { width: 100%; text-align: left; }
+.s-more summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+.s-more .btn { margin-top: 8px; }
+.s-file { display: block; text-align: center; cursor: pointer; }
+.s-field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+.s-field input { font-size: 16px; padding: 6px 8px; border: 2px solid var(--line); border-radius: 6px; }

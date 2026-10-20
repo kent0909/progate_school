@@ -23,8 +23,10 @@
     discDone: {}, docLog: [], fixLog: [], closes: [], examLog: [], reportSeen: false,
     metrics: { started: Date.now(), disc: {}, docs: { n: 0, first: 0 }, fixes: 0, hints: 0, hand: 0, autoPosted: 0, quiz: null, forks: {} } });
   let S = fresh();
-  try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(fresh(), JSON.parse(raw)); } catch (e) { /* play without saving */ }
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* ignore */ } };
+  // 保存は store.js：端末の中にすぐ、公開ページの保存機能にも少し遅らせて（docs/STORAGE.md）
+  const ST = B.store;
+  { const raw = ST.loadLocal(KEY); if (raw) S = Object.assign(fresh(), raw); }
+  const save = () => ST.save(KEY, S);
   const knows = (w) => S.taught.includes(w);
   const teach = (list) => { (list || []).forEach((w) => { if (!knows(w)) S.taught.push(w); }); save(); };
   // 5つのグループの呼び方。名前を教わる前は、プロローグの棚の言葉で言う
@@ -113,7 +115,7 @@
     const m = month();
     const inShop = S.mi > 0;
     const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b></div>${knows('収益') ? `<div class="s-kpi"><small>この1年のもうけ</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
-    const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="log">日誌</button></nav>' : '';
+    const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button></nav>' : '';
     return `<header class="s-head"><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
   }
   let onFocus = null;
@@ -148,6 +150,7 @@
     const k = b.dataset.ov;
     if (k === 'co') overlay(companyView(balances(S.L)));
     if (k === 'map') mapOverlay();
+    if (k === 'grow') overlay(B.growth.view(GAPI));
     if (k === 'log') overlay(`<h3>経営日誌</h3>${S.diary.length ? `<ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul>` : '<p class="muted">まだ記録はない。</p>'}`);
   });
   function principleView() {
@@ -161,6 +164,9 @@
   let DEV = /[?&]dev\b/.test(location.search);
   const allEvents = D.months.flatMap((m, mi) => m.events.map((e) => ({ e, mi })));
   const monthLabel = (mi) => (D.months[mi] || {}).label || '';
+  // 成長の記録（growth.js）に渡す窓口
+  const GAPI = { S: () => S, scopeState: (it) => scopeState(it), monthLabel, esc };
+  const grew = (why) => { if (B.growth.snapshot(GAPI, why)) save(); };
   function scopeState(it) {
     const x = it.sim || {}, disc = x.disc || [], docs = x.docs || [], kinds = x.kinds || [];
     const mets = [];
@@ -253,14 +259,82 @@
     const ev = evs[S.ei];
     ({ talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
   }
+  function saveWord() {
+    const st = ST.status();
+    return st.mode === 'cloud' ? 'この端末と、claude.ai のこのページに保存（別の端末でも続きから遊べる）' : st.mode === 'cloud-error' ? 'この端末に保存（claude.ai への保存はいま失敗している）' : 'この端末に保存';
+  }
   function titleScreen() {
     const started = S.mi > 0 || S.ei > 0;
-    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨの<br><b>レモネード</b></div><p>小さな屋台が、会社になるまでの1年。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:12px">試作版（約40分）</p><button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}</main>`;
+    const ps = ST.profiles(), cur = ST.currentProfile();
+    const who = ps.length > 1 || (ps[0] && ps[0].name) ? `<div class="s-who"><small>だれが遊ぶ？</small>${ps.map((p, k) => `<button class="${p.id === cur ? 'on' : ''}" data-prof="${p.id}">${esc(p.name || `${k + 1}人目`)}</button>`).join('')}<button data-addprof>＋</button></div>` : '<button class="link" data-addprof>ほかの人もこの端末で遊ぶ</button>';
+    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨの<br><b>レモネード</b></div><p>小さな屋台が、会社になるまでの1年。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:12px">試作版（約40分）</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>保存と引っ越し・確認テスト</summary><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
     app.onclick = (e) => {
       if (e.target.closest('[data-start]')) { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }
-      if (e.target.closest('[data-reset]')) { S = fresh(); S.phase = 'monthIntro'; save(); render(); }
+      if (e.target.closest('[data-reset]')) { if (!confirm('この人の記録を消して、最初からやり直しますか？')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); }
+      const pb = e.target.closest('[data-prof]');
+      if (pb) { ST.switchProfile(pb.dataset.prof); const raw = ST.loadLocal(KEY); S = raw ? Object.assign(fresh(), raw) : fresh(); render(); ST.connect(KEY, (st) => { S = Object.assign(fresh(), st); if (document.querySelector('.s-title')) render(); }); }
+      if (e.target.closest('[data-addprof]')) { const name = prompt('遊ぶ人の呼び名（あとで変えられる。本名でなくてよい）', ''); if (name == null) return; ST.addProfile(name); S = fresh(); render(); }
+      if (e.target.closest('[data-export]')) { ST.download(`piyo-save-${new Date().toISOString().slice(0, 10)}.json`, ST.exportText(KEY) || JSON.stringify(S)); }
+      if (e.target.closest('[data-test]')) testScreen();
+    };
+    const inp = $('[data-import]', app);
+    if (inp) inp.onchange = async () => { const f = inp.files[0]; if (!f) return; try { S = Object.assign(fresh(), ST.importText(KEY, await f.text())); save(); render(); } catch (err) { alert('このファイルは読み込めませんでした。'); } };
+  }
+
+  /* ---- 確認テスト：ヒントなし・答え合わせなしで、体験した論点の本試験形式の仕訳を解く（docs/STORAGE.md）。
+     1回目（遊んだ直後）と2回目（7日後）は、同じ論点で数字の違う問題。結果はオーナーだけが読める場所に残す */
+  // 問題は testforms.js（1回目と2回目は同じ形で数字だけ違う）
+  function testForms() {
+    const pick = (form) => B.testForms.map((f) => Object.assign({}, f[form], { _key: `${f.id}:${form}`, scope: f.scope }));
+    return { A: pick('A'), B: pick('B') };
+  }
+  function testScreen() {
+    const logs = ST.testLogs();
+    frame(`<div class="s-card"><small>確認テスト</small><h3>助けなしで解いてみる</h3><p>ゲームで体験したことが、本試験の文章でも書けるかを確かめるテスト。ヒントも答え合わせも出ない。間違えてかまわない。</p><p class="muted" style="font-size:12px">結果は、協力をお願いした人（このページの持ち主）だけが読める場所に残る。名前は残さず、下の番号だけを使う。</p><label class="s-field">協力者の番号（例：T1）<input data-code maxlength="8" value="${esc((logs[logs.length - 1] || {}).code || '')}"></label><div class="s-two"><button class="btn" data-form="A">1回目（遊んだすぐあと）</button><button class="btn" data-form="B">2回目（7日後）</button></div>${logs.length ? `<p class="muted" style="font-size:12px">この端末の記録：${logs.map((r) => `${esc(r.code)} ${r.form === 'A' ? '1回目' : '2回目'} ${new Date(r.at).toLocaleDateString('ja-JP')}`).join('、')}</p><button class="link" data-testexport>記録をファイルにする</button>` : ''}<button class="link" data-back>タイトルにもどる</button></div>`);
+    app.onclick = (e) => {
+      if (e.target.closest('[data-back]')) { titleScreen(); return; }
+      if (e.target.closest('[data-testexport]')) { ST.download('piyo-testlogs.json', JSON.stringify(ST.testLogs(), null, 1)); return; }
+      const f = e.target.closest('[data-form]');
+      if (!f) return;
+      const code = ($('[data-code]', app).value || '').trim().replace(/[^\w-]/g, '').slice(0, 8);
+      if (!code) { alert('協力者の番号を入れてください（例：T1）'); return; }
+      const prevA = logs.find((r) => r.code === code && r.form === 'A');
+      if (f.dataset.form === 'B' && prevA && Date.now() - prevA.at < 6 * 864e5 && !confirm(`1回目から${Math.floor((Date.now() - prevA.at) / 864e5)}日しかたっていません。それでも2回目を始めますか？`)) return;
+      runTest(code, f.dataset.form);
     };
   }
+  function runTest(code, form) {
+    const qs = testForms()[form];
+    const run = { id: `${code}-${form}-${Date.now()}`, code, form, at: Date.now(), play: { mi: S.mi, minutes: Math.round((Date.now() - S.metrics.started) / 60000), growth: (S.growth || []).slice(-1)[0] || null }, items: [] };
+    let i = 0, t0 = Date.now();
+    const draw = () => {
+      if (i >= qs.length) {
+        run.done = Date.now();
+        ST.saveTest(run).then((where) => {
+          frame(`<div class="s-card"><small>確認テスト</small><h3>おつかれさま</h3><p>${qs.length}問、最後まで解いてくれてありがとう。結果は${where === 'cloud' ? 'ページの持ち主に届いた' : 'この端末に残した（下のボタンでファイルにして、持ち主に渡してください）'}。</p>${form === 'A' ? '<p>7日後に、もう一度「2回目」を解いてください。</p>' : ''}${where === 'cloud' ? '' : '<button class="btn wide ghost" data-testexport>記録をファイルにする</button>'}<button class="btn wide" data-back>タイトルにもどる</button></div>`);
+          app.onclick = (e) => { if (e.target.closest('[data-back]')) titleScreen(); if (e.target.closest('[data-testexport]')) ST.download('piyo-testlogs.json', JSON.stringify(ST.testLogs(), null, 1)); };
+        });
+        return;
+      }
+      const q = qs[i];
+      const accs = [...new Set([...(q.accounts || []), ...q.ans.dr.map((x) => x[0]), ...q.ans.cr.map((x) => x[0])])].sort((a, b) => order(a) - order(b));
+      const opt = `<option value="">科目をえらぶ</option>${accs.map((a) => `<option>${esc(a)}</option>`).join('')}`;
+      const side = (sd) => [0, 1, 2].map((k) => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の科目">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
+      frame(`<div class="s-card"><small>確認テスト ${i + 1} / ${qs.length}</small><p class="s-q">${q.q}</p><div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><button class="btn wide" data-ans>次へ</button><button class="link" data-skip>わからないので飛ばす</button></div>`);
+      t0 = Date.now();
+      app.onclick = (e) => {
+        const skip = e.target.closest('[data-skip]');
+        if (!skip && !e.target.closest('[data-ans]')) return;
+        const entry = { dr: [], cr: [] };
+        for (const sd of ['dr', 'cr']) { const sel = $$(`select[data-s="${sd}"]`, app), ins = $$(`input[data-s="${sd}"]`, app); sel.forEach((x, k) => { const v = Number((ins[k].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }); }
+        const okA = !skip && entry.dr.length && entry.cr.length && [q.ans, ...(q.alt || [])].some((a) => sameEntry(entry, a));
+        run.items.push({ key: q._key, scope: q.scope, ok: !!okA, skipped: !!skip, ms: Date.now() - t0, entry: skip ? null : entry });
+        i++; draw();
+      };
+    };
+    draw();
+  }
+
   function monthIntro() {
     const m = month();
     frame(`<div class="s-card s-intro"><small>${esc(m.label)}</small><h2>${esc(m.title)}</h2><button class="btn wide" data-go>${S.mi === 0 ? '屋台へ行く' : '机に向かう'}</button></div>`);
@@ -692,7 +766,7 @@
       const p = pl(bu);
       const note = knows('収益') && p.ni < 0 && (bu['仕入'] || 0) > 0 && !bu['繰越商品'] ? '<p class="muted" style="font-size:13px;margin:0">仕入れた商品は、売れ残りも全部「仕入」（費用）に入れている。売れ残りを資産に戻すのは1年の終わりだから、それまでは、もうけが小さく見える。</p>' : '';
       frame(`<div class="s-card"><small>${esc(month().label)}の見直し</small><h3>帳簿と書類が、ぜんぶ合った</h3>${miniBS(bsFrom(bu))}<p style="margin:0">口座のお金 <b>${fmt(cashOf(bu))}</b>${knows('収益') ? `　この1年のもうけ <b>${fmt(p.ni)}</b>` : ''}</p>${note}<button class="btn wide" data-next>${S.mi + 1 < D.months.length ? '次の月へ' : 'つぎへ'}</button></div>`);
-      app.onclick = (e) => { if (e.target.closest('[data-next]')) { S.closes.push({ mi: S.mi, fixed: S.fixLog.some((f) => f.mi === S.mi) }); advanceMonth(); } };
+      app.onclick = (e) => { if (e.target.closest('[data-next]')) { S.closes.push({ mi: S.mi, fixed: S.fixLog.some((f) => f.mi === S.mi) }); grew('月末の締め'); advanceMonth(); } };
       return;
     }
     // 今月の記帳のうち、書類と合わないもの
@@ -807,6 +881,7 @@
     const draw = () => {
       if (i >= qs.length) {
         S.metrics.quiz = { score, of: qs.length, results };
+        grew('腕だめし');
         save();
         frame(`<div class="s-card"><small>腕だめし</small><h3>${qs.length ? `${score} / ${qs.length} 問 正解` : '今回は問題なし'}</h3><p>本試験と同じ文章で出された問題。会社で体験したことが、試験の形でも使えたかを確かめた。結果はマップの「試験範囲で見る」に残る。</p><button class="btn wide" data-n>1年をふりかえる</button></div>`);
         app.onclick = (e) => { if (e.target.closest('[data-n]')) next(); };
@@ -847,6 +922,11 @@
   }
 
   B.chapters.forEach((c) => c.qs.forEach((q, i) => { q._key = `${c.id}:${i}`; }));
-  window.__sim = { get S() { return S; }, balances, events, render, mastered };
-  render();
+  window.__sim = { get S() { return S; }, balances, events, render, mastered, testForms };
+  if (/[?&]test\b/.test(location.search)) testScreen(); else render();
+  // 公開ページとして開かれていれば、ページの保存機能につなぐ。別の端末の新しい続きがあれば読み込む
+  const bootAt = Date.now();
+  const pulled = (st) => { if (Date.now() - bootAt > 20000 && !document.querySelector('.s-title')) return; S = Object.assign(fresh(), st); render(); };
+  ST.connect(KEY, pulled);
+  ST.onStatus(() => { const w = document.querySelector('[data-saveword]'); if (w) w.textContent = saveWord(); });
 })();

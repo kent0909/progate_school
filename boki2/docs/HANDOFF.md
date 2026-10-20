@@ -43,6 +43,7 @@
 - 反映済み：2027年度区分表への更新、未達（本支店）を2級範囲外として除外、c47 の検証と修正、UPDATE_PLAN.md・CRAWL.md の検証
 - 設計改訂案 docs/DESIGN-REVISION.md（Fable、推奨＝案F：二重ループ＋工場2年目）を作成。オーナーに7章の問い1〜9を確認中。確認後に PEDAGOGY・EPISODES・試作へ反映
 - 工業簿記・原価計算の区分表は2027年度も2022年度版のまま（副産物・連産品・異常仕損は1級）
+- オーナー回答（問い1〜4・6・7承認、5・8・9は実装依頼）→ 保存・成長の記録・確認テストを実装し公開（Version 5、db・user・downloads）。仕組みと遅延テストの手順は docs/STORAGE.md。次は DESIGN-REVISION 5章の試作改修（17項目）
 
 
 **段階1：縦切りの試作「ピヨのレモネード」**（`boki2/sim.html`）。公開：https://claude.ai/artifact/PxvGJeU1WaaXfWjDuUMo3G （`node boki2/tools/build.js <出力.html> --page sim.html` を同じファイルパスから publish。別の会話からは url にこのURL）
