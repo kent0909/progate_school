@@ -183,7 +183,9 @@ for (const s of sources) {
       const got = parts.every((p) => es.some((e) => okFetch(e) && (p == null || e.part === p || (p.endsWith('*') && String(e.part || '').startsWith(p.slice(0, -1))) || (!e.part && parts.length === 1))));
       if (!got) {
         const sk = es.find((e) => e.status === 'skipped');
-        if (sk) err(tag, `${d} を取得せずに飛ばしている（${sk.reason || '理由なし'}）。対象外にするなら sources.json の excluded に理由を書く`);
+        // 対象を取得記録で決める集合（expected: ledger）は、理由つきで「取らない」と記録したものは注意にとどめる（取れなかった論文を正直に残せるように）
+        if (sk && c.expected === 'ledger' && sk.reason && sk.reason.length >= 8) warn(tag, `${d} は取得できず、理由つきで飛ばした（${sk.reason}）。根拠には使っていないこと`);
+        else if (sk) err(tag, `${d} を取得せずに飛ばしている（${sk.reason || '理由なし'}）。対象外にするなら sources.json の excluded に理由を書く`);
         else r.missing.push(d);
         continue;
       }
