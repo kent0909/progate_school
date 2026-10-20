@@ -1102,6 +1102,15 @@
     return Math.max(0, Math.min(4, r));
   };
   SIM.__y2.bank = { lines: bankLines2, rating: bankRating2 };
+  // 株主の一覧（docs/YEAR2.md 9項。会社の棚）：1株1万円。帳簿に入った払込みから
+  SIM.holders = (S) => {
+    const has = (id) => S.T.some((e) => e.ev === id);
+    const list = [];
+    if (has('found')) list.push(['ミライ社長', 20], ['ユウタ', 10]);
+    if (D_(S).uncle === 'equity' && has('uncle-in')) list.push(['おじさん', 10]);
+    if (has('zoushi')) list.push(['佐藤さん（さくら投資）', 500]);
+    return list;
+  };
 
   SIM.__y2.months = [m4, m5, m6, m7, m8, m9, m10, m11, m12, m1, m2, m3, deskA, deskB, deskC, nx, nxB];
 })();

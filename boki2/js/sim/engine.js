@@ -198,11 +198,13 @@
     const b = balances(S.L);
     const accs = ['普通預金', '売掛金', '買掛金', '未払金', '借入金'].filter((a) => b[a] !== undefined && knows(a));
     let tab = 'bs';
-    const o = overlay(`<div class="s-maptabs"><button data-cotab="bs">棚の絵</button>${accs.length ? '<button data-cotab="gl">元帳</button>' : ''}</div><div class="s-cobody"></div>`);
+    const holders = D.holders ? D.holders(S) : [];
+    const o = overlay(`<div class="s-maptabs"><button data-cotab="bs">棚の絵</button>${accs.length ? '<button data-cotab="gl">元帳</button>' : ''}${knows('株主') && holders.length ? '<button data-cotab="sh">株主</button>' : ''}</div><div class="s-cobody"></div>`);
     let acc = accs[0];
     const paint = () => {
       $$('[data-cotab]', o).forEach((x) => x.classList.toggle('on', x.dataset.cotab === tab));
-      $('.s-cobody', o).innerHTML = tab === 'bs' ? companyView(b) : `<p class="muted" style="font-size:12px">札ごとに、いつ・何の書類で・相手の札は何で動いたかが並ぶ。あとから森さんや銀行が「この日に何があったの？」と読むための記録。</p><div class="s-maptabs">${accs.map((a) => `<button data-glacc="${esc(a)}" class="${a === acc ? 'on' : ''}">${esc(a)}</button>`).join('')}</div><div class="s-scrollx">${ledgerView(acc)}</div>`;
+      const all = holders.reduce((t, [, n]) => t + n, 0);
+      $('.s-cobody', o).innerHTML = tab === 'bs' ? companyView(b) : tab === 'sh' ? `<h3>株主の一覧</h3><table class="s-tb"><tr><th>株主</th><th>株数</th><th>割合</th></tr>${holders.map(([nm, n]) => `<tr><td>${esc(nm)}</td><td class="n">${fmt(n)}株</td><td class="n">${Math.round((n / all) * 100)}%</td></tr>`).join('')}<tr class="sum"><td>合計</td><td class="n">${fmt(all)}株</td><td></td></tr></table><p class="muted" style="font-size:13px">株主が集まって決める会では、1株に1票。半分より多くの株を持つ株主は、会社の大事なことを決められる。配当は、株数に応じて分ける。</p>` : `<p class="muted" style="font-size:12px">札ごとに、いつ・何の書類で・相手の札は何で動いたかが並ぶ。あとから森さんや銀行が「この日に何があったの？」と読むための記録。</p><div class="s-maptabs">${accs.map((a) => `<button data-glacc="${esc(a)}" class="${a === acc ? 'on' : ''}">${esc(a)}</button>`).join('')}</div><div class="s-scrollx">${ledgerView(acc)}</div>`;
     };
     paint();
     o.addEventListener('click', (e) => {
