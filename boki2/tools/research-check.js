@@ -34,6 +34,19 @@ for (const f of [path.join(R, 'ledger.jsonl'), ...lsr(path.join(R, 'ledger-pendi
   });
 }
 const notes = lsr(path.join(R, 'notes')).filter((p) => p.endsWith('.md')).map(readNote).filter(Boolean);
+// 取得記録は追記だけ：最後のコミットにある記録の行が、いまの記録（ledger.jsonl と ledger-pending のどこか）にすべて残っていること
+{
+  const { spawnSync: sp } = require('child_process');
+  const now = new Set(ledger.map(({ _at, ...e }) => JSON.stringify(e)));
+  const rel = path.relative(path.join(R, '..', '..'), R);
+  const files = (sp('git', ['ls-tree', '-r', '--name-only', 'HEAD', rel], { cwd: path.join(R, '..', '..'), encoding: 'utf8' }).stdout || '').split('\n').filter((f) => /ledger(\.jsonl|-pending\/.*\.jsonl)$/.test(f));
+  let lost = 0; const ex = [];
+  for (const f of files) for (const line of (sp('git', ['show', `HEAD:${f}`], { cwd: path.join(R, '..', '..'), encoding: 'utf8', maxBuffer: 1 << 28 }).stdout || '').split('\n')) {
+    if (!line.trim()) continue; let e; try { e = JSON.parse(line); } catch (x) { continue; }
+    if (!now.has(JSON.stringify(e))) { lost++; if (ex.length < 3) ex.push(`${e.doc}（${e.status}）`); }
+  }
+  if (lost) err('記録', `最後のコミットにあった取得記録が ${lost} 行、消えている・書き換えられている（${ex.join('・')}）。取得記録は追記だけ`);
+}
 
 function lsr(d) { if (!fs.existsSync(d)) return []; return fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? lsr(path.join(d, e.name)) : [path.join(d, e.name)])); }
 function readNote(p) {
@@ -217,6 +230,9 @@ for (const s of sources) {
         const hs = new Set(es.map((e) => e.sha256).filter(Boolean));
         const twin = hs.size && notes.find((x) => x.src === s.id && x.coll === c.id && hs.has(x.sha256));
         if (twin) { r.noted++; r.dup = (r.dup || 0) + 1; continue; }
+        // 取得はできたが中身のない殻だった、などで「読まない」と理由つきで記録したものは、読んでいないことを正直に残した扱い（注意）
+        const later = es.filter((e) => e.status === 'skipped' && e.reason && e.reason.length >= 8);
+        if (later.length) { warn(tag, `${d} は取得したが読まない（${later[later.length - 1].reason}）。根拠にしない`); continue; }
         r.unread.push(d); continue;
       }
       r.noted++;

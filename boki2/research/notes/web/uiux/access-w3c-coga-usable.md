@@ -8,7 +8,7 @@ read: partial
 pages: 目次、2.4、3.3.2（利用者の話：見た目の示し方）、4.4（目標3：分かりやすい内容の型 4.4.1〜4.4.13）、4.5.9（時間切れ）、4.6.3（内容を詰め込みすぎない）、4.8.2（込み入った情報の別の示し方）、4.9.1・4.9.3（動き・簡略化の利用者による制御）、5.4.1（試験の進め方）、6.9（人物 Tal）、付録A.3・B.1
 anchors: [need a good use of white space, Look at the most common 1500 words, Have only one point per sentence, Avoid timeouts and let the user save, five or less main choices on each screen, "Typically, a simple application has 3 to 6 functions", Tal discovers the document is actually an image, cannot speed up the text-to-speech application]
 ---
-W3C「Making Content Usable for People with Cognitive and Learning Disabilities」（認知・学習障害のある人のための、使える内容の作り方）。規格（WCAG）の合否基準ではなく、利用者の困りごとと、それに応える「型（パターン）」をまとめた文書。読み書き障害（ディスレクシア）は「特定の学習障害」としてここに含まれる。
+W3C の「認知・学習障害のある人に使える内容を作る」ための文書（Making Content Usable）（認知・学習障害のある人のための、使える内容の作り方）。規格（WCAG）の合否基準ではなく、利用者の困りごとと、それに応える「型（パターン）」をまとめた文書。読み書き障害（ディスレクシア）は「特定の学習障害」としてここに含まれる。
 
 読んだ所の要点（自分の言葉で）
 - 分かりやすい内容：よく使われる語を使う、新しい語を作らない・既存の語に新しい意味を持たせない（どうしても作るなら1回の操作で説明に届くように）。1文に1つの内容、段落も短く、箇条書きと短い見出しを使う。二重否定や入れ子の文を避ける。たとえ話は説明を添える。長い文書には短い要約を付ける。

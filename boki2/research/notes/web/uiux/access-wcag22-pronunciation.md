@@ -7,7 +7,7 @@ sha256: cbdc1386975f0f615e4b2dfc3d21fc23a3258011180568b1efc5c07bfe902938
 read: full
 anchors: [Users can identify the pronunciation of ambiguous words, characters like Han characters (kanji), screen readers will speak the word twice, Showing the reading of the words by ruby element, Using standard diacritical marks that can be turned off, "text-to-speech software, which is used by some people", Updated 17 November 2025]
 ---
-W3C「Understanding Success Criterion 3.1.6: Pronunciation」（WCAG 2.2 の達成基準 3.1.6「発音」の解説。レベル AAA）。
+W3C の WCAG 2.2 解説文書のうち、基準 3.1.6 の解説（WCAG 2.2 の達成基準 3.1.6「発音」の解説。レベル AAA）。
 
 要点（自分の言葉で）
 - 読み方が分からないと意味が決まらない語には、読み方を知る手段を用意する、という基準。目の見えない人・弱視の人に加え、読みに障害のある人を対象に挙げている。
