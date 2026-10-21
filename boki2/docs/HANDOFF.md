@@ -82,6 +82,10 @@
   - 注意：1年目の決算に区切り「決算（売掛金）」を足したので、それより前の版で3月より先まで遊んだ保存は月の位置が1つずれる（移し替えはしていない）
   - 2回目の検査の準備：scratchpad/review2/（BRIEF.md・panel.json・mkpanel.js・tests/・tests-key/）。検査者は designer・accountant・theory・uiux・learner・retaker（近道で）・hs・access・teen15・lowvision。受験年度は役で半々
   - 通しの遊びの検査（2年目4本・1年目4本・プロローグ・成長・途中でやめる・近道）がすべて通った版（2729a3e）を review2/game.html に凍結し、**2回目の検査を開始（2026-10-21）**。検証の設定は review2/playtest.json（archive：review2/transcripts、archive.js を2分ごとに回す）
+  - **会話記録の写し（遊びの検査のあいだは必ず動かす。オーナーの指示 2026-10-21）**
+    - ループ：`bash boki2/tools/playtest/archive-loop.sh <playtest.json>`（setsid・nohup で切り離して動くので、Bash の道具の2時間の時間切れで止まらない。2分ごとに archive.js。見張り役が5分ごとにループを確かめ、止まっていれば動かし直す）。状態は `... archive-loop.sh <playtest.json> status`、記録は /tmp/piyo-archive-loop.log
+    - その場の写し：検査者の返事を受けたとき・検査者に話しかける前と後に `bash boki2/tools/playtest/archive-now.sh <playtest.json>`（1回写して、ループと見張り役が動いているかも確かめ、止まっていれば動かす）
+    - **コンテナが再起動したら、最初に** `bash boki2/tools/playtest/archive-loop.sh <playtest.json> status` を見て、止まっていれば `archive-loop.sh <playtest.json>` で動かし直す（再起動でループは消える。/tmp の pid のファイルが残っていても、プロセスがなければ「止まっている」と出る）。2回目の検査の playtest.json は /tmp/claude-0/-home-user-progate-school/0f5c124a-6604-5e69-b554-2beafc4f2038/scratchpad/review2/playtest.json
 
 ## 6. 次にやること
 ★ オーナーの決定（2026-10-20）：**スマホでもPCでも良い体験にする（レスポンシブ）**。「スマホ規格のゲームをPCでやるのしんどい」。いまはPCでも幅720pxの縦長の列のまま。見直しの結果と合わせて、PCでは広い画面を活かす配置（会話・書類・帳簿を横に並べる等）にする。検査も、大人の検査者はスマホとPCの両方で遊ぶ（BRIEF の L）
