@@ -6,8 +6,10 @@
 #         bash archive-loop.sh <playtest.json> status … 動いているかを表示
 CFG="$1"; PIDF=/tmp/piyo-archive-loop.pid; WPIDF=/tmp/piyo-archive-watch.pid; LOG=/tmp/piyo-archive-loop.log
 DIR="$(cd "$(dirname "$0")" && pwd)"
-alive() { [ -f "$PIDF" ] && kill -0 "$(cat "$PIDF")" 2>/dev/null; }
-walive() { [ -f "$WPIDF" ] && kill -0 "$(cat "$WPIDF")" 2>/dev/null; }
+# 生きているか：プロセスがあり、ゾンビ（終わったのに親が後始末していない）でないこと。kill -0 だけではゾンビも生きていると出る
+live() { local p="$1"; [ -n "$p" ] && [ -e "/proc/$p" ] && ! grep -q "^State:.*Z" "/proc/$p/status" 2>/dev/null; }
+alive() { [ -f "$PIDF" ] && live "$(cat "$PIDF")"; }
+walive() { [ -f "$WPIDF" ] && live "$(cat "$WPIDF")"; }
 if [ "$2" = status ]; then if alive; then echo "動いている pid=$(cat $PIDF) 最後の写し：$(tail -1 $LOG | cut -c1-80)"; else echo "止まっている"; fi; walive && echo "見張り役：動いている pid=$(cat $WPIDF)" || echo "見張り役：止まっている"; exit 0; fi
 # 見張り役：5分ごとにループが動いているかを見て、止まっていたら動かし直す
 if [ "$2" = _watch ]; then echo $$ > "$WPIDF"; while true; do alive || { echo "$(date -u +%FT%TZ) 見張り役が動かし直した" >> "$LOG"; setsid nohup bash "$0" "$CFG" _run > /dev/null 2>&1 < /dev/null & }; sleep 300; done; fi
