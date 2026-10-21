@@ -159,6 +159,7 @@ for (const R of cfg.reviewers) {
   for (const f of (R.extra || [])) { const w = lastWrite(f), cur = fs.existsSync(path.join(dir, f)) ? fs.readFileSync(path.join(dir, f), 'utf8') : null; const tag = f.replace(/\.md$/, '').toUpperCase(); if (cur != null && T.handbacks.some((h) => marked(h.message, tag) === cur)) { ok(who, `${f} は本人の返事の印つきの本文のまま`); continue; } w == null ? ng(who, `${f} を本人が Write で書いた跡がない`) : w !== cur ? ng(who, `${f} が本人の書いた中身と違う`) : ok(who, `${f} は本人が書いた中身のまま`); }
   // ログのすべての行が、本人の Bash の呼び出しの中で書かれている
   const outL = E.filter((e) => !inCall(Date.parse(e.t)));
+  if (process.env.VERIFY_DETAIL) for (const e of outL) { const ts = Date.parse(e.t); const near = T.calls.map((c) => Math.min(Math.abs(ts - c.t0), Math.abs(ts - (c.t1 || ts)))).sort((a, b) => a - b)[0]; out.push(`    ・${who}：外の行 n=${e.n} ${e.kind} ${e.t} いちばん近い呼び出しまで ${Math.round(near / 1000)}秒`); }
   outL.length ? ng(who, `本人の Bash の呼び出しの外で書かれたログの行が ${outL.length} 行`) : ok(who, 'ログのすべての行が本人の Bash の呼び出しの中');
   const scripts = [...T.writes.map((w) => w.content), ...T.cmds];
   const direct = scripts.filter((s) => /chromium\.launch|launchPersistentContext|require\(['"][^'"]*playwright['"]\)/.test(s) && !/playtest\/harness\.js/.test(s));
