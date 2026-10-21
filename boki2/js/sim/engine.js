@@ -1319,7 +1319,7 @@
     const draw = () => {
       if (i >= qs.length) return done();
       const q = qs[i];
-      const ch = B.chapters.find((c) => c.qs.includes(q));
+      const ch = B.chapters.find((c) => c.qs.includes(q) || (q._key && c.id === q._key.split(":")[0]));
       const accs = [...new Set([...((ch || {}).accounts || []), ...(q.opts || []), ...B.siblings.filter((sb) => sb.accs.some((a) => [...q.ans.dr, ...q.ans.cr].some(([x]) => x === a))).flatMap((sb) => sb.accs), ...q.ans.dr.map((x) => x[0]), ...q.ans.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
       const opt = `<option value="">札をえらぶ</option>${accs.map((a) => `<option>${esc(a)}</option>`).join('')}`;
       const side = (sd) => [0, 1].map(() => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の札">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
@@ -2005,7 +2005,7 @@
         return;
       }
       const q = qs[i];
-      const accs = [...new Set([...(B.chapters.find((c) => c.qs.includes(q)).accounts || []), ...q.ans.dr.map((x) => x[0]), ...q.ans.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
+      const accs = [...new Set([...(B.chapters.find((c) => c.qs.includes(q) || (q._key && c.id === q._key.split(":")[0])).accounts || []), ...q.ans.dr.map((x) => x[0]), ...q.ans.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
       const optHTML = `<option value="">札をえらぶ</option>${accs.map((a) => `<option>${esc(a)}</option>`).join('')}`;
       const side = (s) => [0, 1, 2].map((k) => `<div class="s-row"><select data-s="${s}" data-i="${k}" aria-label="${s === 'dr' ? '借方' : '貸方'}の札">${optHTML}</select><input data-s="${s}" data-i="${k}" inputmode="numeric" placeholder="金額" aria-label="${s === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
       frame(`<div class="s-card"><small>腕だめし ${i + 1} / ${qs.length}　${q._role === 'recall' ? '前に出た問題（思い出す）' : '初めて見る問題（力を測る）'}</small><p class="s-q">${q.q}</p><div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-check>答える</button></div>`);
