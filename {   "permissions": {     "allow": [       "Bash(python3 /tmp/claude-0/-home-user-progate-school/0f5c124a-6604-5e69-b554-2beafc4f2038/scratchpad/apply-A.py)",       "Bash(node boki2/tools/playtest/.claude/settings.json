@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python3 /tmp/claude-0/-home-user-progate-school/0f5c124a-6604-5e69-b554-2beafc4f2038/scratchpad/apply-A.py)",
-      "Bash(node boki2/tools/playtest/collect.js *)"
-    ]
-  }
-}
