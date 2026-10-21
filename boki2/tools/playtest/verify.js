@@ -116,6 +116,9 @@ for (const R of cfg.reviewers) {
   const kinds = new Set(man.map((e) => String((e.after && e.after.ev) || (e.before && e.before.ev) || '').split(':')[0]).filter(Boolean));
   const need = (x, m, label) => (x >= (m || 0) ? ok(who, `${label} ${x}（${m || 0}以上）`) : ng(who, `${label}が少ない：${x}（${m}以上）`));
   need(man.length, min.manual, '手の操作'); need(feel.length, min.feel, '気持ちの記録'); need(mins, min.minutes, '遊んだ時間（分）'); need(months.size, min.months, '手で触った月');
+  // 最後まで通したか（2回目から：min.reach＝手で触った月の番号の最大がこれ以上）
+  if (min.reach != null) { const maxMi = Math.max(-1, ...man.map((e) => (e.after && e.after.mi) ?? -1)); maxMi >= min.reach ? ok(who, `最後まで手で通した（月 ${maxMi}）`) : ng(who, `最後まで手で通していない：手で触った最後の月 ${maxMi}（${min.reach} まで）`); }
+  const autoN = E.filter((e) => e.kind === 'auto-start').length; if (min.noAuto && autoN) ng(who, `自動で進めた区間が ${autoN} 回（報告に理由が要る）`);
   const lackK = (min.kinds || []).filter((k) => !kinds.has(k));
   lackK.length ? ng(who, `手で触っていない画面の種類：${lackK.join('・')}`) : ok(who, `手で触った画面の種類：${[...kinds].join('・')}`);
   // 必ず手で触る画面（押した所の一部の文字で決める。練習室・検定会場・マップなど、会社の月の外の画面）
