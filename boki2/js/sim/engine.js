@@ -61,6 +61,8 @@
     const c = CONTRA.has(acc) ? 'マイナスの札' : cat(acc);
     const up = (c === '資産' || c === '費用') ? side === 'dr' : c === 'マイナスの札' ? side === 'cr' : side === 'cr';
     const grp = c === 'マイナスの札' ? 'マイナスの札' : gw(c);
+    // 工場の途中の箱（賃金・製造間接費・差異など「その他」の札）は、増えた・へったでは言えない。どちらの側に書いたかで言う
+    if (c === 'その他') return `${acc}に、${side === 'dr' ? '借方（左）' : '貸方（右）'}で ${fmt(amt)} 書いた`;
     return `${acc}（${grp}）が ${fmt(amt)} ${up ? '増えた' : 'へった'}`;
   }
   // 科目名を出さずに、どの箱がどちらへ動いたかだけを言う（結果パネルの2段目）
@@ -182,7 +184,9 @@
     const rows = [];
     let bal = 0;
     const plus = cat(acc) === '資産' || cat(acc) === '費用';
-    for (const x of S.L) {
+    // 元帳は日付の順（月、その月の書類の順）。月末に直した行も、もとの書類の位置に並べる。締め切りの行はその月の最後
+    const pos = (x) => { const k = allEvents.findIndex(({ e, mi }) => e.id === x.ev && mi === x.mi); return x.mi * 1e5 + (k < 0 ? 99999 : k); };
+    for (const x of [...S.L].sort((a, b) => pos(a) - pos(b))) {
       const ev = (allEvents.find(({ e }) => e.id === x.ev) || {}).e;
       const date = ev && ev.doc ? ev.doc.date : monthLabel(x.mi);
       const memo = ev && ev.doc ? ev.doc.title : '';
@@ -204,7 +208,7 @@
     const paint = () => {
       $$('[data-cotab]', o).forEach((x) => x.classList.toggle('on', x.dataset.cotab === tab));
       const all = holders.reduce((t, [, n]) => t + n, 0);
-      $('.s-cobody', o).innerHTML = tab === 'bs' ? companyView(b) : tab === 'sh' ? `<h3>株主の一覧</h3><table class="s-tb"><tr><th>株主</th><th>株数</th><th>割合</th></tr>${holders.map(([nm, n]) => `<tr><td>${esc(nm)}</td><td class="n">${fmt(n)}株</td><td class="n">${Math.round((n / all) * 100)}%</td></tr>`).join('')}<tr class="sum"><td>合計</td><td class="n">${fmt(all)}株</td><td></td></tr></table><p class="muted" style="font-size:13px">株主が集まって決める会では、1株に1票。半分より多くの株を持つ株主は、会社の大事なことを決められる。配当は、株数に応じて分ける。</p>` : `<p class="muted" style="font-size:12px">札ごとに、いつ・何の書類で・相手の札は何で動いたかが並ぶ。あとから森さんや銀行が「この日に何があったの？」と読むための記録。</p><div class="s-maptabs">${accs.map((a) => `<button data-glacc="${esc(a)}" class="${a === acc ? 'on' : ''}">${esc(a)}</button>`).join('')}</div><div class="s-scrollx">${ledgerView(acc)}</div>`;
+      $('.s-cobody', o).innerHTML = tab === 'bs' ? companyView(b) : tab === 'sh' ? `<h3>株主の一覧</h3><table class="s-tb"><tr><th>株主</th><th>株数</th><th>割合</th></tr>${holders.map(([nm, n]) => `<tr><td>${esc(nm)}</td><td class="n">${fmt(n)}株</td><td class="n">${Math.round((n / all) * 100)}%</td></tr>`).join('')}<tr class="sum"><td>合計</td><td class="n">${fmt(all)}株</td><td></td></tr></table><p class="muted" style="font-size:13px">株主が集まって決める会では、1株に1票。株主総会では、半分より多くの株を持つ株主が、取締役を選ぶなど多くのことを決められる。定款を変えるなど特に大事なことは、3分の2以上が要る。配当は、株数に応じて分ける。</p>` : `<p class="muted" style="font-size:12px">札ごとに、いつ・何の書類で・相手の札は何で動いたかが並ぶ。あとから森さんや銀行が「この日に何があったの？」と読むための記録。</p><div class="s-maptabs">${accs.map((a) => `<button data-glacc="${esc(a)}" class="${a === acc ? 'on' : ''}">${esc(a)}</button>`).join('')}</div><div class="s-scrollx">${ledgerView(acc)}</div>`;
     };
     paint();
     o.addEventListener('click', (e) => {
@@ -663,6 +667,9 @@
     }
     // 社長が約束した支払い（まだ書類が来ていないもの）
     for (const o of (D.__y2 && D.__y2.duePlanned ? D.__y2.duePlanned(S) : [])) add(Object.assign({ fixed: true }, o, { date: parseDay(o.date) }));
+    // 帳簿に残っている、払う日が法律で決まっている約束（書類がまだ台本にない月でも、残高から載せる）：法人税等は決算から2か月以内（5月31日）
+    const taxBal = -(balances(S.T)['未払法人税等'] || 0);
+    if (taxBal > 0 && !items.some((o) => /税金|法人税/.test(o.what))) add({ date: { m: 5, d: 31 }, what: '法人税等の納付（決算から2か月以内。帳簿の未払法人税等）', amt: -taxBal, fixed: true, top: true });
     // ふだんの出入り（売上・給料・電気代など）は、月ごとに1行にまとめる（約束の期日が見えるように）
     const out = items.filter((o) => o.fixed), byM = {};
     items.filter((o) => !o.fixed).forEach((o) => { const k = o.date.m; byM[k] = byM[k] || { date: { m: k, d: 31 }, what: `${k}月のふだんの出入り（売上・給料など）`, amt: 0, fixed: false }; byM[k].amt += o.amt; });
@@ -1520,7 +1527,7 @@
     if (!diff.length) {
       const p = pl(bu);
       const note = knows('収益') && p.ni < 0 && (bu['仕入'] || 0) > 0 && !bu['繰越商品'] ? '<p class="muted" style="font-size:13px;margin:0">仕入れた商品は、売れ残りも全部「仕入」（費用）に入れている。売れ残りを資産に戻すのは1年の終わりだから、それまでは、もうけが小さく見える。</p>' : '';
-      frame(`<div class="s-card"><small>${esc(month().label)}の見直し</small><h3>帳簿と書類が、ぜんぶ合った</h3>${miniBS(bsFrom(bu))}<p style="margin:0">口座のお金 <b>${fmt(cashOf(bu))}</b>${knows('収益') ? `　この1年のもうけ <b>${fmt(p.ni)}</b>` : ''}</p>${predictLine(bu)}${note}<button class="btn wide" data-next>${S.mi + 1 < D.months.length ? '次の月へ' : 'つぎへ'}</button></div>`);
+      frame(`<div class="s-card"><small>${esc(month().label)}の見直し</small><h3>帳簿と書類が、ぜんぶ合った</h3><p class="s-why-off" style="text-align:left">${/決算/.test(month().label) ? (S.mi + 1 < D.months.length && /決算/.test(D.months[S.mi + 1].label || '') ? '書類と帳簿の数字は合った。決算の作業は、まだ続く（次の机へ）。' : '書類と帳簿の数字は合った。これで決算の作業は終わり。') : '書類と帳簿の数字が一致した、という確かめ。売上を入れる月や、費用か資産かの正しさは、決算でもう一度見る。'}</p>${miniBS(bsFrom(bu))}<p style="margin:0">口座のお金 <b>${fmt(cashOf(bu))}</b>${knows('収益') ? `　この1年のもうけ <b>${fmt(p.ni)}</b>` : ''}</p>${predictLine(bu)}${note}<button class="btn wide" data-next>${S.mi + 1 < D.months.length ? '次の月へ' : 'つぎへ'}</button></div>`);
       app.onclick = (e) => { if (e.target.closest('[data-next]')) { S.closes.push({ mi: S.mi, fixed: S.fixLog.some((f) => f.mi === S.mi) }); grew('月末の締め'); advanceMonth(); } };
       return;
     }
