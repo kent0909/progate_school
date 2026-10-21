@@ -125,7 +125,7 @@ module.exports = async function autoRun(p, { choose = {}, broad = false, endMode
     // 腕だめし
     if (await has('[data-nextq]')) { await p.click('[data-nextq]'); continue; }
     if (await has('[data-check]')) {
-      const q = await p.evaluate(() => { const txt = document.querySelector('.s-q').innerHTML; const q = window.BOKI.chapters.flatMap((c) => c.qs).find((x) => { const d = document.createElement('div'); d.innerHTML = x.q; return d.innerHTML === txt; }); return q.ans; });
+      const q = await p.evaluate(() => { const txt = document.querySelector('.s-q').textContent; const q = window.BOKI.chapters.flatMap((c) => c.qs).find((x) => { const d = document.createElement('div'); d.innerHTML = x.q; return d.textContent === txt; }); return q.ans; });
       for (const s of ['dr', 'cr']) for (let i = 0; i < q[s].length; i++) { await p.selectOption(`select[data-s="${s}"][data-i="${i}"]`, q[s][i][0]); await p.fill(`input[data-s="${s}"][data-i="${i}"]`, String(q[s][i][1])); }
       await p.click('[data-check]'); continue;
     }

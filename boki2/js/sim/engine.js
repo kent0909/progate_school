@@ -153,12 +153,12 @@
     const kpi = inShop && hideKpi ? '<div class="s-kpi"><small>口座のお金</small><b>予想のあとで</b></div>' : inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>${yearOf(S.mi) > 1 ? `${yearOf(S.mi)}年目のもうけ（4月から）` : 'この1年のもうけ'}</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
     const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button>' + (S.dueBuilt ? '<button data-ov="due">期日</button>' : '') + '<button data-ov="room">練習室</button></nav>' : '';
     // 「本文へ」：キーボードで最初に届く。ナビより先に画面の中身へ（見えるのはフォーカスしたときだけ）
-    return `<header class="s-head"><button class="s-skip" data-skip>本文へ</button><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
+    return `<header class="s-head"><button class="s-skip" data-skiplink>本文へ</button><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
   }
   let onFocus = null;
   app.addEventListener('focusin', (e) => { const x = e.target.closest('input[data-s]'); if (x && onFocus) onFocus(x); });
   function frame(body) { onFocus = null; app.oninput = null; app.onkeydown = null; app.innerHTML = header() + `<main class="s-main" id="s-main" tabindex="-1">${body}</main>`; window.scrollTo(0, 0); }
-  app.addEventListener('click', (e) => { if (e.target.closest('[data-skip]')) { const m = $('#s-main', app); if (m) m.focus(); } }, true);
+  app.addEventListener('click', (e) => { if (e.target.closest('[data-skiplink]')) { const m = $('#s-main', app); if (m) m.focus(); } }, true);
 
   /* ---------- overlays ---------- */
   function overlay(html) {
