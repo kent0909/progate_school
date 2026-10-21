@@ -271,7 +271,8 @@
     main.onclick = null;
     const full = ST.exams.filter((e) => e.mode !== 'untimed');
     const hist = ST.exams.slice(-5).reverse();
-    const best = full.reduce((m, e) => Math.max(m, e.score), 0);
+    const s90 = (e) => (e.score90 != null ? e.score90 : e.score);
+    const best = full.reduce((m, e) => Math.max(m, s90(e)), 0);
     const untimed = ST.exams.filter((e) => e.mode === 'untimed').length;
     const counts = [2, 3, 4, 5].map((p) => B.exams.filter((x) => x.part === p).length);
     main.innerHTML = `<div class="stack"><div><div class="eyebrow">MOCK EXAM</div><h1>本試験シミュレーター</h1><p class="muted" style="margin:4px 0 0;font-size:13px">日商簿記2級と同じ5問構成・90分・100点満点。70点で合格。毎回ちがう組み合わせで出題される。</p></div>`
@@ -280,7 +281,7 @@
       + (ctx().extras ? ctx().extras() : '')
       + `<div class="card stack"><h3>通しで解く（2段）</h3><p class="muted" style="margin:0;font-size:13px">1段目は時間なしで本番の形に慣れる。2段目で90分を計る。時間に追われる練習は、形に慣れてからのほうが身につく。</p><div class="row"><button class="btn ${untimed ? 'ghost' : 'gold'}" data-start="practice">1段目 時間なし${untimed ? `（${untimed}回）` : ''}</button><button class="btn ${untimed ? 'gold' : 'ghost'}" data-start>${ctx().icons.paper}2段目 90分 本番</button></div><button class="link" data-op style="padding-left:0;font-size:13px">はじめての人：操作の練習（1題・採点しない）</button></div>`
       + `<div class="card stack"><h3>大問別の連続練習</h3><p class="muted" style="margin:0;font-size:13px">同じ大問を続けて解く。先輩の手本 → なぞる → 自分で → 時間あり、の順に進めるのがおすすめ。</p><div class="seg exam-modes">${EXAM_MODES.map(([k, t, d]) => `<button data-dm="${k}" aria-pressed="${k === drillMode}" title="${esc(d)}">${t}</button>`).join('')}</div><p class="muted" style="margin:0;font-size:12px" data-dmd>${esc(EXAM_MODES.find((m) => m[0] === drillMode)[2])}</p><div class="row">${PARTS.map((p) => `<button class="btn ghost sm" style="flex:none" data-drillpart="${p.k}">${p.t}</button>`).join('')}</div></div>`
-      + `${hist.length ? `<div class="card"><div class="row" style="justify-content:space-between"><h3>これまでの成績</h3>${best ? `<span class="pix" style="color:var(--brand)">自己ベスト ${best}点</span>` : ''}</div><table class="score-table" style="margin-top:6px">${hist.map((e) => `<tr><td>${esc(e.date)}</td><td class="muted" style="font-size:12px">${e.mode === 'untimed' ? '時間なし' : '90分'}</td><td>${e.score >= 70 ? '<b style="color:var(--good)">合格</b>' : '<span class="muted">不合格</span>'}</td><td>${e.score}点</td></tr>`).join('')}</table></div>` : ''}</div>`;
+      + `${hist.length ? `<div class="card"><div class="row" style="justify-content:space-between"><h3>これまでの成績</h3>${best ? `<span class="pix" style="color:var(--brand)">自己ベスト ${best}点</span>` : ''}</div><table class="score-table" style="margin-top:6px">${hist.map((e) => `<tr><td>${esc(e.date)}</td><td class="muted" style="font-size:12px">${e.mode === 'untimed' ? '時間なし' : `90分${e.ext ? `（延長 +${e.ext}分）` : ''}`}</td><td>${s90(e) >= 70 ? '<b style="color:var(--good)">合格</b>' : '<span class="muted">不合格</span>'}</td><td>${s90(e)}点${e.ext ? `<small class="muted">（延長後 ${e.score}点）</small>` : ''}</td></tr>`).join('')}</table></div>` : ''}</div>`;
     main.onclick = (e) => {
       const xt = e.target.closest('[data-hall-extra]'); if (xt && ctx().extra) { ctx().extra(xt.dataset.hallExtra); return; }
       if (e.target.closest('[data-guide]')) { ctx().lesson('c47'); return; }
@@ -326,7 +327,8 @@
     window.__bokiExam = comps;
     let curPart = parts[0].k, submitted = false, raf = null;
     const memo = ['', ''];
-    const end = performance.now() + limit * 60000;
+    // 時間の延長（docs/DESIGN-ROUND2.md 5章・オーナーの決定：+1分・+5分の2つのボタン）。本番と同じ時間で鐘が鳴り、そこで終えるか延ばすかを選ぶ。延ばしても、自己ベストは本番の時間の時点の点数
+    let end = performance.now() + limit * 60000, ext = 0, score90 = null, belled = false;
     ctx().guard(o.op ? null : '試験を途中でやめる？解答は保存されないよ');
     main.onclick = null;
     const title = o.op ? '操作の練習（採点しない）' : full ? `日商簿記2級 模擬試験（ネット試験形式${timed ? '' : '・時間なし'}）` : `${PARTS[only - 1].t}の練習（${EXAM_MODES.find((m) => m[0] === o.mode)[1]}）`;
@@ -387,10 +389,33 @@
       const m = Math.floor(left / 60000), s = Math.floor((left % 60000) / 1000);
       const t = $('[data-timer]', main);
       if (t) { t.textContent = `残り ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`; t.classList.toggle('low', left < Math.min(600000, limit * 6000)); }
-      if (left <= 0) { ctx().toast('時間が終了しました。自動で採点します'); grade(true); return; }
+      if (left <= 0) {
+        if (o.noExtend) { ctx().toast('時間が終了しました。自動で採点します'); grade(true); return; }
+        if (!belled) { belled = true; score90 = scoreNow(); }
+        bell(); return;
+      }
       raf = requestAnimationFrame(tick);
     }
     if (timed) raf = requestAnimationFrame(tick);
+    // いまの答案の点（記録しない）。本番の時間の時点の点として残す
+    function scoreNow() {
+      const sc = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+      const add = (p, pts, key) => { const c = comps[key]; if (!c) return; sc[p] += Math.round(pts * c.comp.check().ratio * 10) / 10; };
+      com.forEach((_, i) => add(1, 4, `1-${i}`)); [2, 3, 5].filter(want).forEach((p) => add(p, PARTS[p - 1].pts, `${p}`)); ind.forEach((_, i) => add(4, 4, `4-${i}`)); if (want(4)) add(4, 16, '4b');
+      return parts.reduce((a, p) => a + Math.round(sc[p.k]), 0);
+    }
+    function bell() {
+      const t = $('[data-timer]', main); if (t) { t.textContent = ext ? `延長 +${ext}分 終了` : '時間です'; t.classList.add('low'); }
+      let bar = $('[data-bell]', main);
+      if (!bar) { bar = document.createElement('div'); bar.className = 'cbt-bell'; bar.setAttribute('data-bell', ''); bar.setAttribute('role', 'alert'); $('.cbt-head', main).after(bar); }
+      bar.innerHTML = `<p><b>${ext ? `延長の${ext}分が終わった` : `${limit}分。本番ならここで終わり`}</b>。いまの答案は、本番の時間の点として残してある。続けるなら、延ばす時間を選ぶ（延ばしたあとの点は、自己ベストに入らない）。</p><div class="row"><button class="btn sm" data-bell-end>ここで終えて採点</button><button class="btn sm ghost" data-ext="1">+1分</button><button class="btn sm ghost" data-ext="5">+5分</button></div>`;
+      bar.onclick = (e) => {
+        if (e.target.closest('[data-bell-end]')) { bar.remove(); grade(true); return; }
+        const b = e.target.closest('[data-ext]'); if (!b) return;
+        const add = +b.dataset.ext; ext += add; end = performance.now() + add * 60000; bar.remove(); raf = requestAnimationFrame(tick);
+      };
+      $('[data-bell-end]', bar).focus();
+    }
     // 計算用紙：本番と同じ2枚。1枚に書ける量にも限りがある（A4の1枚を、30行×40字ほどの枠で）
     const SHEET_MAX = 1200, SHEET_LINES = 30;
     let memoEl = null, calcEl = null, sheet = 0;
@@ -457,17 +482,19 @@
       const missN = { unlearned: 0, forgot: 0, calc: 0, blank: 0 }; items.forEach((it) => { if (it.miss) missN[it.miss]++; });
       let rec = null;
       if (full) {
-        rec = { date: ctx().today(), score: total, parts: score, mins, cbt: true, mode: timed ? 'timed' : 'untimed', miss: missN };
+        rec = { date: ctx().today(), score: total, parts: score, mins, cbt: true, mode: timed ? 'timed' : 'untimed', miss: missN, ...(timed ? { score90: score90 == null ? total : score90, ext } : {}) };
         ST.exams.push(rec);
-        ctx().reward(total, true);
+        ctx().reward(rec.score90 != null ? rec.score90 : total, true);
       } else if (!o.op) ctx().reward(total, false);
       ctx().save(); ctx().after();
-      const pass = full && total >= 70;
+      // 合否と大きく出す点は、本番の時間の時点の点（延長したら、延長後の点を小さく添える）
+      const main90 = full && timed && score90 != null ? score90 : total;
+      const pass = full && main90 >= 70;
       const fx = ctx().sfx; if (full) { if (pass) { fx.win(); fx.confetti(); } else fx.lose(); } else (total === max ? fx.ok : fx.ng)(1);
       $$('.cbt-flag', main).forEach((b) => { b.disabled = true; });
       $$('select, input', main).forEach((x) => { x.disabled = true; });
       // まず本物と同じく、点数だけを出す
-      const head = full ? `<div class="eyebrow">試験結果</div><div class="pix" style="font-size:60px;line-height:1">${total}<span style="font-size:22px">点</span></div><span class="pass-stamp ${pass ? '' : 'fail'}">${pass ? '合格' : '不合格'}</span>` : `<div class="eyebrow">${o.op ? '操作の練習' : '大問別の練習'}</div><div class="pix" style="font-size:44px;line-height:1">${total}<span style="font-size:18px"> / ${max}点</span></div>`;
+      const head = full ? `<div class="eyebrow">試験結果</div><div class="pix" style="font-size:60px;line-height:1">${main90}<span style="font-size:22px">点</span></div>${ext ? `<p class="muted" style="margin:4px 0">本番の${limit}分の時点の点。延長 +${ext}分のあとの点は ${total}点（自己ベストには入らない）</p>` : ''}<span class="pass-stamp ${pass ? '' : 'fail'}">${pass ? '合格' : '不合格'}</span>` : `<div class="eyebrow">${o.op ? '操作の練習' : '大問別の練習'}</div><div class="pix" style="font-size:44px;line-height:1">${total}<span style="font-size:18px"> / ${max}点</span></div>`;
       const table = full ? `<table class="score-table"><tr><th></th><th>得点</th><th>かけた時間</th><th>目安</th></tr>${PARTS.map((p) => `<tr><th style="text-align:left">${p.t}</th><td>${score[p.k]} / ${p.pts}</td><td class="num ${mins[p.k] > PART_MIN[p.k] + 3 ? 'over' : ''}">${mins[p.k]}分</td><td class="num muted">${PART_MIN[p.k]}分</td></tr>`).join('')}</table>` : `<p class="muted" style="margin:0;font-size:13px">かけた時間 ${Math.max(1, mins[only])}分（目安 ${PART_MIN[only]}分）</p>`;
       $('[data-score]', main).innerHTML = `<div class="card result" style="margin-bottom:14px">${head}${table}${full ? '<p class="muted" style="margin:0;font-size:13px">本物の試験の画面はここまで。点数だけが出て、どこを間違えたかは返ってこない。</p>' : ''}<div class="row" style="justify-content:center"><button class="btn gold" data-look>振り返る${full ? '（本物にはない）' : ''}</button>${!full && !o.op ? `<button class="btn ghost" data-again>同じ大問をもう1題</button>` : ''}</div><div data-look-body></div></div>`;
       $('[data-submit]', main).outerHTML = '<button class="btn sm" data-hall-menu>試験メニューへ</button>';

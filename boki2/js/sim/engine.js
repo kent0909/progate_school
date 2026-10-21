@@ -970,6 +970,32 @@
     app.onclick = (e) => { if (e.target.closest('[data-go]')) { S.phase = 'recall'; S.ei = 0; save(); render(); } };
   }
   // 月のはじめに、先月の書類と同じ種類を、金額を変えて1つ思い出して書く（想起。答えは書いたあとに見せる）
+  /* ---- 想起の予定表（S.plan。docs/DESIGN-ROUND2.md 3.8）----
+     項目は書類の型（kind）ごと。{ lastOk, lastMiss, n（正解の連続数）, due（次に出す実時間） }。
+     月はじめの思い出すは、①前に間違えた型 ②間隔が来た型（7→30→90日）③自動仕訳にした型 ④それより前の月の書類、の順で選ぶ。
+     試験に出ない型（2号店のポイント＝1級）は出さない。同じ型を2か月続けて出さない（交互に） */
+  const PLAN_OUT = new Set(['cash_sale_point', 'point_use']);
+  const PLAN_GAP = [7, 30, 90].map((d) => d * 864e5);
+  function planMark(kind, ok, from) {
+    if (!kind) return;
+    S.plan = S.plan || {};
+    const p = (S.plan[kind] = S.plan[kind] || { n: 0 }), now = Date.now();
+    if (ok) { p.lastOk = now; p.n = (p.n || 0) + 1; p.due = now + PLAN_GAP[Math.min(PLAN_GAP.length - 1, p.n - 1)]; }
+    else { p.lastMiss = now; p.n = 0; p.due = now; }
+    p.from = from || p.from;
+  }
+  function planPick(cands) {
+    // cands：[{ kind, ... }]（新しい順でなくてよい）。選ぶ順に並べて先頭を返す
+    S.plan = S.plan || {};
+    const now = Date.now(), lastKinds = (S.recall || []).filter((r) => r.kind).slice(-1).map((r) => r.kind);
+    const rank = (o) => { const p = S.plan[o.kind] || {}; if (p.lastMiss && (!p.lastOk || p.lastMiss > p.lastOk)) return 0; if (p.due && p.due <= now) return 1; if (S.rules[o.kind]) return 2; return 3; };
+    const pool = cands.filter((o) => !PLAN_OUT.has(o.kind));
+    const fresh = pool.filter((o) => !lastKinds.includes(o.kind));
+    const list = (fresh.length ? fresh : pool).map((o) => ({ o, r: rank(o) }));
+    // 同じ順位の中では、古い月の書類から（間隔をあける）
+    list.sort((x, y) => x.r - y.r || x.o.mi - y.o.mi);
+    return list.length ? list[0].o : null;
+  }
   function recallScreen(done) {
     S.recall = S.recall || [];
     if (S.recall.some((r) => r.mi === S.mi && !r.due)) return done();
@@ -985,8 +1011,12 @@
       }
       return quickQuiz([due], '日をあけて確かめる', () => recallScreen(done));
     }
-    const prev = S.L.filter((x) => x.mi === S.mi - 1 && x.kind && !x.auto).map((x) => ({ x, ev: (allEvents.find(({ e }) => e.id === x.ev) || {}).e })).filter((o) => o.ev && o.ev.doc && o.ev.opts && !(o.ev.noRecallIf && o.ev.noRecallIf(S))); // 社長の言うとおりにした誤った書き方（例：点検の分まで今年の売上）は、思い出す練習の手本にしない（オーナーの決定1）
-    const pick = prev.filter((o) => { const t = S.T.find((y) => y.id === o.x.id); return t && [...t.dr, ...t.cr].every(([a]) => knows(a)); }).pop();
+    // 候補：これまでの月に手で書いた書類（型ごとに、いちばん新しい1枚）。選ぶ順は planPick
+    const prev = S.L.filter((x) => x.mi < S.mi && x.kind && !x.auto).map((x) => ({ x, ev: (allEvents.find(({ e }) => e.id === x.ev) || {}).e })).filter((o) => o.ev && o.ev.doc && o.ev.opts && !(o.ev.noRecallIf && o.ev.noRecallIf(S))); // 社長の言うとおりにした誤った書き方（例：点検の分まで今年の売上）は、思い出す練習の手本にしない（オーナーの決定1）
+    const byKind = {};
+    prev.filter((o) => { const t = S.T.find((y) => y.id === o.x.id); return t && [...t.dr, ...t.cr].every(([a]) => knows(a)); }).forEach((o) => { byKind[o.x.kind] = o; });
+    const chosen = planPick(Object.values(byKind).map((o) => ({ kind: o.x.kind, mi: o.x.mi, o })));
+    const pick = chosen && chosen.o;
     if (!pick) return done();
     const t = S.T.find((y) => y.id === pick.x.id), k = S.mi % 2 ? 3 : 2;
     // 同じ名前の書類が先月に何枚あっても1つに決まるように、日付と相手をつけて指す
@@ -995,7 +1025,7 @@
     const opts = [...new Set([...(pick.ev.opts || []), ...truth.dr.map((x) => x[0]), ...truth.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
     const opt = `<option value="">札をえらぶ</option>${opts.map((a) => `<option>${esc(a)}</option>`).join('')}`;
     const side = (sd) => [...Array(Math.max(2, truth[sd].length)).keys()].map((i) => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の札">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
-    frame(`<div class="s-card"><small>${esc(month().label)}のはじめに 思い出す</small>${talk([['senpai', `先月の${docName}を思い出して。同じ種類の書類で、金額が${k}倍だったら、どう書く？ 書類は見ないで。`]])}<div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-rc>書いた</button><button class="link" data-rskip>思い出せないので、今月へ進む</button></div>`);
+    frame(`<div class="s-card"><small>${esc(month().label)}のはじめに 思い出す</small>${talk([['senpai', `${pick.x.mi === S.mi - 1 ? '先月' : ((D.months[pick.x.mi] || {}).label || '前') + '（' + (S.mi - pick.x.mi) + 'か月前）'}の${docName}を思い出して。同じ種類の書類で、金額が下の数だったら、どう書く？ 書類は見ないで。`]])}<p class="s-recall-amt">使う金額（順不同）：${[...new Set([...truth.dr, ...truth.cr].map(([, v]) => v))].sort(() => Math.random() - 0.5).map((v) => `<b>${fmt(v)}</b>円`).join('・')}</p>${''}<div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-rc>書いた</button><button class="link" data-rskip>思い出せないので、今月へ進む</button></div>`);
     app.onclick = (e) => {
       if (e.target.closest('[data-rnext]')) { done(); return; }
       const skip = e.target.closest('[data-rskip]');
@@ -1003,10 +1033,10 @@
       const entry = { dr: [], cr: [] };
       for (const sd of ['dr', 'cr']) { const sel = $$(`select[data-s="${sd}"]`, app), ins = $$(`input[data-s="${sd}"]`, app); sel.forEach((x, i) => { const v = Number((ins[i].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }); }
       const ok = !skip && entry.dr.length && entry.cr.length && sameEntry(entry, truth);
-      S.recall.push({ mi: S.mi, kind: pick.x.kind, ok: !!ok, skipped: !!skip });
+      S.recall.push({ mi: S.mi, kind: pick.x.kind, ok: !!ok, skipped: !!skip }); planMark(pick.x.kind, !!ok, 'recall');
       if (!ok && pick.x.kind) S.examLog.push({ key: 'auto:' + pick.x.kind, ok: false, t: Date.now(), from: 'recall' });
       save();
-      $('[data-res]', app).innerHTML = `${ok ? '<p class="s-react">思い出せた。</p>' : skip ? `<p class="s-react ng">先月の書き方は、こうだった（金額は${k}倍）。</p>${jeTable(truth)}` : missHTML(entry, truth, `先月の書き方（金額は${k}倍）`)}<button class="btn wide" data-rnext>今月へ</button>`;
+      $('[data-res]', app).innerHTML = `${ok ? `<p class="s-react">思い出せた。書き方はこれで合っている（金額は${k}倍）。</p>${jeTable(truth)}` : skip ? `<p class="s-react ng">前の書き方は、こうだった（金額は${k}倍）。</p>${jeTable(truth)}` : missHTML(entry, truth, `前の書き方（金額は${k}倍）`)}<button class="btn wide" data-rnext>今月へ</button>`;
       $$('[data-rc], [data-rskip]', app).forEach((x) => x.remove());
     };
   }
@@ -1248,7 +1278,7 @@
         const altHit = sameEntry(entry, truth) ? null : (val(ev.alts, S) || []).find((x) => sameEntry(entry, x.entry));
         const ok = sameEntry(entry, truth) || !!altHit;
         tries++;
-        if (!fixMode && tries === 1) { S.docLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi, ok, hint: hintLv > 0 }); S.metrics.docs.n++; if (ok) { S.metrics.docs.first++; if (ev.kind) (S.kinds[ev.kind] = S.kinds[ev.kind] || []).push(S.mi); } }
+        if (!fixMode && tries === 1) { S.docLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi, ok, hint: hintLv > 0 }); planMark(ev.kind, ok && hintLv === 0, 'doc'); S.metrics.docs.n++; if (ok) { S.metrics.docs.first++; if (ev.kind) (S.kinds[ev.kind] = S.kinds[ev.kind] || []).push(S.mi); } }
         if (coach && !ok) {
           // 正解は言わない。1回目：書類から確かに言えることと、自分の仕訳が言っていること（？の行）を並べる
           const lines = [...entry.dr.map(([a, v]) => ['dr', a, v]), ...entry.cr.map(([a, v]) => ['cr', a, v])];
@@ -1366,7 +1396,11 @@
     const items = B.scope.filter((it) => ((it.sim || {}).disc || []).includes(ev.id));
     const keys = [...items.flatMap((it) => it.q || []), ...items.flatMap((it) => ((B.chapters.find((c) => c.id === it.ch) || { qs: [] }).qs.map((_, k) => `${it.ch}:${k}`)))];
     const seen = new Set(S.examLog.map((l) => l.key));
-    return [...new Set(keys)].map(qByKey).filter((q) => readableQ(q) && !seen.has(q._key)).slice(0, 1);
+    // その発見で名前を教えた札を答えに使う問題だけ（2回目の検査：前払費用のあとに消費税、のように論点のずれた問題が出た）。it.q に挙げた問題はそのまま候補
+    const own = new Set([...((ev.b4 || {}).teaches || []), ...items.flatMap((it) => it.accs || [])].filter((a) => B.accounts[a]));
+    const listed = new Set(items.flatMap((it) => it.q || []));
+    const fits = (q) => listed.has(q._key) || (own.size > 0 && [...q.ans.dr, ...q.ans.cr].some(([a]) => own.has(a)));
+    return [...new Set(keys)].map(qByKey).filter((q) => readableQ(q) && !seen.has(q._key) && fits(q)).slice(0, 1);
   }
   // 7日前後（現実の時間）たった、本試験の文で間違えた問題の章から、別の問題を1つ
   // 日をあけて確かめる：6日以上前に間違えて、そのあと同じ型で書けていない問題があれば、同じ型の別の問題を1つ選ぶ。

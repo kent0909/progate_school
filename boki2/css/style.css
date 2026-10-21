@@ -628,3 +628,8 @@ body.focus #main { padding-bottom: 2.5rem; }
 .exam-modes { flex-wrap: wrap; }
 .miss-group .row { flex-wrap: wrap; justify-content: flex-start; }
 .miss-group .row .btn { flex: none; white-space: normal; text-align: left; }
+
+/* 検定会場：時間の鐘と延長（docs/DESIGN-ROUND2.md 5章） */
+.cbt-bell { margin: 8px 0; padding: 10px 12px; border: 2px solid var(--bad, #c0392b); border-radius: 10px; background: color-mix(in srgb, var(--bad, #c0392b) 10%, transparent); }
+.cbt-bell p { margin: 0 0 8px; font-size: 14px; }
+.cbt-bell .row { display: flex; gap: 8px; flex-wrap: wrap; }
