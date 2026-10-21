@@ -36,7 +36,7 @@
 .s-doc-meta { color: var(--muted); font-size: .8rem; margin: .125rem 0 .25rem; }
 .s-doc table { width: 100%; border-collapse: collapse; }
 .s-doc td { padding: .1875rem 0; vertical-align: top; }
-.s-doc td:first-child { padding-right: .75rem; }
+.s-doc td:first-child { padding-right: .75rem; min-width: 5.5em; }
 .s-doc td:last-child { text-align: right; font-family: var(--f-pixel); font-variant-numeric: tabular-nums; }
 .s-tap { border: 2px dashed var(--gold); background: var(--gold-soft); border-radius: 8px; padding: .125rem .5rem; font-family: var(--f-pixel); }
 .s-tap.used { border-style: solid; opacity: .7; }
@@ -435,3 +435,6 @@ i.lv0 { border: 1px solid var(--line); }
 .s-je.mine td.ng{color:var(--bad);font-weight:700}
 /* 押すと読みが出る用語（ふりがなの既定） */
 .s-rd{text-decoration:underline dotted;text-underline-offset:.2em;cursor:help}
+/* 書類の枠が狭い（スマホで文字を大きくした）ときは、行の名前と値を上下に積む。名前が1字ずつ折り返さないように */
+.s-doc { container-type: inline-size; }
+@container (max-width: 20rem) { .s-doc td { display: block; text-align: left !important; } .s-doc td:first-child { padding-right: 0; color: var(--muted); font-size: .85em; } }
