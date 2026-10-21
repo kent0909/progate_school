@@ -102,6 +102,15 @@ D.months.forEach((m, mi) => {
       const exam = LX.unknown(e.b4.exam, taught);
       if (exam.length) notes.push(`${w} 本試験の文言で先に出る語：${exam.join('・')}`);
       check(`${w} 手帳`, e.hand);
+      // 会社の状態で書き換わる発見（ev.dynamic。例：配当の上限の変種、増資の額）も、その場までの語で読めること・1画面の字数
+      if (typeof e.dynamic === 'function') for (const dd of [{ issue: 's25' }, { issue: 's100', capital: 'half' }, { issue: 's50', uncle: 'equity' }, { crunch: 'loan' }]) {
+        const x = e.dynamic({ ...fake, decisions: dd }, e), b = x.b2, ww = `${w}（変種 ${JSON.stringify(dd)}）`;
+        check(`${ww} 困りごと`, talkText(x.b1.talk)); len(`${ww} 困りごと`, talkText(x.b1.talk)); docCheck(ww, x.b1.doc);
+        check(`${ww} 問い`, [x.predict && x.predict.q, ...((x.predict || {}).opts || []).map((o) => o.t), b.q, b.token, ...b.targets.map((t) => `${t.label} ${t.react || ''}`), ...b.reasons.map((r) => `${r.t} ${r.react || ''}`), ...(b.hints || [])].join(' '));
+        leak(ww, b.layout === 'sort' || b.layout === 'flow' ? [] : b.targets, b.reasons);
+        if (b.layout !== 'sort' && b.layout !== 'flow' && b.targets.filter((t) => t.ok).length !== 1) errors.push(`${ww}：正解の選択肢が1つでない`);
+        check(`${ww} 結果`, x.b3.ok); len(`${ww} 結果`, x.b3.ok);
+      }
       if (!taught.has(e.p)) principles.add(e.p);
     }
     if (e.t === 'decision') {

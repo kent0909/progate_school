@@ -237,7 +237,7 @@
     const paint = () => {
       $$('[data-cotab]', o).forEach((x) => x.classList.toggle('on', x.dataset.cotab === tab));
       const all = holders.reduce((t, [, n]) => t + n, 0);
-      $('.s-cobody', o).innerHTML = tab === 'bs' ? companyView(b) : tab === 'sh' ? `<h3>株主の一覧</h3><table class="s-tb"><tr><th>株主</th><th>株数</th><th>割合</th></tr>${holders.map(([nm, n]) => `<tr><td>${esc(nm)}</td><td class="n">${fmt(n)}株</td><td class="n">${Math.round((n / all) * 100)}%</td></tr>`).join('')}<tr class="sum"><td>合計</td><td class="n">${fmt(all)}株</td><td></td></tr></table><p class="muted" style="font-size:13px">株主が集まって決める会では、1株に1票。株主総会では、半分より多くの株を持つ株主が、取締役を選ぶなど多くのことを決められる。定款を変えるなど特に大事なことは、3分の2以上が要る。配当は、株数に応じて分ける。</p>` : `<p class="muted" style="font-size:12px">札ごとに、いつ・何の書類で・相手の札は何で動いたかが並ぶ。あとから森さんや銀行が「この日に何があったの？」と読むための記録。</p><div class="s-maptabs">${accs.map((a) => `<button data-glacc="${esc(a)}" class="${a === acc ? 'on' : ''}">${esc(a)}</button>`).join('')}</div><div class="s-scrollx">${ledgerView(acc)}</div>`;
+      $('.s-cobody', o).innerHTML = tab === 'bs' ? companyView(b) : tab === 'sh' ? `<h3>株主の一覧</h3><div class="s-scrollx"><table class="s-tb"><tr><th>株主</th><th>株数</th><th>1株の値段</th><th>割合（増資の前→あと）</th></tr>${holders.map(([nm, n, p, pre]) => `<tr><td>${esc(nm)}</td><td class="n">${fmt(n)}株</td><td class="n">${p ? `${fmt(p)}円` : '—'}</td><td class="n">${pre != null ? `${pre}%→` : ''}${Math.round((n / all) * 1000) / 10}%</td></tr>`).join('')}<tr class="sum"><td>合計</td><td class="n">${fmt(all)}株</td><td></td><td></td></tr></table></div><p class="muted" style="font-size:13px">株主総会では、1株に1票（議決権）。株主がみな出席したとき、半分より多くの株を持つ株主は、取締役を選ぶ・替えるなど多くのことを決められる。定款を変えるなど特に大事なことは、3分の2以上が要る。配当は、株数に応じて分ける。</p>` : `<p class="muted" style="font-size:12px">札ごとに、いつ・何の書類で・相手の札は何で動いたかが並ぶ。あとから森さんや銀行が「この日に何があったの？」と読むための記録。</p><div class="s-maptabs">${accs.map((a) => `<button data-glacc="${esc(a)}" class="${a === acc ? 'on' : ''}">${esc(a)}</button>`).join('')}</div><div class="s-scrollx">${ledgerView(acc)}</div>`;
     };
     paint();
     o.addEventListener('click', (e) => {
@@ -855,7 +855,9 @@
   function ssScreen(ev) {
     const { M, memo } = ssData();
     // 検算：当期末残高の合計は、貸借対照表の純資産（締め切りの前なので、今年のもうけを足す）と同じ
-    { const b = balances(S.T.filter((e) => !(e.closing && (e.y || 1) === yearOf(S.mi)))); const eq = SS_COLS.reduce((t, c) => t - (b[c] || 0), 0) + pl(b).ni; const end = SS_COLS.reduce((t, c) => t + M.end[c], 0); if (eq !== end) console.error(`S/S の当期末残高 ${end} が、純資産 ${eq} と合わない`); }
+    // 検算は year2.js の ssCheck（tools/sim-check.js も同じ関数を使う）：当期末残高＝純資産、新株の発行＝払込み、配当の行＝配当
+    if (D.__y2 && D.__y2.ssCheck) D.__y2.ssCheck(S, yearOf(S.mi), M).forEach((m) => console.error(m));
+    else { const b = balances(S.T.filter((e) => !(e.closing && (e.y || 1) === yearOf(S.mi)))); const eq = SS_COLS.reduce((t, c) => t - (b[c] || 0), 0) + pl(b).ni; const end = SS_COLS.reduce((t, c) => t + M.end[c], 0); if (eq !== end) console.error(`S/S の当期末残高 ${end} が、純資産 ${eq} と合わない`); }
     const blank = new Set();
     for (const [r] of SS_ROWS.slice(1)) for (const c of SS_COLS) if (r !== 'ni' && M[r][c]) blank.add(`${r}:${c}`);
     const vals = {};
