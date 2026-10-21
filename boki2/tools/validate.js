@@ -217,6 +217,17 @@ for (const x of B.exams) {
   exParts[x.part] = (exParts[x.part] || 0) + 1;
 }
 
+// 年度の切り替え（docs/DESIGN-ROUND2.md 7.5・決定12）：2026年度に見せる参考書と問題に新リースの語がない。2027年度に見せる参考書に手形・旧リースの語がない
+{ const NEW27 = /使用権資産|リース負債/, OLD = /約束手形|支払手形|受取手形|リース資産|リース債務|ファイナンス・リース|オペレーティング・リース/;
+  for (const c of B.chapters) {
+    const l26 = c.lessons26 || c.lessons || [], l27 = c.lessons || [];
+    for (const [i, l] of l26.entries()) if (c.lessons26 && NEW27.test(`${l.t}${l.h}`)) err(`${c.id}.lessons26[${i}]`, '2026年度の参考書に新リースの語（使用権資産・リース負債）');
+    if (c.lessons26) for (const [i, l] of l27.entries()) if (OLD.test(`${l.t}${l.h}`.replace(/以前の「ファイナンス・リース／オペレーティング・リース」の区別/, ''))) err(`${c.id}.lessons[${i}]`, '2027年度の参考書に旧基準の語');
+    (c.qs || []).forEach((q, i) => { if (q.type === 'journal' && B.new27(q) && B.outdated27(q)) err(`${c.id}:${i}`, '新リースの問題にも旧基準の問題にも当たる（どちらの年度にも出ない）'); });
+  }
+  const lease = B.chapters.find((c) => c.id === 'c19');
+  if (lease) { const n26 = lease.qs.filter((q) => q.type === 'journal' && !B.new27(q)).length, n27 = lease.qs.filter((q) => q.type === 'journal' && !B.outdated27(q)).length; if (n26 < 3) err('c19', `2026年度に出せるリースの問題が ${n26} 問`); if (n27 < 3) err('c19', `2027年度に出せるリースの問題が ${n27} 問`); }
+}
 for (const m of warns) console.log('WARN  ' + m);
 for (const m of errors) console.log('ERROR ' + m);
 console.log('---');
