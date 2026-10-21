@@ -822,7 +822,7 @@
     const draw = () => {
       const res = checked ? ev.items.map((it) => ({ it, ok: sel.has(it.id) === it.need })) : null;
       const allOk = res && res.every((r) => r.ok);
-      frame(`<div class="s-card">${talk(ev.talk)}<p class="s-q">${esc(ev.q)}</p><div class="s-desk">${ev.items.map((it, k) => { const r = res && res[k]; return `<div class="s-deskit ${sel.has(it.id) ? 'on' : ''} ${r ? (r.ok ? 'ok' : 'ng') : ''}" data-dk="${it.id}" role="button" tabindex="0" aria-pressed="${sel.has(it.id)}"><b>${gloss(it.title)}</b><small>${esc(val(it.line, S))}</small>${r ? `<em>${it.need ? '直す' : '直さない'}：${esc(it.why)}</em>` : ''}</div>`; }).join('')}</div>${!checked ? `<button class="btn wide" data-dkc ${sel.size ? '' : 'disabled'}>これで確かめる</button>` : allOk ? `${talk([['kansa', '全部見つけたね。直すものから、順に片づけよう。']])}<button class="btn wide" data-n>片づけはじめる</button>` : `${talk([['kansa', `見落とし・選びすぎが ${res.filter((r) => !r.ok).length} つある。理由を読んで、もう一度選んでみて。`]])}<button class="btn wide ghost" data-dkr>もう一度選ぶ</button>`}</div>`);
+      frame(`<div class="s-card">${talk(ev.talk)}<p class="s-q">${esc(ev.q)}</p><div class="s-desk">${ev.items.map((it, k) => { const r = res && res[k]; return `<div class="s-deskit ${sel.has(it.id) ? 'on' : ''} ${r ? (r.ok ? 'ok' : 'ng') : ''}" data-dk="${it.id}" role="button" tabindex="0" aria-pressed="${sel.has(it.id)}"><b>${sel.has(it.id) ? '✓ ' : ''}${esc(it.title)}</b><small>${esc(val(it.line, S))}</small>${gloss(it.title) !== esc(it.title) ? `<span class="s-dkg">言葉の説明：${gloss(it.title)}</span>` : ''}${r ? `<em>${it.need ? '直す' : '直さない'}：${esc(it.why)}</em>` : ''}</div>`; }).join('')}</div>${!checked ? `<button class="btn wide" data-dkc ${sel.size ? '' : 'disabled'}>これで確かめる</button>` : allOk ? `${talk([['kansa', '全部見つけたね。直すものから、順に片づけよう。']])}<button class="btn wide" data-n>片づけはじめる</button>` : `${talk([['kansa', `見落とし・選びすぎが ${res.filter((r) => !r.ok).length} つある。理由を読んで、もう一度選んでみて。`]])}<button class="btn wide ghost" data-dkr>もう一度選ぶ</button>`}</div>`);
     };
     draw();
     app.onclick = (e) => {
@@ -830,7 +830,7 @@
       const d = e.target.closest('[data-dk]');
       if (d && !checked) { const id = d.dataset.dk; if (sel.has(id)) sel.delete(id); else sel.add(id); draw(); return; }
       if (e.target.closest('[data-dkc]')) { checked = true; const m = (S.metrics.desk = S.metrics.desk || { tries: 0 }); m.tries++; if (m.first == null) m.first = ev.items.every((it) => sel.has(it.id) === it.need); save(); draw(); return; }
-      if (e.target.closest('[data-dkr]')) { checked = false; draw(); return; }
+      if (e.target.closest('[data-dkr]')) { checked = false; sel.clear(); draw(); return; }
       if (e.target.closest('[data-n]')) next();
     };
   }
@@ -1923,6 +1923,11 @@
 
   B.chapters.forEach((c) => c.qs.forEach((q, i) => { q._key = `${c.id}:${i}`; }));
   window.__sim = { get S() { return S; }, balances, events, render, mastered, testForms };
+  // ボタンの形をしたカード（role="button"）も、Enter とスペースで押せる
+  document.addEventListener('keydown', (e) => {
+    const t = e.target;
+    if ((e.key === 'Enter' || e.key === ' ') && t && t.getAttribute && t.getAttribute('role') === 'button' && t.tagName !== 'BUTTON') { e.preventDefault(); t.click(); }
+  });
   // ブラウザの「戻る」：ゲームから出ていかないように、履歴に1つ足しておく。戻るを押したら、開いている窓（会社の棚・マップなど）を閉じる。
   // 窓が開いていなければ、いまの画面にとどまり、ゲームの中の「← もどる」の場所を知らせる（ゲームの進み具合は、いつも保存されている）
   try {
