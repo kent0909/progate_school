@@ -337,3 +337,4 @@ i.lv0 { border: 1px solid var(--line); }
 
 /* 押せないボタンの理由（見直し1回目 F10） */
 .s-why-off{margin:.4em 0 0;font-size:.85em;color:var(--muted,#5b6770);text-align:center}
+.s-toast{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%);max-width:min(92vw,32rem);background:var(--ink,#13302a);color:var(--bg,#fff);padding:.7em 1em;border-radius:.6em;font-size:.9em;z-index:60;box-shadow:0 4px 18px rgba(0,0,0,.25)}

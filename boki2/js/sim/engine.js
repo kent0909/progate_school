@@ -891,11 +891,17 @@
     // 戻る・取り消すで棚が二重にならないように、段の始まりと一手ごとの状態を取っておく
     const snap = () => JSON.stringify({ st, sale, sub });
     const restore = (j) => { const o = JSON.parse(j); st.L = o.st.L; st.R1 = o.st.R1; st.R0 = o.st.R0; sale = o.sale; sub = o.sub; };
-    const stepStart = [snap()], subs = [];
+    let stepStart = [snap()], subs = [];
     let hist = [];
     const mark = () => hist.push(snap());
+    // プロローグの途中（どの段まで進み、棚に何を並べたか）は S.drafts に残す。途中で閉じても、同じ段の同じ棚から
+    S.drafts = S.drafts || {};
+    const bk = `board:${ev.id}`;
+    if (!isReplay && S.drafts[bk]) { const o = S.drafts[bk]; restore(o.snap); i = o.i; stepStart = o.stepStart; subs.push(...o.subs); hist = o.hist; }
+    const keepBoard = () => { if (!isReplay) { S.drafts[bk] = { snap: snap(), i, stepStart, subs, hist }; save(); } };
     const shelf = (showR) => `<div class="s-board"><div class="s-shelf"><h4>もっているもの</h4>${st.L.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('') || '<em>（からっぽ）</em>'}<div class="s-sum">${fmt(sum(st.L))}</div></div>${showR ? `<div class="s-shelf r"><h4>どこから来たか</h4><div class="s-row2"><small>返すお金</small>${st.R1.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('')}</div><div class="s-row2"><small>返さないお金（じぶんのお金）</small>${st.R0.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('')}</div><div class="s-sum">${fmt(sum(st.R1) + sum(st.R0))}</div></div>` : ''}</div>`;
     const draw = () => {
+      keepBoard();
       const s = ev.steps[i];
       let body = '', ready = false;
       if (s.k === 'tap') {
@@ -954,7 +960,7 @@
         if (i + 1 < ev.steps.length) { subs[i] = JSON.parse(JSON.stringify(sub)); i++; sub = {}; hist = []; stepStart[i] = snap(); msg = ''; draw(); return; }
         if (isReplay) { render(); return; }
         if (!done && ev.next) { done = true; frame(`<div class="s-card">${talk(ev.next)}<button class="btn wide" data-fin>つぎへ</button></div>`); app.onclick = (x) => { if (x.target.closest('[data-fin]')) { S.discDone[ev.id] = S.mi; next(); } }; return; }
-        S.discDone[ev.id] = S.mi; next();
+        S.discDone[ev.id] = S.mi; delete S.drafts[bk]; next();
       }
     };
   }
@@ -1037,7 +1043,11 @@
     const coach = fixMode || !mastered(ev.kind);
     const opts = [...new Set([...(ev.opts || []), ...truth.dr.map((x) => x[0]), ...truth.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
     const prev = fixMode ? S.L.find((x) => x.id === ev.id + '@' + S.mi) : null;
-    const rows = { dr: prev ? prev.dr.map(([a, v]) => ({ a, v })) : [{ a: '', v: '' }], cr: prev ? prev.cr.map(([a, v]) => ({ a, v })) : [{ a: '', v: '' }] };
+    // 打ちかけの札と金額は S.drafts に残す（途中で閉じても、開き直すと同じ所から）。記帳したら消す
+    S.drafts = S.drafts || {};
+    const dkey = `${ev.id}@${S.mi}${fixMode ? ':fix' : ''}`, dr0 = S.drafts[dkey];
+    const rows = dr0 ? JSON.parse(JSON.stringify(dr0)) : { dr: prev ? prev.dr.map(([a, v]) => ({ a, v })) : [{ a: '', v: '' }], cr: prev ? prev.cr.map(([a, v]) => ({ a, v })) : [{ a: '', v: '' }] };
+    const keepDraft = () => { S.drafts[dkey] = rows; save(); };
     let active = null, hintLv = 0, tries = 0, panel = '';
     const optHTML = (sel) => `<option value="">札をえらぶ</option>${opts.map((a) => `<option ${a === sel ? 'selected' : ''}>${esc(a)}</option>`).join('')}`;
     const totals = () => ({ d: rows.dr.reduce((t, r) => t + (Number(r.v) || 0), 0), c: rows.cr.reduce((t, r) => t + (Number(r.v) || 0), 0) });
@@ -1056,6 +1066,7 @@
       if (!x) return;
       const r = rows[x.dataset.s][+x.dataset.i];
       if (x.tagName === 'SELECT') r.a = x.value; else r.v = x.value.normalize('NFKC').replace(/[^\d]/g, '');
+      keepDraft();
       const { d, c } = totals();
       $('.s-bal', app).className = 's-bal' + (d === c && d > 0 ? ' even' : '');
       $('.s-bal', app).textContent = balText(d, c);
@@ -1074,10 +1085,10 @@
       if (tap) {
         const target = active || { s: rows.dr.some((r) => !r.v) ? 'dr' : 'cr', i: Math.max(0, (rows.dr.some((r) => !r.v) ? rows.dr : rows.cr).findIndex((r) => !r.v)) };
         rows[target.s][target.i].v = tap.dataset.tap;
-        tap.classList.add('used'); active = null; draw(); return;
+        tap.classList.add('used'); active = null; keepDraft(); draw(); return;
       }
       const add = e.target.closest('[data-add]');
-      if (add) { rows[add.dataset.add].push({ a: '', v: '' }); draw(); return; }
+      if (add) { rows[add.dataset.add].push({ a: '', v: '' }); keepDraft(); draw(); return; }
       if (e.target.closest('[data-hint]')) return hint();
       if (e.target.closest('[data-cards]')) { mapTab = 'c'; mapOverlay(); return; }
       if (e.target.closest('[data-redo]')) { panel = ''; draw(); return; }
@@ -1115,6 +1126,7 @@
           save(); draw(); return;
         }
         post(ev, entry, false);
+        delete S.drafts[dkey];
         save();
         if (fixMode) return typeof fixMode === 'function' ? fixMode() : closeScreen();
         if (coach) {
@@ -1252,7 +1264,12 @@
     const metrics = isReplay ? { forks: {}, hand: 0 } : S.metrics;
     // 5拍（困りごと→予想→手の操作と理由→結果（最初の誤りと並べる）→名前）は設計の言葉。画面には出さず、ボタンは次の行動の言葉にする
     let beat = 1, picked = null, sorted = {}, reason = null, hintLv = 0, guess = null, firstWrong = null;
+    // 途中の段（予想・置いた札・理由・ヒント）は S.drafts に残す。途中で閉じても同じ段から（もう一度見るときは残さない）
+    S.drafts = S.drafts || {};
+    const dk = `disc:${ev.id}@${S.mi}`;
+    if (!isReplay && S.drafts[dk]) ({ beat, picked, sorted, reason, hintLv, guess, firstWrong } = S.drafts[dk]);
     const draw = () => {
+      if (!isReplay) { S.drafts[dk] = { beat, picked, sorted, reason, hintLv, guess, firstWrong }; save(); }
       let body = '';
       if (beat === 1) {
         body = `${talk(ev.b1.talk)}${ev.b1.dyn ? `<p class="s-dyn">${esc(ev.b1.dyn(S))}</p>` : ''}${docHTML(ev.b1.doc)}<button class="btn wide" data-b="${ev.predict && guess === null ? 'p' : '2'}">${esc(ev.b1.go || 'ピヨといっしょに考える')}</button>`;
@@ -1323,7 +1340,7 @@
       if (g('[data-retry]')) { beat = 2; picked = null; sorted = {}; reason = null; draw(); return; }
       if (g('[data-done]')) {
         if (isReplay) { render(); return; }
-        S.discDone[ev.id] = S.mi;
+        S.discDone[ev.id] = S.mi; delete S.drafts[dk];
         if (!S.leaves.some((l) => l.label === ev.b4.leaf.label)) S.leaves.push({ p: ev.b4.leaf.p, label: ev.b4.leaf.label, mi: S.mi });
         const qs = discQuiz(ev);
         if (qs.length) quickQuiz(qs, '本試験の文で確かめる', () => { grew('発見のあとの確かめ'); next(); }); else next();
@@ -1840,11 +1857,16 @@
     return out.map((k) => byKey[k]);
   }
   function quizScreen() {
-    const qs = pickQuiz();
-    let i = 0, score = 0;
-    const results = [];
+    // 何問目まで解いたかは S.drafts に残す（途中で閉じても、同じ問題の続きから。同じ問題を二度記録しない）
+    S.drafts = S.drafts || {};
+    const qk = `quiz@${S.mi}`, qd = S.drafts[qk];
+    const qs = qd ? qd.keys.map(qByKey).filter(Boolean) : pickQuiz();
+    let i = qd ? qd.i : 0, score = qd ? qd.score : 0;
+    const results = qd ? qd.results : [];
+    const keepQ = () => { S.drafts[qk] = { keys: qs.map((q) => q._key), i, score, results }; save(); };
     const draw = () => {
       if (i >= qs.length) {
+        delete S.drafts[qk];
         S.metrics.quiz = { score, of: qs.length, results };
         grew('腕だめし');
         save();
@@ -1861,16 +1883,19 @@
         if (e.target.closest('[data-check]')) {
           const entry = { dr: [], cr: [] };
           for (const s of ['dr', 'cr']) { const sels = $$(`select[data-s="${s}"]`, app), ins = $$(`input[data-s="${s}"]`, app); sels.forEach((x, k) => { const v = Number((ins[k].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[s].push([x.value, v]); }); }
+          // 札を選んだのに金額が空の行があれば、答える前に知らせる（空のまま答えて「おしい」にならないように）
+          const blank = ['dr', 'cr'].some((sd) => $$(`select[data-s="${sd}"]`, app).some((x, k) => x.value && !Number(($$(`input[data-s="${sd}"]`, app)[k].value || '').normalize('NFKC').replace(/[^\d]/g, ''))));
+          if (blank) { $('[data-res]', app).innerHTML = '<p class="s-react ng">金額が空の行がある。金額を入れてから答えよう</p>'; return; }
           const ok = [q.ans, ...(q.alt || [])].some((a) => entry.dr.length && entry.cr.length && sameEntry(entry, a));
           if (ok) score++;
           results.push({ key: q._key, ok });
           S.examLog.push({ key: q._key, ok, t: Date.now() });
-          save();
+          i++; keepQ(); i--;
           $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '正解' : 'おしい。正しくは：'}</p>${ok ? '' : jeTable(q.ans)}${q.exp ? `<div class="muted rich" style="font-size:13px">${B.hall.rich(q.exp)}</div>` : ''}`;
           e.target.closest('[data-check]').outerHTML = '<button class="btn wide" data-nextq>つぎへ</button>';
           return;
         }
-        if (e.target.closest('[data-nextq]')) { i++; draw(); }
+        if (e.target.closest('[data-nextq]')) { i++; keepQ(); draw(); }
       };
     };
     draw();
@@ -1891,6 +1916,21 @@
 
   B.chapters.forEach((c) => c.qs.forEach((q, i) => { q._key = `${c.id}:${i}`; }));
   window.__sim = { get S() { return S; }, balances, events, render, mastered, testForms };
+  // ブラウザの「戻る」：ゲームから出ていかないように、履歴に1つ足しておく。戻るを押したら、開いている窓（会社の棚・マップなど）を閉じる。
+  // 窓が開いていなければ、いまの画面にとどまり、ゲームの中の「← もどる」の場所を知らせる（ゲームの進み具合は、いつも保存されている）
+  try {
+    history.pushState({ piyo: 1 }, '');
+    window.addEventListener('popstate', () => {
+      const ovs = document.querySelectorAll('.s-ov');
+      if (ovs.length) ovs[ovs.length - 1].remove();
+      else {
+        const t = document.createElement('div'); t.className = 's-toast'; t.setAttribute('role', 'status');
+        t.textContent = 'ゲームの中にとどまっています。ひとつ前に戻るときは、画面の「← もどる」を。進み具合は保存されています';
+        document.body.appendChild(t); setTimeout(() => t.remove(), 4000);
+      }
+      history.pushState({ piyo: 1 }, '');
+    });
+  } catch (e) { /* 履歴が使えない環境では何もしない */ }
   if (/[?&]test\b/.test(location.search)) testScreen(); else render();
   // 公開ページとして開かれていれば、ページの保存機能につなぐ。別の端末の新しい続きがあれば読み込む
   const bootAt = Date.now();
