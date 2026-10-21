@@ -53,7 +53,7 @@
     // 動詞（仕入れる・売り上げる）は、送りがなの前までの読みにする（「仕入しいれれた」と読めてしまうのを防ぐ）
     const VERB = { 仕入: ['れ', 'しい'], 売上: ['げ', 'うりあ'] };
     // 次の1字は先読みだけ（取り込むと、続けて並んだ用語の目印 \u0000 を食べて「期限の利益84」のように番号が出る）
-    return html.replace(/\u0000(\d+)\u0000(?=(.?))/g, (_, i, nx) => { const w = marks[i], v = VERB[w]; return `<ruby>${w}<rt>${v && nx === v[0] ? v[1] : L.read[w]}</rt></ruby>`; });
+    return html.replace(/\u0000(\d+)\u0000(?=(.?))/g, (_, i, nx) => { const w = marks[i], v = VERB[w]; return `<span class="s-ruby">${w}<span class="s-rt" aria-hidden="true">${v && nx === v[0] ? v[1] : L.read[w]}</span></span>`; });
   };
   L.terms = () => {
     if (L._terms) return L._terms;

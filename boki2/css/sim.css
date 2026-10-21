@@ -262,6 +262,9 @@ i.lv0 { border: 1px solid var(--line); }
 .s-deskit small { color: var(--muted); font-size: .8rem; }
 .s-deskit em { font-style: normal; font-size: .8rem; margin-top: .25rem; }
 .s-deskit.ok em { color: hsl(150 45% 35%); } .s-deskit.ng { border-color: var(--bad); } .s-deskit.ng em { color: var(--bad); }
+.s-dkbtn { all: unset; display: flex; flex-direction: column; gap: .125rem; cursor: pointer; min-height: 2.75rem; border-radius: 6px; }
+.s-dkbtn:focus-visible { outline: 3px solid var(--focus, #f4a300); outline-offset: 2px; }
+.s-dkbtn small { color: var(--muted); font-size: .8rem; }
 .s-bankview { display: flex; align-items: center; gap: .75rem; }
 .s-face { width: 3.5rem; height: 3.5rem; flex: none; }
 .s-stamina small { color: var(--muted); font-size: .8rem; display: block; margin-bottom: .25rem; }
@@ -440,3 +443,23 @@ i.lv0 { border: 1px solid var(--line); }
 @container (max-width: 20rem) { .s-doc td { display: block; text-align: left !important; } .s-doc td:first-child { padding-right: 0; color: var(--muted); font-size: .85em; } }
 /* 近道の確認だけの発見 */
 .s-lite{border-style:dashed}
+/* 金額の入力欄の横の3桁区切り（2回目の検査 access） */
+.s-row { position: relative; }
+.s-amth { display: block; flex-basis: 100%; font-size: .75rem; color: var(--muted); text-align: right; margin-top: -.125rem; }
+
+/* 拡大したとき・文字を大きくしたとき・画面の背が低いとき（2回目の検査 lowvision P5・uiux 大3：上下の固定の帯が画面の3〜4割を取った）：
+   帯を固定せず、本文と一緒に流す。下のナビは本文の終わりに置く */
+@media (max-height: 34em) {
+  .s-head { position: static; }
+  .s-head .s-nav { position: static !important; }
+  #sim:has(.s-nav) .s-main { padding-bottom: 1rem; }
+  .cbt-head { position: static !important; }
+}
+html.s-big .s-head { position: static; }
+html.s-big .s-head .s-nav { position: static !important; }
+html.s-big #sim:has(.s-nav) .s-main { padding-bottom: 1rem; }
+html.s-big .cbt-head { position: static !important; }
+@media (max-width: 47.99em) { html.s-big .s-head .s-nav { display: grid; grid-auto-flow: row; grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* ふりがな：漢字の上に重ねる（字の間を開けない） */
+.s-ruby { position: relative; display: inline-block; padding-top: .62em; line-height: 1.5; text-indent: 0; }
+.s-rt { position: absolute; top: 0; left: 50%; transform: translateX(-50%); font-size: max(.5em, .625rem); line-height: 1; white-space: nowrap; font-weight: 500; color: var(--muted); pointer-events: none; }

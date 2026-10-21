@@ -300,7 +300,9 @@
     const o = arg && typeof arg === 'object' ? arg : { full: true, mode: arg ? 'self' : 'timed' };
     const full = !!o.full, only = full ? null : o.part;
     const timed = o.mode === 'timed' && !o.op, coach = o.mode === 'model' || o.mode === 'trace' ? o.mode : null;
-    const limit = full ? 90 : PART_MIN[only];
+    // 設定の「はじめからの延長」（配慮用）は、本番の時間に足す。90分の鐘は、本番の時間＋この延長で鳴る
+    const pre = timed && ctx().examExtra ? ctx().examExtra() : 0;
+    const limit = (full ? 90 : PART_MIN[only]) + pre;
     const y27 = ctx().y27();
     const allQ = ctx().chapters.filter((c) => c.id !== 'c00' && c.id !== 'c47' && !(y27 && OUT27_CH.has(c.id))).flatMap((c) => c.qs.filter((q) => q.type === 'journal' && !skipQ(q, y27) && !/上記|前問/.test(q.q || '')));
     const strong = (list) => { const s = list.filter((q) => (q.lv || 1) >= 2); return s.length >= 15 ? s : list; };
@@ -408,7 +410,7 @@
       const t = $('[data-timer]', main); if (t) { t.textContent = ext ? `延長 +${ext}分 終了` : '時間です'; t.classList.add('low'); }
       let bar = $('[data-bell]', main);
       if (!bar) { bar = document.createElement('div'); bar.className = 'cbt-bell'; bar.setAttribute('data-bell', ''); bar.setAttribute('role', 'alert'); $('.cbt-head', main).after(bar); }
-      bar.innerHTML = `<p><b>${ext ? `延長の${ext}分が終わった` : `${limit}分。本番ならここで終わり`}</b>。いまの答案は、本番の時間の点として残してある。続けるなら、延ばす時間を選ぶ（延ばしたあとの点は、自己ベストに入らない）。</p><div class="row"><button class="btn sm" data-bell-end>ここで終えて採点</button><button class="btn sm ghost" data-ext="1">+1分</button><button class="btn sm ghost" data-ext="5">+5分</button></div>`;
+      bar.innerHTML = `<p><b>${ext ? `延長の${ext}分が終わった` : `${limit}分${pre ? `（本番の${limit - pre}分＋はじめの延長${pre}分）` : '。本番ならここで終わり'}`}</b>。いまの答案は、本番の時間の点として残してある。続けるなら、延ばす時間を選ぶ（延ばしたあとの点は、自己ベストに入らない）。</p><div class="row"><button class="btn sm" data-bell-end>ここで終えて採点</button><button class="btn sm ghost" data-ext="1">+1分</button><button class="btn sm ghost" data-ext="5">+5分</button></div>`;
       bar.onclick = (e) => {
         if (e.target.closest('[data-bell-end]')) { bar.remove(); grade(true); return; }
         const b = e.target.closest('[data-ext]'); if (!b) return;
@@ -482,7 +484,7 @@
       const missN = { unlearned: 0, forgot: 0, calc: 0, blank: 0 }; items.forEach((it) => { if (it.miss) missN[it.miss]++; });
       let rec = null;
       if (full) {
-        rec = { date: ctx().today(), score: total, parts: score, mins, cbt: true, mode: timed ? 'timed' : 'untimed', miss: missN, ...(timed ? { score90: score90 == null ? total : score90, ext } : {}) };
+        rec = { date: ctx().today(), score: total, parts: score, mins, cbt: true, mode: timed ? 'timed' : 'untimed', miss: missN, ...(timed ? { score90: score90 == null ? total : score90, ext, pre } : {}) };
         ST.exams.push(rec);
         ctx().reward(rec.score90 != null ? rec.score90 : total, true);
       } else if (!o.op) ctx().reward(total, false);

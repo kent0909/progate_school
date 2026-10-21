@@ -157,7 +157,54 @@
   }
   let onFocus = null;
   app.addEventListener('focusin', (e) => { const x = e.target.closest('input[data-s]'); if (x && onFocus) onFocus(x); });
-  function frame(body) { onFocus = null; app.oninput = null; app.onkeydown = null; app.innerHTML = header() + `<main class="s-main" id="s-main" tabindex="-1">${body}</main>`; window.scrollTo(0, 0); }
+  // 文字の大きさ（2回目の検査 access・uiux：ゲームの中に設定がなかった）。画面は rem で組んであるので、根の大きさを変える
+  function applyScale() { const z = S.textScale || 100; document.documentElement.style.fontSize = z !== 100 ? `${z}%` : ''; document.documentElement.classList.toggle('s-big', z > 100); }
+  // 金額の入力欄の横に、3桁区切りと「〇万」を映す（2回目の検査 access：自分が打った数だけカンマがなく、60万か6万か見分けられない）。入力そのものは半角の数字のまま
+  function amtHint(inp) {
+    let o = inp.nextElementSibling && inp.nextElementSibling.classList && inp.nextElementSibling.classList.contains('s-amth') ? inp.nextElementSibling : null;
+    const v = Number(String(inp.value || '').normalize('NFKC').replace(/[^\d]/g, ''));
+    if (!v || v < 1000) { if (o) o.textContent = ''; return; }
+    if (!o) { o = document.createElement('small'); o.className = 's-amth'; o.setAttribute('aria-live', 'polite'); inp.after(o); }
+    const man = v >= 10000 ? `（${(v / 10000).toLocaleString('ja-JP', { maximumFractionDigits: 4 })}万）` : '';
+    o.textContent = `${v.toLocaleString('ja-JP')}${man}`;
+  }
+  app.addEventListener('input', (e) => { if (e.target.matches && e.target.matches('input[inputmode="numeric"]')) amtHint(e.target); }, true);
+  // 読み上げで区別できない部品を直す（2回目の検査 uiux・lowvision：同じ名前のボタンが並ぶ・選んだ状態が伝わらない）
+  // ・同じ文字のボタンが2つ以上あれば、その行（表の行・並びの行・練習室の項目など）の見出しを前につけた名前にする
+  // ・選んだ印（.on）のボタンに aria-pressed、選択肢の並び（.s-opts）に role=group
+  function a11yNames(root) {
+    const btns = [...root.querySelectorAll('button, [role="button"]')];
+    const txt = (b) => (b.getAttribute('aria-label') || b.textContent || '').replace(/\s+/g, ' ').trim();
+    const count = {}; btns.forEach((b) => { const t = txt(b); count[t] = (count[t] || 0) + 1; });
+    for (const b of btns) {
+      if (b.classList.contains('on') && !b.hasAttribute('aria-pressed')) b.setAttribute('aria-pressed', 'true');
+      if (count[txt(b)] < 2 || b.hasAttribute('aria-label')) continue;
+      const row = b.closest('tr, .s-sorti, .s-row, .s-room-it, li, .s-doc-card, .s-card-doc, [data-rowlabel]');
+      let head = row && (row.getAttribute('data-rowlabel') || (row.querySelector('th, td:first-child, b, span, small') || {}).textContent || '');
+      head = String(head || '').replace(/\s+/g, ' ').trim().slice(0, 40);
+      if (head && head !== txt(b)) b.setAttribute('aria-label', `${head}：${txt(b)}`);
+    }
+    root.querySelectorAll('.s-opts').forEach((g) => { if (!g.hasAttribute('role')) g.setAttribute('role', 'group'); });
+  }
+  // 焦点の管理（2回目の検査 lowvision P1：押すたびに焦点が消え、Tab がページの頭からやり直しになった）。
+  // キーボードで操作しているときだけ、描き直しのあとに焦点を戻す：同じ部品（同じ data-* の組）があればそこへ、なければ本文の最初の押せる所へ
+  let kbUser = false;
+  document.addEventListener('keydown', (e) => { if (e.key === 'Tab' || e.key === 'Enter' || e.key === ' ' || e.key.startsWith('Arrow')) kbUser = true; }, true);
+  document.addEventListener('pointerdown', () => { kbUser = false; }, true);
+  const focusKey = (el) => (el && el.attributes ? [el.tagName, ...[...el.attributes].filter((a) => a.name.startsWith('data-') || a.name === 'name').map((a) => `${a.name}=${a.value}`)].join('|') : '');
+  function frame(body) {
+    const was = document.activeElement, key = kbUser && was && app.contains(was) && was !== app ? focusKey(was) : null, scrolled = window.scrollY;
+    onFocus = null; app.oninput = null; app.onkeydown = null; app.innerHTML = header() + `<main class="s-main" id="s-main" tabindex="-1">${body}</main>`;
+    a11yNames(app);
+    $$('input[inputmode="numeric"]', app).forEach(amtHint);
+    if (key) {
+      const same = [...app.querySelectorAll('button, [role="button"], input, select, textarea, a[href]')].find((x) => focusKey(x) === key && !x.disabled);
+      const main = $('#s-main', app), first = main && main.querySelector('button:not([disabled]):not([hidden]), [role="button"], input:not([disabled]), select:not([disabled])');
+      const to = same || first || main;
+      if (to) { to.focus({ preventScroll: true }); if (same) { window.scrollTo(0, scrolled); return; } }
+    }
+    window.scrollTo(0, 0);
+  }
   app.addEventListener('click', (e) => { if (e.target.closest('[data-skiplink]')) { const m = $('#s-main', app); if (m) m.focus(); } }, true);
 
   /* ---------- overlays ---------- */
@@ -433,6 +480,7 @@
   let hallGuard = null, hallClean = null;
   const hallCtx = (root) => ({
     root, state: (S.hall = S.hall || { exams: [], examSeen: [] }), chapters: HCH, save,
+    examExtra: () => S.examExtra || 0,
     hist: (k) => { const l = S.examLog.filter((x) => x.key === k); return [l.length, l.filter((x) => x.ok).length]; },
     // 会社で起きた論点なら「習った」
     cleared: (ch) => B.scope.some((it) => it.ch === ch && scopeState(it).met != null),
@@ -631,6 +679,7 @@
 
   /* ---------- screens ---------- */
   function render() {
+    applyScale();
     if (S.phase === 'title') return titleScreen();
     const m = month();
     if (!m) return endScreen();
@@ -668,7 +717,7 @@
     const started = S.mi > 0 || S.ei > 0;
     const ps = ST.profiles(), cur = ST.currentProfile();
     const who = ps.length > 1 || (ps[0] && ps[0].name) ? `<div class="s-who"><small>だれが遊ぶ？</small>${ps.map((p, k) => `<button class="${p.id === cur ? 'on' : ''}" data-prof="${p.id}">${esc(p.name || `${k + 1}人目`)}</button>`).join('')}<button data-addprof>＋</button></div>` : '<button class="link" data-addprof>ほかの人もこの端末で遊ぶ</button>';
-    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・保存と引っ越し・確認テスト</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div>${S.pro3 && S.pro3.on ? '<div class="s-who"><small>近道（3級の型は自動）</small><button data-p3off>近道を切る（3級の型も手で書く）</button></div>' : ''}<div class="s-who"><small>ふりがな</small><button class="${S.furigana !== 'always' ? 'on' : ''}" data-furi="auto">はじめてと、押したとき</button><button class="${S.furigana === 'always' ? 'on' : ''}" data-furi="always">いつも</button></div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
+    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・ふりがな・文字の大きさ・保存と引っ越し</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div>${S.pro3 && S.pro3.on ? '<div class="s-who"><small>近道（3級の型は自動）</small><button data-p3off>近道を切る（3級の型も手で書く）</button></div>' : ''}<div class="s-who"><small>ふりがな</small><button class="${S.furigana !== 'always' ? 'on' : ''}" data-furi="auto">はじめてと、押したとき</button><button class="${S.furigana === 'always' ? 'on' : ''}" data-furi="always">いつも</button></div><div class="s-who"><small>文字の大きさ（書類と表も同じ割合で大きくなる）</small>${[100, 125, 150].map((z) => `<button class="${(S.textScale || 100) === z ? 'on' : ''}" data-tscale="${z}">${z}%</button>`).join('')}</div><div class="s-who"><small>検定会場の時間（読むのに時間がかかる人のための、はじめからの延長）</small>${[0, 10, 20, 30].map((z) => `<button class="${(S.examExtra || 0) === z ? 'on' : ''}" data-exx="${z}">${z ? `+${z}分` : 'なし'}</button>`).join('')}</div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
     app.onclick = (e) => {
       if (e.target.closest('[data-start]')) { const go = () => { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }; if (!started && !S.modeOk) return modeScreen(() => pro3Ask(go)); go(); }
       if (e.target.closest('[data-reset]')) { if (!confirm('この人の記録を消して、最初からやり直しますか？')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); }
@@ -682,6 +731,10 @@
       if (e.target.closest('[data-p3off]')) { Object.keys(S.rules).forEach((k) => { if (S.rules[k].preset) delete S.rules[k]; }); S.pro3.on = false; save(); titleScreen(); return; }
       const fu = e.target.closest('[data-furi]');
       if (fu) { S.furigana = fu.dataset.furi; save(); titleScreen(); }
+      const ts = e.target.closest('[data-tscale]');
+      if (ts) { S.textScale = +ts.dataset.tscale; save(); applyScale(); titleScreen(); }
+      const xx = e.target.closest('[data-exx]');
+      if (xx) { S.examExtra = +xx.dataset.exx; save(); titleScreen(); }
     };
     const inp = $('[data-import]', app);
     if (inp) inp.onchange = async () => { const f = inp.files[0]; if (!f) return; try { S = Object.assign(fresh(), ST.importText(KEY, await f.text())); save(); render(); } catch (err) { alert('このファイルは読み込めませんでした。'); } };
@@ -952,7 +1005,7 @@
     const draw = () => {
       const res = checked ? ev.items.map((it) => ({ it, ok: sel.has(it.id) === it.need })) : null;
       const allOk = res && res.every((r) => r.ok);
-      frame(`<div class="s-card">${talk(ev.talk)}<p class="s-q">${esc(ev.q)}</p><div class="s-desk">${ev.items.map((it, k) => { const r = res && res[k]; return `<div class="s-deskit ${sel.has(it.id) ? 'on' : ''} ${r ? (r.ok ? 'ok' : 'ng') : ''}" data-dk="${it.id}" role="button" tabindex="0" aria-pressed="${sel.has(it.id)}"><b>${sel.has(it.id) ? '✓ ' : ''}${esc(it.title)}</b><small>${esc(val(it.line, S))}</small>${gloss(it.title) !== esc(it.title) ? `<span class="s-dkg">言葉の説明：${gloss(it.title)}</span>` : ''}${r ? `<em>${it.need ? '直す' : '直さない'}：${esc(it.why)}</em>` : ''}</div>`; }).join('')}</div>${!checked ? `<button class="btn wide" data-dkc ${sel.size ? '' : 'disabled'}>これで確かめる</button>` : allOk ? `${talk([['kansa', '全部見つけたね。直すものから、順に片づけよう。']])}<button class="btn wide" data-n>片づけはじめる</button>` : `${talk([['kansa', `見落とし・選びすぎが ${res.filter((r) => !r.ok).length} つある。理由を読んで、もう一度選んでみて。`]])}<button class="btn wide ghost" data-dkr>もう一度選ぶ</button>`}</div>`);
+      frame(`<div class="s-card">${talk(ev.talk)}<p class="s-q">${esc(ev.q)}</p><div class="s-desk">${ev.items.map((it, k) => { const r = res && res[k]; return `<div class="s-deskit ${sel.has(it.id) ? 'on' : ''} ${r ? (r.ok ? 'ok' : 'ng') : ''}"><button class="s-dkbtn" data-dk="${it.id}" aria-pressed="${sel.has(it.id)}"><b>${sel.has(it.id) ? '✓ 選んだ ' : ''}${esc(it.title)}</b><small>${esc(val(it.line, S))}</small></button>${gloss(it.title) !== esc(it.title) ? `<span class="s-dkg">言葉の説明：${gloss(it.title)}</span>` : ''}${r ? `<em>${it.need ? '直す' : '直さない'}：${esc(it.why)}</em>` : ''}</div>`; }).join('')}</div>${!checked ? `<button class="btn wide" data-dkc ${sel.size ? '' : 'disabled'}>これで確かめる</button>` : allOk ? `${talk([['kansa', '全部見つけたね。直すものから、順に片づけよう。']])}<button class="btn wide" data-n>片づけはじめる</button>` : `${talk([['kansa', `見落とし・選びすぎが ${res.filter((r) => !r.ok).length} つある。理由を読んで、もう一度選んでみて。`]])}<button class="btn wide ghost" data-dkr>もう一度選ぶ</button>`}</div>`);
     };
     draw();
     app.onclick = (e) => {
@@ -960,7 +1013,8 @@
       const d = e.target.closest('[data-dk]');
       if (d && !checked) { const id = d.dataset.dk; if (sel.has(id)) sel.delete(id); else sel.add(id); draw(); return; }
       if (e.target.closest('[data-dkc]')) { checked = true; const m = (S.metrics.desk = S.metrics.desk || { tries: 0 }); m.tries++; if (m.first == null) m.first = ev.items.every((it) => sel.has(it.id) === it.need); save(); draw(); return; }
-      if (e.target.closest('[data-dkr]')) { checked = false; sel.clear(); draw(); return; }
+      // もう一度選ぶ：前に選んだ印は残す（2回目の検査：全部消えて、足りない分だけ足そうとした人が困った）
+      if (e.target.closest('[data-dkr]')) { checked = false; draw(); return; }
       if (e.target.closest('[data-n]')) next();
     };
   }
@@ -1466,7 +1520,7 @@
         let field = '';
         if (b2.layout === 'flow') field = flowHTML(b2, sorted);
         else if (isSort(b2)) {
-          field = `<div class="s-sort">${b2.tokens.map((t) => `<div class="s-sorti"><span>${esc(t.label)}</span><div>${b2.targets.map((g) => `<button class="s-pill ${sorted[t.id] === g.id ? 'on' : ''}" data-sort="${t.id}" data-to="${g.id}">${esc(g.label)}</button>`).join('')}</div></div>`).join('')}</div>`;
+          field = `<div class="s-sort">${b2.tokens.map((t) => `<div class="s-sorti" role="group" aria-label="${esc(t.label)}"><span>${esc(t.label)}</span><div>${b2.targets.map((g) => `<button class="s-pill ${sorted[t.id] === g.id ? 'on' : ''}" data-sort="${t.id}" data-to="${g.id}" aria-pressed="${sorted[t.id] === g.id}" aria-label="${esc(t.label)}：${esc(g.label)}">${esc(g.label)}</button>`).join('')}</div></div>`).join('')}</div>`;
         } else {
           field = `${b2.token ? `<div class="s-token ${picked ? 'placed' : ''}">${esc(b2.token)}</div>` : ''}<div class="s-targets ${b2.layout}">${b2.targets.map((g) => `<button class="s-target ${picked === g.id ? 'on' : ''}" data-pick="${g.id}"><b>${esc(g.label)}</b>${g.sub ? `<small>${esc(g.sub)}</small>` : ''}</button>`).join('')}</div>`;
         }
@@ -2122,7 +2176,7 @@
   function furi(root) {
     if (!root || !RDW.length) return;
     const always = S.furigana === 'always', nodes = [];
-    const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => { const p = n.parentElement; RDRE.lastIndex = 0; return p && !p.closest('ruby,script,style,select,option,textarea,.s-rd,[data-nofuri],.s-logo') && RDRE.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
+    const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => { const p = n.parentElement; RDRE.lastIndex = 0; return p && !p.closest('ruby,.s-ruby,script,style,select,option,textarea,.s-rd,[data-nofuri],.s-logo') && RDRE.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
     while (tw.nextNode()) nodes.push(tw.currentNode);
     for (const n of nodes) {
       const t = n.nodeValue, f = document.createDocumentFragment();
@@ -2131,7 +2185,8 @@
       for (let m; (m = RDRE.exec(t));) {
         const w = m[0], v = VERB_RD[w], rd = v && t[m.index + w.length] === v[0] ? v[1] : RD[w];
         f.append(t.slice(last, m.index));
-        if (always) { const r = document.createElement('ruby'); r.append(w); const rt = document.createElement('rt'); rt.textContent = rd; r.append(rt); f.append(r); }
+        // 読みは漢字の上に重ねる（ruby だと読みが長いとき漢字の字の間が開き、語の形が崩れる。2回目の検査 access）。読み上げは漢字だけ
+        if (always) { const r = document.createElement('span'); r.className = 's-ruby'; r.append(w); const rt = document.createElement('span'); rt.className = 's-rt'; rt.setAttribute('aria-hidden', 'true'); rt.textContent = rd; r.append(rt); f.append(r); }
         else { const sp = document.createElement('span'); sp.className = 's-rd'; sp.dataset.rd = rd; sp.title = rd; sp.textContent = w; f.append(sp); }
         last = m.index + w.length;
       }
