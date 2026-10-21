@@ -257,6 +257,8 @@
   // 受験する年度（出題区分表）。選んでいなければ今日の日付で決める：2027年3月31日までは2026年度の区分表、4月1日からは2027年度
   const modeOf = () => S.mode || (Date.now() < Date.parse('2027-04-01T00:00:00+09:00') ? '2026' : '2027');
   // 試験範囲の項目の名前（2026年度の試験では旧基準の名前があるものは name26）
+  // 章ごとの試験範囲の項目の数（scopeState で、章の問題をどの項目のものとして数えるか）
+  const CH_SOLO = (B.scope || []).reduce((o, it) => { if (it.ch) o[it.ch] = (o[it.ch] || 0) + 1; return o; }, {});
   const sname = (it) => (modeOf() === '2026' && it.name26) || it.name;
   const MODE_TXT = { 2026: '2026年度（2027年3月までの試験）', 2027: '2027年度（2027年4月からの試験）' };
   // ---- 3級既習の近道（docs/DESIGN-PRO3-ISSUE.md 設計1） ----
@@ -318,7 +320,7 @@
       if (b4.leaf && !S.leaves.some((l) => l.label === b4.leaf.label)) S.leaves.push({ p: b4.leaf.p, label: b4.leaf.label, mi: S.mi, lite: true });
       save();
       const qs = discQuiz(ev);
-      if (qs.length) quickQuiz(qs, '本試験の文で確かめる', () => next()); else next();
+      if (qs.length) quickQuiz(qs, '本試験の文で確かめる', () => next(), scopesOfDisc(ev)); else next();
     };
   }
   // はじめる前に1回だけ、受験する年度を確かめる（科目の名前と出る論点が変わるため）
@@ -356,8 +358,8 @@
     const fixes = S.fixLog.filter((f) => docs.includes(f.ev) || kinds.includes(f.kind));
     const shaky = fixes.some((f) => !S.docLog.some((l) => l.ok && l.mi > f.mi && (l.kind === f.kind || l.ev === f.ev)));
     if (shaky) own = false;
-    // 本試験の文の問題は、発見のあとの確かめ（discQuiz）と同じ範囲（it.q と、その章の全問題）で拾う。自動仕訳の棚卸・思い出すで書けなかった種類（auto:<kind>）も拾う
-    const ex = S.examLog.filter((l) => (it.q || []).includes(l.key) || (it.sim && it.ch && l.key.split(':')[0] === it.ch && !l.key.startsWith('exam:') && !l.key.startsWith('auto:')) || (l.key.startsWith('auto:') && kinds.includes(l.key.slice(5))) || (B.examScope && (B.examScope[l.key] || []).includes(it.id)));
+    // 本試験の文の問題は、it.q と、その章の問題で拾う。章を2つ以上の項目で分けているときは、その項目のために出した問題（l.scope）だけ（2回目の検査：同じ章の1問で章の全部の項目に「書けた」が点いた）。自動仕訳の棚卸・思い出すで書けなかった種類（auto:<kind>）も拾う
+    const ex = S.examLog.filter((l) => (it.q || []).includes(l.key) || (it.sim && it.ch && l.key.split(':')[0] === it.ch && !l.key.startsWith('exam:') && !l.key.startsWith('auto:') && (CH_SOLO[it.ch] === 1 || (l.scopes || []).includes(it.id))) || (l.key.startsWith('auto:') && kinds.includes(l.key.slice(5))) || (B.examScope && (B.examScope[l.key] || []).includes(it.id)));
     const okT = ex.filter((l) => l.ok).map((l) => l.t);
     const exam = !ex.length ? null : !ex[ex.length - 1].ok ? 'miss' : okT.length >= 2 && Math.max(...okT) - Math.min(...okT) >= 7 * 864e5 ? 'exam2' : 'exam1';
     return { met, own, shaky, exam, lite: lite && !own, built: !!(disc.length || docs.length || kinds.length || x.close || x.report) };
@@ -481,8 +483,9 @@
     } else if (roomTab === 'speed') {
       body = `<p class="muted" style="font-size:13px">本試験の第1問は、候補の札から選ぶ。札の置き場所が速く分かれば、ありえない札をすぐ外せる。順位や点はない。前の自分の秒数とくらべるだけ。</p>${speedMenu()}`;
     } else {
-      const keys = [...new Set(S.examLog.map((l) => l.key))].filter((k) => { const l = lastOf(k); return l && !l.ok; });
-      body = keys.length ? keys.map((k) => { const q = k.startsWith('exam:') ? (B.exams || []).find((x) => x._key === k) : qByKey(k); if (!q) return ''; const t = String(q.title || q.q || '').replace(/<[^>]+>/g, '').slice(0, 70); return `<div class="s-room-it"><div><b>${esc(t)}</b><small>${esc(q._ch ? q._ch.title : '')}</small></div><div class="s-room-btns"><button class="btn sm" data-redo="${esc(k)}">解き直す</button></div></div>`; }).join('') : '<p class="muted">いまは、間違えたままの問題はない。</p>';
+      // 自動仕訳の型（auto:<kind>）は問題の番号ではないので、ここには出さない（月はじめの思い出すで出る）
+      const keys = [...new Set(S.examLog.map((l) => l.key))].filter((k) => { const l = lastOf(k); return l && !l.ok && !k.startsWith('auto:') && (k.startsWith('exam:') ? (B.exams || []).some((x) => x._key === k) : qByKey(k)); });
+      body = keys.length ? keys.map((k) => { const q = k.startsWith('exam:') ? (B.exams || []).find((x) => x._key === k) : qByKey(k); if (!q) return ''; const t = String(q.title || q.q || '').replace(/<[^>]+>/g, '').slice(0, 70); return `<div class="s-room-it"><div><b>${esc(t)}</b><small>${esc(q._ch ? q._ch.title : '')}</small></div><div class="s-room-btns"><button class="btn sm" data-redo="${esc(k)}">解き直す</button></div></div>`; }).join('') : '<p class="muted">いまは、間違えたままの問題はない。本試験の文で確かめる・腕だめし・練習室・検定会場で間違えた問題が、ここにたまる。正しく解き直すと消える。</p>';
     }
     frame(`<div class="s-hallbar"><button class="btn sm ghost" data-hallback>← 会社へもどる</button><small>練習室（会社の外で練習する。会社の数字には影響しない）</small></div><div class="seg s-room-tabs"><button data-rt="items" aria-pressed="${roomTab === 'items'}">論点ごと</button><button data-rt="miss" aria-pressed="${roomTab === 'miss'}">まちがいノート</button><button data-rt="speed" aria-pressed="${roomTab === 'speed'}">札の速さ</button><button data-rhall>検定会場</button></div><div class="s-room">${body}</div>`);
     app.onclick = (e) => {
@@ -492,12 +495,12 @@
       if (g('[data-rhall]')) { hallScreen(); return; }
       if (g('[data-speed]')) { speedScreen(g('[data-speed]').dataset.speed, () => practiceScreen('speed')); return; }
       if (g('[data-ref]')) { const it = B.scope.find((x) => x.id === g('[data-ref]').dataset.ref), c = HCH.find((x) => x.id === it.ch); overlay(`<h3>参考書：${esc(sname(it))}</h3><p class="muted" style="font-size:12px">試験のための説明。会社で出会う前に読んでも、出会ったあとに読み直してもいい。</p>${c && (c.lessons26 && modeOf() === '2026' ? c.lessons26 : c.lessons) ? (c.lessons26 && modeOf() === '2026' ? c.lessons26 : c.lessons).map((l) => `<h4>${esc(l.t)}</h4><div class="rich">${B.hall.rich(l.h)}</div>`).join('') : '<p>まだ説明がない。</p>'}${c && c.real ? `<h4>実務では：${esc(c.real.t)}</h4><p class="muted" style="font-size:12px">${esc(c.real.where)}</p><div class="rich">${B.hall.rich(c.real.h)}</div>` : ''}`); return; }
-      if (g('[data-drill]')) { const it = B.scope.find((x) => x.id === g('[data-drill]').dataset.drill); const qs = roomQs(it); const pref = qs.filter((q) => { const l = lastOf(q._key); return !l || !l.ok; }); const pickQ = (pref.length >= 3 ? pref : qs).slice().sort(() => Math.random() - 0.5).slice(0, 5); roomDrill(pickQ, it.name, () => practiceScreen()); return; }
+      if (g('[data-drill]')) { const it = B.scope.find((x) => x.id === g('[data-drill]').dataset.drill); const qs = roomQs(it); const pref = qs.filter((q) => { const l = lastOf(q._key); return !l || !l.ok; }); const pickQ = (pref.length >= 3 ? pref : qs).slice().sort(() => Math.random() - 0.5).slice(0, 5); roomDrill(pickQ, sname(it), () => practiceScreen(), it.id); return; }
       if (g('[data-redo]')) { const k = g('[data-redo]').dataset.redo; if (k.startsWith('exam:')) { const x = (B.exams || []).find((y) => y._key === k); hallScreen({ play: { part: x.part, mode: 'self', key: k } }); } else roomDrill([qByKey(k)], 'まちがいノート', () => practiceScreen('miss')); }
     };
   }
   // 1問ずつ：仕訳と穴埋めは検定会場と同じ入力（半角・候補から選ぶ）、選択・計算・仕分けはこの場の部品
-  function roomDrill(qs, label, done) {
+  function roomDrill(qs, label, done, roomScope) {
     let i = 0;
     const draw = () => {
       if (i >= qs.length) { grew('練習室'); return done(); }
@@ -514,7 +517,7 @@
         if (e.target.closest('[data-qnext]')) { i++; draw(); return; }
         if (!e.target.closest('[data-qcheck]')) return;
         const r = comp.check(); comp.reveal(r.ok);
-        S.examLog.push({ key: q._key, ok: !!r.ok, t: Date.now(), room: true }); save();
+        S.examLog.push(Object.assign({ key: q._key, ok: !!r.ok, t: Date.now(), room: true }, roomScope ? { scopes: [roomScope] } : {})); save();
         $('[data-res]', app).innerHTML = `<div class="fb ${r.ok ? 'ok' : 'ng'}"><p class="s-react ${r.ok ? '' : 'ng'}">${r.ok ? '正解' : '正しくは：'}</p>${r.ok ? '' : comp.answerHTML()}<div class="rich">${B.hall.rich(q.exp || '')}</div></div><button class="btn wide" data-qnext>${i + 1 < qs.length ? 'つぎへ' : '練習室へもどる'}</button>`;
         e.target.closest('[data-qcheck]').remove();
       };
@@ -779,6 +782,22 @@
     // 帳簿に残っている、払う日が法律で決まっている約束（書類がまだ台本にない月でも、残高から載せる）：法人税等は決算から2か月以内（5月31日）
     const taxBal = -(balances(S.T)['未払法人税等'] || 0);
     if (taxBal > 0 && !items.some((o) => /税金|法人税/.test(o.what))) add({ date: { m: 5, d: 31 }, what: '法人税等の納付（決算から2か月以内。帳簿の未払法人税等）', amt: -taxBal, fixed: true, top: true });
+    // 帳簿に残っている払う約束（未払消費税・未払金・買掛金）のうち、これからの書類で払う分を引いた残りも載せる
+    // 未払消費税は決算から2か月以内（5月31日）、未払金・買掛金は書類の支払期日（なければ翌月末）
+    { const fut = {};
+      for (let mi = S.mi; mi < Math.min(D.months.length, S.mi + 6); mi++) {
+        const list = mi === S.mi ? evs0.slice(S.ei + 1) : D.months[mi].events.filter((e) => { try { return !e.when || e.when(S); } catch (x) { return false; } });
+        for (const e of list) { if (e.t !== 'doc' || !e.ans) continue; let t; try { t = val(e.ans, S); } catch (x) { continue; } for (const [a, v] of t.dr) fut[a] = (fut[a] || 0) + v; }
+      }
+      const nextEnd = { m: (cur % 12) + 1, d: 31 };
+      for (const [acc, what, date] of [['未払消費税', '消費税の納付（決算から2か月以内。帳簿の未払消費税）', { m: 5, d: 31 }], ['未払金', '未払金の支払い（帳簿に残っている分）', null], ['買掛金', '買掛金の支払い（帳簿に残っている分）', null]]) {
+        const left = -(balances(S.T)[acc] || 0) - (fut[acc] || 0);
+        if (left <= 0 || (acc === '未払消費税' && items.some((o) => /消費税の納付/.test(o.what)))) continue;
+        let d = date;
+        if (!d) { const src = S.T.filter((t) => t.cr.some(([a]) => a === acc)).map((t) => (allEvents.find(({ e: x }) => x.id === t.ev) || {}).e).filter(Boolean).reverse().map((e) => (val(e.doc && e.doc.rows, S) || []).find((x) => x[0] === '支払期日')).find(Boolean); d = src ? parseDay(src[1]) : nextEnd; }
+        add({ date: d, what, amt: -left, fixed: true, top: acc !== '買掛金' });
+      }
+    }
     // ふだんの出入り（売上・給料・電気代など）は、月ごとに1行にまとめる（約束の期日が見えるように）
     const out = items.filter((o) => o.fixed), byM = {};
     items.filter((o) => !o.fixed).forEach((o) => { const k = o.date.m; byM[k] = byM[k] || { date: { m: k, d: 31 }, what: `${k}月のふだんの出入り（売上・給料など）`, amt: 0, fixed: false }; byM[k].amt += o.amt; });
@@ -1318,7 +1337,9 @@
   }
   const qByKey = (k) => { const [c, i] = k.split(':'); const ch = B.chapters.find((x) => x.id === c); return ch ? ch.qs[+i] : null; };
   // 本試験の文で1〜数問、その場で答え合わせ。結果は examLog（成長の記録・7日後の確かめに使う）
-  function quickQuiz(qs, label, done) {
+  // その発見が受け持つ試験範囲の項目（問題の答えを、どの項目の「本試験の文」として数えるか）
+  const scopesOfDisc = (ev) => B.scope.filter((it) => ((it.sim || {}).disc || []).includes(ev.id)).map((it) => it.id);
+  function quickQuiz(qs, label, done, scopes) {
     let i = 0;
     const draw = () => {
       if (i >= qs.length) return done();
@@ -1334,7 +1355,7 @@
         const entry = { dr: [], cr: [] };
         for (const sd of ['dr', 'cr']) { const sel = $$(`select[data-s="${sd}"]`, app), ins = $$(`input[data-s="${sd}"]`, app); sel.forEach((x, k) => { const v = Number((ins[k].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }); }
         const ok = entry.dr.length && entry.cr.length && [q.ans, ...(q.alt || [])].some((a) => sameEntry(entry, a));
-        S.examLog.push({ key: q._key, ok: !!ok, t: Date.now() }); save();
+        S.examLog.push(Object.assign({ key: q._key, ok: !!ok, t: Date.now() }, scopes && scopes.length ? { scopes } : {})); save();
         $('[data-res]', app).innerHTML = `${ok ? '<p class="s-react">書けた</p>' : missHTML(entry, q.ans, '本試験の文では、こう書く')}${q.exp ? `<div class="muted rich" style="font-size:13px">${B.hall.rich(q.exp)}</div>` : ''}<button class="btn wide" data-qn>つぎへ</button>`;
         $('[data-qq]', app).remove();
       };
@@ -1473,7 +1494,7 @@
         S.discDone[ev.id] = S.mi; delete S.drafts[dk];
         if (!S.leaves.some((l) => l.label === ev.b4.leaf.label)) S.leaves.push({ p: ev.b4.leaf.p, label: ev.b4.leaf.label, mi: S.mi });
         const qs = discQuiz(ev);
-        if (qs.length) quickQuiz(qs, '本試験の文で確かめる', () => { grew('発見のあとの確かめ'); next(); }); else next();
+        if (qs.length) quickQuiz(qs, '本試験の文で確かめる', () => { grew('発見のあとの確かめ'); next(); }, scopesOfDisc(ev)); else next();
       }
     };
   }
@@ -1527,14 +1548,16 @@
     if (view && !S.ifSeen.includes(id)) { S.ifSeen.push(id); S.diary.push({ m: 'もしも', t: `もしもを見た：${E.title}` }); save(); }
     // 結末の「もしも」の数字は、1年目の決算書のもうけ（締め切りの前）。締め切ったあとの S.L から取ると、収益・費用が0で「0円」になる
     S.__ni = pl(balances(S.L.filter((e) => (e.y || 1) === 1 && !e.closing))).ni;
-    const docs = E.docs(S);
+    // 「もしも」で見るときは、選ばなかった道（back の判断を via の選択にした場合）の数字と原因で書く
+    const SX = view && E.back && E.via && E.via.length && S.decisions[E.back] !== E.via[0] ? Object.assign(Object.create(Object.getPrototypeOf(S)), S, { decisions: { ...S.decisions, ...(E.as || {}), [E.back]: E.via[0] } }) : S;
+    const docs = E.docs(SX);
     const steps = ['cause', 'numbers', ...docs.map((_, i) => 'doc' + i), 'scene', 'reality', 'lesson'];
     let i = 0, answered = !E.check, msg = '';
     const draw = () => {
       const st = steps[i];
       let body = '';
-      if (st === 'cause') body = `<small>${view ? 'もしも、' : ''}原因</small><p class="s-result">${esc(E.cause(S))}</p>`;
-      else if (st === 'numbers') body = `<small>数字</small>${trialHTML(E.numbers(S).rows)}`;
+      if (st === 'cause') body = `<small>${view ? 'もしも、' : ''}原因</small><p class="s-result">${esc(E.cause(SX))}</p>`;
+      else if (st === 'numbers') body = `<small>数字</small>${trialHTML(E.numbers(SX).rows)}`;
       else if (st.startsWith('doc')) { const d = docs[+st.slice(3)]; body = `<small>届いた書類</small>${docPaper(d)}<p class="muted" style="font-size:13px;margin:0">色のついたところをタップすると、何が起きたかが分かる。</p>`; }
       else if (st === 'scene') body = `<small>そして</small>${talk(E.scene(S))}`;
       else if (st === 'reality') body = `<small>現実では</small><p>${LX.ruby(esc(E.reality))}</p>`;
@@ -2051,7 +2074,7 @@
     const firstOk = disc.filter(([, d]) => d.first).length;
     const mins = Math.round((Date.now() - M.started) / 60000);
     const forks = Object.entries(M.forks).sort((a, c) => c[1] - a[1]);
-    frame(`<div class="s-card"><small>1年のふりかえり</small><h3>${endY}年目、おつかれさま</h3><p>${endY === 1 ? '屋台の小銭2,000円から始まった会社は、1年で' : `${endY}年目の1年で、会社は`}もうけ <b>${fmt(p.ni)}円</b>、口座のお金 <b>${fmt(cashOf(b))}円</b> になった。</p><h4>あなたが決めたこと</h4><ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul><button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button><details class="s-devlog"><summary>開発用の記録</summary><table class="s-tb"><tr><td>考える場面で、1回目から正しくたどり着いた</td><td class="n">${firstOk} / ${disc.length}</td></tr><tr><td>先輩の手帳を開いた回数</td><td class="n">${M.hand}</td></tr><tr><td>書類の記帳で、1回目から正しかった</td><td class="n">${M.docs.first} / ${M.docs.n}</td></tr><tr><td>月末に直した回数</td><td class="n">${M.fixes}</td></tr><tr><td>ヒントを見た回数</td><td class="n">${M.hints}</td></tr><tr><td>自動仕訳で進んだ書類</td><td class="n">${M.autoPosted}</td></tr><tr><td>腕だめし</td><td class="n">${M.quiz ? `${M.quiz.score} / ${M.quiz.of}` : '-'}</td></tr><tr><td>予想が当たった（発見の前・月末の締めの前）</td><td class="n">${disc.filter(([, d]) => d.predict && d.predict.ok).length} / ${disc.filter(([, d]) => d.predict).length}・${Object.values(S.predicts || {}).filter((x) => x.ok).length} / ${Object.values(S.predicts || {}).filter((x) => x.act).length}</td></tr><tr><td>ヒントなしで1回目から正しく書けた書類</td><td class="n">${S.docLog.filter((l) => l.ok && !l.hint).length} / ${S.docLog.length}</td></tr><tr><td>月はじめの思い出し</td><td class="n">${(S.recall || []).filter((r) => r.ok).length} / ${(S.recall || []).filter((r) => !r.due).length}</td></tr><tr><td>決算の机（1回目で全部見つけた）</td><td class="n">${S.metrics.desk ? (S.metrics.desk.first ? 'はい' : 'いいえ') : '-'}</td></tr><tr><td>かかった時間</td><td class="n">${mins}分</td></tr></table>${forks.length ? `<p>迷ったところ</p><ul class="s-diary">${forks.map(([f, n]) => `<li>${esc(f)} <b>${n}</b></li>`).join('')}</ul>` : ''}</details><button class="btn wide ghost" data-ov="hall">検定会場で、本試験の形で確かめる</button>${month() && D.months[S.mi + 1] ? `<button class="btn wide" data-n>${endY + 1}年目へ進む</button>` : ''}<button class="btn wide ghost" data-again>最初からもう一度</button></div>`);
+    frame(`<div class="s-card"><small>1年のふりかえり</small><h3>${endY}年目、おつかれさま</h3><p>${endY === 1 ? '屋台の小銭2,000円から始まった会社は、1年で' : `${endY}年目の1年で、会社は`}もうけ <b>${fmt(p.ni)}円</b>、口座のお金 <b>${fmt(cashOf(b))}円</b> になった。</p><h4>あなたが決めたこと</h4><ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul><button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button><details class="s-devlog" ${DEV ? "" : "hidden"}><summary>開発用の記録</summary><table class="s-tb"><tr><td>考える場面で、1回目から正しくたどり着いた</td><td class="n">${firstOk} / ${disc.length}</td></tr><tr><td>先輩の手帳を開いた回数</td><td class="n">${M.hand}</td></tr><tr><td>書類の記帳で、1回目から正しかった</td><td class="n">${M.docs.first} / ${M.docs.n}</td></tr><tr><td>月末に直した回数</td><td class="n">${M.fixes}</td></tr><tr><td>ヒントを見た回数</td><td class="n">${M.hints}</td></tr><tr><td>自動仕訳で進んだ書類</td><td class="n">${M.autoPosted}</td></tr><tr><td>腕だめし</td><td class="n">${M.quiz ? `${M.quiz.score} / ${M.quiz.of}` : '-'}</td></tr><tr><td>予想が当たった（発見の前・月末の締めの前）</td><td class="n">${disc.filter(([, d]) => d.predict && d.predict.ok).length} / ${disc.filter(([, d]) => d.predict).length}・${Object.values(S.predicts || {}).filter((x) => x.ok).length} / ${Object.values(S.predicts || {}).filter((x) => x.act).length}</td></tr><tr><td>ヒントなしで1回目から正しく書けた書類</td><td class="n">${S.docLog.filter((l) => l.ok && !l.hint).length} / ${S.docLog.length}</td></tr><tr><td>月はじめの思い出し</td><td class="n">${(S.recall || []).filter((r) => r.ok).length} / ${(S.recall || []).filter((r) => !r.due).length}</td></tr><tr><td>決算の机（1回目で全部見つけた）</td><td class="n">${S.metrics.desk ? (S.metrics.desk.first ? 'はい' : 'いいえ') : '-'}</td></tr><tr><td>かかった時間</td><td class="n">${mins}分</td></tr></table>${forks.length ? `<p>迷ったところ</p><ul class="s-diary">${forks.map(([f, n]) => `<li>${esc(f)} <b>${n}</b></li>`).join('')}</ul>` : ''}</details><button class="btn wide ghost" data-ov="hall">検定会場で、本試験の形で確かめる</button>${month() && D.months[S.mi + 1] ? `<button class="btn wide" data-n>${endY + 1}年目へ進む</button>` : ''}<button class="btn wide ghost" data-again>最初からもう一度</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-n]')) { next(); return; } if (e.target.closest('[data-again]')) { if (!confirm('ここまでの記録を消して、最初からやり直しますか？（2年目へ進むなら「2年目へ進む」）')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); } };
   }
 

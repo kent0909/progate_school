@@ -260,6 +260,7 @@
   const MISS = {
     unlearned: { t: '習っていない', d: 'その論点をまだ学んでいない、または初めて見る形。', go: 'レッスンか先輩の手本へ' },
     forgot: { t: '忘れていた', d: '前に解けたのに、今回は書けなかった。', go: '日をあけて同じ型を解き直す（まちがいノート）' },
+    blank: { t: '手をつけなかった', d: '時間や解く順番の都合で、答えを書かなかった。力の記録（成長・まちがいノート）には数えない。', go: '解く順番と時間の配分を見直す（本試験の戦い方）' },
     calc: { t: '計算・形式・時間', d: '科目は合っていて金額だけ違う、書き方の規則違反、時間切れ。', go: '大問別の練習（時間あり）と、計算用紙の使い方' },
   };
   const EXAM_MODES = [['model', '先輩の手本を見る', '下書きを1手ずつ見ながら解く'], ['trace', '下書きをなぞる', '下書きを全部出したまま解く'], ['self', '自分で', '下書きなし・時間なし'], ['timed', '時間あり', '本番の目安の時間で']];
@@ -422,7 +423,7 @@
     function classify(c, r, timeUp) {
       const q = c.q, h = ctx().hist(q._key) || [0, 0];
       const learnedBefore = h[1] > 0 || (q._ch && q._ch.id && ctx().cleared(q._ch.id)) || (q.scope || []).some((id) => { const it = B.scope.find((x) => x.id === id); return it && ctx().cleared(it.ch); });
-      if (!c.comp.answered()) return timeUp ? 'calc' : learnedBefore ? 'forgot' : 'unlearned';
+      if (!c.comp.answered()) return 'blank';
       if (q.type === 'journal') { if (r.why === 'amount' || r.why === 'dup' || r.why === 'half') return 'calc'; return learnedBefore ? 'forgot' : 'unlearned'; }
       if (r.ratio >= 0.6 || r.half) return 'calc';
       return learnedBefore ? 'forgot' : 'unlearned';
@@ -442,7 +443,8 @@
         items.push({ key, p, pts, got, r, miss, c });
         if (o.op) return;
         // 手本・なぞりで解いた正解は、定着には数えない（間違いは記録する）
-        if (!coach || !r.ok) ctx().record(c.q, r.ok, false, !r.ok && c.comp.summary ? c.comp.summary() : '');
+        // 手をつけなかった問題は、間違いとして記録しない（2回目の検査：未解答が「忘れていた」「間違えた」になった）
+        if ((!coach || !r.ok) && miss !== 'blank') ctx().record(c.q, r.ok, false, !r.ok && c.comp.summary ? c.comp.summary() : '');
       };
       com.forEach((_, i) => add(1, 4, `1-${i}`));
       [2, 3, 5].filter(want).forEach((p) => add(p, PARTS[p - 1].pts, `${p}`));
@@ -452,7 +454,7 @@
       const total = parts.reduce((a, p) => a + score[p.k], 0), max = o.op ? 4 * com.length : parts.reduce((a, p) => a + p.pts, 0);
       partTime[curPart] += performance.now() - partT0;
       const mins = {}; Object.keys(partTime).forEach((k) => { mins[k] = Math.round(partTime[k] / 60000); });
-      const missN = { unlearned: 0, forgot: 0, calc: 0 }; items.forEach((it) => { if (it.miss) missN[it.miss]++; });
+      const missN = { unlearned: 0, forgot: 0, calc: 0, blank: 0 }; items.forEach((it) => { if (it.miss) missN[it.miss]++; });
       let rec = null;
       if (full) {
         rec = { date: ctx().today(), score: total, parts: score, mins, cbt: true, mode: timed ? 'timed' : 'untimed', miss: missN };
@@ -481,12 +483,12 @@
         if (!coach && (c.q.type !== 'journal' || key === '1-0' || key === '4-0')) $('[data-x]', c.box).insertAdjacentHTML('beforeend', `<details class="coach draft-after"><summary>先輩ならこう解く（下書き）</summary>${draftHTML(Object.assign({}, c.q), c.part).replace(/ hidden/g, '').replace(/<button[^>]*data-dnext[^>]*>[^<]*<\/button>/, '')}</details>`);
       });
       $('[data-look]', main).remove();
-      main._recat = (key, v) => { const it = items.find((x) => x.key === key); if (!it) return; it.miss = v; if (rec) { rec.miss = { unlearned: 0, forgot: 0, calc: 0 }; items.forEach((x) => { if (x.miss) rec.miss[x.miss]++; }); ctx().save(); } const keep = window.scrollY; summary(total, rec); window.scrollTo(0, keep); };
+      main._recat = (key, v) => { const it = items.find((x) => x.key === key); if (!it) return; it.miss = v; if (rec) { rec.miss = { unlearned: 0, forgot: 0, calc: 0, blank: 0 }; items.forEach((x) => { if (x.miss) rec.miss[x.miss]++; }); ctx().save(); } const keep = window.scrollY; summary(total, rec); window.scrollTo(0, keep); };
       summary(total, rec);
     }
     function summary(total, rec) {
       const wrong = items.filter((it) => it.miss);
-      const lost = { unlearned: 0, forgot: 0, calc: 0 }; wrong.forEach((it) => { lost[it.miss] += it.pts - it.got; });
+      const lost = { unlearned: 0, forgot: 0, calc: 0, blank: 0 }; wrong.forEach((it) => { lost[it.miss] += it.pts - it.got; });
       const label = (it) => it.c.q.type === 'journal' ? `${PARTS[it.p - 1].t} ${it.key.endsWith('b') ? '' : `問${+it.key.split('-')[1] + 1}`}` : `${PARTS[it.p - 1].t} ${esc(it.c.q.title || '')}`;
       let border = '';
       if (full) {
