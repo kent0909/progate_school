@@ -15,7 +15,7 @@
 //   人がする操作（ゲームの中の答えは読めないが、ふつうの人ができる操作は全部できる）：
 //   s.tap(sel)・s.tapAt(x, y)（押し損ね）・s.type(sel, '１０００')（1字ずつ打つ）・s.hover・s.longPress・s.drag(from, to)・s.scroll(dy)・s.swipe(dy)
 //   s.press('Tab')（キーボードだけで進める）と s.focus()（いま選ばれている所が見えるか）・s.a11y()（読み上げソフトから見た画面）
-//   s.back()・s.reload()（中断して戻る）・s.rotate()（画面を回す）・s.textScale(150)（文字を大きく）・s.offline(true)（ネットが切れる）・s.inspect(sel)（大きさ・色・コントラスト比）
+//   s.zoom(200)（ブラウザの拡大）・s.back()・s.reload()（中断して戻る）・s.rotate()（画面を回す）・s.textScale(150)（文字を大きく）・s.offline(true)（ネットが切れる）・s.inspect(sel)（大きさ・色・コントラスト比）
 //   ※ どの操作にも、最後の引数に「ねらい」を必ず書く
 //   await s.close();
 const fs = require('fs');
@@ -24,7 +24,8 @@ const crypto = require('crypto');
 const { chromium } = require('/opt/node-tools/node_modules/playwright');
 const autoRun = require('./auto.js');
 
-const GAME = '/tmp/claude-0/-home-user-progate-school/0f5c124a-6604-5e69-b554-2beafc4f2038/scratchpad/review/game.html';
+// 検査の回ごとに凍結したゲーム（回の番号は環境変数 PIYO_REVIEW で選ぶ。既定は2回目）
+const GAME = process.env.PIYO_GAME || '/tmp/claude-0/-home-user-progate-school/0f5c124a-6604-5e69-b554-2beafc4f2038/scratchpad/review2/game.html';
 const sha = (buf) => crypto.createHash('sha256').update(buf).digest('hex');
 const fileSha = (f) => sha(fs.readFileSync(f));
 
@@ -65,6 +66,9 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
   write({ kind: 'session', touch: isTouch, game_sha: fileSha(GAME), harness_sha: fileSha(__filename), auto_sha: fileSha(path.join(__dirname, 'auto.js')), persona_sha: personaSha, knowledge_sha: knowledgeSha, pretest_sha: preSha, viewport, colorScheme, reset });
   const state = () => p.evaluate(() => { try { const S = window.__sim.S; const ev = (window.__sim.events() || [])[S.ei]; return { mi: S.mi, ei: S.ei, phase: S.phase, ev: ev ? `${ev.t}:${ev.id || ''}` : null, label: (document.querySelector('.s-month b') || document.querySelector('.s-head b') || {}).textContent || '' }; } catch (e) { return { err: String(e).slice(0, 80) }; } });
   let shotN = fs.readdirSync(shots).length;
+  // 読んだ文字は、あとで本人が見直せるように seen/ に残す（ファイル名はログの行番号。中身の sha256 はログにある）
+  const seen = path.join(dir, 'seen'); fs.mkdirSync(seen, { recursive: true });
+  const keep = (k, txt) => { fs.writeFileSync(path.join(seen, `${String(n).padStart(5, '0')}-${k}.txt`), txt); };
   const shoot = async (label) => {
     const f = path.join(shots, `${String(++shotN).padStart(4, '0')}-${String(label || '').replace(/[^\w぀-ヿ一-鿿-]+/g, '_').slice(0, 40)}.jpg`);
     await p.screenshot({ path: f, type: 'jpeg', quality: 55 });
@@ -82,7 +86,7 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
   return {
     // page（ブラウザそのもの）は渡さない。ゲームの中の答えを読めてしまうため。見た目を調べるときは inspect() を使う
     // 読み飛ばす人物は glance()（各まとまりの最初の1行・40字まで）を使い、read() で全文を読んだときは、読んだことになる
-    async glance() { const parts = await p.evaluate(() => [...document.querySelectorAll('h2,h3,h4,p,button,small,b,li,td,th,label')].filter((e) => e.offsetParent !== null).map((e) => (e.innerText || '').split('\n')[0].slice(0, 40)).filter(Boolean)); const txt = parts.join('\n'); write({ kind: 'glance', state: await state(), text_sha: sha(txt), chars: txt.length }); return txt; },
+    async glance() { const parts = await p.evaluate(() => [...document.querySelectorAll('h2,h3,h4,p,button,small,b,li,td,th,label')].filter((e) => e.offsetParent !== null).map((e) => (e.innerText || '').split('\n')[0].slice(0, 40)).filter(Boolean)); const txt = parts.join('\n'); keep('glance', txt); write({ kind: 'glance', state: await state(), text_sha: sha(txt), chars: txt.length }); return txt; },
     // 見た目の検査：要素の大きさ・文字の大きさ・色・背景色・コントラスト比だけを返す（文字の中身は返さない）
     async inspect(sel, why) {
       if (!why) throw new Error('調べるねらいを書くこと');
@@ -91,10 +95,10 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
         const bgOf = (e) => { while (e) { const c = getComputedStyle(e).backgroundColor; if (c && !/rgba\(0, 0, 0, 0\)|transparent/.test(c)) return c; e = e.parentElement; } return 'rgb(255, 255, 255)'; };
         return [...document.querySelectorAll(sel)].slice(0, 40).map((e) => { const b = e.getBoundingClientRect(), cs = getComputedStyle(e), fg = cs.color, bg = bgOf(e), L1 = lum(fg), L2 = lum(bg); return { w: Math.round(b.width), h: Math.round(b.height), x: Math.round(b.x), y: Math.round(b.y), font: cs.fontSize, weight: cs.fontWeight, color: fg, bg, contrast: L1 != null && L2 != null ? +((Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)).toFixed(2) : null, visible: e.offsetParent !== null }; });
       }, sel);
-      write({ kind: 'inspect', sel, why, state: await state(), n: r.length, result: r });
+      write({ kind: 'inspect', sel, why, state: await state(), count: r.length, result: r });
       return r;
     },
-    async read() { const txt = await p.evaluate(() => document.body.innerText); write({ kind: 'read', state: await state(), text_sha: sha(txt), chars: txt.length }); return txt; },
+    async read() { const txt = await p.evaluate(() => document.body.innerText); keep('read', txt); write({ kind: 'read', state: await state(), text_sha: sha(txt), chars: txt.length }); return txt; },
     click: (sel, why) => act('click', sel, why, () => p.click(sel)),
     fill: (sel, v, why) => act('fill', sel, why, () => p.fill(sel, String(v))),
     select: (sel, v, why) => act('select', sel, why, () => p.selectOption(sel, v)),
@@ -112,11 +116,13 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
     reload: (why) => act('reload', 'reload', why, () => p.reload()),                              // 中断して戻ったとき、続きから遊べるか
     rotate: (why) => act('rotate', 'rotate', why, async () => { viewport = { width: viewport.height, height: viewport.width }; await p.setViewportSize(viewport); }), // 画面を回す
     textScale: (pct, why) => act('textScale', String(pct), why, () => p.addStyleTag({ content: `html{font-size:${pct}% !important}` })), // 文字を大きくする設定のかわり
+    // ブラウザの拡大（Ctrl＋＋・ピンチではなく、ページ全体の拡大）：CSS の幅が 100/pct になる。pct=100 で元に戻す
+    zoom: (pct, why) => act('zoom', String(pct), why, async () => { const z = Math.max(50, Math.min(400, +pct || 100)) / 100; await p.setViewportSize({ width: Math.round(viewport.width / z), height: Math.round(viewport.height / z) }); }),
     offline: (on, why) => act('offline', String(on), why, () => ctx.setOffline(!!on)),           // ネットが切れたとき（保存・再開）
     // キーボードだけで進めるか：いま選ばれている所（フォーカス）の名前・役割・枠線が見えるか
     async focus(why) { if (!why) throw new Error('ねらいを書くこと'); const r = await p.evaluate(() => { const e = document.activeElement; if (!e || e === document.body) return null; const cs = getComputedStyle(e), b = e.getBoundingClientRect(); return { tag: e.tagName, role: e.getAttribute('role'), label: (e.getAttribute('aria-label') || e.innerText || e.value || '').slice(0, 40), outline: `${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor}`, boxShadow: cs.boxShadow !== 'none', w: Math.round(b.width), h: Math.round(b.height) }; }); write({ kind: 'focus', why, state: await state(), result: r }); return r; },
     // 読み上げソフトから見た画面（アクセシビリティの木）。見えている部品の役割と名前だけ
-    async a11y(why) { if (!why) throw new Error('ねらいを書くこと'); const t = await p.locator('body').ariaSnapshot().catch((e) => `取れなかった：${e.message}`); write({ kind: 'a11y', why, state: await state(), text_sha: sha(t), chars: t.length }); return t; },
+    async a11y(why) { if (!why) throw new Error('ねらいを書くこと'); const t = await p.locator('body').ariaSnapshot().catch((e) => `取れなかった：${e.message}`); keep('a11y', t); write({ kind: 'a11y', why, state: await state(), text_sha: sha(t), chars: t.length }); return t; },
     async feel(text) { if (!text || text.length < 6) throw new Error('気持ちは6字以上で'); return write({ kind: 'feel', text, state: await state() }); },
     async shot(label) { return write({ kind: 'shot', label, state: await state(), shot: await shoot(label) }); },
     async auto(opts = {}, why) {

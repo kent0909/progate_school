@@ -23,7 +23,7 @@ const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const cfg = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 const HARNESS = path.join(__dirname, 'harness.js'), AUTO = path.join(__dirname, 'auto.js');
 const PERSONA_HEADS = ['名前', '年齢', '経歴', '知識', 'ゲーム歴', '動機', '環境', '性格', '物差し', '偏り', 'やめる'];
-const MANUAL = new Set(['click', 'fill', 'select', 'press', 'tap', 'tapAt', 'type', 'hover', 'longPress', 'drag', 'scroll', 'swipe', 'back', 'reload', 'rotate', 'textScale', 'offline']);
+const MANUAL = new Set(['click', 'fill', 'select', 'press', 'tap', 'tapAt', 'type', 'hover', 'longPress', 'drag', 'scroll', 'swipe', 'back', 'reload', 'rotate', 'textScale', 'zoom', 'offline']);
 const out = [];
 let bad = 0;
 const ng = (who, m) => { bad++; out.push(`✗ ${who}：${m}`); };
@@ -53,6 +53,10 @@ function transcript(file) {
   }
   return { calls, writes, cmds, wtimes, handbacks };
 }
+// 会話記録は、archive.js の写し（行を足すだけ。要約で消えた前半も残る）があればそちらを読む
+const tfile = (name, orig) => { const a = cfg.archive && path.join(cfg.archive, name + '.jsonl'); return a && fs.existsSync(a) ? a : orig; };
+// 返事（SubagentHandback）の中の印つきの本文：=====REPORT===== … =====END REPORT=====
+const marked = (msg, tag) => { const m = msg.match(new RegExp(`=====${tag}=====\\n([\\s\\S]*?)\\n=====END ${tag}=====`)); return m ? m[1] + '\n' : null; };
 const grams = (t, k = 10) => { const s = new Set(); const z = t.replace(/\s+/g, ''); for (let i = 0; i + k <= z.length; i++) s.add(z.slice(i, i + k)); return s; };
 
 const reports = {};
@@ -132,7 +136,7 @@ for (const R of cfg.reviewers) {
   if (badC.length) ng(who, `存在しない行の引用：${badC.slice(0, 5).join(',')}`);
   if (cites.length && real.length / cites.length < 0.7) ng(who, '引用の多くが自動の区間を指している');
   // 7. 会話記録
-  const T = transcript(R.transcript);
+  const T = transcript(tfile(who, R.transcript));
   if (!T) { ng(who, `会話記録が読めない：${R.transcript}`); continue; }
   const inCall = (t) => T.calls.some((c) => t >= c.t0 - 2000 && t <= (c.t1 || Infinity) + 2000);
   const outS = E.filter((e) => e.kind === 'session' || e.kind === 'close').filter((e) => !inCall(Date.parse(e.t)));
@@ -143,10 +147,11 @@ for (const R of cfg.reviewers) {
     const w = lastWrite(f), cur = fs.existsSync(path.join(dir, f)) ? fs.readFileSync(path.join(dir, f), 'utf8') : null;
     // report.md は、断られた Write の中身か、本人の最後の返事（SubagentHandback）の本文と1字も違わないこと（collect.js が保存する）
     const hb = f === 'report.md' && T.handbacks.length ? T.handbacks[T.handbacks.length - 1].message : null;
+    if (f === 'report.md' && cur != null && T.handbacks.some((h) => marked(h.message, 'REPORT') === cur)) { ok(who, 'report.md は本人の返事の印つきの本文のまま（collect.js で保存）'); continue; }
     if (f === 'report.md' && cur != null && hb === cur) { ok(who, 'report.md は本人の最後の返事の本文のまま（Write が決まりで断られたため collect.js で保存）'); continue; }
     w == null ? ng(who, `本人の会話記録に、${f} を Write で書いた跡がない`) : w !== cur ? ng(who, `${f} が、本人が最後に Write で書いた中身と違う（あとから変えられた疑い）`) : ok(who, `${f} は本人が書いた中身のまま${T.writes.filter((x) => x.content === w && x.refused).length ? '（Write が決まりで断られたため collect.js で保存）' : ''}`);
   }
-  for (const f of (R.extra || [])) { const w = lastWrite(f), cur = fs.existsSync(path.join(dir, f)) ? fs.readFileSync(path.join(dir, f), 'utf8') : null; w == null ? ng(who, `${f} を本人が Write で書いた跡がない`) : w !== cur ? ng(who, `${f} が本人の書いた中身と違う`) : ok(who, `${f} は本人が書いた中身のまま`); }
+  for (const f of (R.extra || [])) { const w = lastWrite(f), cur = fs.existsSync(path.join(dir, f)) ? fs.readFileSync(path.join(dir, f), 'utf8') : null; const tag = f.replace(/\.md$/, '').toUpperCase(); if (cur != null && T.handbacks.some((h) => marked(h.message, tag) === cur)) { ok(who, `${f} は本人の返事の印つきの本文のまま`); continue; } w == null ? ng(who, `${f} を本人が Write で書いた跡がない`) : w !== cur ? ng(who, `${f} が本人の書いた中身と違う`) : ok(who, `${f} は本人が書いた中身のまま`); }
   // ログのすべての行が、本人の Bash の呼び出しの中で書かれている
   const outL = E.filter((e) => !inCall(Date.parse(e.t)));
   outL.length ? ng(who, `本人の Bash の呼び出しの外で書かれたログの行が ${outL.length} 行`) : ok(who, 'ログのすべての行が本人の Bash の呼び出しの中');
@@ -176,7 +181,7 @@ for (let i = 0; i < pid.length; i++) for (let j = i + 1; j < pid.length; j++) {
 if (pid.length > 1) ok('人物像', `${pid.length}人の属性と文の重なりを調べた`);
 // 7c. 遊ぶ前と後のテスト（受験する役）：pretest.md は遊ぶ前に本人が書き固定、posttest.md は遊んだあとに本人が書く
 for (const R of cfg.reviewers.filter((r) => r.tests)) {
-  const dir = path.resolve(R.dir), T = transcript(R.transcript); if (!T) continue;
+  const dir = path.resolve(R.dir), T = transcript(tfile(R.id, R.transcript)); if (!T) continue;
   const E = fs.existsSync(path.join(dir, 'log.jsonl')) ? fs.readFileSync(path.join(dir, 'log.jsonl'), 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : [];
   const first = E.find((e) => e.kind === 'session'), last = E[E.length - 1];
   for (const [f, cond] of [['pretest.md', (t) => first && t < Date.parse(first.t)], ['posttest.md', (t) => last && t > Date.parse(last.t)]]) {
@@ -189,7 +194,7 @@ for (const R of cfg.reviewers.filter((r) => r.tests)) {
   }
 }
 // 8. まとめ役
-const M = transcript(cfg.main);
+const M = transcript(tfile('main', cfg.main));
 if (M) {
   const dirs = cfg.reviewers.map((r) => path.resolve(r.dir));
   const hit = M.writes.filter((w) => dirs.some((d) => path.resolve(w.file).startsWith(d + path.sep) && /(persona|report)\.md$|log\.jsonl$/.test(w.file)));
