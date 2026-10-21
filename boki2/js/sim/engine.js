@@ -146,9 +146,11 @@
     const b = balances(preClose(S.L)), p = pl(b);
     const m = month();
     const inShop = S.mi > 0;
+    // 月末の予想の間は、答えになる数字（口座のお金・もうけ）を隠す
+    const hideKpi = !!S.__predicting;
     // 預かった消費税に線を引いた会社（判断 vat）は、口座のお金のうち預かり分を見せる
     const azu = S.decisions.vat === 'line' && knows('仮受消費税') ? Math.max(0, -(b['仮受消費税'] || 0) - (b['仮払消費税'] || 0)) : 0;
-    const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>${yearOf(S.mi) > 1 ? `${yearOf(S.mi)}年目のもうけ（4月から）` : 'この1年のもうけ'}</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
+    const kpi = inShop && hideKpi ? '<div class="s-kpi"><small>口座のお金</small><b>予想のあとで</b></div>' : inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>${yearOf(S.mi) > 1 ? `${yearOf(S.mi)}年目のもうけ（4月から）` : 'この1年のもうけ'}</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
     const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button>' + (S.dueBuilt ? '<button data-ov="due">期日</button>' : '') + '<button data-ov="room">練習室</button></nav>' : '';
     // 「本文へ」：キーボードで最初に届く。ナビより先に画面の中身へ（見えるのはフォーカスしたときだけ）
     return `<header class="s-head"><button class="s-skip" data-skip>本文へ</button><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
@@ -176,14 +178,18 @@
   const isOther = (a) => cat(a) === 'その他' && !CONTRA.has(a) && a !== '損益';
   function companyView(b) {
     const rows = (pred) => Object.entries(b).filter(([a, v]) => v && pred(a, v)).map(([a, v]) => [a, v]);
-    const assets = rows((a, v) => cat(a) === '資産' || CONTRA.has(a) || (isOther(a) && v > 0));
+    const assets0 = rows((a, v) => cat(a) === '資産' || CONTRA.has(a) || (isOther(a) && v > 0));
+    // マイナスの札は、引く相手（売掛金・車両運搬具など）のすぐ下に置く（決算書の控除形式）
+    const assets = assets0.filter(([a]) => !CONTRA.has(a) || !assets0.some(([x]) => x === CONTRA_OF[a]));
+    assets0.filter(([a]) => CONTRA.has(a) && assets0.some(([x]) => x === CONTRA_OF[a])).forEach((c) => { const k = assets.findIndex(([x]) => x === CONTRA_OF[c[0]]); assets.splice(k + 1, 0, c); });
     const liab = rows((a, v) => cat(a) === '負債' || (isOther(a) && v < 0)).map(([a, v]) => [a, -v]);
     const eq = rows((a) => cat(a) === '純資産').map(([a, v]) => [a, -v]);
     const p = pl(b);
     // 仕掛品の箱には、工場の瓶と教室のテキスト（役務の途中）の両方が入る。勘定は1つのまま、内訳を添える
     const svcWip = S.L.filter((e) => e.kind === 'service_cost').reduce((t, e) => t + e.dr.reduce((x, [a, v]) => x + (a === '仕掛品' ? v : 0), 0) - e.cr.reduce((x, [a, v]) => x + (a === '仕掛品' ? v : 0), 0), 0);
     const note = (a, v) => (a === '仕掛品' && svcWip > 0 && svcWip < v ? `<small class="s-sub">うち教室のテキスト ${fmt(svcWip)}・工場の瓶 ${fmt(v - svcWip)}</small>` : a === '仕掛品' && svcWip > 0 && svcWip === v ? '<small class="s-sub">教室のテキスト（まだ終わっていない回の分）</small>' : '');
-    const tbl = (list) => list.map(([a, v]) => `<tr><td>${CONTRA.has(a) ? '　− ' : ''}${esc(a)}${note(a, v)}</td><td class="n">${fmt(CONTRA.has(a) ? -v : v)}</td></tr>`).join('');
+    const showN = (a) => (knows('貸借対照表') && B.kubun && B.kubun.show[a] && !['仕入', '売上', '役務収益'].includes(a) ? `${B.kubun.show[a]}` : a);
+    const tbl = (list) => list.map(([a, v]) => `<tr><td>${CONTRA.has(a) ? '　− ' : ''}${esc(showN(a))}${note(a, v)}</td><td class="n">${fmt(CONTRA.has(a) ? -v : v)}</td></tr>`).join('');
     const ta = assets.reduce((t, [, v]) => t + v, 0);
     if (!ta && !liab.length && !eq.length) return '<p class="muted">まだ、帳簿に何も書いていない。</p>';
     const bsTitle = knows('貸借対照表') ? '貸借対照表（いま）' : '会社の棚（いま）';
@@ -1168,7 +1174,7 @@
       $('.s-actions', app).hidden = !!panel;
     };
     // 並べ方：スマホは縦1列。広い画面（css/sim.css の .s-docgrid）では、左に書類、右に仕訳の入力と返し
-    frame(`<div class="s-card s-docscreen">${fixMode ? '<p class="s-fix">森さん「この書類、もう一度見てみよう」</p>' : ''}<p class="s-ask">この書類の出来事を、帳簿に書こう。金額は、書類の数字をタップしても入る。</p><div class="s-docgrid"><div class="s-docpane">${docHTML(ev.doc, true)}</div><div class="s-workpane"><div class="s-entry"></div><div class="s-hint" hidden></div><div class="s-panel"></div><div class="s-actions"><button class="btn ghost" data-hint>ヒント</button><button class="btn" data-ok>帳簿に書く</button></div><button class="link" data-cards>札の一覧を見る</button></div></div></div>`);
+    frame(`<div class="s-card s-docscreen">${fixMode ? '<p class="s-fix">森さん「この書類、もう一度見てみよう」</p>' : ''}<p class="s-ask">この書類の出来事を、帳簿に書こう。金額は、書類の数字を押しても入る。</p>${!fixMode && ev.manual && S.rules[ev.kind] ? '<p class="s-why-off" style="text-align:left">自動仕訳に登録した型だけれど、大口の注文・初めての相手の書類は、パソコンにまかせずに手で書く（金額や条件がいつもと違うことがあるため）。</p>' : ''}<div class="s-docgrid"><div class="s-docpane">${docHTML(ev.doc, true)}</div><div class="s-workpane"><div class="s-entry"></div><div class="s-hint" hidden></div><div class="s-panel"></div><div class="s-actions"><button class="btn ghost" data-hint>ヒント</button><button class="btn" data-ok>帳簿に書く</button></div><button class="link" data-cards>札の一覧を見る</button></div></div></div>`);
     draw();
     // Enter：金額の欄で押すと、左右がそろっていれば記帳、そろっていなければ次の欄へ（最後の欄なら記帳を試して理由を出す）
     app.onkeydown = (e) => {
@@ -1620,8 +1626,9 @@
     S.predicts = S.predicts || {};
     if (S.mi < 2 || S.predicts[S.mi]) return done();
     const before = cashBefore();
-    frame(`<div class="s-card"><small>${esc(month().label)}の締めの前に</small>${talk([['senpai', `先月の終わり、口座のお金は ${fmt(before)} だった。今月の終わりは、どうなっていると思う？ 見直しの前に予想してみよう。`]])}<div class="s-opts">${[['up', '増えた'], ['down', 'へった'], ['flat', 'ほとんど変わらない']].map(([k, t]) => `<button class="s-opt" data-pc="${k}"><b>${t}</b></button>`).join('')}</div></div>`);
-    app.onclick = (e) => { const b = e.target.closest('[data-pc]'); if (!b) return; S.predicts[S.mi] = { g: b.dataset.pc, before }; save(); done(); };
+    S.__predicting = true;
+    frame(`<div class="s-card"><small>${esc(month().label)}の締めの前に</small>${talk([['senpai', `先月の終わり、口座のお金は ${fmt(before)} だった。今月の終わりは、どうなっていると思う？ 見直しの前に予想してみよう。`]])}<div class="s-opts">${[['up', '増えた'], ['down', 'へった'], ['flat', 'ほとんど変わらない（2,000円か、3％以内）']].map(([k, t]) => `<button class="s-opt" data-pc="${k}"><b>${t}</b></button>`).join('')}</div></div>`);
+    app.onclick = (e) => { const b = e.target.closest('[data-pc]'); if (!b) return; S.predicts[S.mi] = { g: b.dataset.pc, before }; S.__predicting = false; save(); done(); };
   }
   function predictLine(bu) {
     const pr = (S.predicts || {})[S.mi];
