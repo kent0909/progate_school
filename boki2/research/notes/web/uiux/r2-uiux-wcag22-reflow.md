@@ -5,6 +5,7 @@ doc: r2-uiux-wcag22-reflow
 file: r2-uiux-wcag22-reflow.html
 sha256: bc0b7f0afa54f9f3817026aa3e070251174ccf6db1244c927a1e83e9819a6183
 read: partial
+pages: 基準本文・注・趣旨の節（技法の一覧は未読）
 anchors: [without requiring scrolling in two dimensions, 320 CSS pixels, 256 CSS pixels, 1280 CSS pixels wide at 400% zoom, data tables (not individual cells), lose their place]
 ---
 WCAG 2.2 の 1.4.10「リフロー」の解説（AA）。

@@ -5,6 +5,7 @@ doc: r2-uiux-wcag22-focus-visible2
 file: r2-uiux-wcag22-focus-visible2.html
 sha256: 754e2c52ec85b3a29d0b6a69f04fbdbbcec7cb9bba849ae2a340c3c92bb83209
 read: partial
+pages: 基準本文と趣旨の節
 anchors: [keyboard focus indicator is visible, mode of operation, People with attention limitations, 2.4.13 Focus Appearance, helps anyone who relies on the keyboard]
 ---
 WCAG 2.2 の 2.4.7「フォーカスの可視化」の解説（AA）。

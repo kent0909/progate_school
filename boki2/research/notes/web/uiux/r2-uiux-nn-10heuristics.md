@@ -5,6 +5,7 @@ doc: r2-uiux-nn-10heuristics
 file: r2-uiux-nn-10heuristics.html
 sha256: 63a5f43a837153059e2b1124c4f7caaaefca29a98be6e3033fbf29c6b445e928
 read: partial
+pages: 10則の本文すべて（各則の説明とヒント。動画・ポスターの案内は対象外）
 anchors: [Visibility of System Status, Recognition Rather than Recall, Prevent high-cost errors first, Avoid slips by providing helpful constraints, emergency exit, people spend most of their time using digital products other than yours, Aesthetic and Minimalist Design]
 ---
 ニールセンの「使いやすさの10の経験則」（ヒューリスティック）の解説ページ。専門家が画面を点検するときの定番の物差し。

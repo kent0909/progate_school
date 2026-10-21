@@ -5,6 +5,7 @@ doc: r2-uiux-wcag22-timing
 file: r2-uiux-wcag22-timing.html
 sha256: bf6c6a68a3fb4b6866ab144bd72d83996d90de4dec05c6ca14875e7ac6e5e9c5
 read: partial
+pages: 基準本文と趣旨の節
 anchors: [Turn off, at least ten times the length of the default setting, at least 20 seconds to extend, Real-time Exception, Essential Exception]
 ---
 WCAG 2.2 の 2.2.1「調整可能なタイミング」の解説（A）。

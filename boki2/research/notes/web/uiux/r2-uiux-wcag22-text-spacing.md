@@ -5,6 +5,7 @@ doc: r2-uiux-wcag22-text-spacing
 file: r2-uiux-wcag22-text-spacing.html
 sha256: 48d38892c50739b98b6d7c4d54b83d15152e9c9dbba2a550bc5dec5bead38df2
 read: partial
+pages: 基準本文と趣旨の節
 anchors: [Line height (line spacing) to at least 1.5 times, Spacing following paragraphs to at least 2 times, Letter spacing (tracking) to at least 0.12 times, Word spacing to at least 0.16 times, no loss of content or functionality]
 ---
 WCAG 2.2 の 1.4.12「テキストの間隔」の解説（AA）。

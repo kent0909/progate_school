@@ -5,6 +5,7 @@ doc: r2-uiux-wcag22-focus-visible
 file: r2-uiux-wcag22-focus-visible.html
 sha256: 70e961f23ba251ae0c3bebef5750d33bb06385ac84ccb3d73cca8216a3091448
 read: partial
+pages: 基準本文・注・趣旨の節（2.4.13）
 anchors: [2 CSS pixel thick perimeter, contrast ratio of at least 3:1, between the same pixels in the focused and unfocused states, sub-components, Focus Appearance (Level AAA), shadow and glow effects outside]
 ---
 WCAG 2.2 の 2.4.13「フォーカスの外観」の解説（レベルAAA）。ファイル名は focus-visible だが中身は 2.4.13。

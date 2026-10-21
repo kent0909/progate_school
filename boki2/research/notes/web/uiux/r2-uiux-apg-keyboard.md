@@ -5,6 +5,7 @@ doc: r2-uiux-apg-keyboard
 file: r2-uiux-apg-keyboard.html
 sha256: c387b1907b2a6025998f92d8ff998a8ad2e648435738c64a551d8c73d7cd1868
 read: partial
+pages: キーボード操作の考え方・フォーカスの予測可能性・選択とフォーカス・Tab順の節（部品ごとの例は未読）
 anchors: [tab sequence, Predictability of movement, Discernible and Predictable Keyboard Focus, selection follows focus, roving, The default order of elements in the tab sequence is the order of elements in the DOM]
 ---
 W3C の ARIA 作成実践ガイド（APG）の「キーボード操作」の章。

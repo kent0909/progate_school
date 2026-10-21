@@ -5,6 +5,7 @@ doc: r2-uiux-wcag22-target-size-min
 file: r2-uiux-wcag22-target-size-min.html
 sha256: 361694575d2a4ca5834de57dbc44b24c27ecc67956625703a140b9f1d79c62d4
 read: partial
+pages: 基準本文と趣旨の節（技法・事例の節は拾い読み）
 anchors: [24 by 24 CSS pixels, Some people with physical impairments cannot click small buttons, Undersized targets, sufficient spacing around them, Level AA, pointer inputs]
 ---
 WCAG 2.2 の達成基準 2.5.8「ターゲットのサイズ（最小）」の解説（レベルAA）。

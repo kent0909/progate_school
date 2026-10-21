@@ -5,6 +5,7 @@ doc: r2-uiux-wcag22-status-msg
 file: r2-uiux-wcag22-status-msg.html
 sha256: d5a085f7be8814e4f01520db08d41d09b62491f40dc0fb6fb4941ec762cf3746
 read: partial
+pages: 基準本文と趣旨の節
 anchors: [status messages can be programmatically determined, without receiving focus, "18 results returned", waiting state of an application, not delivered via a change in context]
 ---
 WCAG 2.2 の 4.1.3「ステータスメッセージ」の解説（AA）。
