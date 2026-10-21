@@ -85,6 +85,9 @@
   - **会話記録の写し（遊びの検査のあいだは必ず動かす。オーナーの指示 2026-10-21）**
     - ループ：`bash boki2/tools/playtest/archive-loop.sh <playtest.json>`（setsid・nohup で切り離して動くので、Bash の道具の2時間の時間切れで止まらない。2分ごとに archive.js。見張り役が5分ごとにループを確かめ、止まっていれば動かし直す）。状態は `... archive-loop.sh <playtest.json> status`、記録は /tmp/piyo-archive-loop.log
     - その場の写し：検査者の返事を受けたとき・検査者に話しかける前と後に `bash boki2/tools/playtest/archive-now.sh <playtest.json>`（1回写して、ループと見張り役が動いているかも確かめ、止まっていれば動かす）
+  - **2回目の進み具合（2026-10-21 08:40 UTC）**：10人中9人が最後の区切り（月34）まで手で遊び、報告を返した（collect.js --tag REPORT で pt-<id>/report.md に保存済み）。teen15 は月31で遊んでいる。注意：accountant は1年目8〜2月を追補の前に auto で飛ばした（根拠から外す）、theory・uiux・retaker・lowvision は習った型の繰り返しの区間で自作の入力スクリプト（記録係を通す）を使った（申告あり。その区間は割り引く）、retaker は research-fetch を通さず curl で5ページを開いた（--skip で記録、根拠にしていない）
+  - 2回目で分かった検査の道具の不備：①review2/game.html に viewport の meta がなく、スマホの寸法は幅約980の縮小表示だった（本番の index.html にはある）→ スマホの所見は本番で測り直して仕分ける。次の凍結では入れる ②BRIEF に「ゲームとして面白いか」の章がなかった（オーナーの指摘）→ 議論の回で review2/BRIEF-FUN.md（面白さ＋「教科書をゲームの形に落としただけか」の a/b/c 仕分け。designer は月ごとの曲線・判断の質・類作比較）を全員に書かせる。議論の頼みの文は review2/DISCUSS-MSG.md ③verify.js の既定の見出しがふつうのプレイヤー役と食い違い → playtest.json の min.kheads で指定（直した）。仕分けは review2/verify-triage.md
+  - 報告で多く重なった指摘（まとめの前の目安）：成長・マップの「書けた」が実際と合わない（ほぼ全員）、外注加工賃の例と正解の食い違い（5人）、出荷の単価292円＝後入先出（5人。会計士が誤りと判定）、もしもの数字（3人）、本試験の文が習った論点とずれる、思い出すの題が先月の最後の書類・範囲外のポイント、2026年度で練習室のリースが2027年度の基準（retaker、致命）、2年目の B/S の純資産の表示（accountant）、キーボードで貸方を打つと見出しが化ける（accountant・lowvision）、焦点が消える・同名ボタン（uiux・lowvision）、ふりがなが2級の語に付かない（access）、物語で2級の範囲の半分しか触れない（accountant・retaker）
     - **コンテナが再起動したら、最初に** `bash boki2/tools/playtest/archive-loop.sh <playtest.json> status` を見て、止まっていれば `archive-loop.sh <playtest.json>` で動かし直す（再起動でループは消える。/tmp の pid のファイルが残っていても、プロセスがなければ「止まっている」と出る）。2回目の検査の playtest.json は /tmp/claude-0/-home-user-progate-school/0f5c124a-6604-5e69-b554-2beafc4f2038/scratchpad/review2/playtest.json
 
 ## 6. 次にやること
