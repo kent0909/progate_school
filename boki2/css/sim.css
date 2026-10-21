@@ -429,3 +429,9 @@ i.lv0 { border: 1px solid var(--line); }
 /* 切り替えのボタンの帯（.seg）：style.css の図解用の .seg（縦並び・色つき）と名前がぶつかって縦に並んでいたのを、横の帯に戻す */
 .seg:has(> button) { flex-direction: row; flex-wrap: wrap; justify-content: stretch; background: var(--surface); border-color: var(--line); padding: .25rem; font-size: inherit; line-height: 1.3; overflow: visible; }
 .seg:has(> button) > button { flex: 1 1 auto; }
+/* 広く使う画面でも、文の1行は 40字前後で止める（表だけが広がる） */
+@media (min-width: 48em) { .s-main .s-line p, .s-main .s-card > p, .s-main .s-card > ul, .s-main .qtext { max-width: 40em; } }
+/* 間違えたときの返し：自分の答えの違う行（見直し1回目・オーナーの決定4） */
+.s-je.mine td.ng{color:var(--bad);font-weight:700}
+/* 押すと読みが出る用語（ふりがなの既定） */
+.s-rd{text-decoration:underline dotted;text-underline-offset:.2em;cursor:help}

@@ -117,6 +117,22 @@
     const mx = Math.max(1, ...b.series.flatMap((s) => s.vals));
     return `<div class="s-bars">${b.labels.map((l, i) => `<div class="s-barcol">${b.series.map((s) => `<i style="--h:${CAT_HUE[s.cat] || 190};height:${(s.vals[i] / mx) * 110}px" title="${esc(s.name)}"></i>`).join('')}<span>${esc(l)}</span></div>`).join('')}</div><div class="s-legend">${b.series.map((s) => `<span><i style="--h:${CAT_HUE[s.cat] || 190}"></i>${esc(s.name)}</span>`).join('')}</div>`;
   }
+  // 間違えたときの返し（オーナーの決定 2026-10-21）：「ここが違う」の一言と誤りの型（短く）、自分の答えの違う行に印、正しい形と並べる
+  function missHTML(entry, truth, lead) {
+    const inT = (sd, a) => truth[sd].some(([x]) => x === a);
+    const same = (sd, a, v) => truth[sd].some(([x, y]) => x === a && y === v);
+    const kinds = new Set(), other = { dr: 'cr', cr: 'dr' };
+    if (!entry.dr.length && !entry.cr.length) kinds.add('空欄');
+    const mark = (sd, a, v) => { if (same(sd, a, v)) return ''; if (inT(sd, a)) { kinds.add('金額が違う'); return '金額'; } if (inT(other[sd], a)) { kinds.add('左右が逆'); return '左右'; } kinds.add('札が違う'); return '札'; };
+    const rowsOf = (sd) => entry[sd].map(([a, v]) => ({ a, v, m: mark(sd, a, v) }));
+    const d = rowsOf('dr'), c = rowsOf('cr');
+    if (truth.dr.length + truth.cr.length > entry.dr.length + entry.cr.length && entry.dr.length + entry.cr.length) kinds.add('行が足りない');
+    const n = Math.max(d.length, c.length, 1);
+    let r = '';
+    for (let i = 0; i < n; i++) { const x = d[i], y = c[i]; const cell = (o) => (o ? `<td class="${o.m ? 'ng' : ''}">${o.m ? '✗ ' : ''}${esc(o.a)}</td><td class="n ${o.m ? 'ng' : ''}">${fmt(o.v)}</td>` : '<td></td><td></td>'); r += `<tr>${cell(x)}${cell(y)}</tr>`; }
+    const mine = `<table class="s-je mine"><tr><th colspan="2">借方（左）</th><th colspan="2">貸方（右）</th></tr>${r}</table>`;
+    return `<p class="s-react ng">ここが違う：${esc([...kinds].join('・') || '組み合わせ')}</p><div class="s-pair"><div><small>あなたの答え（✗ の行が違う）</small>${mine}</div><div><small>${esc(lead)}</small>${jeTable(truth)}</div></div>`;
+  }
   function jeTable(e) {
     const n = Math.max(e.dr.length, e.cr.length);
     let r = '';
@@ -575,7 +591,7 @@
     const started = S.mi > 0 || S.ei > 0;
     const ps = ST.profiles(), cur = ST.currentProfile();
     const who = ps.length > 1 || (ps[0] && ps[0].name) ? `<div class="s-who"><small>だれが遊ぶ？</small>${ps.map((p, k) => `<button class="${p.id === cur ? 'on' : ''}" data-prof="${p.id}">${esc(p.name || `${k + 1}人目`)}</button>`).join('')}<button data-addprof>＋</button></div>` : '<button class="link" data-addprof>ほかの人もこの端末で遊ぶ</button>';
-    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・保存と引っ越し・確認テスト</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
+    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・保存と引っ越し・確認テスト</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div><div class="s-who"><small>ふりがな</small><button class="${S.furigana !== 'always' ? 'on' : ''}" data-furi="auto">はじめてと、押したとき</button><button class="${S.furigana === 'always' ? 'on' : ''}" data-furi="always">いつも</button></div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
     app.onclick = (e) => {
       if (e.target.closest('[data-start]')) { const go = () => { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }; if (!started && !S.modeOk) return modeScreen(go); go(); }
       if (e.target.closest('[data-reset]')) { if (!confirm('この人の記録を消して、最初からやり直しますか？')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); }
@@ -586,6 +602,8 @@
       if (e.target.closest('[data-test]')) testScreen();
       const md = e.target.closest('[data-mode]');
       if (md) { S.mode = md.dataset.mode; S.modeOk = true; save(); titleScreen(); }
+      const fu = e.target.closest('[data-furi]');
+      if (fu) { S.furigana = fu.dataset.furi; save(); titleScreen(); }
     };
     const inp = $('[data-import]', app);
     if (inp) inp.onchange = async () => { const f = inp.files[0]; if (!f) return; try { S = Object.assign(fresh(), ST.importText(KEY, await f.text())); save(); render(); } catch (err) { alert('このファイルは読み込めませんでした。'); } };
@@ -892,7 +910,7 @@
       S.recall.push({ mi: S.mi, kind: pick.x.kind, ok: !!ok, skipped: !!skip });
       if (!ok && pick.x.kind) S.examLog.push({ key: 'auto:' + pick.x.kind, ok: false, t: Date.now(), from: 'recall' });
       save();
-      $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '思い出せた。' : '先月の書き方は、こうだった（金額は' + k + '倍）。'}</p>${ok ? '' : jeTable(truth)}<button class="btn wide" data-rnext>今月へ</button>`;
+      $('[data-res]', app).innerHTML = `${ok ? '<p class="s-react">思い出せた。</p>' : skip ? `<p class="s-react ng">先月の書き方は、こうだった（金額は${k}倍）。</p>${jeTable(truth)}` : missHTML(entry, truth, `先月の書き方（金額は${k}倍）`)}<button class="btn wide" data-rnext>今月へ</button>`;
       $$('[data-rc], [data-rskip]', app).forEach((x) => x.remove());
     };
   }
@@ -1238,7 +1256,7 @@
         for (const sd of ['dr', 'cr']) { const sel = $$(`select[data-s="${sd}"]`, app), ins = $$(`input[data-s="${sd}"]`, app); sel.forEach((x, k) => { const v = Number((ins[k].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }); }
         const ok = entry.dr.length && entry.cr.length && [q.ans, ...(q.alt || [])].some((a) => sameEntry(entry, a));
         S.examLog.push({ key: q._key, ok: !!ok, t: Date.now() }); save();
-        $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '書けた' : '本試験の文では、こう書く：'}</p>${ok ? '' : jeTable(q.ans)}${q.exp ? `<div class="muted rich" style="font-size:13px">${B.hall.rich(q.exp)}</div>` : ''}<button class="btn wide" data-qn>つぎへ</button>`;
+        $('[data-res]', app).innerHTML = `${ok ? '<p class="s-react">書けた</p>' : missHTML(entry, q.ans, '本試験の文では、こう書く')}${q.exp ? `<div class="muted rich" style="font-size:13px">${B.hall.rich(q.exp)}</div>` : ''}<button class="btn wide" data-qn>つぎへ</button>`;
         $('[data-qq]', app).remove();
       };
     };
@@ -1924,7 +1942,7 @@
           results.push({ key: q._key, ok });
           S.examLog.push({ key: q._key, ok, t: Date.now() });
           i++; keepQ(); i--;
-          $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '正解' : 'おしい。正しくは：'}</p>${ok ? '' : jeTable(q.ans)}${q.exp ? `<div class="muted rich" style="font-size:13px">${B.hall.rich(q.exp)}</div>` : ''}`;
+          $('[data-res]', app).innerHTML = `${ok ? '<p class="s-react">正解</p>' : missHTML(entry, q.ans, '正しくは')}${q.exp ? `<div class="muted rich" style="font-size:13px">${B.hall.rich(q.exp)}</div>` : ''}`;
           e.target.closest('[data-check]').outerHTML = '<button class="btn wide" data-nextq>つぎへ</button>';
           return;
         }
@@ -1949,6 +1967,38 @@
 
   B.chapters.forEach((c) => c.qs.forEach((q, i) => { q._key = `${c.id}:${i}`; }));
   window.__sim = { get S() { return S; }, balances, events, render, mastered, testForms };
+  // ふりがな（オーナーの決定 2026-10-21）：設定「いつも」なら画面の用語すべてにふりがな。既定（はじめて＋押したとき）は、名前の札などで最初にふりがなを見せ、
+  // それ以外の場所の用語は押すと読みが出る。画面が描き直されるたびに、まだ処理していない文字だけを見る
+  const RD = LX.read, RDW = Object.keys(RD).sort((a, b) => b.length - a.length);
+  const RDRE = new RegExp(RDW.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'), 'g');
+  const VERB_RD = { 仕入: ['れ', 'しい'], 売上: ['げ', 'うりあ'] };
+  function furi(root) {
+    if (!root || !RDW.length) return;
+    const always = S.furigana === 'always', nodes = [];
+    const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => { const p = n.parentElement; RDRE.lastIndex = 0; return p && !p.closest('ruby,script,style,select,option,textarea,.s-rd,[data-nofuri],.s-logo') && RDRE.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT; } });
+    while (tw.nextNode()) nodes.push(tw.currentNode);
+    for (const n of nodes) {
+      const t = n.nodeValue, f = document.createDocumentFragment();
+      let last = 0;
+      RDRE.lastIndex = 0;
+      for (let m; (m = RDRE.exec(t));) {
+        const w = m[0], v = VERB_RD[w], rd = v && t[m.index + w.length] === v[0] ? v[1] : RD[w];
+        f.append(t.slice(last, m.index));
+        if (always) { const r = document.createElement('ruby'); r.append(w); const rt = document.createElement('rt'); rt.textContent = rd; r.append(rt); f.append(r); }
+        else { const sp = document.createElement('span'); sp.className = 's-rd'; sp.dataset.rd = rd; sp.title = rd; sp.textContent = w; f.append(sp); }
+        last = m.index + w.length;
+      }
+      f.append(t.slice(last));
+      n.replaceWith(f);
+    }
+  }
+  new MutationObserver((ms) => { for (const m of ms) for (const x of m.addedNodes) if (x.nodeType === 1) furi(x); }).observe(document.body, { childList: true, subtree: true });
+  document.addEventListener('click', (e) => {
+    const r = e.target.closest && e.target.closest('.s-rd');
+    if (!r || e.target.closest('button,a,label')) return;
+    const t = document.createElement('div'); t.className = 's-toast'; t.setAttribute('role', 'status'); t.textContent = `${r.textContent}：${r.dataset.rd}`;
+    document.body.appendChild(t); setTimeout(() => t.remove(), 2500);
+  });
   // ボタンの形をしたカード（role="button"）も、Enter とスペースで押せる
   document.addEventListener('keydown', (e) => {
     const t = e.target;
