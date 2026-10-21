@@ -42,6 +42,7 @@ function run(i, S) {
     if (e.when && !e.when(S)) continue;
     if (e.t !== 'decision') S.tr.push(trace(e, S));
     if (e.t === 'decision') {
+      if (e.id === 'dividend' && D.__div && !(D.__div.divLimit(S) > 0)) err(`${label}：純資産が300万円未満なのに、配当の判断が出た（${JSON.stringify(S.decisions)}）`);
       // 2年目からは枝が多すぎるので、「ほかの判断は最初の選択肢のまま、1つだけ替える」で検算する。
       // 結末に届く組み合わせ（SIM.combos）は、その組み合わせのとおりにも進める
       const y2 = (D.months[mi].year || 1) >= 2;
@@ -58,11 +59,46 @@ function run(i, S) {
       const sortL = ['sort', 'flow'].includes(x.b2.layout);
       if (sortL ? !x.b2.tokens.length || x.b2.tokens.some((t) => !x.b2.targets.some((g) => g.id === t.target)) : okT.length !== 1) err(`${label} ${e.id}：分ける札か正解の札がおかしい`);
       if (okR.length !== 1) err(`${label} ${e.id}：正解の理由が ${okR.length}（1つ）`);
-      if (e.id === 'd-haito' && D.__div) { const all = !D.__div.needRes(S); if ((okT[0] || {}).id !== (all ? 'all' : 'limit')) err(`${label} d-haito：準備金を積む必要が${all ? 'ない' : 'ある'}（上限 ${D.__div.divLimit(S)}・貯まり ${D.__div.reNow(S)}）のに、正解の札が ${(okT[0] || {}).id}（${JSON.stringify(S.decisions)}）`); }
+      // 配当の上限の3つの変種（docs/DESIGN-PRO3-ISSUE.md 2.4 の3）：純資産が300万円未満→none、300万円の線が先に効く→floor、準備金がもう資本金の4分の1→all、ほか→limit
+      if (e.id === 'd-haito' && D.__div) {
+        const V = D.__div, k = V.haitoKind(S), na = V.netAssets(S);
+        const want = na < V.LINE ? 'none' : V.room(S) < (V.needRes(S) ? Math.floor((V.reNow(S) * 10) / 11) : V.reNow(S)) ? 'floor' : !V.needRes(S) ? 'all' : 'limit';
+        if (k !== want || (okT[0] || {}).id !== want) err(`${label} d-haito：正解の札が ${(okT[0] || {}).id}（変種 ${k}）。純資産 ${na}・上限 ${V.divLimit(S)}・貯まり ${V.reNow(S)} なら ${want}（${JSON.stringify(S.decisions)}）`);
+        if ((want === 'none') !== !(V.divLimit(S) > 0)) err(`${label} d-haito：純資産 ${na} と配当の上限 ${V.divLimit(S)} が食い違う（300万円未満なら上限0）`);
+      }
     }
+    // 増資の判断 issue のあと（2.4 の1・2）：株主の一覧・配当の明細・違法配当の請求額は、同じ株数（総株数＝30(+10)＋佐藤さんの株）
+    if (e.id === 'zoushi' && D.__div) {
+      const V = D.__div, a = val(e.ans, S), crOf = (acc) => a.cr.filter(([x]) => x === acc).reduce((t, [, v]) => t + v, 0), amt = V.amtOf(S), is = V.issueOf(S);
+      if (amt !== is.n * is.p) err(`${label} zoushi：払込み ${amt} が ${is.n}株×${is.p}円 と合わない`);
+      if (crOf('資本金') + crOf('資本準備金') !== amt || a.dr[0][1] !== amt) err(`${label} zoushi：資本金と資本準備金の合計が払込み ${amt} と合わない（${JSON.stringify(S.decisions)}）`);
+      if (crOf('資本準備金') * 2 > amt) err(`${label} zoushi：資本準備金 ${crOf('資本準備金')} が払込みの2分の1を超える（会社法445条2項）`);
+      const hs = V.holdersOf(S), tot = hs.reduce((t, [, n]) => t + n, 0);
+      if (tot !== V.shares(S) || tot !== (S.decisions.uncle === 'equity' ? 40 : 30) + is.n) err(`${label} zoushi：株主の一覧の株数 ${tot} が総株数 ${V.shares(S)} と合わない`);
+    }
+    if (e.id === 'stockfee' && (B.accounts[val(e.ans, S).dr[0][0]] || {}).cat !== '費用') err(`${label} stockfee：株式交付費が費用でない`);
+    // 配当（2.4 の4・5）：1株あたりの整数円×総株数、上限以内、準備金の積立、配ったあとの純資産が300万円以上（会社法458条・会社計算規則158条6号）
+    if (e.id === 'dividend-dec' && D.__div) {
+      const V = D.__div, d = V.divOf(S), r = V.resOf(S), o = S.decisions.dividend, sh = V.shares(S), dj = JSON.stringify(S.decisions);
+      if (d % sh || d !== V.divPer(S) * sh) err(`${label} 配当 ${d} が、1株あたり ${V.divPer(S)}円×${sh}株 になっていない（${dj}）`);
+      if ((o === 'max' || o === 'half') && d > V.divLimit(S)) err(`${label} 配当 ${d} が上限 ${V.divLimit(S)} を超える（${dj}）`);
+      if (d + r > V.reNow(S)) err(`${label} 配当と準備金 ${d + r} が、もうけの貯まり ${V.reNow(S)} を超える（${dj}）`);
+      if ((r === 0) !== (!V.needRes(S) || o === 'all')) err(`${label} 準備金の積立 ${r} が、積む必要（${V.needRes(S)}）と合わない（${dj}）`);
+      if (o !== 'all' && V.netAssets(S) - d < V.LINE) err(`${label} 配ったあとの純資産 ${V.netAssets(S) - d} が300万円を下回る（${dj}）`);
+      if (o === 'all' && (V.overOf(S) > 0) !== (d > V.divLimit(S))) err(`${label} 上限を超えた配当の額 ${V.overOf(S)} が合わない（${dj}）`);
+    }
+    if (e.id === 'pay-div' && D.__div) {
+      const V = D.__div, rows = V.divRows(S), sum = rows.reduce((t, [, , v]) => t + v, 0);
+      if (sum !== V.divOf(S)) err(`${label} pay-div：株主ごとの行の合計 ${sum} が配当 ${V.divOf(S)} と合わない`);
+      const shown = val(e.doc.rows, S).filter((r) => /^うち /.test(r[0]));
+      if (shown.length !== rows.length || shown.reduce((t, r) => t + r[1], 0) !== sum) err(`${label} pay-div：通帳の株主ごとの行が明細と合わない`);
+    }
+    // 株主資本等変動計算書（2.4 の6）：当期末残高＝純資産、新株の発行＝払込み、配当の行＝配当（year2 の ssCheck。engine の ssScreen も同じ関数で検算する）
+    if (e.t === 'ss' && D.__y2 && D.__y2.ssCheck) for (const m of D.__y2.ssCheck(S, D.months[mi].year || 1)) err(`${label} ${e.id}：${m}（${JSON.stringify(S.decisions)}）`);
     if (e.t === 'ending') {
       if (!D.endings[e.id]) err(`${label}：結末 ${e.id} が SIM.endings にない`);
       ends[e.id] = (ends[e.id] || 0) + 1;
+      S.hits = (S.hits || []).concat(e.id);
       if (D.endings[e.id] && D.endings[e.id].final) { finish(S, `結末 ${e.id}`); return; }
       continue;
     }
@@ -109,6 +145,8 @@ function run(i, S) {
       if (a.dr[0][1] !== want) err(`${label} ${e.id}：税金 ${a.dr[0][1]} が、もうけ ${pre} の3割 ${want} と合わない`);
     }
     S.T.push({ dr: a.dr, cr: a.cr, y: D.months[mi].year || 1, ev: e.id });
+    // 棚卸減耗損・商品評価損のあと：繰越商品の残高＝帳簿の残り−減耗−評価損＝実地の数×低い方の値段（＋砂糖・紙コップ）
+    if (e.id === 'hyoka') { const inv = S.T.reduce((t, x) => t + x.dr.filter(([q]) => q === '繰越商品').reduce((u, [, v]) => u + v, 0) - x.cr.filter(([q]) => q === '繰越商品').reduce((u, [, v]) => u + v, 0), 0); const sugar = S.decisions.volume === '3m' ? 110000 : 20000; if (inv !== sugar + 240 * 100 + 40 * 60) err(`${label} hyoka：繰越商品 ${inv} が、実地×低い方の値段 ${sugar + 240 * 100 + 40 * 60} と合わない`); }
     const b = bank(S);
     // 税金の作り直し：書いたあと、その年の法人税等が作り直したもうけの3割と合う
     if (e.kind === 'taxfix') {
@@ -133,8 +171,10 @@ function trace(e, S) {
   return `${e.t}:${e.id || ''}`;
 }
 const traces = [];
+const comboLeaves = [];
 function finish(S, where) {
   leaves++;
+  if (S.combo) comboLeaves.push({ combo: S.combo, d: S.decisions, hits: S.hits || [] });
   traces.push({ d: S.decisions, tr: S.tr.join('|') });
   const bal = {};
   for (const e of S.T) { for (const [a, v] of e.dr) bal[a] = (bal[a] || 0) + v; for (const [a, v] of e.cr) bal[a] = (bal[a] || 0) - v; }
@@ -158,6 +198,20 @@ for (const { e } of flat.filter((x) => x.e.t === 'decision')) {
   if (same.length && same.length === Object.values(groups).filter((g) => Object.keys(g).length > 1).length) err(`判断 ${e.id}：選択肢を変えても、その後の書類・会話・結末が変わらない（返りのない判断）`);
 }
 for (const id of Object.keys(D.endings)) if (!ends[id] && !D.endings[id].ifOnly) err(`結末 ${id} に、どの枝からも到達しない`);
+// 増資の判断の組み合わせ（2.4 の9）：1年目が標準の枝（1年目の判断はすべて最初の選択肢。combo が決めたものは除く）で、設計どおりに結末に届く／届かない
+{
+  const std = (x) => Object.entries(x.d).every(([k, v]) => !(k in Y1FIRST) || k in x.combo || Y1FIRST[k] === v);
+  const expect = [
+    [{ issue: 's50' }, (x) => !x.hits.includes('be5-warn') && x.d.dividend === undefined, '50株・標準の枝：純資産が300万円未満で配当の判断が出ず、BE5 に届かない'],
+    [{ uncle: 'equity', issue: 's50', dividend: 'all' }, (x) => x.hits.includes('be5-warn'), '50株・おじさんが株主：配当でき、全部配ると BE5 の警告に届く'],
+    [{ issue: 's100', capital: 'half', dividend: 'all' }, (x) => !x.hits.includes('be5-warn'), '100株・半分を資本準備金：準備金が4分の1に届いていて、全部配っても上限を超えない'],
+  ];
+  for (const [c, ok, what] of expect) {
+    const ls = comboLeaves.filter((x) => JSON.stringify(x.combo) === JSON.stringify(c) && std(x));
+    if (!ls.length) err(`組み合わせ ${JSON.stringify(c)}：標準の枝が1本もない`);
+    else if (!ls.every(ok)) err(`組み合わせ ${JSON.stringify(c)}：${what}、になっていない（${JSON.stringify(ls.find((x) => !ok(x)))}）`);
+  }
+}
 // 3級既習の近道（SIM.pro3）：自動にする型・確認だけにする発見・先取りする語が、1年目の3級の範囲に収まっていること
 { const P = D.pro3; if (P) {
   for (const k of P.kinds) { const r = D.rules[k]; if (!r || !r.conds.some((c) => c.ok && !c.broad)) err(`近道：型 ${k} に、狭い正しい条件文がない`); }
