@@ -19,6 +19,12 @@
     const OLD_REV = /売上割戻引当金|返品調整引当金|試用販売|試用品|試用仮売上|割賦売上|割賦販売|割賦売掛金/;
     return /手形|小切手|ファイナンス・リース|オペレーティング・リース/.test(q.q || '') || accs.some((a) => OLD_ACC.includes(a) || OLD_REV.test(a)) || OLD_REV.test(`${q.q || ''}${q.title || ''}${q.sheet || ''}`);
   };
+  // 2027年4月からの試験にだけ出る問題（新リース会計基準の使用権資産・リース負債）。2026年度の試験を受ける人には出さない
+  B.new27 = (q) => {
+    if (!q) return false;
+    const accs = q.ans ? [...(q.ans.dr || []), ...(q.ans.cr || [])].map((x) => x[0]) : [];
+    return accs.some((a) => /^使用権資産|^リース負債$/.test(a)) || /使用権資産|リース負債/.test(`${q.q || ''}${q.title || ''}${q.sheet || ''}`);
+  };
   // 2級の範囲外（平成28年度から）：本支店会計の未達事項の整理と内部利益（日商 第140・142・145回の講評、2027年度区分表でも1級側）
   B.outOfScope2 = (q) => { const t = q ? `${q.q || ''}${q.title || ''}` : ''; return /未達/.test(t) && /支店/.test(t); };
   B.scope = [

@@ -232,6 +232,15 @@
      数や％は出さない。各項目の状態を、会社で起きたことの言葉で示す。
      未体験の項目は、次に起きる3件だけ困りごとを見せ、それより先は輪郭だけ。名前は体験してから。 */
   let DEV = /[?&]dev\b/.test(location.search);
+  // 受験する年度（出題区分表）。選んでいなければ今日の日付で決める：2027年3月31日までは2026年度の区分表、4月1日からは2027年度
+  const modeOf = () => S.mode || (Date.now() < Date.parse('2027-04-01T00:00:00+09:00') ? '2026' : '2027');
+  const MODE_TXT = { 2026: '2026年度（2027年3月までの試験）', 2027: '2027年度（2027年4月からの試験）' };
+  // はじめる前に1回だけ、受験する年度を確かめる（科目の名前と出る論点が変わるため）
+  function modeScreen(done) {
+    const d = modeOf();
+    app.innerHTML = `<main class="s-main"><div class="s-card"><small>はじめる前に</small><h3>いつの試験を受ける？</h3><p>2027年4月から、2級の出題の範囲が変わる（紙の手形がなくなる、リースの科目が変わる など）。受ける試験に合わせて、ゲームの中の科目と問題を選ぶ。あとからタイトルの「受験する年度」で変えられる。</p>${['2026', '2027'].map((m) => `<button class="btn wide ${m === d ? '' : 'ghost'}" data-pickmode="${m}">${MODE_TXT[m]}${m === d ? '（今日の日付ならこちら）' : ''}</button>`).join('')}</div></main>`;
+    app.onclick = (e) => { const b = e.target.closest('[data-pickmode]'); if (b) { S.mode = b.dataset.pickmode; S.modeOk = true; save(); done(); } };
+  }
   const allEvents = D.months.flatMap((m, mi) => m.events.map((e) => ({ e, mi })));
   const monthLabel = (mi) => (D.months[mi] || {}).label || '';
   // 成長の記録（growth.js）に渡す窓口
@@ -341,7 +350,7 @@
     // 第1問の候補に混ぜる札：答えの札の兄弟（js/data/siblings.js）。札の速さで迷った札を先に
     confused: (ans) => { const miss = new Set([...speedMissed('shelf'), ...speedMissed('side'), ...speedMissed('kubun')]); const sibs = [...new Set(B.siblings.filter((sb) => sb.accs.some((a) => ans.includes(a))).flatMap((sb) => sb.accs))].filter((a) => !ans.includes(a)); return [...sibs.filter((a) => miss.has(a)), ...sibs.filter((a) => !miss.has(a))]; },
     extras: () => autoMenu() + `<div class="card stack"><h3>第1問の前に：札の速さ</h3><p class="muted" style="margin:0;font-size:13px">候補の札から選ぶ前に、札の置き場所を速く。教わった札だけが出る。</p>${speedMenu()}</div>`,
-    y27: () => S.mode !== '2026', today: () => new Date().toISOString().slice(0, 10),
+    y27: () => modeOf() !== '2026', today: () => new Date().toISOString().slice(0, 10),
     go: (name, arg) => (name === 'exam' ? hallScreen() : hallScreen({ play: arg === undefined ? true : arg })),
     // 習っていない → その論点の会社の場面へ（見つけていれば、もう一度見る）
     lesson: (ch) => { if (ch === 'c47') { const c = HCH.find((x) => x.id === 'c47'); overlay(`<h3>${esc(c.title)}</h3>${c.lessons.map((l) => `<h4>${esc(l.t)}</h4><div class="rich">${B.hall.rich(l.h)}</div>`).join('')}`); return; } const it = B.scope.find((x) => x.ch === ch && ((x.sim || {}).disc || []).some((d) => S.discDone[d] != null)); if (it) { leaveHall(); replay(it.sim.disc.find((d) => S.discDone[d] != null)); } else { const n = B.scope.find((x) => x.ch === ch); toast(`「${n ? n.name : ch}」は、会社でまだ起きていない。先の月で出会う。`); } },
@@ -369,7 +378,7 @@
 
   /* ---------- 練習室：論点ごとの問題・まちがいノート・検定会場（学習ゲームの章の問題をここへ移した） ---------- */
   // 会社で出会った論点は「会社の場面をもう一度」、まだの論点は「参考書」（章の説明）を読んでから問題へ。受験が近い人のため、全範囲を開いておく
-  const roomQs = (it) => { const c = HCH.find((x) => x.id === it.ch); return c ? c.qs.filter((q) => !B.outOfScope2(q) && !(S.mode !== '2026' && B.outdated27(q)) && !/上記|前問/.test(q.q || '')) : []; };
+  const roomQs = (it) => { const c = HCH.find((x) => x.id === it.ch); return c ? c.qs.filter((q) => !B.outOfScope2(q) && !(modeOf() !== '2026' && B.outdated27(q)) && !(modeOf() === '2026' && B.new27(q)) && !/上記|前問/.test(q.q || '')) : []; };
   const lastOf = (k) => { const l = S.examLog.filter((x) => x.key === k); return l.length ? l[l.length - 1] : null; };
   let roomTab = 'items';
   function practiceScreen(tab) {
@@ -377,7 +386,7 @@
     leaveHall();
     let body = '';
     if (roomTab === 'items') {
-      body = B.scopeAreas.map((a) => `<section class="s-room-area"><h4>${esc(a.label)}</h4>${B.scope.filter((it) => a.secs.includes(it.sec) && (it.y27 !== 'out' || S.mode === '2026')).map((it) => {
+      body = B.scopeAreas.map((a) => `<section class="s-room-area"><h4>${esc(a.label)}</h4>${B.scope.filter((it) => a.secs.includes(it.sec) && (it.y27 !== 'out' || modeOf() === '2026')).map((it) => {
         const r = B.growth.item(GAPI, it), n = roomQs(it).length, met = r.lv > 0;
         return `<div class="s-room-it"><div><b>${esc(it.name)}</b><small>${esc(B.growth.LV[r.lv])}${met ? '' : '・会社ではまだ'}</small></div><div class="s-room-btns"><button class="btn ghost sm" data-ref="${it.id}">参考書</button>${n ? `<button class="btn sm" data-drill="${it.id}">問題 ${Math.min(5, n)}</button>` : ''}</div></div>`;
       }).join('')}</section>`).join('');
@@ -566,9 +575,9 @@
     const started = S.mi > 0 || S.ei > 0;
     const ps = ST.profiles(), cur = ST.currentProfile();
     const who = ps.length > 1 || (ps[0] && ps[0].name) ? `<div class="s-who"><small>だれが遊ぶ？</small>${ps.map((p, k) => `<button class="${p.id === cur ? 'on' : ''}" data-prof="${p.id}">${esc(p.name || `${k + 1}人目`)}</button>`).join('')}<button data-addprof>＋</button></div>` : '<button class="link" data-addprof>ほかの人もこの端末で遊ぶ</button>';
-    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:12px">試作版（約40分）</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・保存と引っ越し・確認テスト</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${S.mode === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${S.mode !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
+    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・保存と引っ越し・確認テスト</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
     app.onclick = (e) => {
-      if (e.target.closest('[data-start]')) { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }
+      if (e.target.closest('[data-start]')) { const go = () => { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }; if (!started && !S.modeOk) return modeScreen(go); go(); }
       if (e.target.closest('[data-reset]')) { if (!confirm('この人の記録を消して、最初からやり直しますか？')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); }
       const pb = e.target.closest('[data-prof]');
       if (pb) { ST.switchProfile(pb.dataset.prof); const raw = ST.loadLocal(KEY); S = raw ? Object.assign(fresh(), raw) : fresh(); render(); ST.connect(KEY, (st) => { S = Object.assign(fresh(), st); if (document.querySelector('.s-title')) render(); }); }
@@ -576,7 +585,7 @@
       if (e.target.closest('[data-export]')) { ST.download(`piyo-save-${new Date().toISOString().slice(0, 10)}.json`, ST.exportText(KEY) || JSON.stringify(S)); }
       if (e.target.closest('[data-test]')) testScreen();
       const md = e.target.closest('[data-mode]');
-      if (md) { S.mode = md.dataset.mode; save(); titleScreen(); }
+      if (md) { S.mode = md.dataset.mode; S.modeOk = true; save(); titleScreen(); }
     };
     const inp = $('[data-import]', app);
     if (inp) inp.onchange = async () => { const f = inp.files[0]; if (!f) return; try { S = Object.assign(fresh(), ST.importText(KEY, await f.text())); save(); render(); } catch (err) { alert('このファイルは読み込めませんでした。'); } };
@@ -1208,7 +1217,7 @@
   // 本試験の文で読める問題（教わった言葉と札だけ）。腕だめし・発見のあとの確かめ・想起で使う
   function readableQ(q) {
     const taught = new Set(S.taught);
-    return q && q.type === 'journal' && !(S.mode !== '2026' && B.outdated27(q)) && !B.outOfScope2(q) && !/上記|前問/.test(q.q) && !LX.unknown(q.q, taught).length && [...q.ans.dr, ...q.ans.cr].every(([a]) => taught.has(a));
+    return q && q.type === 'journal' && !(modeOf() !== '2026' && B.outdated27(q)) && !(modeOf() === '2026' && B.new27(q)) && !B.outOfScope2(q) && !/上記|前問/.test(q.q) && !LX.unknown(q.q, taught).length && [...q.ans.dr, ...q.ans.cr].every(([a]) => taught.has(a));
   }
   const qByKey = (k) => { const [c, i] = k.split(':'); const ch = B.chapters.find((x) => x.id === c); return ch ? ch.qs[+i] : null; };
   // 本試験の文で1〜数問、その場で答え合わせ。結果は examLog（成長の記録・7日後の確かめに使う）
@@ -1331,7 +1340,7 @@
         const pair = (ev.b3.bs || je) ? `<div class="s-pair">${ev.b3.bs ? `<div><small>さっき動かした棚</small>${miniBS(ev.b3.bs)}</div>` : ''}${je ? `<div><small>帳簿にはこう書く（たとえば金額が2倍なら）</small>${jeTable(je)}</div>` : ''}</div>` : '';
         // 工場の川：運んだ1回が帳簿の1行（名前を教わってから、科目名で見せる）
         const flowJE = ev.b2.layout === 'flow' ? `<div class="s-pair"><div><small>さっきの運びを、帳簿にはこう書く</small><table class="s-tb"><tr><th>借方</th><th></th><th>貸方</th><th></th></tr>${ev.b2.tokens.filter((t) => t.je).map((t) => `<tr><td>${esc(t.je[0])}</td><td class="n">${fmt(t.je[2])}</td><td>${esc(t.je[1])}</td><td class="n">${fmt(t.je[2])}</td></tr>`).join('')}</table></div></div>` : '';
-        body = `<div class="s-name"><small>この考え方の名前</small><h2>${rb(b4.name)}</h2><p>${rb(b4.line)}</p>${pair}${flowJE}<details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc(S.mode === '2026' && b4.exam26 ? b4.exam26 : b4.exam)}</details><p class="s-leaf">マップに「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
+        body = `<div class="s-name"><small>この考え方の名前</small><h2>${rb(b4.name)}</h2><p>${rb(b4.line)}</p>${pair}${flowJE}<details class="s-exam"><summary>試験では、どんな文章で出る？</summary>${esc(modeOf() === '2026' && b4.exam26 ? b4.exam26 : b4.exam)}</details><p class="s-leaf">マップに「${esc(b4.leaf.label)}」が加わった</p></div>${ev.hand ? '<button class="btn wide ghost" data-hand>先輩の手帳で、くわしく読む</button>' : ''}<button class="btn wide" data-done>つぎへ</button>`;
       }
       // 手帳（説明）は名前がついてから読める。考えている途中で答えを見せない
       frame(`<div class="s-card s-disc"><div class="s-disc-head"><h3>${esc(ev.title)}</h3></div>${body}</div>`);
@@ -1873,7 +1882,7 @@
     // 2級の論点を先に、3級の土台はあとに。1つの章から2問まで
     const items = B.scope.filter((it) => scopeState(it).met != null).sort((x, y) => (x.base ? 1 : 0) - (y.base ? 1 : 0));
     const byKey = Object.fromEntries(B.chapters.flatMap((c) => c.qs.map((q, k) => [`${c.id}:${k}`, q])));
-    const readable = (q) => q && q.type === 'journal' && !(S.mode !== '2026' && B.outdated27(q)) && !B.outOfScope2(q) && !/上記|前問/.test(q.q) && !LX.unknown(q.q, taught).length && [...q.ans.dr, ...q.ans.cr].every(([a]) => taught.has(a));
+    const readable = (q) => q && q.type === 'journal' && !(modeOf() !== '2026' && B.outdated27(q)) && !(modeOf() === '2026' && B.new27(q)) && !B.outOfScope2(q) && !/上記|前問/.test(q.q) && !LX.unknown(q.q, taught).length && [...q.ans.dr, ...q.ans.cr].every(([a]) => taught.has(a));
     const keys = [...items.flatMap((it) => it.q || []), ...items.flatMap((it) => (B.chapters.find((c) => c.id === it.ch) || { qs: [] }).qs.map((_, k) => `${it.ch}:${k}`))];
     const out = [];
     const perCh = {};

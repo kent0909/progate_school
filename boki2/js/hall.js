@@ -235,7 +235,7 @@
   // 2027年度（2027/4〜）の区分表で範囲外・処理変更の見込みとされる論点。内容は書き換えず、表示と模試の出題だけを切り替える。
   const OUT27_CH = new Set(['c11']), OUT27_X = new Set();
   // 範囲外の問題を模試から外す：未達（2級の範囲外）は常に、2027年度に出ない問題（手形・小切手・旧リース）は受験年度が2027年度以降のとき
-  const skipQ = (q, y27) => (B.outOfScope2 && B.outOfScope2(q)) || (y27 && B.outdated27 && B.outdated27(q));
+  const skipQ = (q, y27) => (B.outOfScope2 && B.outOfScope2(q)) || (y27 && B.outdated27 && B.outdated27(q)) || (!y27 && B.new27 && B.new27(q));
   const CH_FREQ = { c01: 2, c02: 2, c04: 2, c07: 2, c13: 2, c14: 2, c16: 2, c17: 2, c18: 2, c19: 2, c21: 2, c22: 2, c24: 2, c28: 2, c34: 2, c35: 2, c37: 2, c43: 2, c45: 2 };
   // weighted sample, one question per chapter, avoiding recently seen keys
   function sampleExam(pool, n, recent) {

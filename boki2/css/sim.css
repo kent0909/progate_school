@@ -36,6 +36,7 @@
 .s-doc-meta { color: var(--muted); font-size: .8rem; margin: .125rem 0 .25rem; }
 .s-doc table { width: 100%; border-collapse: collapse; }
 .s-doc td { padding: .1875rem 0; vertical-align: top; }
+.s-doc td:first-child { padding-right: .75rem; }
 .s-doc td:last-child { text-align: right; font-family: var(--f-pixel); font-variant-numeric: tabular-nums; }
 .s-tap { border: 2px dashed var(--gold); background: var(--gold-soft); border-radius: 8px; padding: .125rem .5rem; font-family: var(--f-pixel); }
 .s-tap.used { border-style: solid; opacity: .7; }
@@ -417,6 +418,14 @@ i.lv0 { border: 1px solid var(--line); }
   .s-hall .exam-sub > * { grid-column: 1 / -1; }
   .s-hall .exam-sub > .qtext { grid-column: 1; position: sticky; top: 5rem; max-height: calc(100vh - 6rem); overflow-y: auto; padding-right: .25rem; }
   .s-hall .exam-sub > [data-b] { grid-column: 2; grid-row: span 1; }
-  .s-hall .stack:has(> .card) { grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr)); align-items: start; }
+  .s-hall .stack:has(> .card) { grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr)); align-items: start; }
   .s-hall .stack:has(> .card) > :first-child { grid-column: 1 / -1; }
 }
+/* 検定会場の試験中（CBT の画面）は、本物と同じく試験の画面だけにする（会社の数字とナビは隠す。出口は「会社へもどる」） */
+#sim:has(.s-main .cbt) > .s-head { display: none; }
+#sim:has(.s-main .cbt) { display: block; }
+#sim:has(.s-main .cbt) .s-main { padding-bottom: 2rem; }
+#sim:has(.s-main .cbt) .cbt-head { top: env(safe-area-inset-top, 0px); }
+/* 切り替えのボタンの帯（.seg）：style.css の図解用の .seg（縦並び・色つき）と名前がぶつかって縦に並んでいたのを、横の帯に戻す */
+.seg:has(> button) { flex-direction: row; flex-wrap: wrap; justify-content: stretch; background: var(--surface); border-color: var(--line); padding: .25rem; font-size: inherit; line-height: 1.3; overflow: visible; }
+.seg:has(> button) > button { flex: 1 1 auto; }

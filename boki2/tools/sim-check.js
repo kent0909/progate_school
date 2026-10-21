@@ -142,6 +142,8 @@ function finish(S, where) {
   if (total !== 0) err(`${where}：試算表の合計が合わない ${total}（${JSON.stringify(S.decisions)}）`);
 }
 run(0, { T: [], tr: [], decisions: {} });
+// 2027年度の区分表を選んだ人の道（家賃は支払リース料・前払費用）。2年目は最初の選択肢
+run(0, { T: [], tr: [], decisions: {}, mode: '2027', varied: true });
 // 結末に届く2年目の判断の組み合わせ（1年目は標準の枝で）
 for (const combo of D.combos || []) run(0, { T: [], tr: [], decisions: {}, combo, varied: true });
 // 判断ごとに：ほかの判断をそろえたとき、選択肢を変えても後の出来事が同じなら「返りがない」

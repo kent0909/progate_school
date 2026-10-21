@@ -104,7 +104,7 @@ module.exports = async function autoRun(p, { choose = {}, broad = false, endMode
     }
     // 発見
     if (await has('.s-disc')) {
-      const ev = await p.evaluate(() => { const S = window.__sim.S; const e = window.__sim.events()[S.ei]; return { layout: e.b2.layout, targets: e.b2.targets.map((t) => ({ id: t.id, ok: t.ok })), tokens: typeof e.b2.tokens === 'function' ? e.b2.tokens(S) : e.b2.tokens, reasons: e.b2.reasons.map((r) => r.ok) }; });
+      const ev = await p.evaluate(() => { const S = window.__sim.S; let e = window.__sim.events()[S.ei]; if (typeof e.dynamic === "function") e = e.dynamic(S, e); return { layout: e.b2.layout, targets: e.b2.targets.map((t) => ({ id: t.id, ok: t.ok })), tokens: typeof e.b2.tokens === 'function' ? e.b2.tokens(S) : e.b2.tokens, reasons: e.b2.reasons.map((r) => r.ok) }; });
       if (await has('[data-b="p"]')) { await p.click('[data-b="p"]'); continue; }
       if (await has('[data-b="2"]') && !(await has('[data-decide]'))) { await p.click('[data-b="2"]'); continue; }
       if (await has('[data-decide]')) {

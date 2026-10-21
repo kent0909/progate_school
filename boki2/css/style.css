@@ -511,11 +511,11 @@ body.focus #main { padding-bottom: 2.5rem; }
 .cbt-je td:nth-child(odd) { width: 32%; } .cbt-je td:nth-child(even) { width: 18%; }
 /* 幅が狭いとき（スマホ・文字を大きくしたとき）は、1行を「借方の札・金額」「貸方の札・金額」の2段に積む。横にはみ出さない */
 @container (max-width: 30rem) {
-  .cbt-je table, .cbt-je tbody, .cbt-je tr, .cbt-je td { display: block; width: auto; }
+  .cbt-je table, .cbt-je tbody, .cbt-je tr { display: block; width: auto; }
   .cbt-je thead { display: none; }
   .cbt-je tr { counter-increment: jr; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 8.5em); gap: .25rem .375rem; align-items: center; padding: .375rem; border: 1.5px solid var(--line); border-radius: 8px; margin-bottom: .375rem; }
   .cbt-je tr::before { content: counter(jr) "行目"; grid-column: 1 / -1; font-size: .8125rem; color: var(--muted); font-weight: 700; }
-  .cbt-je td { border: 0; padding: 0; width: auto; }
+  .cbt-je td:nth-child(n) { border: 0; padding: 0; width: auto; }
   .cbt-je td:nth-child(1), .cbt-je td:nth-child(3) { display: grid; grid-template-columns: 2.6em minmax(0, 1fr); align-items: center; gap: .25rem; }
   .cbt-je td:nth-child(1)::before { content: "借方"; color: var(--dr); font-weight: 700; font-size: .875rem; }
   .cbt-je td:nth-child(3)::before { content: "貸方"; color: var(--cr); font-weight: 700; font-size: .875rem; }
