@@ -46,7 +46,9 @@
     const ws = Object.keys(L.read).sort((a, b) => b.length - a.length);
     const marks = [];
     for (const w of ws) html = html.split(w).join(`\u0000${marks.push(w) - 1}\u0000`);
-    return html.replace(/\u0000(\d+)\u0000/g, (_, i) => `<ruby>${marks[i]}<rt>${L.read[marks[i]]}</rt></ruby>`);
+    // 動詞（仕入れる・売り上げる）は、送りがなの前までの読みにする（「仕入しいれれた」と読めてしまうのを防ぐ）
+    const VERB = { 仕入: ['れ', 'しい'], 売上: ['げ', 'うりあ'] };
+    return html.replace(/\u0000(\d+)\u0000(.?)/g, (_, i, nx) => { const w = marks[i], v = VERB[w]; return `<ruby>${w}<rt>${v && nx === v[0] ? v[1] : L.read[w]}</rt></ruby>${nx}`; });
   };
   L.terms = () => {
     if (L._terms) return L._terms;

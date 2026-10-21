@@ -334,3 +334,6 @@ i.lv0 { border: 1px solid var(--line); }
 .s-ava { position: relative; }
 .s-mood { position: absolute; right: -5px; bottom: -5px; width: 19px; height: 19px; }
 .s-return > small { color: hsl(30 70% 38%); }
+
+/* 押せないボタンの理由（見直し1回目 F10） */
+.s-why-off{margin:.4em 0 0;font-size:.85em;color:var(--muted,#5b6770);text-align:center}

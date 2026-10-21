@@ -52,6 +52,12 @@ function run(i, S) {
       for (const o of opts) run(i + 1, { ...S, T: S.T.slice(), tr: S.tr.slice(), decisions: { ...S.decisions, [e.id]: o.id }, varied: S.varied || (y2 && !forced && o !== e.options[0]) });
       return;
     }
+    // 会社の状態で正解が変わる発見（ev.dynamic）：正解の札がちょうど1つ・正解の理由がちょうど1つ。配当の上限は、正解の札が試算の上限（divLimit）と同じこと
+    if (e.t === 'discover' && typeof e.dynamic === 'function') {
+      const x = e.dynamic(S, e), okT = x.b2.targets.filter((g) => g.ok), okR = x.b2.reasons.filter((r) => r.ok);
+      if (okT.length !== 1 || okR.length !== 1) err(`${label} ${e.id}：正解の札 ${okT.length}・正解の理由 ${okR.length}（どちらも1つ）`);
+      if (e.id === 'd-haito' && D.__div) { const all = !D.__div.needRes(S); if ((okT[0] || {}).id !== (all ? 'all' : 'limit')) err(`${label} d-haito：準備金を積む必要が${all ? 'ない' : 'ある'}（上限 ${D.__div.divLimit(S)}・貯まり ${D.__div.reNow(S)}）のに、正解の札が ${(okT[0] || {}).id}（${JSON.stringify(S.decisions)}）`); }
+    }
     if (e.t === 'ending') {
       if (!D.endings[e.id]) err(`${label}：結末 ${e.id} が SIM.endings にない`);
       ends[e.id] = (ends[e.id] || 0) + 1;

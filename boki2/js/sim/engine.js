@@ -229,6 +229,9 @@
   function scopeState(it) {
     const x = it.sim || {}, disc = x.disc || [], docs = x.docs || [], kinds = x.kinds || [];
     const mets = [];
+    // その判断を選んだ人だけが出会う論点（例：定率法）は、選んでいなければ「まだ」
+    const whenOk = !x.when || Object.entries(x.when).every(([k, v]) => S.decisions[k] === v);
+    if (!whenOk) return { met: null, own: false, shaky: false, exam: null, built: true };
     disc.forEach((d) => { if (S.discDone[d] != null) mets.push(S.discDone[d]); });
     S.L.forEach((l) => { if (docs.includes(l.ev) || kinds.includes(l.kind)) mets.push(l.mi); });
     if (x.close && S.closes.length) mets.push(S.closes[0].mi);
@@ -245,7 +248,8 @@
     const fixes = S.fixLog.filter((f) => docs.includes(f.ev) || kinds.includes(f.kind));
     const shaky = fixes.some((f) => !S.docLog.some((l) => l.ok && l.mi > f.mi && (l.kind === f.kind || l.ev === f.ev)));
     if (shaky) own = false;
-    const ex = S.examLog.filter((l) => (it.q || []).includes(l.key) || (B.examScope && (B.examScope[l.key] || []).includes(it.id)));
+    // 本試験の文の問題は、発見のあとの確かめ（discQuiz）と同じ範囲（it.q と、その章の全問題）で拾う。自動仕訳の棚卸・思い出すで書けなかった種類（auto:<kind>）も拾う
+    const ex = S.examLog.filter((l) => (it.q || []).includes(l.key) || (it.sim && it.ch && l.key.split(':')[0] === it.ch && !l.key.startsWith('exam:') && !l.key.startsWith('auto:')) || (l.key.startsWith('auto:') && kinds.includes(l.key.slice(5))) || (B.examScope && (B.examScope[l.key] || []).includes(it.id)));
     const okT = ex.filter((l) => l.ok).map((l) => l.t);
     const exam = !ex.length ? null : !ex[ex.length - 1].ok ? 'miss' : okT.length >= 2 && Math.max(...okT) - Math.min(...okT) >= 7 * 864e5 ? 'exam2' : 'exam1';
     return { met, own, shaky, exam, built: !!(disc.length || docs.length || kinds.length || x.close || x.report) };
@@ -278,7 +282,7 @@
     };
     const legend = DEV ? '<p class="s-mapnote">開発者表示：全項目の名前・章・原理と、まだゲームにない項目（点線）。数は <code>node boki2/tools/coverage.js</code> で。</p>'
       : '<p class="muted s-mapnote">日商簿記2級の試験に出るところを、まとまりごとに並べた地図。会社で起きたことから順に明るくなる。まだ先のことは輪郭だけ。</p>';
-    const devToggle = `<label class="s-devtoggle"><input type="checkbox" data-dev ${DEV ? 'checked' : ''}> 開発者表示（全項目の名前と、まだゲームにない項目が見える）</label>`;
+    const devToggle = !/[?&]dev\b/.test(location.search) ? '' : `<label class="s-devtoggle"><input type="checkbox" data-dev ${DEV ? 'checked' : ''}> 開発者表示（全項目の名前と、まだゲームにない項目が見える）</label>`;
     return legend + B.scopeAreas.map((a) => `<section class="s-area"><h4>${esc(a.label)}</h4>${a.secs.map((sec) => { const list = B.scope.filter((it) => it.sec === sec); const anyKnown = DEV || list.some((it) => scopeState(it).met != null); return `<div class="s-sec"><span class="s-secname">${anyKnown ? esc(sec) : ''}</span><div class="s-cells">${list.map(cell).join('')}</div></div>`; }).join('')}</section>`).join('') + devToggle;
   }
   function scopeDetail(id) {
@@ -520,6 +524,8 @@
     const m = month();
     if (!m) return endScreen();
     if (S.phase === 'monthIntro') return monthIntro();
+    // 月のはじめの「思い出す」は phase 'recall' で持つ（途中で閉じて開き直しても、とばされずに出る）
+    if (S.phase === 'recall') return recallScreen(() => { S.phase = 'event'; save(); render(); });
     // 月のはじめ：自動仕訳ルールの提案
     if (S.ei === 0 && S.phase === 'event') { const k = ruleOffer(); if (k) return ruleScreen(k); }
     // 月のはじめ：前の判断の返り（遅延反応のキュー：year2.js の SIM.returns）
@@ -824,7 +830,7 @@
   function monthIntro() {
     const m = month();
     frame(`<div class="s-card s-intro"><small>${esc(m.label)}</small><h2>${esc(m.title)}</h2><button class="btn wide" data-go>${S.mi === 0 ? '屋台へ行く' : '机に向かう'}</button></div>`);
-    app.onclick = (e) => { if (e.target.closest('[data-go]')) { S.phase = 'event'; S.ei = 0; save(); recallScreen(render); } };
+    app.onclick = (e) => { if (e.target.closest('[data-go]')) { S.phase = 'recall'; S.ei = 0; save(); render(); } };
   }
   // 月のはじめに、先月の書類と同じ種類を、金額を変えて1つ思い出して書く（想起。答えは書いたあとに見せる）
   function recallScreen(done) {
@@ -846,11 +852,13 @@
     const pick = prev.filter((o) => { const t = S.T.find((y) => y.id === o.x.id); return t && [...t.dr, ...t.cr].every(([a]) => knows(a)); }).pop();
     if (!pick) return done();
     const t = S.T.find((y) => y.id === pick.x.id), k = S.mi % 2 ? 3 : 2;
+    // 同じ名前の書類が先月に何枚あっても1つに決まるように、日付と相手をつけて指す
+    const pd = val(pick.ev.doc, S) || {}, who = pd.from && !/ピヨ/.test(pd.from) ? pd.from : (pd.to && !/ピヨ/.test(pd.to) ? pd.to : ''), docName = `${pd.date ? pd.date + 'の' : ''}${who ? who + 'の' : ''}「${pd.title}」`;
     const truth = { dr: t.dr.map(([a, v]) => [a, v * k]), cr: t.cr.map(([a, v]) => [a, v * k]) };
     const opts = [...new Set([...(pick.ev.opts || []), ...truth.dr.map((x) => x[0]), ...truth.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
     const opt = `<option value="">札をえらぶ</option>${opts.map((a) => `<option>${esc(a)}</option>`).join('')}`;
-    const side = (sd) => [0, 1].map((i) => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の札">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
-    frame(`<div class="s-card"><small>${esc(month().label)}のはじめに 思い出す</small>${talk([['senpai', `先月の「${pick.ev.doc.title}」を思い出して。同じ種類の書類で、金額が${k}倍だったら、どう書く？ 書類は見ないで。`]])}<div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-rc>書いた</button><button class="link" data-rskip>思い出せないので、今月へ進む</button></div>`);
+    const side = (sd) => [...Array(Math.max(2, truth[sd].length)).keys()].map((i) => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の札">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
+    frame(`<div class="s-card"><small>${esc(month().label)}のはじめに 思い出す</small>${talk([['senpai', `先月の${docName}を思い出して。同じ種類の書類で、金額が${k}倍だったら、どう書く？ 書類は見ないで。`]])}<div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-rc>書いた</button><button class="link" data-rskip>思い出せないので、今月へ進む</button></div>`);
     app.onclick = (e) => {
       if (e.target.closest('[data-rnext]')) { done(); return; }
       const skip = e.target.closest('[data-rskip]');
@@ -858,7 +866,9 @@
       const entry = { dr: [], cr: [] };
       for (const sd of ['dr', 'cr']) { const sel = $$(`select[data-s="${sd}"]`, app), ins = $$(`input[data-s="${sd}"]`, app); sel.forEach((x, i) => { const v = Number((ins[i].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }); }
       const ok = !skip && entry.dr.length && entry.cr.length && sameEntry(entry, truth);
-      S.recall.push({ mi: S.mi, kind: pick.x.kind, ok: !!ok, skipped: !!skip }); save();
+      S.recall.push({ mi: S.mi, kind: pick.x.kind, ok: !!ok, skipped: !!skip });
+      if (!ok && pick.x.kind) S.examLog.push({ key: 'auto:' + pick.x.kind, ok: false, t: Date.now(), from: 'recall' });
+      save();
       $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '思い出せた。' : '先月の書き方は、こうだった（金額は' + k + '倍）。'}</p>${ok ? '' : jeTable(truth)}<button class="btn wide" data-rnext>今月へ</button>`;
       $$('[data-rc], [data-rskip]', app).forEach((x) => x.remove());
     };
@@ -1148,12 +1158,14 @@
     if (mi < 0) return null;
     const evs = D.months[mi].events, k = evs.indexOf(ev);
     const teach = new Set([...(ev.b4.teaches || []), ...S.taught]);
+    const newT = new Set(ev.b4.teaches || []);
     for (const x of evs.slice(k + 1)) {
       if (x.t !== 'doc' || (x.when && !x.when(S))) continue;
       const a = val(x.ans, S);
       // すぐあとの書類の答えそのものは見せない。同じ形で金額だけ変えた「たとえば」にする
-      if ([...a.dr, ...a.cr].every(([acc]) => teach.has(acc))) return { dr: a.dr.map(([x, v]) => [x, v * 2]), cr: a.cr.map(([x, v]) => [x, v * 2]) };
-      return null;
+      // 例は、いま名前を教えた札を少なくとも1つ使う書類だけ（別の論点の仕訳を例にしない）。なければ例を出さない
+      const accs = [...a.dr, ...a.cr].map(([acc]) => acc);
+      if (accs.some((acc) => newT.has(acc)) && accs.every((acc) => teach.has(acc))) return { dr: a.dr.map(([x, v]) => [x, v * 2]), cr: a.cr.map(([x, v]) => [x, v * 2]) };
     }
     return null;
   }
@@ -1181,7 +1193,7 @@
         for (const sd of ['dr', 'cr']) { const sel = $$(`select[data-s="${sd}"]`, app), ins = $$(`input[data-s="${sd}"]`, app); sel.forEach((x, k) => { const v = Number((ins[k].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }); }
         const ok = entry.dr.length && entry.cr.length && [q.ans, ...(q.alt || [])].some((a) => sameEntry(entry, a));
         S.examLog.push({ key: q._key, ok: !!ok, t: Date.now() }); save();
-        $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '書けた' : '本試験の文では、こう書く：'}</p>${ok ? '' : jeTable(q.ans)}${q.exp ? `<p class="muted" style="font-size:13px">${q.exp}</p>` : ''}<button class="btn wide" data-qn>つぎへ</button>`;
+        $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '書けた' : '本試験の文では、こう書く：'}</p>${ok ? '' : jeTable(q.ans)}${q.exp ? `<div class="muted rich" style="font-size:13px">${B.hall.rich(q.exp)}</div>` : ''}<button class="btn wide" data-qn>つぎへ</button>`;
         $('[data-qq]', app).remove();
       };
     };
@@ -1233,6 +1245,8 @@
   function discoverScreen(ev, isReplay) {
     // 判断しだいで札が変わる発見（株主資本等変動計算書など）は、いまの帳簿で札を作る
     if (ev.b2 && typeof ev.b2.tokens === 'function') ev = Object.assign({}, ev, { b2: Object.assign({}, ev.b2, { tokens: ev.b2.tokens(S) }) });
+    // 会社の状態で正解が変わる発見（例：準備金がもう資本金の4分の1に届いていれば、配当の上限は貯まりの全部）は、ev.dynamic(S, ev) が書き換えた ev を使う
+    if (typeof ev.dynamic === 'function') ev = ev.dynamic(S, ev);
     // もう一度見るときは、記録（1回目の正誤・分かれ道）に数えない
     const m = isReplay ? { tries: 0, first: null, hand: 0, forks: [] } : (S.metrics.disc[ev.id] = S.metrics.disc[ev.id] || { tries: 0, first: null, hand: 0, forks: [] });
     const metrics = isReplay ? { forks: {}, hand: 0 } : S.metrics;
@@ -1255,7 +1269,7 @@
           field = `${b2.token ? `<div class="s-token ${picked ? 'placed' : ''}">${esc(b2.token)}</div>` : ''}<div class="s-targets ${b2.layout}">${b2.targets.map((g) => `<button class="s-target ${picked === g.id ? 'on' : ''}" data-pick="${g.id}"><b>${esc(g.label)}</b>${g.sub ? `<small>${esc(g.sub)}</small>` : ''}</button>`).join('')}</div>`;
         }
         const placed = isSort(b2) ? b2.tokens.every((t) => sorted[t.id]) : !!picked;
-        body = `${ev.b1.doc ? `<details class="s-redoc"><summary>書類をもう一度見る</summary>${docHTML(ev.b1.doc)}</details>` : ''}<p class="s-q">${esc(b2.q)}</p>${field}${placed ? `${talk([['piyo', 'どうしてそう思ったピヨ？']])}<div class="s-reasons">${b2.reasons.map((r, i) => `<button class="s-reason ${reason === i ? 'on' : ''}" data-reason="${i}">${esc(r.t)}</button>`).join('')}</div>` : ''}<div class="s-hint" ${hintLv ? '' : 'hidden'}>${(b2.hints || []).slice(0, hintLv).map((h) => `<p>${esc(h)}</p>`).join('')}</div><button class="btn wide" data-decide ${placed && reason !== null ? '' : 'disabled'}>これで決める</button><div class="s-actions"><button class="btn ghost sm" data-b="1">← もどる</button>${(b2.hints || []).length > hintLv ? '<button class="btn ghost sm" data-hint>ヒント</button>' : ''}</div>`;
+        body = `${ev.b1.doc ? `<details class="s-redoc"><summary>書類をもう一度見る</summary>${docHTML(ev.b1.doc)}</details>` : ''}<p class="s-q">${esc(b2.q)}</p>${field}${placed ? `${talk([['piyo', 'どうしてそう思ったピヨ？']])}<div class="s-reasons">${b2.reasons.map((r, i) => `<button class="s-reason ${reason === i ? 'on' : ''}" data-reason="${i}">${esc(r.t)}</button>`).join('')}</div>` : ''}<div class="s-hint" ${hintLv ? '' : 'hidden'}>${(b2.hints || []).slice(0, hintLv).map((h) => `<p>${esc(h)}</p>`).join('')}</div><button class="btn wide" data-decide ${placed && reason !== null ? '' : 'disabled'}>これで決める</button>${placed && reason === null ? '<p class="s-why-off">「これで決める」は、理由を1つ選ぶと押せる</p>' : !placed ? '<p class="s-why-off">まず上から1つ選ぶ。そのあと理由を選ぶと「これで決める」が押せる</p>' : ''}<div class="s-actions"><button class="btn ghost sm" data-b="1">← もどる</button>${(b2.hints || []).length > hintLv ? '<button class="btn ghost sm" data-hint>ヒント</button>' : ''}</div>`;
       } else if (beat === 3) {
         const b2 = ev.b2;
         const tgtOk = isSort(b2) ? b2.tokens.every((t) => sorted[t.id] === t.target) : b2.targets.find((g) => g.id === picked).ok;
@@ -1364,7 +1378,8 @@
     const E = D.endings[id];
     if (!view && !S.seenEnds.includes(id)) { S.seenEnds.push(id); S.diary.push({ m: month() ? month().label : '', t: `結末：${E.title}` }); save(); }
     if (view && !S.ifSeen.includes(id)) { S.ifSeen.push(id); S.diary.push({ m: 'もしも', t: `もしもを見た：${E.title}` }); save(); }
-    S.__ni = pl(balances(S.L)).ni;
+    // 結末の「もしも」の数字は、1年目の決算書のもうけ（締め切りの前）。締め切ったあとの S.L から取ると、収益・費用が0で「0円」になる
+    S.__ni = pl(balances(S.L.filter((e) => (e.y || 1) === 1 && !e.closing))).ni;
     const docs = E.docs(S);
     const steps = ['cause', 'numbers', ...docs.map((_, i) => 'doc' + i), 'scene', 'reality', 'lesson'];
     let i = 0, answered = !E.check, msg = '';
@@ -1851,7 +1866,7 @@
           results.push({ key: q._key, ok });
           S.examLog.push({ key: q._key, ok, t: Date.now() });
           save();
-          $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '正解' : 'おしい。正しくは：'}</p>${ok ? '' : jeTable(q.ans)}${q.exp ? `<p class="muted" style="font-size:13px">${q.exp}</p>` : ''}`;
+          $('[data-res]', app).innerHTML = `<p class="s-react ${ok ? '' : 'ng'}">${ok ? '正解' : 'おしい。正しくは：'}</p>${ok ? '' : jeTable(q.ans)}${q.exp ? `<div class="muted rich" style="font-size:13px">${B.hall.rich(q.exp)}</div>` : ''}`;
           e.target.closest('[data-check]').outerHTML = '<button class="btn wide" data-nextq>つぎへ</button>';
           return;
         }
@@ -1871,7 +1886,7 @@
     const mins = Math.round((Date.now() - M.started) / 60000);
     const forks = Object.entries(M.forks).sort((a, c) => c[1] - a[1]);
     frame(`<div class="s-card"><small>1年のふりかえり</small><h3>${endY}年目、おつかれさま</h3><p>${endY === 1 ? '屋台の小銭2,000円から始まった会社は、1年で' : `${endY}年目の1年で、会社は`}もうけ <b>${fmt(p.ni)}円</b>、口座のお金 <b>${fmt(cashOf(b))}円</b> になった。</p><h4>あなたが決めたこと</h4><ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul><button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button><details class="s-devlog"><summary>開発用の記録</summary><table class="s-tb"><tr><td>考える場面で、1回目から正しくたどり着いた</td><td class="n">${firstOk} / ${disc.length}</td></tr><tr><td>先輩の手帳を開いた回数</td><td class="n">${M.hand}</td></tr><tr><td>書類の記帳で、1回目から正しかった</td><td class="n">${M.docs.first} / ${M.docs.n}</td></tr><tr><td>月末に直した回数</td><td class="n">${M.fixes}</td></tr><tr><td>ヒントを見た回数</td><td class="n">${M.hints}</td></tr><tr><td>自動仕訳で進んだ書類</td><td class="n">${M.autoPosted}</td></tr><tr><td>腕だめし</td><td class="n">${M.quiz ? `${M.quiz.score} / ${M.quiz.of}` : '-'}</td></tr><tr><td>予想が当たった（発見の前・月末の締めの前）</td><td class="n">${disc.filter(([, d]) => d.predict && d.predict.ok).length} / ${disc.filter(([, d]) => d.predict).length}・${Object.values(S.predicts || {}).filter((x) => x.ok).length} / ${Object.values(S.predicts || {}).filter((x) => x.act).length}</td></tr><tr><td>ヒントなしで1回目から正しく書けた書類</td><td class="n">${S.docLog.filter((l) => l.ok && !l.hint).length} / ${S.docLog.length}</td></tr><tr><td>月はじめの思い出し</td><td class="n">${(S.recall || []).filter((r) => r.ok).length} / ${(S.recall || []).filter((r) => !r.due).length}</td></tr><tr><td>決算の机（1回目で全部見つけた）</td><td class="n">${S.metrics.desk ? (S.metrics.desk.first ? 'はい' : 'いいえ') : '-'}</td></tr><tr><td>かかった時間</td><td class="n">${mins}分</td></tr></table>${forks.length ? `<p>迷ったところ</p><ul class="s-diary">${forks.map(([f, n]) => `<li>${esc(f)} <b>${n}</b></li>`).join('')}</ul>` : ''}</details><button class="btn wide ghost" data-ov="hall">検定会場で、本試験の形で確かめる</button>${month() && D.months[S.mi + 1] ? `<button class="btn wide" data-n>${endY + 1}年目へ進む</button>` : ''}<button class="btn wide ghost" data-again>最初からもう一度</button></div>`);
-    app.onclick = (e) => { if (e.target.closest('[data-n]')) { next(); return; } if (e.target.closest('[data-again]')) { S = fresh(); S.phase = 'monthIntro'; save(); render(); } };
+    app.onclick = (e) => { if (e.target.closest('[data-n]')) { next(); return; } if (e.target.closest('[data-again]')) { if (!confirm('ここまでの記録を消して、最初からやり直しますか？（2年目へ進むなら「2年目へ進む」）')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); } };
   }
 
   B.chapters.forEach((c) => c.qs.forEach((q, i) => { q._key = `${c.id}:${i}`; }));
