@@ -438,3 +438,5 @@ i.lv0 { border: 1px solid var(--line); }
 /* 書類の枠が狭い（スマホで文字を大きくした）ときは、行の名前と値を上下に積む。名前が1字ずつ折り返さないように */
 .s-doc { container-type: inline-size; }
 @container (max-width: 20rem) { .s-doc td { display: block; text-align: left !important; } .s-doc td:first-child { padding-right: 0; color: var(--muted); font-size: .85em; } }
+/* 近道の確認だけの発見 */
+.s-lite{border-style:dashed}

@@ -158,6 +158,20 @@ for (const { e } of flat.filter((x) => x.e.t === 'decision')) {
   if (same.length && same.length === Object.values(groups).filter((g) => Object.keys(g).length > 1).length) err(`判断 ${e.id}：選択肢を変えても、その後の書類・会話・結末が変わらない（返りのない判断）`);
 }
 for (const id of Object.keys(D.endings)) if (!ends[id] && !D.endings[id].ifOnly) err(`結末 ${id} に、どの枝からも到達しない`);
+// 3級既習の近道（SIM.pro3）：自動にする型・確認だけにする発見・先取りする語が、1年目の3級の範囲に収まっていること
+{ const P = D.pro3; if (P) {
+  for (const k of P.kinds) { const r = D.rules[k]; if (!r || !r.conds.some((c) => c.ok && !c.broad)) err(`近道：型 ${k} に、狭い正しい条件文がない`); }
+  const y1 = flat.filter((x) => (D.months[x.mi].year || 1) === 1).map((x) => x.e);
+  // プロローグの段（steps）の語と、自動仕訳の導入（engine の ruleScreen）で教える「自動仕訳」も1年目の語
+  const y1words = new Set([...y1.flatMap((e) => [...((e.b4 || {}).teaches || []), ...(e.teaches || []), ...(e.steps || []).flatMap((st) => st.teaches || [])]), ...Object.values(D.namings).flatMap((n) => n.teaches || []), '自動仕訳']);
+  for (const w of P.words) if (!y1words.has(w)) err(`近道：先取りの語「${w}」は1年目に教える語ではない`);
+  for (const id of P.lite) { const e = y1.find((x) => x.t === 'discover' && x.id === id); if (!e) { err(`近道：確認だけの発見 ${id} が1年目にない`); continue; } const out = (e.b4.teaches || []).filter((w) => !P.words.includes(w)); if (out.length) err(`近道：${id} は3級でない語（${out.join('・')}）を教えるので、確認だけにできない`); }
+  for (const e of y1.filter((x) => x.t === 'discover' && x.id !== 'prologue')) if (!P.lite.includes(e.id) && !P.keep.includes(e.id)) err(`近道：1年目の発見 ${e.id} が、確認だけ（lite）にも残す（keep）にも入っていない`);
+  for (const k of P.intros) if (!D.kindIntro[k]) err(`近道：はじめての動き ${k} がない`);
+  const covered = P.gate.flatMap((g) => g.kinds);
+  if (new Set(covered).size !== covered.length || P.kinds.some((k) => !covered.includes(k))) err('近道：切符の3問が、自動にする6型を重なりなく覆っていない');
+  for (const g of P.gate) { const d = g.ans.dr.reduce((t, [, v]) => t + v, 0), c = g.ans.cr.reduce((t, [, v]) => t + v, 0); if (d !== c) err(`近道：切符「${g.q}」の貸借が合わない`); for (const [a] of [...g.ans.dr, ...g.ans.cr]) if (!B.accounts[a]) err(`近道：切符の科目 ${a} がない`); }
+} }
 
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log(`OK：${leaves} 本の分かれ道で検算した（結末：${Object.entries(ends).map(([k, v]) => `${k} ${v}`).join('・')}）`);

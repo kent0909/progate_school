@@ -251,6 +251,68 @@
   // 受験する年度（出題区分表）。選んでいなければ今日の日付で決める：2027年3月31日までは2026年度の区分表、4月1日からは2027年度
   const modeOf = () => S.mode || (Date.now() < Date.parse('2027-04-01T00:00:00+09:00') ? '2026' : '2027');
   const MODE_TXT = { 2026: '2026年度（2027年3月までの試験）', 2027: '2027年度（2027年4月からの試験）' };
+  // ---- 3級既習の近道（docs/DESIGN-PRO3-ISSUE.md 設計1） ----
+  function pro3Ask(done) {
+    app.innerHTML = `<main class="s-main"><div class="s-card"><small>はじめる前に（2つめ）</small><h3>日商簿記3級の仕訳は、もう書ける？</h3><p>掛けの仕入・売上、給料、減価償却、貸倒引当金のような3級の仕訳のこと。「書ける」なら、短い確かめを3問。合った型の書類はパソコンが自動で書く（近道）。2級の出来事と、社長の判断は、近道でも全部ある。あとからタイトルで切れる。</p><button class="btn wide" data-p3="yes">書ける（3級に合格した・勉強した）</button><button class="btn wide ghost" data-p3="no">まだ</button><button class="btn wide ghost" data-p3="no">わからない</button></div></main>`;
+    app.onclick = (e) => { const b = e.target.closest('[data-p3]'); if (!b) return; if (b.dataset.p3 === 'yes') return gateScreen(done); S.pro3 = { on: false }; save(); done(); };
+  }
+  // 近道の切符：3級の仕訳を3問。合った問の型だけ自動仕訳に入れる（記録は成長の記録に入れない。測定ではないため）
+  function gateScreen(done) {
+    const G = D.pro3.gate, res = [];
+    let i = 0;
+    const draw = () => {
+      if (i >= G.length) {
+        const ok = res.filter(Boolean).length;
+        if (ok < 2) { S.pro3 = { on: false, gate: res }; save(); app.innerHTML = `<main class="s-main"><div class="s-card"><h3>今回は、ふつうの道がおすすめ</h3><p>3問のうち ${ok} 問が書けた。屋台から始めて、3級の型も手で書いてみよう。思い出すのは早いはず。</p><button class="btn wide" data-go2>屋台から始める</button></div></main>`; app.onclick = (e) => { if (e.target.closest('[data-go2]')) done(); }; return; }
+        applyPro3(G.filter((_, k) => res[k]).flatMap((g) => g.kinds), res);
+        const rules = Object.keys(S.rules).filter((k) => S.rules[k].preset);
+        app.innerHTML = `<main class="s-main"><div class="s-card"><small>近道</small><h3>3問のうち ${ok} 問が書けた</h3>${D.pro3.card.map((t) => `<p>${esc(t)}</p>`).join('')}<p><b>パソコンが自動で書く書類（3級の型）</b></p><ul>${rules.map((k) => `<li>${esc(D.rules[k].conds.find((c) => c.ok && !c.broad).t)}</li>`).join('')}</ul><p class="muted">自動で書いた分は、成長の記録で「3級の型（見ただけ）」。検定会場の「自動仕訳の棚卸」や練習室で手で書けたら「自分でできた」になる。</p><button class="btn wide" data-go2>会社へ行く（4月から）</button></div></main>`;
+        app.onclick = (e) => { if (e.target.closest('[data-go2]')) done(); };
+        return;
+      }
+      const g = G[i], opt = `<option value="">札をえらぶ</option>${g.opts.map((a) => `<option>${esc(a)}</option>`).join('')}`;
+      const side = (sd) => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の札">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`;
+      app.innerHTML = `<main class="s-main"><div class="s-card"><small>近道の確かめ ${i + 1} / ${G.length}（ヒントなし）</small><p class="s-q">${esc(g.q)}</p><div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-gq>答える</button></div></main>`;
+      app.onclick = (e) => {
+        if (e.target.closest('[data-gn]')) { i++; draw(); return; }
+        if (!e.target.closest('[data-gq]')) return;
+        const entry = { dr: [], cr: [] };
+        for (const sd of ['dr', 'cr']) { const x = $(`select[data-s="${sd}"]`, app), v = Number(($(`input[data-s="${sd}"]`, app).value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }
+        const ok = !!(entry.dr.length && entry.cr.length && sameEntry(entry, g.ans));
+        res.push(ok);
+        $('[data-res]', app).innerHTML = `${ok ? '<p class="s-react">書けた</p>' : missHTML(entry, g.ans, '正しくは')}<button class="btn wide" data-gn>つぎへ</button>`;
+        $('[data-gq]', app).remove();
+      };
+    };
+    draw();
+  }
+  function applyPro3(kinds, res) {
+    teach(D.pro3.words);
+    for (const k of kinds) if (D.rules[k] && !S.rules[k]) S.rules[k] = { cond: D.rules[k].conds.find((c) => c.ok && !c.broad).t, broad: false, at: 0, preset: true };
+    S.introSeen = S.introSeen || {}; D.pro3.intros.forEach((k) => { S.introSeen[k] = true; });
+    S.ruleIntro = true;
+    S.discDone.prologue = 0;
+    if (!S.leaves.some((l) => l.label === '左右に書く（仕訳）')) S.leaves.push({ p: 'P1', label: '左右に書く（仕訳）', mi: 0, lite: true });
+    S.decisions.price = S.decisions.price || '100';
+    S.pro3 = { on: true, gate: res, at: Date.now() };
+    S.mi = 1; S.ei = 0; S.phase = 'monthIntro';
+    save();
+  }
+  // 確認だけの発見：困りごとの台詞と書類、名前カード、試験の文。「知っている」で進み、本試験の文の1問は解く
+  function discoverLite(ev) {
+    const b4 = ev.b4;
+    frame(`<div class="s-card s-lite"><small>3級の確認（近道）</small>${talk(ev.b1.talk)}${ev.b1.dyn ? `<p class="s-dyn">${esc(ev.b1.dyn(S))}</p>` : ''}${docHTML(ev.b1.doc)}<div class="s-name"><small>この考え方の名前</small><h2>${rb(b4.name)}</h2><p>${rb(b4.line)}</p>${b4.exam ? `<details class="s-exam"><summary>試験では、どんな文で出る？</summary><p>${esc(b4.exam)}</p></details>` : ''}</div><button class="btn wide" data-lite>知っている（つぎへ）</button></div>`);
+    app.onclick = (e) => {
+      if (!e.target.closest('[data-lite]')) return;
+      teach(b4.teaches);
+      S.discDone[ev.id] = S.mi;
+      S.metrics.disc[ev.id] = { tries: 0, first: null, hand: 0, forks: [], lite: true };
+      if (b4.leaf && !S.leaves.some((l) => l.label === b4.leaf.label)) S.leaves.push({ p: b4.leaf.p, label: b4.leaf.label, mi: S.mi, lite: true });
+      save();
+      const qs = discQuiz(ev);
+      if (qs.length) quickQuiz(qs, '本試験の文で確かめる', () => next()); else next();
+    };
+  }
   // はじめる前に1回だけ、受験する年度を確かめる（科目の名前と出る論点が変わるため）
   function modeScreen(done) {
     const d = modeOf();
@@ -277,7 +339,9 @@
     const parts = [];
     if (disc.length) parts.push(disc.every((d) => S.discDone[d] != null && (d === 'prologue' || (S.metrics.disc[d] || {}).first)));
     if (docs.length) { const seen = S.docLog.filter((l) => docs.includes(l.ev)); parts.push(seen.length > 0 && seen.every((l) => l.ok)); }
-    if (kinds.length) parts.push(kinds.some((k) => S.rules[k] || mastered(k)));
+    // 近道で最初から入れた自動仕訳（preset）は、自分で登録した熟達の結果ではないので数えない
+    if (kinds.length) parts.push(kinds.some((k) => (S.rules[k] && !S.rules[k].preset) || mastered(k)));
+    const lite = disc.some((d) => (S.metrics.disc[d] || {}).lite) || (kinds.length > 0 && kinds.some((k) => S.rules[k] && S.rules[k].preset) && !kinds.some((k) => mastered(k)));
     if (x.close) parts.push(S.closes.filter((c) => !c.fixed).length >= 2);
     let own = met != null && parts.length > 0 && parts.every(Boolean);
     // 月末に直した取引は「ゆらぎ」。同じ種類を、直した月より後に1回目で正しく書けたら戻る
@@ -288,7 +352,7 @@
     const ex = S.examLog.filter((l) => (it.q || []).includes(l.key) || (it.sim && it.ch && l.key.split(':')[0] === it.ch && !l.key.startsWith('exam:') && !l.key.startsWith('auto:')) || (l.key.startsWith('auto:') && kinds.includes(l.key.slice(5))) || (B.examScope && (B.examScope[l.key] || []).includes(it.id)));
     const okT = ex.filter((l) => l.ok).map((l) => l.t);
     const exam = !ex.length ? null : !ex[ex.length - 1].ok ? 'miss' : okT.length >= 2 && Math.max(...okT) - Math.min(...okT) >= 7 * 864e5 ? 'exam2' : 'exam1';
-    return { met, own, shaky, exam, built: !!(disc.length || docs.length || kinds.length || x.close || x.report) };
+    return { met, own, shaky, exam, lite: lite && !own, built: !!(disc.length || docs.length || kinds.length || x.close || x.report) };
   }
   function upcoming() {
     const firstMi = (it) => { const x = it.sim || {}; const hit = allEvents.filter(({ e, mi }) => mi >= S.mi && ((x.disc || []).includes(e.id) || (x.docs || []).includes(e.id) || (x.kinds || []).includes(e.kind) || (x.report && e.t === 'report'))); return hit.length ? Math.min(...hit.map((h) => h.mi)) : null; };
@@ -313,7 +377,7 @@
         if (next.includes(it.id)) return `<button class="s-cell next" data-scope="${it.id}"><small>これから起きること</small><span>${esc(it.teaser)}</span></button>`;
         return '<span class="s-cell fog" aria-hidden="true"></span>';
       }
-      const word = st.met == null ? 'まだ会社では起きていない' : st.shaky ? '月末に直した。もう一度で定着' : st.own ? '自分でできた' : `${monthLabel(st.met)}に起きた`;
+      const word = st.met == null ? 'まだ会社では起きていない' : st.shaky ? '月末に直した。もう一度で定着' : st.own ? '自分でできた' : st.lite ? '3級の型（見ただけ）' : `${monthLabel(st.met)}に起きた`;
       return `<button class="s-cell ${st.shaky ? 'shaky' : st.own ? 'own' : 'met'} ${st.exam || ''}" data-scope="${it.id}" style="--h:${PHUE[it.p] || 190}"><b>${esc(it.name)}</b><small>${esc(word)}</small>${st.exam ? `<em>${esc(EXAM_WORD[st.exam])}</em>` : ''}${it.y27 ? `<i>${esc(Y27[it.y27])}</i>` : ''}</button>`;
     };
     const legend = DEV ? '<p class="s-mapnote">開発者表示：全項目の名前・章・原理と、まだゲームにない項目（点線）。数は <code>node boki2/tools/coverage.js</code> で。</p>'
@@ -571,6 +635,8 @@
     const ev = evs[S.ei];
     // 社長が自分で書いた書類（監査の点検で見つける）：画面は出さず、社長の書いた形で帳簿に入る
     if (ev.t === 'doc' && ev.byPres) { post(ev, val(ev.wrote, S), false); const x = S.L.find((l) => l.id === ev.id + '@' + S.mi); if (x) x.pres = true; return next(); }
+    // 3級既習の近道：3級の語を教えるだけの発見は、確認だけの1画面
+    if (ev.t === 'discover' && S.pro3 && S.pro3.on && D.pro3 && D.pro3.lite.includes(ev.id) && S.discDone[ev.id] == null) return discoverLite(ev);
     ({ ss: ssScreen, duelist: duelistScreen, audit: auditScreen, desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, closing: closingScreen, opening: openingScreen, sheet: sheetScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
   }
   // 前の判断の返り：いまの月（年・月・区切り）に当たり、条件が真で、まだ見ていないもの
@@ -591,9 +657,9 @@
     const started = S.mi > 0 || S.ei > 0;
     const ps = ST.profiles(), cur = ST.currentProfile();
     const who = ps.length > 1 || (ps[0] && ps[0].name) ? `<div class="s-who"><small>だれが遊ぶ？</small>${ps.map((p, k) => `<button class="${p.id === cur ? 'on' : ''}" data-prof="${p.id}">${esc(p.name || `${k + 1}人目`)}</button>`).join('')}<button data-addprof>＋</button></div>` : '<button class="link" data-addprof>ほかの人もこの端末で遊ぶ</button>';
-    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・保存と引っ越し・確認テスト</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div><div class="s-who"><small>ふりがな</small><button class="${S.furigana !== 'always' ? 'on' : ''}" data-furi="auto">はじめてと、押したとき</button><button class="${S.furigana === 'always' ? 'on' : ''}" data-furi="always">いつも</button></div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
+    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・保存と引っ越し・確認テスト</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div>${S.pro3 && S.pro3.on ? '<div class="s-who"><small>近道（3級の型は自動）</small><button data-p3off>近道を切る（3級の型も手で書く）</button></div>' : ''}<div class="s-who"><small>ふりがな</small><button class="${S.furigana !== 'always' ? 'on' : ''}" data-furi="auto">はじめてと、押したとき</button><button class="${S.furigana === 'always' ? 'on' : ''}" data-furi="always">いつも</button></div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
     app.onclick = (e) => {
-      if (e.target.closest('[data-start]')) { const go = () => { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }; if (!started && !S.modeOk) return modeScreen(go); go(); }
+      if (e.target.closest('[data-start]')) { const go = () => { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }; if (!started && !S.modeOk) return modeScreen(() => pro3Ask(go)); go(); }
       if (e.target.closest('[data-reset]')) { if (!confirm('この人の記録を消して、最初からやり直しますか？')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); }
       const pb = e.target.closest('[data-prof]');
       if (pb) { ST.switchProfile(pb.dataset.prof); const raw = ST.loadLocal(KEY); S = raw ? Object.assign(fresh(), raw) : fresh(); render(); ST.connect(KEY, (st) => { S = Object.assign(fresh(), st); if (document.querySelector('.s-title')) render(); }); }
@@ -602,6 +668,7 @@
       if (e.target.closest('[data-test]')) testScreen();
       const md = e.target.closest('[data-mode]');
       if (md) { S.mode = md.dataset.mode; S.modeOk = true; save(); titleScreen(); }
+      if (e.target.closest('[data-p3off]')) { Object.keys(S.rules).forEach((k) => { if (S.rules[k].preset) delete S.rules[k]; }); S.pro3.on = false; save(); titleScreen(); return; }
       const fu = e.target.closest('[data-furi]');
       if (fu) { S.furigana = fu.dataset.furi; save(); titleScreen(); }
     };

@@ -41,6 +41,10 @@ module.exports = async function autoRun(p, { choose = {}, broad = false, endMode
     if (await has('[data-box]')) { const k = await p.evaluate(() => { const a = document.querySelector('[data-box]').dataset.acc; const c = (window.BOKI.accounts[a] || {}).cat; return /累計額$|^貸倒引当金$/.test(a) || c === '資産' ? 'A' : c === '負債' || c === '純資産' ? 'R' : c === '収益' ? 'I' : 'E'; }); await p.click(`[data-box="${k}"]`); continue; }
     if (await has('[data-join]')) { await shot('build'); await p.click('[data-join="R"]'); continue; }
     if (await has('[data-start]')) { await p.click('[data-start]'); continue; }
+    if (await has('[data-pickmode]')) { await p.click('[data-pickmode] >> nth=0'); continue; }
+    if (await has('[data-p3]')) { await p.click('[data-p3="no"] >> nth=0'); continue; }
+    if (await has('[data-go2]')) { await p.click('[data-go2]'); continue; }
+    if (await has('[data-lite]')) { await p.click('[data-lite]'); continue; }
     if (await has('[data-go]')) { await p.click('[data-go]'); continue; }
     // プロローグ
     if (await has('[data-tok]')) { await p.click('[data-tok]'); continue; }
