@@ -21,6 +21,7 @@ const path = require('path');
 const crypto = require('crypto');
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const cfg = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+cfg.notes = cfg.notes || path.join(__dirname, '..', '..', 'research', 'notes');
 const HARNESS = path.join(__dirname, 'harness.js'), AUTO = path.join(__dirname, 'auto.js');
 const PERSONA_HEADS = ['名前', '年齢', '経歴', '知識', 'ゲーム歴', '動機', '環境', '性格', '物差し', '偏り', 'やめる'];
 const MANUAL = new Set(['click', 'fill', 'select', 'press', 'tap', 'tapAt', 'type', 'hover', 'longPress', 'drag', 'scroll', 'swipe', 'back', 'reload', 'rotate', 'textScale', 'zoom', 'offline']);
@@ -164,6 +165,7 @@ for (const R of cfg.reviewers) {
   direct.length ? ng(who, `道具を通さずにブラウザを直接開いたスクリプトが ${direct.length} 本`) : ok(who, 'ブラウザはすべて記録係を通して開いた');
   const touch = T.cmds.filter((c) => /log\.jsonl/.test(c) && !/^\s*(cat|head|tail|wc|grep|jq|node [^|]*verify\.js|less|ls)\b/.test(c.replace(/^cd [^&;]+(&&|;)\s*/, '')));
   const touchW = T.writes.filter((w) => /log\.jsonl/.test(w.file));
+  if (process.env.VERIFY_DETAIL) for (const c of [...touch, ...touchW.map((w) => 'Write ' + w.file)]) out.push(`    ・${who}：${c.replace(/\s+/g, ' ').slice(0, 300)}`);
   touch.length || touchW.length ? ng(who, `log.jsonl に読む以外で触れたコマンドが ${touch.length + touchW.length} 個（中身を確かめること）`) : ok(who, 'log.jsonl を書き換えていない');
   // テストの答えと、テストを作った道具を見ていない（2回目から。コマンドと、Read・Glob・Grep の引数に名前が出てこない）
   const peek = [...T.cmds, ...T.writes.map((w) => w.file), ...(T.reads || [])].filter((c) => /tests-key|tools-maketest/.test(c));
@@ -207,6 +209,7 @@ if (M) {
   const hit = M.writes.filter((w) => dirs.some((d) => path.resolve(w.file).startsWith(d + path.sep) && /(persona|report)\.md$|log\.jsonl$/.test(w.file)));
   // フォルダの名前（pt-<id>）はほかで使わない名前にしてあるので、変数で書いたコマンドでも名前で見つかる
   const hitC = M.cmds.filter((c) => !/^\s*(cd [^&;]+&&\s*)?node [^|;&>]*playtest\/collect\.js [^|;&>]+$/.test(c) && dirs.some((d) => c.includes(path.basename(d))) && /(persona|report)\.md|log\.jsonl|shots/.test(c) && /(>|tee|cat <<|python|node -e|sed -i|cp |mv |rm |echo )/.test(c));
+  if (process.env.VERIFY_DETAIL) for (const c of [...hitC, ...hit.map((w) => 'Write ' + w.file)]) out.push(`    ・まとめ役：${c.replace(/\s+/g, ' ').slice(0, 300)}`);
   hit.length || hitC.length ? ng('まとめ役', `検査する人のファイルを書いた・動かした跡が ${hit.length + hitC.length} 個`) : ok('まとめ役', '検査する人の persona・report・log を書いていない');
 } else ng('まとめ役', 'まとめ役の会話記録が読めない');
 // 9. 似かより
