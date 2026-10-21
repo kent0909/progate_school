@@ -54,7 +54,8 @@
 .s-row select, .s-row input { width: 100%; min-width: 0; min-height: 2.75rem; font: inherit; font-size: 1rem; padding: .375rem .5rem; border: 2px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); }
 .s-row input { font-family: var(--f-pixel); text-align: right; }
 .s-row input.act { border-color: var(--gold); }
-.s-add { align-self: flex-start; border: 0; background: none; color: var(--muted); font-size: .8667rem; font-weight: 700; }
+.s-add { align-self: stretch; min-height: 2.75rem; border: 2px dashed currentColor; border-radius: 8px; background: none; color: var(--muted); padding: .25rem .5rem; font-size: .9375rem; font-weight: 700; }
+.s-side.dr .s-add { color: var(--dr); } .s-side.cr .s-add { color: var(--cr); }
 .s-bal { text-align: center; font-weight: 700; padding: .375rem; border-radius: 8px; background: var(--surface2); color: var(--muted); }
 .s-bal.even { background: var(--good-soft); color: var(--good); }
 .s-bal.shake { animation: s-shake .35s; background: var(--bad-soft); color: var(--bad); }
@@ -192,8 +193,9 @@
 .s-gl { border: 0; background: none; padding: 0; font: inherit; color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
 .s-redoc summary, .s-devlog summary { cursor: pointer; font-size: .8667rem; color: var(--muted); font-weight: 700; }
 .s-devlog { font-size: .8667rem; }
-ruby rt { font-size: .5em; font-weight: 500; color: var(--muted); }
-.s-name h2 ruby rt { font-size: .38em; }
+/* ふりがな：親の1/2以上、かつ 0.625rem（既定で10px）以上 */
+ruby rt { font-size: max(.5em, .625rem); font-weight: 500; color: var(--muted); }
+.s-name h2 ruby rt { font-size: max(.5em, .625rem); }
 details.s-exam summary { cursor: pointer; font-weight: 700; }
 
 /* 判断の試算・結末 */
@@ -288,7 +290,7 @@ i.lv0 { border: 1px solid var(--line); }
 .s-hallbar small { color: var(--muted, #777); font-size: .7333rem; }
 .s-hall { display: block; }
 .s-nav { flex-wrap: wrap; }
-.s-nav button { white-space: nowrap; font-size: .8rem; padding-left: .5rem; padding-right: .5rem; }
+.s-nav button { white-space: nowrap; }
 /* 練習室 */
 .s-room-tabs { margin: .375rem 0 .625rem; }
 .s-room-area h4 { margin: .75rem 0 .25rem; }
@@ -339,3 +341,82 @@ i.lv0 { border: 1px solid var(--line); }
 .s-why-off{margin:.4em 0 0;font-size:.85em;color:var(--muted,#5b6770);text-align:center}
 .s-toast{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%);max-width:min(92vw,32rem);background:var(--ink,#13302a);color:var(--bg,#fff);padding:.7em 1em;border-radius:.6em;font-size:.9em;z-index:60;box-shadow:0 4px 18px rgba(0,0,0,.25)}
 .s-dkg{display:block;margin-top:.3em;font-size:.8em;color:var(--muted)}
+
+/* ===== 画面の幅に合わせた配置（見直し1回目 F・(d)・改善9・15・30・33） =====
+   原則：1行の長さを増やさず、列を増やす（本文の列は 40rem 前後で止める）。
+   〜767px：縦1列（上に月と数字、下にナビの帯）。768〜1023px：記帳の画面を「書類｜仕訳」の2列。
+   1024px〜：左に会社の状態（月・口座・もうけ・ナビ）を常に、中央に出来事・書類・入力。表と検定会場は広く使う。 */
+.s-skip { position: absolute; left: .5rem; top: .5rem; z-index: 70; transform: translateY(-200%); background: var(--ink); color: var(--bg); border: 0; border-radius: 8px; padding: .5rem 1rem; min-height: 2.75rem; font-weight: 700; }
+.s-skip:focus { transform: none; }
+.s-main:focus { outline: none; }
+.s-sheet:focus { outline: none; }
+.s-docgrid, .s-docpane, .s-workpane { display: flex; flex-direction: column; gap: .75rem; min-width: 0; }
+/* JS の中に px で書かれた字の大きさ（style 属性）も、利用者の文字の設定に従わせる */
+[style*="font-size:12px"] { font-size: .8rem !important; }
+[style*="font-size:13px"] { font-size: .8667rem !important; }
+[style*="font-size:15px"] { font-size: 1rem !important; }
+[style*="font-size:18px"] { font-size: 1.2rem !important; }
+[style*="font-size:22px"] { font-size: 1.4667rem !important; }
+[style*="font-size:44px"] { font-size: 2.9333rem !important; }
+[style*="font-size:60px"] { font-size: 4rem !important; }
+
+/* スマホ：ナビは画面の下の帯（親指が届く・44px以上）。上は月と数字だけにして、本文の場所を広く */
+@media (max-width: 47.99em) {
+  .s-head .s-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; margin: 0; width: auto; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 0; padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); background: var(--surface); border-top: 2px solid var(--line); flex-wrap: nowrap; }
+  .s-head .s-nav button { border: 0; border-radius: 0; background: none; min-height: 3rem; padding: .25rem .125rem; font-size: .8125rem; white-space: normal; line-height: 1.2; }
+  .s-head .s-nav button + button { border-left: 1px solid var(--line); }
+  #sim:has(.s-nav) .s-main { padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px)); }
+  body:has(.s-nav) .s-toast, body:has(.s-nav) .cbt-tool { bottom: calc(3.75rem + env(safe-area-inset-bottom, 0px)); }
+  .s-sheet { padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); }
+  /* 検定会場・練習室では、上の帯を止めず、試験の帯（残り時間・道具）だけを上に止める */
+  #sim:has(.cbt) .s-head { position: static; }
+  #sim:has(.cbt) .cbt-head { top: env(safe-area-inset-top, 0px); }
+}
+
+/* 768px〜：幅を広げ、本文の列は 42rem で止めて中央に。記帳は2列 */
+@media (min-width: 48em) {
+  #sim { max-width: 80rem; }
+  .s-main { padding: 1.25rem 1.5rem 2rem; align-items: center; }
+  .s-main > * { width: 100%; max-width: 42rem; }
+  .s-main.s-title > * { width: auto; }
+  .s-main > .s-docscreen { max-width: 64rem; }
+  .s-docgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 1rem; align-items: start; }
+  .s-docpane { position: sticky; top: 5.5rem; }
+  /* 表の画面（精算表・株主資本等変動計算書・期日の一覧・元帳・決算書）と、練習室・検定会場は幅を広く使う */
+  .s-main:has(.s-wsheet, .s-ss, .s-due, .s-ledger, .s-hall, .s-room, .s-roomq, .s-hallbar) > * { max-width: 72rem; }
+  .s-wsheet, .s-ss { font-size: .8125rem; }
+  /* 窓（会社の棚・マップなど）は、画面の中央の箱に */
+  .s-ov { align-items: center; padding: 1.5rem; }
+  .s-sheet { max-width: 46rem; max-height: min(88vh, 60rem); border-radius: var(--r); padding: 1.25rem 1.5rem; }
+  .s-toast { bottom: 1.5rem; }
+}
+
+/* 1024px〜：左の列に会社の状態とナビ（いつも見える）、右に中身 */
+@media (min-width: 64em) {
+  #sim:has(> .s-head .s-nav) { display: grid; grid-template-columns: 16rem minmax(0, 1fr); align-items: start; max-width: 96rem; }
+  #sim:has(> .s-head .s-nav) > .s-head { position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: .875rem; padding: 1.25rem 1rem; border-bottom: 0; border-right: 2px solid var(--line); }
+  #sim:has(> .s-head .s-nav) .s-month b { font-size: 1.6rem; }
+  #sim:has(> .s-head .s-nav) .s-kpi { background: var(--surface2); border: 1px solid var(--line); border-radius: var(--r-sm); padding: .5rem .75rem; }
+  #sim:has(> .s-head .s-nav) .s-kpi small { font-size: .8125rem; }
+  #sim:has(> .s-head .s-nav) .s-kpi b { font-size: 1.25rem; }
+  #sim:has(> .s-head .s-nav) .s-nav { margin: .25rem 0 0; flex-direction: column; flex-wrap: nowrap; gap: .375rem; }
+  #sim:has(> .s-head .s-nav) .s-nav button { width: 100%; text-align: left; border-radius: var(--r-sm); padding: .5rem .875rem; font-size: .9375rem; }
+  #sim:has(> .s-head .s-nav) .s-main { padding: 1.5rem 2rem 3rem; min-height: 100vh; }
+  #sim:has(> .s-head .s-nav) .s-docpane { top: 1.5rem; }
+  /* 窓は右から出る板に（左の会社の状態は見えたまま） */
+  .s-ov { justify-content: flex-end; align-items: stretch; padding: 0; background: rgba(0, 0, 0, .3); }
+  .s-sheet { max-width: min(40rem, 48vw); max-height: none; height: 100%; border-radius: 0; box-shadow: -6px 0 24px rgba(0, 0, 0, .18); }
+  /* 練習室：論点の一覧を複数の列に */
+  .s-room { display: grid; grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr)); gap: 0 2rem; align-items: start; }
+  /* 練習室の1問：問題文と解答欄を横に */
+  .s-roomq:has(.cbt-je, .sheet-wrap) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(26rem, 1.2fr); gap: 1rem 1.5rem; align-items: start; }
+  .s-roomq:has(.cbt-je, .sheet-wrap) > small, .s-roomq:has(.cbt-je, .sheet-wrap) > [data-res], .s-roomq:has(.cbt-je, .sheet-wrap) > .btn { grid-column: 1 / -1; }
+  /* 検定会場：試験の帯は上に止め、各問は「問題文｜解答欄」。長い問題文は左で止めて、右の解答だけが流れる */
+  .s-hall .cbt-head { top: 0; }
+  .s-hall .exam-sub { grid-template-columns: minmax(0, 1fr) minmax(26rem, 1.25fr); gap: .75rem 1.5rem; align-items: start; }
+  .s-hall .exam-sub > * { grid-column: 1 / -1; }
+  .s-hall .exam-sub > .qtext { grid-column: 1; position: sticky; top: 5rem; max-height: calc(100vh - 6rem); overflow-y: auto; padding-right: .25rem; }
+  .s-hall .exam-sub > [data-b] { grid-column: 2; grid-row: span 1; }
+  .s-hall .stack:has(> .card) { grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr)); align-items: start; }
+  .s-hall .stack:has(> .card) > :first-child { grid-column: 1 / -1; }
+}

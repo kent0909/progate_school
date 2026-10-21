@@ -1,5 +1,5 @@
 /* 簿記2級クエスト
-   Layout: one-column app frame (max 720px) — HUD on top, screen in the middle, tab bar at the bottom.
+   Layout: one-column app frame (max 45rem) — HUD on top, screen in the middle, tab bar at the bottom.
    Ledger green is the brand; blue = 借方 (left), vermilion = 貸方 (right); gold = rewards. */
 :root {
   --bg: #edf4f1; --bg2: #e1ece7; --surface: #ffffff; --surface2: #f5f9f7;
@@ -96,7 +96,7 @@ body.focus #main { padding-bottom: 2.5rem; }
 /* ---------- buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-  border: 0; border-radius: var(--r); padding: .8125rem 1.25rem;
+  border: 0; border-radius: var(--r); min-height: 2.75rem; padding: .75rem 1.25rem;
   font-family: var(--f-display); font-weight: 800; font-size: 1.0667rem; letter-spacing: .02em;
   background: var(--brand); color: var(--brand-ink); box-shadow: 0 4px 0 var(--brand-deep);
   transition: transform .08s, box-shadow .08s, filter .15s;
@@ -110,8 +110,8 @@ body.focus #main { padding-bottom: 2.5rem; }
 .btn.ghost:active { box-shadow: 0 1px 0 var(--line); }
 .btn.gold { background: var(--gold); color: #2a1d00; box-shadow: 0 4px 0 color-mix(in srgb, var(--gold) 60%, #000); }
 .btn.bad { background: var(--bad); color: #fff; box-shadow: 0 4px 0 color-mix(in srgb, var(--bad) 60%, #000); }
-.btn.sm { padding: .5rem .75rem; font-size: .8667rem; border-radius: var(--r-sm); }
-.link { background: none; border: 0; color: var(--brand); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; padding: .25rem; }
+.btn.sm { min-height: 2.75rem; padding: .375rem .75rem; font-size: .875rem; border-radius: var(--r-sm); }
+.link { background: none; border: 0; color: var(--brand); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; padding: .25rem .5rem; min-height: 2.75rem; }
 .row { display: flex; gap: .625rem; flex-wrap: wrap; align-items: center; }
 .row > .btn { flex: 1; }
 .stack { display: grid; gap: .875rem; }
@@ -413,7 +413,7 @@ body.focus #main { padding-bottom: 2.5rem; }
 
 /* zukan */
 .seg { display: flex; gap: .375rem; background: var(--surface); border: 2px solid var(--line); border-radius: 12px; padding: .25rem; }
-.seg button { flex: 1; border: 0; background: none; border-radius: 9px; padding: .4375rem .25rem; font-weight: 700; font-size: .8667rem; }
+.seg button { flex: 1; border: 0; background: none; border-radius: 9px; min-height: 2.5rem; padding: .375rem .25rem; font-weight: 700; font-size: .8667rem; }
 .seg button[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); }
 .coll { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.375rem, 1fr)); gap: .625rem; }
 .coll-card { text-align: left; border: 2px solid var(--line); background: var(--surface); border-radius: var(--r); padding: .625rem; min-height: 6rem; display: grid; gap: .25rem; align-content: start; }
@@ -506,11 +506,24 @@ body.focus #main { padding-bottom: 2.5rem; }
 .cbt-foot { display: flex; gap: .625rem; }
 .cbt-foot .btn { flex: 1; }
 .cbt-je { overflow-x: auto; max-width: 100%; }
-.cbt-je table { border-collapse: collapse; width: 100%; min-width: 32.5rem; font-size: .9rem; }
+.cbt-je { container-type: inline-size; }
+.cbt-je table { border-collapse: collapse; width: 100%; font-size: .9rem; counter-reset: jr; }
+.cbt-je td:nth-child(odd) { width: 32%; } .cbt-je td:nth-child(even) { width: 18%; }
+/* 幅が狭いとき（スマホ・文字を大きくしたとき）は、1行を「借方の札・金額」「貸方の札・金額」の2段に積む。横にはみ出さない */
+@container (max-width: 30rem) {
+  .cbt-je table, .cbt-je tbody, .cbt-je tr, .cbt-je td { display: block; width: auto; }
+  .cbt-je thead { display: none; }
+  .cbt-je tr { counter-increment: jr; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 8.5em); gap: .25rem .375rem; align-items: center; padding: .375rem; border: 1.5px solid var(--line); border-radius: 8px; margin-bottom: .375rem; }
+  .cbt-je tr::before { content: counter(jr) "行目"; grid-column: 1 / -1; font-size: .8125rem; color: var(--muted); font-weight: 700; }
+  .cbt-je td { border: 0; padding: 0; width: auto; }
+  .cbt-je td:nth-child(1), .cbt-je td:nth-child(3) { display: grid; grid-template-columns: 2.6em minmax(0, 1fr); align-items: center; gap: .25rem; }
+  .cbt-je td:nth-child(1)::before { content: "借方"; color: var(--dr); font-weight: 700; font-size: .875rem; }
+  .cbt-je td:nth-child(3)::before { content: "貸方"; color: var(--cr); font-weight: 700; font-size: .875rem; }
+}
 .cbt-je th, .cbt-je td { border: 1.5px solid var(--line); padding: .1875rem; }
 .cbt-je th { background: var(--surface2); font-size: .8rem; }
 .cbt-je th.d { color: var(--dr); } .cbt-je th.c { color: var(--cr); }
-.cbt-je select, .cbt-je input, .blank-in { width: 100%; min-height: 2.125rem; font: inherit; color: var(--ink); background: var(--surface); border: 1.5px solid var(--muted); border-radius: 4px; padding: .125rem .375rem; }
+.cbt-je select, .cbt-je input, .blank-in { width: 100%; min-height: 2.75rem; font: inherit; color: var(--ink); background: var(--surface); border: 1.5px solid var(--muted); border-radius: 4px; padding: .125rem .375rem; }
 .cbt-je input, .blank-in { text-align: right; font-family: var(--f-pixel); font-size: 1rem; }
 .blank-in { min-width: 6.25rem; }
 .cbt-je .ok, .blank-in.ok { border: 2px solid var(--good); background: var(--good-soft); }

@@ -134,19 +134,26 @@
     const azu = S.decisions.vat === 'line' && knows('仮受消費税') ? Math.max(0, -(b['仮受消費税'] || 0) - (b['仮払消費税'] || 0)) : 0;
     const kpi = inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>${yearOf(S.mi) > 1 ? `${yearOf(S.mi)}年目のもうけ（4月から）` : 'この1年のもうけ'}</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
     const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button>' + (S.dueBuilt ? '<button data-ov="due">期日</button>' : '') + '<button data-ov="room">練習室</button></nav>' : '';
-    return `<header class="s-head"><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
+    // 「本文へ」：キーボードで最初に届く。ナビより先に画面の中身へ（見えるのはフォーカスしたときだけ）
+    return `<header class="s-head"><button class="s-skip" data-skip>本文へ</button><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
   }
   let onFocus = null;
   app.addEventListener('focusin', (e) => { const x = e.target.closest('input[data-s]'); if (x && onFocus) onFocus(x); });
-  function frame(body) { onFocus = null; app.oninput = null; app.innerHTML = header() + `<main class="s-main">${body}</main>`; window.scrollTo(0, 0); }
+  function frame(body) { onFocus = null; app.oninput = null; app.onkeydown = null; app.innerHTML = header() + `<main class="s-main" id="s-main" tabindex="-1">${body}</main>`; window.scrollTo(0, 0); }
+  app.addEventListener('click', (e) => { if (e.target.closest('[data-skip]')) { const m = $('#s-main', app); if (m) m.focus(); } }, true);
 
   /* ---------- overlays ---------- */
   function overlay(html) {
     const o = document.createElement('div');
     o.className = 's-ov';
-    o.innerHTML = `<div class="s-sheet">${html}<button class="btn wide ghost" data-close>とじる</button></div>`;
-    o.addEventListener('click', (e) => { if (e.target === o || e.target.closest('[data-close]')) o.remove(); });
+    o.innerHTML = `<div class="s-sheet" role="dialog" aria-modal="true" tabindex="-1">${html}<button class="btn wide ghost" data-close>とじる</button></div>`;
+    // 開いたら窓に、閉じたら開く前の場所にフォーカスを戻す。Esc で閉じる
+    const back = document.activeElement;
+    const close = () => { o.remove(); if (back && back.isConnected && back.focus) back.focus({ preventScroll: true }); };
+    o.addEventListener('click', (e) => { if (e.target === o || e.target.closest('[data-close]')) close(); });
+    o.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.stopPropagation(); close(); } });
     document.body.appendChild(o);
+    o.firstElementChild.focus({ preventScroll: true });
     return o;
   }
   // 工場の途中の箱（製造間接費・賃金・差異など「その他」の札）は、借方の残りなら資産の側、貸方の残りなら負債の側に見せる（合計がそろうように）
@@ -1066,8 +1073,18 @@
       $('.s-panel', app).innerHTML = panel;
       $('.s-actions', app).hidden = !!panel;
     };
-    frame(`<div class="s-card">${fixMode ? '<p class="s-fix">森さん「この書類、もう一度見てみよう」</p>' : ''}<p class="s-ask">この書類の出来事を、帳簿に書こう。金額は、書類の数字をタップしても入る。</p>${docHTML(ev.doc, true)}<div class="s-entry"></div><div class="s-hint" hidden></div><div class="s-panel"></div><div class="s-actions"><button class="btn ghost" data-hint>ヒント</button><button class="btn" data-ok>帳簿に書く</button></div><button class="link" data-cards>札の一覧を見る</button></div>`);
+    // 並べ方：スマホは縦1列。広い画面（css/sim.css の .s-docgrid）では、左に書類、右に仕訳の入力と返し
+    frame(`<div class="s-card s-docscreen">${fixMode ? '<p class="s-fix">森さん「この書類、もう一度見てみよう」</p>' : ''}<p class="s-ask">この書類の出来事を、帳簿に書こう。金額は、書類の数字をタップしても入る。</p><div class="s-docgrid"><div class="s-docpane">${docHTML(ev.doc, true)}</div><div class="s-workpane"><div class="s-entry"></div><div class="s-hint" hidden></div><div class="s-panel"></div><div class="s-actions"><button class="btn ghost" data-hint>ヒント</button><button class="btn" data-ok>帳簿に書く</button></div><button class="link" data-cards>札の一覧を見る</button></div></div></div>`);
     draw();
+    // Enter：金額の欄で押すと、左右がそろっていれば記帳、そろっていなければ次の欄へ（最後の欄なら記帳を試して理由を出す）
+    app.onkeydown = (e) => {
+      if (e.key !== 'Enter' || e.isComposing || !e.target.matches('input[data-s]') || $('.s-actions', app).hidden) return;
+      e.preventDefault();
+      const { d, c } = totals();
+      const fields = $$('.s-entry [data-s]', app), k = fields.indexOf(e.target);
+      if ((d === c && d > 0) || k < 0 || k === fields.length - 1) { $('[data-ok]', app).click(); return; }
+      fields[k + 1].focus();
+    };
     app.oninput = (e) => {
       const x = e.target.closest('[data-s]');
       if (!x) return;
