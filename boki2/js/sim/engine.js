@@ -956,7 +956,7 @@
       }
       return quickQuiz([due], '日をあけて確かめる', () => recallScreen(done));
     }
-    const prev = S.L.filter((x) => x.mi === S.mi - 1 && x.kind && !x.auto).map((x) => ({ x, ev: (allEvents.find(({ e }) => e.id === x.ev) || {}).e })).filter((o) => o.ev && o.ev.doc && o.ev.opts);
+    const prev = S.L.filter((x) => x.mi === S.mi - 1 && x.kind && !x.auto).map((x) => ({ x, ev: (allEvents.find(({ e }) => e.id === x.ev) || {}).e })).filter((o) => o.ev && o.ev.doc && o.ev.opts && !(o.ev.noRecallIf && o.ev.noRecallIf(S))); // 社長の言うとおりにした誤った書き方（例：点検の分まで今年の売上）は、思い出す練習の手本にしない（オーナーの決定1）
     const pick = prev.filter((o) => { const t = S.T.find((y) => y.id === o.x.id); return t && [...t.dr, ...t.cr].every(([a]) => knows(a)); }).pop();
     if (!pick) return done();
     const t = S.T.find((y) => y.id === pick.x.id), k = S.mi % 2 ? 3 : 2;

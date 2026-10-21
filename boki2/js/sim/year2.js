@@ -348,7 +348,7 @@
         { id: 'split', label: '点検の分は、これからやる約束に置く', desc: '今年の売上は少し小さい', result: 'マシンは売上、点検は契約負債。点検した分だけ売上へ。', ending: ['be3-warn', 'be3-final'] },
         { id: 'follow', label: '社長の言うとおり、全部今年の売上', desc: '今年の売上が大きく見える', result: '36万円をすべて今年の売上にする。' },
       ] },
-    { t: 'doc', kind: 'sell_machine', id: 'mac-sell', manual: true, doc: { type: '請求書（控え）', title: '請求書（マシンと点検）', from: SHOP, to: 'B社', date: '8月10日', rows: [['マシン本体', MAC_SELL, 'amt'], ['点検（2年間）', HOSHU, 'amt'], ['税抜の合計', MAC_SELL + HOSHU, 'amt'], ['消費税（10％）', tax10(MAC_SELL + HOSHU), 'amt'], ['合計', macWith, 'amt'], ['お支払期日', '9月30日']] },
+    { t: 'doc', kind: 'sell_machine', id: 'mac-sell', manual: true, noRecallIf: (S) => D_(S).revenue === 'follow', doc: { type: '請求書（控え）', title: '請求書（マシンと点検）', from: SHOP, to: 'B社', date: '8月10日', rows: [['マシン本体', MAC_SELL, 'amt'], ['点検（2年間）', HOSHU, 'amt'], ['税抜の合計', MAC_SELL + HOSHU, 'amt'], ['消費税（10％）', tax10(MAC_SELL + HOSHU), 'amt'], ['合計', macWith, 'amt'], ['お支払期日', '9月30日']] },
       ans: (S) => (D_(S).revenue === 'follow' ? je([['売掛金', macWith]], [['売上', MAC_SELL + HOSHU], ['仮受消費税', tax10(MAC_SELL + HOSHU)]]) : je([['売掛金', macWith]], [['売上', MAC_SELL], ['契約負債', HOSHU], ['仮受消費税', tax10(MAC_SELL + HOSHU)]])), opts: opts('契約負債', '仮受消費税', '前受金') },
     { t: 'discover', id: 'd-rebate', moves: ['収益-', '負債+'], p: 'P3', title: '「たくさん買ったら2％戻す」は、どこに書く？',
       b1: { talk: [['eigyo', '学校のD社と、1年間の約束をしたよ。今年100万円以上買ってくれたら、買った額の2％を年度末に戻す。'], ['shacho', '戻すのは年度末なんだから、今は気にしなくていいよね。']] },
