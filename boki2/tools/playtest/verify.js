@@ -31,7 +31,7 @@ const ok = (who, m) => out.push(`✓ ${who}：${m}`);
 
 // 会話記録（jsonl）から、Bash の呼び出しの時間帯と、書いたファイル・実行したコマンドを取り出す
 function transcript(file) {
-  const calls = [], writes = [], cmds = [], wtimes = {}, handbacks = [];
+  const calls = [], writes = [], cmds = [], wtimes = {}, handbacks = [], reads = [];
   if (!file || !fs.existsSync(file)) return null;
   const pend = {};
   for (const l of fs.readFileSync(file, 'utf8').split('\n')) {
@@ -45,13 +45,14 @@ function transcript(file) {
         if (['Write', 'Edit', 'NotebookEdit'].includes(x.name)) writes.push({ id: x.id, tool: x.name, file: (x.input || {}).file_path || '', content: String((x.input || {}).content || (x.input || {}).new_string || '') });
         if (x.name === 'SubagentHandback') handbacks.push({ t: Date.parse(d.timestamp), message: String((x.input || {}).message || '') });
         if (x.name === 'Bash') cmds.push(String((x.input || {}).command || ''));
+        if (['Read', 'Glob', 'Grep'].includes(x.name)) reads.push(JSON.stringify(x.input || {}));
       }
       // 「下請けは報告のファイルを書かない」の決まりで断られた Write（中身は本人が書いたもの。collect.js で1字も変えずに保存する）
       if (x.type === 'tool_result' && /Subagents should return findings as text/.test(JSON.stringify(x.content || ''))) { const w = writes.find((y) => y.id === x.tool_use_id); if (w) w.refused = true; }
       if (x.type === 'tool_result' && pend[x.tool_use_id]) { const q = pend[x.tool_use_id]; q.t1 = Date.parse(d.timestamp); if (q.name === 'Bash') calls.push(q); }
     }
   }
-  return { calls, writes, cmds, wtimes, handbacks };
+  return { calls, writes, cmds, wtimes, handbacks, reads };
 }
 // 会話記録は、archive.js の写し（行を足すだけ。要約で消えた前半も残る）があればそちらを読む
 const tfile = (name, orig) => { const a = cfg.archive && path.join(cfg.archive, name + '.jsonl'); return a && fs.existsSync(a) ? a : orig; };
@@ -161,6 +162,9 @@ for (const R of cfg.reviewers) {
   const touch = T.cmds.filter((c) => /log\.jsonl/.test(c) && !/^\s*(cat|head|tail|wc|grep|jq|node [^|]*verify\.js|less|ls)\b/.test(c.replace(/^cd [^&;]+(&&|;)\s*/, '')));
   const touchW = T.writes.filter((w) => /log\.jsonl/.test(w.file));
   touch.length || touchW.length ? ng(who, `log.jsonl に読む以外で触れたコマンドが ${touch.length + touchW.length} 個（中身を確かめること）`) : ok(who, 'log.jsonl を書き換えていない');
+  // テストの答えと、テストを作った道具を見ていない（2回目から。コマンドと、Read・Glob・Grep の引数に名前が出てこない）
+  const peek = [...T.cmds, ...T.writes.map((w) => w.file), ...(T.reads || [])].filter((c) => /tests-key|tools-maketest/.test(c));
+  peek.length ? ng(who, `テストの答え・テストを作った道具に触れた跡が ${peek.length} 個`) : ok(who, 'テストの答えを見ていない');
 }
 // 7b. 人物像の重なり（オーナー：1人の頭で何役も演じる形を防ぐ）。persona.md の先頭の属性と、文の重なり
 const fm = (t) => { const m = t.match(/^---\n([\s\S]*?)\n---/); const o = {}; if (!m) return null; for (const l of m[1].split('\n')) { const k = l.match(/^(\w+):\s*(.*)$/); if (k) o[k[1]] = k[2].replace(/^\[|\]$/g, '').split(/[,、]\s*/).map((x) => x.trim()).filter(Boolean); } return o; };
