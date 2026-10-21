@@ -10,7 +10,7 @@ if (!file || !id || !reason || reason.length < 20) { console.error('理由を20�
 const P = JSON.parse(fs.readFileSync(file, 'utf8'));
 if (!P.panel[id]) { console.error(`panel.json に ${id} がない`); process.exit(1); }
 // 役ごとの、現実にありそうな候補（子どもは学校の時間を除き、端末は家の物・親の物）
-const KIDS = id.startsWith('child'), HS = id === 'hs';
+const KIDS = id.startsWith('child'), HS = id === 'hs' || id === 'teen15';
 const OPT = {
   slot: KIDS ? ['放課後', '夕ごはんのあと', '休日にまとめて'] : HS ? ['放課後', '夜（寝る前）', '休日にまとめて', '通学の電車'] : ['平日の朝', '通勤・通学の電車', '昼休み', '平日の夜', '休日にまとめて', '深夜'],
   device: KIDS ? ['家のiPad', '家のAndroidタブレット', '親のスマホ（iPhone）', '親のスマホ（Android）', '家のパソコン（Windows）'] : ['Androidスマホ', 'iPhone', 'iPad', 'Androidタブレット', 'WindowsノートPC', 'Mac', 'Chromebook'],
