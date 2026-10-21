@@ -1902,26 +1902,29 @@
     const byKey = Object.fromEntries(B.chapters.flatMap((c) => c.qs.map((q, k) => [`${c.id}:${k}`, q])));
     const readable = (q) => q && q.type === 'journal' && !(modeOf() !== '2026' && B.outdated27(q)) && !(modeOf() === '2026' && B.new27(q)) && !B.outOfScope2(q) && !/上記|前問/.test(q.q) && !LX.unknown(q.q, taught).length && [...q.ans.dr, ...q.ans.cr].every(([a]) => taught.has(a));
     const keys = [...items.flatMap((it) => it.q || []), ...items.flatMap((it) => (B.chapters.find((c) => c.id === it.ch) || { qs: [] }).qs.map((_, k) => `${it.ch}:${k}`))];
-    const out = [];
-    const perCh = {};
-    for (const k of keys) { const ch = k.split(':')[0]; if (out.length >= 5) break; if (!out.includes(k) && (perCh[ch] || 0) < 2 && readable(byKey[k])) { out.push(k); perCh[ch] = (perCh[ch] || 0) + 1; } }
-    return out.map((k) => byKey[k]);
+    // 腕だめしは2つの組に分ける（オーナーの決定 2026-10-21）：前に出た問題で思い出す（2問まで。間違えたものを先に）と、初めて見る問題で力を測る（残り）
+    const seen = new Set(S.examLog.map((l) => l.key)), missed = new Set(S.examLog.filter((l) => !l.ok).map((l) => l.key));
+    const uniq = [...new Set(keys)].filter((k) => readable(byKey[k]));
+    const old = uniq.filter((k) => seen.has(k)).sort((a, b) => (missed.has(b) ? 1 : 0) - (missed.has(a) ? 1 : 0)).slice(0, 2);
+    const out = [], perCh = {};
+    for (const k of uniq.filter((x) => !seen.has(x))) { const ch = k.split(':')[0]; if (out.length >= 5 - old.length) break; if ((perCh[ch] || 0) < 2) { out.push(k); perCh[ch] = (perCh[ch] || 0) + 1; } }
+    return [...old.map((k) => Object.assign({}, byKey[k], { _role: 'recall' })), ...out.map((k) => Object.assign({}, byKey[k], { _role: 'new' }))];
   }
   function quizScreen() {
     // 何問目まで解いたかは S.drafts に残す（途中で閉じても、同じ問題の続きから。同じ問題を二度記録しない）
     S.drafts = S.drafts || {};
     const qk = `quiz@${S.mi}`, qd = S.drafts[qk];
-    const qs = qd ? qd.keys.map(qByKey).filter(Boolean) : pickQuiz();
+    const qs = qd ? qd.keys.map((k, j) => (qByKey(k) ? Object.assign({}, qByKey(k), { _role: (qd.roles || [])[j] || 'new' }) : null)).filter(Boolean) : pickQuiz();
     let i = qd ? qd.i : 0, score = qd ? qd.score : 0;
     const results = qd ? qd.results : [];
-    const keepQ = () => { S.drafts[qk] = { keys: qs.map((q) => q._key), i, score, results }; save(); };
+    const keepQ = () => { S.drafts[qk] = { keys: qs.map((q) => q._key), roles: qs.map((q) => q._role), i, score, results }; save(); };
     const draw = () => {
       if (i >= qs.length) {
         delete S.drafts[qk];
         S.metrics.quiz = { score, of: qs.length, results };
         grew('腕だめし');
         save();
-        frame(`<div class="s-card"><small>腕だめし</small><h3>${qs.length ? `${score} / ${qs.length} 問 正解` : '今回は問題なし'}</h3><p>本試験と同じ文章で出された問題。会社で体験したことが、試験の形でも使えたかを確かめた。結果はマップの「試験範囲で見る」に残る。</p><button class="btn wide" data-n>1年をふりかえる</button></div>`);
+        frame(`<div class="s-card"><small>腕だめし</small><h3>${qs.length ? `${score} / ${qs.length} 問 正解` : '今回は問題なし'}</h3>${qs.length ? `<p>初めて見る問題（力を測る）：${results.filter((r) => r.role !== 'recall' && r.ok).length} / ${qs.filter((q) => q._role !== 'recall').length}　前に出た問題（思い出す）：${results.filter((r) => r.role === 'recall' && r.ok).length} / ${qs.filter((q) => q._role === 'recall').length}</p>` : ''}<p>本試験と同じ文章で出された問題。会社で体験したことが、試験の形でも使えたかを確かめた。結果はマップの「試験範囲で見る」に残る。</p><button class="btn wide" data-n>1年をふりかえる</button></div>`);
         app.onclick = (e) => { if (e.target.closest('[data-n]')) next(); };
         return;
       }
@@ -1929,7 +1932,7 @@
       const accs = [...new Set([...(B.chapters.find((c) => c.qs.includes(q)).accounts || []), ...q.ans.dr.map((x) => x[0]), ...q.ans.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
       const optHTML = `<option value="">札をえらぶ</option>${accs.map((a) => `<option>${esc(a)}</option>`).join('')}`;
       const side = (s) => [0, 1, 2].map((k) => `<div class="s-row"><select data-s="${s}" data-i="${k}" aria-label="${s === 'dr' ? '借方' : '貸方'}の札">${optHTML}</select><input data-s="${s}" data-i="${k}" inputmode="numeric" placeholder="金額" aria-label="${s === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
-      frame(`<div class="s-card"><small>腕だめし ${i + 1} / ${qs.length}</small><p class="s-q">${q.q}</p><div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-check>答える</button></div>`);
+      frame(`<div class="s-card"><small>腕だめし ${i + 1} / ${qs.length}　${q._role === 'recall' ? '前に出た問題（思い出す）' : '初めて見る問題（力を測る）'}</small><p class="s-q">${q.q}</p><div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-check>答える</button></div>`);
       app.onclick = (e) => {
         if (e.target.closest('[data-check]')) {
           const entry = { dr: [], cr: [] };
@@ -1939,7 +1942,7 @@
           if (blank) { $('[data-res]', app).innerHTML = '<p class="s-react ng">金額が空の行がある。金額を入れてから答えよう</p>'; return; }
           const ok = [q.ans, ...(q.alt || [])].some((a) => entry.dr.length && entry.cr.length && sameEntry(entry, a));
           if (ok) score++;
-          results.push({ key: q._key, ok });
+          results.push({ key: q._key, ok, role: q._role });
           S.examLog.push({ key: q._key, ok, t: Date.now() });
           i++; keepQ(); i--;
           $('[data-res]', app).innerHTML = `${ok ? '<p class="s-react">正解</p>' : missHTML(entry, q.ans, '正しくは')}${q.exp ? `<div class="muted rich" style="font-size:13px">${B.hall.rich(q.exp)}</div>` : ''}`;
