@@ -256,6 +256,8 @@
   let DEV = /[?&]dev\b/.test(location.search);
   // 受験する年度（出題区分表）。選んでいなければ今日の日付で決める：2027年3月31日までは2026年度の区分表、4月1日からは2027年度
   const modeOf = () => S.mode || (Date.now() < Date.parse('2027-04-01T00:00:00+09:00') ? '2026' : '2027');
+  // 試験範囲の項目の名前（2026年度の試験では旧基準の名前があるものは name26）
+  const sname = (it) => (modeOf() === '2026' && it.name26) || it.name;
   const MODE_TXT = { 2026: '2026年度（2027年3月までの試験）', 2027: '2027年度（2027年4月からの試験）' };
   // ---- 3級既習の近道（docs/DESIGN-PRO3-ISSUE.md 設計1） ----
   function pro3Ask(done) {
@@ -378,13 +380,13 @@
     const next = upcoming();
     const cell = (it) => {
       const st = scopeState(it);
-      if (DEV) return `<button class="s-cell dev ${st.built ? 'built' : ''}" data-scope="${it.id}"><b>${esc(it.name)}</b><small>${it.id}・${it.ch}・${it.p}${st.built ? '' : '・未実装'}${(it.q || []).length ? '・問' + it.q.length : ''}</small></button>`;
+      if (DEV) return `<button class="s-cell dev ${st.built ? 'built' : ''}" data-scope="${it.id}"><b>${esc(sname(it))}</b><small>${it.id}・${it.ch}・${it.p}${st.built ? '' : '・未実装'}${(it.q || []).length ? '・問' + it.q.length : ''}</small></button>`;
       if (st.met == null && !st.exam) {
         if (next.includes(it.id)) return `<button class="s-cell next" data-scope="${it.id}"><small>これから起きること</small><span>${esc(it.teaser)}</span></button>`;
         return '<span class="s-cell fog" aria-hidden="true"></span>';
       }
       const word = st.met == null ? 'まだ会社では起きていない' : st.shaky ? '月末に直した。もう一度で定着' : st.own ? '自分でできた' : st.lite ? '3級の型（見ただけ）' : `${monthLabel(st.met)}に起きた`;
-      return `<button class="s-cell ${st.shaky ? 'shaky' : st.own ? 'own' : 'met'} ${st.exam || ''}" data-scope="${it.id}" style="--h:${PHUE[it.p] || 190}"><b>${esc(it.name)}</b><small>${esc(word)}</small>${st.exam ? `<em>${esc(EXAM_WORD[st.exam])}</em>` : ''}${it.y27 ? `<i>${esc(Y27[it.y27])}</i>` : ''}</button>`;
+      return `<button class="s-cell ${st.shaky ? 'shaky' : st.own ? 'own' : 'met'} ${st.exam || ''}" data-scope="${it.id}" style="--h:${PHUE[it.p] || 190}"><b>${esc(sname(it))}</b><small>${esc(word)}</small>${st.exam ? `<em>${esc(EXAM_WORD[st.exam])}</em>` : ''}${it.y27 ? `<i>${esc(Y27[it.y27])}</i>` : ''}</button>`;
     };
     const legend = DEV ? '<p class="s-mapnote">開発者表示：全項目の名前・章・原理と、まだゲームにない項目（点線）。数は <code>node boki2/tools/coverage.js</code> で。</p>'
       : '<p class="muted s-mapnote">日商簿記2級の試験に出るところを、まとまりごとに並べた地図。会社で起きたことから順に明るくなる。まだ先のことは輪郭だけ。</p>';
@@ -474,7 +476,7 @@
     if (roomTab === 'items') {
       body = B.scopeAreas.map((a) => `<section class="s-room-area"><h4>${esc(a.label)}</h4>${B.scope.filter((it) => a.secs.includes(it.sec) && (it.y27 !== 'out' || modeOf() === '2026')).map((it) => {
         const r = B.growth.item(GAPI, it), n = roomQs(it).length, met = r.lv > 0;
-        return `<div class="s-room-it"><div><b>${esc(it.name)}</b><small>${esc(B.growth.LV[r.lv])}${met ? '' : '・会社ではまだ'}</small></div><div class="s-room-btns"><button class="btn ghost sm" data-ref="${it.id}">参考書</button>${n ? `<button class="btn sm" data-drill="${it.id}">問題 ${Math.min(5, n)}</button>` : ''}</div></div>`;
+        return `<div class="s-room-it"><div><b>${esc(sname(it))}</b><small>${esc(B.growth.LV[r.lv])}${met ? '' : '・会社ではまだ'}</small></div><div class="s-room-btns"><button class="btn ghost sm" data-ref="${it.id}">参考書</button>${n ? `<button class="btn sm" data-drill="${it.id}">問題 ${Math.min(5, n)}</button>` : ''}</div></div>`;
       }).join('')}</section>`).join('');
     } else if (roomTab === 'speed') {
       body = `<p class="muted" style="font-size:13px">本試験の第1問は、候補の札から選ぶ。札の置き場所が速く分かれば、ありえない札をすぐ外せる。順位や点はない。前の自分の秒数とくらべるだけ。</p>${speedMenu()}`;
@@ -489,7 +491,7 @@
       if (g('[data-rt]')) { practiceScreen(g('[data-rt]').dataset.rt); return; }
       if (g('[data-rhall]')) { hallScreen(); return; }
       if (g('[data-speed]')) { speedScreen(g('[data-speed]').dataset.speed, () => practiceScreen('speed')); return; }
-      if (g('[data-ref]')) { const it = B.scope.find((x) => x.id === g('[data-ref]').dataset.ref), c = HCH.find((x) => x.id === it.ch); overlay(`<h3>参考書：${esc(it.name)}</h3><p class="muted" style="font-size:12px">試験のための説明。会社で出会う前に読んでも、出会ったあとに読み直してもいい。</p>${c && c.lessons ? c.lessons.map((l) => `<h4>${esc(l.t)}</h4><div class="rich">${B.hall.rich(l.h)}</div>`).join('') : '<p>まだ説明がない。</p>'}${c && c.real ? `<h4>実務では：${esc(c.real.t)}</h4><p class="muted" style="font-size:12px">${esc(c.real.where)}</p><div class="rich">${B.hall.rich(c.real.h)}</div>` : ''}`); return; }
+      if (g('[data-ref]')) { const it = B.scope.find((x) => x.id === g('[data-ref]').dataset.ref), c = HCH.find((x) => x.id === it.ch); overlay(`<h3>参考書：${esc(sname(it))}</h3><p class="muted" style="font-size:12px">試験のための説明。会社で出会う前に読んでも、出会ったあとに読み直してもいい。</p>${c && (c.lessons26 && modeOf() === '2026' ? c.lessons26 : c.lessons) ? (c.lessons26 && modeOf() === '2026' ? c.lessons26 : c.lessons).map((l) => `<h4>${esc(l.t)}</h4><div class="rich">${B.hall.rich(l.h)}</div>`).join('') : '<p>まだ説明がない。</p>'}${c && c.real ? `<h4>実務では：${esc(c.real.t)}</h4><p class="muted" style="font-size:12px">${esc(c.real.where)}</p><div class="rich">${B.hall.rich(c.real.h)}</div>` : ''}`); return; }
       if (g('[data-drill]')) { const it = B.scope.find((x) => x.id === g('[data-drill]').dataset.drill); const qs = roomQs(it); const pref = qs.filter((q) => { const l = lastOf(q._key); return !l || !l.ok; }); const pickQ = (pref.length >= 3 ? pref : qs).slice().sort(() => Math.random() - 0.5).slice(0, 5); roomDrill(pickQ, it.name, () => practiceScreen()); return; }
       if (g('[data-redo]')) { const k = g('[data-redo]').dataset.redo; if (k.startsWith('exam:')) { const x = (B.exams || []).find((y) => y._key === k); hallScreen({ play: { part: x.part, mode: 'self', key: k } }); } else roomDrill([qByKey(k)], 'まちがいノート', () => practiceScreen('miss')); }
     };
@@ -1171,7 +1173,7 @@
     const draw = () => {
       const { d, c } = totals();
       const side = (s) => rows[s].map((r, i) => `<div class="s-row"><select data-s="${s}" data-i="${i}" aria-label="${s === 'dr' ? '借方' : '貸方'}の札">${optHTML(r.a)}</select><input data-s="${s}" data-i="${i}" inputmode="numeric" placeholder="金額" value="${esc(r.v)}" aria-label="${s === 'dr' ? '借方' : '貸方'}の金額" class="${active && active.s === s && active.i === i ? 'act' : ''}"></div>`).join('') + (rows[s].length < 3 ? `<button class="s-add" data-add="${s}">＋行をふやす</button>` : '');
-      $('.s-entry', app).innerHTML = `<div class="s-cols"><div class="s-side dr"><h4>借方（左） <span>${fmt(d)}</span></h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右） <span>${fmt(c)}</span></h4>${side('cr')}</div></div><div class="s-bal ${d === c && d > 0 ? 'even' : ''}">${balText(d, c)}</div>`;
+      $('.s-entry', app).innerHTML = `<div class="s-cols"><div class="s-side dr"><h4>借方（左） <span class="s-tot">${fmt(d)}</span></h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右） <span class="s-tot">${fmt(c)}</span></h4>${side('cr')}</div></div><div class="s-bal ${d === c && d > 0 ? 'even' : ''}">${balText(d, c)}</div>`;
       $('.s-panel', app).innerHTML = panel;
       $('.s-actions', app).hidden = !!panel;
     };
@@ -1196,7 +1198,7 @@
       const { d, c } = totals();
       $('.s-bal', app).className = 's-bal' + (d === c && d > 0 ? ' even' : '');
       $('.s-bal', app).textContent = balText(d, c);
-      $$('.s-side h4 span', app)[0].textContent = fmt(d); $$('.s-side h4 span', app)[1].textContent = fmt(c);
+      $$('.s-side h4 .s-tot', app)[0].textContent = fmt(d); $$('.s-side h4 .s-tot', app)[1].textContent = fmt(c);
     };
     onFocus = (x) => { active = { s: x.dataset.s, i: +x.dataset.i }; $$('input[data-s]', app).forEach((y) => y.classList.toggle('act', y === x)); };
     const hint = () => {
@@ -1223,7 +1225,9 @@
         const entry = { dr: rows.dr.filter((r) => r.a && Number(r.v)).map((r) => [r.a, Number(r.v)]), cr: rows.cr.filter((r) => r.a && Number(r.v)).map((r) => [r.a, Number(r.v)]) };
         const d = entry.dr.reduce((t, x) => t + x[1], 0), c = entry.cr.reduce((t, x) => t + x[1], 0);
         if (!entry.dr.length || !entry.cr.length || d !== c) { const bl = $('.s-bal', app); bl.textContent = !entry.dr.length || !entry.cr.length ? '左と右の両方に、札と金額を入れよう' : '左と右を同じ数にしてから書こう'; bl.classList.add('shake'); setTimeout(() => bl.classList.remove('shake'), 400); return; }
-        const ok = sameEntry(entry, truth);
+        // 別の書き方でも正しいもの（ev.alts：[{ entry, note }]）。通ったら帳簿には正解の形で書き、試験での書き方を一言そえる
+        const altHit = sameEntry(entry, truth) ? null : (val(ev.alts, S) || []).find((x) => sameEntry(entry, x.entry));
+        const ok = sameEntry(entry, truth) || !!altHit;
         tries++;
         if (!fixMode && tries === 1) { S.docLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi, ok, hint: hintLv > 0 }); S.metrics.docs.n++; if (ok) { S.metrics.docs.first++; if (ev.kind) (S.kinds[ev.kind] = S.kinds[ev.kind] || []).push(S.mi); } }
         if (coach && !ok) {
@@ -1251,16 +1255,16 @@
           panel = `<div class="s-check">${first}${more}<button class="btn wide ghost" data-redo>書き直す</button></div>`;
           save(); draw(); return;
         }
-        post(ev, entry, false);
+        post(ev, altHit ? { dr: truth.dr.map((x) => x.slice()), cr: truth.cr.map((x) => x.slice()) } : entry, false);
         delete S.drafts[dkey];
         save();
         if (fixMode) return typeof fixMode === 'function' ? fixMode() : closeScreen();
         if (coach) {
-          panel = `<div class="s-check good"><p><b>帳簿に書けた</b></p><ul>${[...entry.dr.map(([a, v]) => moveText(a, 'dr', v)), ...entry.cr.map(([a, v]) => moveText(a, 'cr', v))].map((t) => `<li>${esc(t)}</li>`).join('')}</ul>${miniBS(bsFrom(balances(S.L)))}<button class="btn wide" data-n>つぎへ</button></div>`;
+          panel = `<div class="s-check good"><p><b>帳簿に書けた</b></p>${altHit ? `<p class="s-altnote">${esc(altHit.note)}</p>` : ''}<ul>${[...entry.dr.map(([a, v]) => moveText(a, 'dr', v)), ...entry.cr.map(([a, v]) => moveText(a, 'cr', v))].map((t) => `<li>${esc(t)}</li>`).join('')}</ul>${miniBS(bsFrom(balances(S.L)))}<button class="btn wide" data-n>つぎへ</button></div>`;
           draw(); return;
         }
         // 慣れた種類は止めずに進む。何が動いたかだけ1行で知らせる
-        toast(entry.dr.concat([]).map(([a, v]) => moveText(a, 'dr', v)).concat(entry.cr.map(([a, v]) => moveText(a, 'cr', v))).join('／'));
+        if (altHit) toast(altHit.note); else toast(entry.dr.concat([]).map(([a, v]) => moveText(a, 'dr', v)).concat(entry.cr.map(([a, v]) => moveText(a, 'cr', v))).join('／'));
         next();
       }
     };
@@ -1755,8 +1759,15 @@
     const plT = `<h3>損益計算書（区分）</h3><table class="s-tb">${rows(rev)}${rows(cogs, 1)}${tot('売上総利益', G)}${rows(sga, 1)}${tot('営業利益', O)}${rows(nrev, 1)}${rows(nonop, 1)}${tot('経常利益', K)}${sp.length || sl.length ? `${rows(sp, 1)}${rows(sl, 1)}` : ''}${tot('税引前当期純利益', P)}${rows(tax, 1)}${tot('当期純利益', NI)}</table>`;
     const asset = (a) => cat(a) === '資産' || CONTRA.has(a) || (isOther(a) && v(a) > 0);
     const ca = list((a) => asset(a) && !FIXED.has(a)), fa = list((a) => asset(a) && FIXED.has(a));
-    const cl = list((a) => cat(a) === '負債' || (isOther(a) && v(a) < 0)), eq = list((a) => cat(a) === '純資産');
-    const bsT = `<h3>貸借対照表（区分）</h3><div class="s-two"><table class="s-tb"><tr><th colspan="2">流動資産</th></tr>${ca.map((a) => row(a, v(a), CONTRA.has(a))).join('')}${tot('流動資産 計', sum(ca, 1))}<tr><th colspan="2">固定資産</th></tr>${fa.map((a) => row(a, v(a), CONTRA.has(a))).join('')}${tot('固定資産 計', sum(fa, 1))}${tot('資産 合計', sum(ca, 1) + sum(fa, 1))}</table><table class="s-tb"><tr><th colspan="2">流動負債</th></tr>${cl.map((a) => row(a, -v(a))).join('')}${tot('流動負債 計', sum(cl, -1))}<tr><th colspan="2">純資産</th></tr>${eq.map((a) => row(a, -v(a))).join('')}${row('当期純利益', NI)}${tot('負債・純資産 合計', sum(cl, -1) + sum(eq, -1) + NI)}</table></div>`;
+    const cl = list((a) => cat(a) === '負債' || (isOther(a) && v(a) < 0));
+    // 純資産は 資本金→資本剰余金→利益剰余金 の順。繰越利益剰余金は当期純利益を足した額で1行（締め切りのあとの姿）
+    const EQ_ORD = ['資本金', '新株式申込証拠金', '資本準備金', 'その他資本剰余金', '利益準備金', '別途積立金', '繰越利益剰余金'];
+    const eqO = (a) => (EQ_ORD.indexOf(a) < 0 ? 50 : EQ_ORD.indexOf(a));
+    const eq = list((a) => cat(a) === '純資産' && a !== '繰越利益剰余金').concat(['繰越利益剰余金']).sort((x, y) => eqO(x) - eqO(y));
+    const eqVal = (a) => (a === '繰越利益剰余金' ? -v(a) + NI : -v(a));
+    // マイナスの札（貸倒引当金・減価償却累計額）は、相手の資産のすぐ下に置く
+    const withContra = (l) => { const base = l.filter((a) => !CONTRA.has(a)), out = []; for (const a of base) { out.push(a); for (const c of l) if (CONTRA.has(c) && CONTRA_OF[c] === a) out.push(c); } for (const c of l) if (!out.includes(c)) out.push(c); return out; };
+    const bsT = `<h3>貸借対照表（区分）</h3><div class="s-two"><table class="s-tb"><tr><th colspan="2">流動資産</th></tr>${withContra(ca).map((a) => row(a, v(a), CONTRA.has(a))).join('')}${tot('流動資産 計', sum(ca, 1))}<tr><th colspan="2">固定資産</th></tr>${withContra(fa).map((a) => row(a, v(a), CONTRA.has(a))).join('')}${tot('固定資産 計', sum(fa, 1))}${tot('資産 合計', sum(ca, 1) + sum(fa, 1))}</table><table class="s-tb"><tr><th colspan="2">流動負債</th></tr>${cl.map((a) => row(a, -v(a))).join('')}${tot('流動負債 計', sum(cl, -1))}<tr><th colspan="2">純資産</th></tr>${eq.map((a) => row(a, eqVal(a))).join('')}${tot('純資産 計', eq.reduce((t, a) => t + eqVal(a), 0))}${tot('負債・純資産 合計', sum(cl, -1) + eq.reduce((t, a) => t + eqVal(a), 0))}</table></div>`;
     return bsT + plT;
   }
   function reportScreen(ev) {

@@ -522,7 +522,7 @@
   // ---------- 工場（E35〜E38）：2年目10月から。工場の帳簿は2年目は商業と同じ帳簿（docs/YEAR2.md 5章） ----------
   // 工場の数字：1本あたり材料90円（1月からは予定価格）、工員の賃金 月100,000（1,500本なら150,000）、
   // 工場長 40,000・電気 20,000・機械の月割 20,000（2本目のラインを買えば2月から＋14,000）、外注の殺菌 1本20円（12月から）。
-  // 毎月、作った瓶はその月のうちに検品まで終わる（10月の分だけ11月にまとめて）。売れた瓶の原価は、その月にできた瓶の1本あたりで数える（ゲームの約束）
+  // 毎月、作った瓶はその月のうちに検品まで終わる（10月の分だけ11月にまとめて）。売れた瓶の原価は、10月に選んだ払出の方法（先入先出法か平均法）で数える
   const lots = (S, m) => (m === 10 || m === 11 || D_(S).lots !== '1500' ? 1000 : 1500);
   const MAT = 90, ACT = { 1: 95, 2: 88, 3: 93 }; // 1月からの材料の実際の値段（1本あたり）
   const planP = (S) => ({ same: 90, low: 80, high: 100 }[D_(S).yprice] || 90);
@@ -541,9 +541,31 @@
   const done = (S, m) => (m === 10 ? 0 : m === 11 ? wipIn(S, 10) + wipIn(S, 11) : wipIn(S, m));
   const doneN = (S, m) => (m === 10 ? 0 : m === 11 ? 2000 : lots(S, m));
   const SOLD_B = 600, SOLD_SHOP = 200, PB = 380, PS = 450;
-  const cogs = (S, m) => Math.round(((SOLD_B + SOLD_SHOP) * done(S, m)) / doneN(S, m));
+  // 出荷した瓶の原価：10月に選んだ払出の方法（先入先出法／月ごとの総平均法）で数える。倉庫の瓶は、検品が終わった月ごとの山で持つ
+  const FAC_M = [11, 12, 1, 2, 3];
+  const payout = (S) => (D_(S).payout === 'avg' ? 'avg' : 'fifo');
+  const fgFlow = (S) => {
+    const out = {}; let lay = []; // lay：[{ n, c }]（本数と金額。古い順）
+    for (const m of FAC_M) {
+      const sell = SOLD_B + SOLD_SHOP, inN = doneN(S, m), inC = done(S, m);
+      const begN = lay.reduce((t, x) => t + x.n, 0), begC = lay.reduce((t, x) => t + x.c, 0);
+      let cost = 0, lines = [];
+      if (payout(S) === 'avg') {
+        const n = begN + inN, c = begC + inC, u = c / n;
+        cost = Math.round(u * sell);
+        lay = [{ n: n - sell, c: c - cost, m }];
+        lines = [['月のはじめに残っていた瓶', `${begN.toLocaleString()}本`, begC], ['今月できた瓶', `${inN.toLocaleString()}本`, inC], ['平均の1本あたり', `${(Math.round(u * 100) / 100).toLocaleString()}円`, null]];
+      } else {
+        lay.push({ n: inN, c: inC, m }); let need = sell;
+        while (need > 0) { const x = lay[0], k = Math.min(need, x.n), c = k === x.n ? x.c : Math.round((x.c * k) / x.n); lines.push([`${x.m === 11 ? '10・11' : x.m}月にできた瓶から`, `${k.toLocaleString()}本`, c]); cost += c; x.n -= k; x.c -= c; need -= k; if (!x.n) lay.shift(); }
+      }
+      out[m] = { cost, lines, endN: lay.reduce((t, x) => t + x.n, 0), endC: lay.reduce((t, x) => t + x.c, 0) };
+    }
+    return out;
+  };
+  const cogs = (S, m) => fgFlow(S)[m].cost;
   const unit = (S, m) => Math.round(done(S, m) / doneN(S, m));
-  SIM.__fac = { lots, matAct, matUse, wageAct, wagePay, OH, gaichu, wipIn, done, doneN, cogs, unit, planP };
+  SIM.__fac = { lots, matAct, matUse, wageAct, wagePay, OH, gaichu, wipIn, done, doneN, cogs, unit, planP, fgFlow, payout };
 
   const facDocs = (m) => {
     const out = [];
@@ -575,7 +597,9 @@
     }
     if (gaichu({ decisions: {} }, m) || m === 12 || yotei(m)) {
       d({ kind: 'outsource', id: `y2gai${m}`, doc: { type: '請求書', title: '請求書（殺菌の外注）', from: 'キレイ殺菌', to: SHOP, date: `${m}月末`, rows: (S) => [['殺菌（1本20円）', `${lots(S, m).toLocaleString()}本`], ['税抜の金額', gaichu(S, m), 'amt'], ['消費税（10％）', tax10(gaichu(S, m)), 'amt'], ['合計', gaichu(S, m) + tax10(gaichu(S, m)), 'amt'], ['お支払期日', '翌月末']] },
-        ans: (S) => je([['外注加工賃', gaichu(S, m)], ['仮払消費税', tax10(gaichu(S, m))]], [['買掛金', gaichu(S, m) + tax10(gaichu(S, m))]]) });
+        ans: (S) => je([['外注加工賃', gaichu(S, m)], ['仮払消費税', tax10(gaichu(S, m))]], [['買掛金', gaichu(S, m) + tax10(gaichu(S, m))]]),
+        // 試験の「直接経費として処理する」の書き方（仕掛品へ直接）も正しい。この会社は請求書で外注加工賃に書き、日報で仕掛品へ運ぶ2段
+        alts: (S) => [{ entry: je([['仕掛品', gaichu(S, m)], ['仮払消費税', tax10(gaichu(S, m))]], [['買掛金', gaichu(S, m) + tax10(gaichu(S, m))]]), note: '仕掛品へ直接でも正しい（試験で「直接経費として処理」と書いてあるときの書き方）。この会社は、請求書ではいったん外注加工賃に書き、殺菌の日報で仕掛品へ運ぶ2段にしているので、帳簿は外注加工賃で書いた。' }] });
       d({ kind: 'out_use', id: `y2gaiu${m}`, doc: { type: '工場日報', title: `${m}月の殺菌の記録`, from: '工場', to: '経理', date: `${m}月末`, rows: (S) => [['殺菌した瓶', `${lots(S, m).toLocaleString()}本`], ['外注の殺菌の金額', gaichu(S, m), 'amt']] }, ans: (S) => je([['仕掛品', gaichu(S, m)]], [['外注加工賃', gaichu(S, m)]]) });
     }
     if (m !== 10) {
@@ -585,7 +609,7 @@
         ans: je([['売掛金', SOLD_B * PB + tax8(SOLD_B * PB)]], [['売上', SOLD_B * PB], ['仮受消費税', tax8(SOLD_B * PB)]]) });
       d({ kind: 'sell_product_shop', id: `y2bots${m}`, doc: { type: 'レジ締め日報', title: `${m}月のレジ締め日報（瓶詰め）`, from: '2号店レジ', to: '経理', date: `${m}月末`, rows: [['瓶詰めレモネード', `${SOLD_SHOP}本（1本${PS}円）`], ['税抜の金額', SOLD_SHOP * PS, 'amt'], ['消費税（8％）', tax8(SOLD_SHOP * PS), 'amt'], ['合計（普通預金へ入金ずみ）', SOLD_SHOP * PS + tax8(SOLD_SHOP * PS), 'amt']] },
         ans: je([['普通預金', SOLD_SHOP * PS + tax8(SOLD_SHOP * PS)]], [['売上', SOLD_SHOP * PS], ['仮受消費税', tax8(SOLD_SHOP * PS)]]) });
-      d({ kind: 'ship', id: `y2ship${m}`, doc: { type: '出荷の記録', title: `${m}月に出荷した瓶`, from: '工場', to: '経理', date: `${m}月末`, rows: (S) => [['出荷した瓶（B社と2号店）', `${SOLD_B + SOLD_SHOP}本`], ['1本あたりの原価', `${unit(S, m).toLocaleString()}円`], ['出荷した瓶の原価', cogs(S, m), 'amt']] }, ans: (S) => je([['売上原価', cogs(S, m)]], [['製品', cogs(S, m)]]) });
+      d({ kind: 'ship', id: `y2ship${m}`, doc: { type: '出荷の記録', title: `${m}月に出荷した瓶`, from: '工場', to: '経理', date: `${m}月末`, rows: (S) => [['出荷した瓶（B社と2号店）', `${SOLD_B + SOLD_SHOP}本`], ['払出の方法', payout(S) === 'avg' ? '平均法（月のはじめの瓶と今月の瓶をまとめて平均）' : '先入先出法（古い瓶から先に出す）'], ...fgFlow(S)[m].lines.map(([t, n, c]) => (c == null ? [t, n] : [`${t}（${n}）`, c, 'amt'])), ['出荷した瓶の原価', cogs(S, m), 'amt']] }, ans: (S) => je([['売上原価', cogs(S, m)]], [['製品', cogs(S, m)]]) });
       // 先月の材料代・外注代の支払い、先月の瓶の代金の回収
       d({ kind: 'pay_ap', id: `y2fpap${m}`, doc: { ...passbook(`${m}月末`, '振込 ハッピー問屋（先月の工場用の材料）', 'お引出し', 0), rows: (S) => { const a = m === 11 ? 100000 : matAct(S, m === 1 ? 12 : m - 1); return [['摘要', '振込 ハッピー問屋（先月の工場用の材料）'], ['お引出し', a + tax8(a), 'amt']]; } }, ans: (S) => { const a = m === 11 ? 100000 : matAct(S, m === 1 ? 12 : m - 1); return je([['買掛金', a + tax8(a)]], [['普通預金', a + tax8(a)]]); } });
     }
@@ -607,7 +631,7 @@
     外注加工賃: { q: '瓶の殺菌を、外の会社に1本20円で頼んだ。このお金は、どの瓶の分か分かる？', opts: [
       { t: '分かる。殺菌した瓶1本ずつの分', ok: true },
       { t: '分からない。工場全体の分', react: '1本20円で、本数が決まっている。どの瓶の分かが、はっきり分かる' },
-    ], line: '外の会社に作業を頼んだお金は「外注加工賃」。どの瓶の分か分かるので、作っている途中の箱へ直接運ぶ。', teaches: ['外注加工賃'] },
+    ], line: '外の会社に作業を頼んだお金は「外注加工賃」。どの瓶の分か分かるので、作っている途中の箱へ直接運ぶ。試験で「直接経費として処理」とあれば、仕訳は仕掛品／買掛金の1行。この会社は、請求書でいったん外注加工賃に書き、殺菌の日報で仕掛品へ運ぶ（2段）。どちらも行き先は同じ箱。', teaches: ['外注加工賃'] },
   });
   Object.assign(SIM.rules, {
     buy_material: { y: 2, label: '工場の材料の掛け仕入れ', entry: [['材料', '仮払消費税'], ['買掛金']], conds: [
@@ -674,6 +698,12 @@
     { t: 'doc', kind: 'service_cost', id: 'textbook', manual: true, doc: { type: '請求書', title: '請求書（教室のテキスト 6回分）', from: 'ピヨ印刷', to: SHOP, date: '10月5日', rows: [['教室のテキスト・材料（6回分）', 60000, 'amt'], ['消費税（10％）', 6000, 'amt'], ['合計', 66000, 'amt'], ['お支払期日', '10月末']] },
       ans: je([['仕掛品', 60000], ['仮払消費税', 6000]], [['未払金', 66000]]), opts: opts('仕掛品', '役務原価', '仮払消費税') },
     { t: 'doc', kind: 'pay_other', id: 'textbook-pay', doc: passbook('10月31日', '振込 ピヨ印刷（教室のテキスト）', 'お引出し', 66000), ans: je([['未払金', 66000]], [['普通預金', 66000]]), opts: opts() },
+    { t: 'decision', id: 'payout', q: '倉庫の瓶を出荷するとき、どの瓶の原価で数える？', talk: [['kojo', '作った月で、1本あたりの原価が少しずつちがいます。来月から出荷が始まりますが、古い瓶と新しい瓶が混ざります。'], ['kansa', '数え方は、一度決めたら毎年同じにするのが決まりです（継続性）。途中で変えると、もうけを都合よく動かせてしまいますから。']],
+      trial: (S, o) => { const T = { ...S, decisions: { ...S.decisions, payout: o } }; const f = fgFlow(T); return [['12月に出荷した瓶の原価（見込み）', f[12].cost], ['3月の終わりに倉庫に残る瓶の金額（見込み）', f[3].endC]]; },
+      options: [
+        { id: 'fifo', label: '先入先出法（古い瓶から先に出す）', desc: '倉庫の並びと同じ', result: '出荷する瓶の原価は、古い瓶から順に数える。' },
+        { id: 'avg', label: '平均法（月のはじめの瓶と今月の瓶をまとめて平均）', desc: '月ごとに平均の1本あたりで', result: '出荷する瓶の原価は、月ごとの平均の1本あたりで数える。' },
+      ] },
     ...facDocs(10), serviceRev(10), ...routine2(10),
   ] };
 
@@ -978,11 +1008,13 @@
         { t: '払った年に、全部まとめて費用にするから', ok: false, fork: '現金主義', react: '払った日で費用を決めると、来年は家賃ゼロで店を使っているように見える' },
       ], hints: ['3月31日までに、何か月使った？'] },
       b3: { ok: '9か月分45万円が今年の費用。残り3か月分15万円は、来年使う権利として資産に残す。来年の4月1日に、費用へ戻す。' },
-      b4: { name: '前払費用（前払家賃）・経過勘定', line: '来年の分を先に払った費用は、資産の「前払費用」（家賃なら前払家賃）にする。年をまたぐお金を、期間で切り分ける札をまとめて「経過勘定」という。兄弟に、前受・未払・未収がある。',
+      b4: { name: '前払費用（前払家賃）・経過勘定', line: '来年の分を先に払った費用は、資産の「前払費用」（支払家賃の前払いなら前払家賃とも書く。試験は問題の勘定科目の指定に合わせる）にする。年をまたぐお金を、期間で切り分ける札をまとめて「経過勘定」という。兄弟に、前受・未払・未収がある。',
         exam: '「家賃は毎年7月1日に向こう1年分を支払っている」', teaches: ['前払費用', '前払家賃', '経過勘定', '前受', '未収'], leaf: { p: 'P3', label: '年をまたぐお金' } },
       hand: '年をまたぐお金の札：前払費用（来年の費用を先に払った・資産）、前受（来年の収益を先にもらった・負債）、未払（今年の費用をまだ払っていない・負債）、未収（今年の収益をまだもらっていない・資産）。来年の4月1日に、元の札に戻す。' },
     { t: 'doc', kind: 'prepaid', id: 'pre-rent', doc: { type: '家賃の計算表', title: '家賃の切り分け（3月31日）', from: '経理', to: '経理', date: '3月31日', rows: [['7月に払った家賃（12か月分・税抜）', RENT, 'amt'], ['来年4〜6月の3か月分', PRE_RENT, 'amt']] },
-      ans: (S) => je([[PRE_A(S), PRE_RENT]], [[RENT_A(S), PRE_RENT]]), opts: opts('前払家賃', '前払費用', '支払家賃', '支払リース料', '未払金') },
+      ans: (S) => je([[PRE_A(S), PRE_RENT]], [[RENT_A(S), PRE_RENT]]), opts: opts('前払家賃', '前払費用', '支払家賃', '支払リース料', '未払金'),
+      // 前払費用と前払家賃は、どちらも正しい札。帳簿はその年度の試験の名前で書く
+      alts: (S) => [{ entry: je([[y27(S) ? '前払家賃' : '前払費用', PRE_RENT]], [[RENT_A(S), PRE_RENT]]), note: y27(S) ? '前払家賃でも正しい。2027年度の試験では家賃を支払リース料で書くので、前払いの分は「前払費用」と書くのが安全。帳簿は前払費用で書いた。' : '前払費用でも正しい。家賃と分かる札として、帳簿は「前払家賃」で書いた。試験では問題の勘定科目の指定に合わせる。' }] },
     { t: 'doc', kind: 'wage_accrue', id: 'wage-accrue', doc: { type: '賃金の計算表', title: '賃金の未払分（3月31日）', from: '工場', to: '経理', date: '3月31日', rows: (S) => [['3月26日〜31日に働いて、まだ払っていない分', -balEx(S, '賃金', 'wage-accrue'), 'amt'], ['払う日', '4月25日']] },
       ans: (S) => je([['賃金', -balEx(S, '賃金', 'wage-accrue')]], [['未払賃金', -balEx(S, '賃金', 'wage-accrue')]]), opts: opts('賃金', '未払賃金', '未払金', '給料') },
     { t: 'doc', kind: 'dep', id: 'dep-y2', doc: { type: '固定資産台帳', title: '固定資産台帳（トラック・2年目）', from: '経理', to: '経理', date: '3月31日', rows: (S) => [['トラック 取得原価', 240000, 'amt'], ['やり方', D_(S).dep === 'rate' ? '定率法（償却率0.4）' : '定額法（5年）'], ['今年の減価償却費（12か月）', depY2(S), 'amt']] },

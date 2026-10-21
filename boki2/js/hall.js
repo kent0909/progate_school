@@ -300,7 +300,7 @@
     const timed = o.mode === 'timed' && !o.op, coach = o.mode === 'model' || o.mode === 'trace' ? o.mode : null;
     const limit = full ? 90 : PART_MIN[only];
     const y27 = ctx().y27();
-    const allQ = ctx().chapters.filter((c) => c.id !== 'c00' && c.id !== 'c47' && !(y27 && OUT27_CH.has(c.id))).flatMap((c) => c.qs.filter((q) => q.type === 'journal' && !skipQ(q, y27)));
+    const allQ = ctx().chapters.filter((c) => c.id !== 'c00' && c.id !== 'c47' && !(y27 && OUT27_CH.has(c.id))).flatMap((c) => c.qs.filter((q) => q.type === 'journal' && !skipQ(q, y27) && !/上記|前問/.test(q.q || '')));
     const strong = (list) => { const s = list.filter((q) => (q.lv || 1) >= 2); return s.length >= 15 ? s : list; };
     const recent = new Set(ST.examSeen);
     const want = (p) => full || only === p;

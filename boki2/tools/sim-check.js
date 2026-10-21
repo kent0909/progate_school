@@ -227,5 +227,14 @@ for (const id of Object.keys(D.endings)) if (!ends[id] && !D.endings[id].ifOnly)
   for (const g of P.gate) { const d = g.ans.dr.reduce((t, [, v]) => t + v, 0), c = g.ans.cr.reduce((t, [, v]) => t + v, 0); if (d !== c) err(`近道：切符「${g.q}」の貸借が合わない`); for (const [a] of [...g.ans.dr, ...g.ans.cr]) if (!B.accounts[a]) err(`近道：切符の科目 ${a} がない`); }
 } }
 
+// 製品の払出（先入先出法・平均法）：どの方法・本数でも、出荷の原価の合計＋3月末の残り＝できた瓶の原価の合計。先入先出の1本目は古い山から
+{ const F = D.__fac; if (F && F.fgFlow) for (const payout of ['fifo', 'avg']) for (const lots of ['1000', '1500']) for (const yprice of ['same', 'low', 'high']) for (const line2 of ['buy', 'wait']) {
+  const S = { decisions: { payout, lots, yprice, line2 } }, f = F.fgFlow(S), ms = [11, 12, 1, 2, 3];
+  const made = ms.reduce((t, m) => t + F.done(S, m), 0), out = ms.reduce((t, m) => t + f[m].cost, 0);
+  if (out + f[3].endC !== made) err(`製品の払出（${payout}・${lots}本）：出荷の原価 ${out} ＋ 残り ${f[3].endC} ができた瓶 ${made} と合わない`);
+  if (ms.reduce((t, m) => t + F.doneN(S, m), 0) - 800 * ms.length !== f[3].endN) err(`製品の払出（${payout}）：残りの本数が合わない`);
+  if (payout === 'fifo' && f[12].cost !== Math.round((F.done(S, 11) * 800) / F.doneN(S, 11))) err(`製品の払出（先入先出）：12月の出荷が11月の瓶から出ていない（${f[12].cost}）`);
+} }
+
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log(`OK：${leaves} 本の分かれ道で検算した（結末：${Object.entries(ends).map(([k, v]) => `${k} ${v}`).join('・')}）`);
