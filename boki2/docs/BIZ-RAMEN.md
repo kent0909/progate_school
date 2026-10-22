@@ -642,7 +642,7 @@ DESIGN-RAMEN は商品を「品質Q（1〜5）」1つにしている（d.1 の Q
 - **6章の系統の表は【推論】のマスが多い**（塩・家系・二郎系のスープ・煮干・鶏・つけ麺・汁なし）。複数の実務者の資料で幅を置いたのは醤油・豚骨・味噌・二郎系の一部だけ。
 - **利用者の声の分類は私1人**の判断で、別の人の分類と突き合わせていない。
 - **論証の表（20章）は書いた本人の自己点検**で、論証検査役の検査はまだ。
-- 検査の結果：`node boki2/tools/report-check.js boki2/docs/BIZ-RAMEN.md` と `node boki2/tools/research-check.js` の結果は、提出の直前に走らせて報告に書く（このファイルには書かない）。
+- 検査の結果（2026-10-22、提出の直前）：`node boki2/tools/report-check.js boki2/docs/BIZ-RAMEN.md` は ✓（警告なし）。`node boki2/tools/research-check.js` は全体でエラー2件だが、どちらも他の担当の資料（web:simgames の読了ノートのない28件、web:bizmgmt の1本の anchors）で、web:ramen と この報告の出典の語句のエラーは0。出典は263件・76文書（手元の照合スクリプトで数えた）。
 
 ---
 
