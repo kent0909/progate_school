@@ -105,3 +105,12 @@ variant('「段」の声から D3 のうち発展国++ の大賞（47件、カ�
   const g3w = {}; for (const w of grid) top3(rank(rowsW, w)).forEach((k) => (g3w[k] = (g3w[k] || 0) + 1));
   console.log('   W を外したうえで重みの格子：上位3つに入る割合：', Object.entries(g3w).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${gp(v)}`).join('・'));
 }
+
+// ---- (5) 版0.3 の W の振り分け（funvisual-w-split.txt）への依存 ----
+// 版0.3 の items には W の鍵がないので (3)(4) の「W を外す」は変化なしになる。代わりに Wp・Wo・Ws の振り分けを動かす。
+if (base.some((r) => r.voices.Wp !== undefined || r.voices.Wo !== undefined)) {
+  variant('版0.3：一杯から Wp（作る物の多さ25件）を外す', (rows) => { const r = get(rows, '一杯'); r.voices = { ...r.voices }; delete r.voices.Wp; });
+  variant('版0.3：Ws（80件）を全部「一杯」に足す', (rows) => { const r = get(rows, '一杯'); r.voices = { ...r.voices, Ws: 80 }; });
+  variant('版0.3：Ws（80件）を全部「外の事業」に足す（版0.2 に近い数え方）', (rows) => { const r = get(rows, '外の事業'); r.voices = { ...r.voices, Ws: 80 }; });
+  variant('版0.3：検査役が Wo の取りこぼしと見た2件（ピザ 3-18 畑で栽培・発展国 10-10 ゲーム機も作れる）を外の事業に足す', (rows) => { const r = get(rows, '外の事業'); r.voices = { ...r.voices, Wo: (r.voices.Wo || 0) + 2 }; });
+}

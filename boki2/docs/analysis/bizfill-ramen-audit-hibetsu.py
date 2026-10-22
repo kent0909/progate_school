@@ -112,3 +112,38 @@ for si in (0, 1):
     # 8月の超過27ポイントの分け方
     print(f'8月：そのまま {raw[8]:.1f}、A {adjA[8]:.1f}、差 {raw[8]-adjA[8]:.1f}、B {adjB[8]:.1f}、D(平日) {wdm[8]/aw*100:.1f}')
     print()
+
+# ---- お盆の日の決め方を変えたときの 8月の分け方（A の方法、二人以上の世帯）----
+# 書き手はお盆を 8/13〜16 の4日に固定した。会社のお盆休みは 8/9（土）〜8/17（日）の並びが多い年なので、
+# 平日の 8/12（火）なども休みの日になりうる。お盆の範囲を変えると「休みの日の多さで説明できる分」がどう動くかを見る。
+def split_aug(obon):
+    def kind2(d):
+        md = (d.month, d.day)
+        if md in NEN: return '年末年始'
+        if md in obon: return 'お盆'
+        if md in HOL: return '祝日'
+        return {5: '土', 6: '日'}.get(d.weekday(), '平日')
+    daily, tot = {}, {}
+    for m in range(1, 13):
+        daily[m], tot[m], _, _ = read(m, 0)
+    a = statistics.mean(tot.values()); raw = tot[8] / a * 100
+    w = {k: 1.0 for k in kinds}; lev = {}
+    for _ in range(200):
+        for m in daily:
+            lev[m] = sum(daily[m]) / sum(w[kind2(datetime.date(2025, m, i + 1))] for i in range(len(daily[m])))
+        for k in kinds:
+            num = den = 0
+            for m in daily:
+                for i, x in enumerate(daily[m]):
+                    if kind2(datetime.date(2025, m, i + 1)) == k: num += x; den += lev[m]
+            w[k] = num / den
+        s = w['平日']; w = {k: v / s for k, v in w.items()}
+    adj = lev[8] / statistics.mean(lev.values()) * 100
+    return raw, adj, w['お盆']
+print('## お盆の範囲を変えたときの8月（二人以上の世帯、Aの方法）')
+for label, ob in (('8/13〜16（書き手）', {(8, d) for d in range(13, 17)}),
+                  ('8/12〜16', {(8, d) for d in range(12, 17)}),
+                  ('8/9〜17（土日と山の日を含む9連休）', {(8, d) for d in range(9, 18)}),
+                  ('8/8〜19（前後の平日も）', {(8, d) for d in range(8, 20)})):
+    raw, adj, wo = split_aug(ob)
+    print(f'{label}: そのまま {raw:.1f}、暦を除いた8月の水準 {adj:.1f}、休みの日で説明できる分 {raw-adj:.1f}、お盆の倍率 {wo:.2f}')

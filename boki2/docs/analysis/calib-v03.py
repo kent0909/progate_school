@@ -310,6 +310,34 @@ for lab, kw in [('基準', {}), ('家賃を銀座の1階 34,830', {'rent': 34830
     v = be(mod(base, **kw)); p(f'| {lab} | {v:.0f} | {v / b0:.2f} |')
 p('')
 
+
+# ---------- G2. 都市別の中華そばの値段（小売物価統計 2025年平均）で客単価の地域の比を置き直す ----------
+f = raw('web', 'bizmgmt', 'r6-cal-estat-kouri-2025nen.xlsx')
+CITY = {}
+if os.path.exists(f):
+    sec = sheet(f).split('# 2102中華そば（外食）')[1].split('\n# ')[0]
+    for l in sec.split('\n'):
+        c = l.split('\t')
+        if len(c) > 10 and re.fullmatch(r'\d{5}', c[7].strip()) and re.fullmatch(r'\d+', c[10].strip()):
+            CITY[c[8].strip()] = int(c[10])
+if CITY:
+    vals = list(CITY.values()); mu = st.mean(vals)
+    p(f'### 都市別の中華そば（外食）の値段（小売物価統計 2025年の年平均、しょう油味・持ち帰りを除く、{len(CITY)}市）\n')
+    p(f'平均 {mu:.0f}円、中央値 {st.median(vals):.0f}円、最低 {min(CITY, key=CITY.get)} {min(vals)}円、最高 {max(CITY, key=CITY.get)} {max(vals)}円、標準偏差 {st.stdev(vals):.0f}円。')
+    pick = ['東京都区部', '名古屋市', '大阪市', '仙台市', '秋田市', '札幌市', '福岡市', '八王子市']
+    p('主な市（平均に対する比）：' + '、'.join(f'{k} {CITY[k]}円（{CITY[k] / mu:.2f}）' for k in pick if k in CITY) + '\n')
+    p(f'読み：標準の1杯（しょう油ラーメン）の値段は、東京都区部が平均より安い（{CITY["東京都区部"] / mu:.2f}倍）。都心ほど値段が高い、とは言えない。中華料理店の地域ブロックの客単価の比（近畿1.18など）は業態の混ざりで、ラーメン1杯の値段の地域差ではない。\n')
+    CR = {'関東・甲信越': CITY['東京都区部'] / mu, '東海・北陸': CITY['名古屋市'] / mu, '近畿': CITY['大阪市'] / mu, '北海道・東北': CITY['秋田市'] / mu}
+    citymap = {'関東・甲信越': '東京都区部', '東海・北陸': '名古屋市', '近畿': '大阪市', '北海道・東北': '秋田市'}
+    p('値段の比を都市の中華そばの比に替えた分岐点（客単価 ＝ 1,096円 × 都市の比 × 値付けの倍率。固定費の形は上の表と同じ。東北の地方・郊外・過疎には秋田市の比を当てた）：\n')
+    p('| 地域と固定費の形 | 都市（比） | 客単価 | 分岐点の客数/日 | 1日100人 | 1日30人 |'); p('|---|---|---|---|---|---|')
+    for sh in SHAPES:
+        nm, tsubo, rent, rk, wage, up, part, owner, other, blk, pm = sh
+        pr = P0 * CR[blk] * pm
+        b_ = fixed(sh) / (pr * CM) / DAYS
+        p(f'| {nm} | {citymap[blk]}（{CR[blk]:.2f}） | {pr:.0f} | {b_:.0f} | {100 * pr * CM * DAYS - fixed(sh):+,.0f} | {30 * pr * CM * DAYS - fixed(sh):+,.0f} |')
+    p('')
+
 # ---------- H. 同じ屋号の店の、地域ごとの1店の売上（有報の地域別の表） ----------
 p('## H. 同じ屋号の、都道府県ごとの1店の年売上（有報）\n')
 f = raw('web', 'ramen', 'r5-cal-kourakuen-yuho-a.pdf')
