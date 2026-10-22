@@ -1,0 +1,19 @@
+---
+src: web
+coll: simgames
+doc: r5-fv-wiki-twopointhospital
+file: r5-fv-wiki-twopointhospital.html
+sha256: 783396fba6e37a5136f1ea4306f6199c019136b1c0c23974e5897db18a345737
+read: partial
+pages: 概要・遊び方・開発（絵・音・オンライン）・発売と追加の内容・評価の節。参考文献の一覧は読んでいない
+anchors: ["Since visiting real hospitals is often unpleasant", "an influx of patients with a specific disease can occur", "Hospital levels are determined by the number of rooms and staff members", "A room's prestige is affected by its size and ornamentation", "future-proof", "making the machines sound the same on all three game speeds", "the lack of an ability to copy rooms"]
+---
+英語版 Wikipedia「Two Point Hospital」（2018年、Sega）。概要（評価の節は複数のレビューの要約）。
+
+仕組み：部屋と設備（トイレ・職員室・受付・売店・椅子・自販機）を建て、患者と職員の欲求を満たす。区画を広げ、医師・看護師・用務員・助手を雇う。診断は一般の診察から精密な診断の部屋を経て治療へ。ある病気の患者がまとめて押し寄せることがあり、後の面では伝染病（ワクチンの数が決まっていて、全員に打てば褒美、だめなら評判が下がる）。年1回の表彰式。課題の達成で専用の通貨がもらえ、飾りを解放。研究室で部屋と機械を改良。新要素：星の評価、**病院の段（部屋と職員の数で決まり、上がると良い患者と職員が来る）**、**部屋の格（広さと飾りで決まり、高いと職員が幸せ。不幸だと辞める）**。職員は資格で技能を得、性格と専門がある。助手が宣伝で特定の病気の患者や技能のある職員を呼べる。ランキング・協力と対戦・後から箱庭の自由な遊び方・改造。
+
+絵と音：絵は描画技術が変わっても古びない「粘土の人形」風を選んだ（画面の状況が見やすい）。効果音は自作の楽器（塩ビ管）や身近な物で作り、病気の音が生々しすぎると泡っぽく直した。**3段の速さで機械の音が同じに聞こえるようにする**のが難所。ラジオの DJ の声と、歌のない曲。
+
+評価：ユーモアと見た目・操作の分かりやすさ（管理の手間を取り去る）・学びの曲線が好評。不満は繰り返し・面が似ている・部屋づくりの苛立ち・**部屋の複製ができない**（後の更新で複製を追加）・新しい病院を一から作り直す手間・箱庭の遊び方がない（後で追加）。
+
+分析：**段（病院の段・部屋の格）が「量（部屋の数）」と「質（飾り）」の2本で上がる**作りは、ピヨ商店の店の格（席数×内装）にそのまま写せる。不満の「繰り返しの作業・部屋の複製」は Coffee Inc 2 の「型」の要求と同じで、型（テンプレート）で最初から避ける。
