@@ -23,13 +23,17 @@ const type = (doc) => {
   if (/yuho|q3-|ipo|setsumei|tanshin/.test(doc)) return '事例（会社の一次資料：有報・四半期報告書・決算説明資料・決算短信・取引所の上場資料）';
   return '分類なし';
 };
+// BIZ-GROWTH の担当が読み直したノート（#growth・#struct）があればそれを、なければ無印のノートを示す
 const noteOf = (src, coll, doc) => {
-  const p = path.join(ROOT, 'research', 'notes', src, coll, `${doc}.md`);
-  if (!fs.existsSync(p)) return null;
-  const t = fs.readFileSync(p, 'utf8');
-  const read = (t.match(/^read: (.*)$/m) || [])[1] || '';
-  const pages = (t.match(/^pages: (.*)$/m) || [])[1] || '';
-  return { read, pages };
+  const dir = path.join(ROOT, 'research', 'notes', src, coll);
+  const cand = [`${doc}#growth.md`, `${doc}#struct.md`, `${doc}.md`].filter((f) => fs.existsSync(path.join(dir, f)));
+  if (!cand.length) return null;
+  return cand.filter((f) => f !== `${doc}.md` || cand.length === 1).map((f) => {
+    const t = fs.readFileSync(path.join(dir, f), 'utf8');
+    const read = (t.match(/^read: (.*)$/m) || [])[1] || '';
+    const pages = (t.match(/^pages: (.*)$/m) || [])[1] || '';
+    return { note: f.replace(/\.md$/, ''), read, pages };
+  });
 };
 const base = (doc) => doc.split('#')[0];
 if (process.argv.includes('--lines')) {
@@ -37,8 +41,8 @@ if (process.argv.includes('--lines')) {
   console.log('|---|---|---|');
   for (const [k, ls] of [...cites].sort()) {
     const [s, c, d] = k.split(':');
-    const n = noteOf(s, c, d);
-    const where = n ? (n.read === 'full' ? '全文' : `一部：${n.pages}`) : '（読了ノートなし）';
+    const ns = noteOf(s, c, d);
+    const where = ns ? ns.map((n) => `${n.note}：` + (n.read === 'full' ? '全文' : `一部：${n.pages}`)).join(' ／ ') : '（読了ノートなし）';
     console.log(`| ${k} | ${where.replace(/\|/g, '／')} | ${[...ls].join(', ')} |`);
   }
   process.exit(0);
