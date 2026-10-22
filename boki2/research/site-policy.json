@@ -2220,8 +2220,8 @@
   "checked": "2026-10-22"
  },
  "www.fsa.go.jp": {
-  "verdict": "gray",
-  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "verdict": "ok",
+  "basis": "金融庁：robots.txt は404（制限なし）。サイトの利用規約は政府標準利用規約（出典を書けば複製・利用可）。原文は要約と短い語句のみ",
   "checked": "2026-10-22"
  },
  "www.jpo.go.jp": {

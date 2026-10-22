@@ -103,10 +103,63 @@ out('\n## 7. 魁力屋：上場の前後で新しい県に出た数（r5-growth-
 const pref = { '2021': 1, '2022': 1, '2023pre': 3, '2024': 3, '2025': 6 }; // 2023年12月の鹿児島は上場と同じ月（上場の前に数える）
 out(`上場前の2年（2021/12〜2023/12）: ${pref['2021'] + pref['2022'] + pref['2023pre']}県、上場後の2年（2024〜2025）: ${pref['2024'] + pref['2025']}県。加速は上場の前から始まり、外部FCの開始（2023年2月）も同じ時期`);
 
+out('\n## 9. 第2版の再検査：ラーメン4チェーンの9.1%の中身（検査役が前回出した数の点検）');
+{
+  const R4 = ['らあめん花月嵐', '8番らーめん', '喜多方ラーメン坂内', 'ラーメン山小屋'];
+  const w = rows.filter((r) => R4.includes(r.chain) && n(r.fc_end) && n(r.exit_mid) !== null);
+  const f = w.reduce((a, r) => a + n(r.fc_end), 0), e = w.reduce((a, r) => a + n(r.exit_mid), 0), tr = w.reduce((a, r) => a + (n(r.exit_mid_transfer) || 0), 0);
+  const kg = w.filter((r) => r.chain === 'らあめん花月嵐');
+  const kf = kg.reduce((a, r) => a + n(r.fc_end), 0), ke = kg.reduce((a, r) => a + n(r.exit_mid), 0);
+  out(`4チェーン：中途終了 ${e}÷期末FC ${f} = ${r2(e / f * 100)}%。花月嵐が分母の ${r1(kf / f * 100)}%・分子の ${r1(ke / e * 100)}%`);
+  out(`「引継・直営化」と書かれた ${tr} 件（店は続く）を除くと ${e - tr}÷${f} = ${r2((e - tr) / f * 100)}%`);
+  const rates = R4.map((c) => { const rs = w.filter((r) => r.chain === c); return rs.reduce((a, r) => a + n(r.exit_mid) / n(r.fc_end), 0) / rs.length * 100; }).sort((a, b) => a - b);
+  out(`4チェーンの率：${rates.map((x) => r2(x)).join('・')}%、中央値 ${r2((rates[1] + rates[2]) / 2)}%`);
+}
+out('\n## 10. 第2版の再検査：中華料理店の「拡大」の幅（検査役が前回出した 6.6%・0.59倍 の点検）');
+out(`拡大の意向は、多角化4.1＋専門店化2.5＝6.6%（下限）から、それに「事業規模の拡大・縮小」7.1を全部足した ${r1(6.6 + 7.1)}%（上限）の間。廃業11.2%に対し ${r2(6.6 / 11.2)}〜${r2(13.7 / 11.2)}倍で、向きは決まらない`);
+out('意向を年の行動に読み替える係数を、同じ報告が持つ飲食店の廃止件数（2007〜2010年度に707,630件）で校正する道がある（第2版は係数3分の1を根拠なしで置いた）');
+
+out('\n## 11. 第2版の再検査：判例の争点の数え方');
+{
+  const T = fs.readFileSync(path.join(__dirname, 'bizgrowth-fc-voices.tsv'), 'utf8').trim().split('\n');
+  const th = T.shift().split('\t');
+  const V = T.map((l) => { const c = l.split('\t'); const o = {}; th.forEach((h, i) => (o[h] = c[i])); return o; });
+  const by = new Map(); V.forEach((v) => { const k = `${v.source}｜${v.topic}`; by.set(k, (by.get(k) || 0) + 1); });
+  [...by].sort((a, b) => b[1] - a[1]).forEach(([k, c]) => out(`  ${k}：${c}`));
+  const sp = V.filter((v) => v.topic === '売上予測・情報提供');
+  out(`「売上予測・情報提供」${sp.length}件の出どころ：${[...new Set(sp.map((v) => v.source))].join('・')}（売上予測の判決を評釈した1本の判例批評が引いた判例だけ）`);
+  const known = V.filter((v) => v.kind === '判例' && !/記載なし/.test(v.result));
+  const win = known.filter((v) => /一部勝/.test(v.result));
+  out(`勝敗の分かる判例 ${known.length} 件のうち加盟者が一部でも勝った ${win.length} 件（${r1(win.length / known.length * 100)}%）`);
+}
+
+out('\n## 12. 第2版の再検査の判定の数（検査書15章の表）');
+{
+  const auditPath2 = path.join(__dirname, '..', 'audit', 'BIZ-GROWTH-reasoning.md');
+  if (fs.existsSync(auditPath2)) {
+    const all = fs.readFileSync(auditPath2, 'utf8').split('\n');
+    const nrows = all.filter((l) => /^\| N[A-Z]\d{2} \|/.test(l));
+    const cnt = { 妥当: [], 弱い: [], 不当: [] };
+    for (const l of nrows) { const c = l.split('|').map((s) => s.trim()); const v = c[c.length - 3]; if (cnt[v]) cnt[v].push(c[1]); else out(`  読めない行 ${c[1]} → ${v}`); }
+    for (const k of Object.keys(cnt)) out(`第2版 ${k} ${cnt[k].length}：${cnt[k].join('・')}`);
+    out(`第2版の行 ${nrows.length}（${cnt['妥当'].length}＋${cnt['弱い'].length}＋${cnt['不当'].length}）`);
+    // 前回の番号への応え（行頭が「| #」の表。1行に複数の番号）
+    const resp = all.filter((l) => /^\| #[A-Z]/.test(l));
+    const ans = { 応えた: new Set(), 一部: new Set(), 応えていない: new Set() };
+    for (const l of resp) { const c = l.split('|').map((s) => s.trim()); const ids = c[1].split('・').map((x) => x.replace('#', '')); const a = c[4]; if (ans[a]) ids.forEach((i) => ans[a].add(i)); else out(`  読めない応え ${c[1]} → ${a}`); }
+    for (const k of Object.keys(ans)) out(`応え ${k} ${ans[k].size}`);
+    const prevIds = fs.readFileSync(auditPath2, 'utf8').split('\n').filter((l) => /^\| [A-Z]{1,2}\d{2} \|/.test(l)).map((l) => l.split('|')[1].trim()).filter((id) => !id.startsWith('N'));
+    const prevV = {}; fs.readFileSync(auditPath2, 'utf8').split('\n').filter((l) => /^\| [A-Z]{1,2}\d{2} \|/.test(l)).forEach((l) => { const c = l.split('|').map((s) => s.trim()); prevV[c[1]] = c[c.length - 3]; });
+    const need = prevIds.filter((id) => prevV[id] !== '妥当');
+    const covered = new Set([...ans['応えた'], ...ans['一部'], ...ans['応えていない']]);
+    out(`前回の弱い・不当 ${need.length} 件のうち応えの表にない番号：${need.filter((i) => !covered.has(i)).join('・') || 'なし'}`);
+  }
+}
+
 out('\n## 8. 判定の数（docs/audit/BIZ-GROWTH-reasoning.md の表）');
 const auditPath = path.join(__dirname, '..', 'audit', 'BIZ-GROWTH-reasoning.md');
 if (fs.existsSync(auditPath)) {
-  const lines = fs.readFileSync(auditPath, 'utf8').split('\n').filter((l) => /^\| [A-Z]{1,2}\d{2} \|/.test(l));
+  const lines = fs.readFileSync(auditPath, 'utf8').split('\n').filter((l) => /^\| [A-Z]{1,2}\d{2} \|/.test(l) && !/^\| N[A-Z]\d{2} \|/.test(l));
   const cnt = { 妥当: [], 弱い: [], 不当: [] };
   for (const l of lines) {
     const cells = l.split('|').map((s) => s.trim());
