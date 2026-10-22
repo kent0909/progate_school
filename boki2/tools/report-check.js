@@ -19,7 +19,7 @@ for (const f of files) {
   const has = (h) => heads.some((l) => l.includes(h));
   const isDesign = name.startsWith('DESIGN-');
   if (!v2) { console.log(`- ${name}：旧形式（未監査）`); continue; }
-  const need = isDesign ? ['簡略化の台帳'] : REPORT;
+  const need = (isDesign ? ['簡略化の台帳'] : REPORT).concat(['依頼の対応表', 'やっていないこと']);
   const miss = need.filter((h) => !has(h));
   if (miss.length) { errs++; console.log(`✗ ${name}：章がない：${miss.join('・')}`); }
   // 台帳の外にある簡略化の言い回し
@@ -29,6 +29,8 @@ for (const f of files) {
     if (/^#{2,3} /.test(l)) inLedger = /簡略化の台帳|捨てた案と理由/.test(l);
     if (!inLedger && EASY.test(l) && !/^\s*<!--/.test(l)) hits.push(i + 1);
   });
+  const m = s.match(/^#{2,3} .*やっていないこと.*\n([\s\S]*?)(?=^#{2,3} |$(?![\s\S]))/m);
+  if (m && (m[1].trim().length < 40 || /^[-・\s]*(なし|特になし|ない)[。\s]*$/.test(m[1].trim()))) console.log(`△ ${name}：「やっていないこと」がほぼ空。本当にないかを疑う（QUALITY 4.1-4）`);
   if (hits.length) console.log(`△ ${name}：台帳の外に簡略化の言い回し ${hits.length} か所（行 ${hits.slice(0, 12).join(', ')}${hits.length > 12 ? '…' : ''}）。台帳に載せて理由を書くか、言い回しを直す`);
   if (!miss.length) console.log(`✓ ${name}`);
 }
