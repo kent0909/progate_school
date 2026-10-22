@@ -1723,5 +1723,15 @@
   "verdict": "gray",
   "basis": "kent.edu robots.txt は管理画面等のみ Disallow（2026-10-22 確認）。大学の研究室の公開ページ、論文PDFは個人の研究目的で閲覧",
   "checked": "2026-10-22"
+ },
+ "eprints.soton.ac.uk": {
+  "verdict": "ok",
+  "basis": "サウサンプトン大学の機関リポジトリ（公開の受理原稿）。robots.txt は /cgi/ のみ Disallow（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "www.unh.edu": {
+  "verdict": "gray",
+  "basis": "UNH の教育支援ページが公開する STP 電子書籍の章PDF。robots.txt は本ツールの経路では TLS の証明書の検証で取れず未確認、規約の明示の禁止は見当たらない（README の目安で gray）。単発の閲覧",
+  "checked": "2026-10-22"
  }
 }
