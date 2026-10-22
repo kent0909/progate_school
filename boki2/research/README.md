@@ -76,3 +76,7 @@ docs で資料に触れるときは `[[kentei:kouhyou2:139]]` の形で出典を
 3. **ファイル添付**：HTML／PDF をそのまま送る
 
 受け取ったら `node boki2/tools/research-import.js --src … --coll … --doc … --url <元のURL> --file <ファイル>` で登録し（貼られた本文は .txt に保存してから）、通常どおり読了ノートを書く。転載の検査も通常どおり。
+
+## 外部への通信は research-fetch だけ（2026-10-22）
+
+検索は WebSearch か、規約と robots を確かめた検索窓口（国会図書館サーチの API など）を research-fetch で取る。curl・WebFetch・各サイトの API を research-fetch の外で直接呼ばない（取得記録に残らず、規約の判定も通らない）。起きてしまったら research/INCIDENTS.md に書く。

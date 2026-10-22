@@ -7,7 +7,7 @@ import re, html, json, difflib, collections, os, sys
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
 RAW = os.path.join(ROOT, 'research', 'raw', 'web', 'simgames')
-CODES = os.path.join(ROOT, 'docs', 'analysis', 'coffeeinc2-voices-codes.md')
+CODES = os.path.join(ROOT, 'docs', 'analysis', 'coffeeinc2-voices-codes-v1.md' if '--v1' in sys.argv else 'coffeeinc2-voices-codes.md')  # --v1：目隠しと比べた第1版
 nn = lambda s: re.sub(r'[\s\W]', '', s)
 clean = lambda s: re.sub(r'\s+', ' ', html.unescape(re.sub(r'<br\s*/?>', '\n', re.sub(r'<(?!br)[^>]+>', '', s)))).strip()
 
@@ -59,7 +59,7 @@ reason = [i for i, v in P.items() if v not in (['Z'], ['-'])]
 print('理由を書いた声（Z・- 以外）', len(reason), '件')
 cp = collections.Counter(x for v in P.values() for x in v)
 cn = collections.Counter(x for v in N.values() for x in v)
-print('\n褒め（記号 件数 160件中% 理由88件中%）')
+print('\n褒め（記号 件数 160件中%% 理由%d件中%%）' % len(reason))
 for k, m in cp.most_common():
     print(' ', k, m, '%.0f%%' % (100 * m / n), '' if k in 'Z-' else '%.0f%%' % (100 * m / len(reason)))
 print('\n不満（記号 件数 160件中%）')
