@@ -226,6 +226,13 @@ for label, d in [(f'原価の差だけ・小さめ（小麦代{WHEAT:.0f}円の�
     p2 = gain / (kacho + shuchi + kyakugen)
     print(f'  {label}：得 {gain:,.0f}円。釣り合う発覚の確率（3年で）：課徴金だけなら {min(p1, 9.99):.2f}、課徴金＋周知＋客の減りなら {min(p2, 9.99):.2f}（1を超えれば、必ず見つかっても得が勝つ）')
 
+# ---- 8b) 監督の経路の掛け算（S02・S14・S16。第3版で足した：論証の検査 W08 は、本文の掛け算がスクリプトにないと指摘した）----
+# 値は税理士の解説（ノート r5-blr-ayusawa-chousa）：定期監督を受ける率 約3.7%、定期で違反が見つかる率 約7割、監督のうち定期 約8割・申告 約1割
+print('\n## 8b) 監督の経路の掛け算（S02・S14・S16）')
+teiki, ihan, sh_teiki, sh_shinkoku = 0.037, 0.7, 0.8, 0.1
+print(f'  定期監督に入られて違反が見つかる年の率：{teiki} × {ihan} = {teiki * ihan:.4f}（約{teiki * ihan * 100:.1f}%）【推論：掛け算】')
+print(f'  申告監督の年の率（定期の率 × 申告1割 ÷ 定期8割）：{teiki} × {sh_shinkoku} ÷ {sh_teiki} = {teiki * sh_shinkoku / sh_teiki:.5f}（約{teiki * sh_shinkoku / sh_teiki * 100:.2f}%、定期の {sh_shinkoku / sh_teiki:.3f} 倍）【推論：粗い比】')
+
 # ---- 9) 仕訳の貸借の検算（（借）…／（貸）… の区切りごと）----
 print('\n## 9) 仕訳の貸借')
 if os.path.exists(REP):
