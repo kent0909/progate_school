@@ -245,7 +245,7 @@
 | 42 | r2-designer-mg-rule | 開いた | 開いた | 1（49） | なし（ルール本文はフォーム経由で、原文はダウンロードの案内だけ。報告の【資料なし】は正しい） |
 | 43 | r3-fable-wiki-hades | 開いた | 開いた | 1（165） | なし（Pact of Punishment・God Mode は一致） |
 
-合計：ノート43本・原文43本を開いた。突き合わせた引用は延べ193行。食い違い・落としがあったのは25本。そのうち本文の結論や DESIGN-RAMEN に効くものは太字の8本（Lemonade の原作・Tynan・RimWorld・Frostpunk・Emily Short の Beyond Branching・Recettear・Meier・Markstrat の2ページ）。
+合計：ノート43本・原文43本を開いた。突き合わせた引用は延べ191行。食い違い・落としがあったのは24本（「なし」の行のうち4本〔#7・19・20・34〕は、食い違いはないが追わなかった手がかりや検討の欠けを書いた）。食い違いのうち本文の結論や DESIGN-RAMEN に直接効くものは太字の6本（Lemonade の原作・Tynan・RimWorld・Frostpunk・Emily Short の Beyond Branching・Recettear）。これに次ぐのが Meier（#18）と Markstrat の2ページ（#5・6）の落とし。
 
 ---
 
