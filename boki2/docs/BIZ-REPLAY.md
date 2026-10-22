@@ -1,22 +1,29 @@
 <!-- quality:v2 -->
 # 周回の動機と楽しさ：なぜ人は遊び直し、どこで作業になり、学びには何回・どの間隔が要るか（BIZ-REPLAY）
 
-版：0.1（2026-10-22）。書き手：調べもの担当（周回）。読み手：DESIGN-ROUND2 3章と DESIGN-RAMEN (i) を書き直す設計者、オーナー、取りまとめ役、論証の検査役。
+版：0.2（2026-10-22）。書き手：調べもの担当（周回）。読み手：DESIGN-ROUND2 3章と DESIGN-RAMEN (i) を書き直す設計者、オーナー、取りまとめ役、判定役、論証の検査役。
 依頼：DESIGN-ROUND2-audit で「アウト相当」とされた周回の設計（3章）の土台を調べ直す。遊び直す理由（肯定側）、遊び直しが作業になる理由（否定側）、学習の間隔と回数、ラーメン版への写し方。設計そのものは書き直さない（設計者が書き直す）。この報告は、オーナーの問い「これは再調査・レポート対象に含めなくていいの？」への答えとして、周回を再調査の対象に含めた成果である。
 
-印の決まり：出典は `[[src:coll:doc|「原文の語句」]]`（語句は原文にそのまま出る4〜20字）。資料にない推論・見積もりには【推論】を付け、「論証の表」に載せる。利用者の声の件数はすべて `boki2/docs/analysis/replay-voices-count.py` の出力（`replay-voices-count.out.txt`）から写し、頭で数えた数は書かない。
+**版0.2で直したこと**：事実の判定（docs/audit/BIZ-REPLAY-audit.md、要補強、直しの依頼1〜9）と論証の検査（docs/audit/BIZ-REPLAY-reasoning.md、本文82件中 不当14、差し替え42中 不当10、論証の表13中 不当4）に応えた。重いものは次の6つ。①芯を「毎周答えが変わる」から「本作に要る数周の動機」に作り直した（Capsim・MG を周回の例から外し、カイロソフトの声・80 Days・NieR を同じ表で扱った）。②O'Brien 2019 を主な結果（くり返しの楽しさは低く見積もられる）の向きで引き直した。③「皮の変種は転移しない」を撤回した。④満点の見積りを感度の表に置き換えた。⑤Grosse 2015 の「逆」を撤回した。⑥Clark 2016 の競争の表を全部書き、協力の根拠がないと書いた。番号ごとの対応は「依頼の対応表」の最後の節。
+
+印の決まり：出典は `[[src:coll:doc|「原文の語句」]]`（語句は原文にそのまま出る4〜20字）。資料にない推論・見積もりには【推論】を付け、「論証の表」に載せる。利用者の声の件数はすべてスクリプトの出力（`boki2/docs/analysis/replay-voices-count.out.txt`・`replay-mgmt-voices.out.txt`）から写し、頭で数えた数は書かない。見積りの数は `replay-estimate-sim.out.txt` から写す。
+
+### 周回の長さを2つに分ける（版0.2の約束）
+- **数周**：本作に要る周回。満点の4条件に届くまでの数周（3.3 の感度の表では、1日1時間・毎日で約2〜10周分。思い出しの正解率でほぼ決まる）。
+- **長い周回**：何十〜何百時間・何十周の周回（ローグライトの最高難度、2000時間など）。
+- 各結論に【数周】【長い周回】の印を付け、どちらについての結論かを示す。両方に当てはまるものは【両方】。
 
 ## 0. 要点（設計者はここから読む）
-1. **長く周回される作品の芯は「毎周、答えが変わる」こと**で、皮（名前・見た目・倍率）が変わることではない。Slay the Spire は戦いの報酬を3枚から1枚選ばせ [[web:simgames:r6-rp-wiki-sts|「of three randomly」]]、支配的な戦法を作らないよう敵を広げた [[web:simgames:r6-rp-gd-igf-slaythespire|「dominant strategy」]]。Capsim は市場の理想の位置が毎年動き [[web:simgames:capsim-capstone|「never stops moving」]]、5チームが同じ助言に従えば6チーム目が勝つ [[web:simgames:capsim-capstone|「the sixth one wins」]]。DESIGN-ROUND2 3.3 の変種は名前・倍率・順の入れ替えが中心で、答えを動かすのは「社長の正誤」「需要の変種」の2行だけ。しかも資金繰りを決定論のままにしている（228行）。
-2. **皮だけの周回は、周回の研究と作り手の話の両方で「尽きる」側に入る**。O'Brien（2019）は、人は繰り返しの楽しさを低く見積もるが、その理由は「新しく見つかるもの」を見落とすことで、毎回同じ型が見える選択式の冒険本は例外として逆に転びうると書く [[web:learnsci:r6-rp-obrien2019-enjoyagain|「your-own-adventure」]]。Mitchell らは、仕組みが分かって結果が読めると遊び直す動機が消えると書く [[web:simgames:r6-rp-digra-storygameness-pdf|「motivated to replay」]]。
-3. **利用者の声 231件のうち、周回・長く遊ぶことに触れたのは140件**（始め直しに触れた53件＋長く遊んだことだけの87件）。始め直しに触れた53件の楽しみは、組み合わせ・毎回違う展開20、上達18、新しい発見・解放10、難度の段10（スクリプトの出力）。飽きた・新しさが減ると書いたのは7件で、そのうち2件は全実績・全段を終えた人（#2 の223時間、#186 の200時間）。標本は星5が222件で偏っている（3.4 と「反証と限界」）。
-4. **物語で周回させる道は、物語が答えを出したところで止まる**。Hades は周ごとに進む会話を約10時間分書いたが [[web:simgames:r6-rp-wiki-hades|「worth of dialog」]]、物語の問いに答えが出た後も構造上ゲームが続き、息苦しくなってやめた評がある [[web:simgames:r6-rp-gpb-hades-stop|「stifling effects」]]。作り手自身も、終わりのないゲームは退屈や燃え尽きまで遊ばれるので区切りのよい終わりを置いたと言う [[web:simgames:r6-rp-tomsguide-hades|「boredom or burnout」]]。
-5. **学びの側の数字**：1回思い出せたら練習から外すと1週間後に3割台、思い出す練習を続けると約8割 [[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]]。間をあけた3回の想起は、並べ方（広げる・等間隔・縮める）では差がなく、間隔の合計で効く [[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「inherently superior」]]。最適な復習の間隔は覚えていたい期間の長さで決まる（保持7日なら約43%、350日なら約8%）[[web:learnsci:theory-spacing-cepeda2008|「43%, 23%, 17%, and 8%」]]。DESIGN-ROUND2 280行の「7→30→90日と広げる」は、この比較の跡がなく、受験日から決める形になっていない。
-6. **満点の4条件の見積り**（3.3）：1日1時間遊ぶなら、77項目を受験日まで保つ想起の回数と間隔をそろえるのに約3〜4周・5〜8週【推論】。条件A（7日以上あけた2回の正解）は、学習の資料の物差しでは回数が少ない。3回以上の間隔をあけた正解と、最後の間隔を受験日までの1〜2割以上にすることを勧める【推論】。
-7. **持ち越しの自動仕訳は、学びの上では「練習から外す」に当たる**（Karpicke & Roediger 2008 の外した条件）。持ち越すなら、棚卸（自分で書く）を周ごとに必ず通す形にしないと、2周目の練習が減る【推論】。
-8. **足場外しの順は Grosse 2015 の原文と逆になっている**。原文は最も難しい「翻訳」（場面→式）の歩を最後まで例で支え、易しい歩から外し、最初は例題で始めるよう勧める [[web:learnsci:grosse2015-fading-modeling|「easiest step first」]]。DESIGN-ROUND2 249行の段1は「たとえば」（例題）を最初に外す。
-9. **競争は学びの効果と楽しさで向きが割れる**。一人で他人と競うゲームの学習効果は −0.06 で効果なし、チームで競う形はそれより有意に大きい [[web:learnsci:clark2016-digital-games-meta|「Single, competitive」]]。一方、毎晩1回だけ遊んで横で見る証人がいる儀式は Spelunky の日替わりの挑戦の元になった [[web:simgames:r6-rp-gutefabrik-spelunky|「Daily Challenge」]]。「他人との比較は禁止」（241行）は、順位を禁じて、証人・協力・過去の自分という相手を入れる形に分けられる【推論】。
-10. 写し方は最小の形4つと大胆な形5つを 4.2・4.3 に出した。置き換える行は 4.4（DESIGN-ROUND2 3章 23か所、DESIGN-RAMEN の (i) と関係する b章の行 19か所）。
+1. **本作に要る「数周」は、経営シムでは皮＋持ち越し＋周ごとの新しい要素と、2周目以降で届く目標とで遊ばれている【数周】**。カイロソフトの口コミ643件から「周」「週」の字を全件拾うと34件、そのうち周回に触れたのは25件。中身は「2周目以降で大賞などの目標に届いた」5、「持ち越し・引き継ぎ」4、「次の周の新しい要素」3など（スクリプトの出力）。大賞は2周目の16年目でやっと取れた [[web:simgames:r5-fv-applion-gamedevstory|「2周目の16年目」]]、3周目の最終年で初めて取れた [[web:simgames:r5-fv-applion-gamedevstory-p3|「3周目最終年で初めて」]]、10周以上遊べる [[web:simgames:r5-fv-applion-gurume|「10週以上遊べる」]]、何周もしているが飽きない [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p10|「何周もしていますが」]]。80 Days は8〜10回遊ばれ、知っている世界に戻って新しいものを見つけると作り手は言う [[web:simgames:r4-sim-mcv-ingold-replay|「slip back into a world」]]。
+2. **「毎周答えが変わる」作り（ローグライト）は長い周回の芯で、数周の必要条件ではない【長い周回】**。Slay the Spire の作り手は周回の源を自分で組める山札の組み合わせの多さとする [[web:simgames:r6-rp-gd-igf-slaythespire|「off the charts」]]。ローグライト3作の声で組み合わせに触れた25件の中身は、自分で組む組み合わせ17・周ごとに地図や出来事が違う8で、「前の周の最善手が今周は通らない」は0件（スクリプトの出力）。
+3. **くり返しの楽しさは、人が思うより下がらない【両方】**。O'Brien（2019、7研究・3,356人）の主な結果は、同じものをくり返す楽しさを人は実際より低く見積もること [[web:learnsci:r6-rp-obrien2019-enjoyagain|「Less Repetitive Than」]]。博物館は2回目も同じくらい楽しく、映画と1分間のお絵かきのゲームは下がるが予想より緩い。理由は新しく見つかるもので、「ほかの人は20〜30の新しい細部を見つけた」と知らせると予想が実際に近づいた。選択式の冒険本のように毎回同じ型が見えるものは逆に転びうるが、著者自身がそれを例外と書く [[web:learnsci:r6-rp-obrien2019-enjoyagain|「rather than the rule」]]。
+4. **皮の変種（名前・数字・業種が変わる同型の問題）は、学びの側では転移の練習として扱われている【数周】**。Mawson（2025）は数学の研究の値や文脈を変えた問題（algorithmic variants）を、新しい場面への転移を要する練習とする [[web:learnsci:mawson2025-spacing-classroom-meta|「values or contexts」]]。版0.1の「皮の変種は転移しない」は Higham（同じ問題・同じ答えのくり返し）を範囲外に当てはめた誤りで、撤回する。皮の変種と「答えの組み立てが違う問題」を比べた資料はない。
+5. **物語は、作り手が決めた所で閉じる【数周】**。Hades の作り手は区切りのよい終わりを、遊ぶ人が満足して離れられるよう意図した [[web:simgames:r6-rp-tomsguide-hades|「happily walk away」]]。NieR の評者は作り手が用意した複数の周を遊び通してからやめた。本作では、物語が閉じる時期を満点の条件がそろう頃に合わせる選択肢がある（4.3 大胆4）【推論】。
+6. **満点の4条件に届く日は、思い出しの正解率と必要な回数でほぼ決まる【数周】**（3.3 の感度の表）。1周10日（1日1時間）・毎日・必要な正解3回なら、正解率100%で約31日（4.5週・3.1周分）、90%で約68日（9.7週・6.8周分）、80%で約100日（14.2週・10.0周分）。版0.1の「約3〜4周・5〜8週」は正解率100%の最短の値だった。誤っても連続の回数を0に戻さない読み方なら、90%でも約33日（4.7週）。また「条件Aに届く」と「受験日に満点を取れる」は別で、3回の再学習の後でも学期末の正答は約55%だった（Higham ら）。
+7. **学びの側の数字は、条件ごとに読む【両方】**。1回言えたら外すと1週間後に3割台、練習を続けると約8割（Karpicke & Roediger 2008。単語の組・1回の学習の場の中）[[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]]。3回の想起の間隔は合計で効き、並べ方では差がない（Karpicke & Bauernschmidt 2011。間隔は分単位の試行数、初めの成功率をそろえた条件）[[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「By waiting until」]]。ただし Cepeda 2006 では全体として広げる間隔のほうが良く（暫定）[[web:learnsci:r6-rp-cepeda2006-meta|「expanding ISIs led to」]]、Latimier 2021 の要旨ではテストの回数が多いほど広げる側が有利。DESIGN-ROUND2 280行の広げる並べ方は残してよく、直すのは「受験日から伸び方を決める」ことのほう【推論】。
+8. **Grosse 2015 の結果は「例題→問題の組」が翻訳の力で最良**（後ろから外す形より有意に上）[[web:learnsci:grosse2015-fading-modeling|「fostered best by way of」]]。版0.1の「DESIGN-ROUND2 の段1は原文と逆」は撤回する。原文は初めに例題を置き、どこかで完全な例題をやめるのが筋と書く [[web:learnsci:grosse2015-fading-modeling|「makes sense to abandon」]]。段1は1年を1回通した後に開くので、その形に合う。
+9. **他人との順位を出すかは、資料で決まらない（オーナーの決定に回す）**。Clark 2016 の遊ぶ人の組みの表では、有意に効いたのは一人で競争も協力もない遊び（0.45）だけで、一人の競争 −0.06、一人で協力 0.01、チームの競争 0.22（0と区別できない）、多人数 −0.05 [[web:learnsci:clark2016-digital-games-meta|「Single, competitive」]]。協力を入れる根拠もない。一方、会計の教材 MG は成績順に席替えし、声には日替わりの順位表を求めるもの（#53）がある。
+10. **推し（4.4）**：①数周の骨＝経営シム型（期限つきの目標が2周目以降に届く、持ち越し、周ごとに開く新しい要素）を先に作り、②受験日から逆算した周の地図を重ね、③経営の判断に答えを動かす変種を1年に1〜2つ足す。④物語は満点の条件の頃に閉じる。順位は⑤としてオーナーの決定に回す。置き換える行は 4.5（DESIGN-ROUND2 3章 23か所、DESIGN-RAMEN 19か所）。
 
 ## 問いの設計
 
@@ -27,6 +34,8 @@
 | 肯定側 | 名作は何周目で何が尽き、どう手当てしたか（ローグライト、経営シム、物語の周回、日替わり・固定シード） | 1章の作品の表、うまくいく理由 |
 | 否定側 | 遊び直しが作業になるのはなぜか（同じ台本の読み直し、皮だけの変種、固定の最適、持ち越しで易しすぎ） | うまくいかない理由 |
 | 否定側 | 遊ぶ人は何周したところで何に飽き、何でやめたか | 2章の利用者の声 |
+| 肯定側（版0.2で足した） | 経営シムが数周〜10周遊ばれるのはなぜか（カイロソフト・Stardew・Recettear）。皮＋中身の追加＋持ち越しで何が起きているか。答えが毎周変わる作りは、数周の範囲で何を足すか | 1章、うまくいく理由「数周の骨」 |
+| 否定側（版0.2で足した） | 答えが毎周変わる作りでも尽きたのはなぜか（Cultist Simulator・Hades の評）。答えを毎周変えると、同じ論点に戻る回数が減らないか | うまくいかない理由、3.4 |
 | 学習 | 間隔反復（Mawson 2025・Cepeda 2008 の確かめ直し）、広げる間隔と等間隔、受験日からの逆算、想起、交互配置、足場外し（Grosse 2015 の正しい当てはめ）、ゲームの中の転移。何回・どの間隔で何割残るか | 3章 |
 | 写し方 | 最小と大胆の写し方。皮の変種と答えを動かす変種の区別。ラーメンの候補（需要・相場・取引先・設備の故障・町・ライバル・始め方） | 4章 |
 
@@ -41,65 +50,46 @@
 | 作品を並べるだけで因果を書かない | 1章の表に「尽きないための仕掛け」「摩擦への手当て」の列を持たせ、うまくいく理由を動機の種類ごとの鎖で書いた |
 | 「好評」と書いて声を数えない | 231件を切り出し、コード表とスクリプトで数えた（2章） |
 | 今の設計（皮の変種）を正当化する資料だけを選ぶ | 反対の資料（皮だけの周回が尽きる・物語で止まる・競争が学びを下げる）を同じ重さで並べた（うまくいかない理由、反証と限界） |
+| 自分の芯（答えが変わる）に合う資料を選び、合わない資料を読み替える（版0.1で実際に起きた：O'Brien・Grosse・Higham・Capsim） | 版0.2で4本の原文を全文読み直し、主な主張を本文に書いてから結論を出した。経営シムの数周の例（カイロソフトの声）をスクリプトで全件拾った |
 | 要旨だけで主張を足す | 要旨しか読めなかった Latimier 2021 は「要旨だけ」と書き、数字は要旨にある範囲に限った |
-| 関係する所だけ読む | 判定書の F6〜F13 の原文と PDG・Detroit・Ryan・Clark を全文読み直し、読了ノートを `#rp` として足した |
-
 ## 資料の内訳
-数は `boki2/docs/analysis/replay-sources-count.py` が本報告の出典を数えた出力（`replay-sources-count.out.txt`。資料ごとの一覧もそこにある）。
-
-引いている資料：68 本（種類 8）
-
-| 種類 | 本数 | 割合 |
-|---|---|---|
-| 作り手の話（一次） | 15 | 22% |
-| 作り手の話（二次の報告） | 3 | 4% |
-| 研究（周回・遊ぶ動機） | 5 | 7% |
-| 研究（学習） | 10 | 15% |
-| 利用者の声の集まり | 17 | 25% |
-| 反対の論評・評者の分析 | 3 | 4% |
-| 教材・事例（運営者の説明） | 2 | 3% |
-| 百科事典（二次） | 13 | 19% |
-
-合計の検算： 15 + 3 + 5 + 10 + 17 + 3 + 2 + 13 = 68 （68）
-
-- 1種類が半分を超えるものはない（最多は利用者の声の集まり・作り手の話の一次。割合は上の表）。
-- 作り手の話（一次）は、作り手本人の講演・文章・聞き取り。Wikipedia の開発の節や評価の節は「百科事典（二次）」に入れ、作り手の話には数えていない。
-- 利用者の声の集まりは、口コミのページ1枚を1本と数えた（口コミの件数は2章）。
-- 反対の資料は「反対の論評・評者の分析」だけでなく、研究（Mitchell ら・Gamito・Clark）と作り手の話（PDG）にもある（反証と限界）。
-
+（SOURCES_TABLE）
 ## 1. 作品の表：何が周回させ、何周目で何が尽き、どう手当てしたか（22作品）
+
+版0.2：Capsim と MG は**周回して遊び直すゲームではない**（Capsim は1回の授業の中で8回のラウンドを回す教材、MG は2日で5期の研修1回）。表には参考として残し、「表から言えること」の数には入れない。各行の先頭に、その作品の周回が【数周】か【長い周回】かを付けた。
 
 列の意味：「何が変わるか」の **皮** は名前・見た目・数字の倍率など答えの組み立てを変えないもの、**答え** は最善の手そのものが周ごとに変わるもの。「何周目で尽きるか」は資料にある範囲だけを書き、資料にないものは「資料なし」とした。
 
 | 作品 | 周回の動機の種類 | 何が変わるか（皮／答え） | 何周目で尽きるか | 尽きないための仕掛け | 摩擦への手当て |
 |---|---|---|---|---|---|
-| Slay the Spire | 新しい組み合わせ・習熟・目標の更新（段）・日替わり | **答え**：報酬の札は3枚から1枚 [[web:simgames:r6-rp-wiki-sts|「of three randomly」]]、遺物・敵・道で最善の山札が変わる | 全キャラ最高難度と全実績を223時間で終えた人が「イベントに慣れると新しさが減る」と書く（声 #2）。別の人は最高難度20までは「チュートリアルのよう」と書く（#46） | 最大20段の Ascension [[web:simgames:r6-rp-wiki-sts|「Ascension difficulty」]]、支配的な戦法を作らない [[web:simgames:r6-rp-gd-igf-slaythespire|「dominant strategy」]]、提示されても選ばれない札を直す指標 [[web:simgames:r6-rp-wiki-sts|「not picked by players」]]、固定シードの日替わり [[web:simgames:r6-rp-wiki-sts|「fixed random seed」]] | 1周1〜2時間（声 #5）、高速モード（#10）。敵の次の手を数字で見せる [[web:simgames:r6-rp-wiki-sts|「Intents」]]。すぐ新しい戦法を試せることを作り手が重視 [[web:simgames:r6-rp-gd-igf-slaythespire|「off the charts」]] |
-| Hades | 物語の連鎖・関係・目標の更新（Pact）・持ち越しの成長 | **答え**（恩恵の組み合わせ）＋周ごとに進む物語 | 物語の問いに答えが出た後、構造上ゲームが続いて息苦しくなりやめた評 [[web:simgames:r6-rp-gpb-hades-stop|「stifling effects」]] | 約10時間分の連鎖する台詞 [[web:simgames:r6-rp-wiki-hades|「worth of dialog」]]、Pact of Punishment（StS の段から）[[web:simgames:r6-rp-tomsguide-hades|「Pact of Punishment」]]、完璧な組み合わせから別の道具の組へ押し出す [[web:simgames:r6-rp-gd-hades-devprocess|「nudged into a new set」]] | どの周も意味がある [[web:simgames:r6-rp-tomsguide-hades|「every run counts」]]、ログイン報酬を使わない [[web:simgames:r6-rp-tomsguide-hades|「daily login bonuses」]]、区切りのよい終わり |
-| Into the Breach | 習熟（パズル）・新しい組み合わせ | **答え**：戦場は生成、島の並びは同じ | 資料なし | 1つの戦法でずっと勝てないことを最優先 [[web:simgames:r4-sim-gd-intothebreach|「additional enemy」]]（敵1体で難度が跳ねるので数を慎重に） | 敵の攻撃を予告し、負けは自分のせいと感じさせる [[web:simgames:r4-sim-gd-intothebreach|「your own fault」]]。負けたらパイロット1人を持ち越す [[web:simgames:r6-rp-wiki-intothebreach|「pilots back in time」]] |
-| Balatro | 新しい組み合わせ・収集・目標の更新（賭け金） | **答え**：道化札150枚の組 [[web:simgames:r6-rp-wiki-balatro|「150 Joker cards」]] | 解放がカードだけで強さが変わらないので、解放が終われば飽きるだろうという声（#103）。最後の1枚の解放が続ける理由という声（#126） | 賭け金（stakes）の段、新しい山札、無限モード（#108）。釣り合いは「水平に感じるか」で直す [[web:simgames:r6-rp-rogueliker-balatro|「hanging a picture」]] | 長い低カロリーのチュートリアル [[web:simgames:r6-rp-gd-balatro-signposting|「low-calorie tutorial」]]。初めは楽しさが分からず3回消した人が、後でハマる（#123） |
-| Spelunky | 習熟・日替わり・証人 | **答え**：生成の洞窟、壊せる地形 | 資料なし | 1日1回の儀式が日替わりの挑戦の元になった [[web:simgames:r6-rp-gutefabrik-spelunky|「Daily Challenge」]]、極めて難しい挑戦の周 [[web:simgames:r6-rp-wiki-spelunky|「eggplant run」]] | 罰の厳しさが計画を考えさせる [[web:simgames:r6-rp-wiki-spelunky|「think more about」]]。死と失敗が前提だと最初に見せる |
-| Dead Cells | 新しい組み合わせ・目標の更新（Boss Cells） | **答え**：固定の骨＋手作りの部屋＋条件つきの組み合わせ [[web:simgames:r6-rp-deepnight-deadcells|「AI Director」]] | 最初の数時間を越えた進み方がぼんやりという批判（Wikipedia の評価の節） | Boss Cells の段 [[web:simgames:r6-rp-wiki-deadcells|「Boss Cells」]]、1つの武器に慣れさせない [[web:simgames:r6-rp-wiki-deadcells|「single weapon」]] | 丸暗記でなく反応で決まる難しさ [[web:simgames:r6-rp-deepnight-deadcells|「rote learning」]]。練習の部屋の更新 |
-| FTL | 習熟・発見（船の解禁） | **答え**：8宙域・各約20の中継点の生成 | 勝率約10%を想定 [[web:simgames:r6-rp-wiki-ftl|「10% success rate」]]。熱心な試遊者に合わせて難度と解禁が上がり、新しい船が手に入りにくくなった [[web:simgames:r6-rp-gamespark-ftl|「船の解禁システムが複雑」]] | 9隻の追加の船（任意の目標で開く） | 再開の壁をなくし、負けは学びの経験と考えた [[web:simgames:r6-rp-wiki-ftl|「learning experience」]]。「残酷に難しい」との批判 [[web:simgames:r6-rp-wiki-ftl|「cruelly difficult」]] |
-| Outer Wilds | 発見（知識だけを持ち越す） | **答え**は世界側では変わらない。変わるのは遊ぶ人の知識 [[web:simgames:r6-rp-wiki-outerwilds|「Nothing is brought back」]] | 謎が解ければ尽きる（1回の体験として作られている）。後半で詰まる批判 [[web:simgames:r6-rp-wiki-outerwilds|「stuck at points」]] | 小さな謎を多く置いて頻繁に報いる [[web:simgames:r6-rp-wiki-outerwilds|「smaller mysteries」]] | くり返す理由を物語の中で説明する時間のループ [[web:simgames:r6-rp-gd-igf-outerwilds|「playthroughs diegetic」]] |
-| Return of the Obra Dinn | 発見・推理 | 変わらない | 1周（遊び直しの価値はあまりないという評）[[web:simgames:r6-rp-wiki-obradinn|「a lot of replay value」]] | なし（1回で値打ちがある作り） | 正しい運命は3人分そろって確定 [[web:simgames:r6-rp-wiki-obradinn|「in sets of three」]]（当て推量を防ぐ） |
-| NieR:Automata | 物語の分岐（別の視点で再訪） | **皮**に近い（1・2周目は同じ時期を別の視点で）→3周目から新しい展開 [[web:simgames:r6-rp-wiki-nierautomata|「multiple playthroughs」]] | 最後の結末で「本当に終わった」と感じ、二度と遊び直さないという評 [[web:simgames:r6-rp-superjump-nier-notreplayable|「my time with NieR」]] | 26の結末 [[web:simgames:r6-rp-wiki-nierautomata|「26 different endings」]] | 複数の道は予算の制約から素材を使い回した結果と作り手が語ったと伝えられる（二次）[[web:simgames:r6-rp-twistedvoxel-nier-budget|「Budget Constraints」]] |
-| 80 Days／Heaven's Vault（inkle） | 物語の分岐・発見 | **答え**（回る順で各場所の意味が変わる） | 80 Days は8〜10回遊ぶ人がいた [[web:simgames:r4-sim-mcv-ingold-replay|「eight, nine, ten times」]]。Heaven's Vault は違いを伝えきれず2周目をしない人が多かった | 1回では見きれない量を書く | 選択が結果を出して終わる作りだと2周目に仕掛けが見え、1周目の価値まで下がる [[web:simgames:r4-sim-mcv-ingold-replay|「how the wires worked」]] |
-| Papers, Please | 物語の分岐（20の結末）・習熟（規則が増える） | **皮**：台本の人物も遊び直すと顔と名前は変わるが台詞は同じ [[web:simgames:designer-papersplease-gd2014|「change between replays」]] | 資料なし | 小さな筋を重ねた20の結末 [[web:simgames:designer-papersplease-gd2014|「stunning 20 endings」]] | 出来事の順を入れ替えたかったが依存関係が繊細で諦めた。依存関係を表せば入れ替えられた [[web:simgames:designer-papersplease-gd2014|「shuffle some events」]] |
-| Detroit: Become Human | 物語の分岐 | 物語の枝 | 物語が合わない人は何度も遊び通したいとは思わない [[web:simgames:r4-sim-wiki-detroit|「it multiple times」]] | 枝の図、決まった地点に戻って選び直す | 作る量が桁違い（513役・固有の動き7万4千）[[web:simgames:r4-sim-wiki-detroit|「74,000 unique」]] |
-| Pyre（Supergiant） | 物語の分岐 | 物語の枝 | ほとんどの人は1回しか遊ばず分岐を見逃した（Wikipedia の記述）[[web:simgames:r6-rp-wiki-hades|「through the game once」]]。作り手の一次の記事で確かめられたのは「前作までは何度も遊び直すようには作らなかった」まで [[web:simgames:r6-rp-gd-hades-devprocess|「one-and-done game」]] | — | 次作 Hades で「繰り返す構造の上に分岐する物語」に変えた |
-| Cultist Simulator（Mitchell らの精読） | 物語＋仕組みの理解 | 周を重ねると既知の部分のやり直しが要る | 7周・13時間半で、新しいことのない作業になった [[web:simgames:r6-rp-digra-storygameness-pdf|「for 7 playthroughs」]] | — | — |
-| ゲーム発展国++／こだわりラーメン館／大盛グルメ食堂（カイロソフト） | 目標の更新・持ち越し（強くてニューゲーム） | 皮＋持ち越しの成長 | 後半が作業ゲームになるという声 [[web:simgames:r5-fv-applion-gamedevstory|「後半作業ゲーになってしまう」]] | 強くてニューゲーム [[web:simgames:r5-fv-applion-gamedevstory|「強くてニューゲーム」]]、二周目に入ったという声 [[web:simgames:r5-fv-applion-ramenkan|「二周目に突入しました」]] | 次の周を見越して1周目の育て方を変える遊び方 [[web:simgames:r5-fv-applion-gurume|「1週目で特別スタッフ」]] |
-| Game Dev Tycoon | 目標・年ごとの変化（機種の入れ替わり） | **答え**（年ごとに機種と流行が変わる） | 作り手のブログに、遊ぶ人から25年が早く終わりすぎるという声 [[web:simgames:r5-fv-greenheart-onemonth|「over too quickly」]] | — | 声4件のみ（#228〜#231）で周回への言及は「攻略方法を探すのが楽しかった」（#229）だけ |
-| Stardew Valley | 自由・持ち越しの成長・別の牧場で始め直す | 皮（顔・牧場）＋答え（牧場の形が施設の建て方を変える：#179） | 200時間で全実績を終えてすることがない（#186）。中盤から作業ゲーム感（#179） | 慣れが飽きに変わる頃合いに新しい要素が開く、と遊ぶ人が読み取る（#168） | 時間制限がなく、マンネリで放っておいてもまた戻る（#212） |
-| Two Point Hospital | 前の場所に戻る理由 | 後の解放で前の病院を良くする | 資料なし | 後で手に入る物を最初の面に入れに戻る [[web:simgames:r5-fv-sixthaxis-twopoint|「back to the first level」]] | — |
-| ルセッティア（Recettear） | 持ち越し・目標の更新 | 能力と道具が遊び直しても残る [[web:simgames:designer-recettear-gd2010|「stay persistent」]] | 評者は本編の後の続けるモードを「少し遊んでみたい」程度 | 借金が増え続けるモード [[web:simgames:designer-recettear-gd2010|「ever increasing debt」]] | 説明不足で1周目に4つ目のダンジョンを見逃した、という苛立ち |
-| Capsim Capstone（教材） | 競争・市場が動く | **答え**：理想の位置が毎年動き、他チームが市場を動かす | 最大8回（練習は別に4回） | 6つの基本戦略のどれでも勝てる | 最初の数回が長く、6回目には1時間で決める [[web:simgames:capsim-capstone|「decides in an hour」]]。測るときは一人で同じシミュレーションをもう一度 [[web:simgames:capsim-capstone|「simulation again」]] |
-| 戦略MG（教材） | 競争・期の繰り返し | **答え**：リスクカード、市場環境の変更、成績順の席替え [[web:simgames:accountant-otaru-mg|「成績順で席替え」]] | 2日で5期 | 各期の終わりに自分の手で決算書を作り、次期の計画を立てる [[web:simgames:accountant-otaru-mg|「自分の手で決算書」]] | 一人で全部を経営する（負荷は大きいが効果も大きい）[[web:simgames:r2-designer-mg-about|「一人経営」]] |
+| Slay the Spire【長い周回】 | 新しい組み合わせ・習熟・目標の更新（段）・日替わり | **答え**：報酬の札は3枚から1枚 [[web:simgames:r6-rp-wiki-sts|「of three randomly」]]、遺物・敵・道で最善の山札が変わる | 全キャラ最高難度と全実績を223時間で終えた人が「イベントに慣れると新しさが減る」と書く（声 #2）。別の人は最高難度20までは「チュートリアルのよう」と書く（#46） | 最大20段の Ascension [[web:simgames:r6-rp-wiki-sts|「Ascension difficulty」]]、支配的な戦法を作らない [[web:simgames:r6-rp-gd-igf-slaythespire|「dominant strategy」]]、提示されても選ばれない札を直す指標 [[web:simgames:r6-rp-wiki-sts|「not picked by players」]]、固定シードの日替わり [[web:simgames:r6-rp-wiki-sts|「fixed random seed」]] | 1周1〜2時間（声 #5）、高速モード（#10）。敵の次の手を数字で見せる [[web:simgames:r6-rp-wiki-sts|「Intents」]]。すぐ新しい戦法を試せることを作り手が重視 [[web:simgames:r6-rp-gd-igf-slaythespire|「off the charts」]] |
+| Hades【両方】 | 物語の連鎖・関係・目標の更新（Pact）・持ち越しの成長 | **答え**（恩恵の組み合わせ）＋周ごとに進む物語 | 物語の問いに答えが出た後、構造上ゲームが続いて息苦しくなりやめた評 [[web:simgames:r6-rp-gpb-hades-stop|「stifling effects」]] | 約10時間分の連鎖する台詞 [[web:simgames:r6-rp-wiki-hades|「worth of dialog」]]、Pact of Punishment（StS の段から）[[web:simgames:r6-rp-tomsguide-hades|「Pact of Punishment」]]、完璧な組み合わせから別の道具の組へ押し出す [[web:simgames:r6-rp-gd-hades-devprocess|「nudged into a new set」]] | どの周も意味がある [[web:simgames:r6-rp-tomsguide-hades|「every run counts」]]、ログイン報酬を使わない [[web:simgames:r6-rp-tomsguide-hades|「daily login bonuses」]]、区切りのよい終わり |
+| Into the Breach【長い周回】 | 習熟（パズル）・新しい組み合わせ | **答え**：戦場は生成、島の並びは同じ | 資料なし | 1つの戦法でずっと勝てないことを最優先 [[web:simgames:r4-sim-gd-intothebreach|「highest priorities」]]。敵1体で難度が跳ねるので数を慎重に [[web:simgames:r4-sim-gd-intothebreach|「additional enemy」]] | 敵の攻撃を予告し、負けは自分のせいと感じさせる [[web:simgames:r4-sim-gd-intothebreach|「your own fault」]]。負けたらパイロット1人を持ち越す [[web:simgames:r6-rp-wiki-intothebreach|「pilots back in time」]] |
+| Balatro【長い周回】 | 新しい組み合わせ・収集・目標の更新（賭け金） | **答え**：道化札150枚の組 [[web:simgames:r6-rp-wiki-balatro|「150 Joker cards」]] | 解放がカードだけで強さが変わらないので、解放が終われば飽きるだろうという声（#103）。最後の1枚の解放が続ける理由という声（#126） | 賭け金（stakes）の段、新しい山札、無限モード（#108）。釣り合いは「水平に感じるか」で直す [[web:simgames:r6-rp-rogueliker-balatro|「hanging a picture」]]。乱数は多すぎたかもしれないと作り手自身が書く [[web:simgames:r6-rp-rogueliker-balatro|「possibly too much」]] | 長い低カロリーのチュートリアル [[web:simgames:r6-rp-gd-balatro-signposting|「low-calorie tutorial」]]。初めは楽しさが分からず3回消した人が、後でハマる（#123） |
+| Spelunky【長い周回】 | 習熟・日替わり・証人 | **答え**：生成の洞窟、壊せる地形 | 資料なし | 他社のゲームの作り手 Douglas Wilson が友人と遊んだ「1日1回」の儀式（遊ぶ側の記録）が日替わりの挑戦の元になった [[web:simgames:r6-rp-gutefabrik-spelunky|「Daily Challenge」]]。ただし Spelunky の作り手は、儀式の「見ている証人」は日替わりの挑戦では再現できなかったと本に書いた [[web:simgames:r6-rp-gutefabrik-spelunky|「simulate with the Daily」]]、極めて難しい挑戦の周 [[web:simgames:r6-rp-wiki-spelunky|「eggplant run」]] | 罰の厳しさが計画を考えさせる [[web:simgames:r6-rp-wiki-spelunky|「think more about」]]。死と失敗が前提だと最初に見せる |
+| Dead Cells【長い周回】 | 新しい組み合わせ・目標の更新（Boss Cells） | **答え**：固定の骨＋手作りの部屋＋条件つきの組み合わせ [[web:simgames:r6-rp-deepnight-deadcells|「AI Director」]] | 最初の数時間を越えた進み方がぼんやりという批判 [[web:simgames:r6-rp-wiki-deadcells|「nebulous」]] | Boss Cells の段 [[web:simgames:r6-rp-wiki-deadcells|「Boss Cells」]]、1つの武器に慣れさせない [[web:simgames:r6-rp-wiki-deadcells|「single weapon」]] | 丸暗記でなく反応で決まる難しさ [[web:simgames:r6-rp-deepnight-deadcells|「rote learning」]]。練習の部屋の更新 |
+| FTL【長い周回】 | 習熟・発見（船の解禁） | **答え**：8宙域・各約20の中継点の生成 | 勝率約10%を想定 [[web:simgames:r6-rp-wiki-ftl|「10% success rate」]]。熱心な試遊者に合わせて難度と解禁が上がり、新しい船が手に入りにくくなった [[web:simgames:r6-rp-gamespark-ftl|「船の解禁システムが複雑」]] | 9隻の追加の船（任意の目標で開く） | 再開の壁をなくし、負けは学びの経験と考えた [[web:simgames:r6-rp-wiki-ftl|「learning experience」]]。「残酷に難しい」との批判 [[web:simgames:r6-rp-wiki-ftl|「cruelly difficult」]] |
+| Outer Wilds【数周】 | 発見（知識だけを持ち越す） | **答え**は世界側では変わらない。変わるのは遊ぶ人の知識 [[web:simgames:r6-rp-wiki-outerwilds|「Nothing is brought back」]] | 謎が解ければ尽きる（1回の体験として作られている）。後半で詰まる批判 [[web:simgames:r6-rp-wiki-outerwilds|「stuck at points」]] | 小さな謎を多く置いて頻繁に報いる [[web:simgames:r6-rp-wiki-outerwilds|「smaller mysteries」]] | くり返す理由を物語の中で説明する時間のループ [[web:simgames:r6-rp-gd-igf-outerwilds|「playthroughs diegetic」]] |
+| Return of the Obra Dinn（1周） | 発見・推理 | 変わらない | 1周（遊び直しの価値はあまりないという評）[[web:simgames:r6-rp-wiki-obradinn|「a lot of replay value」]] | なし（1回で値打ちがある作り） | 正しい運命は3人分そろって確定 [[web:simgames:r6-rp-wiki-obradinn|「in sets of three」]]（当て推量を防ぐ） |
+| NieR:Automata【数周】 | 物語の分岐（別の視点で再訪） | **皮**に近い（1・2周目は同じ時期を別の視点で）→3周目から新しい展開 [[web:simgames:r6-rp-wiki-nierautomata|「multiple playthroughs」]] | 作り手が用意した複数の周を遊び通した後、最後の結末で「本当に終わった」と感じて遊び直さないという評 [[web:simgames:r6-rp-superjump-nier-notreplayable|「my time with NieR」]]。同じ評者は物語の変わらない The Last of Us を13回遊び直している [[web:simgames:r6-rp-superjump-nier-notreplayable|「a whopping 13 times」]] | 26の結末 [[web:simgames:r6-rp-wiki-nierautomata|「26 different endings」]] | 複数の道は予算の制約から素材を使い回した結果と作り手が語ったと伝えられる（二次）[[web:simgames:r6-rp-twistedvoxel-nier-budget|「Budget Constraints」]] |
+| 80 Days／Heaven's Vault（inkle）【数周】 | 物語の分岐・発見 | 80 Days は知っている世界に戻って新しいものを見つける（皮＋中身）。Heaven's Vault は回る順で各場所の意味が変わる | 80 Days は8〜10回遊ぶ人がいた [[web:simgames:r4-sim-mcv-ingold-replay|「eight, nine, ten times」]]。Heaven's Vault は違いを伝えきれず2周目をしない人が多かった | 1回では見きれない量を書く [[web:simgames:r4-sim-mcv-ingold-replay|「slip back into a world」]] | 作り手は別の作品（Telltale の The Walking Dead）について、2周目に仕掛けが見えて1周目の価値まで下がったと言う [[web:simgames:r4-sim-mcv-ingold-replay|「The Walking Dead」]] |
+| Papers, Please【数周】 | 物語の分岐（20の結末）・習熟（規則が増える） | 中心の作業（書類の確かめ）のデータは決めた所以外を乱数で埋めるので毎回違う [[web:simgames:designer-papersplease-gd2014|「with random data」]]（仕訳でいえば答えが動く側）。台本の人物は遊び直すと顔と名前は変わるが台詞は同じ [[web:simgames:designer-papersplease-gd2014|「change between replays」]] | 資料なし | 小さな筋を重ねた20の結末 [[web:simgames:designer-papersplease-gd2014|「stunning 20 endings」]] | 出来事の順を入れ替えたかったが依存関係が繊細で諦めた。依存関係を表せば入れ替えられた [[web:simgames:designer-papersplease-gd2014|「shuffle some events」]]。順の固定は遊ぶ人の注意を育てる技でもあった [[web:simgames:designer-papersplease-gd2014|「art of training」]] |
+| Detroit: Become Human【数周】 | 物語の分岐 | 物語の枝 | 物語が合わない人は何度も遊び通したいとは思わない [[web:simgames:r4-sim-wiki-detroit|「it multiple times」]] | 枝の図、決まった地点に戻って選び直す | 作る量が桁違い（513役・固有の動き7万4千）[[web:simgames:r4-sim-wiki-detroit|「74,000 unique」]] |
+| Pyre（Supergiant）（1周） | 物語の分岐 | 物語の枝 | ほとんどの人は1回しか遊ばず分岐を見逃した（Wikipedia の記述）[[web:simgames:r6-rp-wiki-hades|「through the game once」]]。作り手の一次の記事で確かめられたのは「前作までは何度も遊び直すようには作らなかった」まで [[web:simgames:r6-rp-gd-hades-devprocess|「one-and-done game」]] | — | 次作 Hades で「繰り返す構造の上に分岐する物語」に変えた |
+| Cultist Simulator（Mitchell らの精読。1作品1人の体験で、著者は一般化しないと明言）【数周】 | 物語＋仕組みの理解 | 手続き生成で中身は毎回違う（答えも動く）が、周を重ねると既知の部分のやり直しが要る | 7周・13時間半で、新しいことのない作業になった [[web:simgames:r6-rp-digra-storygameness-pdf|「for 7 playthroughs」]] | — | — |
+| ゲーム発展国++／こだわりラーメン館（全国編）／大盛グルメ食堂（カイロソフト）【数周】 | 目標の更新（2周目以降で大賞）・持ち越し・周ごとの新しい要素 | 皮＋持ち越しの成長＋次の周で開く要素（新キャラ・追加素材） | 「周」「週」を含む口コミ34件中、周回に触れた25件。2周目・3周目で大賞に届いた声 [[web:simgames:r5-fv-applion-gamedevstory|「2周目の16年目」]]、10周以上遊べる [[web:simgames:r5-fv-applion-gurume|「10週以上遊べる」]]、何周もして飽きない [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p10|「何周もしていますが」]]。尽きる側の声：他より遊べる期間が短め [[web:simgames:r5-fv-applion-gamedevstory-p10|「遊べる期間は短め」]]、後半が作業ゲーム [[web:simgames:r5-fv-applion-gamedevstory|「後半作業ゲーになってしまう」]] | 強くてニューゲーム [[web:simgames:r5-fv-applion-gamedevstory|「強くてニューゲーム」]]、引き継ぎ [[web:simgames:r5-fv-applion-gamedevstory-p6|「前の周回データの引き継ぎ」]]、周回で追加の素材 [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p4|「周回プレイでさらに追加素材」]] | 次の周を見越して1周目の育て方を変える [[web:simgames:r5-fv-applion-gurume|「1週目で特別スタッフ」]]、前の周の反省で次の周を計画する [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p2|「次の変更の際はこうしよう」]] |
+| Game Dev Tycoon【数周】 | 目標・年ごとの変化（機種の入れ替わり） | **答え**（年ごとに機種と流行が変わる） | 作り手のブログに、遊ぶ人から25年が早く終わりすぎるという声 [[web:simgames:r5-fv-greenheart-onemonth|「over too quickly」]]（もっと長くしてほしい側） | — | 声は4件（#228〜#231）で、周回に触れたものはない |
+| Stardew Valley【両方】 | 自由・持ち越しの成長・別の牧場で始め直す | 皮（顔・牧場）＋答え（牧場の形が施設の建て方を変える：#179） | 200時間で全実績を終えてすることがない（#186）。中盤から作業ゲーム感（#179） | 慣れが飽きに変わる頃合いに新しい要素が開く、と遊ぶ人が読み取る（#168） | 時間制限がなく、マンネリで放っておいてもまた戻る（#212） |
+| Two Point Hospital【数周】 | 前の場所に戻る理由 | 後の解放で前の病院を良くする | 資料なし | 後で手に入る物を最初の面に入れに戻る [[web:simgames:r5-fv-sixthaxis-twopoint|「back to the first level」]] | — |
+| ルセッティア（Recettear）【数周】 | 持ち越し・目標の更新 | 能力と道具が遊び直しても残り、負けても全部は無駄にならない [[web:simgames:designer-recettear-gd2010|「stay persistent」]] | 評者は本編の後の続けるモードを「少し遊んでみたい」程度 | 借金が増え続けるモード [[web:simgames:designer-recettear-gd2010|「ever increasing debt」]] | 説明不足で1周目に4つ目のダンジョンを見逃した、という苛立ち |
+| Capsim Capstone（教材。**周回のゲームではない**：1回の授業の中のラウンド） | 競争・市場が動く | **答え**：理想の位置が毎年「小さく速い方へ」決まった向きに動き [[web:simgames:capsim-capstone|「smaller and faster」]]（決定論の変化）、他チームが市場を動かす | 最大8回（練習は別に4回） | 6つの基本戦略のどれでも勝てる | 最初の数回が長く、6回目には1時間で決める [[web:simgames:capsim-capstone|「decides in an hour」]]。測るときは一人で同じシミュレーションをもう一度 [[web:simgames:capsim-capstone|「simulation again」]] |
+| 戦略MG（教材。**周回のゲームではない**：2日で5期の研修1回） | 競争・期の繰り返し | **答え**：リスクカード、市場環境の変更、成績順の席替え [[web:simgames:accountant-otaru-mg|「成績順で席替え」]] | 2日で5期 | 各期の終わりに自分の手で決算書を作り、次期の計画を立てる [[web:simgames:accountant-otaru-mg|「自分の手で決算書」]] | 一人で全部を経営する（負荷は大きいが効果も大きい）[[web:simgames:r2-designer-mg-about|「一人経営」]] |
 
-### 表から言えること
-- 22作品のうち、長い周回の声や作り手の話がある作品（Slay the Spire・Hades・Balatro・Dead Cells・FTL・Capsim・MG）は、どれも「答え」が周ごとに変わる。「皮」だけが変わる作品（Papers, Please の人物、NieR の1・2周目）は、周回の動機を物語の枝か結末に頼っている。
-- 尽きる点は動機の種類で違う：発見・推理は1周（Outer Wilds・Obra Dinn）、物語の分岐は結末を見たところ（NieR・Hades の評）、解放と収集は解放が終わったところ（Balatro #103、Stardew #186）、組み合わせと段は最も長く、それでも出来事に慣れると新しさが減る（StS #2）。
-- 尽きないための仕掛けは、どの作品も「段（難度の更新）」と「固定の最適を崩す作り」の組み合わせ。摩擦への手当ては「1回を短く・再開の壁をなくす」「負けを自分のせいと分かる形にする」「持ち越しで負けの痛みを減らす」の3つに分かれる。
+### 表から言えること（版0.2で数え直し。Capsim・MG・Obra Dinn・Pyre を除く18作品）
+- 【数周】の作品（Outer Wilds・NieR・80 Days・Papers, Please・Detroit・Cultist Simulator・カイロソフト・Game Dev Tycoon・Two Point Hospital・ルセッティア）では、数周を支えるのは「皮＋中身の追加（新しい要素・新しい発見）」「持ち越し」「物語の枝・結末」「2周目以降で届く目標」で、答えが毎周変わることは条件になっていない。カイロソフトの声は、2周目・3周目で目標に届いた・引き継ぎ・次の周で開く要素が中心（2章 2.6）。
+- 【長い周回】の作品（Slay the Spire・Into the Breach・Balatro・Spelunky・Dead Cells・FTL）は、どれも周ごとに中身が生成で変わる（ローグライトは定義上そういう作品群なので、ここから「答えが変わることが長い周回の原因」とまでは言えない）。
+- 尽きる点は動機の種類で違う例がある：発見・推理は1周（Outer Wilds・Obra Dinn）、物語の分岐は作り手が用意した結末を見たところ（NieR の評者1人）、解放と収集は解放が終わったところ（声 #103 は予想、#186 は1人）、組み合わせと段は長いが出来事に慣れると新しさが減るという声（#2、1人）。どれも1〜2件の例で、傾向とまでは言えない。
+- 段（難度の更新）を持つのは18作品中5作品（Slay the Spire・Hades・Balatro・Dead Cells・ルセッティア）。「固定の最適を崩す作り」はローグライトの作り手の話に多い。摩擦への手当ては「1回を短く・再開の壁をなくす」「負けを自分のせいと分かる形にする」「持ち越しで負けの痛みを減らす」の3つに分かれる。
 
 ## 2. 利用者の声：何周した人が何を楽しみ、何でやめたか（231件）
 
@@ -107,319 +97,373 @@
 - 資料：APPLION（App Store の口コミの転載）の5作品・14ページ。Slay the Spire 97件、Balatro 46件、FTL 24件、Stardew Valley 60件、Game Dev Tycoon 4件、計231件（97＋46＋24＋60＋4＝231）。読了ノートは `research/notes/web/simgames/r6-rp-applion-*.md`。14ページと、各ページの目立った口コミ：StS [[web:simgames:r6-rp-applion-sts-p1|「漸く昨日全てのキャ」]]（#2 全キャラ最高難度）、[[web:simgames:r6-rp-applion-sts-s20|「いつまでも飽きが来なく」]]（#34）、[[web:simgames:r6-rp-applion-sts-s40|「チュートリアルのようなもの」]]（#46）、[[web:simgames:r6-rp-applion-sts-s60|「何度遊んでも」]]（#75）、[[web:simgames:r6-rp-applion-sts-s80|「全てのキャラで心臓撃破」]]（#89）；Balatro [[web:simgames:r6-rp-applion-balatro-p1|「解放が終われば飽きる」]]（#103）、[[web:simgames:r6-rp-applion-balatro-s20|「だんだんと楽しさがわかってくる」]]（#123）、[[web:simgames:r6-rp-applion-balatro-s40|「too addicting」]]（#143）；FTL [[web:simgames:r6-rp-applion-ftl-p1|「あなた自身なのです」]]（#145）、[[web:simgames:r6-rp-applion-ftl-s20|「プレイのたびに違う物語」]]（#164）；Stardew Valley [[web:simgames:r6-rp-applion-stardew-p1|「慣れが飽きに変わる」]]（#168）、[[web:simgames:r6-rp-applion-stardew-s20|「60時間プレイしても」]]（#198）、[[web:simgames:r6-rp-applion-stardew-s40|「マンネリになってしばらく放置」]]（#212）；Game Dev Tycoon [[web:simgames:r6-rp-applion-gdt-p1|「攻略方法を模索」]]（#229）。
 - Steam・Reddit・Hacker News は規約か遮断で読めなかった（やっていないこと）。
 - 切り出しと重複除き、分類の集計は `boki2/docs/analysis/replay-voices-count.py`、分類のコードは `boki2/docs/analysis/replay-voices-codes.md`（関係・楽しみ・不満・量の4列。決め方も同じファイル）。出力は `boki2/docs/analysis/replay-voices-count.out.txt`。以下の数はすべてその出力から写した。
-- **偏り**：星の分布は星5が222件・星4が9件で、星1〜3は0件（転載サイトが高い星の口コミしか載せていない）。やめた人の声はこの標本にほとんど入らない。やめた側の声は、反対の論評（Hades をやめた評、NieR を遊び直さない評）と研究（Mitchell ら、Gamito）で補った。Android 版のページも同じ偏りだったので読まなかった（取得記録に理由つき）。
+- **偏り**：切り出した231件は星5が222件・星4が9件で、星1〜3は0件（転載サイトが高い星の口コミしか載せていない）。一方、同じページに載る App Store の評価の件数では、5作品の計16,813件のうち星1〜3が1,106件（6.6%）。作品ごとでは Slay the Spire が1,083件中238件（22.0%）と大きく、Stardew 8.5%、FTL 9.7%、Balatro と Game Dev Tycoon は1.3%（スクリプトの出力。判定役の数と同じ）。つまり標本から外れた側は全体の1割弱、Slay the Spire では2割強あり、その人たちが何でやめたかはこの標本からは分からない。やめた側の声は、反対の論評（Hades をやめた評、NieR を遊び直さない評）と研究（Mitchell ら、Gamito）で補った。Android 版のページも同じ偏りだったので読まなかった（取得記録に理由つき）。
+- **コードの直し（版0.2）**：判定役が「始め直しに触れていない」と読んだ 周 の8件（#110・#113・#119・#121・#149・#150・#166・#229）を原文で読み直し、8件とも 長 に移した。組み合わせのコード K を3つ（Kc 自分で組む組み合わせ・Kv 周ごとに中身が違う・Kp 前の周の答えが通らない）に分けて数え直した。コード付けは1人で、別の人との一致は測っていない。
 
 ### 2.2 何を楽しんだか（周回・長く遊ぶことに触れた140件）
-- 231件のうち、周回・遊び直し・長く遊ぶことに触れたのは140件（始め直しに触れた「周」53件＋長く遊び続けたことだけの「長」87件。53＋87＝140）。残り91件（231−140＝91）は不具合の報告や翻訳の要望などで周回に触れない。
-- 140件の楽しみ（1件に複数可）：理由を書かない中毒・時間泥棒 59、上達・理解が深まる 26、組み合わせ・毎回違う展開 25、自由な遊び方 17、1回が短い・隙間に遊べる 15、新しい発見・解放 14、難度の段 12、目標・実績を埋める 8、物語・人物・世界 6、持ち越しの成長 5、運・予想外 4、間をあけて戻る 3、日替わり・順位 1。
-- **始め直しに触れた53件に絞ると**：組み合わせ 20、上達 18、新しい発見・解放 10、難度の段 10、理由なしの中毒 7、自由 6、目標・実績 5、物語 4、短い1回 3、運 2、間をあけて戻る 1、日替わり 1、持ち越しの成長 1。長く遊んだことだけの87件では、理由なしの中毒 52、短い1回 12、自由 11、上達 8 が上位。つまり「なぜ始め直すか」を書いた人の理由の上位は組み合わせと上達で、「理由なしの中毒」は長く遊ぶ側に偏る。
-- 作品ごとの上位（理由なしの中毒を除いて読むと）：Slay the Spire は組み合わせ10・段10・上達8、Balatro は組み合わせ7・短い1回6・上達5、FTL は組み合わせ8・上達8・物語3、Stardew Valley は自由13・新しい発見7・持ち越しの成長5。ローグライトは「答えが変わる」と「自分が上手くなる」、経営・生活のシムは「自由」と「持ち越しの成長」が理由になる。
+- 231件のうち、周回・遊び直し・長く遊ぶことに触れたのは140件（始め直しに触れた「周」45件＋長く遊び続けたことだけの「長」95件。45＋95＝140）。残り91件（231−140＝91）は、不具合の報告・翻訳の要望・操作の要望と、「神ゲー」「面白い」だけの短い褒め言葉（#28・#58・#88・#94・#125・#129・#141 など）で、周回にも長く遊ぶことにも触れない。
+- 140件の楽しみ（1件に複数可）：理由を書かない中毒・時間泥棒 59、上達・理解が深まる 26、組み合わせ 25（自分で組む 17・周ごとに中身が違う 8・前の周の答えが通らない 0）、自由な遊び方 17、1回が短い・隙間に遊べる 15、新しい発見・解放 14、難度の段 12、目標・実績を埋める 8、物語・人物・世界 6、持ち越しの成長 5、運・予想外 4、間をあけて戻る 3、日替わり・順位 1。
+- **始め直しに触れた45件に絞ると**：組み合わせ 17（自分で組む 9・周ごとに中身が違う 8）、上達 12、新しい発見・解放 10、難度の段 10、自由 6、理由なしの中毒 6、目標・実績 5、物語 4、短い1回 3、運 2、間をあけて戻る 1、日替わり 1、持ち越しの成長 1。長く遊んだことだけの95件では、理由なしの中毒 53、上達 14、短い1回 12、自由 11 が上位。始め直しの理由の上位は組み合わせで、上達・発見・段がほぼ並ぶ。
+- **組み合わせの中身**：周回に触れた口コミで「前の周の最善手が今周は通らない」と書いたものは0件。書かれているのは「自分で山札やコンボを組む楽しさ」（自分で組む）と「マップや出来事が毎回違う」（周ごとに中身が違う）。声が支えるのは自分で組み合わせを作る自由と中身の新しさで、答えが毎周変わることそのものではない。
+- 作品ごとの上位（理由なしの中毒を除いて読むと）：Slay the Spire は段10・自分で組む8・上達8、Balatro は自分で組む7・短い1回6・上達5、FTL は上達8・周ごとに中身が違う6・物語3、Stardew Valley は自由13・新しい発見7・持ち越しの成長5。ローグライトは「自分で組む」と「上達」、経営・生活のシムは「自由」と「持ち越しの成長」と「新しい発見」が理由になる。
 
 ### 2.3 どのくらい遊んだ人が、何を楽しんだか
 - 遊んだ量を書いたのは27件（周回の段を上まで7、百時間以上9、数十時間6、月・年単位5。7＋9＋6＋5＝27）。113件は量を書いていない。
-- **周回の段を上まで行った7件**の楽しみは、難度の段5・組み合わせ2・目標と実績2。不満を書いたのは #2 の1件だけで、中身は「新しさが減る」と「キャラごとの強さの偏り」[[web:simgames:r6-rp-applion-sts-p1|「新しさが減る」]]。#46 は最高難度20までを「チュートリアルのよう」と書き、その先を何度も登りたくなると言う [[web:simgames:r6-rp-applion-sts-s40|「チュートリアルのようなものです」]]。
-- 百時間以上の9件は、上達3・理由なしの中毒3・短い1回2・段2・組み合わせ2。月・年単位の5件は、組み合わせ2・中毒2。
+- **周回の段を上まで行った7件**の楽しみは、難度の段5・周ごとに中身が違う2・目標と実績2。不満を書いたのは #2 の1件だけで、中身は「新しさが減る」と「キャラごとの強さの偏り」[[web:simgames:r6-rp-applion-sts-p1|「新しさが減る」]]。#46 は最高難度20までを「チュートリアルのよう」と書き、その先を何度も登りたくなると言う [[web:simgames:r6-rp-applion-sts-s40|「チュートリアルのようなものです」]]。
+- 百時間以上の9件は、上達3・理由なしの中毒3・短い1回2・段2・自分で組む1・周ごとに中身が違う1。月・年単位の5件は、自分で組む2・中毒2。
 
 ### 2.4 何でやめたか・何に不満か
 - 不満（140件の中）：操作・不具合 27、新しさが減る・作業になる 6、難しすぎる・初めに挫ける 6、偏り 3、解放が遅い・出ない 3、負けの虚無感 1、1回が長い 1、運・理不尽 1、飽きた 1。
-- 「飽きた・新しさが減る」と書いたのは7件（#2・#103・#178・#179・#183・#186・#212）。中身は3つに分かれる：①**出来事・中身を見尽くした**（#2 の223時間、#186 の200時間で全実績 [[web:simgames:r6-rp-applion-stardew-p1|「全ての実績も解除した」]]、#183 の「全部こなしたら寂しい」という予想）②**繰り返しが作業になる**（#178 の序盤、#179 の中盤 [[web:simgames:r6-rp-applion-stardew-p1|「作業ゲー感が出てきます」]]）③**解放が終われば動機が尽きる**という予想（#103 [[web:simgames:r6-rp-applion-balatro-p1|「解放が終われば飽きる」]]）。#212 は「マンネリで放っておく→また戻る」で、飽きが離脱ではなく間をあける形になっている [[web:simgames:r6-rp-applion-stardew-s40|「マンネリになってしばらく放置」]]。
+- 「飽きた・新しさが減る・作業になる」のコードは7件（#2・#103・#178・#179・#183・#186・#212）。ただし実際に遊び尽くして書いたのは2件だけ（#2 の223時間で全キャラ最高難度・「イベントに慣れると新しさが減る」、#186 の200時間で全実績 [[web:simgames:r6-rp-applion-stardew-p1|「全ての実績も解除した」]]）。#103 と #183 は「解放が終われば飽きるだろう」「全部こなしたら寂しいだろう」という予想 [[web:simgames:r6-rp-applion-balatro-p1|「解放が終われば飽きる」]]。#178 は序盤の作業感の後に楽しくなった話、#179 は中盤の作業感の後もやり込みが尽きないという話 [[web:simgames:r6-rp-applion-stardew-p1|「作業ゲー感が出てきます」]]。#212 は「マンネリで放っておく→また戻る」で、飽きが離脱ではなく間をあける形 [[web:simgames:r6-rp-applion-stardew-s40|「マンネリになってしばらく放置」]]。7件を一つの傾向にまとめることはできない。
 - 入口の挫折：初めは何を目的にするか分からず挫けそう（#22）、楽しさが分からず3回消した（#123）、イージーでも難しい（#146）。
 - 摩擦に効いたもの：1回が短い（#5 の1周1〜2時間）、すぐ次を始められる（#109）、高速モード（#10）、上達そのものが楽しい（#145 の「レベルが上がるのは船ではなくあなた自身」[[web:simgames:r6-rp-applion-ftl-p1|「あなた自身なのです」]]）。
 
 ### 2.5 声から言えること（と言えないこと）
-- 言えること：始め直しの理由を書いた人の上位は「組み合わせ・毎回違う展開」と「上達」で、作品の表の「答えが変わる」と一致する。長く遊ぶ人ほど、最後に尽きるのは「出来事・中身の見尽くし」と「解放の終わり」。
-- 言えないこと：星5に偏った標本なので、何割がどこでやめるかは数えられない。7件という数は「やめた人の割合」ではない。経営シムの声は Game Dev Tycoon の4件しかなく、経営シムの周回の声としては足りない（BIZ-FUNVISUAL の口コミの分類と合わせて読む必要がある。4.5）。
+- 言えること【長い周回】：ローグライトで始め直しの理由を書いた人の上位は「自分で組む組み合わせ」「周ごとに中身が違う」「上達」「新しい発見」「段」。前の周の答えが通らないことを理由に挙げた人はいない。
+- 言えないこと：星5に偏った標本なので、何割がどこでやめるかは数えられない（標本の外の星1〜3は全体の6.6%、StS では22.0%）。7件は「やめた人の割合」ではなく、遊び尽くして書いたのは2件。経営シムの声はこの標本では Game Dev Tycoon の4件だけで、周回に触れたものはない（経営シムの数周の声は 2.6 で別に数えた）。
+
+### 2.6 経営シムの数周の声（カイロソフト3作と Good Pizza, Great Pizza、643件から「周」「週」を全件）【数周】
+- 資料：BIZ-FUNVISUAL の担当が取得した APPLION の口コミのページ（ゲーム発展国++ 200件、こだわりラーメン館 20件、同 全国編 200件、大盛グルメ食堂 23件、Good Pizza, Great Pizza 200件、計643件）。`boki2/docs/analysis/replay-mgmt-voices.py` が「周」か「週」の字を含む口コミを全件拾い（34件）、コード表 `replay-mgmt-voices-codes.md` で数えた。
+- 34件のうち周回に触れたのは25件（ゲーム発展国++ 15、ラーメン館 1、全国編 8、グルメ食堂 1。残り9件は「1週間」「周知」など）。中身：2周目以降で目標（大賞・グランプリ）に届いた 5、持ち越し・引き継ぎ 4、次の周で新しい要素（新キャラ・追加素材・前に見つけられなかったこと）3、奥の深さ・慣れ 2、飽きない・黙々と 2、前の周の反省で次の周を計画 2、組み合わせ 1、遊べる期間が短い 1、1周が長い 1（中身を書かないものもある）。
+- 周回の回数の申告：2周目 7件、3周目 2件、何周か 2件、何周も 1件、10周以上 1件、2周 1件（1周目・1周目の途中など周回の手前の申告もある）。
+- 例：2周目の16年目でやっと大賞 [[web:simgames:r5-fv-applion-gamedevstory|「2周目の16年目」]]、3周目の最終年で初めて [[web:simgames:r5-fv-applion-gamedevstory-p3|「3周目最終年で初めて」]]、強くてニューゲームで前の周に見つけられなかったことを次の周で見つけた [[web:simgames:r5-fv-applion-gamedevstory-p6|「次の週で発見」]]、2周目の新しい人物が楽しみ [[web:simgames:r5-fv-applion-gamedevstory-p9|「新キャラ楽しみ」]]、周回で追加の素材 [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p4|「周回プレイでさらに追加素材」]]、10周以上 [[web:simgames:r5-fv-applion-gurume|「10週以上遊べる」]]。尽きる側：1周目からそこそこの結果が出て遊べる期間が短め [[web:simgames:r5-fv-applion-gamedevstory-p10|「遊べる期間は短め」]]、全国編の1周目が48時間を超えても終わらない [[web:simgames:r5-fv-applion-ramenkan-zenkoku|「まだ一周目終わらない」]]。
+- 言えること【数周】：経営シムの数周は、期限つきの目標（大賞・全国制覇）が1周目では届きにくく2〜3周目で届くこと、持ち越し、次の周で開く要素で支えられている。答えが毎周変わる作りではない。標本は星5ばかりで、Good Pizza の2件は周回の話ではなかった。
+- 言えないこと：周回の声は25件で、どこでやめたかはほとんど書かれていない。私は34件を読んでコードを付けたが、643件の全文は読んでいない（「周」「週」の字のない周回の声は拾えていない）。
 
 ## うまくいく理由
 
-動機の種類ごとに、何が何を呼ぶかを鎖で書く。各鎖の最後に「尽きる点」を書く（尽きる点のない動機はない）。
+動機の種類ごとに、何が何を呼ぶかを鎖で書く。各鎖の最後に「尽きる点」を書く。各見出しに、数周と長い周回のどちらについての鎖かを付けた。
 
-### 習熟：負けの理由が分かる → 次の周で違う手を打つ → できるようになった感じ → もう一周
+### 数周の骨：1周目では届きにくい目標 → 2〜3周目で届く → 持ち越しと新しい要素が次の周を始めさせる【数周】（版0.2で足した）
+- 鎖：期限つきの目標（大賞・全国制覇）が1周目では届きにくい → 前の周の反省で次の周を計画する [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p2|「次の変更の際はこうしよう」]] → 持ち越し（引き継ぎ・強くてニューゲーム）で前の周が無駄にならない [[web:simgames:r5-fv-applion-gamedevstory-p6|「前の周回データの引き継ぎ」]] → 次の周で新しい要素が開く [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p4|「周回プレイでさらに追加素材」]] → 2周目・3周目で目標に届く [[web:simgames:r5-fv-applion-gamedevstory|「2周目の16年目」]]。
+- 声：カイロソフトの「周」「週」を含む口コミで周回に触れた25件のうち、2周目以降で目標に届いた5件・持ち越し4件・次の周の新しい要素3件（2.6）。ルセッティアも、能力と道具が残るので負けが無駄にならない [[web:simgames:designer-recettear-gd2010|「stay persistent」]]。
+- 物語ゲームの数周：80 Days は知っている世界に戻って新しいものを見つけるので8〜10回遊ばれた [[web:simgames:r4-sim-mcv-ingold-replay|「slip back into a world」]]。
+- 尽きる点：目標に届いて次の目標がないところ、1周目から結果が出て遊べる期間が短い作り [[web:simgames:r5-fv-applion-gamedevstory-p10|「遊べる期間は短め」]]。本作では、目標（ネットキャッシュ1億）を段で更新すること（DESIGN-RAMEN i.2 の期限の短縮）がこの尽きる点への手当てになる【推論】。
+
+### 習熟：負けの理由が分かる → 次の周で違う手を打つ → できるようになった感じ → もう一周【両方】
 - 鎖：敵の攻撃を予告し、負けたら自分のせいと分かる [[web:simgames:r4-sim-gd-intothebreach|「your own fault」]] → 次の周で何を変えればよいかが分かる → 上達が見える。FTL の口コミは「上がるのは船ではなく自分」と書く（#145）。
-- 研究の側：同じゲームを続けるかどうか（他のゲームを選ばずに）を予測したのは、自律ではなく有能（できている感じ）だけだった [[web:learnsci:ryan2006-games-sdt|「only competence」]]。
-- 声：始め直しに触れた53件のうち、上達が18件（2.2）。
-- 尽きる点：上手くなって結果が読めるようになると、板挟みの感じが消え、その人には遊び直す価値が残らない [[web:simgames:r4-sim-gd-pdg|「PDG will be lost」]]。習熟だけを動機にすると、習熟しきったところで尽きる。だから習熟型の名作は、必ず「答えを動かす」仕掛け（次項）と「段」を一緒に持つ。
+- 研究の側：同じゲームを続けるかどうか（他のゲームを選ばずに）を予測したのは、自律ではなく有能（できている感じ）だけだった（Ryan ら 2006 の研究1。大学生89人がマリオ64を20分）[[web:learnsci:ryan2006-games-sdt|「only competence」]]。自律を高める作りとして、著者は動きと戦略の自由・課題と目標の選択・知らせるための報酬、業界の流れとして遊ぶ人の選択を先回りせず動的に応じる「手続き的」な作りを挙げる [[web:learnsci:ryan2006-games-sdt|「respond dynamically」]]（判定書 F11）。
+- 声：始め直しに触れた45件のうち上達が12件（2.2）。
+- 尽きる点：上手くなって結果が読めるようになると、板挟みの感じが消え、その人には遊び直す価値が残らない、と PDG の論考（Game Developer のブログ欄の仮説の文章。筆者は Blogger 欄の Narek Aghekyan [[web:simgames:r4-sim-gd-pdg|「Blogger」]]）は書く [[web:simgames:r4-sim-gd-pdg|「PDG will be lost」]]。習熟だけを動機にすると、習熟しきったところで尽きうる。名作の多くは段か中身の生成を一緒に持つが、段のない作品（FTL・Spelunky）もある。
 
-### 新しい組み合わせ：毎周の部品が違う → 最善手が毎周違う → 試したい組み合わせが残り続ける
-- 鎖：報酬の札が3枚から1枚 [[web:simgames:r6-rp-wiki-sts|「of three randomly」]]、遺物・敵・道も周ごとに違う → 同じ山札の作り方が通らない → 支配的な戦法がない [[web:simgames:r6-rp-gd-igf-slaythespire|「dominant strategy」]] → 作り手の試遊の段階から遊び直したくなる度合いが群を抜いた [[web:simgames:r6-rp-gd-igf-slaythespire|「off the charts」]]。
-- 量の上限：1人あたり約75枚がちょうどよく、多すぎると山札の組み立てが行き当たりばったりになる [[web:simgames:r6-rp-wiki-sts|「75 different cards」]]。組み合わせは多いほどよいのではない。
-- 作り手の調整：提示されても選ばれない札は価値が低いと見て直す [[web:simgames:r6-rp-wiki-sts|「not picked by players」]]。Balatro は強すぎて周りの戦法を食う札、弱すぎて選ばれない札を数字で直す [[web:simgames:r6-rp-rogueliker-balatro|「hanging a picture」]]。
-- 運の扱い：Balatro は乱数が多いが、上手な遊び方は「危険を減らし崩されにくい構成」に移った [[web:simgames:r6-rp-rogueliker-balatro|「random the game feels」]]。運が大きいことが、運を読んで備えるという判断を生む。
-- 声：始め直しの53件で組み合わせが20件（最多）。
-- 尽きる点：組み合わせそのものより、周の中の「出来事」に慣れたところで新しさが減る（#2）。部品の組み合わせを毎周変えても、出来事の台本が同じなら、そこから先に飽きが来る。
+### 自分で組む組み合わせ：部品が多い → 組み方が多い → 試したい組み方が残る【長い周回】
+- 鎖：報酬の札が3枚から1枚 [[web:simgames:r6-rp-wiki-sts|「of three randomly」]]、遺物・敵・道も周ごとに違う → 組める山札の組み合わせが非常に多い → 作り手の試遊の段階から遊び直したくなる度合いが群を抜いた [[web:simgames:r6-rp-gd-igf-slaythespire|「permutations of decks」]]。支配的な戦法を作らないよう敵を広げた [[web:simgames:r6-rp-gd-igf-slaythespire|「dominant strategy」]]。
+- 量の上限：1人あたり約75枚がちょうどよく、多すぎると組み立てが行き当たりばったりになる [[web:simgames:r6-rp-wiki-sts|「75 different cards」]]。
+- 作り手の調整：提示されても選ばれない札は価値が低いと見て直す [[web:simgames:r6-rp-wiki-sts|「not picked by players」]]。Balatro は強すぎる札・弱すぎる札を数字で直し [[web:simgames:r6-rp-rogueliker-balatro|「hanging a picture」]]、乱数は多すぎたかもしれないと書く [[web:simgames:r6-rp-rogueliker-balatro|「possibly too much」]]。上手な遊び方は危険を減らし崩されにくい構成に移った [[web:simgames:r6-rp-rogueliker-balatro|「random the game feels」]]。
+- 声：組み合わせ25件の内訳は、自分で組む17・周ごとに中身が違う8・前の周の答えが通らない0（2.2）。声が支えるのは「自分で組む自由」と「中身の新しさ」。
+- 尽きる点：組み合わせそのものより、周の中の「出来事」に慣れたところで新しさが減るという声（#2、1件）。
 
-### 目標の更新：勝つと次の段が開く → 同じ周が別の難しさになる → 「次の段で通用するか」が新しい問いになる
-- 鎖：StS の Ascension は勝つたびに1段開き、負の条件が積む（最大20段）[[web:simgames:r6-rp-wiki-sts|「Ascension difficulty」]]。Hades はそれを Pact of Punishment に写した [[web:simgames:r6-rp-tomsguide-hades|「Pact of Punishment」]]。Balatro は賭け金の段、Dead Cells は Boss Cells [[web:simgames:r6-rp-wiki-deadcells|「Boss Cells」]]、ルセッティアは借金が増え続けるモード [[web:simgames:designer-recettear-gd2010|「ever increasing debt」]]。
-- 声：周回の段を上まで行った7件のうち5件が段を楽しみに挙げた（2.3）。#46 は最高難度までを「チュートリアル」と呼ぶ。
-- 尽きる点：段を上り切った後（#2 は223時間で全キャラ最高難度、その後の不満は新しさの減少）。また、熱心な人に合わせて段と解禁を上げすぎると、普通の人が届かない（FTL の事後分析 [[web:simgames:r6-rp-gamespark-ftl|「イージーモードがノーマルモード」]]）。
+### 目標の更新（段）：勝つと次の段が開く → 同じ周が別の難しさになる【両方】
+- 鎖：StS の Ascension は勝つたびに1段開き、負の条件が積む（最大20段）[[web:simgames:r6-rp-wiki-sts|「Ascension difficulty」]]。Hades はそれを Pact of Punishment に写した [[web:simgames:r6-rp-tomsguide-hades|「Pact of Punishment」]]。Balatro は賭け金の段、Dead Cells は Boss Cells [[web:simgames:r6-rp-wiki-deadcells|「Boss Cells」]]、ルセッティアは借金が増え続けるモード [[web:simgames:designer-recettear-gd2010|「ever increasing debt」]]、カイロソフトは周回ごとに目標を上げる遊び方（2.6）。
+- 声：周回の段を上まで行った7件のうち5件が段を楽しみに挙げた（2.3）。
+- 尽きる点：段を上り切った後（#2、1件）。熱心な人に合わせて段と解禁を上げすぎると普通の人が届かない（FTL の事後分析の報告 [[web:simgames:r6-rp-gamespark-ftl|「イージーモードがノーマルモード」]]）。
 
-### 発見：まだ見ていないものがある → 見つけに戻る → 知識が次の周の行動を変える
-- 鎖：人は2回目の楽しさを低く見積もるが、その理由は「1回で全部見た」と思うことで、実際には新しいものが見つかる [[web:learnsci:r6-rp-obrien2019-enjoyagain|「underestimate their」]]。遊ぶ前に「ほかの人は多くの新しいものを見つけた」と知らせると予想が実際に近づいた（同論文の研究5）。
-- 作り手の側：Outer Wilds は持ち帰れるのが記録だけ [[web:simgames:r6-rp-wiki-outerwilds|「Nothing is brought back」]]、前のループで学んだことが次のループの探し方を変える。大きな謎を少数ではなく、小さな謎を多く置いて頻繁に報いる [[web:simgames:r6-rp-wiki-outerwilds|「smaller mysteries」]]。Balatro は、序盤に教えた原理（札の順）の大事さを、忘れた頃に新しい札で気づかせる [[web:simgames:r6-rp-gd-balatro-signposting|「low-calorie tutorial」]]。
-- 尽きる点：謎が解ければ1周で尽きる（Obra Dinn [[web:simgames:r6-rp-wiki-obradinn|「a lot of replay value」]]、Outer Wilds）。O'Brien も、見かけより単純だと分かるもの（選択式の冒険本）は繰り返しが予想より悪くなりうると書く [[web:learnsci:r6-rp-obrien2019-enjoyagain|「your-own-adventure」]]。
+### 発見：まだ見ていないものがある → 見つけに戻る → 知識が次の周の行動を変える【両方】
+- 鎖：人は2回目以降の楽しさを低く見積もる。O'Brien（2019）の7研究（3,356人。ゲームの研究は MTurk の参加者が1分間のお絵かきのゲームを5回）の主な結果で、理由は「1回で全部見た」と思うこと、実際にくり返すと新しいものが見つかる [[web:learnsci:r6-rp-obrien2019-enjoyagain|「Less Repetitive Than」]]。遊ぶ前に「ほかの人は20〜30の新しい細部を見つけた」と知らせると、予想が実際に近づいた [[web:learnsci:r6-rp-obrien2019-enjoyagain|「20 –30 new details」]]。単純な刺激（同じ青い球9つ）でも、くり返しは予想より楽しかった [[web:learnsci:r6-rp-obrien2019-enjoyagain|「somewhat enjoyable」]]。
+- 作り手の側：Outer Wilds は持ち帰れるのが記録だけ [[web:simgames:r6-rp-wiki-outerwilds|「Nothing is brought back」]]、小さな謎を多く置いて頻繁に報いる [[web:simgames:r6-rp-wiki-outerwilds|「smaller mysteries」]]。Balatro は序盤に教えた原理の大事さを、忘れた頃に新しい札で気づかせる [[web:simgames:r6-rp-gd-balatro-signposting|「low-calorie tutorial」]]。カイロソフトの声にも、前の周に見つけられなかったことを次の周で見つけた、がある [[web:simgames:r5-fv-applion-gamedevstory-p6|「次の週で発見」]]。
+- 尽きる点：謎が解ければ1周で尽きる（Obra Dinn [[web:simgames:r6-rp-wiki-obradinn|「a lot of replay value」]]、Outer Wilds）。O'Brien は、見かけより単純だと分かるもの（選択式の冒険本）は逆に転びうると推測するが、それは例外で規則ではないと書く [[web:learnsci:r6-rp-obrien2019-enjoyagain|「rather than the rule」]]。
 
-### 物語の分岐と関係：周ごとに話が進む → 死や負けが「続き」になる → 人物に会いに戻る
+### 物語の分岐と関係：周ごとに話が進む → 死や負けが「続き」になる → 人物に会いに戻る【数周】
 - 鎖：Hades は「どの周も意味がある」を合言葉にし [[web:simgames:r6-rp-tomsguide-hades|「every run counts」]]、起こりうる出来事の連鎖に合わせて約10時間分の台詞を書いた [[web:simgames:r6-rp-wiki-hades|「worth of dialog」]]。周を重ねるほど人物との絆や親しみを感じてほしかった [[web:simgames:r6-rp-inven-hades|「bond and friendliness」]]。物語は連続ものの第1話のように出し、後から足した [[web:simgames:r6-rp-gd-hades-devprocess|「pilot episode」]]。
-- 研究の側：オンラインゲームの730人の調査で、関係（人とつながる感じ）は自律・有能と独立に、今後何か月遊ぶつもりかを予測した [[web:learnsci:ryan2006-games-sdt|「average of 9.22」]]。
-- Pyre の教訓：分岐の多い物語でも、繰り返す構造がなければほとんどの人は1回で終える（Wikipedia の記述）[[web:simgames:r6-rp-wiki-hades|「through the game once」]]。Hades はまず「繰り返す構造」を決め、その上に物語を載せた [[web:simgames:r6-rp-gd-hades-devprocess|「one-and-done game」]]。
-- 尽きる点：物語が答えを出した後（GPB の評 [[web:simgames:r6-rp-gpb-hades-stop|「stifling effects」]]、NieR を遊び直さない評 [[web:simgames:r6-rp-superjump-nier-notreplayable|「a whopping 13 times」]]（13回遊び直す人でも NieR はもう遊ばない））。物語と仕組みの両方の「終わり」に達すると遊び直す動機が消える [[web:simgames:r6-rp-digra-storygameness-pdf|「motivated to replay」]]。作る量も大きい（Detroit の513役 [[web:simgames:r4-sim-wiki-detroit|「513 roles」]]）。
+- 研究の側：オンラインゲームの経験者730人（679人が男性、ゲームの掲示板の利用者）の調査で、関係（人とつながる感じ）は自律・有能と独立に、今後何か月遊ぶつもりかを予測した [[web:learnsci:ryan2006-games-sdt|「679 males」]]。
+- Pyre の教訓：分岐の多い物語でも、繰り返す構造がなければほとんどの人は1回で終える（Wikipedia の記述）[[web:simgames:r6-rp-wiki-hades|「through the game once」]]。
+- 閉じ方：作り手は、遊ぶ人が満足して離れられるよう物語にいくつもの区切りを置いた [[web:simgames:r6-rp-tomsguide-hades|「happily walk away」]]。終わりのないゲームは退屈や燃え尽きまで遊ばれるから、とも言う [[web:simgames:r6-rp-tomsguide-hades|「boredom or burnout」]]。NieR は作り手が用意した複数の周（結末 A〜E）を遊ばせ、評者はそれを遊び通してからやめた [[web:simgames:r6-rp-superjump-nier-notreplayable|「my time with NieR」]]。
+- 尽きる点：作り手が決めた所で閉じる。物語が答えを出した後も構造上くり返しが続いて息苦しくなった評は、ローグライトの骨組みのくり返しを理由に挙げる [[web:simgames:r6-rp-gpb-hades-stop|「structural loop」]]（感染拡大の時期の評者1人の随筆）。物語と仕組みの両方の「終わり」に達すると遊び直す動機が消えるという精読もある（Mitchell ら。1作品1人の精読で、著者は一般化しないと書く [[web:simgames:r6-rp-digra-storygameness-pdf|「generalisable」]]）。作る量も大きい（Detroit の513役 [[web:simgames:r4-sim-wiki-detroit|「513 roles」]]）。
+- 本作への含み：本作に要るのは数周なので、物語で数周を支え、満点の条件がそろう頃に閉じる作りは、資料の向き（作り手の意図した閉じ）に合う【推論】。
 
-### 競争と証人：1回きりの挑戦を誰かが見ている → 賭け金が本物になる → 毎日戻る理由になる
-- 鎖：毎晩それぞれ1回だけ遊び、もう1人が横で見る儀式で、1回しかないから賭け金が本物に感じ、勝ちも負けも分かち合えた [[web:simgames:r6-rp-gutefabrik-spelunky|「witness with whom」]]。これが Spelunky の日替わりの挑戦の元になった [[web:simgames:r6-rp-gutefabrik-spelunky|「Daily Challenge」]]。StS も全員同じ盤面の日替わりを持つ [[web:simgames:r6-rp-wiki-sts|「fixed random seed」]]。
-- 教材の側：MG は成績順に席替えする [[web:simgames:accountant-otaru-mg|「成績順で席替え」]]。Capsim は他チームが市場を動かすので調べて済む答えがない [[web:simgames:capsim-capstone|「the sixth one wins」]]。
-- 学びの側の逆向き：一人で他人と競う形は学習効果がなく（−0.06）、チームで競う形のほうが有意に大きい [[web:learnsci:clark2016-digital-games-meta|「Single, competitive」]]。著者は、一人の競争では誰かの得が他の誰かの損になると解釈する。達成（力・競争）の動機は遊ぶ時間を増やすが、遊んだ後の気分を下げた [[web:learnsci:ryan2006-games-sdt|「related to mood」]]。
-- 声：日替わり・順位は1件（#53、順位が出なくなった不具合への不満）。
-- 尽きる点：資料なし。ただし学びの側では、順位の競争は学習の効果を下げうる。
+### 競争と証人：1回きりの挑戦を誰かが見ている → 賭け金が本物になる【両方】
+- 鎖：他社のゲームの作り手 Douglas Wilson が友人と毎晩1回だけ遊び、もう1人が横で見る儀式を続け、1回しかないから賭け金が本物に感じ、勝ちも負けも分かち合えたと書いた（遊ぶ側の記録）[[web:simgames:r6-rp-gutefabrik-spelunky|「witness with whom」]]。これが Spelunky の日替わりの挑戦の元の一つになったが、作り手 Derek Yu は「証人」は日替わりでは再現できず、遊ぶ人がネットで共有するに任せたと本に書いた [[web:simgames:r6-rp-gutefabrik-spelunky|「simulate with the Daily」]]。StS も全員同じ盤面の日替わりを持つ [[web:simgames:r6-rp-wiki-sts|「fixed random seed」]]。
+- 見られる楽しさ：Hades の作り手は、遊んで楽しいだけでなく見て楽しく、隣の友人や配信の視聴者にも読みやすいことを狙った [[web:simgames:r6-rp-gd-hades-devprocess|「enjoyable to watch」]]（判定書 F2）。
+- 教材の側（周回のゲームではない）：MG は成績順に席替えする [[web:simgames:accountant-otaru-mg|「成績順で席替え」]]。Capsim は他チームが市場を動かすので調べて済む答えがない [[web:simgames:capsim-capstone|「the sixth one wins」]]（AI を使ってよいかという問いへの売り手の答え）。ローグライクの記事は、順位表が遊ぶ人の間で共有されることが多いと書く [[web:simgames:r3-fable-wiki-roguelike|「leaderboards are often」]]。
+- 学びの側：Clark ら（2016）の遊ぶ人の組みの表で、有意に効いたのは一人で競争も協力もない遊び（0.45）だけ。一人の競争 −0.06（4研究）[[web:learnsci:clark2016-digital-games-meta|「Single, competitive」]]、一人で協力 0.01 [[web:learnsci:clark2016-digital-games-meta|「Single, collaborative」]]、チームの競争 0.22（幅が0をまたぐ）[[web:learnsci:clark2016-digital-games-meta|「team competition」]]、多人数 −0.05 [[web:learnsci:clark2016-digital-games-meta|「Multiplayer/MMO」]]。チームの競争が一人の競争より有意に大きいのは差の比較で、チームの競争そのものは0と区別できない。協力を入れる根拠はこの表にない。達成（力・競争）の動機は週の遊ぶ時間を増やすが、遊んだ後の気分を下げた（Ryan ら）[[web:learnsci:ryan2006-games-sdt|「related to mood」]]。
+- 声：日替わり・順位は1件（#53、日替わりの順位表が出なくなった不具合への不満＝順位を求める声）。
+- 尽きる点：資料なし。順位を出すかは、学びの資料（弱い：4研究）と教材・声（順位を使う・求める）が割れるので、オーナーの決定に回す（4.4 ⑤）。
 
-### 収集：あと少しで全部 → 最後の1つのために続ける
+### 収集：あと少しで全部 → 最後の1つのために続ける【長い周回】
 - 鎖：ほぼ全部のジョーカーを解放し、最後の1枚がほぼ無理だがそれで続けている（#126）。完全制覇の実績（#135）。
-- 尽きる点：集め終わったところ（#186 の全実績、#103 の予想）。解放をカードだけにすると、解放の終わりが動機の終わりになる。
+- 尽きる点：集め終わったところ（#186 の全実績、#103 の予想）。
 
-### 1回が短い・再開の壁が低い（どの動機にも効く下地）
+### 1回の区切りと1周の長さ（どの動機にも効く下地）【両方】
 - 鎖：1回が短いと完走を目指して繰り返す動機になる、と Wikipedia のローグライクの記事は書く [[web:simgames:r3-fable-wiki-roguelike|「short gameplay runs」]]。FTL は負けた後に再開する壁をほとんどなくした [[web:simgames:r6-rp-wiki-ftl|「learning experience」]]。Hades は短い時間でも長くでも遊べることを企画の条件にした [[web:simgames:r6-rp-gd-hades-devprocess|「in short stretches」]]。
 - 声：1回が短い・隙間に遊べるが15件、うち長く遊んだ側が12件。
-- ラーメン版との差：1周は10期で10〜15時間（DESIGN-RAMEN 95行）。StS の1周1〜2時間（#5）の5〜15倍で、この下地は弱い【推論】。年の選択（年を単位に遊び直す）がこの差を埋める手段になる。
+- 反対：経営シムの遊ぶ人は長い1周を嫌うとは限らない。Game Dev Tycoon は25年が早く終わりすぎると言われた [[web:simgames:r5-fv-greenheart-onemonth|「over too quickly」]]。カイロソフトの全国編は1周目が48時間を超えても遊ばれている（2.6）。
+- ラーメン版との差：1周は10期で10〜15時間（DESIGN-RAMEN 95行）。弱いのは1周の長さそのものより、1回の遊び（1日30分〜1時間）で区切れるかのほうかもしれない【推論】。年の選択（年を単位に遊び直す）は、1周の長さの手当てとして残す。
 
-### 間をあけて戻る（学びの間隔と同じ向き）
+### 間をあけて戻る（学びの間隔と同じ向き）【両方】
 - 鎖：ログイン報酬のような引き留めを使わず、区切りのよい終わりで離れられるようにした [[web:simgames:r6-rp-tomsguide-hades|「daily login bonuses」]] → 遊ぶ人は飽きたら離れ、間をあけて戻る（#34 の「飽きてもしばらくしたらまたハマる」、#212）。
-- 学びの側：間をあけた復習は、まとめた復習より、どの保持期間でも良い（Cepeda 2006 のメタ分析 [[web:learnsci:r6-rp-cepeda2006-meta|「Only 12 of 271」]]）。周回の設計で「間をあけて戻る」を楽しさとして作ることは、学びの側の要求と同じ向き【推論】。
+- 学びの側：日単位の間隔と保持期間を扱い、量の交絡のない研究では、最適な間隔は1か月以上だった（Cepeda 2006 のメタ分析）[[web:learnsci:r6-rp-cepeda2006-meta|「1 month or more」]]。周回の設計で「間をあけて戻る」を楽しさとして作ることは、学びの側の要求と同じ向き【推論】。
 
 ## うまくいかない理由
 
-### 同じ台本の読み直しが作業になる
-- 周を重ねると、前に分かったことをやり直してからでないと新しい中身に届かず、新しいことのない作業になった（Cultist Simulator、7周・13時間半）[[web:simgames:r6-rp-digra-storygameness-pdf|「for 7 playthroughs」]]。
-- 選ばなかった道を知らせる版は、ふだん遊び直す人には「同じ文章をまた読む」苛立ちと疲れを生んだ（Gamito の64人の実験）[[web:simgames:r6-rp-gamito2021-pathnottaken|「64 participants」]]。
+### 同じ台本の読み直しが作業になる【数周】
+- 周を重ねると、前に分かったことをやり直してからでないと新しい中身に届かず、新しいことのない作業になった（Cultist Simulator、7周・13時間半。1作品1人の精読）[[web:simgames:r6-rp-digra-storygameness-pdf|「for 7 playthroughs」]]。Cultist は手続き生成で中身は毎回違う作品なので、これは「答えが変わっても、仕組みが分かれば尽きる」例でもある。
+- 選ばなかった道を知らせる版で、3回以上遊んだ人は苛立ちが高かった（Gamito の64人・10〜20分の実験。修士論文の拡張要旨で、部分集団の検定）[[web:simgames:r6-rp-gamito2021-pathnottaken|「more irritable」]]。「同じ部分をまた読むから」は著者の推測。
 - NieR の1・2周目は同じ時期の出来事を別の視点で追う [[web:simgames:r6-rp-wiki-nierautomata|「multiple playthroughs」]]。作り手は予算の制約で素材を使い回した結果と語ったと伝えられる（二次）[[web:simgames:r6-rp-twistedvoxel-nier-budget|「Budget Constraints」]]。
 - 声：中盤から作業ゲーム感（#179）、後半が作業ゲーム（カイロソフトの声 [[web:simgames:r5-fv-applion-gamedevstory|「後半作業ゲーになってしまう」]]）。
 - 鎖：台本が同じ → 2周目は「知っている所の通過」 → 想起でも判断でもない時間が増える → 作業。
 
-### 皮だけの変種は見破られる
-- Papers, Please の台本の人物は、遊び直すと顔と名前は変わるが台詞は同じ [[web:simgames:designer-papersplease-gd2014|「change between replays」]]。その周回の新しさは、台本でなく20の結末の枝から来る。
-- 重要に見えた選択の一部が結果を変えない「偽の選択」だと分かると、仕組みが読めて遊び直す気が消えた（Bandersnatch）[[web:simgames:r6-rp-digra-storygameness-pdf|「false choices」]]。選択が結果を出して終わる作りは、2周目に仕掛けが見え、1周目の価値まで下げる [[web:simgames:r4-sim-mcv-ingold-replay|「how the wires worked」]]。
-- 学びの側：同じ問題を同じ形でくり返すと、その問題だけが強くなり、問いの別の部分や新しい問題への転移はほとんど差がなかった（Higham らの教室の実験）[[web:learnsci:r6-rp-higham2021-relearning|「not show a reliable」]]。
-- 鎖：皮だけ変わる → 答えの組み立ては同じ → 2周目は「前の答えの書き写し」 → 楽しさ（新しい発見がない）も学び（転移）も弱い。DESIGN-ROUND2 231行の「同じ論点が別の皮で来る驚き」は、皮の驚きで転移を練習できるという前提に立つが、上の資料はこの前提に反対する【推論】。
+### 物語の選択が結果を変えないと見破られる【数周】（版0.1の「皮だけの変種は見破られる」を範囲を限って直した）
+- 重要に見えた選択の一部が結果を変えない「偽の選択」だと分かると、仕組みが読めて遊び直す気が消えた（Bandersnatch の精読）[[web:simgames:r6-rp-digra-storygameness-pdf|「false choices」]]。選択が結果を出して終わる作りは2周目に仕掛けが見える（Telltale の The Walking Dead について inkle の作り手）[[web:simgames:r4-sim-mcv-ingold-replay|「The Walking Dead」]]。
+- これは物語の選択の話で、皮（名前・数字・業種）の変種の話ではない。Papers, Please は台本の人物の台詞が同じでも、中心の作業の書類は毎回乱数で埋まり [[web:simgames:designer-papersplease-gd2014|「with random data」]]、長く遊ばれた。
+- 学びの側：同じ問題・同じ答えのくり返しは、その問題だけを強くし、問いの別の部分を空けた問題では差が出なかった（Higham ら。査読への応答の版の原稿 [[web:learnsci:r6-rp-higham2021-relearning|「Comments (Masked)」]]）[[web:learnsci:r6-rp-higham2021-relearning|「not show a reliable」]]。一方、名前・数字・場面を変えた同型の問題（皮の変種）は、Mawson が転移を要する練習として扱う [[web:learnsci:mawson2025-spacing-classroom-meta|「algorithmic variants」]]。皮の変種は「同じ問題のくり返し」には入らない。
 
-### 固定の最適
-- 経営・育成のゲームでは、最適があるとき作り手が注意深く隠す（序盤は A、中盤は B、また A）[[web:simgames:r4-sim-gd-pdg|「hides that fact」]]。明らかな最適は自分で賢く選んだ感じを壊す。
+### 固定の最適と、外乱への備えのなさ【両方】
+- 経営・育成のゲームでは、最適があるとき作り手が1回の遊びの中で注意深く隠して移す（序盤は A、中盤は B、また A）と PDG の論考は書く [[web:simgames:r4-sim-gd-pdg|「hides that fact」]]。明らかな最適は自分で賢く選んだ感じを壊す。
 - 声：キャラごとの強さの偏り（#2・#10・#14）。
-- 鎖：最適が固定 → 2周目は最適をなぞるだけ → 板挟みが消える → 遊び直す価値が消える。DESIGN-ROUND2 228行の「資金繰りは決定論のまま（運ではない）」は、需要が決まれば資金繰りの最適も決まる作りで、周ごとの答えを動かす源の一つを自分で閉じている【推論】。
+- DESIGN-ROUND2 228行の「資金繰りは決定論のまま（運ではない）」について、版0.1は「最適が固定になる」と書いたが、因果を直す。需要の変種で最適は動くので、決定論でも最適は固定にならない（Capsim の市場も決まった向きに動く [[web:simgames:capsim-capstone|「smaller and faster」]]。Into the Breach は乱数を減らしても周回される [[web:simgames:r4-sim-gd-intothebreach|「your own fault」]]）。決定論で欠けるのは「外乱に備える判断」（借入枠・保険・在庫）のほう【推論】。この直しは PEDAGOGY 1.5（資金繰りが変わる原因は帳簿の誤りと判断だけ）を改めることになるので、オーナーの決定に回す（4.4）。
 
-### 持ち越しで易しすぎる・練習が消える
-- 強くてニューゲームは前の周の能力と装備を持ったまま最初から遊ぶ [[web:simgames:r3-fable-wiki-newgameplus|「alternate endings」]]。不思議のダンジョンは前の周の道具を預けて取り戻す手段を置いた [[web:simgames:r3-fable-wiki-roguelike|「store and recover」]]（入口が広がる一方で次の周が易しくなる）。
-- 学びの側：1回思い出せた組を練習から外すと1週間後に3割台、練習を続けると約8割 [[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]]。慣れて見ずに言えるようになってからの学び直しの回も、長期の保持を押し上げた [[web:learnsci:r6-rp-bahrick1993|「comparable to 26」]]。
-- 鎖：持ち越した自動仕訳 → その型を自分で書く機会が消える → 練習から外した条件と同じ → 定着が落ちる【推論】。
+### 持ち越しでふだんの思い出しが減る【数周】
+- 強くてニューゲームは前の周の能力と装備の全部か一部を持ったまま始め直す [[web:simgames:r3-fable-wiki-newgameplus|「with all or some of」]]。不思議のダンジョンは前の周の道具を預けて取り戻す手段を置いた [[web:simgames:r3-fable-wiki-roguelike|「store and recover」]]（入口が広がる一方で次の周が易しくなる）。
+- 学びの側：1回思い出せた組を、その学習の場の中で練習から外すと1週間後に3割台、続けると約8割（単語の組）[[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]]。見ずに言えるようになってからの学び直しの回も長期の保持を押し上げた [[web:learnsci:r6-rp-bahrick1993|「comparable to 26」]]。
+- 本作の自動仕訳は、3回正しく切り、そのうち1回が別の月で登録され（PEDAGOGY 1.6）、S.plan の選ぶ順③・監査の点検・棚卸で戻ってくる。「練習から外す」とまでは言えない。ふだんの記帳での思い出しの回数が減ることは確か【推論】。足りるかどうかは、S.plan③・監査・棚卸の頻度で決まる（4.2 最小4）。
 
-### 解放と収集の終わり
-- 解放されるのがカードだけで強さが変わらないなら、解放が終われば飽きる（#103）。200時間で全実績、することがない（#186）。FTL は解禁の仕組みが複雑になり新しい船が手に入りにくくなった [[web:simgames:r6-rp-gamespark-ftl|「船の解禁システムが複雑」]]。
+### 解放と収集の終わり【長い周回】
+- 解放されるのがカードだけで強さが変わらないなら、解放が終われば飽きるだろうという予想（#103）。200時間で全実績、することがない（#186、1人）。FTL は解禁の仕組みが複雑になり新しい船が手に入りにくくなった [[web:simgames:r6-rp-gamespark-ftl|「船の解禁システムが複雑」]]。
 - 鎖：周回の報酬を解放に置く → 解放が終わる／遠すぎる → 報酬がなくなる → やめる。
 
-### 物語の閉じ
-- 問いに答えが出た後も構造上ゲームが続き、息苦しくなった（Hades）[[web:simgames:r6-rp-gpb-hades-stop|「relentless repetition」]]。最後の結末が強く、もう遊び直さない（NieR）[[web:simgames:r6-rp-superjump-nier-notreplayable|「my time with NieR」]]。
-- 鎖：物語が周回の理由 → 物語が終わる → 周回の理由が消える。学習のための周回（満点の条件）は物語が終わった後も続く必要があるので、物語だけを周回の動機にすると、条件に届く前にやめる人が出る【推論】。
+### 物語の閉じ【数周】
+- 物語が周回の理由なら、物語が閉じたところで周回が止まる（GPB の評者・NieR の評者、各1人）。ただし閉じる時期は作り手が決められ、Hades の作り手は区切りを意図した（うまくいく理由）。学習のための周回（満点の条件）より前に物語が閉じると、条件に届く前にやめる人が出うる【推論】。閉じる時期を条件に合わせれば、この理由は当たらない【推論】。
 
-### 入口の摩擦と長い1回
-- 初めは楽しさが分からない（#22・#123）、説明不足のまま時間制限で失敗して苛立つ（ルセッティア）[[web:simgames:designer-recettear-gd2010|「missed the fourth」]]、1周が長い（#10 は高速モードを勧める）。
-- 学びの側：最初の再学習は不安が高く、身についた感じも低いが、3回目までくり返すと逆転した [[web:learnsci:r6-rp-higham2021-relearning|「more anxious than those」]]。1回目のつらさだけを見て止めると逆の結論になる、と著者は書く。
+### 入口の摩擦と長い1回【数周】
+- 初めは楽しさが分からない（#22・#123）、説明不足のまま時間制限で失敗して苛立つ（ルセッティア）[[web:simgames:designer-recettear-gd2010|「missed the fourth」]]、1周が長い（#10 は高速モードを勧める、カイロソフトの全国編の1周目が48時間を超える）。
+- 学びの側：最初の再学習は再読より不安が高いが、3回目までくり返すと逆転した [[web:learnsci:r6-rp-higham2021-relearning|「more anxious than those」]]。1回で止めていたら逆の結論になっていた、と著者は書く。
 
 ## 3. 学びの側：何回・どの間隔で、どのくらい残るか
 
-### 3.1 資料ごとに分かったこと（確かめ直しを含む）
-| 資料 | 何を比べたか | 分かったこと | 本作への向き |
+### 3.1 資料ごとに分かったこと（版0.2で条件を書き足した）
+| 資料 | 何を比べたか（条件） | 分かったこと | 本作への向き |
 |---|---|---|---|
-| Karpicke & Roediger 2008（Science、単語の組40個、大学生） | 1回言えた組を、その後も思い出す練習に残すか外すか | 練習に残すと1週間後に約8割、外すと3割台 [[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]]。本人の予想は条件で差がなく約半分 [[web:learnsci:r6-rp-karpicke-roediger2008|「about 50% of the pairs」]] | 「覚えたら外す」は定着を大きく削る。持ち越しの自動仕訳と段で外す支えはこの向きで点検する |
-| Karpicke & Bauernschmidt 2011（JEP:LMC、96人） | 3回の想起の間隔の合計（短・中・長）と並べ方（広げる・等間隔・縮める） | 間隔の合計が長いほど良いが、並べ方には差がない [[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「inherently superior」]]。まとめた3回は1回と同じ（26%対25%）[[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「26% vs. 25%」]]。間隔は日ではなく試行の数 | 同じ月に同じ型を何枚も並べても回数にならない。並べ方より合計の間隔 |
-| Bahrick ら 1993（Psych. Science、4人・9年・単語300組） | 学び直しの回数（13・26回）と間隔（14・28・56日）、1〜5年後の保持 | 56日おき13回が14日おき26回とほぼ同じ [[web:learnsci:r6-rp-bahrick1993|「comparable to 26」]]。回数と間隔は独立に効く。見ずに言えるようになった後の回も効いた | 長く残すには回数と長い間隔の両方。受験までなら数か月で足りるので回数は少なくてよい【推論】 |
-| Cepeda ら 2006（Psych. Bulletin、メタ分析・839の比較） | 間隔と保持期間の組 | まとめるより間をあけるほうが、どの保持期間でも良い（効果なし・逆は271中12）[[web:learnsci:r6-rp-cepeda2006-meta|「Only 12 of 271」]]。最適な間隔は保持期間が長いほど長い。広げる対等間隔の比較は22しかなく暫定で、万能の公式を疑う [[web:learnsci:r6-rp-cepeda2006-meta|「universal formula」]] | 間隔は受験日までの長さで決める |
-| Cepeda ら 2008（Psych. Science、ネットの被験者、1回の復習）**確かめ直し** | 1回目の学習から1回の復習までの間隔と、保持期間7・35・70・350日 | 最適な間隔は保持期間の約43%・23%・17%・8% [[web:learnsci:theory-spacing-cepeda2008|「43%, 23%, 17%, and 8%」]]。最適の値は、どのくらい覚えていたいかを先に決めないと勧められない [[web:learnsci:theory-spacing-cepeda2008|「decide how long you」]]。広げていく予定表（3回以上の復習）は調べていない | DESIGN-ROUND2 280行の「7→30→90日。迷ったら長め」の後半（迷ったら長め）は原文と合うが、7→30→90 という並べ方の根拠はこの論文にない |
-| Mawson ら 2025（教室の分散練習のメタ分析）**確かめ直し** | 教室の研究の間隔・回数・分野 | 固定7日の間隔が最も安定して効いた [[web:learnsci:mawson2025-spacing-classroom-meta|「intervals of seven days」]]。ただし著者は、広げる方式の結果は同じ研究手順のものがほとんどで一般化できないかもしれないと留保する [[web:learnsci:mawson2025-spacing-classroom-meta|「same study procedure」]]。間隔は覚えていたい期間の1〜2割（Cepeda を引く）[[web:learnsci:mawson2025-spacing-classroom-meta|「10–20% of the required」]]。いつ使うかで間隔を決めるよう教師に勧める [[web:learnsci:mawson2025-spacing-classroom-meta|「learning will be used」]] | 「固定7日が最良」とは言い切らない。受験日から決める |
-| Latimier ら 2021（メタ分析、要旨だけ） | 広げる予定表と等間隔 | 差がない（g はほぼ0）[[web:learnsci:r6-rp-latimier2021-full|「g  = 0.034」]]。テストの回数が多い研究ほど広げる側がやや有利 | 広げるか等間隔かは決め手にならない |
-| Higham ら 2021（教室、心理学入門、逐次再学習） | 正解まで答える練習を週に3回（2日おき）対 再読 | 序論の先行研究：正解まで学ぶことを日をあけて3回くり返すと1週間後に約8割 [[web:learnsci:r6-rp-higham2021-relearning|「increased to 80%」]]。本研究：練習した問題では再学習が上、転移の問題では差がない [[web:learnsci:r6-rp-higham2021-relearning|「not show a reliable」]]。1回目は不安が高いが3回目で逆転 [[web:learnsci:r6-rp-higham2021-relearning|「more anxious than those」]] | 3回の正解の再学習が目安。同じ問題のくり返しは転移を生まない |
-| Clark ら 2016（教育用ゲームのメタ分析、69研究） | 1回だけ遊ぶか複数回か、合計の時間 | 複数回の条件は効き、1回だけは効かない。平均は38日の間に11回 [[web:learnsci:clark2016-digital-games-meta|「11 sessions over」]]。合計の時間とは関係がない。著者は分散の効果かもしれないと書く [[web:learnsci:clark2016-digital-games-meta|「adequately spaced」]] | 周回の価値は「長く遊ばせる」ことより「何回にも分けて戻らせる」こと |
-| Grosse 2015（数学のモデル化の足場外し、8年生143人）**確かめ直し** | 前から外す／後ろから外す／例題→問題／問題→例題 | 易しい歩から外し、最初は例題で始めるよう勧める [[web:learnsci:grosse2015-fading-modeling|「easiest step first」]]。最も難しい翻訳の歩は、後ろから外す並べ方では最後まで例として見せる | DESIGN-ROUND2 249行（段1で「たとえば」＝例題を最初に外す）は逆向き |
+| Karpicke & Roediger 2008（Science。大学生、単語の組40個、**1回の学習の場の中**で学習とテストを4回ずつ） | 1回言えた組を、その場の練習に残すか外すか | 練習に残すと1週間後に約8割、外すと3割台 [[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]]。本人の予想は条件で差がなく約半分 [[web:learnsci:r6-rp-karpicke-roediger2008|「about 50% of the pairs」]] | 「覚えたら外す」は定着を削る向き。日をあけた練習の回数の根拠ではない |
+| Karpicke & Bauernschmidt 2011（JEP:LMC、96人。**間隔は分単位の試行の数**、初めの成功率をそろえた条件） | 3回の想起の間隔の合計（短・中・長）と並べ方（広げる・等間隔・縮める） | 間隔の合計が長いほど良いが、並べ方には差がない [[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「inherently superior」]]。まとめた3回は1回と同じ（26%対25%）[[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「26% vs. 25%」]]。初めに1回思い出せるまで待ってから間隔を変えた [[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「By waiting until」]] | 同じ月に同じ型を何枚も並べても回数にならない。並べ方の結論は「初めの成功率をそろえた分単位の実験」に限る |
+| Bahrick ら 1993（Psych. Science、心理学者の家族4人・9年・単語300組） | 学び直しの回数（13・26回）と間隔（14・28・56日）、1〜5年後の保持 | 56日おき13回が14日おき26回とほぼ同じ [[web:learnsci:r6-rp-bahrick1993|「comparable to 26」]]。26回・56日おきでも5年の平均は4分の3強 | 長く残すには回数と長い間隔の両方。満点（ほぼ全部）の水準では、回数を減らせるとは言えない |
+| Cepeda ら 2006（Psych. Bulletin、言葉の記憶のメタ分析・839の比較。「まとめる」は**1秒未満の連続提示**） | 間隔と保持期間の組 | 間をあけるほうが、どの保持期間でも良い（効果なし・逆は271中12）[[web:learnsci:r6-rp-cepeda2006-meta|「Only 12 of 271」]]。最適な間隔は保持期間が長いほど長く、日単位の交絡のない研究では1か月以上 [[web:learnsci:r6-rp-cepeda2006-meta|「1 month or more」]]。広げる対等間隔は全体として広げる側が良いが、ばらつきが大きく暫定 [[web:learnsci:r6-rp-cepeda2006-meta|「expanding ISIs led to」]]。先行の総説（Moss 1996）では、計算などの知的技能で分散の効果が出たのは3分の1だけ [[web:learnsci:r6-rp-cepeda2006-meta|「third of intellectual」]] | 間隔は受験日までの長さで決める。仕訳（手続き）に写すときは、効果が小さいか出ない可能性がある |
+| Cepeda ら 2008（Psych. Science、ネットの被験者・雑学の事実32個、**1回の復習**）**確かめ直し** | 1回目の学習から1回の復習までの間隔と、復習から最終テストまでの保持期間7・35・70・350日 | 最適な間隔は保持期間の約43%・23%・17%・8% [[web:learnsci:theory-spacing-cepeda2008|「43%, 23%, 17%, and 8%」]]。どのくらい覚えていたいかを先に決める必要がある [[web:learnsci:theory-spacing-cepeda2008|「decide how long you」]]。最終テストの平均は41% [[web:learnsci:theory-spacing-cepeda2008|「41% in the Internet」]]、85%以上の人は2.6% [[web:learnsci:theory-spacing-cepeda2008|「surprisingly good」]] | 280行の「迷ったら長め」は原文と合う。7→30→90 の並べ方の根拠はこの論文にない。保持の水準は満点からは遠い |
+| Mawson ら 2025（教室の分散練習のメタ分析、保持期間は最長42日）**確かめ直し** | 教室の研究の間隔・回数・分野 | 固定7日の間隔が最も安定して効いた [[web:learnsci:mawson2025-spacing-classroom-meta|「intervals of seven days」]]。ただし広げる方式の結果は同じ研究手順のものがほとんどで一般化できないかもしれないと留保 [[web:learnsci:mawson2025-spacing-classroom-meta|「same study procedure」]]。間隔は覚えていたい期間の1〜2割 [[web:learnsci:mawson2025-spacing-classroom-meta|「10–20% of the required」]]。分野別では会計 0.67 [[web:learnsci:mawson2025-spacing-classroom-meta|「Accounting 0.67」]]、数学 0.46 [[web:learnsci:mawson2025-spacing-classroom-meta|「Math 0.46」]]。数学の研究は値や文脈を変えた問題（algorithmic variants）でくり返し、転移を要するので効果が小さく出たかもしれない [[web:learnsci:mawson2025-spacing-classroom-meta|「values or contexts」]]。分散の効果は単純な課題ほど強い [[web:learnsci:mawson2025-spacing-classroom-meta|「less complex tasks」]] | 会計の授業でも分散は効く（手続きの教材の証拠）。皮の変種は「転移を要する練習」の側 |
+| Latimier ら 2021（メタ分析、**要旨だけ**） | 広げる予定表と等間隔 | 全体では差がない [[web:learnsci:r6-rp-latimier2021-full|「g  = 0.034」]]。テストの回数が多い研究ほど広げる側が有利になる（大きさは要旨にない） | 回数の多い本作は広げる側が有利な条件に近い |
+| Higham ら 2021（教室・心理学入門。**査読への応答の版の原稿**）| 正解まで答える練習を週に3回（2日おき）対 再読 | 序論の先行研究：正解まで学ぶことを日をあけて3回くり返すと1週間後に約8割 [[web:learnsci:r6-rp-higham2021-relearning|「increased to 80%」]]。本研究：学期末に練習と同じ問題で約55%（再読は約41%）[[web:learnsci:r6-rp-higham2021-relearning|「relearn: M = .55」]]、空欄の位置を変えた問題では差がない [[web:learnsci:r6-rp-higham2021-relearning|「not show a reliable」]]。1回目は不安が高いが3回目で逆転 [[web:learnsci:r6-rp-higham2021-relearning|「more anxious than those」]] | 3回は効果が出始める回数で、満点の目安ではない。練習は同じ問題・同じ答え（皮の変種とは別） |
+| Clark ら 2016（教育用ゲームのメタ分析、69研究。多くは直後のテスト） | 1回だけ遊ぶか複数回か、合計の時間 | 複数回の条件は効き、1回だけは効かない。平均は38日の間に11回 [[web:learnsci:clark2016-digital-games-meta|「11 sessions over」]]。合計の時間とは関係がない。著者は分散の効果かもしれないと推測する [[web:learnsci:clark2016-digital-games-meta|「adequately spaced」]] | 周回の価値は「長く遊ばせる」より「何回にも分けて戻らせる」ことかもしれない【推論】 |
+| Grosse 2015（数学のモデル化、8年生143人・約45分・1回）**確かめ直し** | 前から外す／後ろから外す／例題→問題の組／問題→例題の組 | 翻訳（場面→式）の力は**例題→問題の組が最良**で、後ろから外す形より有意に上（p=.009）[[web:learnsci:grosse2015-fading-modeling|「fostered best by way of」]]。式の中の計算は後ろから外す形が前から外す形より上（p=.047）。総合のモデル化の問題は差なし。外す並べ方を使うなら前後どちらからでも翻訳の力はほぼ同じ [[web:learnsci:grosse2015-fading-modeling|「largely irrelevant」]]。初めに例題を置き、どこかで完全な例題をやめるのが筋 [[web:learnsci:grosse2015-fading-modeling|「makes sense to abandon」]]。「易しい歩から外す」は仮説の理由づけ [[web:learnsci:grosse2015-fading-modeling|「might be favorable」]] | DESIGN-ROUND2 249行の段1（1年を通した後に「たとえば」をしまい、押せば出す）は原文の「初めに例題、どこかでやめる」に合う。「逆」は撤回 |
 
 ### 3.2 満点の4条件を見積もるための数（証拠の種類つき）
 | 数 | 何についての数か | 出典 | 証拠の種類 | 本作に移すときの注意 |
 |---|---|---|---|---|
-| 約8割 対 3割台（1週間後） | 練習に残すか、1回言えたら外すか | Karpicke & Roediger 2008 [[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]] | 実験（単語の組） | 仕訳は手続き。向きだけ移す |
-| 間隔の合計 短・中・長で約5割・6割強・4分の3（1週間後、3回の想起） | 3回の想起の間隔の合計 | Karpicke & Bauernschmidt 2011 [[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「75% vs. 64%」]] | 実験（間隔は試行数） | 日単位には外挿しない |
+| 約8割 対 3割台（1週間後） | 1回の学習の場の中で、練習に残すか外すか | Karpicke & Roediger 2008 [[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]] | 実験（単語の組） | 日をあけた回数の根拠にしない。向きだけ |
+| 間隔の合計 短・中・長で約5割・6割強・4分の3（1週間後、3回の想起） | 3回の想起の間隔の合計（分単位の試行） | Karpicke & Bauernschmidt 2011 [[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「75% vs. 64%」]] | 実験（試行数） | 日単位には外挿しない |
 | 約2割 → 約8割（1週間後） | 1回の学習 対 正解まで学ぶ3回（日をあけて） | Higham らが序論で紹介する Rawson ら 2018 [[web:learnsci:r6-rp-higham2021-relearning|「increased to 80%」]] | 実験（他の論文の紹介。原典は読めていない） | 4回目の3週間後でも8割近い、という紹介もある |
-| 約55% 対 41%（学期末、練習と同じ問題） | 逐次再学習 対 再読 | Higham 2021 [[web:learnsci:r6-rp-higham2021-relearning|「relearn: M = .55」]] | 教室の実験 | 転移の問題では差なし |
-| 保持期間の約43%・23%・17%・8% | 1回の復習の最適な間隔（保持7・35・70・350日） | Cepeda 2008 [[web:learnsci:theory-spacing-cepeda2008|「43%, 23%, 17%, and 8%」]] | 大規模な実験（雑学の事実） | 受験まで60日なら最適は約10〜12日、90日なら約13〜15日【推論：70日の17%と35日の23%の間を補った】 |
+| 約55% 対 41%（学期末、練習と同じ問題） | 逐次再学習 対 再読 | Higham 2021 [[web:learnsci:r6-rp-higham2021-relearning|「relearn: M = .55」]] | 教室の実験（査読中の版） | 3回の再学習の後でも55%。満点の水準から遠い |
+| 保持期間の約43%・23%・17%・8% | 1回の復習の最適な間隔（保持7・35・70・350日） | Cepeda 2008 [[web:learnsci:theory-spacing-cepeda2008|「43%, 23%, 17%, and 8%」]] | 大規模な実験（雑学の事実） | 保持期間は「最後の復習から受験日まで」で取る（3.3） |
+| 最終テストの平均41%、85%以上は2.6% | 同上の保持の水準 | Cepeda 2008 [[web:learnsci:theory-spacing-cepeda2008|「41% in the Internet」]] | 同上 | 1回の復習だけの水準 |
 | 保持期間の1〜2割 | 教室で勧められる間隔 | Mawson 2025 [[web:learnsci:mawson2025-spacing-classroom-meta|「10–20% of the required」]] | メタ分析（収録の保持期間は最長42日） | 同上 |
-| 56日おき13回 ≈ 14日おき26回 | 学び直しの回数と間隔（5年の保持） | Bahrick 1993 [[web:learnsci:r6-rp-bahrick1993|「comparable to 26」]] | 縦断（4人） | 受験までの数か月には回数が多すぎる |
+| 56日おき13回 ≈ 14日おき26回、5年平均4分の3強 | 学び直しの回数と間隔（5年の保持） | Bahrick 1993 [[web:learnsci:r6-rp-bahrick1993|「comparable to 26」]] | 縦断（4人） | 満点の水準には回数が要る向き |
 | 平均38日に11回・合計347分 | 学びの効いた教育用ゲームの遊ばせ方 | Clark 2016 [[web:learnsci:clark2016-digital-games-meta|「11 sessions over」]] | メタ分析の記述（処方ではない） | 「11回で足りる」の根拠ではない |
-| 並べ方の差 g≈0 | 広げる 対 等間隔 | Latimier 2021 [[web:learnsci:r6-rp-latimier2021-full|「g  = 0.034」]] | メタ分析（要旨だけ） | 回数が多いと広げる側がやや有利 |
+| 知的技能で効果が出たのは3分の1 | 計算などの分散の効果 | Cepeda 2006 が紹介する Moss 1996 [[web:learnsci:r6-rp-cepeda2006-meta|「third of intellectual」]] | 総説の紹介 | 仕訳への写しの反証 |
+| 会計 0.67・数学 0.46 | 教室の分散練習の分野別の効果 | Mawson 2025 [[web:learnsci:mawson2025-spacing-classroom-meta|「Accounting 0.67」]] | メタ分析 | 手続きの教材でも効く証拠 |
 
-### 3.3 見積り：何周・何週で4条件に届くか【推論】
-前提（すべて推論。設計者が数を決めるときの出発点）：
-- 1周は10期で10〜15時間（DESIGN-RAMEN 95行）。1日1時間遊ぶなら1周は10〜15日。
-- 77項目（scope.js）は、番人が1周目の7期目までに全部出す（DESIGN-RAMEN 725行）。7期目は10期の7割なので、1周目の7〜10.5日目（10日×0.7＝7、15日×0.7＝10.5）までに全項目が最初に出る。
-- 1つの項目を受験日まで保つ目安を「最初の学習＋日をあけた正解3回」とする（Higham が紹介する3回の再学習、Karpicke & Bauernschmidt の3回の想起）。間隔は等間隔でも広げてもよく（並べ方に差がない）、最後の間隔を受験日までの1〜2割にする（Cepeda 2008・Mawson 2025）。
-- 受験日まで90日とすると、最後の間隔は約9〜18日（90×0.1＝9、90×0.2＝18）。例：初出の日→3日後→10日後→24日後（間隔3・7・14日。合計24日）。
+### 3.3 見積り：何周・何週で条件Aに届くか（感度の表）【数周】【推論】
+版0.1の「約3〜4周・5〜8週」は、思い出しが毎回正解で毎日遊ぶ場合の最短の値で、算術にも食い違いがあった（1周10日なら31日目は4周目。「5〜8週」の上側は式から出ない）。版0.2では模擬に置き換えた。模擬は `boki2/docs/analysis/replay-estimate-sim.py`、出力は `replay-estimate-sim.out.txt`。
 
-計算：
-1. 最も遅く初出する項目は1周目の7〜10.5日目。そこから24日で3回目の正解に届くので、全項目がそろうのは31〜34.5日目（7＋24＝31、10.5＋24＝34.5）。
-2. 1周10〜15日なら、31〜34.5日目は3周目（21〜45日目）の中にある。→ **約3周**。
-3. 想起の機会の数：3回×77項目＝231回の想起が要る。1周の月初は10期×12か月＝120回。月初に1項目ずつなら231÷120≒1.9周分、2項目ずつなら約1周分（231÷240≒0.96）。機会の数より、実時間の間隔のほうが先に縛る。
-4. 条件B（段3の本番の形で、7日以上あけて2回続けて100点）は、段3が開いた後に7日以上の間を置いて2回。段3の開放（DESIGN-RAMEN 703行：7割が lv3）が2周目の後半から3周目と見ると、条件Bは3周目の終わりから4周目の初めに届く。
-5. 合わせると **1日1時間で約3〜4周・5〜8週**。1日30分なら1周が20〜30日に伸び、間隔の縛りは自然に満たされるので **約3周・9〜13週**（3周×20〜30日＝60〜90日を、間隔の縛りの約5週と比べて長いほう）。
+模型の前提（すべて仮定）：1周＝10期×12か月＝120回の月初、1日1時間で1周は10日か15日（DESIGN-RAMEN 95行の10〜15時間）。77項目は1周目の0〜7割の位置に一様に初出（番人は7期目まで：DESIGN-RAMEN 725行）。月初ごとに期日の来た項目を1件思い出し、正解の確率 p。正解なら連続の回数+1、誤りなら0に戻る（S.plan の n は正解の連続数）。必要な正解 N＝2（間隔7・7日）・3（3・7・14日）・4（3・7・14・21日）。条件B・C・D、ふだんの記帳での自然な思い出しは入れていない。各条件40人の中央値。
 
-この見積りから出る設計への示唆【推論】：
-- 条件A（7日以上あけた2回の正解）は、上の目安（日をあけた正解3回、最後の間隔は受験日までの1〜2割）より少ない。条件Aを「日をあけた正解3回（2回は別の数字・別の場面）、最後の間隔は受験日までの残りの1〜2割以上」に変える案を 4.4 に出す。
-- 受験日を最初に聞き、受験日までの日数で間隔と周の数を決める（受験日が近い人には年の選択で短い周を勧める）。
+1周10日（1日1時間）の場合（出力から抜粋）：
+| 週に遊ぶ日 | N | p=1.0 | p=0.9 | p=0.8 |
+|---|---|---|---|---|
+| 7 | 2 | 21日（3.0週・2.1周分） | 30日（4.2週・3.0周分） | 40日（5.7週・4.0周分） |
+| 7 | 3 | 31日（4.5週・3.1周分） | 68日（9.7週・6.8周分） | 100日（14.2週・10.0周分） |
+| 7 | 4 | 52日（7.5週・5.2周分） | 135日（19.3週・13.5周分） | 208日（29.7週・20.8周分） |
+| 3 | 3 | 51日（7.3週・2.2周分） | 91日（13.0週・3.9周分） | 133日（19.0週・5.7周分） |
 
-### 3.4 ゲームの中の転移：何が「別の場面で解ける」を作るか
-- 同じ問題のくり返しは、その問題だけを強くする（Higham の転移の問題で差なし）[[web:learnsci:r6-rp-higham2021-relearning|「not show a reliable」]]。
-- 数学では数字や文脈を変えた「変種」でくり返す研究が多く、転移を要するので効果が小さく出たかもしれない、と Mawson らは考察する（読了ノートの確かめ直し 6）。変種で練習すると、練習の場での出来は下がって見えるが、測っているものが違う【推論】。
-- 物語や見た目の文脈を厚くすると、直後のテストの学びの効果は下がった（文脈化の点が高いほど効果が小さい）[[web:learnsci:clark2016-digital-games-meta|「smaller effects」]]。ただし著者は、測ったのが直後の低次の知識だけで、深い理解の転移は測れていないことを解釈の一つに挙げる。
-- 本作への含み【推論】：転移を作るのは「皮が違う同じ問題」ではなく、「同じ原理で答えの組み立てが違う問題」（例：同じ引当の原理で、取引先の倒れ方が違うので金額と時期が変わる）。4.1 の「答えを動かす変種」は、楽しさの側と学びの側の両方の要求を同時に満たす。
+読み方：
+1. 周の数と週の数は、思い出しの正解率でほぼ決まる。N=3・毎日で、正解率が100%から90%に下がるだけで約31日→約68日（2倍強）。
+2. 誤ったら連続の回数を0に戻すかどうかで大きく変わる。戻さない（通算の正解を数える）なら、N=3・p=0.9 で約33日、p=0.8 で約35日。
+3. 週に3日しか遊ばない人は、日数は延びるが周の数は少なくなる（1周の実日数が延び、その間に間隔が自然に空くので）。
+4. 条件B（段3で7日以上あけて2回続けて100点）は模擬に入れていない。1回の通しで100点を取る確率を q とすると、2回続けて取るまでの回数の期待値は (1＋q)÷q² 回（q＝0.7 なら 1.7÷0.49≒3.5回）で、その都度7日以上あけるので、条件Aの日数に1〜5週ほど足される【推論】。
+5. 保持期間の取り方（版0.1の誤りの直し）：Cepeda の保持期間は「最後の復習から最終テストまで」。最後の正解が31〜34日目で受験が90日目なら保持期間は約56〜59日で、最適な間隔は 35日の23%（約8日）と70日の17%（約12日）の間、約10〜11日【推論：35日と70日の値の間を補った】。
+
+「条件Aに届く」と「受験日に満点を取る」は別：
+- 1項目の受験日の保持率を r、本試験で問われる項目数を m とすると、全部正しい確率の目安は r の m乗（独立を仮定した説明用の数）。r＝0.8・m＝20 で約0.012、r＝0.9・m＝20 で約0.12、r＝0.95・m＝20 で約0.36（出力の表）。
+- 資料の保持率は、3回の再学習の後でも学期末に約55%（Higham）、3回の再学習の1週間後に約80%（Rawson の紹介）、1回の復習で平均41%（Cepeda 2008）。満点（ほぼ全部正しい）の水準には遠い。
+- このことから出る設計の問い【推論】：①条件Aの回数（2・3・4回）は、届く日の長さ（上の表）と受験日の保持のどちらを重く見るかの選択で、資料からは決まらない（設計者とオーナーの決定）②受験の直前（最後の1〜2週）に全項目を1回ずつ思い出す「最後の確かめ」を条件に足すか ③誤ったら回数を0に戻すか（戻すと長く、戻さないと短いが定着の確かさは下がる）。
+
+### 3.4 ゲームの中の転移：何が「別の場面で解ける」を作るか【数周】
+- 同じ問題・同じ答えのくり返しは、その問題だけを強くする（Higham）[[web:learnsci:r6-rp-higham2021-relearning|「not show a reliable」]]。
+- 名前・数字・場面を変えた同型の問題（皮の変種）は、Mawson が「転移を要する練習」として扱う [[web:learnsci:mawson2025-spacing-classroom-meta|「algorithmic variants」]]。練習の場での出来は下がって見えるが、測っているものが違うかもしれない、と著者は考察する。版0.1の「転移を作るのは皮の変種でなく、答えの組み立てが違う問題」は、比べた資料がなく撤回する。
+- 物語や見た目の文脈を厚くすると、直後のテストの学びの効果は下がった [[web:learnsci:clark2016-digital-games-meta|「smaller effects」]]。ただし著者は、測ったのが直後の低次の知識だけであることを解釈の一つに挙げる。
+- 本作への含み【推論】：皮の変種（業種・品目・倍率・取引先の数字）は、仕訳の答え（科目・金額・税の行）を動かすので、転移の練習として残す。経営の判断の答えを動かす変種（需要の形・相場・ライバル）は、楽しさの側（板挟み）のために足す。ただし答えの組み立てが毎周変わる変種を増やすほど、同じ論点に間をあけて戻る回数（3.3 の想起）が減りうるので、両方の比率は sim で確かめる必要がある。
 
 ## 4. 写し方
 
-### 4.1 変種の表：皮の変種と答えを動かす変種
-「答えを動かす」＝その周の最善の判断、または正しい仕訳の組み立て（科目・金額・時期）が、前の周と変わるもの。「皮」＝名前・見た目・倍率だけが変わり、前の周の答えをそのまま写せば通るもの。
+### 4.1 変種の表：仕訳の答えを動かすか、経営の判断の答えを動かすか（版0.2で作り直し）
+版0.1は「皮＝前の周の答えを写せば通る」としたが、その定義でも数字の倍率は金額（仕訳の答え）を動かすので皮ではなかった。版0.2では答えを2つに分ける。
+- **仕訳の答え**：科目・借方貸方・金額・時期・税の行。これが動けば、前の周の仕訳を写しても通らない（学びの側の転移の練習：Mawson の algorithmic variants）。
+- **経営の判断の答え**：その周の最善の判断（仕込み量・値段・出店の場所・借りるか）。これが動けば、前の周の勝ち方が通らない（楽しさの側の板挟み：PDG の論考、ローグライトの作り手）。
+- **皮だけ**：どちらも動かない（名前の差し替えだけ）。
 
-| 候補 | 皮の変種（前の周の答えが通る） | 答えを動かす変種（前の周の答えが通らない） | 学びの側で動く論点（例） | 資料の根拠 |
+| 候補 | 仕訳の答えが動くか | 経営の判断の答えが動くか | 学びの側で動く論点（例） | 資料の根拠 |
 |---|---|---|---|---|
-| 需要 | 需要の数字に倍率を掛けるだけ（×1.3 など） | 需要の形が変わる：季節の山の位置、値上げへの反応の強さ、天気の影響の大きさ。前の周の最適な仕込み量・値段が外れる | 仕入・売上原価・棚卸減耗、損益分岐点 | Capsim の毎年動く理想の位置 [[web:simgames:capsim-capstone|「never stops moving」]]、PDG の「最適は隠して移す」[[web:simgames:r4-sim-gd-pdg|「hides that fact」]] |
-| 相場（食材・燃料・金利） | 毎周同じ値上がりの台本で、名前だけ違う | 値上がりの時期と幅が周で違い、予兆（ニュース・仕入先の通知）は出る。買いだめ・先物・値上げのどれが得かが変わる | 先入先出・移動平均、評価損、借入の利息の計算 | Into the Breach の予告 [[web:simgames:r4-sim-gd-intothebreach|「your own fault」]]、Balatro の「運を読んで備える」[[web:simgames:r6-rp-rogueliker-balatro|「random the game feels」]] |
-| 取引先 | 名前の表から引く（DESIGN-ROUND2 224行） | 支払いの遅れ方・倒れ方・値引きの求め方が周で違う。前の周で安全だった取引先が今周は危ない | 貸倒引当金、手形・電子記録債権、値引き・割戻し | Papers, Please の「台本は同じで属性だけ乱数」は皮の例 [[web:simgames:designer-papersplease-gd2014|「change between replays」]] |
-| 設備の故障 | 毎周同じ月に同じ機械が壊れる | 故障の確率が使い方（稼働・点検の判断）で動き、点検の報告が予兆になる。修理か買い替えかの答えが周で変わる | 修繕費と資本的支出、減価償却、固定資産の除却・売却 | MG のリスクカード [[web:simgames:accountant-otaru-mg|「時々リスクカード」]] |
-| 町 | 潜在客と家賃に±20%（DESIGN-RAMEN 713行） | エリアの並びと客の性格（学生・会社員・観光）が変わり、最初に出す店の場所の答えが変わる。6エリアの型は保つ | 敷金・保証金、資産除去債務（2級の範囲なら）、本支店会計 | Dead Cells の「固定の骨＋手作りの部品＋条件つきの組み合わせ」[[web:simgames:r6-rp-deepnight-deadcells|「AI Director」]] |
-| ライバル | 型の組み合わせが変わるが、どの型にも同じ対策が効く | ライバルの戦略が遊ぶ人の動きに反応する（前の周の遊ぶ人の判断を写した店が出る、など）。前の周の勝ち方が通らない | 値下げ競争の利益への効き方、買収（のれん・連結の入口） | Capsim の他チーム [[web:simgames:capsim-capstone|「the sixth one wins」]]、NetHack の前の周の自分が敵 [[web:simgames:r3-fable-wiki-roguelike|「reappear as enemies」]] |
-| 始め方 | 開始の残高と店の名前が違う | 屋台・居抜き・新店・FC・中途入社で、最初の資金の出どころ（自己資金・借入・加盟金）と最初の判断が違う | 開業費・創立費、借入金、のれん・加盟金の扱い | 強くてニューゲームの「別の結末を探す」使い方 [[web:simgames:r3-fable-wiki-newgameplus|「alternate endings」]] |
-| 社長の正誤 | — | seed で「社長が正しい回」が変わる（DESIGN-ROUND2 227行。すでに答えを動かす側） | 判断の理由 | — |
-| 出来事の順 | 同じ型の月の中で札の順を入れ替える（226行） | 依存関係を表に書き、前提の論点を壊さない範囲で月をまたいで入れ替える | 間隔をあけた再出題そのもの | Papers, Please の作り手が諦めた入れ替え [[web:simgames:designer-papersplease-gd2014|「shuffle some events」]] |
+| 会社名・商品・業種・単位（DESIGN-ROUND2 223行） | 動く：品目で消費税の行（8%・10%）、業種で科目（売上原価・製造原価）が変わる | 少し動く（売れ方が変わる） | 消費税、売上原価、製造原価 | Mawson の値や文脈の変種 [[web:learnsci:mawson2025-spacing-classroom-meta|「values or contexts」]] |
+| 数字の倍率（225行） | 動く：金額・端数・切り捨て | 動かない（比が同じなら最善の判断も同じ） | 端数処理、分配可能額 | 同上 |
+| 取引先の名前（224行） | 名前だけなら動かない（皮だけ） | 動かない | — | — |
+| 取引先の振る舞い（支払いの遅れ・倒れ方・値引きの求め方） | 動く：引当・貸倒・手形の処理 | 動く：前の周で安全だった相手が今周は危ない | 貸倒引当金、手形・電子記録債権、値引き・割戻し | MG のリスクカード [[web:simgames:accountant-otaru-mg|「時々リスクカード」]] |
+| 需要の形（季節の山・値段への反応・天気の効き） | 動く：仕入量・棚卸・減耗 | 動く：前の周の仕込み量・値段が外れる | 仕入・売上原価・棚卸減耗、損益分岐点 | PDG の「最適は隠して移す」[[web:simgames:r4-sim-gd-pdg|「hides that fact」]] |
+| 相場（食材・燃料・金利） | 動く：評価・利息 | 動く：買いだめ・値上げ・借換えのどれが得かが変わる。予兆を出す | 先入先出・移動平均、評価損、利息の計算 | Into the Breach の予告 [[web:simgames:r4-sim-gd-intothebreach|「your own fault」]] |
+| 設備の故障 | 動く：修繕費か資本的支出か、除却 | 動く：故障の確率が使い方と点検の判断で変わる | 修繕費と資本的支出、減価償却、除却・売却 | MG のリスクカード |
+| 町（潜在客・家賃の±20%：DESIGN-RAMEN 713行） | 金額だけ動く | ±だけなら少し。エリアの並びと客の性格が変われば大きく動く | 敷金・保証金、本支店会計 | Dead Cells の固定の骨＋条件つきの組み合わせ [[web:simgames:r6-rp-deepnight-deadcells|「AI Director」]] |
+| ライバル | 少し（値下げ競争の利益への効き方） | 動く：遊ぶ人に反応する戦略、前の周の自分を写した店 | 買収（のれん・連結の入口） | NetHack の前の周の自分が敵 [[web:simgames:r3-fable-wiki-roguelike|「reappear as enemies」]] |
+| 始め方（屋台・居抜き・新店・FC・中途入社） | 動く：開業費・借入・加盟金 | 動く：最初の判断が違う | 開業費・創立費、借入金、のれん・加盟金 | 強くてニューゲームの「別の結末を探す」使い方 [[web:simgames:r3-fable-wiki-newgameplus|「alternate endings」]] |
+| 社長の正誤（227行） | 動かない | 動く（すでに答えを動かす側） | 判断の理由 | — |
+| 出来事の順（226行） | 動かない（時期は動く） | 少し | 間隔をあけた再出題そのもの | Papers, Please の作り手が依存関係のために諦めた入れ替え [[web:simgames:designer-papersplease-gd2014|「shuffle some events」]]。順の固定は注意を育てる技でもあった [[web:simgames:designer-papersplease-gd2014|「art of training」]] |
+
+張り合い【推論】：経営の判断の答えを動かす変種を増やすほど楽しさの側の板挟みは増えるが、同じ論点に間をあけて戻る回数が減りうる（3.4）。仕訳の答えを動かす皮の変種（品目・倍率）は、同じ論点への再来を保ったまま転移の練習になる。
 
 ### 4.2 最小の写し方（今の DESIGN-ROUND2 3章の骨を残して直す）
-- **最小1：変種の表に「答えを動かす」列を足し、1年に最低2つの答えを動かす変種を入れる**。228行の「資金繰りは決定論」を外し、需要と相場の振れ（予兆つき）を入れる。資金繰りが運で崩れないよう、予兆と備え（借入枠・保険・在庫）を判断として出す。理由：資料の名作はすべて答えが動く（1章）。声の始め直しの理由の最多も組み合わせ・毎回違う展開（2.2）。
-- **最小2：間隔を受験日から決める**。280行の 7→30→90日を、受験日までの残りの1〜2割を最後の間隔とする計算に替える（3.3）。並べ方（広げる・等間隔）は決め手にならないので、作るのは「受験日を聞く画面」と「残り日数から間隔を出す式」の2つ。
-- **最小3：足場外しの順を Grosse の原文に合わせる**。249行の段1から「たとえば」（例題）を外し、外す順を「決算書のどこに効くかを言う歩（易しい）→金額の計算→証憑から科目と貸借を決める歩（難しい）」にする。「たとえば」は最後まで押せば出る。
-- **最小4：持ち越しの自動仕訳に、周ごとの棚卸（自分で全型を書く）を必ず通す**。238行の持ち越しを残すなら、棚卸を条件Cの測定だけでなく練習として毎周置く（Karpicke & Roediger 2008 の外した条件にしない）。
+- **最小1：経営の判断の答えを動かす変種を1年に1〜2つ入れる**（需要の形かライバルの戦略）。「1〜2つ」に資料の根拠はなく、3.4 の張り合いを sim で見て決める【推論】。資金繰りの決定論を外して予兆つきの振れを入れるかは、PEDAGOGY 1.5 を改めることになるのでオーナーの決定に回す（4.4 ⑤の後の注）。
+- **最小2：伸び方を受験日から決める**。280行の広げる並べ方（7→30→90日）は残してよい（回数の多い場合は広げる側が有利という資料がある）。直すのは、受験日までの残り日数から最後の間隔（残りの1〜2割）と伸び方を決めること。作るのは「受験日を聞く画面」「残り日数から間隔を出す式」と、広げる・等間隔を sim で比べる検査の3つ。
+- **最小3：段1の例題の扱いを Grosse の結果に寄せる**【推論】。今の設計（1年を通した後に「たとえば」をしまい、押せば出す）は原文の「初めに例題、どこかでやめる」に合う。違いを1つに絞ると、原文で翻訳の力が最も伸びたのは「例題を1つ見せてから同型の問題を解かせる組」なので、段1で「たとえば」をしまう代わりに、初めての型の証憑では例題を1つ見せてから次の同型を自分で解かせる、という並べ方が候補になる。どの歩から外すか（解釈→計算→翻訳）は原文の仮説の理由づけで、結論ではない。
+- **最小4：持ち越しの自動仕訳の戻り方を確かめる**。自動仕訳は S.plan③・監査・棚卸で戻ってくるが、その頻度でふだんの思い出しの減りを補えるかは確かめていない。周ごとの棚卸を練習として必ず通すのが一番確かな形【推論】。
 
 ### 4.3 大胆な写し方（周回の芯を作り直す）
-- **大胆1：「相場と相手が動く周」**。周ごとに seed から、需要の形・相場の道・取引先の性格・ライバルの戦略を決め、前の周の最善手が通らない作りにする（4.1 の右の列を全部入れる）。周のはじめに「今周の町の様子」（予兆の束）を見せ、周の終わりの振り返りで「前の周の自分の手が今周なら何点だったか」を並べる。作る量は増えるが、StS・Capsim・MG と同じ芯になる。BIZ-SIMDESIGN 0.2 の需要とライバルの式が、係数を seed で動かせる形になっていることが前提（4.5）。
-- **大胆2：「前の周の自分がライバルになる」**。2周目以降、町のライバルの1軒は前の周の遊ぶ人の判断（出店の場所・値段・仕込み）をなぞって動く。遊ぶ人は自分の過去の手に勝つ形で周回する。NetHack の前のキャラが敵として出る形 [[web:simgames:r3-fable-wiki-roguelike|「reappear as enemies」]] と、他人との順位でなく過去の自分との比較（学びを下げる一人の競争を避ける：Clark 2016）の両方に合う。
-- **大胆3：「1日1回だけの今日の帳簿」**。全員同じ seed の1か月を1日1回だけ遊べる日替わりを置く（Spelunky・StS）。順位は出さず、結果を見せる相手（家族・友人・同じ日に遊んだ人の分布）を選べる形にする（証人の楽しさ：Spelunky の儀式）。日替わりの1か月は、S.plan が選ぶ「間隔が来た論点」から組む。毎日の想起の機会と周回の楽しさを1つにする。
-- **大胆4：「周ごとに進む人物の筋」**。周回の理由を物語で説明し（Outer Wilds のループの発明）、人物（先輩・社長・取引先・銀行の担当）が前の周を覚えて反応する（Hades の連鎖する台詞）。物語の筋は連続ものの話数として後から足せるデータにする（Hades の早期アクセスの作り [[web:simgames:r6-rp-gd-hades-devprocess|「pilot episode」]]）。物語が閉じた後に周回が止まる問題（GPB の評）があるので、大胆1〜3のどれかと組み合わせる前提にする【推論】。
-- **大胆5：「受験日から逆算した周の地図」**。最初に受験日を聞き、残り日数から周の数・各周の長さ（年の選択で短い周を作る）・想起の予定を1枚の地図にして見せる。周回の目標が「物語の先」でなく「受験日に満点の条件がそろう」ことになり、周回の動機と学びの要求が同じ1つの目標に重なる【推論】。
+- **大胆1：「相場と相手が動く周」【長い周回にも効く】**。周ごとに seed から、需要の形・相場の道・取引先の振る舞い・ライバルの戦略を決め、前の周の最善手が通らない作りにする（4.1 の「経営の判断」の列）。周のはじめに「今周の町の様子」（予兆の束）を見せ、周の終わりに「前の周の自分の手が今周なら何点だったか」を並べる。芯はローグライトの「周ごとに中身が違う」と同じ（声の Kv 8件）。BIZ-SIMDESIGN 0.2 の式が係数を seed で動かせる形であることが前提（4.6）。
+- **大胆2：「前の周の自分がライバルになる」**。2周目以降、町のライバルの1軒は前の周の遊ぶ人の判断（出店の場所・値段・仕込み）をなぞって動く。NetHack の前のキャラが敵として出る形 [[web:simgames:r3-fable-wiki-roguelike|「reappear as enemies」]]。過去の自分との比較は、他人との順位の是非とは別に成り立つ。
+- **大胆3：「1日1回だけの今日の帳簿」**。全員同じ seed の1か月を1日1回だけ遊べる日替わり（StS の固定シード）。日替わりの1か月は、S.plan が選ぶ「間隔が来た論点」から組む。結果を誰に見せるか：証人（家族・友人に見せる）は Spelunky の作り手も日替わりでは再現できず遊ぶ人に任せた部分なので、ゲームは共有の仕組み（結果の1枚の画像など）だけを持つ。同じ日に遊んだ人の分布を見せるのは他人との比較なので、順位の決定（4.4 ⑤）に従う。
+- **大胆4：「数周で閉じる人物の筋」【数周】**。周回の理由を物語で説明し（Outer Wilds のループの発明 [[web:simgames:r6-rp-gd-igf-outerwilds|「playthroughs diegetic」]]）、人物（先輩・社長・取引先・銀行の担当）が前の周を覚えて反応する（Hades の連鎖する台詞）。物語は満点の4条件がそろう頃（受験日の前）に閉じるよう、周の数に合わせて章を割る。物語の筋は連続ものの話数として後から足せるデータにする [[web:simgames:r6-rp-gd-hades-devprocess|「pilot episode」]]。単独でも数周を支える選択肢として出す（版0.1の「単独では採らない」を撤回）。
+- **大胆5：「受験日から逆算した周の地図」【数周】**。最初に受験日を聞き、残り日数から周の数・各周の長さ（年の選択で短い周を作る）・想起の予定を1枚の地図にして見せる。周回の目標が「受験日に満点の条件がそろう」ことになり、周回の動機と学びの要求が同じ1つの目標に重なる【推論】。
 
-### 4.4 置き換える行の一覧（行番号は 2026-10-22 の版、コミット 9495c2e）
+### 4.4 推し（どれを、どの順で、なぜ）【推論】
+1. **数周の骨を先に作る**：経営シム型（期限つきの目標が1周目では届きにくく2〜3周目で届く、持ち越し、周ごとに開く新しい要素）。理由：本作に要るのは数周で、目標と同じ経営シムの声（カイロソフトの周回の声25件）がこの形で数周遊ばれている。DESIGN-RAMEN の「1周目は届かず2〜3周目で届く」（82行）は向きが合うので骨として残す。
+2. **大胆5（受験日から逆算した周の地図）と最小2（受験日から伸び方）を重ねる**：周の数は思い出しの正解率でほぼ決まる（3.3）ので、受験日から見た進み具合を見せないと、遊ぶ人も作り手も周の数を見積もれない。
+3. **最小1（経営の判断の答えを動かす変種を1年に1〜2つ）を足す**：楽しさの側の板挟みのため。比率は sim で決める。
+4. **大胆4（数周で閉じる人物の筋）**：骨と地図ができた後に足す。閉じる時期は2の地図に合わせる。
+5. **他人との順位・日替わりの分布（大胆3の一部）**：資料が割れるので、オーナーの決定の後に入れるか決める。
+- 順番を後ろにする理由：大胆1（全部の変種）と大胆2は作る量が大きく、効果は長い周回の側（ローグライトの声）で強いので、骨の後でよい。ただし作る量は捨てる理由にしない（QUALITY 2.4）。後ろにする理由は「数周の骨が先に要る」という順番だけ。
+- 注：最小1のうち「資金繰りを決定論から外し、予兆つきの振れを入れる」は、PEDAGOGY 1.5（資金繰りが変わる原因は決定論に限る）の確定方針を変える。外す理由：外乱への備えの判断（借入枠・保険・在庫）が作れる。外さない理由（PEDAGOGY 1.5 の理由）：現金不足の原因が帳簿の誤りか運かを学ぶ人が区別しにくくなる。予兆と備えで後者を和らげられるが、オーナーの決定に回す。
+
+### 4.5 置き換える行の一覧（行番号は 2026-10-22 の版、コミット 9495c2e）
+版0.2の判定は論証の検査書の番号（D01〜D42）に合わせて直した。
 
 DESIGN-ROUND2.md 3章：
 | 行 | 今の書き方（要約） | 置き換えの方向 | 根拠 |
 |---|---|---|---|
-| 198 | 条件A：7日以上離れた2回の正解 | 日をあけた正解3回（2回は別の数字・別の場面）、最後の間隔は受験日までの残りの1〜2割以上 | 3.2・3.3（Karpicke 2008、Higham 2021、Cepeda 2008） |
-| 199 | 条件B：7日以上離れて2回連続100点 | 2回目は受験日までの1〜2割の間をあける、を足す | Cepeda 2008 |
-| 204 | 1周では A は満たせないので周回が前提 | 何周・何週で届くかの見積り（3.3）を書き、受験日に合わせる | 3.3 |
-| 208 | 案A 年を単位に周回 | 残す。1周（10期）が長いので、年の選択を「短い周」として前に出す | 1章（1回が短い作品）、2.4 |
-| 211 | 年は StS の「3幕で1周」と同じ長さの感覚 | StS の1周は1〜2時間（声 #5）、ラーメン版の1周は10〜15時間。比べる相手を年の選択（1年）にする | 2.4、DESIGN-RAMEN 95行 |
-| 215 | 年のふりかえり（前の周の自分と並べる） | 「前の周の自分の手が今周なら何点か」を並べる（答えが動く周の比べ方） | 4.3 大胆1 |
-| 219 | 論点の骨は変えない。皮を seed から | 骨（固定の出来事）は残し、答えを動かす変種を足す | 1章、4.1 |
-| 223 | 会社名・商品・単位の変種 | 皮の変種と明記（答えは動かない）。業種の違いで消費税の行が変わる所だけは答えが動く | 4.1 |
-| 224 | 取引先の名前 | 皮。取引先の振る舞い（支払い・倒れ方）を答えを動かす変種として足す | 4.1 |
-| 225 | 数字の倍率 | 皮。倍率だけでは前の周の答えが通る | Higham（同じ問題）、O'Brien（例外） |
-| 226 | 出来事の順の入れ替え（同じ型の月の中） | 依存関係の表をもとに月をまたいで入れ替える | Papers, Please |
-| 228 | 需要の変種。資金繰りは決定論のまま | 資金繰りを決定論から外し、予兆つきの振れを入れる | 1章（Balatro・MG・Capsim）、うまくいかない理由（固定の最適） |
-| 231 | 楽しさの狙いは「同じ論点が別の皮で来る驚き」 | 狙いを「同じ原理で、毎周答えが違う」に替える | 3.4、うまくいかない理由（皮だけの変種） |
-| 238 | 自動仕訳の型を持ち越す | 持ち越すなら毎周の棚卸を練習として必ず通す | Karpicke & Roediger 2008 |
-| 240 | 段2以上で発見を本試験の文1問に置き換え | 残す（想起による通過で、外すことにならない）。誤りなら発見に戻す、も残す | Karpicke & Roediger 2008 |
-| 241 | 自分との比較だけ。他人との比較は禁止 | 順位の競争は避ける（Clark・Ryan）。証人（見せる相手）・協力・過去の自分のライバルは入れる | Clark 2016、Spelunky、大胆2・3 |
-| 244 | 支えを後ろから外す（最後の歩から） | 言い方は残し、最後まで支えるのは「証憑→科目と貸借」の翻訳の歩、と明記 | Grosse 2015 確かめ直し |
-| 249 | 段1で「たとえば」・手帳の自動表示を外す | 「たとえば」は最後まで押せば出す。段1で外すのは解釈の歩の支え | Grosse 2015 |
-| 250 | 段2で記帳直後の返しを外す | 返しを遅らせるのは、正解まで答える再学習の形と合うか確かめが要る（Higham の練習は毎回正誤を知らせる）。今の根拠はない | Higham 2021 |
-| 265 | 結末の図鑑の輪郭 | 残す。O'Brien の「見つかるものの数を知らせる」に当たる | O'Brien 2019 |
-| 266 | もしもに前の周の自分の判断 | 1周目は輪郭だけ、2周目以降は自分で開く（ふだん遊び直す人は苛立つ） | Gamito 2021 |
-| 280 | 間隔は 7→30→90日と広げる。迷ったら長め | 受験日までの残りから間隔を出す（最後の間隔は残りの1〜2割）。並べ方は等間隔でもよい | Cepeda 2008、Karpicke & Bauernschmidt 2011、Latimier 2021、Mawson 2025 |
-| 297〜300 | 3.9 の表で資料なしの行（Factorio／Obra Dinn ほか／Balatro と Stardew／Into the Breach） | Obra Dinn・Balatro・Stardew・Into the Breach は資料を得た（1章）。Obra Dinn は周回の例ではなく「尽きる」例に移す | 1章 |
+| 198 | 条件A：7日以上離れた2回の正解 | 回数（2・3・4回）は届く日の長さと受験日の保持の選択で、資料からは決まらない（3.3 の感度の表を添えて設計者とオーナーが決める）。満点との差（3回でも保持率55〜80%）を書く。受験直前の「最後の確かめ」を足すかを問う（D01） | 3.2・3.3 |
+| 199 | 条件B：7日以上離れて2回連続100点 | 2回目と受験日の間を「最後の復習から受験日まで」の保持期間で見る（D02） | Cepeda 2008 |
+| 204 | 1周では A は満たせないので周回が前提 | 何周・何週で届くかを感度の表（正解率・遊ぶ日・回数）で書く（D03） | 3.3 |
+| 208 | 案A 年を単位に周回 | 残す。1周の長さより1回の遊びの区切りが問題かもしれない（経営シムの遊ぶ人は長い1周を嫌うとは限らない）（D04） | うまくいく理由「1回の区切り」 |
+| 211 | 年は StS の「3幕で1周」と同じ長さの感覚 | StS の1周は1〜2時間、ラーメン版の1周は10〜15時間。比べる相手を年の選択（1年）にする | 2.4、DESIGN-RAMEN 95行 |
+| 215 | 年のふりかえり（前の周の自分と並べる） | 「前の周の自分の手が今周なら何点か」を並べる | 4.3 大胆1 |
+| 219 | 論点の骨は変えない。皮を seed から | 骨（固定の出来事）は残し、経営の判断の答えを動かす変種を足す | 4.1 |
+| 223 | 会社名・商品・単位の変種 | 品目・業種は仕訳の答え（消費税の行・科目）を動かす変種として残す（D08） | 4.1 |
+| 224 | 取引先の名前 | 名前は皮。取引先の振る舞い（支払い・倒れ方）を、仕訳と判断の両方の答えを動かす変種として足す（D09） | 4.1 |
+| 225 | 数字の倍率 | 金額（仕訳の答え）を動かすので、転移の練習として残す（D10） | Mawson 2025 |
+| 226 | 出来事の順の入れ替え（同じ型の月の中） | 依存関係の表をもとに入れ替える。発見の順と、新しい規則の告知を会話と重ねない約束は守る（作り手が順を固定した理由）（D11） | Papers, Please |
+| 228 | 需要の変種。資金繰りは決定論のまま | 需要の変種は残す。資金繰りの決定論を外すかはオーナーの決定（PEDAGOGY 1.5 を改めることになる）（D12） | 4.4 の注 |
+| 231 | 楽しさの狙いは「同じ論点が別の皮で来る驚き」 | 皮の驚き（転移の練習）は残し、経営の判断の答えが動く板挟みを足す（D13） | 3.4、4.1 |
+| 238 | 自動仕訳の型を持ち越す | 残す。S.plan③・監査・棚卸の頻度でふだんの思い出しの減りを補えるか確かめ、足りなければ毎周の棚卸を練習として通す（D14） | Karpicke & Roediger 2008、Bahrick 1993 |
+| 240 | 段2以上で発見を本試験の文1問に置き換え | 残す（想起による通過）。誤りなら発見に戻す、も残す | Karpicke & Roediger 2008 |
+| 241 | 自分との比較だけ。他人との比較は禁止 | 他人との順位はオーナーの決定に回す（Clark では一人の遊びが最良、協力の根拠なし。MG・#53・順位表の共有は順位を使う側）。過去の自分のライバルは入れてよい（D16） | Clark 2016、4.3 |
+| 244 | 支えを後ろから外す（最後の歩から） | 「最後まで翻訳の歩を支える」とは書かない。外す歩の順は原文の仮説からの【推論】と書く（D17） | Grosse 2015 |
+| 249 | 段1で「たとえば」・手帳の自動表示を外す | 今の形（押せば出る）は原文に合う。候補として「初めての型は例題1つ→同型の問題」を検討する（D18） | Grosse 2015、4.2 最小3 |
+| 250 | 段2で記帳直後の返しを外す | 返しを遅らせることが、正解まで答える再学習の形と合うか確かめが要る（Higham の練習は毎回正誤を知らせる）。今の根拠はない | Higham 2021 |
+| 265 | 結末の図鑑の輪郭 | 残す。O'Brien の「見つかるものの数を知らせると予想が合う」に当たる | O'Brien 2019 |
+| 266 | もしもに前の周の自分の判断 | 1周目は輪郭だけ、2周目以降は自分で開く。根拠は64人・10〜20分の修士論文の実験の部分集団の結果（ふだん遊び直さない人は知らせのある版で1回で終える人が減り、3回以上遊んだ人は苛立ちが増えた）で弱い（D21） | Gamito 2021 |
+| 280 | 間隔は 7→30→90日と広げる。迷ったら長め | 広げる並べ方は残す。決まった数（7・30・90）をやめ、受験日までの残りから伸び方と最後の間隔を決める。広げる・等間隔を sim で比べる（D22） | Cepeda 2006・2008、Latimier 2021、Mawson 2025 |
+| 297〜300 | 3.9 の表で資料なしの行 | Obra Dinn・Balatro・Stardew・Into the Breach は資料を得た（1章）。Obra Dinn は周回の例ではなく「1周で尽きる」例に移す | 1章 |
 
-DESIGN-RAMEN.md (i)：
+DESIGN-RAMEN.md (i) と関係する b章：
 | 行 | 今の書き方（要約） | 置き換えの方向 | 根拠 |
 |---|---|---|---|
-| 82 | 1億は上手に8年。1周目は届かず2〜3周目で届く手ごたえ | 「2〜3周目」を 3.3 の見積り（約3〜4周）と合わせて書き直す | 3.3 |
-| 95 | 1周10〜15時間 | 長さを残すなら、年の選択（1年）を短い周として前に出す | 1章、2.4 |
-| 686 | DESIGN-ROUND2 3章の骨をそのまま使う | 3章の直し（4.4 上表）を受ける。「そのまま」は外す | 本報告全体 |
-| 687 | 条件Aを2周目のうちに満たしうる | 条件Aを強めるなら3周目。受験日で変わる | 3.3 |
+| 82 | 1億は上手に8年。1周目は届かず2〜3周目で届く手ごたえ | 骨として残す（経営シムの数周の声と向きが合う）。満点の条件の周数は正解率で2〜10周分と幅があるので、物語・目標の周数と別に書く（D24） | 2.6、3.3 |
+| 95 | 1周10〜15時間 | 残す。1回の遊び（1日30分〜1時間）で区切れるかを確かめる（D25） | うまくいく理由「1回の区切り」 |
+| 686 | DESIGN-ROUND2 3章の骨をそのまま使う | 3章の直し（上表）を受ける。「そのまま」は外す | 本報告全体 |
+| 687 | 条件Aを2周目のうちに満たしうる | 正解率で大きく変わる（1周10日・N=3で、100%なら約3.1周分、90%なら約6.8周分）（D27） | 3.3 |
 | 691 | 周の流れ | 「今周の町の様子（予兆の束）」を周の始めに足す | 4.3 大胆1 |
-| 692 | 年の選択は前の周のその年の始めから | 残す。短い周として勧める | 1章 |
-| 694 | 前の周の線を薄く重ねる（自分との比較だけ） | 「前の周の自分の手が今周なら」を足す。順位は出さない | 4.3 |
-| 701〜705 | 段が上がるごとに期限を1期短く | 期限を縮めると想起の機会（月初）も減る。段の数え方と条件Aの必要回数が両立するか確かめる | 3.3（月初120回の計算） |
+| 692 | 年の選択は前の周のその年の始めから | 残す。短い周として勧める（D29） | 1章 |
+| 694 | 前の周の線を薄く重ねる（自分との比較だけ） | 「前の周の手が今周なら」を足す。他人との順位はオーナーの決定（D30） | 4.3、4.4 ⑤ |
+| 701〜705 | 段が上がるごとに期限を1期短く | 期限を縮めると想起の機会（月初）も減る。段の数え方と条件Aの必要回数が両立するか確かめる | 3.3 |
 | 708 | 安全弁（支えを戻そうか、1回だけ） | 残す。1回目の再学習のつらさは3回目で逆転するので、すぐ戻さない | Higham 2021 |
-| 713 | 町：潜在客±20%・家賃±20% | 皮。エリアの並びと客の性格を答えを動かす変種に | 4.1 |
+| 713 | 町：潜在客±20%・家賃±20% | 金額（仕訳の答え）は動く。経営の判断を動かすならエリアの並びと客の性格を変える | 4.1 |
 | 714 | ライバル：型の組み合わせ・元手・最初のエリア | 遊ぶ人に反応する戦略、前の周の自分を写した店（大胆2） | 4.1 |
 | 715 | 季節・事件の順 | 時期と幅を周で変え、予兆を出す | 4.1（相場） |
-| 717 | 取引先・卸先の名前と数字 | 皮。振る舞いを答えを動かす側に | 4.1 |
-| 718 | 始め方 A〜E | 答えを動かす変種として残す（資金の出どころが違う） | 4.1 |
-| 719 | 論点の皮（5年目以降の再来） | 「皮」でなく「同じ原理で答えの違う問題」で再来させる | 3.4 |
-| 725 | 条件A：2周目の月初の想起と変種の再来 | 3回の正解と受験日からの間隔で書き直す | 3.3 |
-| 731 | 達成の年数を縮める（Ascension を期限で写す） | 残す。段の上り切りで尽きるので、答えの動く周と組む | うまくいく理由（目標の更新） |
-| 733 | 別の町・別のライバル（同じ論点が別の皮で来る驚き） | 「別の答え」の周に言い換える | 4.1 |
-| 735 | 前の周の自分の折れ線を越える瞬間 | 残す。大胆2（前の周の自分がライバル）に広げられる | 4.3 |
+| 717 | 取引先・卸先の名前と数字 | 名前だけが皮。金額（`n(S, base)`）は仕訳の答えを動かす変種として残す。振る舞いを足す（D36） | 4.1 |
+| 718 | 始め方 A〜E | 仕訳と判断の両方の答えを動かす変種として残す | 4.1 |
+| 719 | 論点の皮（5年目以降の再来） | 皮の再来（同じ論点に間をあけて戻る想起）を残す（D38） | 3.4、Mawson 2025 |
+| 725 | 条件A：2周目の月初の想起と変種の再来 | 回数と正解率の感度の表で書き直す（D39） | 3.3 |
+| 731 | 達成の年数を縮める（Ascension を期限で写す） | 残す。数周の目標の更新として効く（D40） | うまくいく理由「目標の更新」 |
+| 733 | 別の町・別のライバル（同じ論点が別の皮で来る驚き） | 皮の驚き（転移の練習）は残し、経営の判断が動く板挟みを足す（D41） | 4.1 |
+| 735 | 前の周の自分の折れ線を越える瞬間 | 残す。大胆2に広げられる。折れ線を越える瞬間の楽しさを支える資料はない【推論】（D42） | 4.3 |
 
 数：DESIGN-ROUND2 は 198・199・204・208・211・215・219・223・224・225・226・228・231・238・240・241・244・249・250・265・266・280・297〜300 の23か所、DESIGN-RAMEN は 82・95・686・687・691・692・694・701〜705・708・713・714・715・717・718・719・725・731・733・735 の19か所（82・95 は (i) の外の b章だが、(i) と同じ周回の数を書いているので含めた）。
 
-### 4.5 引き継ぎ（他の担当へ）
-- **BIZ-SIMDESIGN 0.2（需要とライバルの式）の担当へ**：周回は BIZ-REPLAY の担当。周回の変種として、需要の式の係数（季節の山の位置、値段への反応の強さ、天気の効き）、相場の道、ライバルの戦略の係数を、seed から決められる形にしてほしい。「前の周の最善手が今周は通らない」ことを sim で検査できる指標（前の周の手を今周に当てたときの成績の落ち方）を、式と一緒に持つと 4.3 の大胆1が作れる。
-- **BIZ-FUNVISUAL の担当へ**：周の振り返りの画面（前の周の線を重ねる、今周の町の様子）の見せ方は、その報告の表現の手法に従う前提。経営シムの周回の声（ゲーム発展国の「強くてニューゲーム」、ラーメン館の「二周目に突入」）は、その報告が読んだ原文を開いて語句を引き直して使った（1章）。
-- **BIZ-COFFEEINC2 の担当へ**：その報告の利用者の声に「やり直し・試行錯誤」がある（BIZ-COFFEEINC2 218行）。周回の動機としては「違う方針を試す」型で、本報告の「新しい組み合わせ」「習熟」に当たる。数は写していない（数え直していない）。
+### 4.6 引き継ぎ（他の担当へ）
+- **BIZ-SIMDESIGN 0.2（需要とライバルの式）の担当へ**：周回は BIZ-REPLAY の担当。周回の変種として、需要の式の係数（季節の山の位置、値段への反応の強さ、天気の効き）、相場の道、ライバルの戦略の係数を、seed から決められる形にしてほしい。「前の周の最善手を今周に当てたときの成績の落ち方」を sim で測れる指標を式と一緒に持つと、4.3 の大胆1と 4.1 の張り合いを確かめられる。
+- **BIZ-FUNVISUAL の担当へ**：周の振り返りの画面（前の周の線を重ねる、今周の町の様子、受験日から逆算した周の地図）の見せ方は、その報告の表現の手法に従う前提。その担当が取得したカイロソフトと Good Pizza の口コミのページから、「周」「週」を含む34件を別のスクリプトで数えた（`replay-mgmt-voices.py`。数は 2.6）。
+- **BIZ-COFFEEINC2 の担当へ**：その報告の利用者の声に「やり直し・試行錯誤」がある（BIZ-COFFEEINC2 218行）。周回の動機としては「違う方針を試す」型で、本報告の「自分で組む」「習熟」に当たる。数は写していない（数え直していない）。
 
 ## 反証と限界
 
-### 自分の結論に反する資料（10件）
+### 自分の結論に反する資料（14件）
 | # | 反する資料 | 何に反するか | どう扱ったか |
 |---|---|---|---|
-| 1 | PDG の論考：パズルは遊び直す価値が低く、最適解の世界である科学を教えるゲームは遊び直したくならない [[web:simgames:r4-sim-gd-pdg|「low replay value」]] | 「学びのための周回を楽しくできる」という前提そのもの | 仕訳（正解が一つ）でなく、その周りの経営の判断に板挟みを置くことで答える（4.1）。仕訳そのものの想起は楽しさより学びの要求として置き、楽しさは判断の側で作る【推論】 |
-| 2 | Clark 2016：見た目と物語の文脈が厚いほど学びの効果が小さい [[web:learnsci:clark2016-digital-games-meta|「smaller effects」]] | 大胆4（周ごとに進む人物の筋） | 大胆4は単独では採らず、答えの動く周（大胆1〜3）と組む前提にした。著者は直後の低次の知識しか測っていないことを解釈の一つに挙げている |
-| 3 | Gamito 2021：選ばなかった道を知らせても、全体として遊び直しは増えず、ふだん遊び直す人には苛立ちと疲れ [[web:simgames:r6-rp-gamito2021-pathnottaken|「64 participants」]] | 「もしも」で周回に誘う（DESIGN-ROUND2 266行） | 1周目は輪郭だけ、2周目以降は自分で開く、に変えた（4.4） |
-| 4 | Mitchell ら 2020：仕組みが分かって結果が読めると遊び直す動機が消える [[web:simgames:r6-rp-digra-storygameness-pdf|「motivated to replay」]] | 本作の目標は簿記の仕組みを分からせること。分かるほど周回の動機が消える | 答えが毎周動く判断を残すこと、受験日という外の目標に周回を結ぶこと（大胆5）で、仕組みが分かった後の動機を作る。完全には解けない緊張として残る |
-| 5 | Mawson 2025：3回以下の再接触のほうが効果が大きい（less is more）[[web:learnsci:mawson2025-spacing-classroom-meta|「nine re-exposures」]] | 「日をあけた正解3回」を最低にすること（もっと多くてもよいという含み） | 回数の多い研究は1つの研究に偏り交絡がある。3回を「最低の目安」とし、上限は決めなかった |
-| 6 | Latimier 2021（要旨）：テストの回数が多い研究ほど広げる予定表がやや有利 [[web:learnsci:r6-rp-latimier2021-full|「g  = 0.034」]] | 「並べ方は決め手にならない」 | 本文が読めず回数の効果の大きさが分からない。並べ方は等間隔でも広げてもよい、とした上で、受験日から最後の間隔を決めることを主にした |
-| 7 | 経営シムの声：強くてニューゲームを楽しむ（カイロソフト）[[web:simgames:r5-fv-applion-gamedevstory|「強くてニューゲーム」]]。解放だけでなく強さも持ち越したいという声（#103） | 「持ち越しは練習を減らす」（4.2 最小4） | 持ち越しは捨てず、棚卸を練習として毎周通す形にした。持ち越しが楽しさになることは認める |
-| 8 | Ryan 2006：達成の動機は週の遊ぶ時間を増やす [[web:learnsci:ryan2006-games-sdt|「related to mood」]]（気分は下げるが時間は増える） | 「順位の競争を避ける」 | 目的が学びの回数（間をあけた想起）なので、時間の長さより気分と学習効果を取った。時間を増やす目的なら逆の結論もありうる |
-| 9 | Detroit：多くの評者が枝の多さと深さをほめた [[web:simgames:r4-sim-wiki-detroit|「multiple and deep」]] | 「物語の分岐だけでは周回は続かない」 | ほめた評も遊び直しの回数は書いていない。物語の周回が好まれる層はいる。大胆4で残した |
-| 10 | Spelunky の作り手：まれに遊ぶ人に知らせず運に細工するのは強力な技 [[web:simgames:r6-rp-gutefabrik-spelunky|「load the dice」]] | 「予兆つきの振れ」（運は読めるものにする） | 帳簿の数字を説明できなくなるので本作では採らない（捨てた案）。ただし面白さの源として強いという証言は残す |
+| 1 | PDG の論考（Game Developer のブログ欄の仮説）：パズルは遊び直す価値が低く、最適解の世界である科学を教えるゲームは遊び直したくならない [[web:simgames:r4-sim-gd-pdg|「low replay value」]] | 「学びのための周回を楽しくできる」という前提そのもの | 仕訳（正解が一つ）でなく、その周りの経営の判断に板挟みを置くことで答える（4.1）。経験則の仮説で、根拠は作者のハイパーカジュアルの経験 |
+| 2 | Clark 2016：見た目と物語の文脈が厚いほど学びの効果が小さい [[web:learnsci:clark2016-digital-games-meta|「smaller effects」]] | 大胆4（人物の筋） | 大胆4は推しの4番目にし、閉じる時期を受験日に合わせる形で残した。著者は直後の低次の知識しか測っていないことを解釈の一つに挙げる |
+| 3 | Gamito 2021（64人・10〜20分、修士論文の拡張要旨）：全体としては遊び直しが増えたとは言えない [[web:simgames:r6-rp-gamito2021-pathnottaken|「more irritable」]] | 「もしも」で周回に誘う（266行） | 部分集団の結果は向きが割れる：ふだん遊び直さない人は1回で終える人が減り、知らせのない版のほうが疲れを感じた [[web:simgames:r6-rp-gamito2021-pathnottaken|「only one time」]]。3回以上遊んだ人は知らせのある版で苛立ちが高かった。1周目は輪郭、2周目以降は自分で開く形にした |
+| 4 | Mitchell ら 2020（1作品1人の精読）：仕組みが分かって結果が読めると遊び直す動機が消える [[web:simgames:r6-rp-digra-storygameness-pdf|「motivated to replay」]] | 本作の目標は簿記の仕組みを分からせること。分かるほど周回の動機が消える | Cultist Simulator は手続き生成（答えも動く）でも7周で尽きた例なので、「答えが動く判断を残す」だけでは答えにならない。受験日という外の目標に周回を結ぶ（大胆5）と、閉じる時期を条件に合わせる（大胆4）で答える。完全には解けない緊張として残る |
+| 5 | Mawson 2025：3回以下の再接触のほうが効果が大きい [[web:learnsci:mawson2025-spacing-classroom-meta|「nine re-exposures」]] | 回数を増やす向き（条件Aを3回・4回にする案） | 回数の多い研究は1つの研究に偏り交絡がある。回数は3.3の表で選ぶ形にした |
+| 6 | Latimier 2021（要旨）：テストの回数が多い研究ほど広げる予定表が有利になる | 版0.1の「並べ方は決め手にならない」 | 版0.2で受け入れ、広げる並べ方を残した（4.2 最小2） |
+| 7 | Cepeda 2006 が紹介する Moss 1996：計算などの知的技能で分散の効果が出たのは3分の1 [[web:learnsci:r6-rp-cepeda2006-meta|「third of intellectual」]] | 学習の資料の数（単語の記憶）を仕訳に移すこと | 限界に書いた。手続きの側の証拠は Mawson の会計 0.67・数学 0.46 |
+| 8 | 経営シムの声：強くてニューゲーム・引き継ぎを楽しむ（2.6）[[web:simgames:r5-fv-applion-gamedevstory-p6|「前の周回データの引き継ぎ」]] | 「持ち越しはふだんの思い出しを減らす」 | 持ち越しは数周の骨の一部として残し、戻り方を確かめる（4.2 最小4） |
+| 9 | Ryan 2006：達成の動機は週の遊ぶ時間を増やす（気分は下げる）[[web:learnsci:ryan2006-games-sdt|「related to mood」]] | 「順位の競争を避ける」 | 順位はオーナーの決定に回した（決めない） |
+| 10 | MG（成績順の席替え）・#53（日替わりの順位表を求める声）・ローグライクの順位表の共有 [[web:simgames:r3-fable-wiki-roguelike|「leaderboards are often」]] | 版0.1の「他人との順位は出さない」 | 版0.2で結論を外し、オーナーの決定に回した |
+| 11 | O'Brien 2019：くり返しの楽しさは低く見積もられ、単純な刺激でもくり返しは予想より楽しい [[web:learnsci:r6-rp-obrien2019-enjoyagain|「somewhat enjoyable」]] | 版0.1の「皮だけの周回は尽きる」 | 版0.2で撤回した（要点3） |
+| 12 | カイロソフトの声：皮＋持ち越しで2周目・3周目・10周以上 [[web:simgames:r5-fv-applion-gurume|「10週以上遊べる」]] | 版0.1の「長く周回される作品の芯は答えが変わること」 | 版0.2で芯を数周と長い周回に分けた |
+| 13 | SUPERJUMP の評者：物語の変わらない The Last of Us を13回遊び直した [[web:simgames:r6-rp-superjump-nier-notreplayable|「a whopping 13 times」]] | 「答えが変わらないと周回は続かない」 | 物語ゲームでも同じものをくり返す人がいる例として受け入れた |
+| 14 | Detroit：多くの評者が枝の多さと深さをほめた [[web:simgames:r4-sim-wiki-detroit|「multiple and deep」]] | 版0.1の「物語の分岐だけでは周回は続かない」 | 版0.2で結論を「作り手が決めた所で閉じる」に直した |
 
 ### 限界
-- **利用者の声の偏り**：星5が222件、星1〜3が0件（2.1）。やめた人の割合は数えられない。Steam・Reddit・Hacker News は規約・遮断で読めなかった。
-- **経営シムの周回の声が少ない**：Game Dev Tycoon は4件。カイロソフトの声は BIZ-FUNVISUAL の原文から語句を引き直しただけで、数え直していない。
-- **何周目で尽きるかの数は少ない**：数があるのは 80 Days の8〜10回、Cultist Simulator の7周・13時間半、StS の223時間（1人）、Stardew の200時間（1人）、FTL の勝率10%の想定だけ。多くは「資料なし」と書いた。
-- **学習の資料の材料**：ほとんどが単語・事実の記憶で、仕訳のような手続きではない。ゲームの中の研究（Clark 2016）は直後の低次の知識が中心。
-- **又引き**：Rawson ら 2018 の数（3回で8割）は Higham らの序論の紹介で、原典は読めていない（Rawson・Dunlosky の論文の公開が見つからず、UNH のページは TLS で取得できなかった）。
+- **利用者の声の偏り**：切り出した231件は星5が222件・星1〜3が0件。App Store の評価の件数では星1〜3が全体の6.6%（StS 22.0%）あり、その人たちの声は入っていない（2.1）。Steam・Reddit・Hacker News は規約・遮断で読めなかった。
+- **コード付けは1人**：声のコード（`replay-voices-codes.md`・`replay-mgmt-voices-codes.md`）は私1人が付け、別の人との一致は測っていない。
+- **経営シムの周回の声**：カイロソフトと Good Pizza の643件のうち「周」「週」の字を含む34件だけを読んで分類した。字のない周回の声は拾えていない。
+- **何周目で尽きるかの数は少ない**：数があるのは 80 Days の8〜10回、Cultist Simulator の7周・13時間半、StS の223時間（1人）、Stardew の200時間（1人）、カイロソフトの「10周以上」（1人）、FTL の勝率10%の想定だけ。
+- **学習の資料の材料**：ほとんどが単語・事実の記憶で、仕訳のような手続きではない（Moss 1996 では知的技能の効果は3分の1）。手続きに近い証拠は Mawson の会計・数学だけ。ゲームの中の研究（Clark 2016）は直後の低次の知識が中心。
+- **又引き**：Rawson ら 2018 の数（3回で8割）は Higham らの序論の紹介で、原典は読めていない。
+- **資料の質**：Higham は査読への応答の版の原稿、Gamito は修士論文の拡張要旨、Mitchell は1作品1人の精読、PDG はブログの仮説、O'Brien のゲームは1分間のお絵かき（MTurk）、Ryan の研究4は男性が93%のオンラインゲームの掲示板の調査（730人中679人）。
 - **Latimier 2021 は要旨だけ**。
-- **Pyre の「ほとんどの人が1回」**は Wikipedia の記述で、作り手の一次の記事（Game Developer）では確かめられなかった。もう一つの出典（Rock Paper Shotgun）は規約で自動取得が禁止。
-- **作り手の話の一部は二次の報告**：Balatro の道しるべ（記者が連投を引用）、FTL の GDC 事後分析（Game*Spark の報告）、NieR の予算（TwistedVoxel の報告）。
-- **3.3 の見積りは推論**：1日の遊ぶ時間、受験日までの日数、番人の出し方は仮定。設計者が変えれば数も変わる。
+- **Pyre の「ほとんどの人が1回」**は Wikipedia の記述で、作り手の一次の記事では確かめられなかった。
+- **作り手の話の一部は二次の報告**：Balatro の道しるべ、FTL の GDC 事後分析、NieR の予算。
+- **3.3 の模擬は簡単な模型**：想起は月初だけ、正解率は一定、条件B・C・D なし、番人と S.plan の実際の選び方ではない。設計の書き直しの後に実際の sim で確かめる必要がある。
 
 ## 捨てた案と理由
 | 捨てた案 | 理由（学習効果・面白さ・正しさ・規約） | 資料 |
 |---|---|---|
-| 他人との順位（ランキング）を周回の主な動機にする | 学習効果：一人で他人と競う形は学習効果がない。面白さ：達成の動機は遊んだ後の気分を下げた | Clark 2016、Ryan 2006 |
-| 物語の分岐だけで周回させる（Detroit・NieR 型） | 面白さ：物語が答えを出すと周回が止まる。学習効果：文脈を厚くすると学びの効果が下がる傾向。単独では捨て、答えの動く周と組む形（大胆4）で残した | GPB、SUPERJUMP、Clark 2016、Mitchell ら |
-| 解放（新しいカード・人物）を周回の主な報酬にする | 面白さ：解放が終わると動機が尽きる（#103・#186）、遠すぎると不満（FTL） | 声、Game*Spark |
-| 7→30→90日の決まった広げ方 | 学習効果：最適な間隔は受験日までの長さで変わり、並べ方の差は小さい | Cepeda 2006・2008、Karpicke & Bauernschmidt 2011、Latimier 2021 |
-| 同じ問題を同じ形でくり返す想起（皮だけの変種での想起） | 学習効果：その問題だけが強くなり転移しない | Higham 2021 |
-| ログイン報酬・連続日数の報酬 | 面白さ：作り手が中毒と燃え尽きを避けて使わなかった。学習効果：毎日でなく間をあけて戻るほうが間隔の要求に合う | Tom's Guide の Kasavin、Cepeda 2006 |
+| 解放（新しいカード・人物）を周回の主な報酬にする | 面白さ：解放が終わると動機が尽きるという予想と声（#103・#186）、遠すぎると不満（FTL）。反対の声：カイロソフトの「2周目の新キャラが楽しみ」（#18）は解放を楽しむ。主な報酬にはしないが、次の周で開く要素としては数周の骨に入れる | 声、Game*Spark、2.6 |
+| 7→30→90日の決まった数 | 学習効果：最適な間隔は受験日までの長さで変わる。広げる並べ方そのものは捨てない | Cepeda 2006・2008、Mawson 2025 |
+| 同じ問題・同じ答えで想起させる | 学習効果：その問題だけが強くなり、空欄の位置を変えた問題に転移しない | Higham 2021 |
+| ログイン報酬・連続日数の報酬 | 面白さ：作り手が中毒と燃え尽きを避けて使わなかった。学習効果：毎日でなく間をあけて戻るほうが間隔の要求に合う。反対の声：ラーメン館の声に「毎日ログインでメダル、気づけば100日連続」がある（2.6 のコード表 #22）。面白さで捨てるので、反対の声として並べた | Tom's Guide の Kasavin、Cepeda 2006 |
 | 完全な自動生成（手作りの部品なし） | 面白さ：完全な生成はレベルが非論理的で混沌とした。正しさ：会計の論点の依存関係が崩れる | deepnight（Dead Cells）、Papers, Please |
-| 遊ぶ人に知らせずに運に細工する | 正しさ：帳簿の数字の理由を説明できなくなる（学びの教材として公平でない） | Die Gute Fabrik（Spelunky） |
+| 遊ぶ人に知らせずに運に細工する | 正しさ：帳簿の数字の理由を説明できなくなる。資料は遊んだ側の Douglas Wilson の推測と意見で、作り手の技としての証言ではない | Die Gute Fabrik（Spelunky） |
+
+版0.1で捨てていた「他人との順位を周回の主な動機にする」は、資料が割れるのでオーナーの決定に回した（捨てない）。「物語の分岐だけで周回させる」は、大胆4（数周で閉じる人物の筋）として単独の選択肢に戻した。
 
 ## 論証の表
-「作り手の負担」は、その結論に従うと作る量が増えるか減るか。減る結論には反対の事実と別の解釈を2つ以上書いた（QUALITY 5.1）。
+「作り手の負担」は、その結論に従うと作る量が増えるか減るか。減る結論には反対の事実と別の解釈を2つ以上書いた（QUALITY 5.1）。版0.2で、論証の検査書の L01〜L13 に合わせて直し、新しい結論の行（C14〜C17）を足した。
 
 | # | 結論 | 根拠の事実（出典と原文の箇所） | 推論の形 | 暗黙の前提 | 反対の事実 | 別の解釈 | 作り手の負担は増えるか減るか |
 |---|---|---|---|---|---|---|---|
-| C1 | 変種は「答えを動かす」ものでなければ周回の楽しさにも転移にも効かない | StS の3枚から1枚 [[web:simgames:r6-rp-wiki-sts|「of three randomly」]]、Capsim の動く市場 [[web:simgames:capsim-capstone|「never stops moving」]]、O'Brien の例外 [[web:learnsci:r6-rp-obrien2019-enjoyagain|「your-own-adventure」]]、Higham の転移なし [[web:learnsci:r6-rp-higham2021-relearning|「not show a reliable」]] | 一般化（作品群）＋類推（娯楽→学びのゲーム） | 学びのゲームを遊ぶ人も娯楽の周回と同じ理由で始め直す | Papers, Please は人物が皮だけの変種でも20の結末で周回の理由を作る。声の「理由なしの中毒」59件は理由を書いていない | 長く遊ばれる作品は出来が良いだけで、答えが動くことは原因でなく伴っているだけかもしれない | 増える |
-| C2 | 資金繰りを決定論から外し、予兆つきの振れを入れる | Balatro の運を読む上達 [[web:simgames:r6-rp-rogueliker-balatro|「random the game feels」]]、MG のリスクカード [[web:simgames:accountant-otaru-mg|「時々リスクカード」]] | 類推 | 振れが帳簿の学びを妨げない | Into the Breach は乱数を減らし「自分のせい」と感じさせた [[web:simgames:r4-sim-gd-intothebreach|「your own fault」]]。声に運・理不尽の不満1件 | 予兆を見せれば振れは運でなく判断の材料になる（ITB の予告と両立） | 増える |
-| C3 | 間隔は受験日までの残りから決め、並べ方（広げる・等間隔）は決め手にしない | Cepeda 2008 [[web:learnsci:theory-spacing-cepeda2008|「decide how long you」]]、Karpicke & Bauernschmidt [[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「inherently superior」]]、Mawson [[web:learnsci:mawson2025-spacing-classroom-meta|「learning will be used」]] | 権威（研究）＋一般化（単語の記憶→仕訳） | 単語・事実の記憶の結果が手続きにも当てはまる | ①Mawson では固定7日が最も安定 [[web:learnsci:mawson2025-spacing-classroom-meta|「intervals of seven days」]] ②Latimier の要旨ではテストの回数が多いと広げる側がやや有利 | ①受験日を決めていない人には、決まった広げ方のほうが分かりやすい ②「だんだん長くなる」こと自体が遊ぶ人に上達として見え、動機になるかもしれない | 減る（並べ方を作り込まない）。代わりに受験日を聞く画面と式が増える |
-| C4 | 条件Aを「日をあけた正解3回・最後の間隔は受験日までの1〜2割」に強める | 外すと3割台 [[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]]、3回で約8割 [[web:learnsci:r6-rp-higham2021-relearning|「increased to 80%」]]、最適な間隔の比 [[web:learnsci:theory-spacing-cepeda2008|「43%, 23%, 17%, and 8%」]] | 権威＋一般化 | 3回という目安が仕訳にも通じる | Mawson の less is more（再接触は少ないほど効果が大きく出た） | 条件を強めると周回が長くなり、条件に届く前にやめる人が増える | 増える |
-| C5 | 持ち越しの自動仕訳は練習から外すことに当たるので、毎周の棚卸を練習として通す | 外した条件 [[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]]、見ずに言えるようになった後の回も効く [[web:learnsci:r6-rp-bahrick1993|「comparable to 26」]] | 類推（単語の練習→自動仕訳） | 自動で書かれた型は想起されない | 強くてニューゲームを楽しむ声 [[web:simgames:r5-fv-applion-gamedevstory|「強くてニューゲーム」]]。持ち越しが負けの痛みを減らす [[web:simgames:designer-recettear-gd2010|「stay persistent」]] | 自動仕訳を見ること自体が再認の練習になるかもしれない | 増える |
-| C6 | 足場は易しい歩から外し、例題（たとえば）は最後まで出す | Grosse [[web:learnsci:grosse2015-fading-modeling|「easiest step first」]] | 権威＋類推（数学のモデル化→仕訳） | 仕訳では「証憑→科目と貸借」が最も難しい歩 | Grosse は1回45分の短い実験 | 段の上の人には例題が冗長になる（熟達者には例が邪魔になるという研究がある。本報告では原文を取得できなかった） | 変わらない（外す順が変わるだけ） |
-| C7 | 他人との順位は出さず、証人・協力・過去の自分のライバルを入れる | 一人の競争は効果なし [[web:learnsci:clark2016-digital-games-meta|「Single, competitive」]]、達成の動機は気分を下げる [[web:learnsci:ryan2006-games-sdt|「related to mood」]]、証人の儀式 [[web:simgames:r6-rp-gutefabrik-spelunky|「witness with whom」]] | 権威＋類推 | 学びの効果を遊ぶ時間より優先する | ①達成の動機は週の遊ぶ時間を増やす（Ryan）②MG・Capsim は競争で学ばせる教材 [[web:simgames:accountant-otaru-mg|「成績順で席替え」]] | ①Clark の研究は短い期間の直後のテストで、周回の長い期間には当てはまらないかもしれない ②チームで競う形は効果が大きいので、チームの順位なら出してよい | 順位の画面は作らないので減る。証人・ライバルの仕組みで増える。差し引きは増える |
-| C8 | 物語の分岐だけでは周回は続かないので、単独では採らない | 物語の後の息苦しさ [[web:simgames:r6-rp-gpb-hades-stop|「stifling effects」]]、NieR を遊び直さない [[web:simgames:r6-rp-superjump-nier-notreplayable|「my time with NieR」]]、両方の終わりで動機が消える [[web:simgames:r6-rp-digra-storygameness-pdf|「motivated to replay」]] | 一般化（論評2本・精読1本） | 本作の遊ぶ人も同じところで止まる | ①Hades には速さを競う走者の共同体が生まれた [[web:simgames:r6-rp-wiki-hades|「speedrunning」]]②80 Days は8〜10回遊ぶ人がいた [[web:simgames:r4-sim-mcv-ingold-replay|「eight, nine, ten times」]] | ①物語の質と量が十分なら物語だけでも続く ②物語が閉じた後にやめるのは悪いことではない（作り手が区切りを意図した）[[web:simgames:r6-rp-tomsguide-hades|「boredom or burnout」]] | 減る（物語の量を中心に作らない）。大胆4で残したので、作るなら増える |
-| C9 | 1日1時間で約3〜4周・5〜8週で4条件に届く | 1周10〜15時間（DESIGN-RAMEN 95行）、番人は7期目まで（725行）、3回の再学習 [[web:learnsci:r6-rp-higham2021-relearning|「increased to 80%」]]、間隔の比 [[web:learnsci:mawson2025-spacing-classroom-meta|「10–20% of the required」]] | 演繹（仮定からの計算） | 1日の時間・受験日まで90日・3回の目安 | Bahrick の長期の保持には10回以上 [[web:learnsci:r6-rp-bahrick1993|「comparable to 26」]] | 番人が早く出せば短く、遊ぶ時間が短ければ長い | 変わらない（見積りなので） |
-| C10 | 1周（10期・10〜15時間）が長いことは周回の弱点で、年の選択を短い周として出す | 1周1〜2時間の声（#5）、高速モード（#10）、短い1周が繰り返しの動機 [[web:simgames:r3-fable-wiki-roguelike|「short gameplay runs」]] | 類推（ローグライト→経営シム） | 経営シムの遊ぶ人も短い周を好む | Game Dev Tycoon は25年が早く終わりすぎると言われた [[web:simgames:r5-fv-greenheart-onemonth|「over too quickly」]]。Stardew は時間制限なしで長く遊ばれる | 経営シムの遊ぶ人は長い1周を好み、短い周はローグライトの層向け | 増える（年の選択の周を整える） |
-| C11 | 声の始め直しの理由の上位は「組み合わせ」と「上達」 | `replay-voices-count.out.txt`（53件中 組み合わせ20・上達18）、例 [[web:simgames:r6-rp-applion-ftl-p1|「あなた自身なのです」]] | 数え上げ（偏った標本） | 星5の転載でも理由の順は大きく変わらない | 理由を書かない中毒が59件で最多 | 書きやすい理由が上位に来ているだけかもしれない | 変わらない |
+| C1 | 【数周】本作に要る数周は、皮＋持ち越し＋周ごとの新しい要素＋2周目以降で届く目標で支えられる。答えが毎周変わる作りは長い周回の芯で、数周の必要条件ではない（版0.1の C1「答えを動かす変種でなければ効かない」を撤回） | カイロソフトの周回の声25件（2周目以降で目標5・持ち越し4・新しい要素3）[[web:simgames:r5-fv-applion-gamedevstory|「2周目の16年目」]]、80 Days [[web:simgames:r4-sim-mcv-ingold-replay|「slip back into a world」]]、O'Brien の主な結果 [[web:learnsci:r6-rp-obrien2019-enjoyagain|「Less Repetitive Than」]]、声の K に「前の周の答えが通らない」0件 | 一般化（経営シムの声・物語ゲーム）＋類推（娯楽→学びのゲーム） | 学びのゲームの遊ぶ人も経営シムの遊ぶ人と同じ理由で数周遊ぶ | ①ローグライトの長い周回の声は「周ごとに中身が違う」を理由に挙げる（Kv 8件）②カイロソフトの声にも「遊べる期間が短め」「後半が作業」がある | ①カイロソフトの周回は作品の作り（20年で一区切り）が周回を前提にしているから起きているだけで、骨を写しても同じにはならないかもしれない ②星5の声だけなので、数周でやめた人の理由が見えない | 減る（答えを動かす変種を全部作らなくても数周の骨は作れる）。代わりに持ち越し・新しい要素・期限つきの目標の作り込みが要る |
+| C2 | 資金繰りの決定論を外し、予兆つきの振れを入れるかはオーナーの決定（PEDAGOGY 1.5 を改める） | MG のリスクカード [[web:simgames:accountant-otaru-mg|「時々リスクカード」]]、Balatro の運を読む上達 [[web:simgames:r6-rp-rogueliker-balatro|「random the game feels」]] | 類推 | 振れが帳簿の学びを妨げない | Into the Breach は乱数を減らし「自分のせい」と感じさせた [[web:simgames:r4-sim-gd-intothebreach|「your own fault」]]。Capsim の市場は決まった向きに動く（決定論でも答えが動く）[[web:simgames:capsim-capstone|「smaller and faster」]] | 予兆を見せれば振れは運でなく判断の材料になる。PEDAGOGY 1.5 の理由（現金不足の原因の区別）は予兆と備えで和らぐ | 増える |
+| C3 | 間隔の伸び方は受験日までの残りから決める。広げる並べ方は残してよい（版0.1の「並べ方は決め手にしない」を直した） | Cepeda 2008 [[web:learnsci:theory-spacing-cepeda2008|「decide how long you」]]、Mawson [[web:learnsci:mawson2025-spacing-classroom-meta|「learning will be used」]]、Cepeda 2006 の広げる側 [[web:learnsci:r6-rp-cepeda2006-meta|「expanding ISIs led to」]] | 権威＋一般化（単語の記憶→仕訳） | 単語・事実の記憶の結果が手続きにも当てはまる | ①Karpicke & Bauernschmidt では並べ方に差がない（初めの成功率をそろえた分単位の実験）[[web:learnsci:r6-rp-karpicke-bauernschmidt2011|「inherently superior」]] ②Mawson では固定7日が最も安定 [[web:learnsci:mawson2025-spacing-classroom-meta|「intervals of seven days」]] | ①受験日を決めていない人には決まった広げ方のほうが分かりやすい ②知的技能では分散そのものの効果が小さい（Moss）ので、並べ方の差はさらに小さいかもしれない | 増える（受験日の画面・式・比べる検査） |
+| C4 | 条件Aの回数（2・3・4回）は資料からは決まらない。届く日の長さと受験日の保持の選択（版0.1の「3回に強める」を直した） | 3回の再学習の後でも学期末55% [[web:learnsci:r6-rp-higham2021-relearning|「relearn: M = .55」]]、3回で1週間後80%（紹介）[[web:learnsci:r6-rp-higham2021-relearning|「increased to 80%」]]、模擬の表（3.3） | 演繹（模型）＋権威 | 単語・心理学の穴埋めの保持率が仕訳に近い | Mawson の less is more（再接触は少ないほど効果が大きく出た）[[web:learnsci:mawson2025-spacing-classroom-meta|「nine re-exposures」]] | 3回でも満点は保てない（55%）ので、回数より受験直前の確かめが効くかもしれない | 変わらない（選択を設計者に渡す） |
+| C5 | 自動仕訳の持ち越しはふだんの思い出しの回数を減らす。S.plan③・監査・棚卸の頻度で補えるかを確かめる（版0.1の「練習から外すに当たる」を弱めた） | 外した条件 [[web:learnsci:r6-rp-karpicke-roediger2008|「just 36% and 33%」]]、見ずに言えるようになった後の回も効く [[web:learnsci:r6-rp-bahrick1993|「comparable to 26」]] | 類推（1回の場の中の単語の練習→周をまたぐ自動仕訳） | 自動で書かれた型は想起されない | 自動仕訳は3回正しく切り、うち1回は別の月で登録され、S.plan③・監査・棚卸で戻る（PEDAGOGY 1.6）。強くてニューゲームを楽しむ声 [[web:simgames:r5-fv-applion-gamedevstory|「強くてニューゲーム」]] | 自動仕訳を見ること自体が再認の練習になるかもしれない | 増えうる（棚卸を毎周通すなら） |
+| C6 | 段1の「たとえば」をしまって押せば出す今の形は、Grosse の「初めに例題、どこかでやめる」に合う。違いは「例題→問題の組」の候補だけ（版0.1の「逆」を撤回） | 例題→問題の組が翻訳で最良 [[web:learnsci:grosse2015-fading-modeling|「fostered best by way of」]]、どこかで完全な例題をやめる [[web:learnsci:grosse2015-fading-modeling|「makes sense to abandon」]]、外す向きは翻訳には無関係 [[web:learnsci:grosse2015-fading-modeling|「largely irrelevant」]] | 権威＋類推（数学のモデル化→仕訳） | 証憑→科目と貸借が数学の「翻訳」に当たる | Grosse は1回45分の8年生の実験。易しい歩から外す理由づけは仮説 [[web:learnsci:grosse2015-fading-modeling|「might be favorable」]] | 段の上の人には例題が冗長（熟達者には例が邪魔になるという研究がある。原文を取得できなかった） | 減る（今の形を残す）→ 反対の事実と別の解釈を2つずつ：①1回の短い実験 ②仕訳の歩の難しさの順は仮説、別の解釈 ①熟達者には冗長 ②例題→問題の組に変えると作る量が増える |
+| C7 | 他人との順位を出すかはオーナーの決定。協力を入れる根拠はない（版0.1の「順位は出さず協力を入れる」を撤回） | Clark の表：一人の遊び0.45だけ有意 [[web:learnsci:clark2016-digital-games-meta|「Single, competitive」]]、協力0.01 [[web:learnsci:clark2016-digital-games-meta|「Single, collaborative」]]、多人数−0.05 [[web:learnsci:clark2016-digital-games-meta|「Multiplayer/MMO」]]、達成の動機は気分を下げる [[web:learnsci:ryan2006-games-sdt|「related to mood」]] | 権威（4研究の小さな群） | 教育ゲームの直後のテストの結果が周回の長い期間にも当てはまる | ①MG は成績順の席替え [[web:simgames:accountant-otaru-mg|「成績順で席替え」]] ②#53 は順位表を求める声 ③順位表は遊ぶ人の間で共有されることが多い [[web:simgames:r3-fable-wiki-roguelike|「leaderboards are often」]] | ①一人の競争の4研究は幅が広く、効果がないとも言い切れない ②チームの競争は一人の競争より大きい（差の比較）ので、チームの順位なら効くかもしれない（ただし0と区別できない） | 決めない（順位を作るかは決定次第） |
+| C8 | 【数周】物語は作り手が決めた所で閉じる。本作は閉じる時期を満点の条件に合わせる選択肢がある（版0.1の「物語の分岐だけでは周回は続かない」を撤回） | 区切りの意図 [[web:simgames:r6-rp-tomsguide-hades|「happily walk away」]]、NieR は用意した周を遊び通した後でやめた [[web:simgames:r6-rp-superjump-nier-notreplayable|「my time with NieR」]]、80 Days 8〜10回 [[web:simgames:r4-sim-mcv-ingold-replay|「eight, nine, ten times」]]、The Last of Us 13回 [[web:simgames:r6-rp-superjump-nier-notreplayable|「a whopping 13 times」]] | 類推＋権威（作り手の意図） | 本作の物語を数周もたせる量が作れる | ①息苦しくなってやめた評（構造のくり返し）[[web:simgames:r6-rp-gpb-hades-stop|「structural loop」]] ②物語を厚くすると学びの効果が下がる傾向 [[web:learnsci:clark2016-digital-games-meta|「smaller effects」]] | ①物語の質が合わない人には周回が起きない（Detroit の評）②物語の量（Detroit の513役）は桁違いに大きい | 増える（物語を周回の数に合わせて書く） |
+| C9 | 【数周】条件Aに届く日は思い出しの正解率と必要な回数でほぼ決まる（1周10日・毎日・N=3で、100%なら約31日、90%で約68日、80%で約100日）（版0.1の「3〜4周・5〜8週」を撤回） | 模擬の出力（`replay-estimate-sim.out.txt`）、1周10〜15時間（DESIGN-RAMEN 95行）、番人は7期目まで（725行）、間隔の比 [[web:learnsci:mawson2025-spacing-classroom-meta|「10–20% of the required」]] | 演繹（模型からの計算） | 想起は月初だけ・正解率一定・誤れば回数0 | 誤っても回数を0に戻さないなら、90%でも約33日（出力）。ふだんの記帳での自然な思い出しを入れれば短くなる | 番人が早く出せば短く、遊ぶ時間が短ければ長い。見積りが小さいと今の設計（2〜3周目で届く）がそのまま残る向きに読まれるので、幅で書く | 変わらない（見積り）。ただし幅を受けて設計を直すと増える |
+| C10 | 1周の長さより、1回の遊びの区切りが問題かもしれない【推論】（版0.1の「1周が長いことは弱点」を弱めた） | 1周1〜2時間の声（#5）、短い1周が繰り返しの動機 [[web:simgames:r3-fable-wiki-roguelike|「short gameplay runs」]] | 類推（ローグライト→経営シム） | 経営シムの遊ぶ人も短い区切りを好む | Game Dev Tycoon は25年が早く終わりすぎると言われた [[web:simgames:r5-fv-greenheart-onemonth|「over too quickly」]]。カイロソフトの全国編は1周目が48時間を超えても遊ばれる | 経営シムの遊ぶ人は長い1周を好み、短い周はローグライトの層向け | 変わらない |
+| C11 | 声の始め直しの理由の上位は組み合わせ（自分で組む・周ごとに中身が違う）で、上達・発見・段がほぼ並ぶ | `replay-voices-count.out.txt`（周45件：組み合わせ17・上達12・発見10・段10）、例 [[web:simgames:r6-rp-applion-ftl-p1|「あなた自身なのです」]] | 数え上げ（偏った標本） | 星5の転載でも理由の順は大きく変わらない | 理由を書かない中毒が59件で最多 | 書きやすい理由が上位に来ているだけかもしれない | 変わらない |
 | C12 | Obra Dinn は周回の例でなく「1周で尽きる」例 | 遊び直しの価値はあまりないという評 [[web:simgames:r6-rp-wiki-obradinn|「a lot of replay value」]] | 権威（評） | 評者の評価が遊ぶ人一般に当てはまる | 答えを知った後も細部を見つけ直す人はいる（O'Brien の発見の議論） | 1回で値打ちのある体験は、本作の「1回きりの決算の推理」として使える | 変わらない |
 | C13 | Pyre の「ほとんど1回」は確かめられていない | Wikipedia の記述 [[web:simgames:r6-rp-wiki-hades|「through the game once」]]、作り手の記事は「一度きりでない」まで [[web:simgames:r6-rp-gd-hades-devprocess|「one-and-done game」]] | 出典の照合 | — | — | Rock Paper Shotgun の記事に作り手の発言があるかもしれない | 変わらない |
+| C14 | 皮の変種（品目・倍率）は仕訳の答えを動かし、転移の練習になる（版0.1の「皮の変種は転移しない」を撤回） | Mawson の algorithmic variants [[web:learnsci:mawson2025-spacing-classroom-meta|「algorithmic variants」]]、Higham の練習は同じ問題 [[web:learnsci:r6-rp-higham2021-relearning|「not show a reliable」]] | 権威＋定義の整理 | 数学の「値や文脈を変えた問題」が仕訳の品目・倍率の変種に当たる | 皮の変種と組み立ての違う問題を比べた資料はない | 練習の場の出来が下がるのは転移の負荷か、ただの難しさか分からない | 減る（今の変種を残す）→ 反対：①比べた資料がない ②Mawson の数学は効果が小さく有意でないものが多い。別の解釈：①皮の変種は見破られて楽しさを下げるかもしれない（Bandersnatch の偽の選択は物語の話だが同じ向きの可能性）②品目・倍率だけでは経営の判断が動かず板挟みは生まれない |
+| C15 | 声が支えるのは「自分で組む自由」と「中身の新しさ」で、前の周の答えが通らないことではない | K の小分け（Kc 17・Kv 8・Kp 0。スクリプトの出力）、作り手の「組める山札の組み合わせ」[[web:simgames:r6-rp-gd-igf-slaythespire|「permutations of decks」]] | 数え上げ | 声に書かれた理由が本当の理由 | ローグライトの作り手は支配的な戦法を作らないことを重視 [[web:simgames:r6-rp-gd-igf-slaythespire|「dominant strategy」]] | 「前の周の答えが通らない」は遊ぶ人が言葉にしにくいだけかもしれない | 減る（大胆1を推しの後ろにする）→ 反対：①作り手は固定の最適を崩すことを重視 ②Capsim は市場が動くので調べて済む答えがない。別の解釈：①言葉にしにくい ②「毎回違う」と書いた Kv 8件は答えが動くことを含むかもしれない |
+| C16 | 推しの順：数周の骨 → 受験日の地図 → 判断の変種を1〜2つ → 物語 → 順位は決定次第【推論】 | C1・C3・C9・C8・C7 | 総合（複数の結論の組み合わせ） | 数周の骨が先に要る | 大胆1は長い周回の側で強い（声の Kv） | 骨と変種を同時に作ったほうが周回の楽しさは早く出る | 減る（大胆1・2を後ろにする）→ 反対：①ローグライトの声 ②PDG の「習熟で板挟みが消える」は数周の中でも起きうる。別の解釈：①順番は作る量でなく効果で決めるべきで、効果の比較は資料にない ②判断の変種は骨と同時でも作れる |
+| C17 | くり返しの楽しさは人が思うより下がらない（O'Brien の主な結果） | 7研究の主な結果 [[web:learnsci:r6-rp-obrien2019-enjoyagain|「Less Repetitive Than」]]、例外は推測 [[web:learnsci:r6-rp-obrien2019-enjoyagain|「rather than the rule」]] | 権威（研究） | 博物館・映画・1分のお絵かきの結果が経営シムの周回に当てはまる | ゲームは実際にも楽しさが下がった（予想よりは緩い） | すぐのくり返しの研究で、日をあけた周回の楽しさは調べていない | 減る（皮の周回を残す）→ 反対：①ゲームの研究は1分のお絵かき5回で、周回の規模ではない ②映画とゲームは実際にも下がった。別の解釈：①新しく見つかるものの量が周回の楽しさを決めるので、皮だけで中身が増えないなら当たらない ②予想が低いと始め直さないので、入口の知らせ（O'Brien 研究5）が要る |
 
 ## 依頼の対応表
 
@@ -428,16 +472,16 @@ DESIGN-RAMEN.md (i)：
 |---|---|
 | ゲームデザイナーなのに「ゲームとして面白いのか」の言及がない、ただのデバッグになっている | 周回を「面白いか」の側から調べた：うまくいく理由（動機の種類ごとの鎖）、1章の作品の表、2章の声 |
 | 教科書をゲームの形に落としただけになっていないか | うまくいかない理由「皮だけの変種」「同じ台本の読み直し」。DESIGN-ROUND2 231行（同じ論点が別の皮で来る驚き）は教科書の問題の数字を変えただけに近い、と 4.4 で置き換えを出した |
-| 何周かして定着したら満点が取れる仕様にしたい。周回したくなる要素、周回で得られる楽しさを検討せよ | 3章（何回・どの間隔で残るか、何周・何週で4条件に届くかの見積り）、うまくいく理由、4.2・4.3 の写し方 |
+| 何周かして定着したら満点が取れる仕様にしたい。周回したくなる要素、周回で得られる楽しさを検討せよ | 版0.2で「数周」（本作に要る周回）と「長い周回」を分けた。数周の骨（うまくいく理由の最初の節、2.6 の経営シムの声）、3.3 の感度の表（何周・何週で4条件に届くか、正解率で変わる）、4.4 の推し |
 | 売上の変動要素となる意思決定（チラシ、Youtuber）。選択肢が高度でたくさん、結果分岐も複数 | 関係する所だけ：答えを動かす変種（需要・ライバル）が周ごとに意思決定の最善を変える（4.1）。意思決定の中身そのものは BIZ-MKT-RAMEN の担当 |
-| 分岐ルートが少ないやらされ感。意思決定に応じたリアリティ分岐 | 物語の分岐で周回させる道の効き方と限界（Pyre・Hades・NieR・Detroit・80 Days）。分岐の量だけでは周回が続かないこと（C8） |
+| 分岐ルートが少ないやらされ感。意思決定に応じたリアリティ分岐 | 物語の分岐で周回させる道の効き方と閉じ方（Pyre・Hades・NieR・Detroit・80 Days）。物語は作り手が決めた所で閉じ、本作は閉じる時期を満点の条件に合わせる選択肢がある（C8、大胆4） |
 | コスト・投資サイドの変動要素（食材の廃棄、設備投資） | 4.1 の「相場」「設備の故障」の行を、答えを動かす変種として書いた |
 | レモネード屋でよいか再考、ラーメン | 関係しない（業種の選択は決定済み。本報告はラーメン版の (i) を対象にした） |
 | 銀行から借金して調達するやり方、ラーメンの文献 | 関係しない（資金の出どころは 4.1 の「始め方」の行で周の変種として触れただけ） |
-| ゲームとしてのゴール（口座資金〇〇億）。不確定要素と目標で試行錯誤が増え、教科書を何周もするのと同じ効果 | うまくいく理由「目標の更新」、4.1（不確定要素＝答えを動かす変種）、3.3（何周で教科書何周分の想起になるかの計算：231回の想起、1周の月初120回） |
+| ゲームとしてのゴール（口座資金〇〇億）。不確定要素と目標で試行錯誤が増え、教科書を何周もするのと同じ効果 | うまくいく理由「数周の骨」（期限つきの目標が2周目以降に届く：カイロソフトの声）と「目標の更新」、4.1（不確定要素＝経営の判断の答えを動かす変種）、3.3（想起の回数と正解率で何周分かが決まる） |
 | ライバル、Coffee Inc 2 をしっかりパクる | 4.1 のライバルの行、大胆2（前の周の自分がライバル）。Coffee Inc 2 そのものは BIZ-COFFEEINC2 の担当（4.5） |
 | よいところ・褒められているところの解像度が低い。変数の自由度・解像度がスルメゲーの魅力では | 1章の「尽きないための仕掛け」の列、2章の声の分類（周回の理由を件数つきで）。変数の自由度そのものは BIZ-FUNVISUAL・BIZ-COFFEEINC2 の担当 |
-| 楽に取り組めるところ、抜本的な開発を避ける打ち手 | 4.3 の大胆な写し方5つ。論証の表の「作り手の負担」の列で、負担の減る結論（C3・C7・C8）に反対の事実と別の解釈を2つずつ書いた |
+| 楽に取り組めるところ、抜本的な開発を避ける打ち手 | 4.3 の大胆な写し方5つ、4.4 の推し（順番を後ろにした案にも、作る量を理由にしないと書いた）。論証の表の「作り手の負担」の列で、負担の減る結論（C1・C6・C14〜C17）に反対の事実と別の解釈を2つずつ書いた |
 | グラフィック・UI・表現のエッセンスを盛り込む | 関係しない（BIZ-FUNVISUAL の担当。周回の画面の見せ方はその報告に従う：4.5） |
 | 調査の浅さ・分析の浅さ・楽な道の傾向と対策、アウト判定は再調査 | 本報告が DESIGN-ROUND2-audit のアウト相当（周回）の再調査。問いの設計の「手抜きの予想と塞いだ方法」 |
 | 性悪説で割り振り・管理・品質チェック | 本報告の「やっていないこと」「反証と限界」、件数はスクリプト、出典は語句つき |
@@ -448,11 +492,11 @@ DESIGN-RAMEN.md (i)：
 | 基準 | 達成 | どこ |
 |---|---|---|
 | 1. 10作品以上、5列（動機の種類・何が変わるか（皮／答え）・何周目で尽きるか・尽きないための仕掛け・摩擦への手当て） | 22作品（列ごとに資料のない所は「資料なし」） | 1章 |
-| 2. 作り手の講演・事後分析・文章 8本以上（Wikipedia は数えない） | 一次15本：Tom's Guide の Kasavin、Inven の Kasavin、Game Developer の Hades 開発の記事、Road to the IGF（Slay the Spire・Outer Wilds・Into the Breach）、Rogueliker の LocalThunk、deepnight の Dead Cells、Die Gute Fabrik の Spelunky、MCV の Ingold、Papers, Please の Pope、PDG の論考、Greenheart の Game Dev Tycoon、Two Point の聞き取り、西研究所の MG。二次の報告3本：Balatro の道しるべ、FTL の GDC、NieR の予算。数は「資料の内訳」のスクリプトの出力 | 資料の内訳、1章 |
+| 2. 作り手の講演・事後分析・文章 8本以上（Wikipedia は数えない） | 版0.2で数え直して一次13本：Tom's Guide の Kasavin、Inven の Kasavin、Game Developer の Hades 開発の記事、Road to the IGF（Slay the Spire・Outer Wilds・Into the Breach）、Rogueliker の LocalThunk、deepnight の Dead Cells、MCV の Ingold、Papers, Please の Pope、Greenheart の Game Dev Tycoon、Two Point の聞き取り、西研究所の MG。二次の報告3本：Balatro の道しるべ、FTL の GDC、NieR の予算。Die Gute Fabrik（遊んだ側の記録）と PDG（ブログの仮説の論考）は作り手の話から外し「論考・遊んだ側の文章」に移した（判定書 S1）。数は「資料の内訳」のスクリプトの出力 | 資料の内訳、1章 |
 | 3. 周回の動機の研究3本以上、学習の一次・総説6本以上。Mawson 2025・Cepeda 2008・Grosse 2015 は原文で確かめ直す | 周回の動機の研究4本（O'Brien 2019・Gamito 2021・Mitchell ら 2020・Ryan 2006）＋計画だけの1本（Yoshimura ら）。学習10本（Karpicke & Roediger 2008、Karpicke & Bauernschmidt 2011、Bahrick 1993、Cepeda 2006、Cepeda 2008、Mawson 2025、Latimier 2021（要旨）、Higham 2021、Clark 2016、Grosse 2015）。3本は全文を確かめ直し、元のノートと判定書が落としていた留保を書いた（3.1） | 3章、読了ノート `*.rp-recheck.md` |
-| 4. 利用者の声 50件以上を数えて分類（何周した人が何を楽しみ、何でやめたか） | 231件を切り出し、周回・長く遊ぶことに触れた140件を分類。量を書いた27件ごとの楽しみ、やめた・飽きた7件の中身 | 2章、`docs/analysis/replay-voices-*` |
-| 5. 反証 5件以上 | 10件 | 反証と限界 |
-| 6. 満点の4条件の何周・何週を見積もる数の表（想起の回数・間隔と保持、証拠の種類つき） | 9行の表と、式を見せた見積り | 3.2・3.3 |
+| 4. 利用者の声 50件以上を数えて分類（何周した人が何を楽しみ、何でやめたか） | ローグライトと生活シムの231件から周回・長く遊ぶことに触れた140件、経営シムの643件から周回に触れた25件を分類。量を書いた27件ごとの楽しみ、飽き・作業のコード7件の中身（遊び尽くして書いたのは2件）、周回の回数の申告 | 2章、`docs/analysis/replay-voices-*`・`replay-mgmt-voices*` |
+| 5. 反証 5件以上 | 14件 | 反証と限界 |
+| 6. 満点の4条件の何周・何週を見積もる数の表（想起の回数・間隔と保持、証拠の種類つき） | 11行の表と、感度の模擬（正解率・遊ぶ日・回数・1周の長さ）、満点の確率の目安 | 3.2・3.3、`replay-estimate-sim.*` |
 | 7. DESIGN-ROUND2 3章と DESIGN-RAMEN (i) の置き換える行の一覧（行番号つき） | 23か所と19か所 | 4.4 |
 | 8. 資料の種類5以上、1種類が半分を超えない | 種類と本数はスクリプトの出力（資料の内訳） | 資料の内訳 |
 
@@ -464,14 +508,14 @@ DESIGN-RAMEN.md (i)：
 | ③ 声を数えずに「好評」 | スクリプトで数えた |
 | ④ 要旨だけで主張を足す | Latimier は「要旨だけ」と明記し、要旨にある数だけ。Yoshimura は結果がない計画として、結果の主張に使っていない |
 | ⑤ 取れない作品・問いを落とす | 取れなかったもの（Steam・Reddit・HN の声、Rawson の原典、RPS、Latimier の本文）は「やっていないこと」に書き、代わりの資料で埋めた |
-| ⑥ 今の皮の変種の設計を正当化する資料だけ選ぶ | 皮の変種に反対する資料を中心に並べ、反対に皮の変種でも周回される例（Papers, Please の結末）も書いた |
+| ⑥ 今の皮の変種の設計を正当化する資料だけ選ぶ | 版0.1は逆向きの偏り（自分の芯「答えが変わる」に合う資料を選び、O'Brien・Grosse・Higham・Capsim を寄せて読んだ）があった。版0.2で4本を原文の主な主張で引き直し、皮の変種を支える資料（O'Brien・Mawson・カイロソフト）と反対の資料（Mitchell・Higham の同じ問題）を両方並べた |
 | ⑦ 関係する所だけ読む | 判定書の F6〜F13 の原文と PDG・Detroit・Ryan・Clark を全文読み直した（読了ノート `#rp`）。口コミのページは口コミを全件読んだ |
 
 ### 判定書 DESIGN-ROUND2-audit 5章 F（F1〜F13）
 | F | 中身（判定書の要旨） | 使ったか・使わない理由 |
 |---|---|---|
 | F1 | Hades：Pyre はほとんど1回しか遊ばれなかった | 使った（うまくいく理由「物語の分岐と関係」、1章の Pyre の行）。作り手の一次の記事では「1回」の数は確かめられず、確かめられた範囲（前作までは何度も遊び直すように作らなかった）と分けて書いた（C13） |
-| F2 | Hades：新しい道具を足し続ける、短い時間で遊べる、配信者向け | 使った。Game Developer の作り手の記事で、別の道具の組へ押し出すこと・すぐ始められること・見て楽しいことを確かめた（1章、うまくいく理由） |
+| F2 | Hades：新しい道具を足し続ける、短い時間で遊べる、配信者向け | 使った。別の道具の組へ押し出すこと（1章）、短い時間でも長くでも遊べること（うまくいく理由「1回の区切り」）、見て楽しいこと（うまくいく理由「競争と証人」、版0.2で本文に入れた） |
 | F3 | StS：3枚から1枚、約75枚 | 使った（1章、うまくいく理由「新しい組み合わせ」） |
 | F4 | StS：敵の意図（Intents） | 使った（1章の摩擦への手当て） |
 | F5 | StS：Ascension・日替わりシード・カスタム・実績 | Ascension と日替わりを使った（1章、うまくいく理由）。カスタムと実績は、原文にあることを確かめたが、周回の動機の鎖には足さなかった（声で実績・目標を挙げたのは8件で、段の12件より少ない） |
@@ -480,15 +524,15 @@ DESIGN-RAMEN.md (i)：
 | F8 | Papers, Please：依存関係を表せば入れ替えられた、小さな筋から20の結末 | 全文を読み直して使った（1章、4.1、4.4 の226行） |
 | F9 | Capsim：遊び直しを測定に使う、他チームが市場を動かす、6回目に1時間 | 全文を読み直して使った（1章、うまくいく理由「競争」、4.1） |
 | F10 | MG：成績順の席替え、リスクカード、2日で5期 | 全文を読み直して使った（1章、4.1、C2・C7） |
-| F11 | Ryan 2006：手続き的な作りの自律、関係が今後の遊びを予測、達成の動機は後の気分を悪くする | 全文を読み直して使った（うまくいく理由「習熟」「物語と関係」「競争」、C7）。同じゲームを続けるかを予測したのは有能だけ、という研究1の結果を足した |
-| F12 | Clark 2016：複数回（平均11回・38日）、合計時間と無関係、一人の競争 −0.06（4研究・13の効果量）、チームの競争は大きい | 全文を読み直して使った（3章、うまくいく理由「競争」、反証2、C7） |
-| F13 | ルセッティア：持ち越し、続けるモード・借金のモード | 全文を読み直して使った（1章、うまくいかない理由）。記事は作り手でなく評者の分析なので、作り手の話には数えなかった |
+| F11 | Ryan 2006：手続き的な作りの自律、関係が今後の遊びを予測、達成の動機は後の気分を悪くする | 全文を読み直して使った。手続き的な作りの自律（うまくいく理由「習熟」、版0.2で本文に入れた）、関係（「物語と関係」）、達成と気分（「競争と証人」、C7）。同じゲームを続けるかを予測したのは有能だけ、という研究1の結果も足した |
+| F12 | Clark 2016：複数回（平均11回・38日）、合計時間と無関係、一人の競争 −0.06（4研究・13の効果量）、チームの競争は大きい | 全文を読み直して使った。版0.2で表の5つの組みを全部書き、チームの競争そのものは0と区別できず、有意なのは一人の遊びだけと直した（うまくいく理由「競争と証人」、C7） |
+| F13 | ルセッティア：持ち越し、続けるモード・借金のモード | 全文を読み直して使った（1章、うまくいく理由「数周の骨」「目標の更新」）。記事は作り手でなく評者の分析なので、作り手の話には数えなかった |
 
 ### BIZ-SIMDESIGN-audit 00章の材料（取りまとめ役から）
 | 材料 | 使ったか |
 |---|---|
 | Hades の Pyre の教訓（ほとんど1回、繰り返す前提の Hades、約10時間の連鎖する台詞）を Supergiant の一次で確かめる | Game Developer の Kasavin の記事を新たに取得して読んだ。約10時間の台詞と Pyre の「1回」は Wikipedia にあり、一次の記事では「前作までは一度きりの作り」まで確かめた。もう一つの出典（RPS）は規約で取得できない（C13） |
-| PDG の論考（周回の価値は追加の中身でなく中核から、習熟→予測可能→退屈、作り手は遊ぶ人が目標を作ることを当てにできない） | 全文を読み直して使った（うまくいく理由「習熟」、うまくいかない理由「固定の最適」、反証1） |
+| PDG の論考（周回の価値は追加の中身でなく中核から、習熟→予測可能→退屈、作り手は遊ぶ人が目標を作ることを当てにできない） | 全文を読み直して使った（うまくいく理由「習熟」、うまくいかない理由「固定の最適」、反証1）。版0.2で、Game Developer のブログ欄の仮説の論考であることを本文に書いた |
 | Detroit（何度も遊びたいとは思わない、巨大な制作） | 全文を読み直して使った（1章、C8、反証9） |
 
 ### 取りまとめ役の追加の決まり
@@ -497,6 +541,103 @@ DESIGN-RAMEN.md (i)：
 | 論証の表（QUALITY 5章） | 「論証の表」に13行 |
 | 出典は語句つき、件数はスクリプト、又引きしない、推論に【推論】（QUALITY 6章） | 出典はすべて語句つき（research-check で照合）。声と資料の数は `docs/analysis/replay-*.py`。他の報告の数は使わず原文から引き直した（カイロソフトの声）。推論に【推論】 |
 | 境界：BIZ-FUNVISUAL・BIZ-SIMDESIGN 0.2・BIZ-COFFEEINC2 | 4.5 の引き継ぎ |
+
+### 版0.2：事実の判定（BIZ-REPLAY-audit.md 8章の直しの依頼1〜9）
+| 依頼 | どこでどう直したか |
+|---|---|
+| 1 Grosse 2015（E3） | 要点8・3.1・4.2 最小3・4.5 の244・249行・C6 を原文の結果（翻訳は例題→問題の組が最良で後ろから外す形より有意に上、後ろから外す形が上なのは式の中の計算だけ）に合わせて書き直した。「easiest step first」は仮説の文として「might be favorable」で引いた。最小3と C6 は「今の形（押せば出る）は原文に合う、違いは例題→問題の組の候補だけ」に出し直した |
+| 2 Clark 2016（R2） | 表の5つの組み（0.45・−0.06・0.01・0.22・−0.05）を書き、「協力を入れる」「チームの順位なら出してよい」を削った。順位はオーナーの決定に回した（要点9・うまくいく理由・C7・4.5 の241行） |
+| 3 Spelunky（E1・M3） | 書き手を Douglas Wilson（遊んだ側）、「load the dice」を彼の推測と意見に直した（捨てた案）。資料の内訳でこの資料を作り手の話から外した。Derek Yu の本の引用（証人は日替わりで再現できなかった）を1章・うまくいく理由・大胆3に入れた |
+| 4 Gamito（E2・M4） | 「疲れ」を直した（疲れが高かったのは知らせのない版、ふだん遊び直さない人）。苛立ちの理由は著者の推測と書いた。ふだん遊び直さない人で1回で終える人が減った結果を266行の根拠に足した。修士論文の拡張要旨・64人・部分集団の検定と書いた（反証3・4.5） |
+| 5 資料の種類と質（S1・S2） | PDG をブログ欄の仮説の論考と本文に書き、作り手の話から外して `replay-sources-count.py` を直して数え直した。Mitchell・Higham・O'Brien・Ryan 研究4の条件を本文と限界に書いた |
+| 6 声（R5・R6・M1） | 8件を 長 に移して数え直した（周45件：組み合わせ17・上達12・発見10・段10。判定役の試算と同じ）。1章 GDT の行を直した。星の分布（16,813件中 星1〜3 1,106件・6.6%、StS 22.0%）を自分のスクリプトでも出して 2.1 と限界に書いた。「長く遊ぶ人ほど」は、遊び尽くして書いたのが2件であることが分かる書き方にした（2.4） |
+| 7 学習の条件（R1・R3・R4・M2・M5） | K&B（分単位の試行・初めの成功率をそろえた条件）と K&R（1回の学習の場の中）を条件つきで書き、日をあけた回数の根拠から外した（3.1・3.2）。185行の Cepeda 2006 は日単位の比較（1か月以上）に差し替えた。Higham を「同じ問題のくり返し」に限り、Mawson の会計0.67・数学0.46・値や文脈の変種を並べた。Moss 1996 を限界と反証7に足した |
+| 8 小さな直し | E4（保持期間の取り方と補間の区間：3.3 の5）、E5（91件の中身：2.2）、Latimier の「やや」を外した（3.1）、Q1 の語句6か所（ITB「highest priorities」、O'Brien を結果の文「Less Repetitive Than」に、強くてニューゲームを定義の文「with all or some of」に、GPB を「structural loop」に、Gamito を「more irritable」「only one time」に、Grosse を「fostered best by way of」に）。M6（Capsim の決まった向きの動き）を C2 の反対の事実に、M7（カイロソフトの「10週以上」と尽きる側の声）を 2.6 と1章に足した |
+| 9 F2・F11 | 「見て楽しい」（Hades の作り手）を「競争と証人」に、「手続き的な作りの自律」（Ryan）を「習熟」に、本文として入れた。M8 は証人の鎖と合わせた |
+
+### 版0.2：論証の検査（BIZ-REPLAY-reasoning.md 12章の受け入れの基準1〜10）
+| 基準 | どこでどう直したか |
+|---|---|
+| 1 不当の R14・D10・L4 | 下の表（不当） |
+| 2 弱いの各行 | 下の表（弱い） |
+| 3 周回の長さを2つに分ける | 冒頭の「周回の長さを2つに分ける」、各結論・各見出しに【数周】【長い周回】【両方】 |
+| 4 1章を周回のゲームだけで数え直す、カイロソフトの声を全件 | 1章の「表から言えること」（Capsim・MG・Obra Dinn・Pyre を除く18作品）、2.6（`replay-mgmt-voices.py` で643件から「周」「週」34件を全件、周回25件） |
+| 5 声 K の小分け | 2.2（Kc 17・Kv 8・Kp 0、周45件では Kc 9・Kv 8）。`replay-voices-count.py` と `replay-voices-codes.md` |
+| 6 3.3 を感度の表に | 3.3（`replay-estimate-sim.py`：正解率1.0・0.9・0.8 × 週7・3日 × N=2・3・4 × 1周10・15日）。「条件Aに届く日」と「満点の確率」を分け、保持率の資料の数を並べた。要点6に幅を書いた |
+| 7 皮と答えを分けて 4.1 を作り直す | 4.1（仕訳の答え／経営の判断の答え／皮だけ）、4.5 の223・224・225・231行と RAMEN 717・719・733行の置き換えを見直した |
+| 8 Grosse・O'Brien・Higham・Capsim の主な主張を本文に | 要点3・8、うまくいく理由「発見」、3.1 の Grosse・Higham の行、1章の Capsim の行（周回のゲームではない、決まった向きの動き） |
+| 9 写し方の推し | 4.4 |
+| 10 report-check と research-check | 通した（「やっていないこと」に research-check の他の担当のエラーを書いた） |
+
+不当の行：
+| 番号 | 直したこと |
+|---|---|
+| R01 | 芯を【数周】と【長い周回】に分け、Capsim・MG を周回の例から外し、カイロソフト・Stardew・80 Days・The Last of Us 13回を並べて結論を出し直した（要点1・2、C1） |
+| R02 | O'Brien を主な結果の向きで引き直し、Mitchell を「答えが変わっても仕組みが分かれば尽きる」側にも置いた（要点3、うまくいく理由「発見」、うまくいかない理由の最初の節） |
+| R04 | 「止まる」を「作り手が決めた所で閉じる」に直し、閉じる時期を満点の条件に合わせる選択肢を出した（要点5、C8、大胆4） |
+| R06 | 3.3 を感度の表に書き直し、「条件Aに届く」と「満点を取る」を分けた（要点6、3.3、C9） |
+| R08 | 「逆」を撤回し、外す歩の順は仮説からの推論と書いた（要点8、3.1、C6） |
+| R11 | 周回のゲームだけで数え直し、落とした3作を同じ表に並べ、Papers, Please の分類を直した（1章） |
+| R13 | 「どの作品も」を「段を持つのは18作品中5作品」に直した（1章） |
+| R28 | 「皮は見破られる」を物語の選択の話（Bandersnatch・Telltale）に限り、学びの側は Mawson の向きで書き直した（うまくいかない理由の2つ目の節） |
+| R43 | 3.4 で「比べた資料がない」と書き、皮の変種と判断の変種を混ぜる形と、同じ論点の再来との張り合いを書いた |
+| R45 | 「保つ」を「条件Aに届く」と言い換え、満点との差（保持率55〜80%、r の m乗）を書いた（3.3） |
+| R49 | 見積りを感度の表に置き換え、正解率・遊ぶ日を前提として明記した（3.3、要点6） |
+| R52 | 「答え」を仕訳の答えと経営の判断の答えに分けて表を作り直した（4.1） |
+| R57 | 最小3を「今の形は原文に合う、違いは例題→問題の組の候補だけ」に絞り、【推論】を付けた（4.2） |
+| R76 | 物語の分岐を捨てた案から外し、単独の選択肢（大胆4）に戻した（捨てた案の最後の段落） |
+| D08・D10・D36 | 品目・業種・倍率・取引先の金額は仕訳の答えを動かす変種として残すと書いた（4.5） |
+| D13・D41 | 皮の驚き（転移の練習）を残し、経営の判断の板挟みを足す形にした（4.5） |
+| D17・D18 | 「最後まで」を削り、段1の今の形は原文に合うと書いた（4.5） |
+| D24・D27 | 正解率による幅（2〜10周分）で書き直した（4.5） |
+| D38 | 皮の再来（同じ論点に間をあけて戻る想起）を残すと書いた（4.5） |
+| L01 | C1 を書き直し、カイロソフトの声・O'Brien の主な結果・The Last of Us・Mawson の変種を根拠と反対の事実に入れた |
+| L06 | C6 を書き直し、原文の考察（初めに例題、外す向きは翻訳に無関係）を根拠に入れた |
+| L08 | C8 を書き直し、NieR の複数周・The Last of Us 13回・Kasavin の意図した閉じを根拠に入れ、本作の周数の目標と結びつけた |
+| L09 | C9 を書き直し、正解率・遊ぶ日を反対の事実と前提に入れ、「見積りが小さいと今の設計が残る向きに読まれる」と書いた |
+
+弱いの行：
+| 番号 | 足したこと・弱めたこと |
+|---|---|
+| R05 | 要点7に「単語の組・1回の場の中・試行の間隔・初めの成功率をそろえた条件」を書いた |
+| R07・R30 | 「練習から外すに当たる」を「ふだんの思い出しの回数を減らす」に弱め、S.plan③・監査・棚卸を書いた（うまくいかない理由、C5） |
+| R09・R23・R75 | Clark の5つの組み・MG・#53・順位表の共有を並べ、オーナーの決定に回した |
+| R12・R15 | 各例が1〜2件であることを書き、傾向とは言わない形にした（1章、2.4） |
+| R14 | K を小分けして数え直した（2.2） |
+| R18 | 「必ず」を消し、段のない作品もあると書いた |
+| R22・R32 | 閉じる時期を条件に合わせる案と並べた |
+| R25 | 「1周の長さ」と「1回の区切り」を分け、経営シムの声（GDT・カイロソフト）を並べた |
+| R27 | Cultist を「答えが変わっても仕組みが分かれば尽きる」例に移し、Gamito の疲れを直した |
+| R29 | 因果を「資金繰りの決定論→外乱への備えの判断がない」に直した |
+| R36 | 「満点の水準では回数を減らせるとは言えない」と書いた（3.1） |
+| R40・R70・R78 | 「並べ方は決め手にならない」を直し、回数が多い場合と初めの成功率がそろわない場合は広げる側が有利かもしれないと書き、広げる並べ方を残して sim で比べる検査を足した |
+| R41 | 学期末55%を並べ、「3回は効果が出始める回数で満点の目安ではない」と書いた |
+| R44 | 保持期間の取り方を「最後の復習から受験日まで」に直し、式を見せた（3.3 の5） |
+| R46・R48 | 算術を場合ごとに直し、条件Bの期待値の式 (1＋q)÷q² を入れた（3.3） |
+| R50 | 回数の根拠の弱さと、回数を増やしたときの日数ののびを表で書いた（3.3） |
+| R54 | 「1〜2つ」に資料の根拠がないと書き、sim で決めるとした（4.2 最小1） |
+| R56 | 作るものに比べる検査を足した（4.2 最小2） |
+| R61 | 分布を見せるのは比較だと認め、順位の決定に従うとした（大胆3） |
+| R62 | 単独で数周を支える形として出した（大胆4） |
+| R64 | 推しを足した（4.4） |
+| R68 | Cultist の点を反証4に足した |
+| R74 | 書き手と推測の印を直した（捨てた案、反証の表から外した） |
+| D01・D39 | 回数は選択と書き、満点との差と受験直前の確かめを書いた |
+| D02 | 保持期間の取り方を直した |
+| D03 | 感度の表で書くとした |
+| D04・D25・D29 | 1回の区切りの問題として書き直した |
+| D09 | 根拠の Papers, Please を外し、名前は皮・振る舞いは答えを動かすとした |
+| D11 | 作り手が順を固定した理由（注意を育てる）と、発見の順を守る条件を足した |
+| D16・D30 | 協力の根拠がないことと、順位はオーナーの決定であることを書いた |
+| D21 | 64人・部分集団の資料だと書いた |
+| D22 | 広げる並べ方を残し、決まった数をやめる形にした |
+| D40 | 数周の目標の更新として効くと理由を書いた |
+| D42 | 【推論】の印を付けた |
+| L03 | 反対の事実に K&B の条件と Mawson の固定7日を、別の解釈に Moss を入れた |
+| L04 | 別の解釈に「3回でも満点は保てない（55%）」を入れた |
+| L05 | 反対の事実に S.plan③・監査・棚卸を入れた |
+| L07 | Clark の協力0.01・多人数−0.05、#53、順位表の共有を入れた |
+| L11 | K の小分けを根拠に入れた（C11・C15） |
 
 ## やっていないこと
 - **Steam・Reddit・Hacker News・Backloggd・ResetEra の利用者の声**：Steam・Reddit は規約で自動取得が禁止、Hacker News は運営の規約がスクレイピングを禁じ、Backloggd・ResetEra は遮断（Cloudflare）。低い星の口コミが載る別の窓口は見つけられなかった。やめた人の声が標本にほとんどない。
@@ -508,15 +649,20 @@ DESIGN-RAMEN.md (i)：
 - **Dead Cells のファミ通の評**：取得の記録を理由つきで飛ばした。
 - **AUTOMATON の Pope の聞き取りの2ページ目以降**：1ページ目だけ取得。Obra Dinn の周回については Wikipedia の評で補った。
 - **Coffee Inc 2 の周回の声の数え直し**：BIZ-COFFEEINC2 の担当なので行っていない。
-- **カイロソフトの声の数え直し**：BIZ-FUNVISUAL の原文から語句を引き直しただけ。
+- **カイロソフト・Good Pizza の643件の全文**：「周」「週」の字を含む34件だけを読んだ。字のない周回の声（「2回目」「やり直し」など）は拾っていない。
+- **声のコードの一致度**：コードは私1人。別の人と付け合わせていない。
+- **3.3 の模擬の確かめ**：模型は簡単（月初だけの想起・正解率一定・条件B〜Dなし）。設計の書き直しの後に実際の sim（番人と S.plan の選び方）で確かめる必要がある。
 - **周回の動機の研究の結果**：Yoshimura & Chauveau（DiGRA 2026）は344人を集めた計画と方法の要旨で、結果がまだ載っていない [[web:simgames:r6-rp-digra-repeatedpleasures-pdf|「valid n = 344」]]。遊び直しの動機の量的な研究はまだ少ないことの証拠としてだけ使った。
-- **3.3 の見積りを sim で確かめること**：見積りは計算だけで、番人の出し方と S.plan の選ぶ順を sim で回して確かめていない。設計の書き直しの後に、seed を回して「全項目が条件Aに届く日数」を出す検査を作る必要がある。
 - **設計の書き直しそのもの**：依頼の範囲どおり、設計者に渡す（4.4 の行の一覧）。
+
+- **全文を通して読んだが一部しか通していない原文**：Cepeda 2006（版0.2では序論の総説・日単位の比較・広げる対等間隔の節を読み直した）、Mawson（考察の複雑さの節）、Gamito（結果と結論）。O'Brien 2019 と Grosse 2015 は版0.2で本文を全部読み直した。
+- **research-check の他の担当のエラー**：他の担当の書きかけ（読了ノートのない取得物など）でエラーが残ることがある。私の出典の語句は全件が原文に出ることを自分の照合で確かめた。
 
 ## 読んだ資料（この調べもので新たに書いた読了ノート）
 - 作り手の話：r6-rp-tomsguide-hades、r6-rp-inven-hades、r6-rp-gd-hades-devprocess、r6-rp-gd-igf-slaythespire、r6-rp-gd-igf-outerwilds、r6-rp-gd-balatro-signposting、r6-rp-rogueliker-balatro、r6-rp-deepnight-deadcells、r6-rp-gutefabrik-spelunky、r6-rp-gamespark-ftl、r6-rp-automaton-pope、r6-rp-twistedvoxel-nier-budget、r6-rp-superjump-yokotaro（周回の発言がなく数えない）、r6-rp-butwhytho-kasavin（要約記事で数えない）
 - 研究：r6-rp-obrien2019-enjoyagain、r6-rp-gamito2021-pathnottaken、r6-rp-digra-storygameness-pdf、r6-rp-digra-repeatedpleasures-pdf、r6-rp-karpicke-roediger2008、r6-rp-karpicke-bauernschmidt2011、r6-rp-bahrick1993、r6-rp-higham2021-relearning、r6-rp-cepeda2006-meta、r6-rp-latimier2021-full
+- 版0.2で読み直して足したノート：r6-rp-obrien2019-enjoyagain#rp（全文）、grosse2015-fading-modeling#rp-recheck（結果の直し）、r6-rp-gutefabrik-spelunky（書き手の直し）
 - 確かめ直し（全文を読み直したノート `#rp`・`#rp-recheck`）：mawson2025-spacing-classroom-meta、theory-spacing-cepeda2008、grosse2015-fading-modeling、ryan2006-games-sdt、clark2016-digital-games-meta、r3-fable-wiki-roguelike、r3-fable-wiki-newgameplus、designer-papersplease-gd2014、capsim-capstone、accountant-otaru-mg、r2-designer-mg-about、designer-recettear-gd2010、r4-sim-gd-pdg、r4-sim-wiki-detroit
 - 反対の論評：r6-rp-gpb-hades-stop、r6-rp-superjump-nier-notreplayable
 - 百科事典（二次）：r6-rp-wiki-hades・sts・outerwilds・nierautomata・obradinn・intothebreach・balatro・spelunky・deadcells・ftl
-- 利用者の声：r6-rp-applion-sts-p1・s20・s40・s60・s80、balatro-p1・s20・s40、ftl-p1・s20、stardew-p1・s20・s40、gdt-p1
+- 利用者の声：経営シムは BIZ-FUNVISUAL の担当のノート（r5-fv-applion-gamedevstory・-p2〜p10、ramenkan、ramenkan-zenkoku・-p2〜p10、gurume・-p2、goodpizza・-p2〜p10）の原文から34件を読んだ。ローグライト等は r6-rp-applion-sts-p1・s20・s40・s60・s80、balatro-p1・s20・s40、ftl-p1・s20、stardew-p1・s20・s40、gdt-p1
