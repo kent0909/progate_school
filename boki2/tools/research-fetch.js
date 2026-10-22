@@ -58,7 +58,35 @@ for (let i = 0; ; i++) { try { fs.mkdirSync(lockDir); break; } catch (x) { if (i
 process.on('exit', () => { try { fs.rmSync(lockDir, { recursive: true }); } catch (x) {} });
 const allLedgers = [L, ...(fs.existsSync(path.join(R, 'ledger-pending')) ? fs.readdirSync(path.join(R, 'ledger-pending')).filter((f) => f.endsWith('.jsonl')).map((f) => path.join(R, 'ledger-pending', f)) : [])];
 const prev = allLedgers.filter((f) => fs.existsSync(f)).flatMap((f) => fs.readFileSync(f, 'utf8').split('\n').filter(Boolean).map((l) => { try { return JSON.parse(l); } catch (x) { return {}; } })).filter((e) => { try { return new URL(e.url).host === host && e.status !== 'skipped'; } catch (x) { return false; } });
-const last = prev.reduce((m, e) => Math.max(m, Date.parse(e.t) || 0), 0);
+let last = prev.reduce((m, e) => Math.max(m, Date.parse(e.t) || 0), 0);
+// robots.txt：取得のたびに、そのパスが禁じられていないかを道具が確かめる（IRDB の /search を人が読み落として1回取った）。
+// ホストごとの robots.txt は research/raw/.robots/ に1日だけ残して使い回す。User-agent: * の組の Allow/Disallow を、いちばん長く合う行で決める
+const robotsGate = () => {
+  const u = new URL(url);
+  if (u.pathname === '/robots.txt') return;
+  const RD = path.join(R, 'raw', '.robots'); fs.mkdirSync(RD, { recursive: true });
+  const rf = path.join(RD, host.replace(/[^\w.-]/g, '_') + '.txt');
+  if (!fs.existsSync(rf) || Date.now() - fs.statSync(rf).mtimeMs > 864e5) {
+    const w = (S.tos.min_interval_s || 3) * 1000 - (Date.now() - last) + 300; if (w > 0) spawnSync('sleep', [String(Math.ceil(w / 1000))]);
+    const rr = spawnSync('curl', ['-sS', '-L', '-m', '30', '-A', 'boki2-quest-research (personal study design)', '-w', '\n%{http_code}', `${u.protocol}//${host}/robots.txt`], { encoding: 'utf8' });
+    last = Date.now();
+    const out = rr.stdout || ''; const code = Number(out.slice(out.lastIndexOf('\n') + 1)) || 0;
+    fs.writeFileSync(rf, code === 200 ? out.slice(0, out.lastIndexOf('\n')) : '');
+  }
+  const lines = fs.readFileSync(rf, 'utf8').split(/\r?\n/).map((l) => l.replace(/#.*/, '').trim());
+  const rules = []; let agents = []; let inRules = false;
+  for (const l of lines) {
+    const m = l.match(/^([A-Za-z-]+)\s*:\s*(.*)$/); if (!m) continue;
+    const k = m[1].toLowerCase(); const v = m[2].trim();
+    if (k === 'user-agent') { if (inRules) { agents = []; inRules = false; } agents.push(v.toLowerCase()); continue; }
+    if (k === 'allow' || k === 'disallow') { inRules = true; if (agents.some((g) => g === '*' || 'boki2-quest-research'.startsWith(g)) && v) rules.push({ allow: k === 'allow', p: v }); }
+  }
+  const target = u.pathname + u.search;
+  const re = (p) => new RegExp('^' + p.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\\\$$/, '$'));
+  const hit = rules.filter((r) => re(r.p).test(target)).sort((x, y) => y.p.length - x.p.length || (x.allow ? -1 : 1))[0];
+  if (hit && !hit.allow) wanted(`robots.txt が禁じるパス（Disallow: ${hit.p}）。道具が自動で確かめた`);
+};
+robotsGate();
 const wait = (S.tos.min_interval_s || 3) * 1000 - (Date.now() - last) + 300;
 if (wait > 0) spawnSync('sleep', [String(Math.ceil(wait / 1000))]);
 

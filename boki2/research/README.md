@@ -80,3 +80,7 @@ docs で資料に触れるときは `[[kentei:kouhyou2:139]]` の形で出典を
 ## 外部への通信は research-fetch だけ（2026-10-22）
 
 検索は WebSearch か、規約と robots を確かめた検索窓口（国会図書館サーチの API など）を research-fetch で取る。curl・WebFetch・各サイトの API を research-fetch の外で直接呼ばない（取得記録に残らず、規約の判定も通らない）。起きてしまったら research/INCIDENTS.md に書く。
+
+
+## robots.txt は道具が確かめる（2026-10-22）
+research-fetch は取得のたびに、そのホストの robots.txt（1日だけ research/raw/.robots/ に残す）で、パスが User-agent: * に禁じられていないかを確かめる。禁じられていれば取らずに終了コード3で WANTED.md に回す。人が robots.txt を読んで判断しなくてよい（読み落としで IRDB の /search を取った件。INCIDENTS.md）。
