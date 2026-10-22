@@ -171,26 +171,27 @@ for prefix, lab in (('二人', '二人以上'), ('勤労', '勤労者')):
 
 # ---------------------------------------------------------------- C. 業界団体の月次
 print('\n## C. 日本フードサービス協会の月次：FF「麺類」と外食全体の前年比、東京の気温・雨・休日の前年差\n')
-print('| 月 | 外食全体 | FF 麺類 | 麺類−全体 | 東京の平均気温の前年差 | 東京の雨天日の前年差 | 休日の前年差 | 麺類の説明の文（抜き書き） |')
-print('|---|---|---|---|---|---|---|---|')
+print('| 月 | 外食全体 | FF 全体 | FF 麺類 | 麺類−FF全体 | 東京の平均気温の前年差 | 東京の雨天日の前年差 | 休日の前年差 | 麺類の説明の文（抜き書き） |')
+print('|---|---|---|---|---|---|---|---|---|')
 rows = []
 for ym in ['202508', '202509', '202510', '202511', '202512', '202601', '202602', '202603', '202604', '202605', '202606', '202608']:
     f = os.path.join(RAWR, f'r6-fill-jf-{ym}.pdf')
     t = subprocess.run(['pdftotext', '-layout', f, '-'], capture_output=True, text=True).stdout
     flat = re.sub(r'\s+', '', t)
     mm = re.search(r'「麺類」は、(.*?)(\d{2,3}\.\d)[％%]', flat)
-    ov = re.search(r'全体(?:の)?売上(?:は)?(?:前年比)?(\d{2,3}\.\d)[％%]', flat)
+    ov = re.search(r'＜全体概況＞.*?(\d{2,3}\.\d)[％%]', flat)
+    ff = re.search(r'FF(?:は、|の)全体売上(?:は)?(\d{2,3}\.\d)[％%]', flat)
     wl = [l for l in t.split('\n') if re.search(r'\d{4}年\s+\d+月\s+\d+日', l)]
     def nums(l): return re.findall(r'(\d+(?:\.\d)?)', l.split('月', 1)[1])
     prev, cur = nums(wl[0]), nums(wl[1])
     dT = float(cur[3]) - float(prev[3]); dR = int(cur[2]) - int(prev[2]); dH = int(cur[0]) - int(prev[0])
-    men = float(mm.group(2)); allv = float(ov.group(1))
-    rows.append((ym, allv, men, dT))
-    print(f'| {ym[:4]}年{int(ym[4:])}月 | {allv:.1f} | {men:.1f} | {men-allv:+.1f} | {dT:+.1f} | {dR:+d} | {dH:+d} | {mm.group(1)[:38]} |')
-xs = [r[3] for r in rows]; ys = [r[2] - r[1] for r in rows]
+    men = float(mm.group(2)); allv = float(ov.group(1)); ffv = float(ff.group(1))
+    rows.append((ym, allv, men, dT, ffv))
+    print(f'| {ym[:4]}年{int(ym[4:])}月 | {allv:.1f} | {ffv:.1f} | {men:.1f} | {men-ffv:+.1f} | {dT:+.1f} | {dR:+d} | {dH:+d} | {mm.group(1)[:38]} |')
+xs = [r[3] for r in rows]; ys = [r[2] - r[4] for r in rows]
 mx, my = statistics.mean(xs), statistics.mean(ys)
 cov = sum((a - mx) * (b - my) for a, b in zip(xs, ys)); vx = sum((a - mx) ** 2 for a in xs); vy = sum((b - my) ** 2 for b in ys)
-print(f'\n12か月の「麺類−全体」と「東京の気温の前年差」の相関 r = {cov/(vx*vy)**0.5:.2f}（12点。因果は言えない。向きの目安だけ）')
+print(f'\n12か月の「麺類−FF全体」と「東京の気温の前年差」の相関 r = {cov/(vx*vy)**0.5:.2f}（12点。因果は言えない。向きの目安だけ）')
 
 # ---------------------------------------------------------------- D. 地域の採算
 print('\n## D. 地域の採算の検算と感度\n')
