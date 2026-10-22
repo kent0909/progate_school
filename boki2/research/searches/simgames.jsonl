@@ -33,3 +33,21 @@
 {"t": "2026-10-22T03:16:48.683382Z", "query": "カイロソフト インタビュー ゲーム発展国", "used": ["https://news.denfaminicogamer.jp/interview/181218", "https://news.denfaminicogamer.jp/interview/181218/2"], "note": "r4-sim：社長への聞き取り"}
 {"t": "2026-10-22T03:16:48.683382Z", "query": "Capitalism Lab competitor AI settings", "used": ["https://www.capitalismlab.com/scripts/script-competitors/", "https://www.capitalismlab.com/improvements/improved-ai/"], "note": "r4-sim：開発元の公式サイト"}
 {"t": "2026-10-22T03:16:48.683382Z", "query": "Big Ambitions / Potion Craft / Detroit flowchart", "used": ["https://en.wikipedia.org/wiki/Detroit:_Become_Human"], "note": "r4-sim：Big Ambitions の聞き取りは 503 で取れず。Potion Craft は一次資料なし。Detroit は Wikipedia で概要のみ"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "Coffee Inc 2 Steam game mechanics competitors stock market", "used": [], "note": "r4-cinc：Steam 版はない（iOS のみ）。App Store は Apple の規約で自動取得不可"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "\"Coffee Inc 2\" review", "used": [], "note": "r4-cinc：appfollow 等の集計サイトのみ"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "sidelabsblog substack Coffee Inc 2 update / patch notes", "used": [], "note": "r4-cinc：開発者ブログは Substack の規約（crawl・scrape 禁止）で取らない"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "Coffee Inc 2 guide tips competitors market share franchise", "used": [], "note": "r4-cinc：PDF の『攻略』は中身のない量産ページ。使わない"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "\"Coffee Inc 2\" play.google.com Side Labs", "used": ["https://minnano-rakuraku.com/contents/coffee-inc2-10936/"], "note": "r4-cinc"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "\"Coffee Inc 2\" wiki fandom OR reddit mechanics", "used": ["https://game.watch.impress.co.jp/docs/kikaku/1572353.html", "https://www.4gamer.net/games/777/G077746/"], "note": "r4-cinc：reddit は取らない"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "note.com sidelabs Coffee Inc 2", "used": [], "note": "r4-cinc：note.com は規約が確認できず取らない"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "\"Side Labs Blog\" substack Coffee Inc new feature", "used": [], "note": "r4-cinc：検索の要約だけでは根拠にしない"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "コーヒーインク2 攻略 競合 買収 株", "used": ["https://zenn.dev/messos/articles/3fac2c44b16cec"], "note": "r4-cinc"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "\"Coffee Inc 2+\" Apple Arcade", "used": ["https://www.macstories.net/news/coming-soon-whats-next-on-apple-tv-and-apple-arcade-in-june-2026/"], "note": "r4-cinc"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "Coffee Inc 2 攻略 ブログ 店長 研究 マーケティング", "used": ["https://games.appmatch.jp/?p=164822", "https://news.denfaminicogamer.jp/news/240221r"], "note": "r4-cinc"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "\"Coffee Inc 2\" tips IPO subsidiaries real estate strategy", "used": ["https://www.levelwinner.com/coffee-inc-2-beginners-guide-tips-tricks-strategies-to-build-a-coffee-empire/", "https://gamingroute.com/4224-2/"], "note": "r4-cinc：note の攻略は取らない"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "startuptimez coffeeinc2 Side Labs 1人で開発", "used": ["https://dime.jp/genre/1836933/"], "note": "r4-cinc"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "\"Coffee Inc 2\" レビュー 感想 ブログ 上場 買収 競合", "used": ["https://appget.com/appli/view/76696/", "https://applion.jp/iphone/app/1573482724/review/", "https://appreview.jp/app/98aacbb2c3c549449c17e5758b4cfd29"], "note": "r4-cinc"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "\"Coffee Inc 2\" acquisition competitor market share antitrust tycoon difficulty", "used": [], "note": "r4-cinc"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "\"Coffee Inc 2\" plantation supply chain version 15 bean inventory", "used": [], "note": "r4-cinc：農園の更新は開発者ブログにしかなく、読めていない"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "Coffee Inc 2 ライバル 競合 AI 出店 値下げ シェア 独占禁止法 攻略", "used": ["https://applizm.com/coffee-inc2-office/", "https://chi-tara.com/coffeinc2/"], "note": "r4-cinc：Yahoo!知恵袋・note は取らない"}
+{"t": "2026-10-22T03:26:46.341049Z", "query": "applizm.com コーヒーインク2 攻略", "used": ["https://applizm.com/coffee-inc2-kabusiki/", "https://applizm.com/coffeeinc2-keiribu/", "https://applizm.com/coffeeinc2-shouhinkaihatsu/", "https://applizm.com/coffee-inc2-bukken/", "https://applizm.com/coffee-inc2-tentyou/", "https://applizm.com/coffeeinc2-kojinsisan/", "https://applizm.com/coffeeinc2-sendenbu/"], "note": "r4-cinc：記事の一覧はオフィスの記事の中のリンクから"}
