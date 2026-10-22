@@ -18,9 +18,11 @@ const type = (doc) => {
   // 第2版（2026-10-22）：判定書の指摘で開業パネルを統計に数え直し、作り手の話・反対意見・加盟店の聞き取りを足した
   if (/js-cvs-part/.test(doc)) return '利用者の声（加盟店オーナーの聞き取りの言葉を引いた論文）';
   if (/jfa-soudan/.test(doc)) return '一次資料・統計（取引所の規則・官庁と公庫の調査・協会の件数）';
+  if (/creator-tagawa/.test(doc)) return '事例（報道・解説：記者の観察）';
   if (/creator-|oppose-gendai69815/.test(doc)) return '作り手の話（経営者・店主の語り・著書の抜粋）';
   if (/js-fc-ranyo|js-fc-hou/.test(doc)) return '反対意見（FC本部の濫用と規制の不足を論じる法学の論文）';
   if (/oppose-gendai/.test(doc)) return '事例（報道・解説：成長を急がない型）';
+  if (/jfa-soudan|jfa-fcstat/.test(doc)) return '一次資料・統計（取引所の規則・官庁と公庫の調査・協会の件数）';
   if (/aichiu|js-|arxiv/.test(doc)) return '研究（論文・判例批評）';
   if (/jfa-/.test(doc)) return '実務者・業界（FCの法定開示書面・協会の一覧）';
   if (/jpx-|mhlw-|jfc-shoukei|jfc-panel2016|kubun/.test(doc)) return '一次資料・統計（取引所の規則・官庁と公庫の調査・協会の件数）';
@@ -68,5 +70,5 @@ console.log('| 種類 | 本数 | 割合 | 資料 |');
 console.log('|---|---|---|---|');
 for (const [t, ds] of [...byType].sort((a, b) => b[1].length - a[1].length)) console.log(`| ${t} | ${ds.length} | ${(100 * ds.length / total).toFixed(1)}% | ${ds.join('、')} |`);
 console.log(`| 合計（原文の数） | ${total} | 100% | |`);
-const companyTypes = [...byType.keys()].filter((t) => !/入口|分類なし/.test(t));
-console.log(`\n依頼の7種類のうち出てきた種類：${companyTypes.length}（入口を除く）`);
+const companyTypes = [...new Set([...byType.keys()].filter((t) => !/入口|分類なし/.test(t)).map((t) => t.split('（')[0]))];
+console.log(`\n依頼の7種類のうち出てきた種類：${companyTypes.length}（入口を除く。事例の2つの行は1種類と数える）：${companyTypes.join('／')}`);

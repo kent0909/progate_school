@@ -74,7 +74,21 @@
 
 本数は `node boki2/docs/analysis/bizgrowth-sources.js` が本文の出典を数えた結果（同じ原文の別ノートは1本と数える）。第2版で種類の分け方を直した：開業パネル（公庫の調査）は研究から統計へ、協会の相談件数は「声の代わり」から統計へ数え直した。
 
-<!-- SOURCES_TABLE -->
+| 種類 | 本数 | 割合 | 資料 |
+|---|---|---|---|
+| 事例（会社の一次資料：有報・四半期報告書・決算説明資料・決算短信・取引所の上場資料） | 24 | 32.4% | r5-growth-pepper-yuho2019、r5-growth-pepper-yuho2020、r5-growth-hidaka-yuho2020、r5-growth-hidaka-yuho2026b、r5-growth-komeda-yuho2026、r4-ramen-gift-yuho2025、r5-growth-kourakuen-yuho2018、r6-fc-gift-yuho2019、r5-growth-monogatari-yuho2025、r5-growth-plenus-yuho2022、r5-growth-plenus-q3-2023、r5-growth-ootoya-yuho2026、r5-growth-hachiban-yuho2026、r4-ramen-chikara-tanshin2026、r5-growth-chikara-yuho2026、r5-growth-sakigake-yuho2025、r5-growth-ootoya-yuho2021、r4-ramen-yamaokaya-setsumei2603、r5-growth-kourakuen-yuho2026、r5-growth-kourakuen-yuho2023、r5-growth-toridoll-yuho2026、r5-growth-skylark-yuho2025、r4-ramen-kourakuen-setsumei2511、r5-growth-nse-komeda-ipo |
+| 一次資料・統計（取引所の規則・官庁と公庫の調査・協会の件数） | 14 | 18.9% | 2027kubunhyo_fixed、r4-mgmt-mhlw-chuka、r5-growth-jpx-shinki-growth、r5-growth-jpx-shinki-standard、r5-growth-jpx-iji-growth、r5-growth-jfa-soudan2006、r5-growth-jfa-soudan2019、r5-growth-jfa-soudan2026、r5-growth-jfa-fcstat2003、r5-growth-jpx-shinki-kijun、r5-growth-jfc-shoukei2023、r5-growth-jfc-shoukei2023-report、r4-mgmt-jfc-panel2016、r4-mgmt-mhlw-kissaten |
+| 作り手の話（経営者・店主の語り・著書の抜粋） | 10 | 13.5% | r5-growth-creator-hidaka-pres112180、r5-growth-creator-hidaka-pres88995、r5-growth-creator-ichinose-sogyo1、r5-growth-creator-iida-pres94330-p2、r5-growth-creator-tenkaippin-pres94330、r5-growth-creator-kawahara-nissyoku、r5-growth-creator-ichinose-moneypost、r5-growth-oppose-gendai69815、r5-growth-creator-pepper-gendai57252、r5-growth-creator-kawahara-bunshun36250 |
+| 研究（論文・判例批評） | 10 | 13.5% | r5-growth-js-fc-haigyou2006、r5-growth-js-fc-royalty2009、r5-growth-aichiu-fc-kimura、r5-growth-js-fc-manzoku2025、r5-growth-js-fc-fukusuten2014、r5-growth-js-fc-shoukei2024、r5-growth-js-gaishoku-jumyo2015、r5-growth-js-gaishoku-kozo2000、r5-growth-arxiv-mortality-pdf、r5-growth-js-gaishoku-genchika2018 |
+| 実務者・業界（FCの法定開示書面・協会の一覧） | 9 | 12.2% | r5-growth-jfa-tadokoro、r5-growth-jfa-komeda-fc、r5-growth-jfa-ootoya、r5-growth-jfa-ringerhut、r5-growth-jfa-hachiban、r5-growth-jfa-mujinzo、r5-growth-jfa-ajisen、r5-growth-jfa-osakaosho、r5-growth-jfa-kaiji-list |
+| 事例（報道・解説：成長を急がない型） | 2 | 2.7% | r5-growth-oppose-gendai70771、r5-growth-oppose-gendai168226 |
+| 反対意見（FC本部の濫用と規制の不足を論じる法学の論文） | 2 | 2.7% | r5-growth-js-fc-ranyo2015、r5-growth-js-fc-hou2015 |
+| 事例（報道・解説：記者の観察） | 1 | 1.4% | r5-growth-creator-tagawa-itmedia5 |
+| 利用者の声（加盟店オーナーの聞き取りの言葉を引いた論文） | 1 | 1.4% | r5-growth-js-cvs-part2024 |
+| 入口（ウィキペディア。根拠にせず有報で確かめ直した） | 1 | 1.4% | r4-mgmt-wiki-ippudo |
+| 合計（原文の数） | 74 | 100% | |
+
+依頼の7種類のうち出てきた種類：7（入口を除く。事例の2つの行は1種類と数える）：事例／実務者・業界／作り手の話／一次資料・統計／研究／反対意見／利用者の声
 
 - **事例（会社の一次資料）が最も多い理由**：依頼の中心が「上場会社の判断→結果の年表」と「成功と失敗の対比（個別の会社）」で、因果と数字を会社の一次資料で書くことが求められたため。統計・研究は向きと幅、作り手の話は「会社が書かない判断の理由」に使った。
 - **利用者の声**：加盟店オーナー本人の言葉は、聞き取りの論文（コンビニ1チェーン4店）の9件だけ。ラーメンのFC加盟店の言葉は0件。
@@ -701,9 +715,51 @@
 
 ## 付録A：計算の表（数字の対象つき）
 
-第1版からの数は `node boki2/docs/analysis/bizgrowth-calc.js` の出力（M1 は原文の値で割り直した）。第2版の数（V1〜V10）は `node boki2/docs/analysis/bizgrowth-v2-calc.js` の出力をそのまま本文に書いた。
+第1版からの数は `node boki2/docs/analysis/bizgrowth-calc.js` の出力（M1 は原文の値で割り直した）。第2版の数（V1〜V10）は `node boki2/docs/analysis/bizgrowth-v2-calc.js` の出力をそのまま本文に書いた。下の表の G5・G7・G10・G14・G16・G17・C1・C2 は第1版の数で、第2版の本文では使っていない（V1・V2・V6 に置き換えた）。
 
-<!-- CALC_TABLE -->
+| id | 何の数（誰の・何の・いつ） | 標本 | 式 | 値 | 単位 | 読了ノート |
+|---|---|---|---|---|---|---|
+| H1 | ペッパー 全社費用÷売上 2018/12 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 29.25億÷635億 | 4.6 | % | r5-growth-pepper-yuho2019 |
+| H2 | ペッパー 全社費用÷売上 2019/12 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 32.92億÷675億 | 4.9 | % | r5-growth-pepper-yuho2019 |
+| H3 | トリドール 全社費用÷売上収益 2026/3 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 99.3億÷2,787億 | 3.6 | % | r5-growth-toridoll-yuho2026 |
+| H4 | ハチバン 全社費用÷営業収益 2026/3 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 7.68億÷86.4億 | 8.9 | % | r5-growth-hachiban-yuho2026 |
+| H5 | 力の源 全社費用÷売上 2026/3 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 5.55億÷363億 | 1.5 | % | r4-ramen-chikara-tanshin2026#growth |
+| H6 | 力の源 全社費用÷売上 2025/3 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 3.76億÷342億 | 1.1 | % | r4-ramen-chikara-tanshin2026#growth |
+| H7 | ハチバン 全社費用÷（外食＋海外のセグメント利益） | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 7.68億÷(5.9億+3.8億) | 79.2 | % | r5-growth-hachiban-yuho2026 |
+| M1 | コメダHD 営業利益率 2026/2（IFRS連結） | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 9,424÷57,225（百万円） | 16.5 | % | r5-growth-komeda-yuho2026 |
+| M2 | コメダ（本部単体）営業利益率 2026/2 | 1社（株式会社コメダ単体の法定開示書面） | 65.6億÷526億 | 12.5 | % | r5-growth-jfa-komeda-fc |
+| M3 | コメダHD 営業利益率 2016/2（上場時、IFRS） | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 65.6億÷217.2億 | 30.2 | % | r5-growth-nse-komeda-ipo |
+| M4 | コメダ 本部単体売上÷全店売上 2026/2 | 1社（株式会社コメダ単体の法定開示書面） | 526億÷1,288億 | 40.8 | % | r5-growth-jfa-komeda-fc |
+| M5 | ギフト 運営子会社の経常利益率 2025/10 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 4.33億÷347.4億 | 1.2 | % | r4-ramen-gift-yuho2025#struct |
+| M6 | ギフト 持株会社の経常利益÷連結経常利益 2025/10 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 29.0億÷33.7億 | 85.8 | % | r4-ramen-gift-yuho2025#struct |
+| M7 | 大戸屋 国内FCのセグメント利益÷国内直営のセグメント利益 2026/3 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 17.2億÷9.9億 | 1.7 | 倍 | r5-growth-ootoya-yuho2026 |
+| M8 | 山岡家 営業利益率 2026/1 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 46.8億÷430億 | 10.9 | % | r4-ramen-yamaokaya-setsumei2603#growth |
+| G1 | 山岡家 店数の伸び 2010→2012 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 137÷102−1 | 34.3 | % | r4-ramen-yamaokaya-setsumei2603#growth |
+| G2 | 山岡家 店数の伸び 2023→2026 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 195÷179−1 | 8.9 | % | r4-ramen-yamaokaya-setsumei2603#growth |
+| G3 | 山岡家 売上の倍率 2023→2026 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 430億÷187億 | 2.3 | 倍 | r4-ramen-yamaokaya-setsumei2603#growth |
+| G4 | ペッパー 売上の倍率 2016→2019 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 675億÷223億 | 3 | 倍 | r5-growth-pepper-yuho2019 |
+| G5 | 日高 売上の倍率 2022/2→2026/2 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 623億÷264億 | 2.4 | 倍 | r5-growth-hidaka-yuho2026b |
+| G6 | 日高 直営店の伸び 2020/2→2026/2 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 472÷443−1 | 6.5 | % | r5-growth-hidaka-yuho2026b |
+| G7 | 幸楽苑 年商の減り 49期→52期 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 25,023÷41,268−1 | -39.4 | % | r4-ramen-kourakuen-setsumei2511#growth |
+| G8 | 幸楽苑 直営店の減り 2023/3→2025/9 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 347÷414−1 | -16.2 | % | r4-ramen-kourakuen-setsumei2511#growth |
+| G9 | 幸楽苑 他社FC業態の店 2023/3末の合計（焼肉ライク＋からやま＋赤から） | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 12+7+5 | 24 | 店 | r4-ramen-kourakuen-setsumei2511#growth |
+| G10 | 大戸屋 売上の倍率 2022/3→2026/3 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 370億÷188億 | 2 | 倍 | r5-growth-ootoya-yuho2026 |
+| G11 | トリドール 営業利益の計画比 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 105.8億÷146億−1 | -27.5 | % | r5-growth-toridoll-yuho2026 |
+| G12 | トリドール 親会社に帰属する当期利益の計画比 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 23.1億÷55億−1 | -58 | % | r5-growth-toridoll-yuho2026 |
+| G13 | すかいらーく のれん÷総資産 2025/12 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 1,627億÷5,185億 | 31.4 | % | r5-growth-skylark-yuho2025 |
+| G14 | ペッパー FC加盟者の減り 2019→2020 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 45÷108−1 | -58.3 | % | r5-growth-pepper-yuho2020 |
+| G15 | 魁力屋 店数の伸び 2021末→2025末（魁力屋のみ） | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 175÷119−1 | 47.1 | % | r5-growth-sakigake-yuho2025 |
+| G16 | 力の源 売上の倍率 2022/3→2026/3 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 363億÷194億 | 1.9 | 倍 | r5-growth-chikara-yuho2026 |
+| G17 | ギフト 売上の倍率 2021/10→2025/10 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 358.8億÷134.7億 | 2.7 | 倍 | r4-ramen-gift-yuho2025#struct |
+| G18 | コメダ 店数の伸び 2017/2→2026/2 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 1,150÷747−1 | 53.9 | % | r5-growth-komeda-yuho2026 |
+| P1 | 日高 借りた店の割合 2020/2 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 440÷443 | 99.3 | % | r5-growth-hidaka-yuho2020 |
+| P2 | コメダ リース債権÷売上収益 2026/2 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 306億÷572億 | 53.5 | % | r5-growth-komeda-yuho2026 |
+| P3 | コメダ 卸売÷売上収益 2026/2 | 1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄） | 393億÷572億 | 68.7 | % | r5-growth-komeda-yuho2026 |
+| F1 | コメダ 中途終了＋再契約されず÷加盟店（コメダ珈琲店）2026/2 | 1社（株式会社コメダ単体の法定開示書面） | (11+7)÷1,008 | 1.8 | % | r5-growth-jfa-komeda-fc |
+| C1 | 中華 成長に向かう選択肢の単純和（規模の拡大・縮小＋多角化＋専門店化＋移転） | 中華料理店366施設（厚労省の実態調査 2014年10月、中華そば店・食堂レストラン等を含む） | 7.1+4.1+2.5+2.5 | 16.2 | %（複数回答の和。重なりを含むので上限） | r4-mgmt-mhlw-chuka#growth |
+| C2 | 中華 廃業÷成長に向かう選択肢の和 | 中華料理店366施設（厚労省の実態調査 2014年10月、中華そば店・食堂レストラン等を含む） | 11.2÷16.2 | 0.7 | 倍 | r4-mgmt-mhlw-chuka#growth |
+| C3 | 開業パネル 10人以上の企業の割合 開業時→2020年末 | 全業種の2016年開業の企業（公庫のパネル、従業者は968社） | (2.7+1.2)→(9.7+4.1) | 13.8 | %（開業時は3.9%） | r4-mgmt-jfc-panel2016#growth |
+| C4 | 開業パネル 1年目の報酬÷開業直前の収入 | 全業種の2016年開業の企業（公庫のパネル、従業者は968社） | 27.4万÷35.9万−1 | -23.7 | % | r4-mgmt-jfc-panel2016#growth |
 
 ほかの数字の対象：
 - 中華料理店：厚生労働省の実態調査（2014年10月、366施設、中華そば店・食堂レストラン・居酒屋等・その他を含む）。
@@ -721,4 +777,79 @@
 
 引いた資料ごとに、原文の該当箇所と、この報告でその資料を引いた行（`node boki2/docs/analysis/bizgrowth-sources.js --lines` の出力）。
 
-<!-- LINES_TABLE -->
+| 資料（src:coll:doc） | 原文の該当箇所（読了ノートの read と pages） | この報告で引いた行 |
+|---|---|---|
+| kentei:kubun2027:2027kubunhyo_fixed | 2027kubunhyo_fixed#growth：一部：1〜4頁のうち商業簿記・会計学の欄（固定資産・リース・外貨建取引・税効果・会計上の変更・決算・株式会社会計・本支店会計・連結会計）。工業簿記の欄は BIZ-GROWTH の会計の列に使う範囲（工業簿記の全体が2級）だけ見た | 44, 269, 667 |
+| law:primary:r4-mgmt-mhlw-chuka | r4-mgmt-mhlw-chuka#growth：一部：11（図7 従業者規模別・営業形態別）、12（図8 立地条件別の施設数）、13（図10〜12 経営者の年齢・後継者）、14（表1 営業形態別の1日の客数）、15（図14 立地別の1日の客数）、28（図42 今後の経営方針）、58（表8 今後の経営方針）。BIZ-MGMT の判定書2.6節の1・4・5を確かめるために読み直した頁だけ。ほかの頁は無印のノート（BIZ-MGMT 側）が読んでいる | 202, 393, 662 |
+| law:primary:r4-mgmt-mhlw-kissaten | r4-mgmt-mhlw-kissaten#growth：一部：1〜2（表1〜5：事業所数・市場規模・喫茶代・飲用場所別のコーヒー杯数）、12（表12 FC加入状況）、14（図2・表15 後継者）、15（図3 土地・建物の所有）、29（図34・表21・表22 今後の経営方針）、31（振興指針 第一の一：営業許可と廃止の件数）。判定書2.6節の4・5・17・18・19を確かめるために読み直した頁だけ | 398, 399, 400 |
+| law:primary:r5-growth-jpx-iji-growth | r5-growth-jpx-iji-growth：一部：本文（グロース市場の時価総額の上場維持基準・算定方法・改善期間）。サイトの共通の案内部分は読んでいない | 203, 380 |
+| law:primary:r5-growth-jpx-shinki-growth | r5-growth-jpx-shinki-growth：一部：本文（グロース市場の形式要件）。サイトの共通の案内部分は読んでいない | 203 |
+| law:primary:r5-growth-jpx-shinki-kijun | r5-growth-jpx-shinki-kijun：一部：本文（プライム市場の形式要件と上場審査の内容）。サイトの共通の案内部分は読んでいない | 379 |
+| law:primary:r5-growth-jpx-shinki-standard | r5-growth-jpx-shinki-standard：一部：本文（スタンダード市場の形式要件と上場審査の内容）。サイトの共通の案内部分は読んでいない | 203, 379 |
+| web:bizgrowth:r5-growth-aichiu-fc-kimura | r5-growth-aichiu-fc-kimura：全文 | 365 |
+| web:bizgrowth:r5-growth-arxiv-mortality-pdf | r5-growth-arxiv-mortality-pdf：一部：1〜11（要旨・序論・データ・方法・起業時の規模・景気・飲食店と他のサービス業の比較・表1〜3）。12ページ以降の結論と参考文献は流し読み | 474 |
+| web:bizgrowth:r5-growth-chikara-yuho2026 | r5-growth-chikara-yuho2026：一部：2〜3（経営指標）、4〜7（沿革）、株式の状況のうち発行済株式総数の推移（47ページ） | 140, 168, 222, 396, 668 |
+| web:bizgrowth:r5-growth-creator-hidaka-pres112180 | r5-growth-creator-hidaka-pres112180：一部：記事の1頁目の本文の全部（サイトの見出し・関連記事・ランキングは読んでいない）。2頁目は別のノート、3頁目は会員限定で本文がない | 42 |
+| web:bizgrowth:r5-growth-creator-hidaka-pres88995 | r5-growth-creator-hidaka-pres88995：一部：無料で読める部分の全部（有料会員限定の案内より前）。後半は有料で読めていない | 125 |
+| web:bizgrowth:r5-growth-creator-ichinose-moneypost | r5-growth-creator-ichinose-moneypost：一部：記事の本文の全部（週刊ポスト2024年7月12日号の転載部分）。サイトの見出し・関連記事は読んでいない | 239 |
+| web:bizgrowth:r5-growth-creator-ichinose-sogyo1 | r5-growth-creator-ichinose-sogyo1：一部：インタビュー前編の本文の全部（目次から後編予告まで）。サイトの広告・人気ランキングは読んでいない。後編は取っていない | 153 |
+| web:bizgrowth:r5-growth-creator-iida-pres94330-p2 | r5-growth-creator-iida-pres94330-p2：一部：記事の2頁目の本文の全部（会員限定の案内より前） | 197 |
+| web:bizgrowth:r5-growth-creator-kawahara-bunshun36250 | r5-growth-creator-kawahara-bunshun36250：一部：対談記事の1頁目の本文の全部。関連記事・広告は読んでいない | 683 |
+| web:bizgrowth:r5-growth-creator-kawahara-nissyoku | r5-growth-creator-kawahara-nissyoku：一部：インタビューの本文の全部（会社概要まで）。動画（3本）は見ていない。サイトの速報・ランキングは読んでいない | 229, 240 |
+| web:bizgrowth:r5-growth-creator-pepper-gendai57252 | r5-growth-creator-pepper-gendai57252：一部：記事の本文の全部（2018年8月の連載の2回目）。関連記事・広告は読んでいない。1回目と3回目は取っていない | 681 |
+| web:bizgrowth:r5-growth-creator-tagawa-itmedia5 | r5-growth-creator-tagawa-itmedia5：一部：連載記事の5頁目の本文の全部（Shift_JIS を文字に直して読んだ）。1〜4・6頁目は取っていない。関連記事の見出しは読んでいない | 131 |
+| web:bizgrowth:r5-growth-creator-tenkaippin-pres94330 | r5-growth-creator-tenkaippin-pres94330：一部：記事の1頁目の本文の全部。サイトの見出し・関連記事は読んでいない。3〜6頁目は会員限定で本文がない（取得しない記録あり） | 225 |
+| web:bizgrowth:r5-growth-hachiban-yuho2026 | r5-growth-hachiban-yuho2026：一部：2〜8（経営指標・沿革・関係会社・経営方針と中期計画）、事業等のリスクのうちFC加盟店の展開・食材の調達、経営成績（セグメント別）、重要な契約（カンボジアのエリアFC）、セグメント情報の調整額の注記 | 140, 318 |
+| web:bizgrowth:r5-growth-hidaka-yuho2020 | r5-growth-hidaka-yuho2020：一部：1〜8（経営指標・沿革・事業の内容・経営方針・会社の支配に関する方針）、9〜12（事業等のリスク・経営成績）、15〜17（設備投資と主要な設備）。財務諸表の注記の大半は読んでいない | 23, 125, 655 |
+| web:bizgrowth:r5-growth-hidaka-yuho2026b | r5-growth-hidaka-yuho2026b：全文 | 24, 42, 125, 219, 670 |
+| web:bizgrowth:r5-growth-jfa-ajisen | r5-growth-jfa-ajisen：一部：本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み | 345 |
+| web:bizgrowth:r5-growth-jfa-fcstat2003 | r5-growth-jfa-fcstat2003：一部：1頁目の概要（総計・業種別の動向の文）と、業種別の表の外食業の行（とくにラーメン・餃子）。小売・サービスの細目の行は読んでいない（ラーメンの推移に関係しないため） | 351 |
+| web:bizgrowth:r5-growth-jfa-hachiban | r5-growth-jfa-hachiban：一部：本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み | 345 |
+| web:bizgrowth:r5-growth-jfa-kaiji-list | r5-growth-jfa-kaiji-list：全文 | 475 |
+| web:bizgrowth:r5-growth-jfa-komeda-fc | r5-growth-jfa-komeda-fc：一部：1〜13（案内・目次・本部の概要・5期の損益・全店売上・店数・新規開店・中途終了・再契約・訴訟件数・売上予測の説明・加盟金と保証金）、18〜19（ロイヤルティと付属契約の費用・営業時間）、別紙（類似店の収支）。14〜17ページ（商品の販売条件・経営指導・商標・契約期間と解除）と20ページ以降のチェックリストは流し読み | 128, 658 |
+| web:bizgrowth:r5-growth-jfa-mujinzo | r5-growth-jfa-mujinzo：一部：本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み | 345 |
+| web:bizgrowth:r5-growth-jfa-ootoya | r5-growth-jfa-ootoya：一部：本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み | 345 |
+| web:bizgrowth:r5-growth-jfa-osakaosho | r5-growth-jfa-osakaosho：一部：本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み | 345 |
+| web:bizgrowth:r5-growth-jfa-ringerhut | r5-growth-jfa-ringerhut：一部：本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み | 345 |
+| web:bizgrowth:r5-growth-jfa-soudan2006 | r5-growth-jfa-soudan2006：一部：本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため） | 349 |
+| web:bizgrowth:r5-growth-jfa-soudan2019 | r5-growth-jfa-soudan2019：一部：本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため） | 349 |
+| web:bizgrowth:r5-growth-jfa-soudan2026 | r5-growth-jfa-soudan2026：一部：本文（相談件数の説明・月別の表・9月の業種別の表・分類の注）。サイトの見出しと案内のリンクは除く | 349 |
+| web:bizgrowth:r5-growth-jfa-tadokoro | r5-growth-jfa-tadokoro：一部：本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み | 22 |
+| web:bizgrowth:r5-growth-jfc-shoukei2023 | r5-growth-jfc-shoukei2023：全文 | 394 |
+| web:bizgrowth:r5-growth-jfc-shoukei2023-report | r5-growth-jfc-shoukei2023-report：一部：「日本政策金融公庫 調査月報」2023年8月号のうち、事業承継の調査の記事（雑誌の7〜16ページ前後。9・10ページの図と表は画像として開いて読んだ）。同じ号の他の記事は読んでいない | 394 |
+| web:bizgrowth:r5-growth-js-cvs-part2024 | r5-growth-js-cvs-part2024：全文 | 367, 689 |
+| web:bizgrowth:r5-growth-js-fc-fukusuten2014 | r5-growth-js-fc-fukusuten2014：全文 | 369 |
+| web:bizgrowth:r5-growth-js-fc-haigyou2006 | r5-growth-js-fc-haigyou2006：全文 | 341, 343 |
+| web:bizgrowth:r5-growth-js-fc-hou2015 | r5-growth-js-fc-hou2015：一部：題・はじめに（研究の目的）・第3節冒頭（FCの定義と独禁法上の問題点の導入）。判例の個別の紹介と結論の節は文字起こしが大きく化けて読めた範囲が限られる | 686 |
+| web:bizgrowth:r5-growth-js-fc-manzoku2025 | r5-growth-js-fc-manzoku2025：全文 | 368 |
+| web:bizgrowth:r5-growth-js-fc-ranyo2015 | r5-growth-js-fc-ranyo2015：一部：はじめに・Ⅱ日本の現状（FC法制と行政規制・近年の判例）・結び と注。Ⅲ以降の米国の規制の詳細は読んでいない（日本の外食の分かれ道に直接使わないため） | 366 |
+| web:bizgrowth:r5-growth-js-fc-royalty2009 | r5-growth-js-fc-royalty2009：一部：要約・序論・モデルの設定・結論と注（数式の展開の節は読み飛ばした。結論の理解に要らないため） | 345 |
+| web:bizgrowth:r5-growth-js-fc-shoukei2024 | r5-growth-js-fc-shoukei2024：全文 | 369 |
+| web:bizgrowth:r5-growth-js-gaishoku-genchika2018 | r5-growth-js-gaishoku-genchika2018：全文 | 690 |
+| web:bizgrowth:r5-growth-js-gaishoku-jumyo2015 | r5-growth-js-gaishoku-jumyo2015：全文 | 473 |
+| web:bizgrowth:r5-growth-js-gaishoku-kozo2000 | r5-growth-js-gaishoku-kozo2000：全文 | 473 |
+| web:bizgrowth:r5-growth-komeda-yuho2026 | r5-growth-komeda-yuho2026：全文 | 27, 128, 204, 304, 391, 479, 659 |
+| web:bizgrowth:r5-growth-kourakuen-yuho2018 | r5-growth-kourakuen-yuho2018：全文 | 43, 159, 168, 174, 656 |
+| web:bizgrowth:r5-growth-kourakuen-yuho2023 | r5-growth-kourakuen-yuho2023：一部：経営指標・沿革（2〜5ページ）、事業の内容と店舗数、事業等のリスク（生産体制・財務制限条項・継続企業の前提）、経営成績、重要な契約（FC契約の一覧）、会社の支配に関する方針（中期計画の骨子）、連結貸借対照表の注記（財務制限条項・コミットメントライン）。個別財務諸表・ガバナンスの大半は読んでいない | 162, 200 |
+| web:bizgrowth:r5-growth-kourakuen-yuho2026 | r5-growth-kourakuen-yuho2026：一部：沿革、事業の内容、経営方針と対処すべき課題、サステナビリティのうち人財と投資の戦略、経営成績・財政状態、資本の財源、設備投資の概要、株式の発行の注記、建設仮勘定の明細。財務諸表の注記の大半とガバナンスは読んでいない | 159, 306, 670 |
+| web:bizgrowth:r5-growth-monogatari-yuho2025 | r5-growth-monogatari-yuho2025：一部：2〜5（経営指標・沿革・事業の内容）、経営方針（中期ビジョン）、経営成績（部門別・部門別店舗数の表、22〜23ページ）、重要な契約（FC加盟契約の加盟金・保証金・ロイヤルティの表、27ページ） | 134 |
+| web:bizgrowth:r5-growth-nse-komeda-ipo | r5-growth-nse-komeda-ipo：全文 | 304, 322 |
+| web:bizgrowth:r5-growth-ootoya-yuho2021 | r5-growth-ootoya-yuho2021：一部：経営指標（2〜3ページ）、沿革（4ページ）、経営方針・新中期計画・対処すべき課題（9〜10ページ）、事業等のリスクのうち人材・継続企業の前提、経営成績と財政状態の概要、大株主 | 146, 207, 256, 657, 669 |
+| web:bizgrowth:r5-growth-ootoya-yuho2026 | r5-growth-ootoya-yuho2026：一部：経営指標（2〜3ページ）、経営成績のセグメント（国内直営・国内FC、16〜17ページ）、純資産の変動の説明（優先株式の取得と消却）、株式の状況の優先株式の欄 | 137, 146 |
+| web:bizgrowth:r5-growth-oppose-gendai168226 | r5-growth-oppose-gendai168226：一部：記事（後編）の本文の全部。前編は取っていない。関連記事・広告は読んでいない | 244 |
+| web:bizgrowth:r5-growth-oppose-gendai69815 | r5-growth-oppose-gendai69815：一部：記事の本文の全部。関連記事・広告は読んでいない | 242 |
+| web:bizgrowth:r5-growth-oppose-gendai70771 | r5-growth-oppose-gendai70771：一部：記事の本文の全部。関連記事・広告は読んでいない | 243 |
+| web:bizgrowth:r5-growth-pepper-yuho2019 | r5-growth-pepper-yuho2019：全文 | 21, 25, 43, 153 |
+| web:bizgrowth:r5-growth-pepper-yuho2020 | r5-growth-pepper-yuho2020：一部：沿革（2020年の行）、事業等のリスク（店舗出店・競合・新株予約権・継続企業の前提）、経営成績のセグメント、重要な後発事象・子会社株式の譲渡の注記、新株予約権の状況。財務諸表の本体と注記の大半は読んでいない | 21, 153, 186 |
+| web:bizgrowth:r5-growth-plenus-q3-2023 | r5-growth-plenus-q3-2023：一部：経営成績の概要（2〜4ページ）、収益の分解の注記（直営店売上と加盟店向け売上）、重要な後発事象（株式併合と上場廃止、18〜21ページ） | 134, 382 |
+| web:bizgrowth:r5-growth-plenus-yuho2022 | r5-growth-plenus-yuho2022：一部：4〜5（沿革）、9〜12（事業の内容・経営方針のうち事業ごとの方針、事業等のリスクのうちFC契約・賃貸借・人材）、14〜16（経営成績・セグメント）、重要な契約（ほっともっとのFC契約と地区本部契約）、重要な後発事象（該当なし） | 134, 204 |
+| web:bizgrowth:r5-growth-sakigake-yuho2025 | r5-growth-sakigake-yuho2025：一部：2〜6（経営指標・沿革）、事業の内容（店の形・店数の推移の表）、事業等のリスク（特定人物への依存・支配株主・株式の流動性）、大株主の状況 | 143, 203, 381, 663, 666 |
+| web:bizgrowth:r5-growth-skylark-yuho2025 | r5-growth-skylark-yuho2025：一部：1〜8（はじめに：事業運営主体の変遷、沿革）、33〜34（事業等のリスクのうち多額の借入金・財務制限条項・減損会計）、経営成績の概要の一部、44（主要な設備の注記） | 165, 203, 308 |
+| web:bizgrowth:r5-growth-toridoll-yuho2026 | r5-growth-toridoll-yuho2026：全文 | 165, 224, 321, 660, 669 |
+| web:bizmgmt:r4-mgmt-jfc-panel2016 | r4-mgmt-jfc-panel2016#growth：一部：2（はじめに：過去のコーホートの却下率と緊急保証制度）、17〜18（図10・11 従業者数）、21〜22（図15 報酬、図16 就業時間、図17 収入の満足度）。判定書2.6節の6・14を確かめるために読み直した頁だけ。全体は無印のノート（BIZ-MGMT 側）が通読している | 395, 397 |
+| web:bizmgmt:r4-mgmt-wiki-ippudo | r4-mgmt-wiki-ippudo#growth：全文 | 396 |
+| web:ramen:r4-ramen-chikara-tanshin2026 | r4-ramen-chikara-tanshin2026#growth：一部：1〜6（経営成績・店舗数の表・配当方針）、9〜10（事業の内容：暖簾分け制度・海外のライセンス）、セグメント情報（調整額の注記） | 140, 229, 319, 661 |
+| web:ramen:r4-ramen-gift-yuho2025 | r4-ramen-gift-yuho2025#growth：全文 ／ r4-ramen-gift-yuho2025#struct：一部：2〜3（主要な経営指標等の推移：連結と提出会社）、7〜8（直営店事業・業務委託店・プロデュース事業部門・店舗数の推移）、10（関係会社の状況と株式会社ギフトの主要な損益情報）、33〜34（設備投資等の概要・提出会社の主要な設備）、70〜71（収益の計上基準）、86付近（契約負債の残高）、101〜104（提出会社の収益の計上基準・損益計算書・営業費用の内訳）、111（新しいリース会計基準）、112（監査上の主要な検討事項） | 33, 131, 201, 203, 204, 302, 432, 668 |
+| web:ramen:r4-ramen-kourakuen-setsumei2511 | r4-ramen-kourakuen-setsumei2511#growth：一部：12（業績ハイライト）・13（過去業績の振り返り：40期〜56期上期の年商と営業利益のグラフ）・39（営業店の推移） | 168, 306 |
+| web:ramen:r4-ramen-yamaokaya-setsumei2603 | r4-ramen-yamaokaya-setsumei2603#growth：一部：3〜4（会社概要・沿革）、6〜14（決算の実績・コスト内訳・出店と閉店）、22（まとめ）、25〜27・33（計画と中期計画）、35（業界データ）、39〜44（推移のグラフ。画像として開いて数字を読んだ） | 156, 183, 229 |
+| web:ramen:r6-fc-gift-yuho2019 | r6-fc-gift-yuho2019：一部：1〜6頁（主要な経営指標等の推移の連結と提出会社、沿革）。事業の内容・財務諸表は読んでいない | 131 |

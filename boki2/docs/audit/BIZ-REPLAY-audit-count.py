@@ -63,3 +63,27 @@ for name, L in (('2周目以降', lat), ('1周目', fst)):
     for u in L:
         s = txt(u); m = (LATER if name == '2周目以降' else FIRST).search(s)
         print('     %s: …%s…' % (name, s[max(0, m.start() - 30):m.end() + 30]))
+
+# ---- 4) 版0.3の再判定（10章）：付け直し45件と書き手のコードの一致、届いた15件の本文 ----
+print('4) 版0.3の再判定')
+import csv
+B = os.path.dirname(os.path.abspath(__file__)) + '/../analysis/'
+W = {}
+for r in csv.DictReader(open(B + 'replay-mgmt-voices-codes.tsv', encoding='utf-8'), delimiter='\t'):
+    W[int(r['番号'])] = r
+M = []
+for l in open(os.path.dirname(os.path.abspath(__file__)) + '/BIZ-REPLAY-audit-blindcodes.tsv', encoding='utf-8'):
+    if l.startswith('#') or l.startswith('番号'):
+        continue
+    c = l.rstrip('\n').split('\t')
+    M.append((int(c[0]), c[1], c[2], c[3]))
+for j, col in ((1, '周回'), (2, '目標'), (3, '届いた周')):
+    agree = [m for m in M if m[j] == W[m[0]][col]]
+    print('  %s：%d/%d 一致（%.1f%%）。食い違い：%s' % (col, len(agree), len(M), 100.0 * len(agree) / len(M),
+          ', '.join('#%d 判定役=%s 書き手=%s' % (m[0], m[j], W[m[0]][col]) for m in M if m[j] != W[m[0]][col]) or 'なし'))
+byn = {int(re.match(r'#?(\d+)', str(u.get('n', '0'))).group(1)) if 'n' in u else i + 1: u for i, u in enumerate(U)}
+for g in ('1周目', '2周目以降'):
+    ns = sorted(k for k, r in W.items() if r['作品'] == 'ゲーム発展国++' and r['届いた周'] == g)
+    print('  届いた・%s（書き手のコード）%d 件：%s' % (g, len(ns), ' '.join('#%d' % k for k in ns)))
+    for k in ns:
+        print('     #%d 中身=%s メモ=%s ｜ %s' % (k, W[k]['中身'], W[k]['メモ'], txt(byn[k])[:160]))

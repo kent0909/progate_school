@@ -164,3 +164,57 @@ if os.path.exists(AUD):
         print(f'  {k}: ' + '・'.join(ids[k]))
 else:
     print('  （検査書がまだない）')
+
+# ================================================================ 第2版の再検査（docs/audit/BIZ-LAW-RAMEN-reasoning.md 15章）
+print('\n## 10) 第2版の数を検算する')
+print('(a) 税込で数えた店の数（第2版の表「税込で数えた店の数」）')
+for months in (12, 24, 36):
+    row = []
+    for t in (1.0, mix):
+        n = 1
+        while A * n * t * 0.10 * months / 12 * 0.03 < 1_500_000: n += 1
+        row.append(n)
+    print(f'  {months}か月：税抜 {row[0]} 店、税込 {row[1]} 店')
+print(f'  税込の年の売上 {A*mix:,.0f}円（第2版の 38,290,000円と一致するか）')
+print('(b) 偽りの損得の表（第2版の「8)」）を、原価の差の置き値だけ変えて出し直す')
+cups3 = A * 0.85 / 900 * 3
+k = A * mix * 0.85 * 3 * 0.03
+extra = 400_000 + A * 0.10 * 0.65
+print(f'  36か月の杯数 {cups3:,.0f}、課徴金 {k:,.0f}円、周知＋客の減り {extra:,.0f}円')
+for d, note in [(4.5, '小麦が1杯の値段の約1%（9円）で、国産が輸入の1.5倍のとき'),
+                (9.0, '同じく2倍のとき（＝小麦代の全部が差になる上限）'),
+                (15.0, '第2版の置き値（根拠の記述なし。小麦代の全部＝約9円を超える）')]:
+    g = cups3 * d
+    print(f'  1杯{d}円（{note}）：得 {g:,.0f}円、釣り合う3年の発覚確率 課徴金だけ {g/k:.2f}・課徴金＋周知＋客の減り {g/(k+extra):.2f}')
+print('    → 第2版の「原価の差だけの偽りは27〜51%を超えると損」は、小麦の資料（約1%）と合う置き値なら8〜30%。向き（確率しだいで損にも得にもなる）は変わらない')
+print('(c) 灰色の判断の型：第2版の列は検査役の割り付けと32行すべて一致（入れ替え0）')
+import re as _re
+rep2 = open(REP, encoding='utf-8').read()
+m2 = _re.search(r'^## 灰色の判断の一覧.*?$(.*?)(?=^## |\Z)', rep2, _re.M | _re.S)
+same = diff = 0
+for line in _re.findall(r'^\| (G\d+) \|.*$', m2.group(1) if m2 else '', _re.M):
+    pass
+for gid, last in _re.findall(r'^\| (G\d+) \|.*\| ([abcd]) [^|]*\|\s*$', m2.group(1) if m2 else '', _re.M):
+    if TYPE.get(gid) == last: same += 1
+    else: diff += 1
+print(f'  一致 {same}、違う {diff}（第2版の書き手は「入れ替えはなかった」と書く。型 a は {c["a"]} 件で、基準の15件にちょうど届く）')
+print('  　G05 を c（会計の判断で法の当てはめではない）、G24 を「未確定」（取扱いの原文が読めていない）にすると a は14件で基準に届かない【検査役の推論】')
+
+print('\n## 11) 本書15章の判定の列と、対応の列を数える')
+if os.path.exists(AUD):
+    a = open(AUD, encoding='utf-8').read()
+    vs = Counter()
+    for line in _re.findall(r'^\| V\d+ \|.*$', a, _re.M):
+        cells = [x.strip() for x in line.strip().strip('|').split('|')]
+        vs[cells[-2]] += 1
+    print(f'  第2版の結論の行 {sum(vs.values())}：' + '／'.join(f'{k} {v}' for k, v in sorted(vs.items())))
+    rs = Counter()
+    for line in _re.findall(r'^\| A-R\d+ \|.*$', a, _re.M):
+        cells = [x.strip() for x in line.strip().strip('|').split('|')]
+        rs[cells[2]] += 1
+    print(f'  前回の不当・弱い {sum(rs.values())} 行への応え：' + '／'.join(f'{k} {v}' for k, v in sorted(rs.items())))
+    ws = Counter()
+    for line in _re.findall(r'^\| W\d+ \|.*$', a, _re.M):
+        cells = [x.strip() for x in line.strip().strip('|').split('|')]
+        ws[cells[-2]] += 1
+    print(f'  「検査役の筋から採ったもの」16行の判定：' + '／'.join(f'{k} {v}' for k, v in sorted(ws.items())))
