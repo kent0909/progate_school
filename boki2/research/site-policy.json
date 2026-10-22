@@ -2103,5 +2103,10 @@
   "verdict": "gray",
   "basis": "J-STAGE WebAPI（api.jstage.jst.go.jp）：J-STAGE が公開する検索用API。robots.txt は置かれていない（404、2026-10-22確認）。WebAPI利用規約は登録不要の範囲での利用を認めている（アクセス間隔を守る）。書誌の検索だけに使う",
   "checked": "2026-10-22"
+ },
+ "www.appunwrapper.com": {
+  "verdict": "gray",
+  "basis": "robots.txt（2026-10-22）は GPTBot だけ全面禁止、* は /wp-admin/ だけ禁止。トップページに利用規約のリンクなし（規約の明示なし）。個人の聞き取りの記事1本を読むため",
+  "checked": "2026-10-22"
  }
 }
