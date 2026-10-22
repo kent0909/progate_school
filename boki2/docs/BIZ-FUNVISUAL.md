@@ -419,3 +419,97 @@ Capitalism Lab の地図は毎回ランダム [[web:simgames:r5-fv-capilab-begin
 - **写さないもの**：各作品のキャラクター・ロゴ・画面の配置・固有の名前（例：ピザの局の名前、カイロくん）・音源。使うのは「丼を層で組む」「頭上のアイコン」「路線図の作法」「星の段」などの型だけ。
 
 ---
+
+## 4. ラーメン屋で動かせる変数の候補（53個）
+
+**見方**：「現実の根拠」は BIZ-RAMEN（`[[web:ramen:…]]`）とこの調べものの資料、「作品の根拠」は同じ型の変数を持つ作品。片方しかないものは、ない方に【資料なし】と書いた。「絡む相手」は、その変数と掛け算になる変数の番号。「危険」は、効きが弱くて触られなくなる（鎖B）・支配的な答えができる（鎖F）などの心配。数字・重みは DESIGN-RAMEN の側で BIZ-CALIB に合わせる。
+
+### 4.1 一杯の組み立て（14）
+| # | 変数（選択肢・深さ） | 絡む相手 | 現実の根拠 | 作品の根拠 | 危険と対策 |
+|---|---|---|---|---|---|
+| 1 | スープの土台（豚骨・鶏ガラ・魚介（煮干し・節・貝）・牛骨・野菜・昆布、2つまで合わせる） | 2・4・26・42 | 組み合わせはほぼ無限。倒産した店のスープは醤油・中華29.8%、とんこつ24.5%＝多数派は競合も多い [[web:ramen:r4-ramen-jnet21-guide]] [[web:ramen:r4-ramen-tsr-2024]] | スープを材料の組み合わせで作る [[web:simgames:r5-fv-mogura-ramenkan]] [[web:simgames:r5-fv-applion-ramenkan]] | 2つの材料の交互で最強になった例（鎖F）。エリアの客層との相性（隠れた表）で最適を変える |
+| 2 | スープの濃度と炊く時間（あっさり〜濃厚の5段） | 1・24・23 | 寸胴の大きさ・豚骨の量・火力の管理でロスを減らす（山岡家）。光熱は固定費的 [[web:ramen:r4-ramen-yamaokaya-setsumei2603]] | 透き通ったほぼ水のスープが笑いになった [[web:simgames:r5-fv-mogura-ramenkan]] | 濃いほど光熱費とロスが増える引き換えを試算で見せる |
+| 3 | スープの作り方（店で炊く／工場で作る／外部のスープを買う） | 2・24・34・51 | 工場集約はロス減・職人不要・光熱安・立地自由。店炊きを差別化にする店もある。どちらが正解とは決まっていない [[web:ramen:r4-ramen-gift-yuho2025]] [[web:ramen:r4-ramen-yamaokaya-setsumei2603]] [[web:ramen:r4-ramen-chikara-tanshin2026]] | 自分で作るか港から買うか [[web:simgames:r5-fv-capilab-beginners]] | 良い板挟み。段階（店の数）で最適が入れ替わるように |
+| 4 | タレ（醤油・味噌・塩、醤油は銘柄の配合） | 1・14・26 | 味の組み立てはタレ×スープ×麺×具 [[web:ramen:r4-ramen-jnet21-guide]] | 宣伝の第一の言葉が「しょうゆ、塩、とんこつ」[[web:simgames:r5-fv-famitsu-ramenkan]] | タレだけで決まらないよう、スープとの相性の表で |
+| 5 | 香味油（背脂・鶏油・焦がしネギ・なし） | 1・26（寒い地域） | 寒い旭川は香味油で冷めにくくした＝気候と客の事情から味が生まれる [[web:ramen:r4-ramen-maff-kyodo-hokkaido]] | 【資料なし】 | 季節（冬）とエリアで効くようにしないと触られない |
+| 6 | 麺の仕入れ方（製麺所の既製／特注／自家製） | 7・8・32・34・50 | 製麺所は店ごとの特注麺の注文が増えている。北海道は製麺所の麺が主 [[web:ramen:r4-ramen-tdb-seimen2025]] [[web:ramen:r4-ramen-maff-kyodo-hokkaido]]。自家製麺で1玉約30円下がる（売り手の試算）[[web:simgames:r5-fv-prtimes-seimenki]] | 外から買うか自作か（序盤は輸入、後で自前）[[web:simgames:r5-fv-capilab-beginners]] | 店の数で最適が逆転（DESIGN-RAMEN e.4 outsource_noodle） |
+| 7 | 麺の太さと縮れ（極細〜極太×ストレート〜縮れ） | 1・2・41 | 釧路の細い縮れ麺は漁師に早く出すため（茹で時間＝回転）[[web:ramen:r4-ramen-maff-kyodo-hokkaido]] | 麺の形状 [[web:simgames:r5-fv-mogura-ramenkan]] | 太麺は茹で時間が長く回転が落ちる、を行列（41）に掛ける |
+| 8 | 麺の加水率（低・中・多） | 7・1・6 | 加水率などの数値管理を製麺の学校で教える [[web:simgames:r5-fv-prtimes-seimenki]] | 加水率まで決められる「本格仕様」が配信映え [[web:simgames:r5-fv-mogura-ramenkan]] | 自家製麺を始めたときにだけ開く変数にする（深さの解放） |
+| 9 | 小麦の銘柄・産地（国産・外国産） | 6・25・14 | 中華麺は準強力粉、主にカナダ産。政府売渡価格は年2回改定（2026年10月期+12.0%）。1杯の値段に占める小麦は約1% [[web:ramen:r4-ramen-maff-komugi2610]] | 原料の質は産地で決まる（鉱山）／育てて上がる（農場）[[web:simgames:r5-fv-capilab-beginners]] | 原価への効きは小さい（1%）ので、効きは「国産の評判」側に置く |
+| 10 | 具の種類（チャーシュー・味玉・メンマ・海苔・ネギ・もやし・季節の具） | 11・12・15・20 | 具は組み合わせの4つ目の要素 [[web:ramen:r4-ramen-jnet21-guide]] | 具を自由に乗せる [[web:simgames:r5-fv-gamespark-ramenkan]] [[web:simgames:r5-fv-denfami-ramenkan]] | 全部のせが常に最強にならないよう、原価と客層の好みで |
+| 11 | 具の置き位置・見た目（映え） | 10・44 | 【資料なし】（映えの効果の数字は BIZ-MKT 側。ラーメンの資料にない） | 丼の上の配置の画面が一番の見どころ。変な角度で置くのが好き [[web:simgames:r5-fv-gamespark-ramenkan]] [[web:simgames:r5-fv-applion-ramenkan-zenkoku]] | 効きは SNS（44）にだけ小さく。主に表現の遊び |
+| 12 | 量（並・大盛・替え玉・小盛） | 15・10・26（学生街） | 【資料なし】（量の選択と客数の資料なし） | 材料を多く使うか節約するかの釣り合い [[web:simgames:r5-fv-wiki-goodpizza]] | 学生街・作業員の多い郊外で効く（エリアとの相性） |
+| 13 | 一杯の名前（プレイヤーが入力） | 43・46・新聞 | 【資料なし】（命名の効果の数字なし） | 名前の入力が物語を生む。配信者が名前で遊ぶ [[web:simgames:r5-fv-gd-gamedevstory]] [[web:simgames:r5-fv-mogura-ramenkan]] | 数字には効かせない。記録・新聞・ランキング・通販の商品名に繰り返し出す |
+| 14 | 限定麺・季節の麺（冷たい麺・つけ麺・年4回まで） | 1〜10・18・23 | 限定が総客数の1割強。夏は冷たい麺7品で注文の3割 [[web:ramen:r4-ramen-yamaokaya-setsumei2603]] [[web:ramen:r4-ramen-kourakuen-setsumei2511]] | 同じ品を毎日出すと飽きられる [[web:simgames:r5-fv-wiki-csd]]。組み合わせで新メニューの発見 [[web:simgames:r5-fv-appbank-gurume]] | 「試作」の画面（3章 #1）の出口。外れは材料の廃棄 |
+
+### 4.2 メニューと値段（5）
+| # | 変数 | 絡む相手 | 現実の根拠 | 作品の根拠 | 危険と対策 |
+|---|---|---|---|---|---|
+| 15 | 値段の位置（500円前後・1000円前後・1500円以上） | 1〜12・26・42 | 三極化。1000円前後の中途半端な値上げが一番危ない [[web:ramen:r4-ramen-tdb-market25fy]]。全国平均700円未満（2024年）[[web:ramen:r4-ramen-tdb-tosan2024]] | 値段を下げると客が増え利益が減るので原価を下げる工夫（声）[[web:simgames:r5-fv-applion-ramenkan-zenkoku]]。値段の非対称な効き [[web:simgames:r4-sim-lemonade-apple1979]] | 値段の位置ごとに効き方を変える（安い帯は客数、高い帯は評判） |
+| 16 | サイドメニュー（ギョウザ・ライス・ビール・唐揚げ） | 15・40・46 | ギョウザの冷凍の生産は前年比+13.0% [[web:ramen:r4-ramen-reishokukyo-2025]] | 餃子・ビールを入れてほしい（声）[[web:simgames:r5-fv-applion-ramenkan]] | 客単価と夜の営業（40）で効く |
+| 17 | トッピングの追加料金・セット | 15・10 | 【資料なし】（DESIGN-RAMEN e.2 の menu は仮置きの重み） | 全部のせの注文は値段を見て判断（声）[[web:simgames:r5-fv-applion-goodpizza]] | 原価率の計算の練習になる |
+| 18 | 品数（看板1本に絞る／増やす） | 14・23・35 | 上期14品の限定（幸楽苑）[[web:ramen:r4-ramen-kourakuen-setsumei2511]] | 体に悪い品ばかり・同じ品ばかりで客が離れる [[web:simgames:r5-fv-wiki-csd]]。1店12品の品揃え [[web:simgames:r5-fv-capilab-strategies]] | 品数↑で仕込みと廃棄↑、人の負担↑ |
+| 19 | 業態の追加（汁なし・油そば・つけ麺専門） | 3・24・26 | 汁なしはスープの手間と光熱が要らず駅ナカに出やすい。第3ブランドは1年で15店 [[web:ramen:r4-ramen-tdb-tosan2025]] [[web:ramen:r4-ramen-gift-yuho2025]] | 同じ部品を使う別の品に広げる [[web:simgames:r5-fv-capilab-beginners]] | 同業態の競争が激しくなる危険（ギフトの記載） |
+
+### 4.3 仕入れと原価（6）
+| # | 変数 | 絡む相手 | 現実の根拠 | 作品の根拠 | 危険と対策 |
+|---|---|---|---|---|---|
+| 20 | 豚・鶏・野菜の仕入先（安い・ぶれる／高い・安定／産地指定） | 1・10・22 | 豚骨ベースの原価指数 2020年=100→2025年141。家畜の病気・異常気象で調達が止まる危険 [[web:ramen:r4-ramen-tdb-tosan2025]] [[web:ramen:r4-ramen-gift-yuho2025]] | 港・他社から買う、他社の方が安く質が高いこともある [[web:simgames:r5-fv-capilab-beginners]] | 予兆（通知・噂）と組にする（鎖6） |
+| 21 | まとめ買い・相場（値上げの通知の月） | 20・25・現金 | 【資料なし】（ラーメンの資料にない。DESIGN-RAMEN e.3 bulk は仮置き） | 共有の値段が売買で動く [[web:simgames:r5-fv-wiki-offworld]] [[web:simgames:r5-fv-matchstick-offworld]] | ライバルの買いで相場が動く形にすると市場が生きる |
+| 22 | 検品（毎回・抜き打ち・しない） | 20・43 | BIZ-LAW L3（商人間の検査の義務）。ラーメンの資料には【資料なし】 | 【資料なし】 | 手数の引き換え。食中毒の重みと掛ける |
+| 23 | 仕込みの量（天気・曜日・催しを見て） | 2・14・40・41 | 売上に合わせた寸胴と豚骨の量でロス減（山岡家）[[web:ramen:r4-ramen-yamaokaya-setsumei2603]]。外食は8月が最多 [[web:ramen:r4-ramen-stat-gaishoku]] | 予報を見て作る量を決める [[web:simgames:r4-sim-lemonade-apple1979]] [[web:simgames:r5-fv-wiki-lemonadetycoon]] | 予報つきの確率で（鎖6）。品切れと廃棄の両方を月報に |
+| 24 | 光熱費の対策（省エネの寸胴・IH・炊く時間） | 2・3・40 | 店炊きの水道光熱費は売上の6〜8%、固定費的 [[web:ramen:r4-ramen-yamaokaya-setsumei2603]]。2022・2026年に急上昇 [[web:ramen:r4-ramen-tdb-market25fy]] | 寒い地域で暖房を入れに前の病院に戻る [[web:simgames:r5-fv-sixthaxis-twopoint]] | エネルギーの値上がりの年に差が開く |
+| 25 | 輸入の食材と為替（小麦・豚） | 9・20・21 | 円安と海上運賃。小麦粉・食肉は輸入が多い [[web:ramen:r4-ramen-maff-komugi2610]] [[web:ramen:r4-ramen-gift-yuho2025]] | 【資料なし】 | 新聞（3章 #26）で予兆 |
+
+### 4.4 物件・土地・設備（8）
+| # | 変数 | 絡む相手 | 現実の根拠 | 作品の根拠 | 危険と対策 |
+|---|---|---|---|---|---|
+| 26 | エリア（駅前・商店街・学生街・住宅地・郊外幹線・オフィス街） | 1・12・15・40・42 | 郊外店の24時間営業で夜が伸びた [[web:ramen:r4-ramen-yamaokaya-setsumei2603]] [[web:ramen:r4-ramen-kourakuen-setsumei2511]]。ご当地の味は気候と客の事情から [[web:ramen:r4-ramen-maff-kyodo-hokkaido]] | 街ごとの賃金・地価・人通り [[web:simgames:r5-fv-capilab-beginners]]。場所ごとの評判（移ると持ち越さない）[[web:simgames:r5-fv-wiki-lemonadetycoon]] | エリアごとに効く手を変える（鎖3） |
+| 27 | 物件の取り方（居抜き／スケルトン） | 29・31・32 | 10坪以下・居抜きで初期費用を抑える。新規の例は約1,407万円 [[web:ramen:r4-ramen-jnet21-guide]] | 新しい病院を一から作り直す不満（＝前の物を引き継ぐ価値）[[web:simgames:r5-fv-wiki-twopointhospital]] | 居抜きは前の店の評判と設備の古さを引き継ぐ |
+| 28 | 坪数と席数（カウンター・テーブル） | 41・35・15 | 10坪以下の小さな店の型 [[web:ramen:r4-ramen-jnet21-guide]]。席数・回転の数字は【要確認】（BIZ-RAMEN 2.3） | 病院の段は部屋と職員の数で決まる [[web:simgames:r5-fv-wiki-twopointhospital]]。容量の上限 [[web:simgames:r5-fv-gamesasylum-startup]] | 席は詰まり（需給の棒、3章 #16）の候補 |
+| 29 | 家賃・保証金 | 26・27 | 家賃は売上の2.4%（郊外）〜7.5%（駅近を含む）[[web:ramen:r4-ramen-yamaokaya-setsumei2603]] [[web:ramen:r4-ramen-gift-yuho2025]] | 場所ごとの家賃 [[web:simgames:r5-fv-wiki-lemonadetycoon]]、地価の色の重ね表示 [[web:simgames:r5-fv-capilab-beginners]] | 物件の画面に4つの数（人通り・家賃・保証金・内装） |
+| 30 | 土地を買って建てる（郊外の自社物件・駐車場） | 26・29・借入 | 【資料なし】（ラーメン店が土地を買う資料は読んでいない） | 郊外の安い土地を買い、建てて値上がりで稼ぐ競合 [[web:simgames:r4-sim-capilab-improvedai]]。単純な分野（商業不動産）から始める戦略 [[web:simgames:r5-fv-capilab-strategies]] | 本業と別の稼ぎ（副業の不動産）の型。オーナーの例示に入っている |
+| 31 | 内装・のれん・看板・小物（店の格） | 27・38・43 | 1店約1,700万円の改装で売上+23%（平均）[[web:ramen:r4-ramen-kourakuen-setsumei2511]] | 部屋の格（広さと飾り）、飾り×職員の特性 [[web:simgames:r5-fv-wiki-twopointhospital]] [[web:simgames:r5-fv-pcgi-twopoint]]、着せ替え [[web:simgames:r5-fv-applion-goodpizza]] | お金の受け皿（声：使い道がない）。固定資産と評判につながる |
+| 32 | 厨房設備（寸胴・製麺機・券売機・食洗機・冷蔵庫）の質と点検 | 6・23・35・41 | 製麺機 168.8〜247.5万円（税別）[[web:simgames:r5-fv-prtimes-seimenki]]。キャッシュレス券売機・注文端末で人を減らした [[web:ramen:r4-ramen-tdb-tosan2025]] | 故障は調子が低いほど、点検の間隔を選べる [[web:simgames:r4-sim-openrct2-ride]]。故障で計画的にお金を使う（声）[[web:simgames:r5-fv-applion-goodpizza]] | 予告のない故障は嫌われる（鎖D）。調子の表示と予兆を |
+| 33 | 屋台（公募・場所代・営業の制限） | 15・40・37 | 福岡市の公募、場所代は月41,250円、夕方〜朝4時・本人営業・持ち帰り不可、最長10年 [[web:ramen:r4-ramen-fukuoka-yatai-boshu]] [[web:ramen:r4-ramen-fukuoka-yatai-5th]] | 歩道の屋台から公園・浜辺へ [[web:simgames:r5-fv-pocketgamer-lemonadetycoon]] | 始め方 A（DESIGN-RAMEN c.5）。上限が低いことを見せる |
+
+### 4.5 人（6）
+| # | 変数 | 絡む相手 | 現実の根拠 | 作品の根拠 | 危険と対策 |
+|---|---|---|---|---|---|
+| 34 | 職人（修業経験者を雇う／未経験を育てる） | 2・3・6・36 | 開業者の8割は同業の経験あり [[web:ramen:r4-ramen-jfc-kaigyo2025full]]。仕込みのマイスターを育てる（山岡家）[[web:ramen:r4-ramen-yamaokaya-setsumei2603]] | 社員の育ち具合が出来に直結 [[web:simgames:r5-fv-applion-gamedevstory]]。設計と技術の2本×人の向き [[web:simgames:r5-fv-digdl-gamedevtycoon]] | 「味」と「手際」の2本の軸で人を見る |
+| 35 | アルバイトの人数・時給・シフト | 28・40・41 | アルバイト不足・賃上げ（幸楽苑は平均5.1%）[[web:ramen:r4-ramen-tsr-2023]] [[web:ramen:r4-ramen-kourakuen-setsumei2511]] | 給料の交渉・研修・賞与で機嫌を保つ [[web:simgames:r5-fv-gamesasylum-startup]]。シフトを組みたい（声）[[web:simgames:r5-fv-applion-ramenkan-zenkoku]] | 過不足の表示がないと迷う（3章 #16） |
+| 36 | 店長と任せる範囲（2号店から） | 34・35・15 | 2026年の倒産は複数店の中堅が中心 [[web:ramen:r4-ramen-tdb-tosan26q3]] | 役員に任せると得意の上乗せ、ただし勝手に方針を変える [[web:simgames:r5-fv-capilab-beginners]]。店長は決まった動きしかしない [[web:simgames:r4-cinc-applion-reviews]] | 任せる範囲を選ばせる（値段・仕込み・人） |
+| 37 | 店主（社長）の体力と時間 | 33・34・40 | 【資料なし】 | 店員の体力の値 [[web:simgames:r5-fv-applion-ramenkan]]。題材に固有の心の値と崩れる確率 [[web:simgames:r5-fv-gd-mgmtdepth]] | 屋台・1号店期の上限を決める題材固有の変数 |
+| 38 | 人の特性（きれい好き・接客上手・手が速い・常連に好かれる） | 31・41・42 | 【資料なし】 | 特性×飾り×成績、汚れを嫌う客 [[web:simgames:r5-fv-pcgi-twopoint]] [[web:simgames:r5-fv-sixthaxis-twopoint]] | 少数（5〜6種）にする（頭の中の模型に写る数 [[web:simgames:r4-sim-tynan-simdream]]） |
+| 39 | まかない・研修・福利 | 34・35 | 【資料なし】（ラーメンの資料にない） | 研修で段1〜9 [[web:simgames:r5-fv-capilab-beginners]]、資格で技能 [[web:simgames:r5-fv-wiki-twopointhospital]] | 離職の重みに掛ける |
+
+### 4.6 集客と評判（6）
+| # | 変数 | 絡む相手 | 現実の根拠 | 作品の根拠 | 危険と対策 |
+|---|---|---|---|---|---|
+| 40 | 営業時間（昼だけ・昼夜・深夜・24時間） | 26・35・24 | 閉店を22時→24時に延ばし夜が伸びた。24時間営業が有利 [[web:ramen:r4-ramen-kourakuen-setsumei2511]] [[web:ramen:r4-ramen-yamaokaya-setsumei2603]] | 昼と夜の混む時間の山 [[web:simgames:r5-fv-wiki-csd]] | 深夜は人が集まらない危険と組 |
+| 41 | 行列と待ち時間（整理券・回転・麺の茹で時間） | 7・28・35・43 | 連日3〜4時間待ちの店 [[web:simgames:r5-fv-netshop-takumen]] | 待ちが短いと満足が上がる、レジ係で待ちを減らす [[web:simgames:r5-fv-wiki-lemonadetycoon]] | 行列は宣伝にもなり不満にもなる（両面） |
+| 42 | 常連（顔・好み・来店の間隔） | 15・26・44 | アプリ会員180万人・毎週のクーポン [[web:ramen:r4-ramen-yamaokaya-setsumei2603]] | 常連客と客の好みを集める（声）[[web:simgames:r5-fv-applion-ramenkan-zenkoku]]。満足すると戻る [[web:simgames:r5-fv-wiki-lemonadetycoon]] | 常連の顔（2〜3人）で評判の体温計に |
+| 43 | 口コミ・ランキング・雑誌・賞 | 13・31・41 | ラーメンの賞と覆面調査のグルメ誌が選んだ店がフェスに集まる [[web:ramen:r4-ramen-prtimes-tryfes]]。SNS の口コミで人気が上下しやすい [[web:ramen:r4-ramen-tsr-2023]] | 年1回の大賞 [[web:simgames:r5-fv-applion-gamedevstory]]、偽の口コミの仕組み [[web:simgames:r5-fv-pmq-goodpizza]]、表彰式 [[web:simgames:r5-fv-wiki-twopointhospital]] | 段の目標（3章 #25）と新聞（#26）の素 |
+| 44 | SNS・アプリ・クーポン・LINE | 11・42・15 | SNS で若年層・女性が増えた、繁忙期はクーポンを減らす [[web:ramen:r4-ramen-yamaokaya-setsumei2603]] | バズ（良くも悪くも）[[web:simgames:r5-fv-gamesasylum-startup]] | 値引きの癖（BIZ-MKT）と組 |
+| 45 | 催し・フェスへの出店 | 13・43・52 | フェスに人気店が集まる、海外のイベントで反響を見て出店を決めた [[web:ramen:r4-ramen-prtimes-tryfes]] [[web:ramen:r4-ramen-jetro-namerica2016]] | フェスモード・すごろくで全国に売り歩く [[web:simgames:r5-fv-appmatch-ramenkan]] | 短い出張の遊び。杯数は多いが利益は小さい |
+
+### 4.7 ブランドの展開（8）
+| # | 変数 | 絡む相手 | 現実の根拠 | 作品の根拠 | 危険と対策 |
+|---|---|---|---|---|---|
+| 46 | 通販（冷凍・お取り寄せ。食数・値段・再現度） | 13・43・51 | 有名店の冷凍ラーメンのテレビ通販（6食5,800円、つけ麺の作り方を添えて夏にも）[[web:simgames:r5-fv-netshop-takumen]]。家庭用の冷凍は+9.6% [[web:ramen:r4-ramen-reishokukyo-2025]]。商品販売の利益率は約13%（一風堂）[[web:ramen:r4-ramen-chikara-tanshin2026]] | 【資料なし】 | 店の評判が元手、通販が店の宣伝にもなる（両方向） |
+| 47 | おみやげ麺・カップ麺の監修・コラボ | 13・43・50 | 製麺所の側で有名店とのコラボが収益の高い売り先 [[web:ramen:r4-ramen-tdb-seimen2025]]。有名店の名前の商品がスーパーに [[web:ramen:r4-ramen-maff-kyodo-hokkaido]] | 【資料なし】 | 監修料の相場は【要確認】（BIZ-RAMEN） |
+| 48 | グッズ・アパレル | 43・13 | 【資料なし】（BIZ-RAMEN でも一次資料なし） | 【資料なし】 | 評判が一定以上で開く小さな枝。数字は仮置きと明記 |
+| 49 | FC・プロデュース・暖簾分け | 36・51・43 | 直営287・プロデュース等614（ギフト）。プロデュースはノウハウ無償で PB 商品を買ってもらう [[web:ramen:r4-ramen-gift-yuho2025]] | 【資料なし】（この調べものの作品にない） | 加盟店の質が本体の評判に返る |
+| 50 | 卸（近所の店・スーパーへ麺・スープ） | 6・51・36 | 特注麺の注文の増加、外部の店にも売る [[web:ramen:r4-ramen-tdb-seimen2025]] [[web:ramen:r4-ramen-gift-yuho2025]] | 他社に売る、質が高ければ他社が買いに来る [[web:simgames:r5-fv-capilab-beginners]] | 余った生産の行き先。与信の判断と組 |
+| 51 | 工場（製麺・スープ・チャーシュー、規模・時期） | 3・6・50・49 | 2013年に製麺工場→チャーシュー・スープ工場（ギフトの沿革）[[web:ramen:r4-ramen-gift-yuho2025]] | 縦の統合で自社の中でお金を回す、詰まりを探す [[web:simgames:r5-fv-capilab-strategies]] | 店の数が少ないと稼働が上がらない（CVP） |
+| 52 | 海外出店（直営・ライセンス・JV） | 45・53 | 米国の店は高価格で行列、ただし利益が不安定・水質・輸入規制・人の教育 [[web:ramen:r4-ramen-jetro-us2025]] [[web:ramen:r4-ramen-chikara-tanshin2026]] | 【資料なし】 | 為替（25）と組 |
+| 53 | 訪日客への対応（多言語・食の配慮） | 26・52・15 | 訪日客の最も満足した飲食でラーメン2位、2025年度に伸びた店の主因 [[web:ramen:r4-ramen-jnet21-guide]] [[web:ramen:r4-ramen-tdb-market25fy]] | 【資料なし】 | 駅前・観光地のエリアだけに効く |
+
+### 4.8 53個から言えること
+- **一杯の組み立て（#1〜14）が一番深い**：14変数、それぞれ3〜6段。作品（ラーメン館の6変数）と現実（スープの方向・自家製麺・限定麺）の両方に根拠がある。ここが鎖1（組み合わせ×見えない相性）と鎖2（名前）の舞台になる。
+- **変数どうしの掛け算の要**は、エリア（#26）・値段の位置（#15）・スープの作り方（#3）・麺の仕入れ方（#6）の4つ。これらが他の多くの変数の効きを変える（「絡む相手」の列で数えると、#26 は5つ、#15 は4つ以上の変数と掛かる）。
+- **両方に根拠がないのは #48（グッズ）だけ**。作品にない（現実だけ）のは #5・#22・#25・#46・#47・#49・#52・#53 の8つ、現実にない（作品だけ）のは #11・#12・#13・#17・#21・#30・#37・#38・#39 の9つ。
+- **効きが弱くなる危険が高いもの**：#9（小麦は1杯の1%）、#5（香味油）、#22（検品）。季節・エリア・事故の重みと掛けないと触られない（鎖B）。
+- オーナーの例示（豆のブレンド＝一杯の組み立て、土地取得＝#30、生産＝#51、副業の不動産＝#30、商品開発＝#14・#46〜48）は、ラーメン屋でもすべて置ける。
+
+---

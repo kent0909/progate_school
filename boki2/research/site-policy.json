@@ -1658,5 +1658,10 @@
   "verdict": "gray",
   "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"
+ },
+ "www.tomsguide.com": {
+  "verdict": "gray",
+  "basis": "tomsguide.com robots.txt：User-agent * は記事を Disallow しない。AI クローラの名指しの拒否に ClaudeBot・anthropic なし（2026-10-22 確認）。利用規約の明示の禁止は未確認。単発の記事閲覧、転載しない",
+  "checked": "2026-10-22"
  }
 }
