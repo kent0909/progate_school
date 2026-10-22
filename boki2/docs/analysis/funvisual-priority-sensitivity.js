@@ -114,3 +114,18 @@ if (base.some((r) => r.voices.Wp !== undefined || r.voices.Wo !== undefined)) {
   variant('版0.3：Ws（80件）を全部「外の事業」に足す（版0.2 に近い数え方）', (rows) => { const r = get(rows, '外の事業'); r.voices = { ...r.voices, Ws: 80 }; });
   variant('版0.3：検査役が Wo の取りこぼしと見た2件（ピザ 3-18 畑で栽培・発展国 10-10 ゲーム機も作れる）を外の事業に足す', (rows) => { const r = get(rows, '外の事業'); r.voices = { ...r.voices, Wo: (r.voices.Wo || 0) + 2 }; });
 }
+
+// ---- (6) 版0.4 の振り分け（Wp・Wo・Wb・Wm・Wn）への依存 ----
+{
+  const sp = fs.readFileSync(path.join(__dirname, 'funvisual-w-split.txt'), 'utf8').split('\n').filter((l) => l.trim() && !l.startsWith('#')).map((l) => l.trim().split(/\s+/));
+  const n = (k) => sp.filter((x) => x[2] === k).length;
+  if (n('Wm') + n('Wn') > 0) {
+    console.log(`6) 版0.4 の振り分けの件数：Wp ${n('Wp')}・Wo ${n('Wo')}・Wb ${n('Wb')}・Wm ${n('Wm')}・Wn ${n('Wn')}`);
+    const byGame = {}; for (const x of sp) { byGame[x[0]] = byGame[x[0]] || {}; byGame[x[0]][x[2]] = (byGame[x[0]][x[2]] || 0) + 1; }
+    for (const [g, o] of Object.entries(byGame)) { const said = (o.Wp || 0) + (o.Wm || 0) + (o.Wo || 0) + (o.Wb || 0); const out = (o.Wo || 0) + (o.Wb || 0); console.log(`   ${g}：中身を言う ${said}件のうち店の外に触れる ${out}件${said ? `（${Math.round(100 * out / said)}%）` : ''}`); }
+    variant('版0.4：Wm（店の中の具体38件）を一杯に足す', (rows) => { const r = get(rows, '一杯'); r.voices = { ...r.voices, Wm: n('Wm') }; });
+    variant('版0.4：Wn（中身を言わない38件）を外の事業に足す', (rows) => { const r = get(rows, '外の事業'); r.voices = { ...r.voices, Wn: n('Wn') }; });
+    variant('版0.4：Wn を一杯と外の事業に半分ずつ', (rows) => { const r = get(rows, '外の事業'); r.voices = { ...r.voices, Wn: Math.round(n('Wn') / 2) }; const s = get(rows, '一杯'); s.voices = { ...s.voices, Wn: Math.round(n('Wn') / 2) }; });
+    variant('版0.4：Wo の取りこぼしとして移した2件（ピザの畑・発展国のゲーム機）を戻す', (rows) => { const r = get(rows, '外の事業'); r.voices = { ...r.voices, Wo: (r.voices.Wo || 0) - 2 }; });
+  }
+}

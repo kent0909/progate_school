@@ -226,9 +226,30 @@ if os.path.exists(REP):
     bad = []; n = 0
     for line in re.findall(r'^（J\d+.*$', m.group(1) if m else '', re.M):
         jid = re.match(r'^（(J\d+)', line).group(1)
-        for seg in re.findall(r'（借）(.*?)／（貸）(.*?)(?=、（借）|。|（\d|$|（[^借貸]{2,})', line):
-            dr = sum(int(x.replace(',', '')) for x in re.findall(r'(\d[\d,]{2,})', seg[0]))
-            cr = sum(int(x.replace(',', '')) for x in re.findall(r'(\d[\d,]{2,})', re.split(r'（', seg[1])[0]))
+        t = line.replace('（借）', '<D>').replace('（貸）', '<C>')
+        t = re.sub(r'（[^（）]*）', '', re.sub(r'（[^（）]*）', '', t))  # 注の括弧を外す（入れ子は2回）
+        for piece in t.split('<D>')[1:]:
+            if '<C>' not in piece: continue
+            left, right = piece.split('<C>', 1)
+            right = re.split(r'[。]|、[^\d]*$', right)[0]
+            num = lambda x: sum(int(v.replace(',', '')) for v in re.findall(r'(?<![\d年月])(\d{1,3}(?:,\d{3})+|\d{4,})(?![\d年月])', x))
+            dr, cr = num(left), num(right)
             n += 1
             if dr != cr: bad.append(f'{jid}: 借 {dr:,} 貸 {cr:,}')
     print(f'  区切り {n} 件、貸借が合わないもの {len(bad)} {bad}')
+
+# ---- 10) 報告の全体の条番号を law のノートと突き合わせる（判定書の手抜きの予想：同じ型の誤りを全部探す）----
+print('\n## 10) 報告の全体の「〇〇法N条」')
+if os.path.exists(REP):
+    s = unicodedata.normalize('NFKC', open(REP, encoding='utf-8').read())
+    s = re.sub(r'\[\[[^\]]*\]\]', '', s)  # 出典の中は数えない
+    found = {}
+    pat = r'((?:私的独占の禁止及び公正取引の確保に関する法律|補助金等に係る予算の執行の適正化に関する法律|[一-龥ァ-ヶー]+?(?:法|規則|令)))((?:\d+条(?:の\d+)?(?:\d+項)?(?:\d+号)?[・、]?)+)'
+    for mm in re.finditer(pat, s):
+        law = mm.group(1)
+        for a in re.findall(r'(\d+)条', mm.group(2)):
+            found.setdefault((law, int(a)), 0); found[(law, int(a))] += 1
+    ok = [k for k in found if note_has(k[0], k[1])]
+    ng = [k for k in found if not note_has(k[0], k[1])]
+    print(f'  条番号の組 {len(found)} 種類（のべ {sum(found.values())}）。law のノートにあるもの {len(ok)}、ないもの {len(ng)}')
+    print('  ないもの：', '・'.join(f'{l}{a}条' for l, a in sorted(ng)))
