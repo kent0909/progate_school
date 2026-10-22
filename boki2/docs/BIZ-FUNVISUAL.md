@@ -421,3 +421,66 @@
 ### 2.4 符号付けの限界
 - 符号は私1人で付けた。判定役が版0.1 の100件を付け直した時の一致は、件ごと81%・符号ごと89%（判3.1）。この版の778件は2人目による全件の付け直しをしていない（やっていないこと）。
 - 例の語句：やれることの多さの例は全国編の [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p2|「トッピングを自分好みに配置」]]、配信の例は [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p5|「Vtuberさんの実況アーカイブ」]]、中身の谷の例は全国編の [[web:simgames:r5-fv-applion-ramenkan-zenkoku|「虚無期間」]]。
+
+---
+
+## うまくいく理由
+
+長く遊ばれる理由を、作品と声に共通する**因果の鎖**として書く。版0.1 の鎖1（見えない相性）を芯から外し、鎖0（多さと店の外の事業）を足した。
+
+**鎖0 やれることの多さ → 本業の稼ぎの行き先が増える → 段が変わる → 遊びの種類そのものが変わる**（新設。K27・判1章-3）
+Coffee Inc 2 では、店で稼いだ後に株・不動産・豆の栽培が開き [[web:simgames:r4-cinc-applion-reviews|「コーヒー豆の自家栽培」]]、店→投資会社→企業集団と段が変わるのを楽しむ声がある [[web:simgames:r4-cinc-applion-reviews|「コングロマリット」]]。Capitalism Lab は土地・建物・子会社・買収を DLC で足した [[web:simgames:r5-fv-capilab-home|「Land Plots」]]。Two Point は更新で地域と病気を足し続けた [[web:simgames:r5-fv-wiki-twopointhospital|「seven major updates」]]。声の W は109件。**絡み**：新しい事業は本業のお金（現金）を奪い合うので、配分の判断になる [[web:simgames:r4-cinc-applion-reviews|「どこに投資するのか」]]。**効く条件**：店の外が店の遊びを置き換えないこと（前作の反省 [[web:simgames:r5-cinc-applion-p2|「面白くなかったのですが」]]）、規模に合わせた一覧と委任。
+
+**鎖1 作る自由 → 自分の作品 → 試す → 当たり外れ → また作る**（版0.1 の「組み合わせ×見えない相性」を直した。K01・K17）
+麺×スープ×具、ジャンル×内容×機種、基の料理×食材を自分で組む（声 A1 83件）[[web:simgames:r5-fv-applion-ramenkan-app|「ラーメン作りの自由度が高く」]]。結果の手がかりは、隠すより**少しずつ見せる**作品が多い：グルメ食堂は開発の窓で「何ができそうか」をほのめかし（画面を見た）、発展国++ は実在の物を参考にすると当たる [[web:simgames:r5-fv-applion-gamedevstory|「参考にしていれば大体正解」]]。隠れた相性を楽しむ声（A2 16件）は、当てられる相性を楽しむ声（A3 16件）と同じ数。**効く条件**：相性が現実の常識に沿い、当てられること（鎖9）。硬すぎると型破りが常に罰せられる（鎖H）。
+
+**鎖2 名前の入力＋浮き沈みを起こす仕組み → 物語 → 愛着 → 記録**（K02・K18）
+物語の外骨格の論考は、物語の源を名前と、物語を生まずにいられない一貫した仕組みの両方とし [[web:simgames:r5-fv-gd-gamedevstory|「generate stories」]]、中身は小さな会社の浮き沈みだと言う [[web:simgames:r5-fv-gd-gamedevstory|「rise and fall of little」]]。名前だけでは物語にならない。声 B 32件のうち27件が発展国++（カイロソフトの型）。
+
+**鎖3 品目・場面ごとに効く手が違う → 同じ手が通らない → 状況を読む**（K19、妥当）
+Capitalism Lab の品目ごとの重み [[web:simgames:r5-fv-capilab-beginners|「comes from branding」]]、Offworld の共有の値段 [[web:simgames:r5-fv-matchstick-offworld|「a single price」]]。**効く条件**：何がどれだけ効くかが選ぶ前におおよそ見えること（Capitalism Lab は重みを画面で見せる。画面写真で確かめた）。
+
+**鎖4 新しい仕組みを伴う解放 → 節目 → 次の目標**（K03・K20）
+発展国++ は飽きた頃のハード開発で熱が戻った [[web:simgames:r5-fv-applion-gamedevstory|「飽きてきた頃にハード開発」]]。場所だけを変えても中身が尽きれば1週間で平らになる（Lemonade Tycoon [[web:simgames:r5-fv-pocketgamer-lemonadetycoon|「fall a little flat」]]）。**効く条件**：解放に新しい変数が付くこと、谷を作りすぎないこと（[[web:simgames:r5-fv-applion-ramenkan-zenkoku|「虚無期間」]]）。
+
+**鎖5 段の目標（星・大賞） → 気軽な人と熱心な人が同じ場で**（K21。星の効果は作り手の意図で、測った資料はない【要確認】）
+Two Point の作り手の意図 [[web:simgames:r5-fv-pcgi-twopoint|「casual player」]]。発展国++ の大賞（声 D3 59件のうち47件）。最上段の後の目標がないと寂しい（L2 13件）。
+
+**鎖6 予告つきの大事件 → 賭け → 自分の物語**（K22）
+主力の機種の販売停止の予告に全額を賭けた声 [[web:simgames:r5-fv-applion-gamedevstory|「3ヶ月後に販売停止」]]。Offworld の闇市場は買うと値上がりして相手に備えさせる [[web:simgames:r5-fv-wiki-offworld|「black market」]]。**反対側は「予告なし」ではなく「片側だけ・対処なし」**：予告のない小さな揺れは楽しまれる（[[web:simgames:r5-fv-applion-gamedevstory|「社員の努力が乱数」]]、[[web:simgames:r5-fv-applion-goodpizza|「機械の故障とかある」]]、作り手の [[web:simgames:r5-fv-sixthaxis-twopoint|「disrupting factors」]]）。
+
+**鎖7 小さな生きている動き → 眺める楽しさ＋状態が一目で分かる**（K23、妥当）
+受付の人が退屈して鍵盤をいじる [[web:simgames:r5-fv-cgm-twopoint|「bored」]]。頭上の吹き出し [[web:simgames:r5-fv-pocketgamer-gamedevstory|「speech bubbles」]]。17時に社員が帰る [[web:simgames:r5-fv-automaton-startup|「Startup Company」]]。**効く条件**：判断の画面の横で動き、長い場面は初めと新しい要素の時だけ。
+
+**鎖8 世界の外側（ニュース・メール・新聞） → 世界の厚み**（K24）
+ピザの世界のニュースと偽の口コミは、書き手を雇って作った [[web:simgames:r5-fv-pmq-goodpizza|「worked with writers」]] [[web:simgames:r5-fv-pmq-goodpizza|「fake Yelp review」]]。文章の作り手が要る。
+
+**鎖9 題材の現実を写した細部 → 本物っぽい → 知識が武器**（K25）
+実在を参考にすると当たる（発展国++）、現実に沿うことを褒める声（A3 16件、Coffee Inc 2 で7件）[[web:simgames:r4-cinc-applion-reviews|「実践的な教材」]]。鎖1の相性は、この鎖と釣り合わせる（隠しすぎない）。
+
+**鎖10 毎回変わる条件（地図・相場・相手） → 同じ周が二度とない**（K26。周回の強い作品の芯）
+Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capitalism Lab の推薦文はやり直して別の戦略を試すと語る [[web:simgames:r5-fv-capilab-home|「It never gets boring」]]、Coffee Inc 2 は違う方針でやり直したくなる [[web:simgames:r4-cinc-applion-reviews|「何度も最初からやり直して」]]。
+
+---
+
+## うまくいかない理由
+
+**鎖A 上限に達する → 目標が消える → だれる**：強い社員がそろうと挑戦がなくなる [[web:simgames:r5-fv-pocketgamer-gamedevstory|「guaranteed」]]、全部が手に入ると別のデータで始めるしかない [[web:simgames:r5-cinc-applion-p2|「新たに始めるしかなくなって」]]（L2 13件）。
+
+**鎖B 効きの小さい変数 → 触られない**：全部の値をじわじわ上げて完璧に近づくとしぼむ。題材に固有の値と、極端な値に届くドミノが要る [[web:simgames:r5-fv-gd-mgmtdepth|「dominoes」]]。
+
+**鎖C' 中身が尽きる・解放の谷 → だれる**（K04 で足した）：店を出し終えるとやることがなくなる [[web:simgames:r4-cinc-applion-reviews|「やることがなくなる」]]、新しい食材までの谷 [[web:simgames:r5-fv-applion-ramenkan-zenkoku|「虚無期間」]]、Lemonade の [[web:simgames:r5-fv-pocketgamer-lemonadetycoon|「less variety」]]（L1 20件・S 45件）。
+
+**鎖C 作った物と人が絵にならない → 無個性**（だれではなく見た目の問題）：Startup Company の欠点 [[web:simgames:r5-fv-gamesasylum-startup|「lack of character」]]。**ピヨ商店の今の画面がチープに見える理由の仮説【推論】**：仕訳・書類・数字の表は多いが、店・一杯・客が絵として出ず、成長が見た目で分からない。
+
+**鎖D 判定が一貫しない・悪い方だけ・対処の手がない → 理不尽**（K31）：判定の不満（M1 24件）は本人が不具合と書くものを含む。悪い方だけの出来事（M2 4件）の直し方の要望は [[web:simgames:r5-fv-applion-gamedevstory|「良い方向に起こるイベント」]]。
+
+**鎖E 繰り返しの設定・一覧のなさ → 作業**：Coffee Inc 2 の N 36件（株の数量の入力・不動産の価格・全店の一覧）。版0.1 の「店長は決まった動き」もこの声 [[web:simgames:r4-cinc-applion-reviews|「ある一定の動きしかしない」]]。
+
+**鎖F 支配的な一手 → 作る自由と多さが死ぬ**：スープの交互入れ [[web:simgames:r5-fv-applion-ramenkan|「生姜とにんにくを交互に」]]、黒字の店を建てるかが全て [[web:simgames:r4-cinc-applion-reviews|「黒字店舗を建てるかが全て」]]、金融屋になれば勝てる（Q 10件）。
+
+**鎖G 初めの文字の壁 → 惨敗 → やめる**：用語集がほしい [[web:simgames:r5-fv-pocketgamer-gamedevstory|「glossary」]]（O 46件）。慣れたら楽しいが同じ口コミに並ぶので、入口を越えさせれば越えられる。
+
+**鎖H 型破りが常に罰せられる → 自由が狭まる**：Game Dev Tycoon の記者 [[web:simgames:r5-fv-digdl-gamedevtycoon|「not afraid to punish」]]（同じ記者は無責任な判断を罰するのは長所とも書く）。
+
+**鎖I 店の外が店を食う → 題材の遊びが消える**（新設）：前作の Coffee Inc は投資会社になって面白くなかった [[web:simgames:r5-cinc-applion-p2|「面白くなかったのですが」]]、金融屋として経営した方が良い（1-8、BVN 1件・Q 5件）。
