@@ -299,3 +299,9 @@ for lam in (0.3, 0.5, 0.7, 1.0):
         best = max(prof(town, CHEAP), prof(town, KODA))
         losses.append(pct(best - prof(town, ref), best))
     print('  λ=%.1f：%s' % (lam, shares(losses)))
+
+print()
+print('=== F9b：奥多摩（家族＋自己所有、固定費25万円）で、家族1人の労働を最低賃金で数えたときの30杯の採算（値段を地域のふつうに止める）')
+for p in (900, 1000):
+    c = ITEMS * p - COST; F0 = fixed(0, 100000, 1085, 0, 150000); Ff = F0 + 1085 * 8 * DAYS
+    print('  %d円：固定費 %.0f→%.0f円、分岐点 %.1f杯/日、30杯の営業利益 %+.0f円' % (p, F0, Ff, Ff / (DAYS * c), 30 * DAYS * c - Ff))

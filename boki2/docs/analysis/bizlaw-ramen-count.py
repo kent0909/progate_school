@@ -96,7 +96,7 @@ if os.path.exists(REP):
     def sect(title):
         m = re.search(r'^## ' + re.escape(title) + r'.*?$(.*?)(?=^## |\Z)', s, re.M | re.S)
         return m.group(1) if m else ''
-    gray = re.findall(r'^\| G\d+ ', sect('灰色の判断の一覧'), re.M)
+    gray = re.findall(r'^\| G\d+ ', sect('灰色の判断の一覧').split('### 型の付け直し')[0], re.M)
     cases = re.findall(r'^\| E\d+ ', sect('事例と判例'), re.M)
     fail = re.findall(r'^\| E\d+ \|[^|]*\|[^|]*失敗', sect('事例と判例'), re.M)
     succ = re.findall(r'^\| E\d+ \|[^|]*\|[^|]*成功', sect('事例と判例'), re.M)
@@ -184,17 +184,9 @@ if os.path.exists(REP):
                 else: ng += 1; bad.append(f'{law}{a}条')
     print(f'  条番号 {ok + ng} 件のうち、law のノートで確かめられたもの {ok}、確かめられないもの {ng} {bad}')
 
-# ---- 6) 新しい群の字数の割合（判定書の手抜きの予想：新しい群が本文の6割以上）----
-print('\n## 6) 新しい群の割合')
-if os.path.exists(REP):
-    s = open(REP, encoding='utf-8').read()
-    m = re.search(r'^## 打ち手ごとの法務と会計.*?$(.*?)(?=^## |\Z)', s, re.M | re.S)
-    body = m.group(1) if m else ''
-    parts = re.split(r'^(?=### 群)', body, flags=re.M)
-    OLD = {'6'}  # 群6（メニュー表示）は元の BIZ-LAW の販促の節と重なる。ほかは新しい群
-    new_len = sum(len(p) for p in parts if (mm := re.match(r'### 群(\d+)', p)) and mm.group(1) not in OLD)
-    print(f'  打ち手の章 {len(body)} 字のうち新しい群（群6 を除く13群）{new_len} 字、割合 {new_len / len(body):.3f}')
-    print(f'  報告の全体 {len(s)} 字に対する新しい群の字数の割合 {new_len / len(s):.3f}（ほかの章は群をまたぐ表で、元の BIZ-LAW の販促の節の写しではない）')
+# ---- 6) 新しい群の割合：第3版で 11) に一本化した（第2版の 6) は群6 だけを旧とする別の分け方で「全体」0.271 を出し、
+# 第1版の言い訳の文を出し続けていた。論証の検査 V111）。割合は 11) だけを見る ----
+print('\n## 6) 新しい群の割合 → 11) に一本化（第3版）')
 
 # ---- 7) 課徴金の試算（第2版）：税抜・税込・免税の前提と、店の数で届く限定の1品 ----
 print('\n## 7) 課徴金の試算（税の前提と店の数）')
@@ -220,7 +212,12 @@ kacho = NET * MIX * 0.85 * 3 * 0.03       # 課徴金（税込の売上×3%）
 shuchi = 400_000                # 措置命令の周知の新聞広告（J19 の置き値）【推論】
 kyakugen = NET * 0.10 * 0.65    # 発覚の後1年、客が1割減ったときの粗利の減り（粗利率65%）【推論】
 print(f'  看板の麺の杯数（36か月）{bowls:,.0f} 杯、課徴金 {kacho:,.0f}円、周知 {shuchi:,.0f}円、客の減り {kyakugen:,.0f}円')
-for label, d in [('原価の差だけ（1杯15円安い輸入小麦）', 15), ('値段の上乗せ（「国産」で1杯50円高く売る）', 50)]:
+# 原価の差の置き値：中華そば（外食）の小売価格に占める原料小麦代金は約1%（農水省の価格公表添付資料、ノート r4-ramen-maff-komugi2610）。
+# 1杯900円なら小麦代は約9円。国産と輸入の小麦の値段の差の資料は読んでいないので、差は小麦代の半分〜全部（4.5〜9円）と置く【推論】。
+# 第2版の15円は根拠がなく、小麦代の全部（9円）を超えていた（論証の検査 V093）。
+WHEAT = PRICE * 0.01
+for label, d in [(f'原価の差だけ・小さめ（小麦代{WHEAT:.0f}円の半分＝1杯{WHEAT*0.5:.1f}円）', WHEAT * 0.5), (f'原価の差だけ・大きめ（小麦代の全部＝1杯{WHEAT:.0f}円）', WHEAT),
+                 ('値段の上乗せ（「国産」で1杯50円高く売る。50円は根拠のない置き値【推論】）', 50)]:
     gain = bowls * d
     p1 = gain / kacho
     p2 = gain / (kacho + shuchi + kyakugen)
@@ -265,7 +262,9 @@ if os.path.exists(REP):
 # ---- 11) 章ごとの新・旧の分類で、報告の全体に対する新しい部分の割合（判定書 BIZ-LAW-RAMEN-audit 6.3）----
 # 分類の基準（先に決めた）：旧＝元の BIZ-LAW の14節と主題が重なる所（販促の景表法・ステマ・価格表示・名簿・補助金・外注・修繕・通販の表示、
 # 課徴金、訂正の章、判定書由来の N5・付録A の仕分け）。新＝それ以外の打ち手と、群をまたぐ表の章。
-# 形＝要点・問い・資料の内訳・論証の表・対応表・やっていないこと（中身の主題を持たない章）
+# 形＝要点・問い・資料の内訳・論証の表・対応表・やっていないこと・検査役の筋から採ったもの（中身の主題を持たない章）
+# 当てはめの注：「偽りの損得」は景表法の課徴金（元の BIZ-LAW の販促の節の主題）の計算なので旧。「捨てた案と理由」は案の一覧で主題を持たないので形。
+# 打ち手の章の中は、群6（メニュー表示）と、OLD_SUB の小節（1-5 内装工事の契約、1-6 修繕費か資本的支出か、4-3 通販の広告と予約販売、7-6 業務委託、9-4 補助金、12-3・12-5 口コミ・ステマ）を旧とする（元の BIZ-LAW の修繕・通販の表示・外注・補助金・ステマの節と主題が重なる）
 print('\n## 11) 章ごとの新・旧の分類')
 if os.path.exists(REP):
     s = open(REP, encoding='utf-8').read()
@@ -276,16 +275,18 @@ if os.path.exists(REP):
            '依頼の対応表': '形', 'やっていないこと': '形', '判定書 BIZ-LAW-RAMEN-audit への対応': '形', '論証の検査への対応表': '形', '検査役の筋から採ったもの': '形'}
     OLD_SUB = ('1-5', '1-6', '4-3', '7-6', '9-4', '12-3', '12-5')
     tot = {'新': 0, '旧': 0, '形': 0, '?': 0}
+    inch = {'新': 0, '旧': 0, '形': 0}
     for blk in re.split(r'^(?=## )', s, flags=re.M)[1:]:
         title = blk.split('\n', 1)[0][3:]
         if title.startswith('打ち手ごとの法務と会計'):
             for g in re.split(r'^(?=### 群)', blk, flags=re.M):
                 mm = re.match(r'### 群(\d+)', g)
-                if not mm: tot['形'] += len(g); continue
-                if mm.group(1) == '6': tot['旧'] += len(g); continue
+                if not mm: tot['形'] += len(g); inch['形'] += len(g); continue
+                if mm.group(1) == '6': tot['旧'] += len(g); inch['旧'] += len(g); continue
                 for sub in re.split(r'^(?=#### )', g, flags=re.M):
                     ms = re.match(r'#### (\d+-\d+)', sub)
-                    tot['旧' if ms and ms.group(1) in OLD_SUB else '新'] += len(sub)
+                    k = '旧' if ms and ms.group(1) in OLD_SUB else '新'
+                    tot[k] += len(sub); inch[k] += len(sub)
             continue
         if title.startswith('DESIGN-RAMEN の判断への対応表'):
             for sub in re.split(r'^(?=### )', blk, flags=re.M):
@@ -295,5 +296,6 @@ if os.path.exists(REP):
         k = next((v for kk, v in CLS.items() if title.startswith(kk)), '?')
         tot[k] += len(blk)
     allc = sum(tot.values())
+    print(f'  打ち手の章の中の新の割合 {inch["新"] / (inch["新"] + inch["旧"]):.3f}（打ち手の章の新 {inch["新"]}・旧 {inch["旧"]}・章の頭などの形 {inch["形"]}）')
     print(f'  新 {tot["新"]}・旧 {tot["旧"]}・形 {tot["形"]}・未分類 {tot["?"]}（字）')
     print(f'  報告の全体に対する新の割合 {tot["新"] / allc:.3f}、形を除いた本文（新＋旧）に対する新の割合 {tot["新"] / (tot["新"] + tot["旧"]):.3f}')
