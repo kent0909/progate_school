@@ -33,3 +33,33 @@ print('2) 周 の数え直し')
 print('  元のコード: 周=%d件 楽しみ: %s' % (len(shu), tally(shu)))
 shu2 = [i for i in shu if i not in MOVE]
 print('  %d件（#%s）を 長 に移すと: 周=%d件 楽しみ: %s' % (len(MOVE), ' #'.join(map(str, MOVE)), len(shu2), tally(shu2)))
+
+# 3) 版0.2の再判定：経営シム643件（書き手の replay-mgmt-voices.py と同じ切り出し）を全件読む側からの数え直し
+import importlib.util
+MV = os.path.join(ROOT, 'docs', 'analysis', 'replay-mgmt-voices.py')
+src = open(MV, encoding='utf8').read().split("HIT = re.compile")[0]
+g = {'__file__': MV}
+exec(compile(src, MV, 'exec'), g)
+U = g['U']
+print('3) 経営シムの口コミ %d 件（書き手の切り出しと同じ）' % len(U))
+HIT = re.compile(r'[周週]')
+txt = lambda u: re.sub(r'\s+', ' ', u['title'] + ' ' + u['body'])
+# 3a) 「周」「週」の字のない口コミで、始め直し・2回目以降に触れたもの（判定役が全文を読んで選んだ語。該当文を出す）
+REPLAY = re.compile(r'最初からやり直|最初からプレイ|やり直しても|２回目|2回目|引き継ぎ|リセットされる')
+non = [u for u in U if not HIT.search(txt(u)) and REPLAY.search(txt(u))]
+print('  3a) 「周」「週」の字がなく、始め直し・2回目・引き継ぎに触れた口コミ：%d 件' % len(non))
+for u in non:
+    m = REPLAY.search(txt(u)); s = txt(u)
+    print('     [%s] …%s…' % (u['work'], s[max(0, m.start() - 40):m.end() + 40]))
+# 3b) ゲーム発展国++ の大賞（グランプリ）の声：何周目で取ったか
+gd = [u for u in U if u['work'] == 'ゲーム発展国++' and re.search(r'グランプリ|大賞|賞とれ', txt(u))]
+LATER = re.compile(r'2周目|２周目|2週目\+|苦節2週目|3周目|2周しまし|２回目')
+FIRST = re.compile(r'1週目グランプリ|初プレイ|始めたばかりですが、グランプリ|初めてのカイロソフト|DLしてから約6時間|３日でグランプリ|2週目まだやってない|呆気なくグランプリ|一周目からそこそこ|約8時間でグランプリ|初日で8時間')
+lat = [u for u in gd if LATER.search(txt(u))]
+fst = [u for u in gd if FIRST.search(txt(u)) and not LATER.search(txt(u))]
+print('  3b) ゲーム発展国++ で大賞・グランプリに触れた口コミ：%d 件。うち2周目以降に取ったと書く %d 件、1周目（初回のプレイ・始めてすぐ・2周目はまだ）で取った・届いたと読める %d 件、周を書かない残り %d 件'
+      % (len(gd), len(lat), len(fst), len(gd) - len(lat) - len(fst)))
+for name, L in (('2周目以降', lat), ('1周目', fst)):
+    for u in L:
+        s = txt(u); m = (LATER if name == '2周目以降' else FIRST).search(s)
+        print('     %s: …%s…' % (name, s[max(0, m.start() - 30):m.end() + 30]))
