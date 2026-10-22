@@ -348,6 +348,78 @@ opm = [5.1, 3.2, 0.2, 1.5, 2.2, 2.8, 5.1, 3.9, 2.4, 3.2, 4.3, 2.3, 2.0, 2.8, 7.8
 d = [b - a for a, b in zip(opm, opm[1:])]
 p(f'\n山岡家（2010〜2026年1月期、説明資料39〜41頁の図。版0.3で読み直した値）の営業利益率の前年差：標準偏差 {st.stdev(d):.1f}ポイント、絶対値の中央値 {st.median([abs(x) for x in d]):.1f}。公庫の会社の間の標準偏差（7.6）は、1社の年の揺れ（約2）より大きい。**店の素質の幅（会社の間）と、1店の年の揺れは別の量**。\n')
 
+
+# ---------- K. 中華そば（外食）の月別と曜日（家計調査 2025年の日別支出、補填の担当が取得した12か月） ----------
+import datetime
+p('## K. 中華そば（外食）の2025年の月別と、平日・土日の差（家計調査 第6-16表 日別支出、二人以上の世帯）\n')
+rowsK = []
+for mth in range(1, 13):
+    f = raw('web', 'bizmgmt', f'r6-fc-estat-kakei-hibetsu-2025{mth:02d}.html')
+    if not os.path.exists(f): continue
+    s_ = sheet(f).split('\n')
+    blk = []
+    for l in s_:
+        if l.startswith('# '):
+            if blk: break
+            continue
+        blk.append(l)
+    def row(name):
+        for l in blk:
+            c = l.split('\t')
+            if name in c:
+                i = c.index('円') if '円' in c else None
+                if i is None: continue
+                return [float(x) if x not in ('', '-') else 0.0 for x in c[i + 1:]]
+    for name in ['中華そば', '外食']:
+        v = row(name)
+        if not v: continue
+        ndays = (datetime.date(2025 + (mth == 12), mth % 12 + 1, 1) - datetime.date(2025, mth, 1)).days
+        days = v[:ndays]; total = v[-1]
+        wd = [x for d, x in enumerate(days, 1) if datetime.date(2025, mth, d).weekday() < 5]
+        we = [x for d, x in enumerate(days, 1) if datetime.date(2025, mth, d).weekday() >= 5]
+        rowsK.append((mth, name, total, st.mean(wd), st.mean(we)))
+if rowsK:
+    p('| 月 | 中華そば 月の支出（円） | 平日の1日平均 | 土日の1日平均 | 土日÷平日 | 外食 月の支出（円） | 外食の土日÷平日 |'); p('|---|---|---|---|---|---|---|')
+    by = {}
+    for mth, name, tot, wd, we in rowsK: by.setdefault(mth, {})[name] = (tot, wd, we)
+    for mth in sorted(by):
+        c = by[mth].get('中華そば'); g = by[mth].get('外食')
+        if not c: continue
+        p(f'| {mth}月 | {c[0]:,.0f} | {c[1]:.1f} | {c[2]:.1f} | {c[2] / c[1]:.2f} | {g[0]:,.0f} | {g[2] / g[1]:.2f} |' if g else f'| {mth}月 | {c[0]:,.0f} | {c[1]:.1f} | {c[2]:.1f} | {c[2] / c[1]:.2f} | — | — |')
+    tots = [by[m]['中華そば'][0] for m in sorted(by) if '中華そば' in by[m]]
+    mean = st.mean(tots)
+    p(f'\n中華そばの月の支出：12か月の平均 {mean:,.0f}円、最多 {max(tots):,.0f}円（{sorted(by)[tots.index(max(tots))]}月、平均の{max(tots) / mean:.2f}倍）、最少 {min(tots):,.0f}円（{sorted(by)[tots.index(min(tots))]}月、{min(tots) / mean:.2f}倍）。月の日数の違いを含む金額。土日÷平日は祝日を平日に数えた値（祝日を分けると平日はさらに低い向き）。\n')
+    p('調査の条件：二人以上の世帯の家計簿で、店の売上ではない。単身の世帯・訪日客・会社員の小遣いの昼食は入らない（平日を低く見せる向き）。\n')
+
+# ---------- L. 店の密度と需要の大きさ（V1 の別の読み） ----------
+p('## L. 都道府県のラーメン店の密度と、人口1人あたりのラーメン店の売上（2016年）\n')
+f1 = raw('web', 'bizmgmt', 'r5-cal-stat-jinsui2016-gaiyou3.pdf'); f2 = raw('web', 'bizmgmt', 'r5-cal-estat-census2016-inshoku.html')
+if os.path.exists(f1) and os.path.exists(f2):
+    POP = {}
+    for m in re.finditer(r'\d+\s+((?:[^\s\d]\s*){2,4}?[都道府県])\s+([\d,]+)\s+[\d.]+\s+[\d,]+\s+[\d.]+', pdftext(f1)):
+        POP[re.sub(r'\s', '', m.group(1))] = int(m.group(2).replace(',', '')) * 1000
+    rows_ = list(csv.reader(io.StringIO(open(f2, 'rb').read().decode('cp932'))))
+    D = []
+    for r_ in rows_:
+        if len(r_) > 14 and '7624' in r_[6] and r_[3] != '全国' and r_[3] in POP:
+            n_, sales_, ind_ = int(r_[7]), int(r_[13]), int(r_[14])
+            D.append((r_[3], n_ / POP[r_[3]] * 1e5, sales_ * 1e6 / POP[r_[3]], sales_ / n_ * 100 / 12, ind_ / n_))
+    dens = [d[1] for d in D]; pc_ = [d[2] for d in D]; per = [d[3] for d in D]; indv = [d[4] for d in D]
+    p(f'{len(D)}都道府県。相関：密度と1店の月売上 r＝{corr(dens, per):.2f}、密度と人口1人あたりの年のラーメン店売上 r＝{corr(dens, pc_):+.2f}、密度と個人の店の割合 r＝{corr(dens, indv):+.2f}、1人あたり売上と1店の月売上 r＝{corr(pc_, per):+.2f}。\n')
+    p('| 都道府県 | 10万人あたり店数 | 1店の月売上（万円） | 1人あたり年の売上（円） | 個人の店の割合 |'); p('|---|---|---|---|---|')
+    for d in sorted(D, key=lambda d: -d[1])[:5] + sorted(D, key=lambda d: d[1])[:5]:
+        p(f'| {d[0]} | {d[1]:.1f} | {d[3]:.0f} | {d[2]:,.0f} | {d[4] * 100:.0f}% |')
+    p('\n読み：店の多い県は、1人あたりのラーメンの売上（需要）も大きい。「店が多いと1店の取り分が減る」（奪い合い）と「需要の大きい所に店が多い」（需要に合わせた出店）の両方の読みがあり、この県の表からはどちらとも決められない【推論】。\n')
+
+# ---------- M. 原価の上がりと売値の上がり：率と円 ----------
+p('## M. ラーメン原価指数と中華そばの売値：率と円（T1 の検算）\n')
+k = cpi[0].index('中華そば（外食）'); prod = 1.0
+for r_ in cpi:
+    if r_ and r_[0].strip().isdigit() and 2021 <= int(r_[0].strip()) <= 2025: prod *= 1 + float(r_[k]) / 100
+c0 = 0.35; c1 = c0 * 1.41 / prod
+p(f'中華そば（外食）の2021〜2025年の前年比の積 ＝ {prod:.3f}（+{(prod - 1) * 100:.1f}%、年率 {(prod ** 0.2 - 1) * 100:.1f}%）。ラーメン原価指数 2020→2025年 100→141（+41%、年率 {(1.41 ** 0.2 - 1) * 100:.1f}%。2025年は11月までの平均で、水道光熱費を含まない）。累計の比 {41 / ((prod - 1) * 100):.1f}倍、年率の比 {((1.41 ** 0.2 - 1)) / (prod ** 0.2 - 1):.1f}倍。')
+p(f'原価率35%の店が材料+41%・売値+{(prod - 1) * 100:.1f}%を受けると、原価率は {c0 * 100:.1f}% → {c1 * 100:.1f}%。1杯の粗利（売値を基準1とした円）は {1 - c0:.3f} → {(prod - c0 * 1.41) / 1:.3f}（売値が上がった分を含めた円）で、**率は下がり、円はほぼ横ばい**。\n')
+
 # ---------- J. その他の検算 ----------
 p('## J. その他の検算\n')
 p(f'- G1：山岡家の純資産 14.7億→101.3億円（10年で +86.6億円）。1億円÷86.6億円＝1/{86.6:.0f}。力の源 13.1→106.6億円（4年で +93.5億円）＝1/94、ギフト 41.2→103.8億円（4年で +62.6億円）＝1/63。版0.2の「約10分の1」は誤り。')
