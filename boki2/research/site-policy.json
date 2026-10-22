@@ -2128,5 +2128,10 @@
   "verdict": "gray",
   "basis": "ASKUL（業務用通販）。robots.txt の User-agent * は /review/ など一部のみ禁止、検索と商品頁は許可。利用規約の自動取得の明示の禁止は確認できず（gray）",
   "checked": "2026-10-22"
+ },
+ "ichioshi.smt.docomo.ne.jp": {
+  "verdict": "gray",
+  "basis": "dメニューの記事の転載（いちおし）。robots.txt は確認、規約に自動取得の明示の禁止は見当たらない（gray）",
+  "checked": "2026-10-22"
  }
 }
