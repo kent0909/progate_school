@@ -1,4 +1,4 @@
-# BIZ-SIMDESIGN 0.2 が引く資料の台帳。区分：新規＝この版で取得して読んだ／再読＝前の版（r4-sim-*）の原文を読み直した／他担当＝別の担当（BIZ-FUNVISUAL r5-fv-*）の原文を引いた。数える＝作り手の話の本数に数えるか（受け入れの基準2。物語ゲームと中身のない頁は数えない）
+# BIZ-SIMDESIGN 0.2・0.3 が引く資料の台帳。【0.3】gamespark はメールの定型の問答で設計の中身がないので数えない（判定書 基準2）。他担当に BIZ-REPLAY（r6-rp-*）を足した。区分：新規＝この版で取得して読んだ／再読＝前の版（r4-sim-*）の原文を読み直した／他担当＝別の担当（BIZ-FUNVISUAL r5-fv-*）の原文を引いた。数える＝作り手の話の本数に数えるか（受け入れの基準2。物語ゲームと中身のない頁は数えない）
 doc	区分	種類	作品	数える
 r6-sd-train-ch03	新規	研究	（市場の取り合いの式）	
 r6-sd-train-ch04	新規	研究	（市場の取り合いの式）	
@@ -15,7 +15,7 @@ r6-sd-factorio-fff129	新規	作り手の話	Factorio	1
 r6-sd-mcv-twopoint	新規	作り手の話	Theme Hospital/Two Point	1
 r6-sd-gd-glassbox2012	新規	作り手の話	SimCity	1
 r6-sd-codecks-hovgaard	新規	作り手の話	Big Ambitions	1
-r6-sd-gamespark-bigambitions	新規	作り手の話	Big Ambitions	1
+r6-sd-gamespark-bigambitions	新規	作り手の話	Big Ambitions	0
 r6-sd-gamediscover-bigambitions	新規	作り手の話	Big Ambitions	1
 r6-sd-pecorella-idle1	新規	作り手の話	AdVenture Capitalist	1
 r6-sd-soren-playingtolose	新規	作り手の話	Civilization	0
@@ -71,3 +71,7 @@ r5-fv-wiki-twopointhospital	他担当	事例	Theme Hospital/Two Point
 r5-fv-matchstick-offworld	他担当	作り手の話	Offworld	
 r5-fv-denfami-ramenkan	他担当	実務者・業界	カイロソフト	
 r5-fv-applion-gamedevstory	他担当	利用者の声	カイロソフト	
+r6-sd-toucharcade-reigns-gdc	新規	事例	Reigns	0
+r4-sim-gd-80days-postmortem	再読	作り手の話	80 Days	0
+r4-sim-gd-thiswarofmine	再読	作り手の話	This War of Mine	0
+r6-rp-gd-hades-devprocess	他担当	作り手の話	Hades	0

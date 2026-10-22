@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# BIZ-SIMDESIGN 0.2：引いた資料の台帳 simdesign-sources.tsv を数える。使い方: python3 -I boki2/docs/analysis/simdesign-sources-count.py
+# BIZ-SIMDESIGN 0.2・0.3：引いた資料の台帳 simdesign-sources.tsv を数える。使い方: python3 -I boki2/docs/analysis/simdesign-sources-count.py
 import csv, collections, os
 P = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'simdesign-sources.tsv')
 R = [r for r in csv.DictReader((l for l in open(P, encoding='utf-8') if not l.startswith('#')), delimiter='\t')]

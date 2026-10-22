@@ -1,4 +1,4 @@
-# BIZ-SIMDESIGN 0.2：APPLION の口コミ83件を1件ずつ分類した表。id の頭：c=RCT Classic（r6-sd-applion-rctclassic）g=Game Dev Tycoon（r6-sd-applion-gamedevtycoon）si=SimCity BuildIt iOS（r6-sd-applion-simcitybuildit）sa=同 Android（r6-sd-applion-simcitybuildit-android）rt=RCT Touch（r6-sd-applion-rcttouch）pc=Pocket City（r6-sd-applion-pocketcity）。並びは各ページの上から。期間は本文に書いてあるときだけ。
+# BIZ-SIMDESIGN 0.2：APPLION の口コミ83件を1件ずつ分類した表。id の頭：c=RCT Classic（r6-sd-applion-rctclassic）g=Game Dev Tycoon（r6-sd-applion-gamedevtycoon）si=SimCity BuildIt iOS（r6-sd-applion-simcitybuildit）sa=同 Android（r6-sd-applion-simcitybuildit-android）rt=RCT Touch（r6-sd-applion-rcttouch）pc=Pocket City（r6-sd-applion-pocketcity）。並びは各ページの上から。期間は本文に書いてあるときだけ。【0.3で直した】rt9・sa17・si3 は「ずっと」「長く」で年の明示がないので「長い（年の明示なし）」にした（判定書 E6）。
 id	作品	星	年	期間	褒め	不満	辞めた
 c1	RCTClassic	4	2026	不明	値段;互換	AI動き	
 c2	RCTClassic	5	2026	不明	見た目		
@@ -11,7 +11,7 @@ g3	GDT	5	2020	不明	中毒性
 g4	GDT	5	2019	不明	-	言語	
 si1	SCB-iOS	5	2021	不明	作り込み;対人	序盤資金	
 si2	SCB-iOS	5	2025	不明	考える;眺める;トラブル		
-si3	SCB-iOS	5	2025	長年	奥深さ;眺める	UI	
+si3	SCB-iOS	5	2025	長い（年の明示なし）	奥深さ;眺める	UI	
 si4	SCB-iOS	5	2021	数年	成長;対人;懐かしさ	災害;バグ	
 si5	SCB-iOS	5	2021	不明	眺める	序盤資金	
 si6	SCB-iOS	5	2025	不明	-	課金	
@@ -45,7 +45,7 @@ sa13	SCB-And	5	2022	数年	対人;考える
 sa14	SCB-And	5	2020	不明	対人	作業;UI	
 sa15	SCB-And	5	2025	不明	懐かしさ	作業	
 sa16	SCB-And	5	2022	不明	考える;周回		
-sa17	SCB-And	5	2021	数年	時間;考える		
+sa17	SCB-And	5	2021	長い（年の明示なし）	時間;考える		
 sa18	SCB-And	5	2022	不明	対人	作り込み不足	
 sa19	SCB-And	5	2023	不明	成長;対人		
 sa20	SCB-And	5	2021	不明	-	UI	
@@ -57,7 +57,7 @@ rt5	RCT-Touch	5	2021	不明	解放;成長;中毒性
 rt6	RCT-Touch	5	2024	不明	値段	UI	
 rt7	RCT-Touch	5	2021	不明	中毒性	説明不足;対人	
 rt8	RCT-Touch	5	2019	不明	作り込み		
-rt9	RCT-Touch	5	2020	長年	考える;成長	説明不足	
+rt9	RCT-Touch	5	2020	長い（年の明示なし）	考える;成長	説明不足	
 rt10	RCT-Touch	5	2020	不明	-	作業	
 rt11	RCT-Touch	5	2019	不明	考える	序盤資金	
 rt12	RCT-Touch	5	2020	不明	考える	目標喪失	

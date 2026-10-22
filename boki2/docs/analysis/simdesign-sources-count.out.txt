@@ -1,8 +1,8 @@
-資料の合計 71
-区分 {'新規': 40, '再読': 24, '他担当': 7}
-種類（全体） [('作り手の話', 27), ('一次資料', 21), ('研究', 8), ('利用者の声', 7), ('実務者・業界', 4), ('事例', 4)]
-種類（新規だけ） [('一次資料', 13), ('作り手の話', 12), ('研究', 7), ('利用者の声', 6), ('実務者・業界', 2)]
-最も多い種類の割合 作り手の話 27/71 = 38%
-新規の作り手の話（受け入れの基準2で数えるもの） 10 ['AdVenture Capitalist', 'Big Ambitions', 'Civilization', 'Factorio', 'Offworld', 'SimCity', 'Theme Hospital/Two Point']
-新規の作り手の話で数えないもの ['r6-sd-soren-playingtolose', 'r6-sd-willmott-glassbox']
-作品ごとの資料の数（作品名つきのもの） [('Capitalism Lab', 12), ('Offworld', 5), ('SimCity', 5), ('Big Ambitions', 5), ('Civilization', 4), ('RollerCoaster Tycoon', 4), ('Theme Hospital/Two Point', 3), ('Game Dev Tycoon', 3), ('カイロソフト', 3), ('Markstrat', 3), ('RimWorld', 2), ('Factorio', 1), ('AdVenture Capitalist', 1), ('Into the Breach', 1), ('Frostpunk', 1), ('Recettear', 1), ('Papers, Please', 1), ('Reigns', 1), ('Detroit', 1), ('Lemonade Stand', 1), ('ビズストーム', 1)]
+資料の合計 75
+区分 {'新規': 41, '再読': 26, '他担当': 8}
+種類（全体） [('作り手の話', 30), ('一次資料', 21), ('研究', 8), ('利用者の声', 7), ('事例', 5), ('実務者・業界', 4)]
+種類（新規だけ） [('一次資料', 13), ('作り手の話', 12), ('研究', 7), ('利用者の声', 6), ('実務者・業界', 2), ('事例', 1)]
+最も多い種類の割合 作り手の話 30/75 = 40%
+新規の作り手の話（受け入れの基準2で数えるもの） 9 ['AdVenture Capitalist', 'Big Ambitions', 'Civilization', 'Factorio', 'Offworld', 'SimCity', 'Theme Hospital/Two Point']
+新規の作り手の話で数えないもの ['r6-sd-gamespark-bigambitions', 'r6-sd-soren-playingtolose', 'r6-sd-willmott-glassbox', 'r6-sd-toucharcade-reigns-gdc']
+作品ごとの資料の数（作品名つきのもの） [('Capitalism Lab', 12), ('Offworld', 5), ('SimCity', 5), ('Big Ambitions', 5), ('Civilization', 4), ('RollerCoaster Tycoon', 4), ('Theme Hospital/Two Point', 3), ('Game Dev Tycoon', 3), ('カイロソフト', 3), ('Markstrat', 3), ('RimWorld', 2), ('Reigns', 2), ('Factorio', 1), ('AdVenture Capitalist', 1), ('Into the Breach', 1), ('Frostpunk', 1), ('Recettear', 1), ('Papers, Please', 1), ('Detroit', 1), ('Lemonade Stand', 1), ('ビズストーム', 1), ('80 Days', 1), ('This War of Mine', 1), ('Hades', 1)]

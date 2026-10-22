@@ -30,7 +30,7 @@ KIND = {
  'r5-blr-ejinzai-invoice-r8': 'prac', 'r5-blr-smarthr-tencho': 'prac', 'r5-blr-mclaw-kanrishoku': 'prac', 'r5-blr-shiodome-ipo': 'prac',
  'r5-blr-masouken-zangyo': 'prac', 'r5-blr-mf-ma-boogai': 'prac', 'r5-blr-mf-genjou': 'prac', 'r5-blr-mf-teikishakuya': 'prac',
  'r5-blr-mf-futourenbai': 'prac', 'r5-blr-mf-roukisho': 'prac', 'r5-blr-batonz-hosho': 'prac', 'r5-blr-monolith-tabelog': 'prac',
- 'r5-blr-rodo-hibou': 'prac', 'r5-blr-rodo-shaho-inshoku': 'prac', 'r5-blr-rodo-shaho-hanbai': 'prac', 'r5-blr-zeiken-chuko': 'prac', 'r5-blr-jinjer-ipo': 'prac',
+ 'r5-blr-rodo-hibou': 'prac', 'r5-blr-rodo-shaho-inshoku': 'prac', 'r5-blr-rodo-shaho-hanbai': 'prac', 'r5-blr-nenkin-tekiyou1': 'gov', 'r5-blr-zeiken-chuko': 'prac', 'r5-blr-jinjer-ipo': 'prac', 'r5-blr-ayusawa-chousa': 'prac',
  'r5-blr-keiyaku-tabelog': 'prac',
  # 事例（報道）
  'r5-blr-seijiyama-hotel': 'case', 'r5-blr-seijiyama-ichiran': 'case', 'r5-blr-jcast-sukiya': 'case', 'r5-blr-rodo-souken-inshoku': 'case',
@@ -42,7 +42,7 @@ KIND = {
  # 作り手の話
  'r5-blr-econ-cartelgame': 'maker',
  # 反対意見
- 'r5-blr-zenshoren-shaho': 'oppo', 'r5-blr-ayusawa-chousa': 'oppo', 'r5-blr-gendai-gisou': 'oppo',
+ 'r5-blr-zenshoren-shaho': 'oppo', 'r5-blr-gendai-gisou': 'oppo',
 }
 LABEL = {'gov': '一次資料・統計（官公庁）', 'prac': '実務者・業界の解説', 'case': '事例（報道・企業の開示）', 'research': '研究',
          'stat': '統計（民間）', 'maker': '作り手の話', 'oppo': '反対意見'}

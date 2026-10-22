@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# BIZ-SIMDESIGN 0.2：simdesign-voices.tsv（口コミ83件の1件ずつの分類）を数える。
+# BIZ-SIMDESIGN 0.2（0.3で長期の数え直しを足した）：simdesign-voices.tsv（口コミ83件の1件ずつの分類）を数える。
 # 使い方: python3 -I boki2/docs/analysis/simdesign-voices-count.py
 import csv, collections, os
 P = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'simdesign-voices.tsv')
@@ -14,7 +14,10 @@ for k in ('褒め', '不満', '辞めた'):
     print(k, '（重複あり、件数）', c.most_common(), ' 1つ以上ある口コミ', sum(1 for r in R if lab(r, k)))
 L = [r for r in R if r['期間'] in ('1年', '数年', '長年')]
 S = [r for r in R if r['期間'] in ('数時間', '2日')]
-print('1年以上と書いた人', len(L), '褒め', collections.Counter(x for r in L for x in lab(r, '褒め')).most_common(), '不満', collections.Counter(x for r in L for x in lab(r, '不満')).most_common())
+M = [r for r in R if r['期間'] == '長い（年の明示なし）']
+print('長いと書いたが年の明示なし', len(M), [r['id'] for r in M])
+print('1年以上の人の「対人」の褒めの作品', dict(collections.Counter(r['作品'] for r in L if '対人' in lab(r, '褒め'))))
+print('1年以上と書いた人', len(L), '作品の内訳', dict(collections.Counter(r['作品'] for r in L)), '褒め', collections.Counter(x for r in L for x in lab(r, '褒め')).most_common(), '不満', collections.Counter(x for r in L for x in lab(r, '不満')).most_common())
 print('数日以内と書いた人', len(S), [(r['id'], r['褒め'], r['不満']) for r in S])
 for g in ('PocketCity', 'SCB-iOS', 'SCB-And', 'RCT-Touch'):
     G = [r for r in R if r['作品'] == g]

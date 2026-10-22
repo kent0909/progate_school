@@ -1,0 +1,42 @@
+# BIZ-FUNVISUAL 版0.3 の W の振り分け（funvisual-w-split.txt）の抜き取りの読み直し。論証検査役（docs/audit/BIZ-FUNVISUAL-reasoning.md 11章）。
+# 抜き方：funvisual-w-split.txt の110件から Python の random.seed(20261022)・random.sample(…, 36)。本文は funvisual-voices.js --dump の全文で読んだ。
+# 1行1件：作品 ページ-番号 書き手の区分 検査役の区分 一致 理由（中身の短い要約）
+pizza 2-6 Ws Wp ✗ 「様々なトッピング」にハマった・トッピングを増やして＝作る物の種類の多さ
+zenkoku 8-9 Ws Ws ○ やり込み要素沢山（中身を言わない）
+gds 6-20 Ws Ws ○ 多種多様な選択肢・やり込み（中身を言わない）
+zenkoku 6-6 Ws Ws ○ やりこみ要素（中身を言わない）
+zenkoku 4-6 Ws Ws ○ 追加の双六・システム
+zenkoku 1-14 Wp Wp ○ 麺・スープ・トッピングで無限のパターン
+zenkoku 5-7 Ws Ws ○ トッピングや店内装飾の追加（混ざる→Ws の決まりどおり）
+zenkoku 5-6 Ws Ws ○ 遊びごたえ（中身を言わない）
+cinc 4-3 Wo Wo ○ サッカークラブのオーナー
+ramenkan 1-6 Ws Ws ○ 内容が濃厚（中身を言わない）
+pizza 4-17 Ws Ws ○ 家具を集める・記憶力
+gds 4-1 Ws Ws ○ 奥深い（中身を言わない）
+zenkoku 3-5 Ws Ws ○ やることがたくさん（一般）
+zenkoku 1-16 Ws Ws ○ ミニゲーム・展開・ノルマ
+zenkoku 4-13 Wp Wp ○ スープや麺の組み合わせ要素が多い
+zenkoku 4-10 Ws Ws ○ 放置も作るのも、遊び方の幅
+zenkoku 7-3 Wp Wp ○ ラーメンを作るのにかなりの要素
+gds 9-1 Ws Ws ○ タイトル決め・カンスト（一般）
+pizza 3-18 Ws Wo ✗ 畑で材料を栽培できるのでやりこめる＝自社の生産（Wo の定義に「豆の栽培」）
+pizza 1-7 Ws Wp ✗ 色んな食材・ピザの種類が様々＝作る物の種類の多さ
+gds 8-15 Ws Ws ○ 自由さ（一般）
+zenkoku 2-16 Wp Wp ○ 小麦や水・スープの材料を考えて作り上げる一杯
+pizza 8-11 Ws Ws ○ ボリューム（一般）
+zenkoku 3-17 Wp Ws ✗ 出店場所・麺とスープの種類・常連・大会・すごろく＝混ざる（書き手の決まりでは Ws）
+gds 2-17 Ws Ws ○ タイトルの自由度（名づけ）
+zenkoku 2-17 Wp Ws ✗ トッピングの配置・店舗の拡張・大会など＝混ざる（書き手の決まりでは Ws）
+zenkoku 5-1 Ws Ws ○ やり込み（一般）
+gds 7-5 Ws Ws ○ 雇用・解雇・職歴（店の運営）
+gurume 1-6 Ws Ws ○ メニュー・店員・食材探し（混ざる）
+cinc 2-16 Ws Ws ○ やり込み度（一般）
+gds 10-6 Wp Wp ○ ジャンルの組み合わせ・作品
+pizza 4-8 Ws Wp ✗ いろんな注文や具材＝作る物の種類の多さ
+zenkoku 9-8 Ws Ws ○ 奥深い（一般）
+zenkoku 3-9 Ws Ws ○ 各フェーズのやり込み（一般）
+cinc 6-7 Ws Ws ○ 値段設定・従業員の感想（店の運営）
+zenkoku 8-3 Wp Wp ○ 好みのラーメン・効率重視のメニュー
+# 一致 30/36（83%）。食い違い6：Ws→Wp 3、Ws→Wo 1、Wp→Ws 2。
+# 抜き取りの外で、語の検索（栽培・畑・不動産・株・工場・会社・ハード…）で見た Wo の取りこぼしの候補：gds 10-10 Ws（会社が成長すればゲーム機も作れる＝自社のハード。1.14 は発展国の「自社のハード開発」を自社の生産に数えている）。
+# 書き手が Ws とした27件のうち、中身を言わない・一般の多さだけのもの（印「中身を言わない」「一般」）は14件（52%）。awk で数えた。
