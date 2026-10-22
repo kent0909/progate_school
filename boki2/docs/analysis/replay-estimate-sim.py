@@ -14,6 +14,7 @@
 #     ・上がる：k 回正解したあとの正解率 = 1 −（1 − p0）× q^k（q=0.5：正解するたびに誤る率が半分）。
 #       想起の練習で後の想起が強くなる（テスト効果）ことの単純な写し。q の値は資料から決めたものではない（仮定）。
 #  3) 届いた項目が後でまた出て誤ると外れる（engine.js 411行：最後の試行が誤りなら 'miss'）ことを、表2で入れた。
+#  4) 月初に思い出す件数 k と、ふだんの記帳での自然な思い出し nat を変えたときの感度を表3で出した（自分で確かめるため）。
 #
 # 模型（すべて仮定。設計者が数を変えれば結果も変わる）：
 #  - 1周＝10期×12か月＝120回の月初。1日1時間なら1周は run_days 日（DESIGN-RAMEN の10〜15時間）。
@@ -27,7 +28,7 @@
 import random, math, itertools
 GAPS = {2: (7, 7), 3: (3, 7, 14), 4: (3, 7, 14, 21)}
 RECHECK = 30
-def sim(seed, p0, d, N, run_days, mode='run', q=1.0, recheck=False, n_items=77, horizon=700):
+def sim(seed, p0, d, N, run_days, mode='run', q=1.0, recheck=False, k=1, nat=0.0, n_items=77, horizon=700):
     rnd = random.Random(seed)
     pattern = {7: [1] * 7, 3: [1, 0, 1, 0, 1, 0, 0]}[d]
     mph = 120.0 / run_days
@@ -45,13 +46,8 @@ def sim(seed, p0, d, N, run_days, mode='run', q=1.0, recheck=False, n_items=77, 
     # 項目：[初出の日, 正解の回数（連続または通算）, 期日, 最後が正解か, 届いたか, 正解の累計（正解率用）]
     items = [[tm(f), 0, tm(f) + gaps[0], False, False, 0] for f in first]
     done = 0
-    for t in times:
-        best = None
-        for it in items:
-            if it[0] <= t and it[2] <= t and (recheck or not it[4]) and (best is None or it[2] < best[2]):
-                best = it
-        if best is None:
-            continue
+    def attempt(best, t):
+        nonlocal done
         p = 1 - (1 - p0) * (q ** best[5])
         if rnd.random() < p:
             best[1] += 1; best[5] += 1; best[3] = True
@@ -65,6 +61,13 @@ def sim(seed, p0, d, N, run_days, mode='run', q=1.0, recheck=False, n_items=77, 
             if best[4]:
                 best[4] = False; done -= 1
             best[2] = t + 1
+    for t in times:
+        due = sorted((it for it in items if it[0] <= t and it[2] <= t and (recheck or not it[4])), key=lambda it: it[2])
+        for best in due[:k]:
+            attempt(best, t)
+        for best in due[k:]:
+            if nat and rnd.random() < nat:   # ふだんの記帳で、期日の来た項目を自然に思い出す（その月の書類に同じ型が出た）
+                attempt(best, t)
         if done == n_items:
             return t
     return float('inf')
@@ -107,6 +110,13 @@ print('| N | p0 | ' + ' | '.join(m[0] for m in MODELS) + ' |')
 print('|---|---|' + '---|' * len(MODELS))
 for N, p0 in itertools.product((2, 3, 4), (0.9, 0.8)):
     print('| %d | %.1f | %s |' % (N, p0, ' | '.join(cell(med(p0=p0, d=7, N=N, run_days=10, mode=mode, q=q, recheck=True), 10) for _, mode, q in MODELS)))
+print()
+print('表3 想起の枠 k（月初に思い出す件数）と、ふだんの記帳での自然な思い出し（期日の来た残りの項目を、月ごとに確率 nat で思い出す）。1周10日・毎日・N=3')
+print()
+print('| k | nat | p0 | ' + ' | '.join(m[0] for m in MODELS) + ' |')
+print('|---|---|---|' + '---|' * len(MODELS))
+for kk, nat, p0 in ((1, 0.0, 0.9), (3, 0.0, 0.9), (1, 0.3, 0.9), (1, 0.6, 0.9), (1, 0.0, 0.8), (3, 0.0, 0.8), (1, 0.6, 0.8)):
+    print('| %d | %.1f | %.1f | %s |' % (kk, nat, p0, ' | '.join(cell(med(p0=p0, d=7, N=3, run_days=10, mode=mode, q=q, k=kk, nat=nat), 10) for _, mode, q in MODELS)))
 print()
 print('満点の目安：1項目の受験日の保持率 r、本試験で問われる項目数 m のとき全部正しい確率 r^m（独立を仮定した説明用の数）')
 print('| r | m=10 | m=20 | m=40 |')

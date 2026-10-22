@@ -2158,5 +2158,10 @@
   "verdict": "gray",
   "basis": "会津若松商工会議所。robots.txt をこの取得で確かめる（r6-cal-aizu-robots）",
   "checked": "2026-10-22"
+ },
+ "www.reinet.or.jp": {
+  "verdict": "gray",
+  "basis": "日本不動産研究所。robots.txt をこの取得で確かめる（r6-cal-reinet-robots）",
+  "checked": "2026-10-22"
  }
 }
