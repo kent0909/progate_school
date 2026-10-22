@@ -60,7 +60,7 @@ const CAT = {
   J: '話題・贈り物', K: '特定の店がお気に入り', L: '定番・特に理由なし・麺そのもの', M: '動画・メディアで知った', N: '分類への異議',
 };
 // マイナビ（記事に載った順。しょうゆ13・みそ11・とんこつ8・塩8・魚介4・ない3・その他6）
-const mynavi = 'ACAFAALAAFFAL' + 'BCCEFCEEFBD' + 'BCBBGFCC' + 'DAEFDCDC' + 'BAAB' + 'GGN' + 'BBEEBG';
+const mynavi = 'ACAFALLAAFFAL' + 'BCCEFCEEFBD' + 'BCBBGFCC' + 'DAEFDCDC' + 'BAAB' + 'GGN' + 'BBEEBG';
 // NEXER×一蘭（家での理由9・お取り寄せの理由9・贈り物の理由5、記事の順）
 const nexer = 'HHLHLHIKH' + 'IIIIIMIII' + 'JJIJJ';
 // ナビット（おすすめの店の自由回答の抜粋3）
