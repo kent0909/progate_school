@@ -18,6 +18,8 @@ const cnt = (re, col, words) => {
 const v1 = cnt(/^\| K\d\d \|/, 7, ['不当', '弱い', '妥当']);
 const r = cnt(/^\| R\d\d \|/, 5, ['一部', '応えていない', '応えた']);
 const n = cnt(/^\| N\d\d[ab]? \|/, 7, ['不当', '弱い', '妥当']);
+const t4 = cnt(/^\| T\d\d \|/, 5, ['一部', '応えていない', '応えた']);
+const p4 = cnt(/^\| P\d\d \|/, 7, ['不当', '弱い', '妥当']);
 const s3 = cnt(/^\| S\d\d \|/, 5, ['一部', '応えていない', '応えた']);
 const m3 = cnt(/^\| M\d\d \|/, 7, ['不当', '弱い', '妥当']);
 console.log('版0.1 の検査（K）：行', v1.rows, '判定', JSON.stringify(v1.out));
@@ -25,3 +27,5 @@ console.log('版0.2 の応え（R）：行', r.rows, JSON.stringify(r.out));
 console.log('版0.2 の新しい結論（N）：行', n.rows, JSON.stringify(n.out));
 console.log('版0.3 の応え（S）：行', s3.rows, JSON.stringify(s3.out));
 console.log('版0.3 の結論（M）：行', m3.rows, JSON.stringify(m3.out));
+console.log('版0.4 の応え（T）：行', t4.rows, JSON.stringify(t4.out));
+console.log('版0.4 の結論（P）：行', p4.rows, JSON.stringify(p4.out));
