@@ -706,8 +706,8 @@
  },
  "www.jstage.jst.go.jp": {
   "verdict": "gray",
-  "basis": "J-STAGE robots.txt は /*_pdf のみ Disallow。_article ページは許可。利用規約は個人の閲覧を認める。PDF は取らない",
-  "checked": "2026-10-21"
+  "basis": "J-STAGE。robots.txt は User-agent * に /*_pdf だけを禁止（記事の書誌・抄録の頁は許可）。利用規約に自動取得の明示の禁止なし。PDF は robots に従い取らない",
+  "checked": "2026-10-22"
  },
  "www.nishiken.jp": {
   "verdict": "ok",
