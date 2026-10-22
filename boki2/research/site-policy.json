@@ -1516,7 +1516,7 @@
  },
  "corporate.kakaku.com": {
   "verdict": "gray",
-  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "basis": "corporate.kakaku.com：会社の報道発表PDF。robots.txt に該当パスの禁止なし。1本（2026-10-22）",
   "checked": "2026-10-22"
  },
  "tabelog.com": {
@@ -2082,6 +2082,16 @@
  "5harad.com": {
   "verdict": "gray",
   "basis": "5harad.com：著者（Sharad Goel）の個人サイトで論文PDFを公開。robots.txt なし（404）または制限なし。2本だけ（2026-10-22）",
+  "checked": "2026-10-22"
+ },
+ "thedailytexan.com": {
+  "verdict": "gray",
+  "basis": "thedailytexan.com：robots.txt は /cgi-bin/ と検索・クエリ付きだけ禁止、Crawl-delay 6。学生新聞の記事1本（2026-10-22）",
+  "checked": "2026-10-22"
+ },
+ "human.hirosaki-u.ac.jp": {
+  "verdict": "gray",
+  "basis": "弘前大学人文社会科学部のサイト：robots.txt に禁止なし（空）。研究報告の概要版PDF1本（2026-10-22）",
   "checked": "2026-10-22"
  }
 }
