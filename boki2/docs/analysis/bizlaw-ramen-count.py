@@ -138,3 +138,51 @@ for annual, share, months in [(35_000_000, 0.85, 36), (35_000_000, 0.85, 24), (3
 for share in (1.0, 0.85, 0.5):
     m = 1_500_000 * 12 / (0.03 * 35_000_000 * share)
     print(f'  年商3,500万円・対象の割合{share}：150万円に届くのは {m:.1f} か月以上')
+
+# ---- 5) DESIGN 対応表の「画面に出してよい法令の文」の条番号を law のノートと突き合わせる（law-check.js と同じ判定）----
+print('\n## 5) DESIGN 対応表の法令の文と law のノート')
+LAWDIR = os.path.join(ROOT, 'research', 'notes', 'law')
+import unicodedata
+lawnotes = []
+for p in glob.glob(os.path.join(LAWDIR, '**', '*.md'), recursive=True):
+    lawnotes.append(unicodedata.normalize('NFKC', open(p, encoding='utf-8').read()))
+KJ = {'〇': 0, '一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9}
+def kanjinum(x):
+    n = cur = 0
+    for ch in x:
+        if ch in KJ: cur = KJ[ch]
+        elif ch == '十': n += (cur or 1) * 10; cur = 0
+        elif ch == '百': n += (cur or 1) * 100; cur = 0
+        elif ch == '千': n += (cur or 1) * 1000; cur = 0
+    return n + cur
+def note_has(law, art):
+    for t in lawnotes:
+        if law not in t: continue
+        nums = {int(m) for m in re.findall(r'第?(\d+)条', t)} | {kanjinum(m) for m in re.findall(r'第([〇一二三四五六七八九十百千]+)条', t)}
+        if art in nums: return True
+    return False
+if os.path.exists(REP):
+    s = open(REP, encoding='utf-8').read()
+    m = re.search(r'^## DESIGN-RAMEN の判断への対応表.*?$(.*?)(?=^## |\Z)', s, re.M | re.S)
+    sec_d = m.group(1) if m else ''
+    ok = ng = 0; bad = []
+    for row in re.findall(r'^\| D\d+ .*$', sec_d, re.M):
+        last = row.rstrip('|').split('|')[-1]
+        last = unicodedata.normalize('NFKC', last)
+        for mm in re.finditer(r'([一-龥ァ-ヶー]+?(?:法|規則|令))((?:\d+条(?:の\d+)?(?:\d+項)?[・、]?)+)', last):
+            law = mm.group(1)
+            for a in re.findall(r'(\d+)条', mm.group(2)):
+                if note_has(law, int(a)): ok += 1
+                else: ng += 1; bad.append(f'{law}{a}条')
+    print(f'  条番号 {ok + ng} 件のうち、law のノートで確かめられたもの {ok}、確かめられないもの {ng} {bad}')
+
+# ---- 6) 新しい群の字数の割合（判定書の手抜きの予想：新しい群が本文の6割以上）----
+print('\n## 6) 新しい群の割合')
+if os.path.exists(REP):
+    s = open(REP, encoding='utf-8').read()
+    m = re.search(r'^## 打ち手ごとの法務と会計.*?$(.*?)(?=^## |\Z)', s, re.M | re.S)
+    body = m.group(1) if m else ''
+    parts = re.split(r'^(?=### 群)', body, flags=re.M)
+    OLD = {'6'}  # 群6（メニュー表示）は元の BIZ-LAW の販促の節と重なる。ほかは新しい群
+    new_len = sum(len(p) for p in parts if (mm := re.match(r'### 群(\d+)', p)) and mm.group(1) not in OLD)
+    print(f'  報告の全体 {len(s)} 字、新しい群（群6 を除く13群）{new_len} 字、割合 {new_len / len(s):.3f}')

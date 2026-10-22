@@ -2068,5 +2068,20 @@
   "verdict": "gray",
   "basis": "Mohawk Games の www 付きの画像配信（同じ WordPress）。robots.txt は /wp-admin/ のみ禁止。画面写真を目で見るためだけ",
   "checked": "2026-10-22"
+ },
+ "www.athome.co.jp": {
+  "verdict": "gray",
+  "basis": "www.athome.co.jp：robots.txt は302で読めず、明示の禁止を確認できない。会社の公開調査（プレスリリースのPDF）1本だけ、間隔を守る（2026-10-22）",
+  "checked": "2026-10-22"
+ },
+ "www.pref.yamaguchi.lg.jp": {
+  "verdict": "gray",
+  "basis": "山口県：robots.txt に該当パスの禁止なし。県の公開統計資料PDF1本（2026-10-22）",
+  "checked": "2026-10-22"
+ },
+ "5harad.com": {
+  "verdict": "gray",
+  "basis": "5harad.com：著者（Sharad Goel）の個人サイトで論文PDFを公開。robots.txt なし（404）または制限なし。2本だけ（2026-10-22）",
+  "checked": "2026-10-22"
  }
 }

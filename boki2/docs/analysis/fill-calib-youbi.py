@@ -29,7 +29,7 @@ def read(month):
     for line in t.split('\n'):
         if line.startswith('# '): sheet = line[2:]; continue
         c = line.split('\t')
-        if len(c) > 44 and c[11] in ITEMS and c[12] == '円':
+        if len(c) > 40 and c[11] in ITEMS and c[12] == '円':
             key = (sheet, c[11])
             if key in out: continue  # 同じ名の最初の行（大分類の「外食」は1行目）
             out[key] = [float(x) if x not in ('', '-') else None for x in c[13:13 + 31]]
