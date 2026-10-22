@@ -2797,3 +2797,4 @@
 {"t":"2026-10-22T05:28:12.068Z","src":"web","coll":"bizmgmt","doc":"r5-cal-estat-census-search-p3","url":"","status":"skipped","reason":"e-Stat の検索結果の頁（統計表の所在を探すためだけ。中身の根拠にしない）","via":"research-fetch"}
 {"t":"2026-10-22T05:28:12.095Z","src":"web","coll":"bizmgmt","doc":"r5-cal-estat-census-search-p4","url":"","status":"skipped","reason":"e-Stat の検索結果の頁（統計表の所在を探すためだけ。中身の根拠にしない）","via":"research-fetch"}
 {"t":"2026-10-22T05:28:12.122Z","src":"web","coll":"bizmgmt","doc":"r5-cal-estat-census-search-p5","url":"","status":"skipped","reason":"e-Stat の検索結果の頁（統計表の所在を探すためだけ。中身の根拠にしない）","via":"research-fetch"}
+{"t":"2026-10-22T05:28:34.475Z","src":"web","coll":"ramen","doc":"r5-rmn-paper-tachikawa","url":"","status":"skipped","reason":"1回目は中継の502（150バイト）。取り直した r5-rmn-paper-tachikawa-b を読んだ","via":"research-fetch"}
