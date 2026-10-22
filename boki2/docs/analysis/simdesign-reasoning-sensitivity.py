@@ -231,3 +231,19 @@ for pot_u, nr_u in ((500, 4), (1000, 4), (1000, 8), (2000, 8)):
     print('    都心 潜在客%d・ライバル%d・席2,900：最適 %d円・利益 %+d円' % (pot_u, nr_u, pu, pru))
 ps_, prs = area_best('郊外型', 300, 0, 850, 2900, fx_s)
 print('    郊外 潜在客300・ライバル0・席2,900：最適 %d円・利益 %+d円' % (ps_, prs))
+
+print()
+print('=== S10：「1,000円の壁は客層ごとの p_ref と ε の違いで出す」（報告 10.1）。客層を混ぜた需要に 1,000円の所で折れ目（弾力性の跳ね）が出るか')
+def m2_demand(p, prefs, area='駅前'):
+    tot = 0
+    for g, share in AREA[area].items():
+        e = SEG[g][0]
+        V = math.exp(-e * math.log(p / prefs[g]))
+        tot += share * V / (V0 + V + 2)
+    return tot
+def arc(f, a, b): return (math.log(f(b)) - math.log(f(a))) / (math.log(b) - math.log(a))
+for label, prefs in (('p_ref を客層で同じ900円', {'会社員': 900, '学生': 900, '高齢': 900}), ('会社員1,100・学生800・高齢900', {'会社員': 1100, '学生': 800, '高齢': 900}), ('会社員1,300・学生700・高齢900', {'会社員': 1300, '学生': 700, '高齢': 900})):
+    f = lambda p: m2_demand(p, prefs)
+    print('  %s：弾力性 900→990円 %.2f／1,010→1,100円 %.2f（跳ねの比 %.2f）' % (label, -arc(f, 900, 990), -arc(f, 1010, 1100), arc(f, 1010, 1100) / arc(f, 900, 990)))
+f = lambda p: math.exp(-lnp_kink(p, 900, 1.25))
+print('  参考 d.2 の折れ目（ε=1.25）：%.2f／%.2f（跳ねの比 %.2f）' % (-arc(f, 900, 990), -arc(f, 1010, 1100), arc(f, 1010, 1100) / arc(f, 900, 990)))

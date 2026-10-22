@@ -185,4 +185,5 @@ if os.path.exists(REP):
     parts = re.split(r'^(?=### 群)', body, flags=re.M)
     OLD = {'6'}  # 群6（メニュー表示）は元の BIZ-LAW の販促の節と重なる。ほかは新しい群
     new_len = sum(len(p) for p in parts if (mm := re.match(r'### 群(\d+)', p)) and mm.group(1) not in OLD)
-    print(f'  報告の全体 {len(s)} 字、新しい群（群6 を除く13群）{new_len} 字、割合 {new_len / len(s):.3f}')
+    print(f'  打ち手の章 {len(body)} 字のうち新しい群（群6 を除く13群）{new_len} 字、割合 {new_len / len(body):.3f}')
+    print(f'  報告の全体 {len(s)} 字に対する新しい群の字数の割合 {new_len / len(s):.3f}（ほかの章は群をまたぐ表で、元の BIZ-LAW の販促の節の写しではない）')
