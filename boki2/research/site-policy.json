@@ -2028,5 +2028,10 @@
   "verdict": "no-automation",
   "basis": "rockpapershotgun.com の robots.txt 冒頭に Ziff Davis が robot・crawler 等での自動取得を書面の許可なく禁止と明記（2026-10-22確認）",
   "checked": "2026-10-22"
+ },
+ "is1-ssl.mzstatic.com": {
+  "verdict": "gray",
+  "basis": "Apple の画像配信の CDN（App Store の掲載画面写真）。robots.txt は 403 で取得できず、配信の画像に自動取得の禁止の明示は見当たらない。APPLION の掲載ページが表示に使う画像を1枚ずつ目で見るためだけに取得し、転載・再配布はしない",
+  "checked": "2026-10-22"
  }
 }
