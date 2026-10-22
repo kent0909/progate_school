@@ -1115,8 +1115,8 @@
   "checked": "2026-10-22"
  },
  "apps.appfollow.io": {
-  "verdict": "gray",
-  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "verdict": "no-automation",
+  "basis": "AppFollow Terms（https://appfollow.io/terms）4.4 がサービスからのスクレイピング・収集を書面の同意なしに禁止（商用の文脈だが明示の禁止として扱う）、4.2 が機械学習への利用も禁止（ledger r5-cinc-tos-appfollow-terms）。米国 App Store の口コミと開発者の返信の一覧",
   "checked": "2026-10-22"
  },
  "designer-notes.com": {
