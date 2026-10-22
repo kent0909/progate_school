@@ -2101,7 +2101,7 @@
  },
  "api.jstage.jst.go.jp": {
   "verdict": "gray",
-  "basis": "J-STAGE WebAPI（https://www.jstage.jst.go.jp/static/pages/WebAPI/-char/ja の利用規約は検索APIの利用を許す）。api.jstage.jst.go.jp の robots.txt は無し（404）。検索結果は書誌のみ",
+  "basis": "J-STAGE WebAPI（利用規約は検索APIの利用を許す）。api.jstage.jst.go.jp の robots.txt は無し（404）。検索結果は書誌のみ",
   "checked": "2026-10-22"
  },
  "www.appunwrapper.com": {
