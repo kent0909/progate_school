@@ -4,7 +4,8 @@ coll: learnsci
 doc: clark2016-digital-games-meta#rp
 file: clark2016-digital-games-meta.html
 sha256: 467e5880720f6e429b47abf3df13255017575fe00a9fdc1a2f307b9075414380
-read: full
+read: partial
+pages: 本文をすべて（要旨・序論・方法・結果・考察・限界・注・著者紹介）。参考文献の一覧と表の脚注の一部は読んでいない
 anchors: ["Digital Games, Design, and Learning", "only after multiple training sessions", "61,887 reports", "6,868 unique participants", "11 sessions over the course of 38 days", "347 minutes", "Single, competitive", "Collaborative team competition", "increased contextualization was correlated with smaller effects", "only when sessions are adequately spaced", "one student", "stop seeking simple answers to the wrong question"]
 ---
 ## 何の資料か
