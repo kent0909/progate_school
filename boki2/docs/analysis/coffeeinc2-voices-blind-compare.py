@@ -2,7 +2,7 @@
 # 目隠しの付け直し（coffeeinc2-voices-blind.md）と作り手の分類（coffeeinc2-voices-codes.md）の一致率
 # 使い方：python3 -I boki2/docs/analysis/coffeeinc2-voices-blind-compare.py
 # 番号の対応：目隠し側は count.py の ALL の順の 1〜160。作り手は #142・#149 を欠番にした 1〜162。
-#   作り手の表の行の順はALLの順と同じ（目隠し 1〜141＝#1〜#141、142〜148＝#143〜#148、149〜160＝#150〜#162 ではなく #151〜#162、148＝#150）。
+#   作り手の表の行の順はALLの順と同じ（目隠し 1〜141＝#1〜#141、142〜147＝#143〜#148、148〜160＝#150〜#162）。
 #   行の順で対応させ、本文で確かめた（例：目隠し143＝#144、159＝#161）。
 # 引数 --selfcheck：作り手の自己点検（coffeeinc2-voices-codebook-selfcheck.md）の24件を作り手の側に当ててから比べる
 import os, re, sys, collections
