@@ -26,9 +26,9 @@ for line in open(CODES, encoding='utf8'):
     if m: rows[int(m.group(1))] = [x.strip() for x in m.groups()]
 MOVE = [110, 113, 119, 121, 149, 150, 166, 229]  # 判定役が原文で読んで「始め直し（周回・やり直し）に触れていない」とした 周 の口コミ
 def tally(ids):
-    c = collections.Counter(k for i in ids for k in rows[i][2].split() if k != '-')
+    c = collections.Counter(k for i in ids for k in rows[i][3].split() if k != '-')
     return ', '.join('%s=%d' % kv for kv in c.most_common())
-shu = [i for i, r in rows.items() if r[1] == '周']
+shu = [i for i, r in rows.items() if r[2] == '周']
 print('2) 周 の数え直し')
 print('  元のコード: 周=%d件 楽しみ: %s' % (len(shu), tally(shu)))
 shu2 = [i for i in shu if i not in MOVE]
