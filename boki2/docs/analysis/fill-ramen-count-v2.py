@@ -48,7 +48,10 @@ nums = {r[0]: int(r[1]) for r in tab if r[1].isdigit()}
 tot = nums.pop('計', None); ssum = sum(nums.values())
 print('内訳の表:', nums, '計', ssum, '（表の計', tot, '）', '／ノートの r6-fill＋r7-fill-js：', len(n6) + len(n7j))
 mx = max(nums, key=nums.get); print(f'最多 {mx} {nums[mx]}/{ssum} = {nums[mx]/ssum*100:.1f}%')
-print(f'月次12本を1本と数えた場合: {nums[mx]-11}/{ssum-11} = {(nums[mx]-11)/(ssum-11)*100:.1f}%')
+n2 = dict(nums); n2['実務者・業界'] -= 11; mx2 = max(n2, key=n2.get)
+print(f'月次12本を1本と数えた場合の最多: {mx2} {n2[mx2]}/{ssum-11} = {n2[mx2]/(ssum-11)*100:.1f}%')
+noabs = [n for n in n7j if '要旨の文が無' in open(n, encoding='utf8').read() or '要旨が無' in open(n, encoding='utf8').read()]
+print(f'要旨の無い論文のページ（根拠に使っていない）: {len(noabs)}。除いた時の研究: {nums["研究"]-len(noabs)}/{ssum-len(noabs)} = {(nums["研究"]-len(noabs))/(ssum-len(noabs))*100:.1f}%')
 print(f'宣伝: {nums.get("宣伝・主催者の主張",0)}/{ssum} = {nums.get("宣伝・主催者の主張",0)/ssum*100:.1f}%')
 cites = [m for m in re.finditer(r'\[\[([\w-]+):([\w-]+):([^\]\s|]+)\|「([^」]+)」\]\]', s) if m.group(3) != 'doc' and not re.search(r'[<>…]', m.group(3))]
 print('出典（語句つき、書式の見本を除く）:', len(cites), '／文書の数:', len({(m.group(1), m.group(2), m.group(3)) for m in cites}))
