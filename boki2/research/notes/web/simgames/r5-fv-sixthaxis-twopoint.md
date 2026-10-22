@@ -4,7 +4,8 @@ coll: simgames
 doc: r5-fv-sixthaxis-twopoint
 file: r5-fv-sixthaxis-twopoint.html
 sha256: 3a250c7c9c9e5d9245a9a0c7c4b68676372110988d2228ce0d9235cfe0c0cc9b
-read: full
+read: partial
+pages: 記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない）
 anchors: ["Theme Prison, or Theme Resort", "someone with Tuberculosis", "a rather linear progression, with a sequence of levels", "three stars to guide you through the level", "go back to the first level and stick those down", "a micro-behavioural system", "slip up on their own vomit"]
 ---
 TheSixthAxis の Two Point Hospital の開発者（Ben Hymers・Richard Brooks）への聞き取り（2018年4月、Rezzed）。作り手の一次の発言。

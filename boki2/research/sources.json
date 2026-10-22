@@ -584,6 +584,14 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "bizgrowth",
+     "desc": "外食・ラーメン会社の成長の分かれ道（多店舗・本部・工場・FC・M&A・上場・不動産・多角化・海外）の判断と結果。有価証券報告書・決算説明資料・統計・研究・加盟店の声",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   }

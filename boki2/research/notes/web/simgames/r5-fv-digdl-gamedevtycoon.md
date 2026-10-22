@@ -4,7 +4,8 @@ coll: simgames
 doc: r5-fv-digdl-gamedevtycoon
 file: r5-fv-digdl-gamedevtycoon.html
 sha256: 2c364a3cbd5671acb90822f8416a19a6fc50d9f780ca57a6d97c5cd6e5b3d197
-read: full
+read: partial
+pages: 記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない）
 anchors: ["more emphasis on market trends", "tossed in alongside more inconsequential improvements", "measured through two variables: design and technology", "sliders and drag-and-drop inputs", "making two games back to back with no research in between", "Combining genres in unorthodox manners is actually punished"]
 ---
 Digitally Downloaded の『Game Dev Tycoon』のレビュー。記者のレビュー（賛否まじり）。

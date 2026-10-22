@@ -4,7 +4,8 @@ coll: simgames
 doc: r5-fv-matchstick-offworld
 file: r5-fv-matchstick-offworld.html
 sha256: 778dfd1467dee79754cebaf82ec79cf8c3fd7ee5e18f4ce96b3a4c2193ee65bd
-read: full
+read: partial
+pages: 記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない）
 anchors: ["money, not firepower", "uses tycoon game mechanics, instead of combat mechanics", "micro-manage each specific one", "collapsing them into a single price", "trace, low, medium, and high", "allowed orders to be given when paused", "first to discover electricity"]
 ---
 Matchsticks for my Eyes の Soren Johnson（Offworld Trading Company の主任設計者）へのメールの聞き取り（2014年10月、早期アクセス前後）。作り手の一次の発言。

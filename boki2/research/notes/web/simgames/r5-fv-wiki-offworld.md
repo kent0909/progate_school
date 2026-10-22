@@ -4,7 +4,8 @@ coll: simgames
 doc: r5-fv-wiki-offworld
 file: r5-fv-wiki-offworld.html
 sha256: c72987cea5ea2fe4756301692be3d95d6b587fe8c4ba834798625983a6aaceb0
-read: full
+read: partial
+pages: 記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない）
 anchors: ["There are 13 resources in the game", "fluctuates constantly", "giving a wary opponent a chance to prepare a defense", "goon squad", "Players are warned when an opposing player earns enough money to buy them out"]
 ---
 英語版 Wikipedia「Offworld Trading Company」（2016年）。概要。

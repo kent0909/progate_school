@@ -4,7 +4,8 @@ coll: simgames
 doc: r5-fv-capilab-strategies
 file: r5-fv-capilab-strategies.html
 sha256: 2483c7fc5ff40bb155208e63170e3eeaeca40505b65aaa8ef4626775c522b475
-read: full
+read: partial
+pages: 記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない）
 anchors: ["obsess over market share", "Dominate a niche early", "the bottleneck simply moves", "maximum available for one year", "rein in the borrowing before interest costs cripple you", "only transportation, labor and training are unavoidably paid out", "12 different products"]
 ---
 Capitalism Lab の公式サイトの攻略の記事「市場を制する戦略」。開発元の公式のページだが、筆者は遊び手の経験として書いている。

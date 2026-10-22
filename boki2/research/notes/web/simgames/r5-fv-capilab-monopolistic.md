@@ -4,7 +4,8 @@ coll: simgames
 doc: r5-fv-capilab-monopolistic
 file: r5-fv-capilab-monopolistic.html
 sha256: 3b192b22e58e8be867691333ca9f6ddd5e23edd1402205d466c631669a9a03d5
-read: full
+read: partial
+pages: 記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない）
 anchors: ["similar but not identical", "the retail clothing industry", "some competitors may produce lower quality products but at cheaper prices", "adopt a differentiation strategy", "link these findings to the theories about monopolistic competition"]
 ---
 Capitalism Lab の公式サイトの教材向けの記事「独占的競争」。開発元が授業での使い方として書いたもの。
