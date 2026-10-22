@@ -1903,5 +1903,50 @@
   "verdict": "gray",
   "basis": "日本銀行の時系列統計データ検索サイト。robots.txt は取得できず（日銀のエラー頁が返る）、日銀サイトの利用規約（www.boj.or.jp/about/services/kiyaku.htm）に自動取得の明示的な禁止はない（www.boj.or.jp は ok 判定済み）。1件のみ",
   "checked": "2026-10-22"
+ },
+ "www.fashionsnap.com": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "mpra.ub.uni-muenchen.de": {
+  "verdict": "gray",
+  "basis": "ミュンヘン大学の MPRA（研究論文の公開リポジトリ）。robots.txt は /cgi/ だけを Disallow。規約に自動取得の明示的禁止なし。1件のみ",
+  "checked": "2026-10-22"
+ },
+ "tmstudies.net": {
+  "verdict": "gray",
+  "basis": "Tourism & Management Studies（オープンアクセス誌）。robots.txt は /cache/ だけを Disallow。規約に自動取得の明示的禁止なし。1件のみ",
+  "checked": "2026-10-22"
+ },
+ "goldhead.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてなブログの個人ブログ。robots.txt は記事を許可。はてな利用規約に自動取得の明示的禁止は見当たらない（他のはてなのホストと同じ判定）。1記事だけ取る",
+  "checked": "2026-10-22"
+ },
+ "ramendiet.hatenablog.jp": {
+  "verdict": "ok",
+  "basis": "はてなブログの個人ブログ。robots.txt は記事を許可。はてな利用規約に自動取得の明示的禁止は見当たらない（他のはてなのホストと同じ判定）。1記事だけ取る",
+  "checked": "2026-10-22"
+ },
+ "jiro26.hatenablog.jp": {
+  "verdict": "ok",
+  "basis": "はてなブログの個人ブログ。robots.txt は記事を許可。はてな利用規約に自動取得の明示的禁止は見当たらない（他のはてなのホストと同じ判定）。1記事だけ取る",
+  "checked": "2026-10-22"
+ },
+ "sehensucht.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてなブログの個人ブログ。robots.txt は記事を許可。はてな利用規約に自動取得の明示的禁止は見当たらない（他のはてなのホストと同じ判定）。1記事だけ取る",
+  "checked": "2026-10-22"
+ },
+ "tonecchi.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてなブログの個人ブログ。robots.txt は記事を許可。はてな利用規約に自動取得の明示的禁止は見当たらない（他のはてなのホストと同じ判定）。1記事だけ取る",
+  "checked": "2026-10-22"
+ },
+ "hitorijikan-nico2.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてなブログの個人ブログ。robots.txt は記事を許可。はてな利用規約に自動取得の明示的禁止は見当たらない（他のはてなのホストと同じ判定）。1記事だけ取る",
+  "checked": "2026-10-22"
  }
 }
