@@ -1110,13 +1110,13 @@
   "checked": "2026-10-22"
  },
  "rawg.io": {
-  "verdict": "ok",
-  "basis": "利用規約の確認のため robots.txt のみを取得",
+  "verdict": "no-automation",
+  "basis": "RAWG Terms of Use が robot・spider・scraper 等による自動アクセスを明示的な許可なしに禁止（ledger r5-cinc-tos-rawg）",
   "checked": "2026-10-22"
  },
  "apps.appfollow.io": {
-  "verdict": "ok",
-  "basis": "利用規約の確認のため robots.txt のみを取得",
+  "verdict": "gray",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"
  },
  "designer-notes.com": {
@@ -1257,6 +1257,66 @@
  "www.inshokuten.com": {
   "verdict": "gray",
   "basis": "飲食店ドットコム（飲食店向け業者メディア）の会員アンケート結果。閲覧と数字の引用のみ、原文は入れない",
+  "checked": "2026-10-22"
+ },
+ "store.steampowered.com": {
+  "verdict": "no-automation",
+  "basis": "Steam Subscriber Agreement 4.C Automation が scripts・bots 等による Steam の Content and Services との一切のやり取りを禁止（ledger r5-cinc-tos-steam-ssa）。Coffee Inc 2 の Steam 版の有無の確認だけを依頼",
+  "checked": "2026-10-22"
+ },
+ "steamcommunity.com": {
+  "verdict": "no-automation",
+  "basis": "Steam Subscriber Agreement 4.C Automation（steamcommunity.com も Steam の Services。ledger r5-cinc-tos-steam-ssa）",
+  "checked": "2026-10-22"
+ },
+ "toyokeizai.net": {
+  "verdict": "no-automation",
+  "basis": "東洋経済オンライン利用規約 第3条(5) がロボット・クローラー等の自動化された手段による収集・抽出を禁止、(6)(7) が AI による要約等を禁止（ledger r5-cinc-tos-toyokeizai）。開発者（日本人1人の開発）を扱った記事",
+  "checked": "2026-10-22"
+ },
+ "www.taptap.io": {
+  "verdict": "no-automation",
+  "basis": "taptap.io の robots.txt が User-agent ClaudeBot に Disallow /（本ツールは Claude が動かすため従う。ledger r5-cinc-robots-www-taptap-io）。説明文とプレイヤーの評価",
+  "checked": "2026-10-22"
+ },
+ "www.reddit.com": {
+  "verdict": "no-automation",
+  "basis": "Reddit User Agreement が書面の同意のないスクレイピングを禁止し、robots.txt は User-agent * に Disallow /（ledger r5-cinc-tos-reddit・r5-cinc-robots-www-reddit-com）。攻略スレッド（競合・買収・上場・株価の観察）を数本",
+  "checked": "2026-10-22"
+ },
+ "appgoblin.info": {
+  "verdict": "gray",
+  "basis": "appgoblin.info に利用規約ページなし（about と privacy_policy のみ、自動取得の禁止条項なし。ledger r5-cinc-tos-appgoblin・r5-cinc-tos-appgoblin-privacy）。robots.txt は /apps/<id> を許可（keywords・sdks・ranks 等のみ禁止）。アプリの公開メタデータ（説明文・更新履歴）の集約ページを1件ずつ",
+  "checked": "2026-10-22"
+ },
+ "redditinc.com": {
+  "verdict": "gray",
+  "basis": "規約の確認のため規約ページのみを取得（判定は本文の取得時に上書き）",
+  "checked": "2026-10-22"
+ },
+ "appfollow.io": {
+  "verdict": "gray",
+  "basis": "規約の確認のため規約ページのみを取得（判定は本文の取得時に上書き）",
+  "checked": "2026-10-22"
+ },
+ "coffeelovers101.com": {
+  "verdict": "gray",
+  "basis": "coffeelovers101.com robots.txt は /wp-admin/ のみ Disallow。利用規約は本文取得後に確認（明示の禁止が見つかれば読まない）。記事1本の閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "corp.cfy.jp": {
+  "verdict": "gray",
+  "basis": "corp.cfy.jp に robots.txt なし（404）。企業ブログで利用規約ページは本文取得後に確認。記事1本の閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "mugazine.info": {
+  "verdict": "gray",
+  "basis": "mugazine.info robots.txt は /wp/wp-admin/ のみ Disallow（Yoast 部分は全許可）。利用規約は本文取得後に確認。記事1本の閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "fahadanjum611.exblog.jp": {
+  "verdict": "gray",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"
  }
 }
