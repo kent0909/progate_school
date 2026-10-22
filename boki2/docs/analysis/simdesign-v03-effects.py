@@ -25,14 +25,17 @@ def regret(prof_ref, prof_new):
     return P[i0], P[i1], loss, best - prof_new[i0]
 
 def summarize(rows, label):
-    """rows: (移動, 取りこぼし%, 上限フラグ, 円) のリスト"""
-    n = len(rows)
-    mv = sorted(abs(r[0]) for r in rows); ls = sorted(r[1] for r in rows)
-    top = sum(1 for r in rows if r[2])
+    """rows: (移動, 取りこぼし%, 上限フラグ, 円) のリスト。探索の上限に当たった組は「際限なし」として別に数え、
+    移動・取りこぼしの統計からは外す（threshold.txt の決まり：どの案でも同じに構造の問題として扱う）"""
+    top = sum(1 for r in rows if r[2]); ok = [r for r in rows if not r[2]]
+    n = len(ok)
+    if n == 0:
+        print('  %-34s 組%4d｜全部が探索の上限' % (label, len(rows))); return {L: float('nan') for L in LINES}
+    mv = sorted(abs(r[0]) for r in ok); ls = sorted(r[1] for r in ok)
     s = '  %-34s 組%4d｜移動 中央%5.0f円 最大%5.0f円｜取りこぼし 中央%6.2f%% 90%%点%6.2f%% 最大%6.2f%%｜' % (
         label, n, mv[n // 2], mv[-1], ls[n // 2], ls[int(n * .9)], ls[-1])
     s += ' '.join('%g%%以上 %3.0f%%' % (L, 100.0 * sum(1 for x in ls if x >= L) / n) for L in LINES)
-    s += '｜探索の上限 %d' % top
+    s += '｜際限なし（外した）%d' % top
     print(s)
     return {L: sum(1 for x in ls if x >= L) / n for L in LINES}
 
@@ -60,13 +63,14 @@ def calib_V0(PA, nriv, Lf):
     return 1.0 / s - 1.0 - nriv                    # V(900)=1 として
 
 def d2_profit(eps0, cap, Lf, nriv, PA, W=1.0, R=3.0, cost=COST, cheap_rival=False, kink=True, kp=1000.0,
-              wait_on=True, eps_mult=1.0, V0=None, rival_price=900.0, PAmult=1.0, items=ITEMS):
+              wait_on=True, eps_mult=1.0, V0=None, rival_price=900.0, PAmult=1.0, items=ITEMS, pref_mult=1.0):
     if V0 is None: V0 = calib_V0(PA, nriv, Lf)
     e = eps_rule(eps0, R, cheap_rival) * eps_mult
-    lp = lnp(P, e, kp=kp, kink=kink)
+    lp = lnp(P, e, kp=kp, kink=kink, pref=PREF * pref_mult)
     # ライバルの魅力度：基準の ε0（ライバル自身の値段の効き）で、値段 rival_price。安いライバルは1軒だけ 700円
-    Vr = nriv * math.exp(-float(lnp(np.array([rival_price]), eps0, kink=kink)[0]))
-    if cheap_rival: Vr = (nriv - 1) * 1.0 + math.exp(-float(lnp(np.array([700.0]), eps0, kink=kink)[0])) if nriv >= 1 else math.exp(-float(lnp(np.array([700.0]), eps0, kink=kink)[0]))
+    pr_ = PREF * pref_mult
+    def Vp(price): return math.exp(-float(lnp(np.array([price]), eps0, kink=kink, pref=pr_)[0]))
+    Vr = (nriv - 1) * Vp(rival_price) + Vp(700.0) if cheap_rival else nriv * Vp(rival_price)
     L0 = Lf * AVG
     Wl = 1 + 0.5 * (W - 1)
     Lp = L0 * Wl * np.exp(-0.5 * lp) * math.exp(0.16 * (R - 3) * 0.5)
@@ -99,6 +103,7 @@ COND = {   # 状況の名前 → d2_profit への差分
     '2割安いライバル（ε→2.0、d.2）': dict(cheap_rival=True),
     '評判 R=4.5（ε×0.7、d.2）': dict(R=4.5),
     '原価 324→360円（小麦の改定の型）': dict(cost=360.0),
+    '寒い月に汁麺の値打ち p_ref×1.10（RCT の値打ちの型をロジットで）': dict(pref_mult=1.10),
 }
 
 def run_d2(label, kink=True, eps_set=EPS0, caps=CAPS, extra=None):
@@ -146,6 +151,15 @@ for (e0, cap, Lf, nr, PA) in GRID:
     o.append(P[int(np.argmax(d2_profit(e0, cap, Lf, nr, PA)))])
 o = np.array(o)
 print('  参考：上限なし・常連なし（0.2 の置き方）%d 組：1,000円ちょうど %d、最小 %.0f、最大 %.0f' % (len(o), np.sum(o == 1000), o.min(), o.max()))
+
+print('--- d.2 の常連の「値段の弾力性が半分」の穴：常連だけの需要の弾力性（1,000円を越えた所）＝0.5×ε0×1.5。1以下なら常連だけで値上げが際限なく得')
+for e0 in EPS0:
+    print('  ε0=%.2f：常連の弾力性（1,000円の上）%.2f %s' % (e0, 0.75 * e0, '← 1以下：常連が多い店は値上げが際限なし' if 0.75 * e0 <= 1 else ''))
+hit = [(e0, Lf) for (e0, cap, Lf, nr, PA) in GRID if P[int(np.argmax(d2_profit(e0, cap, Lf, nr, PA)))] >= TOP]
+print('  探索の上限 5,000円に当たった組：%d（ε0, 常連の割合 の内訳 %s）' % (len(hit), sorted(set(hit))))
+for Lf in (0.2, 0.35):
+    pr = d2_profit(1.0, 2900, Lf, 2, 20000); pr8 = None
+    print('  ε0=1.0・上限2,900・常連%.0f%%：1,500円 %+.0f円・3,000円 %+.0f円・5,000円 %+.0f円（貢献利益）' % (100 * Lf, pr[1000], pr[2500], pr[4500]))
 
 print()
 print('=== E2：折れ目を外した d.2（M1 の芯）。探索の上限 5,000円で、最適は有限か（上限なし・常連なし・待ちなし・ライバル0〜3）')
@@ -384,6 +398,27 @@ for V0 in (4.0, 8.0):
         print('  V0=%.0f ε0=%.2f：都心 900円で%5.1f杯/日 %+9.0f円・最適%5.0f円で%5.1f杯 %+9.0f円｜郊外 900円で%5.1f杯 %+9.0f円・最適%5.0f円で%5.1f杯 %+9.0f円' % (
             V0, e0, u[3], u[4], u[0], u[1], u[2], s[3], s[4], s[0], s[1], s[2]))
 print('  （d.2 は折れ目と ε の規則があるので、都心の最適は探索の上限に当たらない。0.2 の M2 の (6) は折れ目も待ちもない式だった）')
+
+print('--- 置き値を振って、オーナーの例が両方とも成り立つ組を数える（最適の値段で。都心は銀座の固定費、奥多摩は家族＋自己所有の固定費）')
+F_gz = fixed(50000, 300000, 1280, 1.5, 300000); F_ok = fixed(0, 100000, 1085, 0, 150000); F_ok_g3 = fixed(3000, 300000, 1085, 1.5, 300000)
+both = 0; tot = 0; gz_loss = 0; ok_win = 0; ok_win_g3 = 0; ex = []
+for potu, nru, V0, e0, potr, nrr in itertools.product((300, 600, 1000, 2000, 3000), (2, 4, 8), (4.0, 8.0), (1.1, 1.25, 1.5), (60, 100, 150, 300), (0, 1)):
+    pu = d2_profit(e0, 3700, 0.2, nru, potu * DAYS, V0=V0); ps_ = d2_profit(e0, 2200, 0.2, nrr, potr * DAYS, V0=V0)
+    iu = int(np.argmax(pu)); ir = int(np.argmax(ps_))
+    if P[iu] >= TOP or P[ir] >= TOP: continue
+    tot += 1
+    lu = pu[iu] - F_gz < 0; wr = ps_[ir] - F_ok > 0; wr3 = ps_[ir] - F_ok_g3 > 0
+    gz_loss += lu; ok_win += wr; ok_win_g3 += wr3; both += lu and wr
+    cups_u = pu[iu] / (ITEMS * P[iu] - COST) / DAYS; cups_r = ps_[ir] / (ITEMS * P[ir] - COST) / DAYS
+    if lu and wr and len(ex) < 4: ex.append('都心 潜在客%d/日・ライバル%d → %.0f円 %.0f杯/日 %+.0f円｜奥多摩 潜在客%d/日・ライバル%d → %.0f円 %.0f杯/日 %+.0f円（V0=%.0f ε0=%.2f）' % (
+        potu, nru, P[iu], cups_u, pu[iu] - F_gz, potr, nrr, P[ir], cups_r, ps_[ir] - F_ok, V0, e0))
+print('  組 %d：銀座が最適の値段でも赤字 %d（%.0f%%）／奥多摩（家族＋自己所有）が黒字 %d（%.0f%%）／両方 %d（%.0f%%）／奥多摩を G3 の過疎の仮置きにすると黒字 %d（%.0f%%）' % (
+    tot, gz_loss, 100 * gz_loss / tot, ok_win, 100 * ok_win / tot, both, 100 * both / tot, ok_win_g3, 100 * ok_win_g3 / tot))
+for e in ex: print('   例：' + e)
+print('--- 待ちの項（d.2 の −0.10·wait）の効きの大きさ：都心（潜在客3,000/日・ライバル4・上限3,700・V0=4・ε0=1.25）')
+for w in (True, False):
+    pu = d2_profit(1.25, 3700, 0.2, 4, 78000, V0=4.0, wait_on=w); i = int(np.argmax(pu))
+    print('  待ち%s：最適 %.0f円・貢献利益 %.0f円' % ('あり' if w else 'なし', P[i], pu[i]))
 
 print()
 print('--- Capitalism Lab の「賃金×必需度」の形（r5-fv-capilab-beginners）を需要に入れると、地域の値段の受け入れはどれだけ開くか')

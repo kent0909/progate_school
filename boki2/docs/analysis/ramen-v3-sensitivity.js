@@ -119,3 +119,17 @@ for (const nm of Object.keys(rankSum)) {
 console.log('\n## 5. 大型ロードサイドの分岐177杯は何と比べるか');
 const yamaSalesPerDay = 43000e6 / 195 / 365;
 console.log(`山岡家の1店の売上 ÷ 365日 = 1日 ${Math.round(yamaSalesPerDay).toLocaleString()} 円 ÷ 客単価900円 = 約 ${Math.round(yamaSalesPerDay / 900)} 杯/日（置き値の客単価で割った目安）。分岐177杯の約 ${r1(yamaSalesPerDay / 900 / 177)} 倍。置き値の人時60/日は、24時間営業を1日2.5人で回す計算`);
+
+console.log('\n## 6. 大型ロードサイドの分岐を山岡家の決算の数で置き直す（r4-ramen-yamaokaya-setsumei2603 のコスト内訳、2026年1月期）');
+{
+  const stores = 195, sales = 43000e6;
+  const sga = 25193e6, util = 2831e6, cogsRate = 13129 / 43000;
+  const labor = (13561e6 + 1396e6) / stores / 12; // 給与・雑給＋法定福利費
+  const fixedAll = (sga - util) / stores / 12; // 販管費から光熱費を除いた全部を固定とみなす【検査役の仮定】
+  const utilRate = util / sales;
+  for (const price of [900, 1000]) {
+    const cpc = price * (1 - cogsRate - utilRate);
+    console.log(`- 客単価${price}円：人件費だけを置き直すと 分岐 ${Math.round((yamaRent + labor + 300000) / (30 * cpc))} 杯/日（人件費 月${Math.round(labor).toLocaleString()}円＝置き値216万円の${r1(labor / 2160000)}倍）。販管費（光熱費を除く）を全部固定とみると ${Math.round(fixedAll / (30 * cpc))} 杯/日`);
+  }
+  console.log(`- 実際の1店の売上 ≒ 1日${Math.round(sales / stores / 365 / 900)}杯（客単価900円）。営業利益率10.9%と、分岐が実際の8割台にあること（安全余裕1〜2割）は両立する`);
+}

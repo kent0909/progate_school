@@ -174,14 +174,20 @@ console.log('据え置き（約2年半値上げせず）は国内の話。海外
 const audit = path.join(__dirname, '..', 'audit', 'BIZ-RAMEN-v2-reasoning.md');
 if (fs.existsSync(audit)) {
   const lines = fs.readFileSync(audit, 'utf8').split('\n');
-  const rows = lines.filter((l) => /^\| R\d+[a-z]? \|/.test(l));
-  const tally = { 妥当: [], 弱い: [], 不当: [] };
-  for (const l of rows) {
-    const cols = l.split('|').map((s) => s.trim());
-    const id = cols[1], verdict = cols[cols.length - 3];
-    if (tally[verdict]) tally[verdict].push(id); else console.log(`判定の読めない行: ${id} → ${verdict}`);
-  }
-  console.log('\n## 11. 検査書の判定の数（表の「判定」の列を数えた）');
-  console.log(`結論の行 ${rows.length}`);
-  for (const [k, v] of Object.entries(tally)) console.log(`- ${k}: ${v.length}（${v.join('・')}）`);
+  // 第2版の検査は R 行（判定は右から3番目の列）。第3版の再検査（15章）は 15.1 の V 行（直ったか）と 15.2 の T 行（新しい結論の判定）
+  const tallyRows = (re, labels, title) => {
+    const rows = lines.filter((l) => re.test(l));
+    const tally = {}; labels.forEach((k) => { tally[k] = []; });
+    for (const l of rows) {
+      const cols = l.split('|').map((s) => s.trim());
+      const id = cols[1], verdict = cols[cols.length - 3];
+      if (tally[verdict]) tally[verdict].push(id); else console.log(`判定の読めない行: ${id} → ${verdict}`);
+    }
+    console.log(`\n## ${title}`);
+    console.log(`行 ${rows.length}`);
+    for (const [k, v] of Object.entries(tally)) console.log(`- ${k}: ${v.length}（${v.join('・')}）`);
+  };
+  tallyRows(/^\| R\d+[a-z]? \|/, ['妥当', '弱い', '不当'], '11. 第2版の検査の判定の数（表の「判定」の列を数えた）');
+  tallyRows(/^\| V\d+ \|/, ['直った', '直ったが新しい結論は弱い', '直っていない'], '11b. 第3版の再検査：不当13件は直ったか（15.1）');
+  tallyRows(/^\| T\d+ \|/, ['妥当', '弱い', '不当'], '11c. 第3版の再検査：新しい結論の判定（15.2）');
 }
