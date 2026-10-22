@@ -35,6 +35,10 @@ for (const f of files) {
   const cites = [...s.matchAll(/\[\[[\w-]+:[\w-]+:[^\]\s|]+(\|「[^」]+」)?\]\]/g)];
   const bare = cites.filter((c) => !c[1]).length;
   if (!isDesign && bare) { errs++; console.log(`✗ ${name}：出典 ${cites.length} 件のうち ${bare} 件に原文の語句（[[src:coll:doc|「語句」]]）がない`); }
+  // 同じ語句の使い回し（QUALITY 6.3）：同じ「語句」が4回以上出るものを警告する
+  const qcount = {}; for (const c of s.matchAll(/\|「([^」]+)」\]\]/g)) qcount[c[1]] = (qcount[c[1]] || 0) + 1;
+  const reused = Object.entries(qcount).filter(([, n]) => n >= 4);
+  if (reused.length) console.log(`△ ${name}：同じ語句を4回以上使っている出典 ${reused.length} 種（${reused.slice(0, 5).map(([q, n]) => `「${q}」×${n}`).join('、')}）。主張ごとに支える箇所の語句にする（QUALITY 6.3）`);
   if (hits.length) console.log(`△ ${name}：台帳の外に簡略化の言い回し ${hits.length} か所（行 ${hits.slice(0, 12).join(', ')}${hits.length > 12 ? '…' : ''}）。台帳に載せて理由を書くか、言い回しを直す`);
   if (!miss.length) console.log(`✓ ${name}`);
 }
