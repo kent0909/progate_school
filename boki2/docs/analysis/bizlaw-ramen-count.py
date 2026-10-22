@@ -253,3 +253,39 @@ if os.path.exists(REP):
     ng = [k for k in found if not note_has(k[0], k[1])]
     print(f'  条番号の組 {len(found)} 種類（のべ {sum(found.values())}）。law のノートにあるもの {len(ok)}、ないもの {len(ng)}')
     print('  ないもの：', '・'.join(f'{l}{a}条' for l, a in sorted(ng)))
+
+# ---- 11) 章ごとの新・旧の分類で、報告の全体に対する新しい部分の割合（判定書 BIZ-LAW-RAMEN-audit 6.3）----
+# 分類の基準（先に決めた）：旧＝元の BIZ-LAW の14節と主題が重なる所（販促の景表法・ステマ・価格表示・名簿・補助金・外注・修繕・通販の表示、
+# 課徴金、訂正の章、判定書由来の N5・付録A の仕分け）。新＝それ以外の打ち手と、群をまたぐ表の章。
+# 形＝要点・問い・資料の内訳・論証の表・対応表・やっていないこと（中身の主題を持たない章）
+print('\n## 11) 章ごとの新・旧の分類')
+if os.path.exists(REP):
+    s = open(REP, encoding='utf-8').read()
+    CLS = {'0. 要点': '形', '問いの設計': '形', '資料の内訳': '形', 'BIZ-LAW からの訂正': '旧', '課徴金の計算': '旧',
+           '灰色の判断の一覧': '新', '規模の段階で変わる制度の表': '新', '起きる確率の根拠': '新', '事例と判例': '新', '仕訳の例': '新',
+           '消費税の税率の表': '新', 'DESIGN-RAMEN の判断への対応表': '新', '偽りの損得': '旧', 'ゲームへの写し方': '新', 'うまくいく理由': '新',
+           'うまくいかない理由': '新', '反証と限界': '新', '捨てた案と理由': '形', '判定書 N5': '旧', '付録A': '旧', '論証の表': '形',
+           '依頼の対応表': '形', 'やっていないこと': '形', '判定書 BIZ-LAW-RAMEN-audit への対応': '形', '論証の検査への対応表': '形'}
+    OLD_SUB = ('1-5', '1-6', '4-3', '7-6', '9-4', '12-3', '12-5')
+    tot = {'新': 0, '旧': 0, '形': 0, '?': 0}
+    for blk in re.split(r'^(?=## )', s, flags=re.M)[1:]:
+        title = blk.split('\n', 1)[0][3:]
+        if title.startswith('打ち手ごとの法務と会計'):
+            for g in re.split(r'^(?=### 群)', blk, flags=re.M):
+                mm = re.match(r'### 群(\d+)', g)
+                if not mm: tot['形'] += len(g); continue
+                if mm.group(1) == '6': tot['旧'] += len(g); continue
+                for sub in re.split(r'^(?=#### )', g, flags=re.M):
+                    ms = re.match(r'#### (\d+-\d+)', sub)
+                    tot['旧' if ms and ms.group(1) in OLD_SUB else '新'] += len(sub)
+            continue
+        if title.startswith('DESIGN-RAMEN の判断への対応表'):
+            for sub in re.split(r'^(?=### )', blk, flags=re.M):
+                t3 = sub.split('\n', 1)[0]
+                tot['旧' if re.search(r'V2〜V5|V6・V7|contract_build', t3) else '新'] += len(sub)
+            continue
+        k = next((v for kk, v in CLS.items() if title.startswith(kk)), '?')
+        tot[k] += len(blk)
+    allc = sum(tot.values())
+    print(f'  新 {tot["新"]}・旧 {tot["旧"]}・形 {tot["形"]}・未分類 {tot["?"]}（字）')
+    print(f'  報告の全体に対する新の割合 {tot["新"] / allc:.3f}、形を除いた本文（新＋旧）に対する新の割合 {tot["新"] / (tot["新"] + tot["旧"]):.3f}')

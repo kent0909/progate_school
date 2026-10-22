@@ -44,11 +44,20 @@ const sources = [
   ['実務者・業界', 'r5-rmn-cost-moneypost', 'マネーポスト 濃縮スープ（2ページ）'],
   ['反対意見', 'r5-rmn-health-chiba-matsudo', '保健所の減塩のちらし'],
 ];
+// 第4版で新しく取った資料（文書単位。マネーポストの原価の記事は2ページで1本）
+const sourcesV4 = [
+  ['実務者・業界', 'r7-rmn-moneypost-genka', 'マネーポスト 飲食店の原価 ラーメン編（魚介の店の1杯の内訳）'],
+  ['実務者・業界', 'r7-rmn-moneypost-tsukemen', 'マネーポスト つけ麺・油そばの大盛り無料'],
+  ['利用者の声', 'r7-rmn-jnet21-cons-ramen2', 'J-Net21 ラーメン店（2023年版）消費者1,000人'],
+  ['利用者の声', 'r7-rmn-jnet21-cons-ramen', 'J-Net21 ラーメン店（2013年版）'],
+  ['研究', 'r7-rmn-ucpress-solt', 'UC Press Solt の本の書誌・目次'],
+];
 const byType = {};
 for (const [t] of sources) byType[t] = (byType[t] || 0) + 1;
 console.log('## 1. 新しく足した資料（文書単位）');
 console.log(`合計 ${sources.length} 本、種類 ${Object.keys(byType).length}`);
 for (const [t, n] of Object.entries(byType)) console.log(`- ${t}: ${n} 本（${(n / sources.length * 100).toFixed(1)}%）`);
+console.log(`第4版で足した資料: ${sourcesV4.length} 本（` + sourcesV4.map((x) => x[2]).join('／') + '）');
 const bookBody = ['石動龍『会計の基本と儲け方はラーメン屋が教えてくれる』', '北尾トロ（大勝軒・田内川真介の聞き書き）', '井手隊長『天下一品 無限の熱狂が生まれる仕掛け』', '井手隊長『ラーメンビジネス』'];
 console.log(`本の本文の抜粋（出版社のサイトの再編集記事）を読んだ本: ${bookBody.length} 冊（どれも一部）`);
 console.log(`書誌・目次・紹介・感想だけを読んだ本: ${sources.filter(([, d]) => d.startsWith('r5-rmn-book-')).length} 冊`);
@@ -358,7 +367,7 @@ console.log('経済センサス（平成28年、J-Net21 の引用）18,041店／
     const bare = (t.match(/\[\[[\w-]+:[\w-]+:[\w-]+\]\]/g) || []).length;
     console.log(`\n## 14. 出典の数：${n} 件・${docs.size} 文書（語句のない出典 ${bare} 件。書式の説明の <doc> の行は数えない）`);
     const cited = new Set(Object.keys(perDoc));
-    const notCited = sources.map((s) => s[1]).filter((d) => ![...cited].some((c) => c === d || c.startsWith(d)));
+    const notCited = sources.concat(sourcesV4).map((s) => s[1]).filter((d) => ![...cited].some((c) => c === d || c.startsWith(d)));
     console.log(`1節の資料のうち本文で引いていないもの：${notCited.length ? notCited.join('・') : 'なし'}`);
   }
 }

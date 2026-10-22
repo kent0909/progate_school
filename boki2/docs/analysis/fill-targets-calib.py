@@ -14,6 +14,8 @@
 #   扱い：補填＝この報告で資料を探す／引き継ぎ＝並行の担当（BIZ-FILL-RAMEN・BIZ-GROWTH ほか）の成果を引く／
 #         計算＝資料の値の計算・按分で、資料を足しても区分が変わらない種類（式を見せて残す）／設計＝設計の推論（資料の主張ではない。試遊・検算で確かめる）
 import re, os, sys, collections, subprocess
+# 依頼の時点の版で読む（並行の担当が BIZ-CALIB を版0.3に書き換えているので、作業中のファイルではなく git の版を固定する）
+REV = {'BIZ-CALIB.md': '37b2376', 'BIZ-SIMDESIGN.md': 'd3bfa93'}
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
 DOCS = os.path.join(ROOT, 'docs')
@@ -47,7 +49,7 @@ IT = {
  'MKT': (3, '集客の効果と重み（K・M10〜M12・M40・R9）', '引き継ぎ'),
  'RAMEN': (3, '新商品・ブーム・監修料・スープ（M14・R6・R10・R16）', '引き継ぎ'),
  'DEC': (4, '判断の分岐の重み（M35・M36・M38・M47・M49・M50）', '補填'),
- 'MISC': (2, 'レモネード・パン屋・予報（M4 系の残り：M8・M27・M30）', '補填'),
+ 'MISC': (2, 'レモネード・パン屋・予報・ジャンル別の店数（M8・M27・M30・R15）', '補填'),
  'SUMMER': (8, '猛暑・酷暑で客が減るか（M5 の「夏の谷を消す」の反対の事実。手元の力の源・ギフトの有報）', '補填'),
  'TAX': (4, '外食が消費税の引下げの対象外か（G2・K24、手元のリーフレット）', '補填'),
  'CALC': (2, '資料の値の計算・按分（中央値の按分・逆算・割り算）', '計算'),
@@ -103,7 +105,7 @@ def item_calib(kind, name, text, line):
     m = {
      'M1': 'P1', 'M2': 'P2', 'M3': 'P2', 'M33': 'P2', 'M5': 'S1', 'T5': 'S1', 'G3': 'G3', 'M16': 'W1',
      'M8': 'MISC', 'M27': 'MISC', 'M30': 'MISC', 'M11': 'MKT', 'M40': 'MKT', 'K1': 'MKT', 'K13': 'MKT', 'R9': 'MKT',
-     'M14': 'RAMEN', 'R6': 'RAMEN', 'R10': 'RAMEN', 'R16': 'RAMEN', 'R15': 'CENSUS', 'R4': 'SEAT', 'R5': 'FC',
+     'M14': 'RAMEN', 'R6': 'RAMEN', 'R10': 'RAMEN', 'R16': 'RAMEN', 'R15': 'MISC', 'R4': 'SEAT', 'R5': 'FC',
      'M45': 'FCW', 'M46': 'FCW', 'M48': 'FCW', 'R11': 'FCW', 'M44': 'EXIT', 'M66': 'EXIT', 'M59': 'BUILD', 'M65': 'PLANT',
      'M51': 'EVENT', 'M53': 'EVENT', 'M55': 'EVENT', 'M58': 'EVENT', 'V6': 'DEBT',
      'M35': 'DEC', 'M36': 'DEC', 'M38': 'DEC', 'M47': 'DEC', 'M49': 'DEC', 'M50': 'DEC',
@@ -126,7 +128,9 @@ def cells(l):
 rows = []
 # ---------- CALIB ----------
 f = 'BIZ-CALIB.md'
-L = open(os.path.join(DOCS, f), encoding='utf8').read().split('\n')
+def read_rev(f):
+    return subprocess.run(['git', 'show', REV[f] + ':boki2/docs/' + f], cwd=ROOT, capture_output=True, text=True).stdout
+L = read_rev(f).split('\n')
 sec = None; h2 = ''
 for i, l in enumerate(L, 1):
     if l.startswith('## '):
@@ -155,7 +159,7 @@ for i, l in enumerate(L, 1):
 
 # ---------- SIMDESIGN ----------
 f = 'BIZ-SIMDESIGN.md'
-L = open(os.path.join(DOCS, f), encoding='utf8').read().split('\n')
+L = read_rev(f).split('\n')
 h2 = ''
 for i, l in enumerate(L, 1):
     if l.startswith('## '): h2 = l[3:].strip()
@@ -191,7 +195,7 @@ for n, (f, i, kind, name, text) in enumerate(rows, 1):
     out.append([f'C{n:03d}', f, i, kind, name, re.sub(r'\s+', ' ', text)[:260], it, sc, lab, how])
 
 def ver(f):
-    return subprocess.run(['git', 'log', '-1', '--format=%h', '--', os.path.join('docs', f)], cwd=ROOT, capture_output=True, text=True).stdout.strip() or '?'
+    return REV[f]
 
 with open(os.path.join(DOCS, 'analysis', 'fill-targets-calib.tsv'), 'w', encoding='utf8') as w:
     w.write('# 元の版: BIZ-CALIB.md@' + ver('BIZ-CALIB.md') + '・BIZ-SIMDESIGN.md@' + ver('BIZ-SIMDESIGN.md') + '。生成: python3 -I boki2/docs/analysis/fill-targets-calib.py\n')
