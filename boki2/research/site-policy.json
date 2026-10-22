@@ -1290,13 +1290,13 @@
   "checked": "2026-10-22"
  },
  "redditinc.com": {
-  "verdict": "gray",
-  "basis": "規約の確認のため規約ページのみを取得（判定は本文の取得時に上書き）",
+  "verdict": "no-automation",
+  "basis": "Reddit User Agreement（redditinc.com/policies/user-agreement）が書面の同意のないスクレイピングを禁止（ledger r5-cinc-tos-reddit）",
   "checked": "2026-10-22"
  },
  "appfollow.io": {
-  "verdict": "gray",
-  "basis": "規約の確認のため規約ページのみを取得（判定は本文の取得時に上書き）",
+  "verdict": "no-automation",
+  "basis": "AppFollow Terms 4.4 がスクレイピング・収集を書面の同意なしに禁止、4.2 が機械学習への利用を禁止（ledger r5-cinc-tos-appfollow-terms）",
   "checked": "2026-10-22"
  },
  "coffeelovers101.com": {
@@ -1312,11 +1312,6 @@
  "mugazine.info": {
   "verdict": "gray",
   "basis": "mugazine.info robots.txt は /wp/wp-admin/ のみ Disallow（Yoast 部分は全許可）。利用規約は本文取得後に確認。記事1本の閲覧、転載しない",
-  "checked": "2026-10-22"
- },
- "fahadanjum611.exblog.jp": {
-  "verdict": "gray",
-  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"
  },
  "wikiwiki.jp": {
@@ -1382,6 +1377,11 @@
  "indieranger.com": {
   "verdict": "gray",
   "basis": "indieranger.com/robots.txt に Disallow の行なし。レビュー記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "automaton-media.com": {
+  "verdict": "gray",
+  "basis": "automaton-media.com/robots.txt は特定の記事・about 等のみ Disallow（この記事は対象外）。ニュース記事の単発閲覧、転載しない",
   "checked": "2026-10-22"
  }
 }
