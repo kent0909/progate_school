@@ -7,7 +7,7 @@ sha256: f03279a7fd13996cab058db7d6a61e79a986312e81b96cf4d07599b1270ab2e3
 read: full
 anchors: [SimWar, internal economy, Four Economic Functions, Artificial players allow, dynamic engine, managed to win only twice, Factory cost 10, price of the defensive units has, navigational tool to chart]
 ---
-Joris Dormans「Simulating Mechanics to Study Emergence in Games」（AAAI の技術報告 WS-11-19、AIIDE 2011 の部会）。研究。Adams & Dormans『Game Mechanics: Advanced Game Design』の Machinations の枠組みの、著者本人の論文（本は有料で読めていない）。
+Joris Dormans の、遊びの仕組みを模擬して創発を調べる論文（AAAI の技術報告 WS-11-19、AIIDE 2011 の部会）。研究。Adams & Dormans『Game Mechanics: Advanced Game Design』の Machinations の枠組みの、著者本人の論文（本は有料で読めていない）。
 
 要点（自分の言葉で）：
 - 遊びは、目に見える資源・抽象の資源がゲームの中を流れることで決まる、という見方。資源の流れの図（Machinations）で、正のフィードバック・負のフィードバックの構造が見えるようにする。図は計算機で動かせ、試作の前に釣り合いを試せる。

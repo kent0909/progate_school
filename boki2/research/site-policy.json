@@ -1536,7 +1536,7 @@
  },
  "news.mynavi.jp": {
   "verdict": "gray",
-  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
   "checked": "2026-10-22"
  },
  "www.jprime.jp": {
@@ -1732,6 +1732,31 @@
  "www.unh.edu": {
   "verdict": "gray",
   "basis": "UNH の教育支援ページが公開する STP 電子書籍の章PDF。robots.txt は本ツールの経路では TLS の証明書の検証で取れず未確認、規約の明示の禁止は見当たらない（README の目安で gray）。単発の閲覧",
+  "checked": "2026-10-22"
+ },
+ "www.meti.go.jp": {
+  "verdict": "ok",
+  "basis": "経済産業省：利用規約（https://www.meti.go.jp/main/rules.html）は政府標準利用規約準拠で出典を示せば複製・加工可。robots.txt は存在しない（404ページ）。自動取得の禁止条項なし",
+  "checked": "2026-10-22"
+ },
+ "www.zaikei.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "faculty.engineering.asu.edu": {
+  "verdict": "gray",
+  "basis": "ASU 工学部の教員ページが公開する自著論文PDF。robots.txt を確認（下の結果）、規約の明示の禁止なし。単発の閲覧",
+  "checked": "2026-10-22"
+ },
+ "www.kyushu.meti.go.jp": {
+  "verdict": "gray",
+  "basis": "九州経済産業局：政府機関のサイト。robots.txt は応答なし／制限の表明なし。利用規約は経済産業省に準じ出典明示で利用可。自動取得の禁止条項なし（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "repository.essex.ac.uk": {
+  "verdict": "ok",
+  "basis": "エセックス大学の機関リポジトリ（受理原稿の公開）。robots.txt は /cgi/ のみ Disallow（2026-10-22 確認）",
   "checked": "2026-10-22"
  }
 }

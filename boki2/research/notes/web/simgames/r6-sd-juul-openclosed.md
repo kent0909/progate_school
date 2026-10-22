@@ -7,7 +7,7 @@ sha256: 23ec8d98891a1754e88879ee832c13a1747eea014de0cad2bd431979826fa462
 read: full
 anchors: [frightfully simple, proximity mine climbing, Rule interaction, Dominant, complete strategies, game contract, Monopoly games always end with a player going bankrupt, embedded progression structures, strategy guides: rules of thumb, DikuMUD]
 ---
-Jesper Juul「The Open and the Closed: Games of Emergence and Games of Progression」（Computer Games and Digital Cultures 会議の論文集、2002年、著者のサイト）。研究（ゲーム研究）。
+Jesper Juul の「開いたものと閉じたもの（創発のゲームと進行のゲーム）」（Computer Games and Digital Cultures 会議の論文集、2002年、著者のサイト）。研究（ゲーム研究）。
 
 要点（自分の言葉で）：
 - ゲームは2つの課題の出し方の組み合わせ。**創発**（少数の規則が組み合わさって多様さが出る。カード・盤上・戦略のゲーム。遊び直せる、大会と攻略の指南が生まれる）と、**進行**（決まった課題を順に出す。冒険ゲームから。作り手が順番を握るので物語を語れるが、決まった手を正しく打つだけの「レールの上」になりやすい。攻略は手順の一覧になる。一度終えると遊び直しにくい）。
