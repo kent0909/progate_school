@@ -246,3 +246,90 @@
 ### 1.13 Big Ambitions（Hovgaard Games）と Mini Metro（比較）
 **Big Ambitions**（開発者の聞き取り2本・攻略の記事2本・画面写真2枚）：開発者は、経営シムの種類は数が足りないのではなく、よく知られた仕組みを写した平板な模擬が多すぎると言う [[web:simgames:r6-sd-gamediscover-bigambitions|「flat simulators」]]。二つ目の掴みは、車に乗って運転できると分かった時だと言う [[web:simgames:r6-sd-gamediscover-bigambitions|「enter a car」]]。ライバルは値下げ・競合店・人の引き抜き・自分の建物を貸さない、の手で攻める [[web:simgames:r6-sd-gamesfuze-bigambitions-rivals|「poach your employees」]]。規模が出ると値付けを本部の係に任せられる [[web:simgames:r6-sd-gamesfuze-bigambitions-pricing|「HQ Pricing Manager」]]。（見た）街の3D の地図に、貸し出し中の建物の種類（住宅・小売・事務所・倉庫）と、銀行・輸入・卸・人材の会社などの特別な建物を、切り替えられる重ねの色で出す。会社の管理の画面は、ゲームの中のパソコンの「アプリ」の形で、従業員のシフトを色の札で組む表。
 **Mini Metro**（Dinosaur Polo Club）：経営シムではないが、問2（少人数で安っぽく見えない）の比較として読んだ。兄弟は、作り切るために素材の制約を先に置いた [[web:simgames:r5-fv-wiki-minimetro|「reach a finished state」]]。そのうえで、初めの課題のうち絵と音に外の手を雇い、見た目の設計は [[web:simgames:r5-fv-wiki-minimetro|「Jamie Churchman」]]、音は [[web:simgames:r5-fv-wiki-minimetro|「Disasterpeace」]] が手続き型の仕組みで作って賞を取った。発売の遅れの一因は絵の全面的な作り直しだった（判3.2-2・K06）。（見た）記事の見出しの絵は、白に近い背景に太い色の線が角を丸めて曲がり、重なりは透けて混ざる。「削った」のは素材の数で、絵と音の作り手は**足した**。
+
+### 1.14 店の外の事業の変数：13作品の比較（判4章の受け入れ基準・問4）
+○＝ある（出典の語句つき）、△＝一部、×＝読んだ資料では見当たらない、【資料なし】＝読んだ資料からは分からない。「声・評」は、その変数がどう扱われたか。
+
+| 作品 | 資金（借入・増資・上場） | 不動産・土地 | 自社の生産・農園 | M&A・買収 | 別業種 | 副業・個人の資産 | 商品開発 | いつ開くか | 声・評での扱い |
+|---|---|---|---|---|---|---|---|---|---|
+| Coffee Inc 2 | ○ 融資・上場・増資 | ○ 拡張パック | ○ 豆の栽培・ブレンド・品種改良（更新で追加） | ○ 同業の買収。別業種は× | ×（要望が多い） | ○ 別荘・車・オークション・スポーツ | ○ | 店で資金が貯まった中盤から | 楽しむ BV 22件・欲しがる BVR 18件・店を食うと嫌う BVN 1件（135件中） |
+| Capitalism Lab | ○ 借入・社債・株 | ○ 土地の区画・集合住宅と商業ビル | ○ 農場・工場・研究所 | ○ 子会社の合併・未公開会社の買収 | ○ 品目と業種が多い（MOD で千超） | 【資料なし】 | ○ 研究と製品 | 始めから（砂場）＋DLC | 開発元の推薦文「飽きない」。教育用の手引きがある |
+| Big Ambitions | 【資料なし】 | ○ 建物を借りる・ライバルが建物を持つ | △ 輸入・卸・倉庫（画面写真の建物の種類） | ○ 弱らせたライバルの事業を安く買う | ○ 店・事務所など（画面写真で法律事務所） | ○ 街で暮らす・車 | 【資料なし】 | 序盤から | 開発者は「平板な模擬」との差を強調 |
+| Offworld | ○ 自社株・他社株 | △ 土地の区画（六角） | ○ 資源の加工 | ○ 買収で勝つ | × | × | × | 1試合の中で | 作り手は資源の木を深くしたい |
+| ゲーム発展国++ | × | × | ○ 自社のハード開発 | × | △ 受託の仕事 | × | ○ 作品そのもの | 中盤（ハード開発） | 飽きた頃のハード開発で熱が戻る声 |
+| こだわりラーメン館 | × | × | × | ×（ライバルの買収の要望） | △ テーマパーク | × | ○ 一杯・限定 | 後半（テーマパーク） | 買収・共存の要望 |
+| Game Dev Tycoon | × | × | ○ 研究所・ハード | × | × | × | ○ | 中盤 | — |
+| Two Point Hospital | × | × | × | × | × | × | △ 研究 | — | 更新で地域・病気が増えた |
+| Startup Company | 【資料なし】 | ×（事務所の段） | × | × | × | ○ 引退時の財産の内訳 | ○ サイトの機能 | 黒字の後 | 評者：数十の値が好きなら刺さる |
+| Good Pizza | × | × | △ 材料を育てる | × | × | × | △ 具 | 章ごと | — |
+| Lemonade Tycoon | × | ×（場所を借りる） | × | × | × | × | △ レシピ | — | 中身の少なさで飽きる |
+| Cook Serve Delicious | × | × | × | × | × | × | ○ 品目（2作目で180超） | 機材ごと | — |
+| 大盛グルメ食堂 | × | × | × | × | × | × | ○ 料理の開発 | — | — |
+
+- **店の外の事業の変数を一番多く持つ3作（Coffee Inc 2・Capitalism Lab・Big Ambitions）は、どれも「長く遊ばれる」側の材料がある**（Coffee Inc 2 は★3以下7%・何度もやり直す声、Capitalism Lab は推薦文、Big Ambitions は配信で長く遊ばれた）。持たない作品でも長く遊ばれるもの（ゲーム発展国++、Good Pizza）はある。つまり「店の外の事業」は**長く遊ばれるための唯一の道ではないが、それを持つ作品には一貫して支持の声がある**。
+- 開く時期は3作とも「本業で稼いだ後」。Coffee Inc 2 の声は、開いた後の段の変化（店→投資会社→企業集団）そのものを楽しむ。
+- 反対の材料も同じ作品の中にある（1.15 の反対側）。店の外の事業が店の遊びを食うと「面白くない」になり、規模が出ると一覧・操作の不満が増える。
+- 出典：Coffee Inc 2 [[web:simgames:r4-cinc-applizm-inc2-kabusiki|「株式公開の条件」]] [[web:simgames:r4-cinc-applizm-kojinsisan|「不動産物件を購入できる」]] [[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「週間開発費」]] [[web:simgames:r5-cinc-applion-p6|「店舗経営、M&A、株式投資」]]、Capitalism Lab [[web:simgames:r5-fv-capilab-beginners|「borrowing up to 100%」]] [[web:simgames:r5-fv-capilab-home|「Commercial Buildings」]] [[web:simgames:r5-fv-capilab-home|「Private Company」]] [[web:simgames:r5-fv-capilab-home|「Educational Uses」]]、Big Ambitions [[web:simgames:r6-sd-gamesfuze-bigambitions-rivals|「buildings they own」]] [[web:simgames:r6-sd-gamesfuze-bigambitions-rivals|「value of their」]] [[web:simgames:r6-sd-gamediscover-bigambitions|「flat simulators」]]、ゲーム発展国++ [[web:simgames:r5-fv-applion-gamedevstory|「飽きてきた頃にハード開発」]]、ラーメン館 [[web:simgames:r5-fv-applion-ramenkan|「ライバル店の買収」]]、Offworld [[web:simgames:r5-fv-wiki-offworld|「majority stake」]]。
+
+### 1.15 オーナーの仮説の検証の表（判4章の受け入れ基準：両側10個以上。結論は表の後）
+**仮説**：やれることの自由度と、実際のビジネスとして取り組める変数（豆のブレンド・土地取得・生産・副業の不動産・商品開発…）の多さが、全体としてスルメの魅力を高めている。
+
+**支持する事実（14）**
+| # | 事実（作品・資料） | 原文の語句 |
+|---|---|---|
+| 支1 | Startup Company の評者：見張る値が数十あるのを好む人には刺さる（7/10） | [[web:simgames:r5-fv-gamesasylum-startup|「certainly appeal」]] |
+| 支2 | Lemonade Tycoon の飽きの理由は中身の少なさ（＝多ければ続いた、の向き） | [[web:simgames:r5-fv-pocketgamer-lemonadetycoon|「less variety」]] |
+| 支3 | Two Point の作り手：前作より画面と遊びの密度がずっと高い | [[web:simgames:r5-fv-pcgi-twopoint|「much higher」]] |
+| 支4 | Two Point Hospital は発売後に7本の更新で地域と病気を足し、遊ばれ続けた | [[web:simgames:r5-fv-wiki-twopointhospital|「seven major updates」]] |
+| 支5 | Offworld の設計者は次に資源の木を深くしたいと言う | [[web:simgames:r5-fv-matchstick-offworld|「deeper resource tree」]] |
+| 支6 | Cook Serve Delicious 2 は品目を 30 から 180 超に増やした | [[web:simgames:r5-fv-wiki-csd|「over 180 food types」]] |
+| 支7 | Capitalism Lab は土地・建物・子会社・買収を DLC と更新で足し続け、推薦文は飽きないと言う | [[web:simgames:r5-fv-capilab-home|「Land Plots」]] [[web:simgames:r5-fv-capilab-home|「It never gets boring」]] |
+| 支8 | Coffee Inc 2 の声135件のうち、店の外の事業を楽しむ 22件・欲しがる 18件（どちらか37件） | [[web:simgames:r4-cinc-applion-reviews|「コーヒー豆の自家栽培」]] [[web:simgames:r5-cinc-applion-p2|「他の業種(銀行、自動車会社」]] |
+| 支9 | Coffee Inc 2：本部の部門と投資先の配分を考え続けるのが楽しい | [[web:simgames:r4-cinc-applion-reviews|「どこに投資するのか」]] |
+| 支10 | Coffee Inc 2：店→投資会社→企業集団へ段が変わることを楽しむ | [[web:simgames:r4-cinc-applion-reviews|「コングロマリット」]] |
+| 支11 | Meier：遊び方をできるだけ多く許すことが良い設計に欠かせない | [[web:simgames:r4-sim-gd-meier2012|「play styles as possible」]] |
+| 支12 | Big Ambitions の開発者：よく知られた仕組みを写した平板な模擬が多すぎる | [[web:simgames:r6-sd-gamediscover-bigambitions|「flat simulators」]] |
+| 支13 | 6作品の声 778件で、やれることの多さ・奥の深さ（W）が109件。全国編では200件中53件 | （2章の表、`funvisual-voices.js`） |
+| 支14 | Tynan：単純すぎる模擬は退屈で、もっと絡みと複雑さが要る | [[web:simgames:r4-sim-tynan-simdream|「more interactions」]] |
+
+**反する事実・弱める事実（11）**
+| # | 事実（作品・資料） | 原文の語句 |
+|---|---|---|
+| 反1 | カイロソフトは、夢を見せたいので現実を完璧には模擬しない | [[web:simgames:r4-sim-denfami-kairosoft|「現実を完璧にシミュレートしない」]] |
+| 反2 | Tynan：価値は遊ぶ人の頭の中の模型にあり、複雑さに溺れると何も伝わらない | [[web:simgames:r4-sim-tynan-simdream|「Drowning in Complexity」]] |
+| 反3 | Meier：試した物の3分の1以上を削れ | [[web:simgames:r4-sim-gd-meier2012|「Be ruthless」]] |
+| 反4 | Coffee Inc 2：黒字の店を建てるかが全てで、遊びの多様性に乏しい（★4） | [[web:simgames:r4-cinc-applion-reviews|「黒字店舗を建てるかが全て」]] |
+| 反5 | Coffee Inc 2：前作は規模が出ると不動産・投資会社になって面白くなかった | [[web:simgames:r5-cinc-applion-p2|「面白くなかったのですが」]] |
+| 反6 | Coffee Inc 2：管理する項目が多く、後半は煩雑（集約サイトの紹介文） | [[web:simgames:r5-fv-applion-cinc-app|「管理すべき項目が多く」]] |
+| 反7 | Coffee Inc 2 の不満の最多は一覧・操作・テンポ（N）で135件中36件。変数が増えた分の管理の重さ | （2章の表） |
+| 反8 | Game Dev Tycoon は変数が多い側なのに総評は厳しく、PC 版の Metacritic は68 | [[web:simgames:r5-fv-digdl-gamedevtycoon|「mixed bag」]] |
+| 反9 | Cook Serve Delicious の作者：3作目で注文の仕組みをこれ以上足すと複雑にしすぎる（1つの仕組みの話で、変数の数一般の話ではない） | [[web:simgames:r5-fv-gamemaker-csd|「overcomplicate」]] |
+| 反10 | 声の O（初めの複雑さ・説明不足）は46件。多い変数は入口の壁になる | （2章の表） |
+| 反11 | Good Pizza は店の外の事業をほぼ持たないのに、全体の評価4.6・2万件超で長く遊ばれている（物語と客で持つ） | [[web:simgames:r5-fv-applion-goodpizza|「グッドピザ」]] |
+
+**表から言えること（結論）**
+1. 支持の14は「多さ・深さ・足し続けること」を、作り手（支3〜7・11・12）・評者（支1・2）・利用者（支8〜10・13）の3つの立場から言っている。反対の11のうち、多さそのものを否定するのは反2・反3（論考と講演の一般論）だけで、残りは**多さの条件**（反4：支配的な一手があると多さが死ぬ、反5：店の外が店を食う、反6・7・10：管理と入口の重さ）か、**別の道でも長く遊ばれる**（反8・11）ことを言う。
+2. したがって「変数の多さが長く遊ばれる源」は**支持する**。ただし、版0.1 の「半分は正しい」のような両論ではなく、条件を付けて言う：**①支配的な一手を作らない、②店の外の事業は本業で稼いだお金の行き先として開き、店の遊びを置き換えない、③規模が出たら一覧と委任で管理の重さを下げる、④入口は少ない変数から始めて段階で開く**。
+3. 「数」と「絡み」を分けて測った資料はない。版0.1 の「数より絡み」は言えない（K01・K27）。言えるのは、支持の資料が数（多さ・密度・品目）と絡み（資源の木・配分）の両方を挙げていること。
+
+### 1.16 13作品の見取り図と順位相関（K09）
+「変数の数」は1章の各表の変数の行を数えた概数、「周回の強さ」は資料の記述から付けた【見立て】（弱1・弱〜中1.5・中2・中〜強2.5・強3）。
+
+| 作品 | 変数の数 | 一番深い変数 | 絡みの形 | 解放の見せ方 | 目標の形 | 周回の強さ【見立て】 |
+|---|---|---|---|---|---|---|
+| こだわりラーメン館 | 約12 | 一杯の組み立て | 品質×値段×原価の輪 | 食材・エリア | 大会・日本一 | 中 |
+| 大盛グルメ食堂 | 約8 | 基の料理＋食材2 | 食材→開発→店 | 品数・2号店 | 人気の店・多店舗 | 中 |
+| ゲーム発展国++ | 約10 | ジャンル×内容×機種 | 相性×社員 | ハード開発 | 年1回の大賞 | 中〜強 |
+| Game Dev Tycoon | 約12 | 題材×ジャンル×客層 | 重み（掛け合わせは【推論】） | 場所 | 期限 | 中 |
+| Lemonade Tycoon | 8 | 場所 | 満足 | 場所 | 期限なし・30日 | 弱 |
+| Offworld | 約20 | 資源の木と相場 | 共有の値段 | 試合内 | 買収 | 強 |
+| Capitalism Lab | 約40（DLC 込み） | 品目ごとの重み・供給網 | 詰まり・統合 | 順の戦略 | シナリオ | 強 |
+| Two Point Hospital | 約15 | 飾り×特性・部屋の格 | 波及 | 病院が開く・戻る | 1〜3つ星 | 中〜強 |
+| Good Pizza | 約10 | 注文の読解 | 材料×値段・親切 | 章 | ライバルに勝つ | 弱〜中 |
+| Cook Serve Delicious | 約8（2作目は品目が180超） | メニューの組み替え | 飽き | 機材 | 店の立て直し | 中 |
+| Startup Company | 数十（見張る値。40と置く） | 資源と機能 | 資源の流れ | 黒字 | 退職金 | 弱〜中 |
+| Coffee Inc 2 | 約40 | 店の外の事業 | 投資の配分 | 資金で開く | 終わりなし | 中〜強 |
+| Big Ambitions | 約35 | 街と事業の種類 | ライバルの攻め・物件 | 序盤から | 【資料なし】 | 中（資料なし。仮置き） |
+
+**順位相関**（`node boki2/docs/analysis/funvisual-rank.js`、スピアマン）：版0.1 の表のまま ρ=0.42、Startup Company を除くと 0.76。この版の13作品の表で 0.44、Startup Company を除くと 0.67、周回の資料がない Big Ambitions を除くと 0.50。
+**言えること**：どの表でも正の向きで、「変数の数と周回の強さは比例しない」（版0.1）とは言えない。両方の列が私の見立てなので、比例することの証明にもならない。例外の Startup Company の評者が挙げた欠点は表現（人物と個性のなさ）だった（1.11）。
