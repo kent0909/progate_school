@@ -13,7 +13,7 @@
  G7. 検査書の「版1.1の再検査」の判定の列を数える
 使い方: python3 -I boki2/docs/analysis/fill-ramen-reasoning-recheck-v2.py
 """
-import os, re, json, itertools, statistics, subprocess, datetime, html, collections
+import unicodedata, os, re, json, itertools, statistics, subprocess, datetime, html, collections
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 RAWM = os.path.join(ROOT, 'research', 'raw', 'web', 'bizmgmt')
 RAWR = os.path.join(ROOT, 'research', 'raw', 'web', 'ramen')
@@ -143,7 +143,7 @@ def raw_text(coll, doc):
         elif head[:2] == b'PK': t = subprocess.run(['python3', '-I', TOOL, p], capture_output=True, text=True).stdout
         else:
             t = open(p, encoding='utf8', errors='ignore').read(); t = re.sub(r'<script.*?</script>|<style.*?</style>', '', t, flags=re.S); t = html.unescape(re.sub(r'<[^>]+>', '', t))
-    TXT[key] = re.sub(r'\s+', '', t); return TXT[key]
+    TXT[key] = re.sub(r'\s+', '', unicodedata.normalize('NFKC', t)); return TXT[key]
 n_ph = n_ok = 0; no_phrase = 0; no_out = 0
 for l in rows:
     ph = re.findall(r'\[\[web:([\w-]+):([\w-]+)\|「([^」]+)」\]\]', l)
@@ -151,7 +151,7 @@ for l in rows:
     if not ph: no_phrase += 1
     if c[2].startswith('なし'): no_out += 1
     for coll, doc, p in ph:
-        n_ph += 1; ok = re.sub(r'\s+', '', p) in raw_text(coll, doc); n_ok += ok
+        n_ph += 1; ok = re.sub(r'\s+', '', unicodedata.normalize('NFKC', p)) in raw_text(coll, doc); n_ok += ok
         if not ok: print(f'   原文に見つからない：{doc}「{p}」')
 print(f'  語句 {n_ph}、原文に出る {n_ok}。語句の無い行 {no_phrase}、出力の行が「なし」の行 {no_out}')
 

@@ -5,7 +5,7 @@ doc: r7-fc-q-js-kisho-juyo-yosoku
 file: r7-fc-q-js-kisho-juyo-yosoku.html
 sha256: e9382523d5da4bb170c9830f34d51e83eead13282066b7d1112d578f2bebf9c6
 read: full
-anchors: ["deiryutsujoho/58/3/58_46", "jfsr/30/3/30_1", "proceedingsissj/18/0/18_S1-D1", "jieenermix/96/3/96_254", "jsmcwm/30/0/30_47", "deiryutsujoho/58/3/58_33", "marketing/42/3/42_2023.009", "jahes/40/1/40_47", "jjser/41/3/41_87", "mcwmr/28/6/28_480", "jjsai/28/4/28_567", "soshikikagaku/54/2/54_16"]
+anchors: ["deiryutsujoho/58/3/58_46", "jfsr/30/3/30_1", "proceedingsissj/18/0/18_S1-D1", "jieenermix/96/3/96_254", "deiryutsujoho/58/3/58_33", "marketing/42/3/42_2023.009", "jahes/40/1/40_47", "jjser/41/3/41_87", "mcwmr/28/6/28_480", "jjsai/28/4/28_567", "ieiej/39/8/39_477", "jasmin/2015f/0/2015f_319", "lca/20/1/20_i", "jsds/2023/53/2023_67"]
 ---
 J-STAGE の検索 API（service=3、語「気象 需要予測」、20件まで）の結果の一覧（件数の表示 16、取れた件数 16）。BIZ-FILL-CALIB 版2の補填の項目 M8 予報（C031） の資料を探すために問い合わせた（検索の記録は research/searches/fill-calib.jsonl）。一覧の題名を全部読んだ。
 

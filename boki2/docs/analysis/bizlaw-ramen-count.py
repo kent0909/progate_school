@@ -38,11 +38,14 @@ KIND = {
  # 研究
  'r5-blr-aichiu-fc-hanrei': 'research', 'r5-blr-hokudai-casenote91b': 'research',
  # 民間の統計
- 'r5-blr-tsr-ramen-tousan2025': 'stat',
+ 'r5-blr-tsr-ramen-tousan2025': 'stat', 'r5-blr-tsr-shohizei-inshoku': 'stat',
+ # 事例（第3版）：官公庁のサイトが載せた事例の集め。中身が個々の事例なので事例に数える（官公庁に数えても 34/69＝0.493 で半分以下）
+ 'r5-blr-fsa-hoshou-jirei': 'case', 'r5-blr-mirasapo-17611': 'case',
  # 作り手の話
  'r5-blr-econ-cartelgame': 'maker',
  # 反対意見
  'r5-blr-zenshoren-shaho': 'oppo', 'r5-blr-gendai-gisou': 'oppo',
+ 'r5-blr-keidanren-kachoukin2014': 'oppo', 'r5-blr-keidanren-fukusuu2014': 'oppo',
 }
 LABEL = {'gov': '一次資料・統計（官公庁）', 'prac': '実務者・業界の解説', 'case': '事例（報道・企業の開示）', 'research': '研究',
          'stat': '統計（民間）', 'maker': '作り手の話', 'oppo': '反対意見'}
