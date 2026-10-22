@@ -44,6 +44,8 @@
 - 検査：validate / sim-check / lexicon-check / coverage / law-check / research-check。ブラウザ試験は scratchpad の `sim/play2.js`・`sim/room-test.js`・`sim/hall-test.js`・`exam/exam-test.js`（新セッションでは消える）
 
 ## 5. いまやっていること
+- **ラーメン屋への作り直し（2026-10-22）**：設計書 `docs/DESIGN-RAMEN.md`（Fable、(a)〜(n) 14章）と試算 `docs/analysis/ramen-goal-estimate.js` が届いた。オーナーに n章の15件の決定を依頼中。決定が来たら縦の切り身（居抜き1号店の1年目＋決算＋翌4月）を作り、面白さの関門 F1〜F7 で遊んでもらう
+- 情報収集の規約まわりを止まらない形に改めた（research/README.md 末尾。禁止ページは WANTED.md に回して続行、site-policy.json で判定を使い回す、オーナーが開いた資料は research-import.js で via: owner）。Coffee Inc 2 の代わりの公式窓口を別の担当が調査中
 - 2027年度区分表への更新、外部資料の全文読解、設計改訂（案F）、5章の試作改修、6章の問題と検定会場：**完了**
 - 検定会場の大問は85題（第2問30・第3問15・第4問22・第5問18）。全題に範囲タグと題ごとの先輩の下書き。2級65項目すべてに大問がある（coverage）
 - **2年目（docs/YEAR2.md、Fable の設計）を実装中**：`js/sim/year2.js`（index.html で scenario.js の次に読む）
