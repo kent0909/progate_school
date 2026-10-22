@@ -2183,5 +2183,15 @@
   "verdict": "gray",
   "basis": "ビジネス+IT（SB クリエイティブ）。robots.txt の User-agent * は一部のみ禁止、規約に自動取得の明示の禁止は見当たらない",
   "checked": "2026-10-22"
+ },
+ "www.cit.nihon-u.ac.jp": {
+  "verdict": "gray",
+  "basis": "日本大学生産工学部の学術講演会の講演概要（大学の公開PDF）。robots.txt 確認、自動取得の禁止の明示なし",
+  "checked": "2026-10-22"
+ },
+ "www.rikenvitamin.jp": {
+  "verdict": "gray",
+  "basis": "理研ビタミンの業務用商品カタログ（公開PDF）。robots.txt 確認、自動取得の禁止の明示なし",
+  "checked": "2026-10-22"
  }
 }
