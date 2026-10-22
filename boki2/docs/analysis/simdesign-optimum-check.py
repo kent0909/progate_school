@@ -155,8 +155,9 @@ AREA['都心型'] = {'会社員': .8, '学生': .1, '高齢': .1}
 AREA['郊外型'] = {'会社員': .2, '学生': .1, '高齢': .7}
 for a, pref, pa, nriv, key in (('都心型', 1100, 3000 * DAYS, 4, '都心型（銀座のような所）'), ('郊外型', 850, 300 * DAYS, 0, '郊外型（奥多摩のような所）')):
     PA_saved = PA; PA = pa
-    p, prof = argmax(lambda q: m2_profit(q, a, 'ふつう', nriv, pref=pref), ps)
-    cups = prof / (ITEMS * p - COST) / DAYS
+    dem = lambda q: m2_profit(q, a, 'ふつう', nriv, pref=pref) / (ITEMS * q - COST)   # 月の来店の見込み
+    p, prof = argmax(lambda q: min(dem(q), CAP) * (ITEMS * q - COST), ps)              # 席の上限（月3,000杯）つき
+    cups = min(dem(p), CAP) / DAYS
     rent, wage, hours, _, _, _ = AREAS[key]
     fixed = rent + wage * hours * DAYS + OTHER
     print('  %s：最適の値段%d円、1日約%.0f杯、粗利 %d円 − 固定費 %d円 ＝ %+d円' % (a, p, cups, prof, fixed, prof - fixed))
