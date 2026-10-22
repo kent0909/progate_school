@@ -44,7 +44,7 @@
 - 検査：validate / sim-check / lexicon-check / coverage / law-check / research-check。ブラウザ試験は scratchpad の `sim/play2.js`・`sim/room-test.js`・`sim/hall-test.js`・`exam/exam-test.js`（新セッションでは消える）
 
 ## 5. いまやっていること
-- **Coffee Inc 2 の分析の第2版（2026-10-22）**：`docs/BIZ-COFFEEINC2.md` を quality:v2 で書き直した（変数32の棚卸し、利用者の声161件の分類、うまくいく理由7本の鎖とスルメの仮説、表現のエッセンス18項目、写し方の最小と大胆、DESIGN-RAMEN との差分）。読了ノート r5-cinc-*.md 20本。Steam・Reddit・RAWG・TapTap・東洋経済・AppFollow は規約で取れず WANTED.md へ。画面写真の確認と DESIGN-RAMEN への反映は未
+- **Coffee Inc 2 の分析の第3版（2026-10-22）**：判定「要補強」（docs/audit/BIZ-COFFEEINC2-audit.md）の15項目に対応。声は160件（数え直しのスクリプト docs/analysis/coffeeinc2-voices-count.py とコードの表 coffeeinc2-voices-codes.md）、鎖6・鎖Bを資料に合わせ推論を分けた、依頼の対応表を原文の一文ごとに、8章に町の外へ広がる層とライバルが同じ層で育つ形、9章(b) ピヨ商店の画面で安く見える所8つ、論証の表（12章）、出典370件すべてに原文の語句。未：別の担当による目隠しの付け直し、Coffee Inc 2 の画面写真（WANTED.md）、DESIGN-RAMEN への反映
 - **ラーメン屋への作り直し（2026-10-22）**：設計書 `docs/DESIGN-RAMEN.md`（Fable、(a)〜(n) 14章）と試算 `docs/analysis/ramen-goal-estimate.js` が届いた。オーナーに n章の15件の決定を依頼中。決定が来たら縦の切り身（居抜き1号店の1年目＋決算＋翌4月）を作り、面白さの関門 F1〜F7 で遊んでもらう
 - 情報収集の規約まわりを止まらない形に改めた（research/README.md 末尾。禁止ページは WANTED.md に回して続行、site-policy.json で判定を使い回す、オーナーが開いた資料は research-import.js で via: owner）。Coffee Inc 2 の代わりの公式窓口を別の担当が調査中
 - **オーナーの指摘（2026-10-22）**：①Coffee Inc 2 の「褒められている所」の分析が浅い（変数の多さ・深さ・自由度がスルメの源では？）＝調査の設計が「簿記に使える所と不満」に寄っていた ②DESIGN-RAMEN に楽な打ち手・抜本的な開発を避ける打ち手がある ③表現の一律禁止はやりすぎ、今の絵はチープ。対応：Coffee Inc 2 の担当に変数の棚卸し・褒め言葉の分類・表現のエッセンスを追加、比較作品の面白さと表現の調査（BIZ-FUNVISUAL.md）を別の担当に依頼、m.2 の写す・写さないを改めた。両方が届いたら Fable に DESIGN-RAMEN の改訂（楽な打ち手の洗い出しと代案・変数の広さ・表現の章）を頼む。15件の決定はその後に出し直す
