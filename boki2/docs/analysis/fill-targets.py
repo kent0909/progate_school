@@ -83,16 +83,18 @@ for f in FILES:
             g = None
             for gid, imp, desc, rx, only in GROUPS:
                 if only and only != f: continue
-                target = ctx if gid != 'META' else cell + l
                 if gid == 'META':
-                    if re.search(rx, l) and not re.search(r'\d', cell.replace('【推論】', '')[:0] or 'x'):
-                        g = (gid, imp); break
-                    continue
-                if gid.startswith('MKT') and gid in ('MKT-PROB', 'MKT-SIZE', 'MKT-TIME', 'MKT-COST', 'MKT-MEAS'):
-                    if re.search(rx, colh) or (gid in ('MKT-SIZE', 'MKT-PROB') and re.search(rx, cell + sec)):
-                        g = (gid, imp); break
-                    continue
-                if re.search(rx, sec if gid in ('MKT-LTV', 'MKT-CHAIN', 'MKT-DESIGN', 'RECIPE') and re.match(r'^\d', sec) and re.search(rx, sec) else ctx):
+                    hit = re.search(rx, l)
+                elif gid in ('MKT-PROB', 'MKT-SIZE', 'MKT-TIME', 'MKT-COST', 'MKT-MEAS'):
+                    # 1.1・1.2 の表のマスは列の見出しで振る。表の外は中身で
+                    hit = re.search(rx, colh) if colh else (gid in ('MKT-PROB', 'MKT-SIZE') and re.search(rx, cell))
+                elif gid in ('MKT-LTV', 'MKT-CHAIN', 'MKT-DESIGN'):
+                    hit = re.search(rx, sec) or (gid != 'MKT-DESIGN' and re.search(rx, cell))
+                elif gid == 'RECIPE':
+                    hit = sec.startswith('6.') and not re.search(r'小麦以外', cell)
+                else:
+                    hit = re.search(rx, ctx)
+                if hit:
                     g = (gid, imp); break
             kind = '説明' if g[0] == 'META' else ('再掲' if RESTATE_SECTIONS.search(sec) else '本体')
             rows.append([f, i, sec, rowh, colh, m.group(0), kind, g[0], g[1], re.sub(r'\s+', ' ', cell)[:240]])
