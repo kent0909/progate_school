@@ -1796,7 +1796,7 @@
  },
  "keiyaku-watch.jp": {
   "verdict": "gray",
-  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "basis": "robots.txt で取得を許可（または robots.txt なし）。規約に自動取得の明示の禁止は見つけていない（規約ページは確認していない）。1〜2ページのみ・間隔を守って取得",
   "checked": "2026-10-22"
  },
  "newswitch.jp": {
