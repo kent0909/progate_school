@@ -470,8 +470,8 @@ def prep_profit(prep_w, Wm, sims=4000, waste=0.4, base=AVG / 4.3):
     X = np.minimum(N, prep_w)
     left = np.maximum(0, prep_w - N)
     return np.mean(X * (ITEMS * 1000 - COST) - left * COST * waste)
-grid = np.arange(400, 900, 1.0)
-for Wm, lab in ((0.93, '店内・雨の多い月 W×0.93'), (0.85, '屋台・雨の多い月 W×0.85（d.3 の屋外）'), (1.18, '観光地・8月 W×1.18（席の上限は別）')):
+grid = np.arange(400, 1400, 1.0)   # 0.4：観光地 ×1.50 で上限（899杯）に当たったので広げた
+for Wm, lab in ((0.93, '店内・雨の多い月 W×0.93'), (0.85, '屋台・雨の多い月 W×0.85（d.3 の屋外）'), (1.18, '住宅・郊外の8月 W×1.18（席の上限は別。0.3 は観光地と誤記）'), (1.50, '観光地の8月 W×1.50（4.5 の表の値、0.4 で足した）')):
     pr_n = np.array([prep_profit(g, 1.0) for g in grid]); g_n = grid[int(np.argmax(pr_n))]
     pr_r = np.array([prep_profit(g, Wm) for g in grid]); g_r = grid[int(np.argmax(pr_r))]
     best = pr_r.max(); keep = prep_profit(g_n, Wm)

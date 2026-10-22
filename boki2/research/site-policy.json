@@ -2203,5 +2203,10 @@
   "verdict": "gray",
   "basis": "robots.txt そのものの確認（取得の可否を決めるための読み取り）。CiNii の規約は https://support.nii.ac.jp/ja/cir/terms",
   "checked": "2026-10-22"
+ },
+ "irdb.nii.ac.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt そのものの確認（取得の可否を決めるための読み取り）",
+  "checked": "2026-10-22"
  }
 }

@@ -118,6 +118,45 @@ for r in [8000, 5000, 0]:
     v = be(r, 1098, 0.94); p(f'- (c) の家賃 {r:,}円/坪（宮城の時給1,098円）：{v:.0f}人、銀座の1階との比 **{hi / v:.2f}倍**。')
 p('- 固定費の形まで地域で変えると（版0.3の表）：過疎17人〜銀座の1階118人で約7倍。この段の開きは (c) の形の置き方の写し。\n')
 
+# ---------- G5. 人の数を「売上に比例」で置く（センサスの W の比：売上1億円あたりパート8時間換算 6.8〜8.8人）。形は両地域で同じ ----------
+p('## G5. パートの人数を売上に比例させる（経済センサス2016 の比、W の表：売上1億円あたりパート8h換算 東京6.81・全国7.86・宮城8.76）。ほかの形は地域で同じ\n')
+p('人の厚さを (c) で地域ごとに置く代わりに、資料（県の単位で、売上あたりのパートは地域で差が小さい r＝+0.04）から「パートは売上に比例」を共通の形にした。銀座は100人/日、過疎は30人/日の売上でパートが決まる。\n')
+G5 = dict(kp=[6.81, 7.86, 8.76], tsubo=[10, 15, 18], up=[1.0, 1.1, 1.2], family=[0, 1], owner=[150000, 200000, 250000, 300000],
+          other=[100000, 150000, 200000, 250000], mark=[1.0, 1.1, 1.2, 1.4])
+GZ = dict(rent=[30246, 34830, 36250], pr=[0.845, 0.98, 1.0]); OK = dict(rent=[0, 1500, 3000, 5000, 8000], pr=[0.885, 1.0, 1.2])
+def prof5(n, rent, pr, kp, tsubo, up, family, fc, owner, other, mark):
+    price = P0 * pr * mark; sales = n * price * DAYS
+    part = kp * sales * 12 / 1e8
+    return profit(n, price, fixed(tsubo, rent, 1280 * up, part, family, fc, owner, other)), part
+tot = gl = ok = both = 0; ex = None; partsG = set(); partsO = set()
+for kp, t, u, fa, ow, ot, mk in itertools.product(*G5.values()):
+    for fc in ((True, False) if fa else (True,)):
+        g = [prof5(100, r, pr, kp, t, u, fa, fc, ow, ot, mk) for r in GZ['rent'] for pr in GZ['pr']]
+        o = [prof5(30, r, pr, kp, t, u, fa, fc, ow, ot, mk) for r in OK['rent'] for pr in OK['pr']]
+        for a, pg in g:
+            for b, po in o:
+                tot += 1; gl += a < 0; ok += b > 0; both += (a < 0 and b > 0)
+                partsG.add(round(pg, 2)); partsO.add(round(po, 2))
+                if a < 0 and b > 0 and ex is None: ex = (kp, t, u, fa, fc, ow, ot, mk, round(a), round(b))
+p(f'組み合わせ {tot:,} 通り（形 × 銀座の家賃・値段 × 過疎の家賃・値段）。銀座100人で赤字 {gl / tot * 100:.0f}%、過疎30人で黒字 {ok / tot * 100:.0f}%、**両方 {both / tot * 100:.1f}%**。')
+p(f'パートの人数：銀座100人の店 {min(partsG):.2f}〜{max(partsG):.2f}人、過疎30人の店 {min(partsO):.2f}〜{max(partsO):.2f}人。')
+p(f'両方が成り立つ例（パートの比・広さ・時給の上乗せ・家族・家族を費用に・店主・その他・値付け・銀座の損益・過疎の損益）：{ex}\n')
+# 家族を数えるかで分けた割合
+for lab, cond in [('家族なし', lambda fa, fc: fa == 0), ('家族1人・費用に数えない', lambda fa, fc: fa == 1 and not fc), ('家族1人・最低賃金で数える', lambda fa, fc: fa == 1 and fc)]:
+    t2 = b2 = 0
+    for kp, t, u, fa, ow, ot, mk in itertools.product(*G5.values()):
+        for fc in ((True, False) if fa else (True,)):
+            if not cond(fa, fc): continue
+            for r in GZ['rent']:
+                for pr in GZ['pr']:
+                    a = prof5(100, r, pr, kp, t, u, fa, fc, ow, ot, mk)[0]
+                    for r2 in OK['rent']:
+                        for pr2 in OK['pr']:
+                            b = prof5(30, r2, pr2, kp, t, u, fa, fc, ow, ot, mk)[0]
+                            t2 += 1; b2 += (a < 0 and b > 0)
+    p(f'- {lab}：両方 {b2 / t2 * 100:.1f}%')
+p('')
+
 # ---------- S. G3 の感度（上野・浅草の行を基準に。版0.3の本文の値を出力で確かめる） ----------
 p('## S. 感度（上野・浅草の行：15坪・家賃19,395・時給1,280・パート1.5人・店主25万・その他20万・値段の比0.98）\n')
 def be_s(tsubo=15, rent=19395, part=1.5, owner=250000, other=200000, mark=1.0):

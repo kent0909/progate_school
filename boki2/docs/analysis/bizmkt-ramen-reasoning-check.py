@@ -316,3 +316,83 @@ if os.path.exists(A):
     print(f'  版1.1の結論 {sum(jud.values())} 件：' + '・'.join(f'{k} {jud[k]}' for k in ('妥当', '弱い', '不当', '?')))
     dup = [k for k, v in collections.Counter(seen).items() if v > 1]
     print(f'  番号の重複：{dup if dup else "なし"}')
+
+
+# ===================== 版1.2の再検査（2026-10-22 追加。検査書17章）=====================
+print()
+print('######## 版1.2の再検査 ########')
+REP12 = open(os.path.join(D, 'BIZ-MKT-RAMEN.md'), encoding='utf-8').read()
+DDD = os.path.join(D, '..', 'research', 'raw', 'web', 'bizmkt', 'r5-mktr-tcbmag-ddd.html')
+try:
+    from bs4 import BeautifulSoup
+    ddd_txt = BeautifulSoup(open(DDD, 'rb').read().decode('utf-8', 'replace'), 'html.parser').get_text(' ')
+except Exception as e:  # raw は git に入らないので、ない環境では飛ばす
+    ddd_txt = ''
+print('== W1) 32店の分母（r5-mktr-tcbmag-ddd）==')
+for q in ['have contributed 32 of the 800 business profiled on DDD', 'most recently the Brick House Cafe in Cable, Wis., in November',
+          'Their story is similar to the many regional DDD restaurants we spoke to', 'instant bedlam, a tidal wave of business',
+          'only three area DDD restaurants have closed']:
+    print(f'  原文にあるか：{"ある" if q in ddd_txt else "ない（raw がないか語句が違う）"}「{q}」')
+cities = {'Casper': 'St. Paul', 'Chester Creek': 'Duluth', 'Dari-Ette': 'St. Paul', 'Donatelli': 'White Bear Lake',
+          'Northern Waters': 'Duluth', 'Pizzeria Lola': 'Minneapolis', 'QFanatic': 'Champlin', 'Smack Shack': 'Minneapolis',
+          'Smalley': 'Stillwater', 'Victor': 'Minneapolis'}
+print(f'  10店の所在地（表の地名を写した）：{sorted(set(cities.values()))} → 10店ともミネソタ州の町＝地域の32店の中の店と読める')
+print('  ・32店は「全国の番組（Food Network）に出た、この地域の店」で、地域の番組ではない')
+print('  ・記事は選ばなかった店についても「話を聞いた多くの地域の店も同じ：大混乱、客の津波」と書く → 下の端（22店がみな伸びなかった＝8/32）は原文の向きと合わない')
+print('  ・32店には放送から半年ほどの店（2014年11月）も入るので、長期の値はまだない店がある')
+
+print()
+print('== W2) 報告の8.2の感度の表を、報告のスクリプトで走らせ直した値と突き合わせる ==')
+import subprocess as _sp
+out = _sp.run(['python3', os.path.join(os.path.dirname(__file__), 'bizmkt-ramen-cpa.py')], capture_output=True, text=True).stdout
+sec6 = out[out.index('== 6.'):] if '== 6.' in out else ''
+got = re.findall(r'ラーメン (\d+)（\d+%）・レモネード (\d+)（\d+%）', sec6)
+t82 = section(REP12, '### 8.2', '## 9.')
+tab = re.findall(r'\| (\d+)（\d+%）\| (\d+)（\d+%）\|', t82)
+print(f'  スクリプトの6節：{got}')
+print(f'  報告の表：      {tab}')
+print(f'  一致：{"全行一致" if got == tab else "食い違いあり"}（7行）。私の16.5 の「反応率0.3〜1.0%」660 と報告の 659 の差は、反応率の4点のうち1点を 0.75% と置いたか 0.7% と置いたかの差')
+
+print()
+print('== W3) 章「検査役の筋から採ったもの」の行 ==')
+tk = section(REP12, '## 検査役の筋から採ったもの', '## 論証の表')
+rows = [split_cells(l) for l in tk.splitlines() if l.startswith('| ') and not l.startswith('| 検査書の番号') and not l.startswith('|---')]
+withq = sum(1 for r in rows if '[[' in r[2])
+withs = sum(1 for r in rows if r[3].strip() not in ('なし',) and not r[3].startswith('なし'))
+print(f'  行 {len(rows)}：原文の語句を持つ行 {withq}、スクリプトの出力を持つ行 {withs}、出力「なし」 {len(rows) - withs}')
+for r in rows:
+    if '[[' not in r[2]:
+        print(f'  語句のない行：{r[0]}（{r[2][:30]}）')
+tv = [r for r in rows if 'M04' in r[0]]
+if tv:
+    print(f'  テレビの条件の行の語句：{re.findall(r"「([^」]+)」", tv[0][2])}')
+
+print()
+print('== W4) 6章の「待」5件の中身（版1.2の表）==')
+t6b = section(REP12, '## 6. 利用者の声', '## 7. 店主')
+for v in table_rows(t6b, r'V\d+'):
+    if v[2] == '待':
+        src = re.search(r'r[45]-[\w-]+', v[3]).group(0)
+        print(f'  {v[0]}（{src}）：{v[1][:40]}')
+print('  → 待5件は書き手が4人（J-Net21 の1件・蔦の記事の反応2件・同じブログの2件）で、うち2件は近所への迷惑の見方。「同じ数」は比べられる標本の数ではない')
+
+print()
+print('== W5) 版1.2の再検査の判定の数（検査書17章の表）==')
+if os.path.exists(A):
+    txt = open(A, encoding='utf-8').read()
+    br = collections.Counter(); jd = collections.Counter(); seen = []
+    for line in txt.splitlines():
+        mm = re.match(r'^\| (B\d+|N\d+) \|', line)
+        if not mm:
+            continue
+        cells = split_cells(line); v = re.sub(r'\*', '', cells[-2]); seen.append(mm.group(1))
+        if mm.group(1).startswith('B'):
+            k = '応えていない' if '応えていない' in v else ('一部' if '一部' in v else ('応えた' if '応えた' in v else '?'))
+            br[k] += 1
+        else:
+            k = '不当' if '不当' in v else ('弱い' if '弱い' in v else ('妥当' if '妥当' in v else '?'))
+            jd[k] += 1
+    print(f'  16.10 の依頼への応え {sum(br.values())} 項：' + '・'.join(f'{k} {br[k]}' for k in ('応えた', '一部', '応えていない', '?')))
+    print(f'  版1.2で変わった結論 {sum(jd.values())} 件：' + '・'.join(f'{k} {jd[k]}' for k in ('妥当', '弱い', '不当', '?')))
+    dup = [k for k, v in collections.Counter(seen).items() if v > 1]
+    print(f'  番号の重複：{dup if dup else "なし"}')
