@@ -5,7 +5,7 @@ doc: r4-sim-markstrat-predictionofidealpoints
 file: r4-sim-markstrat-predictionofidealpoints.htm
 sha256: 1142d0ff5da1c0a85c534c5a36458fcc2d01e9e471e33708df9cc04b7e57311a
 read: full
-anchors: ["Ideal points, also called preferences", "averaging the individual", "None of these reasons will create the conditions for drastic", "fairly gradual and regular", "Multidimensional Scaling study as of Period 2", "strongest color", "look \n2 or 3 periods ahead"]
+anchors: ["Ideal points, also called preferences", "averaging the individual", "None of these reasons will create the conditions for drastic", "fairly gradual and regular", "Multidimensional Scaling study as of Period 2", "strongest color", "look 2 or 3 periods ahead"]
 ---
 StratX の Markstrat（マーケティング戦略の研修用シミュレーション）の参加者用の手引き（Web 版、B2C）の1ページ。開発元の公式資料（一次）。 「理想点の予測」。
 

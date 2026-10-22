@@ -5,7 +5,7 @@ doc: r4-sim-markstrat-projectbasecost
 file: r4-sim-markstrat-projectbasecost.htm
 sha256: d22c133b8532a8cc56e8b5765d86c4e1f64e74b1e6495cd0e4eeda54e927c93c
 read: full
-anchors: ["target manufacturing unit cost", "decreases over time with experience", "Base costs have no upper limit", "reduce the \ncarbon footprint", "highly attractive in terms of margins", "the highest base \ncost economically achievable", "Feasibility studies cost $100,000"]
+anchors: ["target manufacturing unit cost", "decreases over time with experience", "Base costs have no upper limit", "reduce the carbon footprint", "highly attractive in terms of margins", "the highest base cost economically achievable", "Feasibility studies cost $100,000"]
 ---
 StratX の Markstrat（マーケティング戦略の研修用シミュレーション）の参加者用の手引き（Web 版、B2C）の1ページ。開発元の公式資料（一次）。 「企画の基準原価」。
 
