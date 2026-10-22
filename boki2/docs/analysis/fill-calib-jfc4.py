@@ -28,6 +28,7 @@ def parse_jfc(f):
             if not mm: continue
             vals = re.findall(r'-?[\d,]+\.\d+|-?[\d,]+|(?<!\S)-(?!\S)', mm.group(3))
             if len(vals) < 4: continue
+            if mm.group(1) in rec['rows']: continue  # 「売上高経常利益率(償却前)」が同じ名に読めて上書きするのを防ぐ（最初の行を使う）
             rec['rows'][mm.group(1)] = [None if v == '-' else float(v.replace(',', '')) for v in vals]
         recs.append(rec)
     return recs
