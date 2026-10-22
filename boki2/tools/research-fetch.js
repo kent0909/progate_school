@@ -65,11 +65,14 @@ if (wait > 0) spawnSync('sleep', [String(Math.ceil(wait / 1000))]);
 const ext = (url.match(/\.(pdf|html?|json|txt|xml)(?:$|\?)/i) || [, 'html'])[1].toLowerCase();
 const dir = path.join(R, 'raw', src, coll);
 fs.mkdirSync(dir, { recursive: true });
-const file = path.join(dir, `${doc}${part ? '_' + part : ''}.${ext}`);
+let file = path.join(dir, `${doc}${part ? '_' + part : ''}.${ext}`);
 if (fs.existsSync(file) && !a.includes('--force')) die(`${path.relative(R, file)} は取得済み（取り直すなら --force）`);
 const r = spawnSync('curl', ['-sS', '-L', '-m', '90', '-A', 'boki2-quest-research (personal study design)', '-o', file, '-w', '%{http_code}', url], { encoding: 'utf8' });
 const status = Number((r.stdout || '').trim()) || 0;
-const buf = fs.existsSync(file) ? fs.readFileSync(file) : Buffer.alloc(0);
+let buf = fs.existsSync(file) ? fs.readFileSync(file) : Buffer.alloc(0);
+// 中身で拡張子を正す（URL に拡張子がない Excel・PDF が .html で保存され、「Excel だから読めない」と誤解された）
+{ const magic = buf.slice(0, 4).toString('latin1'); const real = magic.startsWith('%PDF') ? 'pdf' : magic.startsWith('PK') ? 'xlsx' : magic === '\xd0\xcf\x11\xe0' ? 'xls' : null;
+  if (real && !file.endsWith('.' + real)) { const nf = file.replace(/\.[^.\/]+$/, '.' + real); if (!fs.existsSync(nf)) { fs.renameSync(file, nf); file = nf; console.log(`中身が ${real} だったので拡張子を直した → ${path.relative(R, nf)}`); } } }
 append({ url, status, bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex'), file: path.relative(R, file), via: 'research-fetch', ...(S.tos.verdict === 'per-site' ? { tos: { verdict: tosV, basis: tosB, checked: tosC || new Date().toISOString().slice(0, 10) } } : {}) });
 console.log(`${status} ${buf.length}B → ${path.relative(R, file)}`);
 if (status !== 200) {
