@@ -1,0 +1,23 @@
+{"t": "2026-10-22T05:22:14.437349Z", "query": "SUSURU インタビュー 店の選び方 案件 ラーメン YouTuber", "used": [], "note": "WebSearch。文春の3回連載を採用（bunshun 82238〜82240）"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "ラーメン店 テレビ放送後 行列 常連が離れた 店主", "used": [], "note": "WebSearch。マイナビの行列コラムを採用。東洋経済は規約で自動取得禁止"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "ミシュラン 一つ星 獲得 ラーメン 蔦 整理券 行列 対応", "used": [], "note": "WebSearch。J-CAST・nippon.com を採用。lifehacker は robots で ClaudeBot を全面禁止のため不採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "ラーメン 行列 近隣 苦情 移転 閉店 ニュース", "used": [], "note": "WebSearch。蔦の休業（J-CAST）"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "食べログ 点数 アルゴリズム 韓流村 判決 高裁 逆転", "used": [], "note": "WebSearch。判決文は未取得。ben54・netsecurity は AI の robots 制限あり。食べログの公式説明頁を採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "Learning from the Crowd Anderson Magruder Yelp", "used": [], "note": "WebSearch。研究者頁の PDF が 404。BIZ-MGMT の luca-yelp で代える"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "Michelin star effect restaurant demand prices study pdf", "used": [], "note": "WebSearch。AAWE WP108 を採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "Cai Chen Fang observational learning field experiment restaurant", "used": [], "note": "WebSearch。NBER w13516 を採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "television exposure restaurant Diners Drive-ins and Dives effect", "used": [], "note": "WebSearch。Twin Cities Business の記事を採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "TRYラーメン大賞 受賞 その後 客数 行列 店主", "used": [], "note": "WebSearch。プレジデントの永太（会員限定部分は未読）"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "食べログ 百名店 ラーメン 選出 影響", "used": [], "note": "WebSearch。カカクコムの発表 PDF は 404"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "ラーメンフェス 出店 売上 杯数", "used": [], "note": "WebSearch。現代ビジネスは robots で AI を全面禁止。鳥取県・五霞町の出店要項を候補"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "限定麺 告知 X 店主 限定20食 転売 整理券", "used": [], "note": "WebSearch。二郎府中店の件（toy-people は本文が文字参照で照合不能のため根拠にしない）"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "ラーメン店 迷惑系YouTuber 撮影", "used": [], "note": "WebSearch。SoraNews24 を採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "ラーメン店 Googleマップ 口コミ 店主 返信 炎上 星1", "used": [], "note": "WebSearch。弁護士ドットコム・Forbes（Mycat の推計）を採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "新横浜ラーメン博物館 出店 期間限定 銘店", "used": [], "note": "WebSearch。一風堂の発表を採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "インフルエンサー 飲食店 PR 来店につながらない", "used": [], "note": "WebSearch。業者の記事のみ（宣伝）"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "ラーメン店 チラシ ポスティング 効果", "used": [], "note": "WebSearch。アドビ×山形市の調査（Web担）、ラクスルの資料を採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "ラーメン 映え 写真 SNS 女性客", "used": [], "note": "WebSearch。週刊女性PRIME の映えラーメンを採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "ラーメン 雑誌 テレビ 取材 掲載料", "used": [], "note": "WebSearch。ラーメン刑事（神戸新聞系）・宣伝会議を採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "ラーメン店 選ぶ理由 アンケート", "used": [], "note": "WebSearch。J-Net21 の消費者アンケートを採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "カカクコム 決算説明資料 食べログ 有料店舗数", "used": [], "note": "WebSearch。JPX の決算説明資料を採用"}
+{"t": "2026-10-22T05:22:14.437349Z", "query": "hatenablog / note ラーメン 行列 体験", "used": [], "note": "WebSearch。個人の体験記を利用者の声として候補"}
