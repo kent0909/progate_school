@@ -8,7 +8,7 @@ read: partial
 pages: 本文の全部と、コメント欄のうち著者が数値の決め方に答えた返事（2016-04-28）まで。後半のピンバックは読んでいない
 anchors: ["How do I choose which piece to show the player next?", "bottles of laudanum", "The Frequently Deceased", "accuse murderer", "Salience-based narrative", "a few thousand randomized playthroughs", "Waypoint narrative", "constantly trying to heal the story", "a little", "GANG_MORALE"]
 ---
-Emily Short のブログ記事（2016-04-12）「Beyond Branching: Quality-Based, Salience-Based, and Waypoint Narrative Structures」と、コメント欄の著者の返事。一次情報（設計者本人）。
+Emily Short のブログ記事（2016-04-12）「Beyond Branching」（質・際立ち・道しるべの3方式の物語構造）と、コメント欄の著者の返事。一次情報（設計者本人）。
 
 要点（自分の言葉で）：
 - 問いを「次にどの小片を見せるか」に置き直し、木の形の分岐以外の3つの方式を比べる。

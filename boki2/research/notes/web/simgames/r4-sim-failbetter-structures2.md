@@ -7,7 +7,7 @@ sha256: cccfeaa1c1e4b2d2a4d44bb278a96d0f3f80b302f26c7f416e88aa98678f3067
 read: full
 anchors: ["somewhat diagram-infested", "Every object in EB is a quality", "Connected: The Church", "Questicles!", "Cryptic Secrets", "around sixty different kinds", "Kittens Triple Fork", "it is an exile quality"]
 ---
-Failbetter Games の公式ブログ（2010-03-03）「Echo Bazaar Narrative Structures, part two」。一次情報。part one の続きで、物語の部品と型の例。
+Failbetter Games の公式ブログ（2010-03-03）（Echo Bazaar の物語構造の連載の2回目）。一次情報。part one の続きで、物語の部品と型の例。
 
 要点（自分の言葉で）：
 - 部品は2つ。ストーリーレット（順不同で、何度でも遊べる物語の小片）と、質（quality＝能力値だけでなく、持ち物も含めたあらゆる数値）。質がストーリーレットの「どの選択肢が開くか」を決める。例：墓の植民地の小片で、1つ目の選択肢は教会とのつながりの値で、2つ目は社交界とのつながりの値で鍵がかかり、どちらを選んでも醜聞の値が下がる。同じ結果に、持っている資源によって違う道で着く。
