@@ -322,6 +322,21 @@ print('  判定が変わった項目：', [k for k, (a, b) in RECOUNT.items() if
 filled = sum(1 for a, _ in RECOUNT.values() if a in ('支持', '修正', '否定')); filled2 = sum(1 for _, b in RECOUNT.values() if b in ('支持', '修正', '否定'))
 print(f'  「一次・研究・実務者・事例で埋まった（支持・修正・否定）」：報告 {filled} → 付け直し {filled2}')
 
+# 報告4章（上位30の外）で「探していない」と書かれた項目の数（1行に複数の項目があるものは「・」で分ける）
+REP = os.path.join(ROOT, 'docs', 'BIZ-FILL-RAMEN.md')
+rs = open(REP, encoding='utf8').read()
+sec4 = rs.split('## 4. 上位30の外の項目', 1)[1].split('判定書から足した項目', 1)[0]
+n_items = n_not = n_not5 = 0
+for l in sec4.split('\n'):
+    c = [x.strip() for x in l.strip().strip('|').split('|')]
+    if len(c) == 3 and re.match(r'^[MR]\d', c[0]):
+        items = [x for x in re.split(r'[・\s]', c[0]) if re.match(r'^[MR]\d+$', x)]
+        n_items += len(items)
+        if '探していない' in c[2]:
+            n_not += len(items)
+            if c[1].isdigit() and int(c[1]) >= 5: n_not5 += len(items)
+print(f'\n報告4章：項目 {n_items}、「探していない」と書いた項目 {n_not}、うち点5以上 {n_not5}。上位30の未探索4と合わせ点5以上の未探索 {n_not5 + 4}')
+
 # ---------------------------------------------------------------- F. 判定の数
 print('\n## F. 検査書の判定の数\n')
 if os.path.exists(AUDIT):
