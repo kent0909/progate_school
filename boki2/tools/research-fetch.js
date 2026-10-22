@@ -56,4 +56,10 @@ const status = Number((r.stdout || '').trim()) || 0;
 const buf = fs.existsSync(file) ? fs.readFileSync(file) : Buffer.alloc(0);
 append({ url, status, bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex'), file: path.relative(R, file), via: 'research-fetch', ...(S.tos.verdict === 'per-site' ? { tos: { verdict: tosV, basis: tosB, checked: tosC || new Date().toISOString().slice(0, 10) } } : {}) });
 console.log(`${status} ${buf.length}B → ${path.relative(R, file)}`);
-if (status !== 200) process.exit(1);
+if (status !== 200) {
+  // 403 でも「ページが存在しない」の案内のことがある（中小企業庁は存在しない URL に 403 を返す）。拒否か URL 違いかを見分けられるよう、本文の先頭を見せる
+  const head = buf.toString('utf8', 0, 4000).replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
+  if (head) console.log(`本文の先頭：${head}`);
+  if (/存在しません|見つかりません|not found|404/i.test(head)) console.log('→ URL が違う（移動・削除）可能性が高い。取得を拒否されたのではない。一覧のページから正しい URL を探すこと');
+  process.exit(1);
+}
