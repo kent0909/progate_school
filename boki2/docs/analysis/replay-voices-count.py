@@ -45,7 +45,16 @@ if '--dump' in sys.argv:
 
 print('切り出した口コミ：%d 件（重複を除く前 %d 件）' % (len(U), len(A)))
 print('作品ごと：', dict(collections.Counter(u['work'] for u in U)))
-print('星の分布：', dict(sorted(collections.Counter(u['stars'] for u in U).items())))
+print('星の分布（切り出した口コミ）：', dict(sorted(collections.Counter(u['stars'] for u in U).items())))
+# 原文の各作品の1ページ目に載る App Store の評価の件数（星1〜5）。標本から外れた側の大きさを見るため（判定書 M1）
+tot = [0, 0]
+for work, pages in PAGES:
+    t = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', open(os.path.join(RAW, pages[0] + '.html'), encoding='utf8').read())))
+    m = re.search(r'5つ星 ([\d,]+) 4つ星 ([\d,]+) 3つ星 ([\d,]+) 2つ星 ([\d,]+) 1つ星 ([\d,]+)', t)
+    v = [int(x.replace(',', '')) for x in m.groups()]
+    tot[0] += sum(v); tot[1] += v[2] + v[3] + v[4]
+    print('  App Store の評価 %s：星5=%d 星4=%d 星3=%d 星2=%d 星1=%d 計=%d 星1〜3=%d（%.1f%%）' % (work, *v, sum(v), v[2] + v[3] + v[4], 100.0 * (v[2] + v[3] + v[4]) / sum(v)))
+print('  App Store の評価 5作品の計：%d 件、星1〜3 %d 件（%.1f%%）' % (tot[0], tot[1], 100.0 * tot[1] / tot[0]))
 
 # ---- 2. 分類のコード ----
 rows = {}
@@ -64,6 +73,8 @@ def tally(col, name):
         for k in rows[u['id']][col].split():
             if k != '-':
                 c[k] += 1
+                if k in ('Kc', 'Kv', 'Kp'):
+                    c['K（Kc+Kv+Kp）'] += 1
     print(name, '：', ', '.join('%s=%d' % kv for kv in sorted(c.items(), key=lambda kv: -kv[1])))
 tally(2, '楽しみ（周回の動機）')
 tally(3, '不満・やめた理由')
@@ -86,6 +97,7 @@ print('やめた・飽きたと書いた口コミ：%d 件（#%s）' % (len(stop
 # 関係ごと（周 と 長）に楽しみを分けて数える
 for r in ['周', '長']:
     c = collections.Counter(k for u in rel if rows[u['id']][1] == r for k in rows[u['id']][2].split() if k != '-')
+    c['K（Kc+Kv+Kp）'] = c['Kc'] + c['Kv'] + c['Kp']
     n = sum(1 for u in rel if rows[u['id']][1] == r)
     print('関係=%s（%d 件）の楽しみ：' % (r, n), ', '.join('%s=%d' % kv for kv in c.most_common()))
 # 作品ごとの楽しみの上位3
