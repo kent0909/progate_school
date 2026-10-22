@@ -233,6 +233,10 @@ teiki, ihan, sh_teiki, sh_shinkoku = 0.037, 0.7, 0.8, 0.1
 print(f'  定期監督に入られて違反が見つかる年の率：{teiki} × {ihan} = {teiki * ihan:.4f}（約{teiki * ihan * 100:.1f}%）【推論：掛け算】')
 print(f'  申告監督の年の率（定期の率 × 申告1割 ÷ 定期8割）：{teiki} × {sh_shinkoku} ÷ {sh_teiki} = {teiki * sh_shinkoku / sh_teiki:.5f}（約{teiki * sh_shinkoku / sh_teiki * 100:.2f}%、定期の {sh_shinkoku / sh_teiki:.3f} 倍）【推論：粗い比】')
 
+# ---- 8c) 優越的地位の濫用の課徴金（独禁法20条の6：取引額の1%、100万円未満は命じない）に届く取引額（D33・P36）----
+print('\n## 8c) 優越的地位の課徴金の足切りに届く取引額')
+print(f'  100万円 ÷ 1% = {1_000_000 / 0.01:,.0f}円（違反行為期間の相手との取引額がこれ未満なら命じない）')
+
 # ---- 9) 仕訳の貸借の検算（（借）…／（貸）… の区切りごと）----
 print('\n## 9) 仕訳の貸借')
 if os.path.exists(REP):
