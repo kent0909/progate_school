@@ -61,6 +61,14 @@ for W, nriv, R, cap in itertools.product((.8, 1.0, 1.2), (0, 1, 2, 3), (2.5, 3.0
     res2.append((W, nriv, R, cap, p))
 print()
 show(res2, 'd.2 から1,000円の折れ目だけを外した版')
+for e in (1.25, 1.5, 1.75, 2.0, 2.5, 3.0):
+    EPS = e
+    rs = []
+    for W, nriv in itertools.product((.8, 1.0, 1.2), (0, 1, 2, 3)):
+        rs.append((W, nriv, argmax(lambda q: d2_profit(q, W, nriv, 3.0, cap=99999), ps)[0]))
+    print('  折れ目なし ε=%.2f：最適' % e, sorted(set(r[2] for r in rs)), ' ライバル0〜3軒（W=1）→', [r[2] for r in rs if r[0] == 1.0],
+          ' 天気Wで動いた組', sum(1 for n in (0, 1, 2, 3) if len(set(r[2] for r in rs if r[1] == n)) > 1), '／4')
+EPS = 1.25
 lnp = _saved
 
 print()
