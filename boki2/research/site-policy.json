@@ -1533,5 +1533,70 @@
   "verdict": "gray",
   "basis": "robots.txt は記事を許可（検索のみ禁止）。文春オンライン利用規約（bunshun.jp/list/terms）に自動取得の禁止条項なし",
   "checked": "2026-10-22"
+ },
+ "news.mynavi.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "www.jprime.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "www.j-cast.com": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "www.toy-people.com": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "soranews24.com": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "www.bengo4.com": {
+  "verdict": "gray",
+  "basis": "robots.txt は記事を許可（AI の利用者エージェントにも /questions/ 等のみ禁止）。規約の自動取得禁止は未確認（gray）",
+  "checked": "2026-10-22"
+ },
+ "forbesjapan.com": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "www.moneypost.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "www.daily.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "www.kobe-np.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "www.nippon.com": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "www.family.co.jp": {
+  "verdict": "gray",
+  "basis": "企業の報道発表。robots.txt なし（404）＝制限なし。規約の自動取得禁止は未確認（gray）",
+  "checked": "2026-10-22"
+ },
+ "webtan.impress.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt は 403 で読めず、規約の自動取得禁止も未確認。同じ impress の他ホストは gray。1頁だけ取る（gray）",
+  "checked": "2026-10-22"
  }
 }

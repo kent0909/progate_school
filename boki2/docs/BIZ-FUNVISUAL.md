@@ -96,3 +96,172 @@
 | （オーナー）グラフィックや UI、表現技法も、丸パクリはダメだが、エッセンスとなるところは存分に盛り込むべき。一律禁止はやりすぎ。いまのグラフィックデザインはチープすぎる | 3章 | 表現の手法を26項目、すべてエッセンス（型）として具体的に書いた |
 
 ---
+
+## 1. 作品ごとの分析（11本）
+
+すべて同じ8つの軸で書いた：**変数（数と深さ）／絡み／解放の順／目標／運と予兆／ライバル／周回の動機／表現**。「深さ」は、その変数の選択肢の段数や、ほかの変数と掛け合わさる数で見た。最後の行に、その作品から抜く**型**（エッセンス）を書いた。
+
+### 1.1 こだわりラーメン館（カイロソフト、買い切り版 2016年 iOS／全国編は無料）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | 麺（加水率・形状）、スープ（材料を入れる順と組み合わせ。保存は17種まで）、タレ、具（種類・**丼の上の置き位置と角度**）、値段、材料費、店員（体力・調理などの能力値、雇用・育成・投資的な強化）、店内の配置と設備、投資（時間で完了）、販売エリア（全国編は都道府県）、大会、ライバル店、常連と客の好み。**一杯の組み立てだけで6変数あり、それぞれが数段〜数十の選択肢**を持つ | [[web:simgames:r5-fv-mogura-ramenkan]] [[web:simgames:r5-fv-denfami-ramenkan]] [[web:simgames:r5-fv-applion-ramenkan]] [[web:simgames:r5-fv-applion-ramenkan-zenkoku]] |
+| 絡み | 一杯の値（味・魅力など）が客数を決め、客数が売上と経験を生み、経験で新しい食材・店員が開き、また一杯の値が上がる、の輪。**値段を下げると客が増えるが利益が減るので材料費を下げる工夫をする**（声）＝値段×原価×品質の三つ巴 | [[web:simgames:r5-fv-applion-ramenkan-zenkoku]] [[web:simgames:r5-fv-denfami-ramenkan]] |
+| 解放の順 | 最初は自由度が低く、レベル・食材・店員・投資で順に開く。全国編は販売エリアが都道府県ごとに広がる。新しい食材が手に入るまでの「谷」がある（声） | [[web:simgames:r5-fv-applion-ramenkan]] [[web:simgames:r5-fv-applion-ramenkan-zenkoku]] |
+| 目標 | 行列・日本一・大会の段位（昇段審査）・テーマパーク。目標が「段」の形で見える | [[web:simgames:r5-fv-denfami-ramenkan]] [[web:simgames:r5-fv-famitsu-ramenkan]] |
+| 運と予兆 | 一杯の評価が自分の予想とずれる（隠れた相性）。すごろく（全国編）は運の要素が強い | [[web:simgames:r5-fv-applion-ramenkan-zenkoku]] |
+| ライバル | 店の近くに出て客を奪う。大会で対決。**買収・共存・引き抜きができない**ことが不満に挙がる | [[web:simgames:r5-fv-applion-ramenkan]] |
+| 周回の動機 | 二周目に入った・クリア後が楽しい（声）。周回で店員の育て方を変える（グルメ食堂の声と同じ型） | [[web:simgames:r5-fv-applion-ramenkan]] |
+| 表現 | 斜め見下ろしのドット絵の店、**ドット絵の丼に具を置く画面**（記者が一番の見どころに挙げる）、小さく可愛いキャラ、対決の曲 | [[web:simgames:r5-fv-gamespark-ramenkan]] [[web:simgames:r5-fv-applion-ramenkan]] |
+| **抜く型** | 一杯を「組み立てる」画面と、それを店の経営の数字につなぐ輪。名前をつける自由。段位の目標 | |
+
+### 1.2 大盛グルメ食堂（カイロソフト、2012年 iOS）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | メニュー（基の料理×食材を最大2つ）、販売価格・味・魅力、食材の集め方（探しに行く出来事・客がくれる・店で買う・経営計画の催し）、テーブル・テレビ・観葉植物などの設置、ホールと調理の人の雇用と成長（技能を覚える）、2号店・3号店・増築 | [[web:simgames:r5-fv-appbank-gurume]] |
+| 絡み | 食材がないと開発できず、開発できないと店が伸びない。食材探しに2万円が要るので**手元にお金を残す理由**ができる（資金繰りの小さな練習） | [[web:simgames:r5-fv-appbank-gurume]] |
+| 解放の順 | 最初3品→開発で品数が増える→30分ほどで食材の店と経営計画が開く→2号店 | [[web:simgames:r5-fv-appbank-gurume]] |
+| 目標 | 地域一番の食堂、大規模店・全国展開 | [[web:simgames:r5-fv-appbank-gurume]] |
+| 運と予兆 | 組み合わせが当たりのとき「見事な組み合わせ」のひと言で知らせる（**発見の予告**） | [[web:simgames:r5-fv-appbank-gurume]] |
+| ライバル | 【資料なし】（読んだ資料に出てこない） | |
+| 周回の動機 | 1周目に普通の店員を育てすぎない、という周回を意識したこつ（声） | [[web:simgames:r5-fv-applion-gurume]] |
+| 表現 | 料理と食べ終えた皿のドット絵が可愛い、食べる途中の減り方の段階をもっと細かく、という声 | [[web:simgames:r5-fv-applion-gurume]] |
+| **抜く型** | 「基の料理＋食材2つ」の短い組み合わせと、当たりのひと言。食べ物の絵の段階 | |
+
+### 1.3 ゲーム発展国++（カイロソフト、2010年 iOS/Android。携帯版 2008年）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | 作るゲームのジャンル×内容×機種×方針、社員（職種・能力・転職・育成）、受託の仕事、研究の点、機種のライセンス、自社の機種（ハード技術者が要る）、作品名・会社名 | [[web:simgames:r5-fv-pocketgamer-gamedevstory]] [[web:simgames:r5-fv-applion-gamedevstory]] |
+| 絡み | ジャンル×内容の相性は見えず、結果（評・売上）から推す。社員の育ち具合が出来に直結。市場の機種の入れ替わりが、どの機種に出すかの判断を毎年変える。売上は評点とあまり一致しない（論考）＝**物語の余地** | [[web:simgames:r5-fv-applion-gamedevstory]] [[web:simgames:r5-fv-gd-gamedevstory]] |
+| 解放の順 | パソコン用→機種のライセンス→予算・社員・機種が大きく→ハード開発、受託・続編開発。**ハード開発を見つけて熱が戻った**という声 | [[web:simgames:r5-fv-applion-gamedevstory]] |
+| 目標 | 年1回のゲーム大賞（グランプリ）、販売本数の大台、最高記録。20年で一区切り | [[web:simgames:r5-fv-applion-gamedevstory]] |
+| 運と予兆 | 主力の機種が「3か月後に販売停止」と予告され、全額を新機種に賭けた結果が大当たり、のような**予告つきの賭け**がドラマになる。一方、停電・機材故障の予告なしの出来事は「理不尽にポイントを下げるだけ」と不満 | [[web:simgames:r5-fv-applion-gamedevstory]] |
+| ライバル | 続編を作っている最中に似たゲームを出される出来事（対処の手がないと不満） | [[web:simgames:r5-fv-applion-gamedevstory]] |
+| 周回の動機 | 強くてニューゲーム（少し違う始まり）、2周目の16年目でやっと大賞、再走したくなる | [[web:simgames:r5-fv-applion-gamedevstory]] |
+| 表現 | 斜め見下ろしの事務所、社員の頭上の大きな顔文字と吹き出しで状態が一目で分かる、業界の小ネタ | [[web:simgames:r5-fv-pocketgamer-gamedevstory]] |
+| **抜く型** | 見えない相性＋名前の入力＝物語の外骨格。予告つきの大事件。頭上のアイコン | |
+
+### 1.4 Game Dev Tycoon（Greenheart Games、2012年）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | 題材×ジャンル×機種×客層、開発の配分、作品の質を「設計」と「技術」の**2本**で測る、社員の向き（創造系・技術系）、研究の項目（宣伝・自社エンジン・3D・保存の仕組みなど）、機種のライセンス、事務所、研究所、ハード研究所 | [[web:simgames:r5-fv-digdl-gamedevtycoon]] [[web:simgames:r5-fv-wiki-gamedevtycoon]] [[web:simgames:r4-sim-gdt-modapi-topics]] |
+| 絡み | 相性の掛け算（1つ悪いと全体が落ちる）。研究を挟まず続けて作ると成績が落ちる（**同じ手を続けると落ちる**）。市場の流れ（もうすぐ出る機種）を読む | [[web:simgames:r5-fv-digdl-gamedevtycoon]] [[web:simgames:r4-sim-gdt-modapi-checks]] |
+| 解放の順 | ガレージ→事務所→（条件で）研究所→ハード研究所。**場所の移動で節目が見える** | [[web:simgames:r5-fv-wiki-gamedevtycoon]] |
+| 目標 | 25年の期限の中で会社を育てる。利用者の声で一番多かったのは「25年が早く終わりすぎる」 | [[web:simgames:r5-fv-greenheart-onemonth]] |
+| 運と予兆 | 終盤は外の要因で不公平に感じる（記者） | [[web:simgames:r5-fv-digdl-gamedevtycoon]] |
+| ライバル | 【資料なし】（BIZ-SIMDESIGN でも資料なし） | |
+| 周回の動機 | 最初の数周は研究の無駄打ちをしやすい＝周を重ねて最適を知る。改造が943（Steam の工房） | [[web:simgames:r5-fv-digdl-gamedevtycoon]] [[web:simgames:r5-fv-wiki-gamedevtycoon]] |
+| 表現 | スライダーとドラッグの現代的な画面。大きい画面向けに設計し、電話には作り直しが要ると作り手が判断 | [[web:simgames:r5-fv-digdl-gamedevtycoon]] [[web:simgames:r5-fv-greenheart-onemonth]] |
+| **抜く型** | 2本の軸×人の向き。場所が変わる解放。期限の長さは「もっと長く」と言われるくらいがよい | |
+
+### 1.5 Lemonade Tycoon（Jamdat、2002年）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | レシピ（氷・レモン・砂糖の配合）、値段、場所（5か所、家賃と人気が違う）、宣伝費、設備の上積み（待ち時間・目立ち・製氷・容量）、日払いの人（レジ係・道化）、天気、毎日のニュースの見出し。**8つ** | [[web:simgames:r5-fv-wiki-lemonadetycoon]] [[web:simgames:r5-fv-pocketgamer-lemonadetycoon]] |
+| 絡み | 満足度＝待ちの短さ×値段の良さ×取りこぼしのなさ×レシピ。満足すると客が戻る。**人気と満足度は場所ごとで、移ると持ち越さない** | [[web:simgames:r5-fv-wiki-lemonadetycoon]] |
+| 解放の順 | 歩道→公園・街・浜辺（家賃が高い場所）→設備 | [[web:simgames:r5-fv-pocketgamer-lemonadetycoon]] |
+| 目標 | 期限なし／30日の挑戦（記者は30日を好んだ）／選手権。他の人と成績を比べる機能 | [[web:simgames:r5-fv-wiki-lemonadetycoon]] |
+| 運と予兆 | 予報はあるが外れる。見出しが売上を上下し、場所だけに効くこともある | [[web:simgames:r5-fv-wiki-lemonadetycoon]] |
+| ライバル | なし | |
+| 周回の動機 | 弱い。**1週間ほどで単調になる**（設備を揃え数か所を試すと変化が尽きる） | [[web:simgames:r5-fv-pocketgamer-lemonadetycoon]] |
+| 表現 | 管理の画面と、防犯カメラのような視点で客が通り、**吹き出しで味や値段の感想を言う**画面。眺める画面は数日で飛ばされる | [[web:simgames:r5-fv-pocketgamer-lemonadetycoon]] |
+| **抜く型** | 客の吹き出しで「なぜ売れたか」を伝える。場所ごとの評判。**反面教師**：変数の効きが小さいと触られなくなる（暑い日の値上げと薄めが効かず、レシピをいじらなくなった） | |
+
+### 1.6 Offworld Trading Company（Mohawk Games、2016年）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | 13の資源（掘る5・作る7・お金）、地面の資源の埋まり方（わずか・少・中・多の4段）、建物、売買、闇市場の妨害、自社株と他社株 | [[web:simgames:r5-fv-wiki-offworld]] [[web:simgames:r5-fv-matchstick-offworld]] |
+| 絡み | 資源の木（鉄→鋼、水→食料・酸素・燃料、酸素＋ケイ素→ガラス…）。**値段は全員の売買で動く1つの値**（買値と売値を分けていた試作を1つにしたら市場の仕組みが強くなった）。相手がガラスを買い込めば、こちらがガラス窯で儲ける | [[web:simgames:r5-fv-matchstick-offworld]] [[web:simgames:r5-fv-wiki-offworld]] |
+| 解放の順 | 1試合30分の中で、本部→採掘→加工→株。キャンペーンで長い遊び | [[web:simgames:r5-fv-matchstick-offworld]] |
+| 目標 | 全社の過半の株を買う | [[web:simgames:r5-fv-wiki-offworld]] |
+| 運と予兆 | 闇市場で妨害を買うと値段が上がる＝**相手に備える機会を与える予兆**。買収できるお金が貯まると買われる側に警告が出る | [[web:simgames:r5-fv-wiki-offworld]] |
+| ライバル | 同じ市場で売買する AI と人。買収された会社は子会社として自動で稼ぐ（前の調べもの） | [[web:simgames:r4-sim-soren-otc-stockmarket]] |
+| 周回の動機 | 毎回違う地図と相手の動き。毎日の挑戦 | [[web:simgames:r4-sim-soren-otc-eapostmortem]] |
+| 表現 | 経営シム好きのために、速さの段・**停止中の命令**・妨害を切る設定 | [[web:simgames:r5-fv-matchstick-offworld]] |
+| **抜く型** | 共有の相場（自分とライバルの買いで動く値）。細かい手作業は自動にして判断を市場に集める。予兆つきの妨害と買収 | |
+
+### 1.7 Capitalism Lab（Enlight）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | 街ごとの賃金・地価・人通り、原料・農場・工場・店・研究所、港からの輸入、他社への卸、輸送費、品目ごとの評価（値段・品質・ブランドの重み）、研修（1〜9段）、役員（技術・宣伝・業務）、借入・社債・株式、陳腐化、品揃え（1店12品） | [[web:simgames:r5-fv-capilab-beginners]] [[web:simgames:r5-fv-capilab-strategies]] |
+| 絡み | **品目ごとに効く手が違う**（たばこはブランド60%、冷凍肉は品質と値段40%ずつ、携帯電話は品質の80%が製造技術）。電子部品は21品に使え、次に広げる先が自然に見える。在庫が少ないとき、原料→中間品→工場の順に詰まりを探す（違う所に足すと詰まりが移るだけ） | [[web:simgames:r5-fv-capilab-beginners]] [[web:simgames:r5-fv-capilab-strategies]] |
+| 解放の順 | 単純な分野（商業不動産・通信）→信用を得て社債→研究の重い縦の統合、という**順番の戦略**が攻略として成り立つ | [[web:simgames:r5-fv-capilab-strategies]] |
+| 目標 | シナリオの目標値。品目の分類全体を押さえること | [[web:simgames:r5-fv-capilab-strategies]] |
+| 運と予兆 | 地図は毎回ランダム。後継の品が出ると需要が数年かけて移る（陳腐化の予兆が手引きで読める） | [[web:simgames:r5-fv-capilab-beginners]] |
+| ライバル | 安くて質の低い競合、高級ブランドの競合など、性格の違いを観察で見分ける。技術を買える | [[web:simgames:r5-fv-capilab-monopolistic]] [[web:simgames:r5-fv-capilab-beginners]] |
+| 周回の動機 | 毎回違う地図、港の質の難易度 | [[web:simgames:r5-fv-capilab-beginners]] |
+| 表現 | 地価と人通りの**色の重ね表示**（赤・橙＝高、黄＝中、色なし＝低）。工場の**需給の棒**（黄＝供給、橙＝需要）。店の画面で仕入値と輸送費を分けて出す | [[web:simgames:r5-fv-capilab-beginners]] |
+| **抜く型** | 品目ごとの重み。詰まりを探す推理。色の重ね表示と需給の棒 | |
+
+### 1.8 Two Point Hospital（Two Point Studios、2018年）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | 部屋と設備（受付・診察・治療・トイレ・職員室・売店・自販機・椅子）、区画の拡張、職員（医師・看護師・用務員・助手。資格・技能・性格・専門）、研究、宣伝（特定の病気の患者・技能の職員を呼ぶ）、飾り（鉢植え・ごみ箱）、**病院の段**（部屋と職員の数）、**部屋の格**（広さと飾り）、評判、衛生 | [[web:simgames:r5-fv-wiki-twopointhospital]] [[web:simgames:r5-fv-pcgi-twopoint]] |
+| 絡み | **飾り×職員の特性×成績**（緑の指の職員は鉢植えで成績が上がる）。置いた物は部屋の機能だけでなく職員と患者に波及する。すれ違う患者が互いに影響する（吐いた物を見るのが嫌い） | [[web:simgames:r5-fv-pcgi-twopoint]] [[web:simgames:r5-fv-sixthaxis-twopoint]] |
+| 解放の順 | **一本道でない**：1つの病院で1つ星→新しい病院が開き、複数を同時に経営。後で開いた機械・暖房を前の病院に入れに戻る | [[web:simgames:r5-fv-sixthaxis-twopoint]] |
+| 目標 | 各病院に1〜3つ星。1つ星で先へ（気軽な人）、2・3つ星はやり込み（熱心な人） | [[web:simgames:r5-fv-pcgi-twopoint]] |
+| 運と予兆 | ある病気の患者がまとめて来る、伝染病（ワクチンの数が決まっている）、検査官、年1回の表彰式 | [[web:simgames:r5-fv-wiki-twopointhospital]] |
+| ライバル | なし（オンラインで友達と目標を競う、ランキング） | [[web:simgames:r5-fv-sixthaxis-twopoint]] |
+| 周回の動機 | 前の病院に戻って良くする、友達との挑戦、後から自由な遊び方 | [[web:simgames:r5-fv-sixthaxis-twopoint]] [[web:simgames:r5-fv-wiki-twopointhospital]] |
+| 表現 | 「絵はゲームを支えるため」。古びない粘土人形風、**小さな仕草の動き**（受付の娘が退屈して鍵盤をいじる）、熱の地図、地域ごとの見た目、言葉遊びの病気、自作の楽器の効果音、3段の速さで同じに聞こえる機械の音、ラジオの DJ | [[web:simgames:r5-fv-cgm-twopoint]] [[web:simgames:r5-fv-wiki-twopointhospital]] |
+| **抜く型** | 星の段。後の解放で前に戻る。飾り×特性。仕草の動き。不満の「部屋の複製ができない」から型の必要 | |
+
+### 1.9 Good Pizza, Great Pizza（TapBlaze、2014年〜）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | 生地・ソース・具・焼く・切る（何切れ）・箱、材料の使う量（多く使うか節約か）、設備・修理、畑で育てる材料、客（100人超・性格・あいまいな注文）、お金が足りない客を受けるか、路上の客に施すか、飾り・着せ替え | [[web:simgames:r5-fv-wiki-goodpizza]] [[web:simgames:r5-fv-applion-goodpizza]] |
+| 絡み | 注文があいまい→覚えて推理→応えるとチップ・違えば返金。材料の量×値段（全部のせの注文は値段を見て判断、という声）。**親切が後で返る**（路上の客が後で店を助ける） | [[web:simgames:r5-fv-wiki-goodpizza]] [[web:simgames:r5-fv-applion-goodpizza]] |
+| 解放の順 | 章立ての物語。材料が増え、画面が具で埋まり、見た目で覚える | [[web:simgames:r5-fv-wiki-goodpizza]] |
+| 目標 | 向かいのライバル店に勝つ、章を進める | [[web:simgames:r5-fv-wiki-goodpizza]] |
+| 運と予兆 | 機械の故障（計画的にお金を使う、という声）。判定が理不尽に感じる注文（言われた通りにしたのに怒られる）が不満の最大の塊 | [[web:simgames:r5-fv-applion-goodpizza]] |
+| ライバル | 向かいの店の店主が物語の中で何度も来る | [[web:simgames:r5-fv-wiki-goodpizza]] |
+| 周回の動機 | 物語なので周回は弱い。毎日少しずつ・気が向いたときに戻る遊び方（声）。1回16〜17分・1日1.5回（CEO） | [[web:simgames:r5-fv-pmq-goodpizza]] [[web:simgames:r5-fv-applion-goodpizza]] |
+| 表現 | ゆるい淡い色の絵、個性的な客、ピザの世界のニュース番組、偽の口コミの仕組み、**1日の終わりに曲が流れ電気が少しずつ消える演出**（変わって惜しまれた）、店の配置は現実の売り場を写した。画面の分割をやめて台所を全面にしたら作りやすくなり、継続が大きく伸びた（会社の発言） | [[web:simgames:r5-fv-applion-goodpizza]] [[web:simgames:r5-fv-pmq-goodpizza]] [[web:simgames:r5-fv-wiki-goodpizza]] |
+| **抜く型** | 客の言葉を「読む」技能が育つ。締めの儀式。世界のニュース。親切が後で返る小さな出来事 | |
+
+### 1.10 Cook, Serve, Delicious!（Vertigo Gaming、2012年〜）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | メニュー（最初20品から選ぶ。2作目は180品超）、機材、レシピ、飾り、最大8つの調理台、品ごとの手順、雑用（皿洗い・ゴミ出し） | [[web:simgames:r5-fv-wiki-csd]] |
+| 絡み | **体に悪い品ばかりだと客が離れ、同じ品を毎日出すと飽きられて魅力が落ちる**＝メニューの組み替えを毎日強いる。昼と夜の混む時間の山 | [[web:simgames:r5-fv-wiki-csd]] |
+| 解放の順 | 機材を買うと品数が増える。見た目は単純だが、掘るほど複雑になり、少しずつ慣らす | [[web:simgames:r5-fv-gamemaker-csd]] |
+| 目標 | 古びた店を立て直す、星の段 | [[web:simgames:r5-fv-wiki-csd]] |
+| 運と予兆 | 混む時間帯は予告どおり来る（予測できる忙しさ） | [[web:simgames:r5-fv-wiki-csd]] |
+| ライバル | なし（3作目は大会） | [[web:simgames:r5-fv-wiki-csd]] |
+| 周回の動機 | 難しさ（料理ゲームの最難関と評された）と、のんびりの「禅」の設定の両方 | [[web:simgames:r5-fv-gamemaker-csd]] [[web:simgames:r5-fv-wiki-csd]] |
+| 表現 | 読んでも無視してもよいメールで塔の外の世界をほのめかし、3作目でそこへ出た（**世界の厚みの仕込み**）。作者のバリスタの経験 | [[web:simgames:r5-fv-gamemaker-csd]] |
+| **抜く型** | メニューが飽きられる仕組み（支配的な選択を時間で崩す）。禅と緊張の2つの設定。読み飛ばせる手紙 | |
+
+### 1.11 Startup Company（Hovgaard Games、2018年早期・2020年正式）
+| 軸 | 中身 | 出典 |
+|---|---|---|
+| 変数 | サイトの型（5種）、社員（開発・デザイン・研究・主任・営業・宣伝・管理。給料の交渉・研修・賞与・年金）、事務所の家具、**色分けされた資源**、サイトの機能（コメント・共有・画像…）、広告の枠、宣伝（ネット・テレビ）、サーバーの建物と冷却、調査の点、競合。**数十** | [[web:simgames:r5-fv-gamesasylum-startup]] [[web:simgames:r5-fv-automaton-startup]] |
+| 絡み | 社員が資源を作り、資源で機能を作る。資源が途切れると全体が止まる。人気が出ると容量の上限 | [[web:simgames:r5-fv-gamesasylum-startup]] |
+| 解放の順 | 黒字（数時間かかる）で事務所・年金・営業・管理職、数時間後にサーバー | [[web:simgames:r5-fv-gamesasylum-startup]] |
+| 目標 | 67歳までの最大の退職金。**いつでも引退でき、財産と功績の内訳が出る** | [[web:simgames:r5-fv-gamesasylum-startup]] |
+| 運と予兆 | バズ（良くも悪くも）。面白い出来事がない、と記者 | [[web:simgames:r5-fv-gamesasylum-startup]] |
+| ライバル | 競合との順位のグラフ | [[web:simgames:r5-fv-gamesasylum-startup]] |
+| 周回の動機 | 最初の数社は惨敗→学んで再挑戦 | [[web:simgames:r5-fv-gamesasylum-startup]] |
+| 表現 | **反面教師**：人物が歩かず机に現れて消える、自分のサイトの見た目が出ず機能の一覧だけ、サイトの型の違いが小さい、人の過不足の表示がない、説明が文字の壁。ただし「17時に社員が帰り空の事務所を眺める」小さな演出は好意的 | [[web:simgames:r5-fv-gamesasylum-startup]] [[web:simgames:r5-fv-automaton-startup]] |
+| **抜く型** | いつでも終われる結末の内訳。**反面教師**：変数が多くても、題材の違いと作った物が絵にならなければ「チープ」に見える | |
+
+### 1.12 （比較）表現だけを見る作品：Mini Metro（Dinosaur Polo Club、2015年）
+経営シムではないが、問2（少人数で安っぽく見えない）の代表として読んだ。2人の兄弟が、**作り切るために絵の素材を最小にする・音に頼らない・面を手で作らない、と制約を先に決め**、路線図の作法（太い色・単純な幾何学）で描いた。駅も乗客も形で行き先を示す。毎週の終わりに線・トンネル・橋を1つ選ぶ（解放の選択）。止めて組み替えられる。標準・極端・無限の3つの遊び方。難しさが上がって崩れていく様子まで「破綻しても優雅」と評された [[web:simgames:r5-fv-wiki-minimetro]]。GDC の講演は「頑丈な設計の言語」「取り除いていく過程で美しさを作る」を主題にした（講演本体は未見）[[web:simgames:r5-fv-gd-minimetro-gdc]]。
+
+### 1.13 11作品を並べた見取り図
+| 作品 | 変数の数 | 一番深い変数 | 絡みの形 | 解放の見せ方 | 目標の形 | 周回の強さ |
+|---|---|---|---|---|---|---|
+| こだわりラーメン館 | 約12 | 一杯の組み立て（6変数） | 品質×値段×原価の輪 | レベル・食材・エリア | 段位・大会・日本一 | 中（周回する声あり） |
+| 大盛グルメ食堂 | 約8 | メニュー（基＋食材2） | 食材→開発→店の伸び | 品数・2号店 | 地域一番 | 中 |
+| ゲーム発展国++ | 約10 | ジャンル×内容×機種 | 見えない相性×社員 | 機種・ハード開発 | 年1回の大賞 | 中〜強（強くてニューゲーム） |
+| Game Dev Tycoon | 約12 | 題材×ジャンル×客層 | 相性の掛け算・同じ手で落ちる | 場所の移動 | 25年 | 中 |
+| Lemonade Tycoon | 8 | 場所 | 満足度の掛け算 | 場所 | 期限なし・30日 | 弱 |
+| Offworld | 約20 | 資源の木と相場 | 共有の値段 | 試合内の段階 | 買収 | 強（毎回違う） |
+| Capitalism Lab | 30超 | 品目ごとの重み・供給網 | 詰まり・統合 | 順番の戦略 | シナリオ | 強（毎回違う地図） |
+| Two Point Hospital | 約15 | 飾り×特性・部屋の格 | 波及効果 | 病院が開く・戻る | 1〜3つ星 | 中〜強 |
+| Good Pizza | 約10 | 注文の読解 | 材料×値段・親切の返り | 章 | ライバルに勝つ | 弱〜中（毎日少しずつ） |
+| Cook Serve Delicious | 約8 | メニューの組み替え | 飽き・健康 | 機材・品数 | 星 | 中 |
+| Startup Company | 数十 | 資源と機能 | 資源の流れ | 黒字で開く | 退職金 | 弱〜中 |
+
+**見取り図から言えること**：変数の数と周回の強さは比例しない（Startup Company は数十でも弱く、Offworld・Capitalism Lab は毎回変わる相手と地図で強い）。強さを決めているのは「毎回違う条件（地図・相場・相手）」と「見えない相性」と「段の目標」の有無である。
+
+---
