@@ -45,7 +45,27 @@
 | 関係する所だけ読む | 判定書の F6〜F13 の原文と PDG・Detroit・Ryan・Clark を全文読み直し、読了ノートを `#rp` として足した |
 
 ## 資料の内訳
-（SOURCES_TABLE）
+数は `boki2/docs/analysis/replay-sources-count.py` が本報告の出典を数えた出力（`replay-sources-count.out.txt`。資料ごとの一覧もそこにある）。
+
+引いている資料：68 本（種類 8）
+
+| 種類 | 本数 | 割合 |
+|---|---|---|
+| 作り手の話（一次） | 15 | 22% |
+| 作り手の話（二次の報告） | 3 | 4% |
+| 研究（周回・遊ぶ動機） | 5 | 7% |
+| 研究（学習） | 10 | 15% |
+| 利用者の声の集まり | 17 | 25% |
+| 反対の論評・評者の分析 | 3 | 4% |
+| 教材・事例（運営者の説明） | 2 | 3% |
+| 百科事典（二次） | 13 | 19% |
+
+合計の検算： 15 + 3 + 5 + 10 + 17 + 3 + 2 + 13 = 68 （68）
+
+- 1種類が半分を超えるものはない（最多は利用者の声の集まり・作り手の話の一次。割合は上の表）。
+- 作り手の話（一次）は、作り手本人の講演・文章・聞き取り。Wikipedia の開発の節や評価の節は「百科事典（二次）」に入れ、作り手の話には数えていない。
+- 利用者の声の集まりは、口コミのページ1枚を1本と数えた（口コミの件数は2章）。
+- 反対の資料は「反対の論評・評者の分析」だけでなく、研究（Mitchell ら・Gamito・Clark）と作り手の話（PDG）にもある（反証と限界）。
 
 ## 1. 作品の表：何が周回させ、何周目で何が尽き、どう手当てしたか（22作品）
 
@@ -84,7 +104,7 @@
 ## 2. 利用者の声：何周した人が何を楽しみ、何でやめたか（231件）
 
 ### 2.1 集め方と数え方
-- 資料：APPLION（App Store の口コミの転載）の5作品・14ページ。Slay the Spire 97件、Balatro 46件、FTL 24件、Stardew Valley 60件、Game Dev Tycoon 4件、計231件（97＋46＋24＋60＋4＝231）。読了ノートは `research/notes/web/simgames/r6-rp-applion-*.md`（例 [[web:simgames:r6-rp-applion-sts-p1|「漸く昨日全てのキャ」]]）。
+- 資料：APPLION（App Store の口コミの転載）の5作品・14ページ。Slay the Spire 97件、Balatro 46件、FTL 24件、Stardew Valley 60件、Game Dev Tycoon 4件、計231件（97＋46＋24＋60＋4＝231）。読了ノートは `research/notes/web/simgames/r6-rp-applion-*.md`。14ページと、各ページの目立った口コミ：StS [[web:simgames:r6-rp-applion-sts-p1|「漸く昨日全てのキャ」]]（#2 全キャラ最高難度）、[[web:simgames:r6-rp-applion-sts-s20|「いつまでも飽きが来なく」]]（#34）、[[web:simgames:r6-rp-applion-sts-s40|「チュートリアルのようなもの」]]（#46）、[[web:simgames:r6-rp-applion-sts-s60|「何度遊んでも」]]（#75）、[[web:simgames:r6-rp-applion-sts-s80|「全てのキャラで心臓撃破」]]（#89）；Balatro [[web:simgames:r6-rp-applion-balatro-p1|「解放が終われば飽きる」]]（#103）、[[web:simgames:r6-rp-applion-balatro-s20|「だんだんと楽しさがわかってくる」]]（#123）、[[web:simgames:r6-rp-applion-balatro-s40|「too addicting」]]（#143）；FTL [[web:simgames:r6-rp-applion-ftl-p1|「あなた自身なのです」]]（#145）、[[web:simgames:r6-rp-applion-ftl-s20|「プレイのたびに違う物語」]]（#164）；Stardew Valley [[web:simgames:r6-rp-applion-stardew-p1|「慣れが飽きに変わる」]]（#168）、[[web:simgames:r6-rp-applion-stardew-s20|「60時間プレイしても」]]（#198）、[[web:simgames:r6-rp-applion-stardew-s40|「マンネリになってしばらく放置」]]（#212）；Game Dev Tycoon [[web:simgames:r6-rp-applion-gdt-p1|「攻略方法を模索」]]（#229）。
 - Steam・Reddit・Hacker News は規約か遮断で読めなかった（やっていないこと）。
 - 切り出しと重複除き、分類の集計は `boki2/docs/analysis/replay-voices-count.py`、分類のコードは `boki2/docs/analysis/replay-voices-codes.md`（関係・楽しみ・不満・量の4列。決め方も同じファイル）。出力は `boki2/docs/analysis/replay-voices-count.out.txt`。以下の数はすべてその出力から写した。
 - **偏り**：星の分布は星5が222件・星4が9件で、星1〜3は0件（転載サイトが高い星の口コミしか載せていない）。やめた人の声はこの標本にほとんど入らない。やめた側の声は、反対の論評（Hades をやめた評、NieR を遊び直さない評）と研究（Mitchell ら、Gamito）で補った。Android 版のページも同じ偏りだったので読まなかった（取得記録に理由つき）。
@@ -477,3 +497,26 @@ DESIGN-RAMEN.md (i)：
 | 論証の表（QUALITY 5章） | 「論証の表」に13行 |
 | 出典は語句つき、件数はスクリプト、又引きしない、推論に【推論】（QUALITY 6章） | 出典はすべて語句つき（research-check で照合）。声と資料の数は `docs/analysis/replay-*.py`。他の報告の数は使わず原文から引き直した（カイロソフトの声）。推論に【推論】 |
 | 境界：BIZ-FUNVISUAL・BIZ-SIMDESIGN 0.2・BIZ-COFFEEINC2 | 4.5 の引き継ぎ |
+
+## やっていないこと
+- **Steam・Reddit・Hacker News・Backloggd・ResetEra の利用者の声**：Steam・Reddit は規約で自動取得が禁止、Hacker News は運営の規約がスクレイピングを禁じ、Backloggd・ResetEra は遮断（Cloudflare）。低い星の口コミが載る別の窓口は見つけられなかった。やめた人の声が標本にほとんどない。
+- **Rawson・Dunlosky の逐次再学習の原典**：研究室の論文一覧に PDF がなく、UNH のページは TLS の確認で取得できなかった。数は Higham らの序論の紹介で代えた（又引きと明記）。
+- **Latimier 2021 の本文**：購読制で要旨と参考文献だけ。
+- **Rock Paper Shotgun の Hades の記事**：robots.txt で自動取得の禁止（取得記録に理由つき）。Pyre の「1回」を一次で確かめられていない。
+- **Reisslein 2006（熟達の逆転と足場外し）**：404 で取得できなかった。C6 の「熟達者には例が邪魔」は原文を読めていない。
+- **RPGamer の NieR の評**：403。
+- **Dead Cells のファミ通の評**：取得の記録を理由つきで飛ばした。
+- **AUTOMATON の Pope の聞き取りの2ページ目以降**：1ページ目だけ取得。Obra Dinn の周回については Wikipedia の評で補った。
+- **Coffee Inc 2 の周回の声の数え直し**：BIZ-COFFEEINC2 の担当なので行っていない。
+- **カイロソフトの声の数え直し**：BIZ-FUNVISUAL の原文から語句を引き直しただけ。
+- **周回の動機の研究の結果**：Yoshimura & Chauveau（DiGRA 2026）は344人を集めた計画と方法の要旨で、結果がまだ載っていない [[web:simgames:r6-rp-digra-repeatedpleasures-pdf|「valid n = 344」]]。遊び直しの動機の量的な研究はまだ少ないことの証拠としてだけ使った。
+- **3.3 の見積りを sim で確かめること**：見積りは計算だけで、番人の出し方と S.plan の選ぶ順を sim で回して確かめていない。設計の書き直しの後に、seed を回して「全項目が条件Aに届く日数」を出す検査を作る必要がある。
+- **設計の書き直しそのもの**：依頼の範囲どおり、設計者に渡す（4.4 の行の一覧）。
+
+## 読んだ資料（この調べもので新たに書いた読了ノート）
+- 作り手の話：r6-rp-tomsguide-hades、r6-rp-inven-hades、r6-rp-gd-hades-devprocess、r6-rp-gd-igf-slaythespire、r6-rp-gd-igf-outerwilds、r6-rp-gd-balatro-signposting、r6-rp-rogueliker-balatro、r6-rp-deepnight-deadcells、r6-rp-gutefabrik-spelunky、r6-rp-gamespark-ftl、r6-rp-automaton-pope、r6-rp-twistedvoxel-nier-budget、r6-rp-superjump-yokotaro（周回の発言がなく数えない）、r6-rp-butwhytho-kasavin（要約記事で数えない）
+- 研究：r6-rp-obrien2019-enjoyagain、r6-rp-gamito2021-pathnottaken、r6-rp-digra-storygameness-pdf、r6-rp-digra-repeatedpleasures-pdf、r6-rp-karpicke-roediger2008、r6-rp-karpicke-bauernschmidt2011、r6-rp-bahrick1993、r6-rp-higham2021-relearning、r6-rp-cepeda2006-meta、r6-rp-latimier2021-full
+- 確かめ直し（全文を読み直したノート `#rp`・`#rp-recheck`）：mawson2025-spacing-classroom-meta、theory-spacing-cepeda2008、grosse2015-fading-modeling、ryan2006-games-sdt、clark2016-digital-games-meta、r3-fable-wiki-roguelike、r3-fable-wiki-newgameplus、designer-papersplease-gd2014、capsim-capstone、accountant-otaru-mg、r2-designer-mg-about、designer-recettear-gd2010、r4-sim-gd-pdg、r4-sim-wiki-detroit
+- 反対の論評：r6-rp-gpb-hades-stop、r6-rp-superjump-nier-notreplayable
+- 百科事典（二次）：r6-rp-wiki-hades・sts・outerwilds・nierautomata・obradinn・intothebreach・balatro・spelunky・deadcells・ftl
+- 利用者の声：r6-rp-applion-sts-p1・s20・s40・s60・s80、balatro-p1・s20・s40、ftl-p1・s20、stardew-p1・s20・s40、gdt-p1

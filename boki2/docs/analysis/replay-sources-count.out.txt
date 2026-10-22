@@ -1,0 +1,12 @@
+引いている資料：68 本（種類 8）
+| 種類 | 本数 | 割合 | 資料 |
+|---|---|---|---|
+| 作り手の話（一次） | 15 | 22% | r6-rp-gd-igf-slaythespire、r6-rp-tomsguide-hades、r6-rp-gutefabrik-spelunky、r6-rp-gd-hades-devprocess、r4-sim-gd-intothebreach、r6-rp-rogueliker-balatro、r6-rp-deepnight-deadcells、r6-rp-gd-igf-outerwilds、r4-sim-mcv-ingold-replay、designer-papersplease-gd2014、r5-fv-greenheart-onemonth、r5-fv-sixthaxis-twopoint、r2-designer-mg-about、r4-sim-gd-pdg、r6-rp-inven-hades |
+| 作り手の話（二次の報告） | 3 | 4% | r6-rp-gd-balatro-signposting、r6-rp-gamespark-ftl、r6-rp-twistedvoxel-nier-budget |
+| 研究（周回・遊ぶ動機） | 5 | 7% | r6-rp-obrien2019-enjoyagain、r6-rp-digra-storygameness-pdf、ryan2006-games-sdt、r6-rp-gamito2021-pathnottaken、r6-rp-digra-repeatedpleasures-pdf |
+| 研究（学習） | 10 | 15% | r6-rp-karpicke-roediger2008、r6-rp-karpicke-bauernschmidt2011、theory-spacing-cepeda2008、grosse2015-fading-modeling、clark2016-digital-games-meta、r6-rp-cepeda2006-meta、r6-rp-higham2021-relearning、r6-rp-bahrick1993、mawson2025-spacing-classroom-meta、r6-rp-latimier2021-full |
+| 利用者の声の集まり | 17 | 25% | r5-fv-applion-gamedevstory、r5-fv-applion-ramenkan、r5-fv-applion-gurume、r6-rp-applion-sts-p1、r6-rp-applion-sts-s20、r6-rp-applion-sts-s40、r6-rp-applion-sts-s60、r6-rp-applion-sts-s80、r6-rp-applion-balatro-p1、r6-rp-applion-balatro-s20、r6-rp-applion-balatro-s40、r6-rp-applion-ftl-p1、r6-rp-applion-ftl-s20、r6-rp-applion-stardew-p1、r6-rp-applion-stardew-s20、r6-rp-applion-stardew-s40、r6-rp-applion-gdt-p1 |
+| 反対の論評・評者の分析 | 3 | 4% | r6-rp-gpb-hades-stop、r6-rp-superjump-nier-notreplayable、designer-recettear-gd2010 |
+| 教材・事例（運営者の説明） | 2 | 3% | capsim-capstone、accountant-otaru-mg |
+| 百科事典（二次） | 13 | 19% | r6-rp-wiki-sts、r6-rp-wiki-hades、r6-rp-wiki-intothebreach、r6-rp-wiki-balatro、r6-rp-wiki-spelunky、r6-rp-wiki-deadcells、r6-rp-wiki-ftl、r6-rp-wiki-outerwilds、r6-rp-wiki-obradinn、r6-rp-wiki-nierautomata、r4-sim-wiki-detroit、r3-fable-wiki-roguelike、r3-fable-wiki-newgameplus |
+合計の検算： 15 + 3 + 5 + 10 + 17 + 3 + 2 + 13 = 68 （68）
