@@ -109,7 +109,18 @@ for item in ('こづかい(使途不明)', '中華そば', '外食'):
                 k = kC(datetime.date(2025, m, i + 1))
                 if k == '年末年始': continue  # 年末年始は土日・平日のどちらにも数えない
                 (we if k == '休日' else wd).append(x)
-        if wd: print(f'{item}（{sh}）：土日祝{statistics.mean(we):.1f}円÷平日{statistics.mean(wd):.1f}円＝{statistics.mean(we) / statistics.mean(wd):.2f}')
+        if wd: print(f'{item}（{sh}）：土日祝{statistics.mean(we):.1f}円÷平日{statistics.mean(wd):.1f}円＝{statistics.mean(we) / statistics.mean(wd):.2f}', end='')
+        # 別の作り方：各日の値÷その月の日の平均（倍率）を型ごとに平均し、比を取る
+        mwe, mwd = [], []
+        for m in range(1, 13):
+            r = rows(m, item).get(sh)
+            if not r: continue
+            mm = statistics.mean(r[0])
+            for i, x in enumerate(r[0]):
+                k = kC(datetime.date(2025, m, i + 1))
+                if k == '年末年始': continue
+                (mwe if k == '休日' else mwd).append(x / mm)
+        if mwd: print(f'／月の平均で割った倍率どうしの比 {statistics.mean(mwe) / statistics.mean(mwd):.2f}')
 print()
 
 # 2023・2024年への当てはめ（2025年の A の月の水準と型の倍率で、その年の暦の並びから月の指数を予測し、転記の月次と比べる）

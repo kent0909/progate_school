@@ -1,0 +1,214 @@
+#!/usr/bin/env python3
+# BIZ-CALIB 0.4 で足した計算（版0.3への事実の再判定 BIZ-CALIB-v02-audit.md 8章と論証の再検査 BIZ-CALIB-v02-reasoning.md 11章への直し）。
+# 使い方：python3 -I boki2/docs/analysis/calib-v04.py > boki2/docs/analysis/calib-v04.md
+# 格子の範囲は自分で決めた（範囲の根拠は出力の表に書く）。検査役の格子（calib-v03-reasoning-check.py の R1〜R3）とは、
+# 広さ・家賃（2025年度下期を足した）・パートの人数（0人を足した）・家族の労働（数えるか数えないかを別の変数にした）・
+# 店主の報酬・その他の範囲が違う。
+import itertools, os, re, statistics as st, subprocess, html, unicodedata
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.join(HERE, '..', '..', 'research', 'raw')
+def raw(*p): return os.path.join(ROOT, *p)
+def pdftext(f): return subprocess.run(['pdftotext', '-layout', f, '-'], capture_output=True, text=True).stdout
+out = []
+def p(*a): out.append(' '.join(str(x) for x in a))
+p('# BIZ-CALIB 0.4 の計算（calib-v04.py の出力。手で書き換えない）\n')
+
+P0 = 1096   # 客単価の基準（calib-v03 の G：885.8円×1.237）
+CM = 0.60   # 限界利益率（原価35%は公庫、変動費5%は (c)）
+DAYS = 26
+H = 8 * DAYS  # パート1人の月の時間
+def fixed(tsubo, rent, wage, part, family, fam_cost, owner, other):
+    return tsubo * rent + wage * H * part + (wage * H * family if fam_cost else 0) + owner + other
+def profit(n, price, fx): return n * price * CM * DAYS - fx
+
+# ---------- G1. 銀座の1階で1日100人は赤字か ----------
+G = dict(tsubo=[10, 12, 15, 18], rent=[30246, 34830, 36250], up=[1.0, 1.1, 1.2], part=[0, 0.5, 1, 1.5, 2, 3],
+         family=[0, 1], owner=[150000, 200000, 250000, 300000, 400000], other=[100000, 150000, 200000, 250000, 300000],
+         pr=[0.845, 0.98, 1.0], mark=[1.0, 1.1, 1.2, 1.4])
+p('## G1. 銀座の1階で1日100人は赤字か（格子）\n')
+p('| 変数 | 置いた値 | 区分・範囲の根拠 |'); p('|---|---|---|')
+p('| 広さ（坪） | 10・12・15・18 | (c)。公庫の中華料理店1〜4人の平均58.6㎡＝約18坪を上の端に、都心は狭い向き |')
+p('| 家賃（円/坪） | 30,246（銀座の飲食店可 2024年度上期）・34,830（銀座の1階 同）・36,250（銀座の飲食店可 2025年度下期） | (a)。アットホームの2期 |')
+p('| 時給 | 東京の最低賃金1,280円 ×1.0・1.1・1.2 | 最低賃金は (a)、上乗せは (c) |')
+p('| パート（8時間×26日の人数） | 0・0.5・1・1.5・2・3 | (c)。0人（店主と家族だけ）も入れた |')
+p('| 家族の手伝い（人） | 0・1（費用に数える場合は最低賃金で） | (c)。家族の労働の扱いを別の変数にした |')
+p('| 店主の報酬（月） | 15・20・25・30・40万円 | (c) |')
+p('| その他の固定費（月） | 10・15・20・25・30万円 | (c)。版0.3の較正（中央値の店で約19万円）を中ほどに |')
+p('| 1杯の値段の地域の比 | 0.845（東京都区部、小売物価）・0.98（関東ブロック、中華料理店）・1.00 | (a)(b) |')
+p('| 値付けの上乗せ | ×1.0・1.1・1.2・1.4 | (c) |\n')
+rows = []
+for t, r, u, pa, fa, ow, ot, pr, mk in itertools.product(*G.values()):
+    for fc in (True, False):
+        if fa == 0 and not fc: continue
+        fx = fixed(t, r, 1280 * u, pa, fa, fc, ow, ot)
+        rows.append(dict(tsubo=t, rent=r, up=u, part=pa, family=fa, fc=fc, owner=ow, other=ot, pr=pr, mark=mk,
+                         loss=profit(100, P0 * pr * mk, fx) < 0))
+n = len(rows); k = sum(x['loss'] for x in rows)
+p(f'組み合わせ {n:,} 通りのうち、1日100人で赤字は **{k:,}（{k / n * 100:.0f}%）**。\n')
+def share(key, val):
+    s = [x for x in rows if x[key] == val]; return sum(x['loss'] for x in s) / len(s) * 100
+p('| 条件 | 赤字の割合 |'); p('|---|---|')
+for key, vals, lab in [('part', G['part'], 'パート'), ('mark', G['mark'], '値付け'), ('tsubo', G['tsubo'], '広さ'), ('rent', G['rent'], '家賃'), ('pr', G['pr'], '値段の比'), ('owner', G['owner'], '店主の報酬')]:
+    for v in vals: p(f'| {lab} {v:,} | {share(key, v):.0f}% |')
+p('')
+
+# ---------- G2. 過疎の町（奥多摩の型）で1日30人は黒字か ----------
+K = dict(tsubo=[10, 15, 20], rent=[0, 1500, 3000, 5000, 8000], part=[0, 0.5, 1, 1.5], family=[0, 1],
+         owner=[100000, 150000, 200000, 250000], other=[80000, 120000, 150000, 200000, 250000], pr=[0.885, 1.0, 1.20])
+p('## G2. 過疎の町（奥多摩の型）で1日30人は黒字か（格子）\n')
+p('| 変数 | 置いた値 | 区分・範囲の根拠 |'); p('|---|---|---|')
+p('| 広さ（坪） | 10・15・20 | (c) |')
+p('| 家賃（円/坪） | 0（建物を自分で持つ）・1,500・3,000・5,000・8,000 | (c)。地方・過疎の賃料の資料は見つからない（やっていないこと） |')
+p('| 時給 | 東京の最低賃金1,280円（奥多摩町は東京都） | (a) |')
+p('| パート | 0・0.5・1・1.5 | (c) |')
+p('| 家族の手伝い | 0・1人（費用に数える・数えないの2通り） | (c) |')
+p('| 店主の報酬 | 10・15・20・25万円 | (c) |')
+p('| その他の固定費 | 8・12・15・20・25万円 | (c) |')
+p('| 1杯の値段の比 | 0.885（秋田市）・1.00・1.20（八王子市、奥多摩に近い市） | (a)、どの市を当てるかは (c) |\n')
+rk = []
+for t, r, pa, fa, ow, ot, pr in itertools.product(*K.values()):
+    for fc in (True, False):
+        if fa == 0 and not fc: continue
+        fx = fixed(t, r, 1280, pa, fa, fc, ow, ot)
+        rk.append(dict(tsubo=t, rent=r, part=pa, family=fa, fc=fc, owner=ow, other=ot, pr=pr, ok=profit(30, P0 * pr, fx) > 0))
+n2 = len(rk); k2 = sum(x['ok'] for x in rk)
+p(f'組み合わせ {n2:,} 通りのうち、1日30人で黒字（店主の報酬を払った後）は **{k2:,}（{k2 / n2 * 100:.0f}%）**。\n')
+def share2(cond):
+    s = [x for x in rk if cond(x)]; return sum(x['ok'] for x in s) / len(s) * 100
+p('| 条件 | 黒字の割合 |'); p('|---|---|')
+for v in K['part']: p(f'| パート {v} | {share2(lambda x: x["part"] == v):.0f}% |')
+p(f'| パート0・家族の手伝いなし | {share2(lambda x: x["part"] == 0 and x["family"] == 0):.0f}% |')
+p(f'| パート0・家族1人を費用に数えない | {share2(lambda x: x["part"] == 0 and x["family"] == 1 and not x["fc"]):.0f}% |')
+p(f'| パート0・家族1人を最低賃金で費用に数える | {share2(lambda x: x["part"] == 0 and x["family"] == 1 and x["fc"]):.0f}% |')
+for v in K['rent']: p(f'| 家賃 {v:,} | {share2(lambda x: x["rent"] == v):.0f}% |')
+for v in K['pr']: p(f'| 値段の比 {v} | {share2(lambda x: x["pr"] == v):.0f}% |')
+p('')
+
+# ---------- G3. 固定費の形を地域で同じにしたまま、両方の例は同時に成り立つか ----------
+p('## G3. 固定費の形（広さ・パート・家族・店主の報酬・その他・値付け）を地域で同じにし、家賃・時給・値段だけ変える\n')
+shape = dict(tsubo=[10, 12, 15, 18], part=[0, 0.5, 1, 1.5, 2, 3], family=[0, 1], owner=[100000, 150000, 200000, 250000, 300000, 400000],
+             other=[80000, 120000, 150000, 200000, 250000, 300000])
+both = tot = 0; ex = None
+for t, pa, fa, ow, ot in itertools.product(*shape.values()):
+    for fc in (True, False):
+        if fa == 0 and not fc: continue
+        for rg, prg, mk in itertools.product(G['rent'], G['pr'], [1.0, 1.2]):
+            gl = profit(100, P0 * prg * mk, fixed(t, rg, 1280, pa, fa, fc, ow, ot)) < 0
+            for rkk, prk in itertools.product(K['rent'], K['pr']):
+                tot += 1
+                kk = profit(30, P0 * prk, fixed(t, rkk, 1280, pa, fa, fc, ow, ot)) > 0
+                if gl and kk:
+                    both += 1; ex = ex or (t, pa, fa, fc, ow, ot, rg, prg, mk, rkk, prk)
+p(f'{tot:,} 通りのうち、銀座100人が赤字かつ過疎30人が黒字は **{both:,}（{both / tot * 100:.1f}%）**。')
+p('（地域で同じ形のとき、銀座で100人でも赤字になるほど固定費が重い形は、家賃・値段が軽い過疎でも30人では赤字になる。）')
+p(f'例：{ex}\n' if ex else '例：なし\n')
+# 形を地域ごとに別に引いたとき
+pg = k / n; pk = k2 / n2
+p(f'形を地域ごとに別に置く（上の G1・G2 の格子から独立に1つずつ引く）と、両方が成り立つのは {pg * 100:.0f}%×{pk * 100:.0f}%＝**{pg * pk * 100:.0f}%**。\n')
+
+# ---------- G4. 3段の倍率 ----------
+p('## G4. 分岐点の開きを3段で（共通の形：15坪・パート1.5人・店主25万・その他20万・家族の手伝いなし・値付け×1.0）\n')
+def be(rent, wage, pr): return fixed(15, rent, wage, 1.5, 0, False, 250000, 200000) / (P0 * pr * CM) / DAYS
+hi = be(34830, 1280, 0.98); lo = be(16316, 1195, 0.96)
+p(f'- (a) の家賃・時給だけ（銀座の1階 34,830・東京1,280円 と 栄 16,316・愛知1,195円、値段は中華料理店のブロックの比）：{hi:.0f}人 と {lo:.0f}人、**{hi / lo:.2f}倍**。')
+hi2 = be(36250, 1280, 0.98)
+p(f'- 2025年度下期の銀座の飲食店可（36,250）にすると {hi2:.0f}人、栄との比 {hi2 / lo:.2f}倍。')
+for r in [8000, 5000, 0]:
+    v = be(r, 1098, 0.94); p(f'- (c) の家賃 {r:,}円/坪（宮城の時給1,098円）：{v:.0f}人、銀座の1階との比 **{hi / v:.2f}倍**。')
+p('- 固定費の形まで地域で変えると（版0.3の表）：過疎17人〜銀座の1階118人で約7倍。この段の開きは (c) の形の置き方の写し。\n')
+
+# ---------- S. G3 の感度（上野・浅草の行を基準に。版0.3の本文の値を出力で確かめる） ----------
+p('## S. 感度（上野・浅草の行：15坪・家賃19,395・時給1,280・パート1.5人・店主25万・その他20万・値段の比0.98）\n')
+def be_s(tsubo=15, rent=19395, part=1.5, owner=250000, other=200000, mark=1.0):
+    return fixed(tsubo, rent, 1280, part, 0, False, owner, other) / (P0 * 0.98 * mark * CM) / DAYS
+b0 = be_s()
+p('| 変えたもの | 分岐点の客数/日 | 基準との比 |'); p('|---|---|---|')
+for lab, kw in [('基準', {}), ('家賃を銀座の1階 34,830', {'rent': 34830}), ('家賃を0（建物を自分で持つ）', {'rent': 0}), ('パート 1.5→3人', {'part': 3.0}),
+                ('パート 1.5→0（家族で回す）', {'part': 0.0}), ('店主の報酬 25万→0', {'owner': 0}), ('店主の報酬 25万→40万', {'owner': 400000}),
+                ('その他の固定費 20万→10万', {'other': 100000}), ('値段 ×1.2', {'mark': 1.2}), ('広さ 15→10坪', {'tsubo': 10})]:
+    v = be_s(**kw); p(f'| {lab} | {v:.0f} | {v / b0:.2f} |')
+p('')
+
+# ---------- T. 季節：中華そばの月の支出を1日あたりにし、年の趨勢を除く（2023年1月〜2025年11月、GD Freak の表＝家計調査の転記） ----------
+p('## T. 中華そば（外食）の月の支出：1日あたり・年の趨勢を除いた比（2023年1月〜2025年11月）\n')
+import calendar
+f = raw('web', 'ramen', 'r5-rmn-gdfreak-chukasoba1.html')
+if os.path.exists(f):
+    t = open(f, encoding='utf-8', errors='replace').read()
+    t = re.sub(r'<script[\s\S]*?</script>|<style[\s\S]*?</style>', '', t); t = html.unescape(re.sub(r'<[^>]+>', '\n', t))
+    L = [l.strip() for l in t.split('\n') if l.strip()]
+    ser = []
+    for i, l in enumerate(L):
+        m = re.match(r'(20\d\d)年(\d+)月$', l)
+        if m and i + 1 < len(L) and re.fullmatch(r'[\d,]+', L[i + 1]):
+            y, mo = int(m.group(1)), int(m.group(2)); ser.append(((y, mo), int(L[i + 1].replace(',', '')) / calendar.monthrange(y, mo)[1]))
+    ser = sorted(dict(ser).items())
+    vals = [v for _, v in ser]
+    # 中心化した12か月移動平均（2×12）で趨勢を除く
+    ratio = {}
+    for i in range(6, len(vals) - 6):
+        ma = (0.5 * vals[i - 6] + sum(vals[i - 5:i + 6]) + 0.5 * vals[i + 6]) / 12
+        ratio.setdefault(ser[i][0][1], []).append(vals[i] / ma)
+    p(f'月の数 {len(ser)}（{ser[0][0]}〜{ser[-1][0]}）。趨勢を除けたのは {sum(len(v) for v in ratio.values())} か月。\n')
+    p('| 月 | 1日あたり（円、年ごと） | 趨勢を除いた比（年ごと） | 比の平均 |'); p('|---|---|---|---|')
+    by = {}
+    for (y, mo), v in ser: by.setdefault(mo, []).append(f'{y}:{v:.1f}')
+    avg = {}
+    for mo in range(1, 13):
+        r_ = ratio.get(mo, []); avg[mo] = st.mean(r_) if r_ else None
+        p(f'| {mo}月 | {" ".join(by.get(mo, []))} | {" ".join(f"{x:.3f}" for x in r_)} | {"" if avg[mo] is None else f"{avg[mo]:.3f}"} |')
+    order = sorted((v, m) for m, v in avg.items() if v)
+    p('\n低い順：' + '、'.join(f'{m}月 {v:.3f}' for v, m in order[:5]) + '。高い順：' + '、'.join(f'{m}月 {v:.3f}' for v, m in order[::-1][:4]) + '。\n')
+    p('読み：1日あたり・趨勢を除くと、はっきり高いのは8月だけ。12月は低い側で、会社の記述（12月・1月が繁忙期）と食い違う。2月は日数の見かけを除くと谷ではない。家計の支出は世帯がどこで食べたかを測らない（帰省先・旅行先の支出を含む）。\n')
+
+# ---------- U. 業界の月次（JF、麺類と気温） ----------
+p('## U. 業界の月次：麺類（ファーストフードの内）の売上の前年比と、東京の平均気温の前年差（JF 外食産業市場動向調査、補填の担当が取得した12本）\n')
+rowsU = []
+for fn in sorted(os.listdir(raw('web', 'ramen'))):
+    m = re.match(r'r6-fill-jf-(\d{4})(\d{2})\.pdf$', fn)
+    if not m: continue
+    t = pdftext(raw('web', 'ramen', fn)); lines = t.split('\n')
+    pct = [l for l in lines if '(N=' in l and '%' in l]
+    vals = [[float(x) for x in re.findall(r'(\d+\.\d)%', l)] for l in pct]
+    if len(vals) < 5: continue
+    allv, ff, men = vals[0][0], vals[1][0], vals[4][0]
+    tm = re.findall(r'(20\d\d)年\s+(\d+)月\s+\d+日\s+\d+日\s+\d+日\s+([\d.]+)', t)
+    if len(tm) < 2: continue
+    dT = float(tm[-1][2]) - float(tm[-2][2])
+    rowsU.append((f'{m.group(1)}-{m.group(2)}', allv, ff, men, float(tm[-1][2]), dT))
+if rowsU:
+    p('| 年月 | 外食全体 | ファーストフード計 | 麺類 | 麺類−FF計 | 東京の平均気温 | 前年差 |'); p('|---|---|---|---|---|---|---|')
+    for ym, a, ff, men, T, dT in rowsU: p(f'| {ym} | {a}% | {ff}% | {men}% | {men - ff:+.1f} | {T} | {dT:+.1f} |')
+    xs = [r[5] for r in rowsU]; ys = [r[3] - r[2] for r in rowsU]; Ts = [r[4] for r in rowsU]
+    def corr(a, b):
+        ma, mb = st.mean(a), st.mean(b)
+        return sum((x - ma) * (y - mb) for x, y in zip(a, b)) / ((len(a) - 1) * st.stdev(a) * st.stdev(b))
+    p(f'\n{len(rowsU)}か月。相関：「麺類−FF計」と気温の前年差 r＝{corr(xs, ys):+.2f}、「麺類−FF計」と平均気温の水準 r＝{corr(Ts, ys):+.2f}。前年比の表なので、何月が多いか（季節の山）は言えない。麺類はうどん・そばのチェーンを含みラーメン専業ではない。\n')
+
+# ---------- V. その他 ----------
+p('## V. その他の検算\n')
+import openpyxl
+f = raw('web', 'bizmgmt', 'r6-cal-estat-kouri-2025nen.xlsx')
+if os.path.exists(f):
+    wb = openpyxl.load_workbook(f); ws = [w for w in wb.worksheets if w.title.startswith('2102')][0]
+    city = {}; alt = []
+    for row in ws.iter_rows(min_row=1):
+        name = row[8].value if len(row) > 10 else None; val = row[10].value if len(row) > 10 else None
+        if isinstance(name, str) and isinstance(val, (int, float)) and name.endswith(('市', '区部')):
+            city[name.strip()] = val
+            if ')' in (row[10].number_format or ''): alt.append(name.strip())
+    allv = list(city.values()); mu_all = st.mean(allv)
+    keep = [v for k_, v in city.items() if k_ not in alt]; mu = st.mean(keep)
+    p(f'- 小売物価統計の中華そば：{len(city)}市、セルの書式に別銘柄の印（a) 豚骨味）があるのは {alt}。全市の平均 {mu_all:.1f}円、別銘柄を除いた{len(keep)}市の平均 {mu:.1f}円・標準偏差 {st.stdev(keep):.1f}円。東京都区部の比 {city["東京都区部"] / mu:.3f}、名古屋市 {city["名古屋市"] / mu:.3f}、大阪市 {city["大阪市"] / mu:.3f}、秋田市 {city["秋田市"] / mu:.3f}、八王子市 {city["八王子市"] / mu:.3f}。')
+    near = sorted(city, key=lambda c: abs(city[c] - mu))
+    p(f'- 平均から100円以上離れた市：' + '、'.join(f'{c} {city[c]}' for c in city if abs(city[c] - mu) >= 100) + '。')
+# 黒字の会社の割合（Y14）
+p('- 中華料理店の「黒字かつ自己資本プラス」の会社の割合：2019年度 82/187＝44%、2021年度 33/137＝24%、2023年度 28/95＝29%、2025年度 47/109＝43%（D1b の表の社数の割り算）。')
+# 150人以上の平均の置き方（Y18）
+pc = [13.2, 15.4, 14.0, 11.8, 6.6, 6.6, 3.7, 11.8, 11.8]; bins = [(0, 20), (20, 30), (30, 40), (40, 50), (50, 60), (60, 80), (80, 100), (100, 150)]
+for lab, pos in [('下の端', 0.0), ('中央', 0.5), ('上の端', 1.0)]:
+    s_ = sum(x * (lo + (hi - 1 - lo) * pos if pos else lo) if False else x * (lo + (hi - lo) * pos) for (lo, hi), x in zip(bins, pc[:8]))
+    v = (84.7 * sum(pc) - s_) / pc[8]
+    p(f'- 150人以上の階級の平均の逆算（ほかの階級を{lab}で置く）：約{v:.0f}人')
+print('\n'.join(out))
