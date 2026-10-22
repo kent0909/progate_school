@@ -5,7 +5,7 @@ doc: r7-sd-mpra-54716
 file: r7-sd-mpra-54716_pdf.pdf
 sha256: 55952b83ac76b19aa2c895c7f36ad97c60230544709a233b71c37b0a2761a2ba
 read: full
-anchors: ["Demand function and its role in a", "Marshallian demand function", "Cobb-Douglas preferences", "not flexible enough", "global budget", "MAREA", "Randomized market share", "further research steps", "Operations Research Letters"]
+anchors: ["Demand function and its role in a", "Marshallian demand function", "Cobb-Douglas preferences", "not flexible enough", "global budget", "MAREA", "further research steps", "Operations Research Letters"]
 ---
 Vymětal & Ježek（2014、チェコの大学の経営学部、MPRA の論文の写し、9ページ）。経営シミュレーター（多数のエージェントで会社の取引を動かす教材 MAREA）の中の、客が提示の値段を受けるか断るかを決める需要の関数の提案。研究（査読の記述はない作業論文）。全ページ読んだ。
 

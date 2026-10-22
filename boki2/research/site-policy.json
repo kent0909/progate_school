@@ -2193,5 +2193,15 @@
   "verdict": "gray",
   "basis": "理研ビタミンの業務用商品カタログ（公開PDF）。robots.txt 確認、自動取得の禁止の明示なし",
   "checked": "2026-10-22"
+ },
+ "www.oreilly.com": {
+  "verdict": "gray",
+  "basis": "robots.txt（2026-10-22）は ClaudeBot に Allow: /（AI の学習用の anthropic-ai 等は禁止）。https://www.oreilly.com/terms/ の本文に自動取得の明示の禁止の語は見つからなかった。本の紹介ページ1枚だけ（目次・説明。本文は会員向け）",
+  "checked": "2026-10-22"
+ },
+ "cir.nii.ac.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt そのものの確認（取得の可否を決めるための読み取り）。CiNii の規約は https://support.nii.ac.jp/ja/cir/terms",
+  "checked": "2026-10-22"
  }
 }

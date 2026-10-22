@@ -211,4 +211,48 @@ for lab, pos in [('下の端', 0.0), ('中央', 0.5), ('上の端', 1.0)]:
     s_ = sum(x * (lo + (hi - 1 - lo) * pos if pos else lo) if False else x * (lo + (hi - lo) * pos) for (lo, hi), x in zip(bins, pc[:8]))
     v = (84.7 * sum(pc) - s_) / pc[8]
     p(f'- 150人以上の階級の平均の逆算（ほかの階級を{lab}で置く）：約{v:.0f}人')
+
+# ---------- W. 地域で人の厚さ・家族の労働が違うか（肯定側の問い。経済センサス2016 第17表、ラーメン店・都道府県） ----------
+import csv, io
+f = raw('web', 'bizmgmt', 'r5-cal-estat-census2016-inshoku.html')
+if os.path.exists(f):
+    rows = list(csv.reader(io.StringIO(open(f, 'rb').read().decode('cp932', errors='replace'))))
+    def num(x):
+        try: return int(x)
+        except ValueError: return 0
+    PR = {}
+    for r in rows:
+        if len(r) > 25 and r[6].strip().endswith('7624 ラーメン店'):
+            PR[r[3]] = dict(n=num(r[7]), per=num(r[8]), emp=num(r[9]), pt8=num(r[12]), sales=num(r[13]), n_i=num(r[14]), per_i=num(r[15]), emp_i=num(r[16]), n_c=num(r[20]), per_c=num(r[21]), emp_c=num(r[22]))
+    p('## W. 地域で人の厚さ・家族の労働が違うか（経済センサス2016 第17表、7624 ラーメン店、都道府県。売上は2015年）\n')
+    p('列：個人の店の割合、1店の従業者、1店のパート（8時間換算）、個人の店1店の「雇われていない人」（従業者−常用雇用者＝店主・家族・臨時。家族の労働の上の端の目安）、1店の年売上、従業者1人の年売上。\n')
+    p('| 地域 | 店の数 | 個人の割合 | 1店の従業者 | 1店のパート8h換算 | 個人の店1店の雇われていない人 | 1店の年売上（万円） | 1人の年売上（万円） | 売上1億円あたりのパート8h換算 |')
+    p('|---|---|---|---|---|---|---|---|---|')
+    def line(k):
+        d = PR[k]
+        nonemp = (d['per_i'] - d['emp_i']) / d['n_i'] if d['n_i'] else float('nan')
+        return (d['n_i'] / d['n'], d['per'] / d['n'], d['pt8'] / d['n'], nonemp, d['sales'] / d['n'] * 100, d['sales'] / d['per'] * 100, d['pt8'] / d['sales'] * 100)
+    keys = [k for k in PR if k != '全国' and PR[k]['n'] >= 30]
+    vals = {k: line(k) for k in keys + ['全国']}
+    for k in ['全国', '東京都', '神奈川県', '愛知県', '大阪府', '福岡県', '宮城県', '秋田県', '山形県', '島根県', '高知県', '鹿児島県']:
+        if k in vals:
+            a = vals[k]; p(f'| {k} | {PR[k]["n"]:,} | {a[0]:.0%} | {a[1]:.1f} | {a[2]:.2f} | {a[3]:.2f} | {a[4]:,.0f} | {a[5]:,.0f} | {a[6]:.2f} |')
+    for j, lab in [(0, '個人の割合'), (1, '1店の従業者'), (2, '1店のパート8h換算'), (4, '1店の年売上')]:
+        srt = sorted(keys, key=lambda k: vals[k][j])
+        p(f'\n- {lab}：低い3県 ' + '、'.join(f'{k} {vals[k][j]:.2f}' for k in srt[:3]) + '／高い3県 ' + '、'.join(f'{k} {vals[k][j]:.2f}' for k in srt[-3:]))
+    # 都市らしさの代わりに最低賃金（令和8年度）との相関
+    MW = {}
+    g = raw('law', 'primary', 'r6-cal-mhlw-minwage-pref2026_pdf.pdf')
+    if os.path.exists(g):
+        for m in re.finditer(r'^\s*(\S+?(?:\s+\S)?)\s+([\d,]{5})\s+（\s*([\d,]{5})\s*\)', pdftext(g), re.M):
+            MW[re.sub(r'\s', '', m.group(1))] = int(m.group(2).replace(',', ''))
+    def short(k): return k if k == '北海道' else re.sub(r'[都府県]$', '', k)
+    ks = [k for k in keys if short(k) in MW]
+    def corr(a, b):
+        ma, mb = st.mean(a), st.mean(b)
+        return sum((x - ma) * (y - mb) for x, y in zip(a, b)) / ((len(a) - 1) * st.stdev(a) * st.stdev(b))
+    x = [MW[short(k)] for k in ks]
+    p(f'\n県の最低賃金（令和8年度、都市らしさの代わり）との相関（{len(ks)}都道府県、店30以上）：' + '、'.join(f'{lab} r＝{corr(x, [vals[k][j] for k in ks]):+.2f}' for j, lab in [(0, '個人の割合'), (1, '1店の従業者'), (2, '1店のパート'), (3, '個人の店の雇われていない人'), (4, '1店の年売上'), (5, '1人の年売上'), (6, '売上1億円あたりのパート')]))
+    p('\n読み：県の単位で、都市の県ほど法人の店が多く、1店の人（とくにパート）が厚い。個人の店の「雇われていない人」（店主と家族）は県で大きくは違わない。県は銀座と奥多摩の差よりずっと粗い（東京都に奥多摩町が入る）。1店の人の厚さは店の大きさ（売上）と一緒に動き、売上1億円あたりのパートで見ると地域の差は小さい。同じ大きさの店の人の厚さが地域で違うとはこの表からは言えない。\n')
+
 print('\n'.join(out))
