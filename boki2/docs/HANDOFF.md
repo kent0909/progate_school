@@ -45,6 +45,9 @@
 - 検査：validate / sim-check / lexicon-check / coverage / law-check / research-check。ブラウザ試験は scratchpad の `sim/play2.js`・`sim/room-test.js`・`sim/hall-test.js`・`exam/exam-test.js`（新セッションでは消える）
 
 ## 5. いまやっていること
+- **合格した報告（2026-10-22 夕）**：BIZ-COFFEEINC2 v4・BIZ-FUNVISUAL 版0.5・BIZ-MKT-RAMEN 版1.3。直し中：BIZ-RAMEN 第5版（差分の再判定中）・BIZ-CALIB 版0.4・BIZ-SIMDESIGN 版0.4・BIZ-REPLAY 版0.4・BIZ-LAW-RAMEN 第3版・BIZ-GROWTH 第2版（再判定中）・BIZ-FILL-RAMEN 版2・BIZ-FILL-CALIB 版2。
+- **実装で見つかったこと（DESIGN-RAMEN の改訂に渡す）**：js/sim/engine.js の条件A（S.examLog）に入るのは本試験の文の問題だけで、月初の想起は誤ったときだけ ok:false で入る（1091行）。月初の想起は条件Aを外す側にしか働かない。正解率100%未満の人が届く作りかは、BIZ-REPLAY 版0.4 で問いとして出す
+- **道具の直し（2026-10-22 夕）**：research-fetch が取得のたびに robots.txt を確かめる（IRDB の件。INCIDENTS.md）。report-check が「検査役の筋から採ったもの」のない報告を警告する（QUALITY 6.3 の追記）
 - **BIZ-REPLAY 0.3（2026-10-22）**：取りまとめ役の依頼（基準1〜8）・判定 9.10・検査 14.6 に応えた版を提出済み。残る研究の確かめ（筋A・筋Bの sim と試遊、(a)(b) の前後）は設計者側の作業として本文 4.4 に書いた
 - **再判定の巡回（2026-10-22 夕）**：判定と検査がそろったものから書き手へ返している（性悪説の依頼文・取りまとめ役が原文かスクリプトで2か所以上を自分で確かめる）。BIZ-RAMEN 第3版は要補強2回目（未達の基準3つを試みずに未達→第4版で国会図書館・J-STAGE 等で取りにいかせる）。BIZ-FUNVISUAL 版0.4（軽い直し済み、差分の再確認中。上位の組は絵と一杯）。BIZ-REPLAY 版0.2 は芯の結論「2〜3周目で届く目標」が全643件と合わず→版0.3で全件読み直し。BIZ-FILL-RAMEN は書き直し要（不当14。銀座・奥多摩の例は「値段の帯」「雇うか・店主の取り分」で分かれる形に）。BIZ-MKT-RAMEN 版1.1・BIZ-CALIB 版0.3 は再判定・再検査中。BIZ-GROWTH・BIZ-SIMDESIGN・BIZ-LAW-RAMEN は書き直し中、BIZ-FILL-CALIB は作業中。担当の一覧は scratchpad/agents.tsv、数は docs/audit/METRICS.md
 - **Coffee Inc 2 の分析の第3版（2026-10-22）**：判定「要補強」（docs/audit/BIZ-COFFEEINC2-audit.md）の15項目に対応。声は160件（数え直しのスクリプト docs/analysis/coffeeinc2-voices-count.py とコードの表 coffeeinc2-voices-codes.md）、鎖6・鎖Bを資料に合わせ推論を分けた、依頼の対応表を原文の一文ごとに、8章に町の外へ広がる層とライバルが同じ層で育つ形、9章(b) ピヨ商店の画面で安く見える所8つ、論証の表（12章）、出典370件すべてに原文の語句。未：別の担当による目隠しの付け直し、Coffee Inc 2 の画面写真（WANTED.md）、DESIGN-RAMEN への反映
