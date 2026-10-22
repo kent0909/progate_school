@@ -115,6 +115,22 @@ old = set(shu) & hit
 print('  5b) 周回の声：判定役は「周・週の字の %d 件のうち周回の話」+「字のない %d 件」で32件以上と見た。このコードの 周 は %d 件（字あり %d・字なし %d）、再 は %d 件' % (len(hit), len(a3), len(shu), len(old), len(shu) - len(old), len(sai)))
 for i in sorted(a3): print('     判定役の字なし #%d：コード=%s（%s）' % (i, C[i]['rel'], C[i]['memo']))
 for i in [i for i in shu if i not in hit and i not in a3]: print('     コードで字なしの 周 として足した #%d：%s' % (i, C[i]['memo']))
+# 7) 何周目かを書いた15件の、届いたことの書き方（replay-mgmt-goal-tone.tsv：全文を読んで喜び・中立・寂しいを付けた）
+TONE = os.path.join(ROOT, 'docs', 'analysis', 'replay-mgmt-goal-tone.tsv')
+tone = [l.rstrip('\n').split('\t') for l in open(TONE, encoding='utf8')][1:]
+print('7) 届いた周を書いた15件の書き方：%d 件' % len(tone))
+for rd in ('1周目', '2周目以降'):
+    c = collections.Counter(t[2] for t in tone if t[1] == rd)
+    print('  %s：%s（喜び #%s）' % (rd, ', '.join('%s=%d' % kv for kv in c.most_common()), ' #'.join(t[0] for t in tone if t[1] == rd and t[2] == '喜び')))
+bad = [t[0] for t in tone if C[int(t[0])]['round'] != t[1]]
+print('  届いた周がコード表と食い違う件：', bad or 'なし')
+PROMPT = re.compile(r'レビューお願いされて|半強制的にレビュー|秘書からの依頼|レビュー画面になった|受賞してすぐレビュー')
+pr = [i for i in sorted(C) if C[i]['goal'] == '届いた' and PROMPT.search(txt(U[i - 1]))]
+print('  大賞の時点でレビューを求められた・すぐ書いたと本文に書く「届いた」：%d 件 #%s' % (len(pr), ' #'.join(map(str, pr))))
+E = [i for i in sorted(C) if 'E' in C[i]['code'].split()]
+print('  目標の後にすることがない（E）%d件のうち 周 の件：%d 件 #%s' % (len(E), len([i for i in E if C[i]['rel'] == '周']), ' #'.join(str(i) for i in E if C[i]['rel'] == '周')))
+F = [i for i in sorted(C) if 'F' in C[i]['code'].split()]
+print('  あっさり届く（F）%d件：#%s、うち E とも重なる：#%s' % (len(F), ' #'.join(map(str, F)), ' #'.join(str(i) for i in F if i in E)))
 # 6) メモが原文の写しになっていないか（メモと本文の共通部分が30字未満か）
 def lcs(a, b):
     best = 0; prev = [0] * (len(b) + 1)
