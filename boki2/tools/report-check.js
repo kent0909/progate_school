@@ -39,6 +39,8 @@ for (const f of files) {
   const qcount = {}; for (const c of s.matchAll(/\|「([^」]+)」\]\]/g)) qcount[c[1]] = (qcount[c[1]] || 0) + 1;
   const reused = Object.entries(qcount).filter(([, n]) => n >= 4);
   if (reused.length) console.log(`△ ${name}：同じ語句を4回以上使っている出典 ${reused.length} 種（${reused.slice(0, 5).map(([q, n]) => `「${q}」×${n}`).join('、')}）。主張ごとに支える箇所の語句にする（QUALITY 6.3）`);
+  // 検査役への迎合（QUALITY 6.3 の追記）：検査書・検査役に触れているのに「検査役の筋から採ったもの」の章がない
+  if (!isDesign && /検査書|検査役/.test(s) && !has('検査役の筋から採ったもの')) console.log(`△ ${name}：検査書・検査役に触れているが、章「検査役の筋から採ったもの」がない。採った筋ごとに、自分で開いた原文の語句とスクリプトの出力を書く（QUALITY 6.3）`);
   if (hits.length) console.log(`△ ${name}：台帳の外に簡略化の言い回し ${hits.length} か所（行 ${hits.slice(0, 12).join(', ')}${hits.length > 12 ? '…' : ''}）。台帳に載せて理由を書くか、言い回しを直す`);
   if (!miss.length) console.log(`✓ ${name}`);
 }
