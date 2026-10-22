@@ -21,7 +21,7 @@
 2. 変数（つまみ）を33個に棚卸しし、深さ・絡み・解放の時期を表にした（2章）。初版は変数を一つずつ説明しただけで、**「同じ形の判断が別の場面でくり返し出てくる」構造**を見落としていた（ただしこの構造が面白さに効くことは【推測】）。
 3. 競合：同じ地域の地図の中で客を分け合い、地域ごとの占有率が見える／高難度ではライバルが良い区画を先に取る／中盤から大手が参入／**自社が傾くとライバルが買収に名乗りを上げる**／上場企業の四半期の業績が公表される（4.2）。
 4. 財務・上場：取締役会は報酬・配当を重役の議決で決め、四半期は変えられない／上場すると福利厚生と人事の費用で利益が縮んで倒産する例／不動産は指値で買い、賃料と占有率の釣り合いを自分で決める／ベンチャー投資は定期の催しで機会が現れる（4.7）。
-5. 農園は開発元の説明文で確かめられた [[web:simgames:r5-cinc-appgoblin-ci2]]。
+5. 農園は開発元の説明文で確かめられた [[web:simgames:r5-cinc-appgoblin-ci2|「plantation business」]]。
 
 ---
 
@@ -93,15 +93,15 @@
 
 | 種類 | 本数 | 資料 |
 |---|---|---|
-| 一次資料（開発元が書いた説明文） | 3 | 4Gamer の転載 [[web:simgames:r4-cinc-4gamer]]、通常版の説明文 [[web:simgames:r5-cinc-appgoblin-ci2]]、Arcade 版の説明文 [[web:simgames:r5-cinc-appgoblin-ci2plus]] |
-| 作り手の話 | 1 | @DIME の開発者の談話 [[web:simgames:r4-cinc-dime-interview]] |
-| 媒体の記者・編集部の記事 | 6 | GAME Watch [[web:simgames:r4-cinc-gamewatch]]、アプリゲット [[web:simgames:r4-cinc-appget-review]]、電ファミ [[web:simgames:r4-cinc-denfami-news]]、みんなのらくらく [[web:simgames:r4-cinc-minnano]]、MacStories [[web:simgames:r4-cinc-macstories-arcade]]、むがじん（地域メディアの体験記）[[web:simgames:r5-cinc-mugazine]] |
-| 実務者（経営者）の声 | 1 | 着物の会社の創業者のブログ [[web:simgames:r5-cinc-cfy-blog]]（ほかに利用者の声の中に、駆け出しの経営者（#56）と営業管理職（#77）を名乗る声が2件） |
-| 遊んだ人の攻略・記録 | 23 | Zenn [[web:simgames:r4-cinc-zenn-messos]]、Level Winner [[web:simgames:r4-cinc-levelwinner-guide]]、徹底攻略 [[web:simgames:r4-cinc-chitara-early]]、Applizm 15本（初版の8本＋[[web:simgames:r5-cinc-applizm-guide]] [[web:simgames:r5-cinc-applizm-ceo]] [[web:simgames:r5-cinc-applizm-jinjibu]] [[web:simgames:r5-cinc-applizm-tousibu]] [[web:simgames:r5-cinc-applizm-gijutubu]] [[web:simgames:r5-cinc-applizm-bentya-kakutyou]] [[web:simgames:r5-cinc-applizm-hudousan-business]]）、note 2本 [[web:simgames:r5-cinc-note-araki]] [[web:simgames:r5-cinc-note-umpo]]、信頼度の低い3本（[[web:simgames:r4-cinc-gamingroute-guide]] [[web:simgames:r4-cinc-appmatch]] [[web:simgames:r5-cinc-coffeelovers101]]） |
-| 利用者の声の集まり | 8 | APPLION の口コミ一覧7ページ（[[web:simgames:r4-cinc-applion-reviews]] [[web:simgames:r5-cinc-applion-p2]] [[web:simgames:r5-cinc-applion-p3]] [[web:simgames:r5-cinc-applion-p4]] [[web:simgames:r5-cinc-applion-p5]] [[web:simgames:r5-cinc-applion-p6]] [[web:simgames:r5-cinc-applion-p7]]）、appreview.jp [[web:simgames:r4-cinc-appreview]]。**重なりを除いて160件** |
+| 一次資料（開発元が書いた説明文） | 3 | 4Gamer の転載 [[web:simgames:r4-cinc-4gamer|「配信元の紹介文をそのまま掲載」]]、通常版の説明文 [[web:simgames:r5-cinc-appgoblin-ci2|「Build Your Global」]]、Arcade 版の説明文 [[web:simgames:r5-cinc-appgoblin-ci2plus|「Apple Arcade edition」]] |
+| 作り手の話 | 1 | @DIME の開発者の談話 [[web:simgames:r4-cinc-dime-interview|「野田智博さんが開発」]] |
+| 媒体の記者・編集部の記事 | 6 | GAME Watch [[web:simgames:r4-cinc-gamewatch|「本格経営SLG」]]、アプリゲット [[web:simgames:r4-cinc-appget-review|「アプリゲット」]]、電ファミ [[web:simgames:r4-cinc-denfami-news|「キャッシュフロー計算書など」]]、みんなのらくらく [[web:simgames:r4-cinc-minnano|「グラフィックが見やすく」]]、MacStories [[web:simgames:r4-cinc-macstories-arcade|「Coffee Inc 2+ (June 4)」]]、むがじん（地域メディアの体験記）[[web:simgames:r5-cinc-mugazine|「むがじん」]] |
+| 実務者（経営者）の声 | 1 | 着物の会社の創業者のブログ [[web:simgames:r5-cinc-cfy-blog|「きものではたらく社長」]]（ほかに利用者の声の中に、駆け出しの経営者（#56）と営業管理職（#77）を名乗る声が2件） |
+| 遊んだ人の攻略・記録 | 23 | Zenn [[web:simgames:r4-cinc-zenn-messos|「The Coffee Inc 2攻略のコツ」]]、Level Winner [[web:simgames:r4-cinc-levelwinner-guide|「Level Winner」]]、徹底攻略 [[web:simgames:r4-cinc-chitara-early|「徹底攻略ゲーム図鑑」]]、Applizm 15本（初版の8本＋[[web:simgames:r5-cinc-applizm-guide|「攻略のコツと序盤の流れ」]] [[web:simgames:r5-cinc-applizm-ceo|「取締役室でできること」]] [[web:simgames:r5-cinc-applizm-jinjibu|「人事部でできること」]] [[web:simgames:r5-cinc-applizm-tousibu|「投資部でできる事」]] [[web:simgames:r5-cinc-applizm-gijutubu|「技術部でできる事」]] [[web:simgames:r5-cinc-applizm-bentya-kakutyou|「ベンチャー企業拡張パックでできる事」]] [[web:simgames:r5-cinc-applizm-hudousan-business|「不動産ビジネス拡張パックでできる事」]]）、note 2本 [[web:simgames:r5-cinc-note-araki|「簡単に出来る上場のさせ方」]] [[web:simgames:r5-cinc-note-umpo|「億万長者への道攻略」]]、信頼度の低い3本（[[web:simgames:r4-cinc-gamingroute-guide|「Coffee Inc 2 Guide」]] [[web:simgames:r4-cinc-appmatch|「独禁法の罰金に注意」]] [[web:simgames:r5-cinc-coffeelovers101|「published using」]]） |
+| 利用者の声の集まり | 8 | APPLION の口コミ一覧7ページ（[[web:simgames:r4-cinc-applion-reviews|「評価/口コミ・レビュー」]] [[web:simgames:r5-cinc-applion-p2|「カフェビジネスで行くところまで行ったら」]] [[web:simgames:r5-cinc-applion-p3|「今作は初級でも破産する難易度ですので」]] [[web:simgames:r5-cinc-applion-p4|「これ300円で遊べるのはやばい」]] [[web:simgames:r5-cinc-applion-p5|「直接数字を入力できるようにして欲しい」]] [[web:simgames:r5-cinc-applion-p6|「他のライバル会社と競い合うから楽しい」]] [[web:simgames:r5-cinc-applion-p7|「店舗事項のスキップを追加してください至急」]]）、appreview.jp [[web:simgames:r4-cinc-appreview|「Coffee Inc 2のレビュー・口コミ」]]。**重なりを除いて160件** |
 | 反対意見 | （声の中） | 星1〜3の声が9件、「広く浅い」「雰囲気だけ」「クリッカーと同じ」と書いた声が4件（#3・#146・#162・#136）。独立した批評記事は見つからなかった |
 | 研究 | 0 | この作品を扱った研究は見つからなかった |
-| 利用の数（推定） | （一次資料の中） | AppGoblin の推定：通常版は発売（2021年11月）から約5年の2026年10月で、推定インストール約86万、評価約1.7万件、**月の利用者約1.7万人、新しいインストールは週に約670・月に約5,200で「横ばい」**。Arcade 版（2026年6月）は月の利用者約1.2万人 [[web:simgames:r5-cinc-appgoblin-ci2]] [[web:simgames:r5-cinc-appgoblin-ci2plus]]。第三者の推定で、誤差の幅は不明 |
+| 利用の数（推定） | （一次資料の中） | AppGoblin の推定：通常版は発売（2021年11月）から約5年の2026年10月で、推定インストール約86万、評価約1.7万件、**月の利用者約1.7万人、新しいインストールは週に約670・月に約5,200で「横ばい」**。Arcade 版（2026年6月）は月の利用者約1.2万人 [[web:simgames:r5-cinc-appgoblin-ci2|「monthly active users」]] [[web:simgames:r5-cinc-appgoblin-ci2plus|「monthly active users」]]。第三者の推定で、誤差の幅は不明 |
 
 **攻略・記録が半分を超えている理由**：仕組みの細部（数の上限・委任の範囲・上場の条件・不動産の釣り合い）を書いた一次資料（App Store の説明文の詳細・更新履歴・開発ブログ）が規約で自動取得できず、遊んだ人の記録が細部を知るほぼ唯一の窓口だったため。攻略は同じことを複数の資料で確かめたものだけを仕組みとして書き、1本だけが言うことは【推測】か出典を明示した。
 
@@ -143,39 +143,39 @@
 
 | # | つまみ | 深さ（選択肢・トレードオフ） | 効くまで | 他の変数との絡み | 解放 | 出典 |
 |---|---|---|---|---|---|---|
-| 1 | 開始の条件（難易度・競合の社数・初期資本・通貨・会社の色とロゴ） | 難易度は口コミに初級・中級・上級・最難級の名が出る【推論：4段階】、競合は最高難度で5社、資本は円で最大8,800万円。自分で厳しさを決め、縛りの遊びを作れる | 全体 | 競合の数→良い区画の取り合い（#3）・ライバルの初期の店。会社の色→地図での見分けやすさ（9章） | ① | [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r5-cinc-note-araki]] |
-| 2 | 都市（13都市・国） | 都市ごとに区画の質と賃料の分布、買える豆と値段、国ごとに GDP 成長率・政策金利・物価が違う | 長い | 都市→借入の金利（国の銀行）→出店の速さ。都市→豆の選択肢（#7）。都市→法律（#29） | ①（別の国への移動は飛行機、拡張で無制限） | [[web:simgames:r4-cinc-4gamer]] [[web:simgames:r5-cinc-applizm-guide]] [[web:simgames:r5-cinc-cfy-blog]] |
-| 3 | 区画（テナント） | 週の人通り・週の賃料・敷金の3つ。高い・中・安いの型と掘り出し物。良い区画には限りがある：1か国に5〜9か所（Applizm）、1つの地域で広い所5〜8店・狭い所4〜6店で取り尽くす（note の攻略）、1地域に4〜7店で次の地域へ（Zenn） | 建設3〜4週＋開店後数週 | 人通り→売上の上限→機材の処理量（#6）の要否。賃料→固定費→損益分岐。区画の数の限り→ライバルとの取り合い→別の都市へ（#2） | ① | [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r5-cinc-note-araki]] [[web:simgames:r5-cinc-applizm-guide]] |
-| 4 | 店の配置（同じ地図の中にいくつ置くか） | 同じ地域の地図に自社の店を2つ置くと客を分け合い、合計の利益が減る。1店で占有率100%が理想。地域ごとの認知度は固めるとたまる | 数週 | 配置→占有率（店の宣伝の欄で見える）→ライバルの店との分け合い。固める→認知度→都市単位の広告の効き（#15） | ② | [[web:simgames:r5-cinc-note-araki]] [[web:simgames:r4-cinc-zenn-messos]] |
-| 5 | 外装・内装（自作の配置は拡張） | 何段階もの見た目。最低限だと居心地の不満。攻略は「外装・内装は安く、機材に回す」 | 建設時・改装3週 | 内装→居心地の口コミ→ライバルが近くに来ると比べられて改装が要る（#27 の競合） | ①②（自作は⑤） | [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r5-cinc-applizm-guide]] |
-| 6 | 機材（エスプレッソ機・抽出器・ブレンダー） | 品質と処理量の2軸の星。品質型と量型がある。最初に1回払うだけ | 開店から | 人通り（#3）→量型か質型か。品質→味の口コミ→値段（#10）の上げ幅 | ① | [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r4-cinc-appget-review]] |
-| 7 | 豆の仕入れ（焙煎会社を回る） | 豆は5つの性質（香り・酸味・粘性・苦味・風味）を最大5で評価。値段と品質は比例しない。都市を回って探す宝探し | 翌週から | 豆→味の口コミ→客数・値段。豆の費用→店の費用の大きな割合→粗利 | ① | [[web:simgames:r5-cinc-applizm-guide]] [[web:simgames:r4-cinc-zenn-messos]] |
-| 8 | 自社ブレンド | 市場の豆を割合で混ぜる（合計100%）。品質を上げて費用を下げる | 数週 | 仕入れ（#7）→ブレンド→品質と原価。商品開発部（#18）が要る。CPO（#20）に任せられる | ③ | [[web:simgames:r4-cinc-applizm-shouhinkaihatsu]] [[web:simgames:r5-cinc-applizm-guide]] |
-| 9 | 農園（豆を育てる） | 豆を自分で育て、収穫を管理し、畑から一杯までの品質を握る（説明文）。品種改良まで（口コミ #79）。深さ・数値は【資料なし】 | 【資料なし】（収穫の周期の記述なし） | 農園→豆の品質と原価（#7・#8）→全店の粗利。資金（#22〜24）が要る | 後の更新（2025年ごろ） | [[web:simgames:r5-cinc-appgoblin-ci2]] [[web:simgames:r5-cinc-applion-p4]] |
-| 10 | メニュー・値段 | 商品ごとに値段。店ごとか全店一律か（国ごとの統一はできない）。値段の画面で原価と粗利が見える | 翌週 | 値段→客数と粗利→口コミ（「高い」の不満）。店長に任せると原価割れの値付けをすることがある（声 #96） | ① | [[web:simgames:r4-cinc-gamewatch]] [[web:simgames:r4-cinc-appreview]] |
-| 11 | 新商品の開発 | 種類（温・冷・菓子・軽食）・目標の小売価格・期間（12/24/48週）・週の開発費→完成の星の確率。途中で破棄できる | 12〜48週 | 開発費→その間の赤字（初心者の破産の原因、[[web:simgames:r5-cinc-mugazine]]）。新商品→売上が跳ねる→上場前に1つ出すと上場後の費用増に耐えられる（[[web:simgames:r5-cinc-note-araki]]） | ③ | [[web:simgames:r4-cinc-applizm-shouhinkaihatsu]] [[web:simgames:r4-cinc-zenn-messos]] |
-| 12 | 店員の人数・時給 | 人数と時給。能力とモラルが上がり下がりする | 数週 | 人数・時給→モラル→接客の口コミ。人件費→損益。最低賃金の法律（#29）→時給の下限 | ② | [[web:simgames:r4-cinc-zenn-messos]] [[web:simgames:r4-cinc-gamewatch]] |
-| 13 | 店長（雇う・任せる範囲） | 4つの能力、給料（今より上乗せしないと断られる）、任せる範囲4つ（人事・メニュー・宣伝・トラブル）。勤続で育ち、辞めると失う | 数週〜数か月 | 人事の能力→少ない人数で回せる→人件費。任せる→手作業が減る代わりに勝手な設定（原価割れ・人数削減）。男女均等の法律（#29）→店長の男女の比率 | ② | [[web:simgames:r4-cinc-applizm-inc2-tentyou]] [[web:simgames:r5-cinc-mugazine]] |
-| 14 | 店の販促（無料 Wi-Fi・コンセント・音楽・SNS・リサイクル容器・おかわり無料・地域の検索広告など十数種） | 毎週の費用。何に力を入れるかの選択。店長の宣伝の能力が低いと客の不満 | 数週 | 販促→客数・口コミ→売上。毎週の費用→固定費。序盤は割に合わないという判断（Zenn） | ② | [[web:simgames:r4-cinc-zenn-messos]] [[web:simgames:r4-cinc-gamewatch]] |
-| 15 | 都市単位の広告 | 広告代理店（その都市の中だけ・高い）か宣伝部の内製（安い）。ブランドの認知度を上げる | 長い | 同じ都市に店を固める（#4）ほど効く。後半の圧倒的な時期にライバルの売上を奪う | ②（代理店）③（宣伝部） | [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r4-cinc-applizm-sendenbu]] |
-| 16 | 技術（会員・モバイル決済・配達・自社アプリ） | 4つのサービス、版を上げて効果を高める。開発は期間×週の予算→星の確率 | 数か月 | **会員の仕組みは競争の激しい地区・都市で効く**（競合の密度→効き目）。全店に効く→店が多いほど得 | ③ | [[web:simgames:r5-cinc-applizm-gijutubu]] |
-| 17 | オフィス（物件・フロア・収容） | 店より高い敷金と賃料。小さく始めて移れる。収容の上限が部署の人数を縛る | 即時 | オフィス→部署（#18）が開く→固定費が増える。収容の上限→拡張のための移転（英語の口コミの不満、【検索の要約のみ】） | ③ | [[web:simgames:r4-cinc-applizm-office]] |
-| 18 | 部署（人事・経理・宣伝・商品・技術・投資・取締役室） | 7つ、開く順は自由。開くと機能と一覧が見える（人事部で国ごとの全店の一覧、経理部で三表） | 即時 | 部署→情報の解放（現地に行かなくても全店が見える、[[web:simgames:r5-cinc-applizm-jinjibu]]）→委任しやすくなる。部署の人件費→固定費 | ③ | [[web:simgames:r4-cinc-4gamer]] [[web:simgames:r4-cinc-applizm-keiribu]] |
-| 19 | 福利厚生（学費・厚生年金・健康保険・株式報酬・育児・研修・レクリエーション・無料の昼食・ボランティアの9種） | どれをどこまで入れるか。入れると離職が減り、費用と人事部の人員が増える | 数週〜 | 店の数↑・上場→不満が噴き出す→福利厚生→費用↑→利益が縮む→倒産もある（[[web:simgames:r5-cinc-note-araki]]）。辞める店長（#13）を減らす | ③ | [[web:simgames:r5-cinc-applizm-jinjibu]] |
-| 20 | 重役（COO・CFO・CPO・CMO・CTO） | 年俸と株式報酬の組み合わせで口説く。それぞれ対応する部署の機能の束を引き受ける | 数週 | 重役→委任→手作業が減る代わりに当てにならない動き（声で17件の不満）。CFO→上場の条件（#23） | ③（取締役室） | [[web:simgames:r5-cinc-applizm-ceo]] |
-| 21 | 取締役会（配当・CEO 報酬） | 金額によって重役が賛成・反対し、可決・否決。決まると次の四半期まで変えられない | 四半期 | 報酬→個人の財布（#30）。配当→株主へ（ただし配当0でも圧力なし、初版の口コミ） | ③ | [[web:simgames:r5-cinc-applizm-ceo]] [[web:simgames:r4-cinc-applizm-kojinsisan]] |
-| 22 | 借入（国ごとの銀行） | 金額の段階、金利、審査は1週。同時に通るのは1〜2件、4件ほどで通りにくい。借りて返すと信用が育ち、枠は縮むこともある | 1週＋返済まで | 借入→出店の速さ→開店までの赤字に耐える。返済のくり返し→株数（#23 の条件、仕組みの理由は【資料なし】）。利息→純利益 | ① | [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r5-cinc-note-araki]] |
-| 23 | 上場（4つの関門） | 取締役会・CFO・直近3四半期の黒字・30万株。上場先の市場を選ぶ場面がある | 1〜2年 | 関門→借入の回転・黒字の維持・取締役室を作る、と前の変数を全部まとめる目標。上場→従業員の不満（#19）→費用↑ | ④の入口 | [[web:simgames:r4-cinc-gamewatch]] [[web:simgames:r5-cinc-mugazine]] |
-| 24 | 公募増資・自社株買い・株式報酬 | 増資の株数（+ボタンの長押しで入れる）、数か月ごとに行える。自社株買い、株式分割は自動 | 数週 | 増資→資金の桁が変わる→出店・投資。株価は純資産で決まる面がある（声 #148）→会社の現金が増えると株価が跳ねる（[[web:simgames:r5-cinc-note-umpo]]） | ④ | [[web:simgames:r4-cinc-applizm-inc2-kabusiki]] [[web:simgames:r4-cinc-appreview]] |
-| 25 | 他社株の売買 | 業種（銀行・ハイテク・バイオ・エネルギーなど）。銀行株は配当が厚く、ハイテク株は配当が薄いが値上がりの見込み（声 #155） | 毎週 | 余った現金→運用。新規上場の割安株（株価収益率0.0の表示）が攻略の定番＝数値の端の不具合（[[web:simgames:r5-cinc-note-araki]]） | ①（銀行で） | [[web:simgames:r4-cinc-gamewatch]] [[web:simgames:r5-cinc-applion-p2]] |
-| 26 | ベンチャー投資 | 未上場の会社（量子・宇宙・核融合・AI など）。資金調達前の企業価値・財務を見て投資。多くは潰れ、当たれば大きい。会社の口座からも個人からも | 数か月〜年 | 投資部のリサーチと定期のテックショーで機会が現れる。投資先が買収・上場→会社の現金↑→自社株価↑→個人へ（[[web:simgames:r5-cinc-note-umpo]]） | ⑤ | [[web:simgames:r5-cinc-applizm-bentya-kakutyou]] |
-| 27 | 買収（投資銀行を通す） | 相手はコーヒー会社だけ。ライバルを買って独占できる。逆に自社が傾くとライバルが名乗りを上げる | 数週 | 買収→店と店長が一度に増える→委任の負担（声 #150：5社買うと毎週の店長の辞任が50件）。独占禁止の法律（#29）→8割の上限 | ④ | [[web:simgames:r5-cinc-cfy-blog]] [[web:simgames:r4-cinc-levelwinner-guide]] |
-| 28 | 不動産（売り物件の印のある建物） | **指値で提示し、翌週に成否**。賃料を上げれば占有率が下がり、下げれば上がる釣り合いを自分で決める。会社でも個人でも買える。長い年月で価格が暴落することも（声 #150） | 翌週＋毎週 | 余った現金・増資（#24）→不動産→家賃収入→後半の利益の大部分。会社の資産の増加→株価 | ⑤ | [[web:simgames:r5-cinc-applizm-hudousan-business]] [[web:simgames:r4-cinc-appreview]] |
-| 29 | 政治（法律・市長選・ロビー） | 法律7種（環境配慮の建設・男女均等・リサイクル税・最低賃金・売上税・砂糖税・独占禁止）。市長の立場で通る法律が変わる。献金・ロビーで動かせる。設定で切れる | 数か月 | 法律→建設の期間と費用・人件費・値段・罰金。新聞（9章）で予告→読み落とすと罰金（[[web:simgames:r5-cinc-mugazine]]） | ① | [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r4-cinc-gamewatch]] |
-| 30 | 個人の財布（報酬・配当・持ち株の売却で移す） | 使い道：車・別荘（建て替え可）・美術品のオークション・大学への寄付（順位が上がる）・スポーツ球団・不動産・株 | 長い | 会社の利益→取締役会（#21）→個人。個人の資産→自分で決める最終目標（1兆円など、[[web:simgames:r5-cinc-note-umpo]]） | ③〜⑤ | [[web:simgames:r4-cinc-applizm-kojinsisan]] [[web:simgames:r5-cinc-applizm-hudousan-business]] |
-| 31 | スポーツ球団 | 買収・資本注入・選手の移籍。球団に広告してもらう | 長い | 個人・会社の資金→球団。口コミでは「触れるのは資本注入と移籍くらい」 | ⑤ | [[web:simgames:r4-cinc-appreview]] [[web:simgames:r5-cinc-applion-p4]] |
-| 32 | 出来事への対応（店員・客のトラブル） | 毎週起きる出来事を自分で裁くか店長・COO に任せる | 即時 | 委任（#13・#20）→自動で処理。任せていても回ってくることがある（声 #70） | ② | [[web:simgames:r5-cinc-appgoblin-ci2]] [[web:simgames:r4-cinc-4gamer]] |
-| 33 | 移動（別の国・都市へ飛行機で行く） | 別の国の店を見る・店長を雇い直すには現地へ飛ぶ。移動の制限は拡張で外れる | 即時 | 移動の煩わしさ→人事部（#18）を作ると国ごとの全店が見え、飛ぶ必要が減る（[[web:simgames:r5-cinc-applizm-jinjibu]]）。課金で制限を外す作りへの不満（声 #42） | ①（無制限は⑤） | [[web:simgames:r5-cinc-applizm-jinjibu]] [[web:simgames:r5-cinc-applion-p3]] |
+| 1 | 開始の条件（難易度・競合の社数・初期資本・通貨・会社の色とロゴ） | 難易度は口コミに初級・中級・上級・最難級の名が出る【推論：4段階】、競合は最高難度で5社、資本は円で最大8,800万円。自分で厳しさを決め、縛りの遊びを作れる | 全体 | 競合の数→良い区画の取り合い（#3）・ライバルの初期の店。会社の色→地図での見分けやすさ（9章） | ① | [[web:simgames:r4-cinc-levelwinner-guide|「number of competitors」]] [[web:simgames:r5-cinc-note-araki|「難易度は最難級で、ライバルは5社」]] |
+| 2 | 都市（13都市・国） | 都市ごとに区画の質と賃料の分布、買える豆と値段、国ごとに GDP 成長率・政策金利・物価が違う | 長い | 都市→借入の金利（国の銀行）→出店の速さ。都市→豆の選択肢（#7）。都市→法律（#29） | ①（別の国への移動は飛行機、拡張で無制限） | [[web:simgames:r4-cinc-4gamer|「GDP成長率も違えば」]] [[web:simgames:r5-cinc-applizm-guide|「大阪が安い傾向」]] [[web:simgames:r5-cinc-cfy-blog|「独自のGDP成長率」]] |
+| 3 | 区画（テナント） | 週の人通り・週の賃料・敷金の3つ。高い・中・安いの型と掘り出し物。良い区画には限りがある：1か国に5〜9か所（Applizm）、1つの地域で広い所5〜8店・狭い所4〜6店で取り尽くす（note の攻略）、1地域に4〜7店で次の地域へ（Zenn） | 建設3〜4週＋開店後数週 | 人通り→売上の上限→機材の処理量（#6）の要否。賃料→固定費→損益分岐。区画の数の限り→ライバルとの取り合い→別の都市へ（#2） | ① | [[web:simgames:r4-cinc-levelwinner-guide|「Foot Traffic is the most」]] [[web:simgames:r5-cinc-note-araki|「週間歩行者数を重要視」]] [[web:simgames:r5-cinc-applizm-guide|「各国で大体5~9店舗」]] |
+| 4 | 店の配置（同じ地図の中にいくつ置くか） | 同じ地域の地図に自社の店を2つ置くと客を分け合い、合計の利益が減る。1店で占有率100%が理想。地域ごとの認知度は固めるとたまる | 数週 | 配置→占有率（店の宣伝の欄で見える）→ライバルの店との分け合い。固める→認知度→都市単位の広告の効き（#15） | ② | [[web:simgames:r5-cinc-note-araki|「そのエリアの占有率的なもの」]] [[web:simgames:r4-cinc-zenn-messos|「認知度の累積が効く」]] |
+| 5 | 外装・内装（自作の配置は拡張） | 何段階もの見た目。最低限だと居心地の不満。攻略は「外装・内装は安く、機材に回す」 | 建設時・改装3週 | 内装→居心地の口コミ→ライバルが近くに来ると比べられて改装が要る（#27 の競合） | ①②（自作は⑤） | [[web:simgames:r4-cinc-levelwinner-guide|「comparing the two shops」]] [[web:simgames:r5-cinc-applizm-guide|「外装とインテリアは安いもの」]] |
+| 6 | 機材（エスプレッソ機・抽出器・ブレンダー） | 品質と処理量の2軸の星。品質型と量型がある。最初に1回払うだけ | 開店から | 人通り（#3）→量型か質型か。品質→味の口コミ→値段（#10）の上げ幅 | ① | [[web:simgames:r4-cinc-levelwinner-guide|「Quality Productivity」]] [[web:simgames:r4-cinc-appget-review|「高くてもお金が発生するのは最初だけ」]] |
+| 7 | 豆の仕入れ（焙煎会社を回る） | 豆は5つの性質（香り・酸味・粘性・苦味・風味）を最大5で評価。値段と品質は比例しない。都市を回って探す宝探し | 翌週から | 豆→味の口コミ→客数・値段。豆の費用→店の費用の大きな割合→粗利 | ① | [[web:simgames:r5-cinc-applizm-guide|「評価4が3つ以上」]] [[web:simgames:r4-cinc-zenn-messos|「ステータスが高くて値段が安い」]] |
+| 8 | 自社ブレンド | 市場の豆を割合で混ぜる（合計100%）。品質を上げて費用を下げる | 数週 | 仕入れ（#7）→ブレンド→品質と原価。商品開発部（#18）が要る。CPO（#20）に任せられる | ③ | [[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「自社ブレンドを作成」]] [[web:simgames:r5-cinc-applizm-guide|「ブレンドで品質向上」]] |
+| 9 | 農園（豆を育てる） | 豆を自分で育て、収穫を管理し、畑から一杯までの品質を握る（説明文）。品種改良まで（口コミ #79）。深さ・数値は【資料なし】 | 【資料なし】（収穫の周期の記述なし） | 農園→豆の品質と原価（#7・#8）→全店の粗利。資金（#22〜24）が要る | 後の更新（2025年ごろ） | [[web:simgames:r5-cinc-appgoblin-ci2|「plantation business」]] [[web:simgames:r5-cinc-applion-p4|「品種改良までできるようになった」]] |
+| 10 | メニュー・値段 | 商品ごとに値段。店ごとか全店一律か（国ごとの統一はできない）。値段の画面で原価と粗利が見える | 翌週 | 値段→客数と粗利→口コミ（「高い」の不満）。店長に任せると原価割れの値付けをすることがある（声 #96） | ① | [[web:simgames:r4-cinc-gamewatch|「原価と粗利をチェック」]] [[web:simgames:r4-cinc-appreview|「粗利-40%設定」]] |
+| 11 | 新商品の開発 | 種類（温・冷・菓子・軽食）・目標の小売価格・期間（12/24/48週）・週の開発費→完成の星の確率。途中で破棄できる | 12〜48週 | 開発費→その間の赤字（初心者の破産の原因、[[web:simgames:r5-cinc-mugazine|「あっという間に破産」]]）。新商品→売上が跳ねる→上場前に1つ出すと上場後の費用増に耐えられる（[[web:simgames:r5-cinc-note-araki|「上場前に1つは新商品を開発」]]） | ③ | [[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「売上があまりないときに開発」]] [[web:simgames:r4-cinc-zenn-messos|「新商品をリリースすると売上」]] |
+| 12 | 店員の人数・時給 | 人数と時給。能力とモラルが上がり下がりする | 数週 | 人数・時給→モラル→接客の口コミ。人件費→損益。最低賃金の法律（#29）→時給の下限 | ② | [[web:simgames:r4-cinc-zenn-messos|「能力とモラルが向上傾向」]] [[web:simgames:r4-cinc-gamewatch|「店員の人数や時給」]] |
+| 13 | 店長（雇う・任せる範囲） | 4つの能力、給料（今より上乗せしないと断られる）、任せる範囲4つ（人事・メニュー・宣伝・トラブル）。勤続で育ち、辞めると失う | 数週〜数か月 | 人事の能力→少ない人数で回せる→人件費。任せる→手作業が減る代わりに勝手な設定（原価割れ・人数削減）。男女均等の法律（#29）→店長の男女の比率 | ② | [[web:simgames:r4-cinc-applizm-inc2-tentyou|「トラブル解決を委任」]] [[web:simgames:r5-cinc-mugazine|「商品能力や宣伝能力が低い」]] |
+| 14 | 店の販促（無料 Wi-Fi・コンセント・音楽・SNS・リサイクル容器・おかわり無料・地域の検索広告など十数種） | 毎週の費用。何に力を入れるかの選択。店長の宣伝の能力が低いと客の不満 | 数週 | 販促→客数・口コミ→売上。毎週の費用→固定費。序盤は割に合わないという判断（Zenn） | ② | [[web:simgames:r4-cinc-zenn-messos|「広告は出さない」]] [[web:simgames:r4-cinc-gamewatch|「高速の無料Wi-Fi」]] |
+| 15 | 都市単位の広告 | 広告代理店（その都市の中だけ・高い）か宣伝部の内製（安い）。ブランドの認知度を上げる | 長い | 同じ都市に店を固める（#4）ほど効く。後半の圧倒的な時期にライバルの売上を奪う | ②（代理店）③（宣伝部） | [[web:simgames:r4-cinc-levelwinner-guide|「only within the」]] [[web:simgames:r4-cinc-applizm-sendenbu|「広告予算費用を抑えて」]] |
+| 16 | 技術（会員・モバイル決済・配達・自社アプリ） | 4つのサービス、版を上げて効果を高める。開発は期間×週の予算→星の確率 | 数か月 | **会員の仕組みは競争の激しい地区・都市で効く**（競合の密度→効き目）。全店に効く→店が多いほど得 | ③ | [[web:simgames:r5-cinc-applizm-gijutubu|「競争が激しい地区や都市」]] |
+| 17 | オフィス（物件・フロア・収容） | 店より高い敷金と賃料。小さく始めて移れる。収容の上限が部署の人数を縛る | 即時 | オフィス→部署（#18）が開く→固定費が増える。収容の上限→拡張のための移転（英語の口コミの不満、【検索の要約のみ】） | ③ | [[web:simgames:r4-cinc-applizm-office|「収容定員フロア数が多い」]] |
+| 18 | 部署（人事・経理・宣伝・商品・技術・投資・取締役室） | 7つ、開く順は自由。開くと機能と一覧が見える（人事部で国ごとの全店の一覧、経理部で三表） | 即時 | 部署→情報の解放（現地に行かなくても全店が見える、[[web:simgames:r5-cinc-applizm-jinjibu|「全ての店舗の状態を確認」]]）→委任しやすくなる。部署の人件費→固定費 | ③ | [[web:simgames:r4-cinc-4gamer|「人事部、経理部、商品開発部」]] [[web:simgames:r4-cinc-applizm-keiribu|「を週間、四半期、通期で」]] |
+| 19 | 福利厚生（学費・厚生年金・健康保険・株式報酬・育児・研修・レクリエーション・無料の昼食・ボランティアの9種） | どれをどこまで入れるか。入れると離職が減り、費用と人事部の人員が増える | 数週〜 | 店の数↑・上場→不満が噴き出す→福利厚生→費用↑→利益が縮む→倒産もある（[[web:simgames:r5-cinc-note-araki|「福利厚生を整えようとすると」]]）。辞める店長（#13）を減らす | ③ | [[web:simgames:r5-cinc-applizm-jinjibu|「離職率低下に繋がります」]] |
+| 20 | 重役（COO・CFO・CPO・CMO・CTO） | 年俸と株式報酬の組み合わせで口説く。それぞれ対応する部署の機能の束を引き受ける | 数週 | 重役→委任→手作業が減る代わりに当てにならない動き（声で17件の不満）。CFO→上場の条件（#23） | ③（取締役室） | [[web:simgames:r5-cinc-applizm-ceo|「株式公開、上場の条件にCFO」]] |
+| 21 | 取締役会（配当・CEO 報酬） | 金額によって重役が賛成・反対し、可決・否決。決まると次の四半期まで変えられない | 四半期 | 報酬→個人の財布（#30）。配当→株主へ（ただし配当0でも圧力なし、初版の口コミ） | ③ | [[web:simgames:r5-cinc-applizm-ceo|「四半期まで変更できない」]] [[web:simgames:r4-cinc-applizm-kojinsisan|「CEO報酬を設定する」]] |
+| 22 | 借入（国ごとの銀行） | 金額の段階、金利、審査は1週。同時に通るのは1〜2件、4件ほどで通りにくい。借りて返すと信用が育ち、枠は縮むこともある | 1週＋返済まで | 借入→出店の速さ→開店までの赤字に耐える。返済のくり返し→株数（#23 の条件、仕組みの理由は【資料なし】）。利息→純利益 | ① | [[web:simgames:r4-cinc-levelwinner-guide|「take a week to decide」]] [[web:simgames:r5-cinc-note-araki|「ローンを借りて返済する」]] |
+| 23 | 上場（4つの関門） | 取締役会・CFO・直近3四半期の黒字・30万株。上場先の市場を選ぶ場面がある | 1〜2年 | 関門→借入の回転・黒字の維持・取締役室を作る、と前の変数を全部まとめる目標。上場→従業員の不満（#19）→費用↑ | ④の入口 | [[web:simgames:r4-cinc-gamewatch|「取締役会の設置」]] [[web:simgames:r5-cinc-mugazine|「マザーズにしておきました」]] |
+| 24 | 公募増資・自社株買い・株式報酬 | 増資の株数（+ボタンの長押しで入れる）、数か月ごとに行える。自社株買い、株式分割は自動 | 数週 | 増資→資金の桁が変わる→出店・投資。株価は純資産で決まる面がある（声 #148）→会社の現金が増えると株価が跳ねる（[[web:simgames:r5-cinc-note-umpo|「株価は爆上がり」]]） | ④ | [[web:simgames:r4-cinc-applizm-inc2-kabusiki|「公募増資を行うことができます」]] [[web:simgames:r4-cinc-appreview|「純資産で時価総額が決定」]] |
+| 25 | 他社株の売買 | 業種（銀行・ハイテク・バイオ・エネルギーなど）。銀行株は配当が厚く、ハイテク株は配当が薄いが値上がりの見込み（声 #155） | 毎週 | 余った現金→運用。新規上場の割安株（株価収益率0.0の表示）が攻略の定番＝数値の端の不具合（[[web:simgames:r5-cinc-note-araki|「上場したばかりのPERが0.0」]]） | ①（銀行で） | [[web:simgames:r4-cinc-gamewatch|「さまざまな銘柄が並んで」]] [[web:simgames:r5-cinc-applion-p2|「銀行、自動車会社、ハイテク会社」]] |
+| 26 | ベンチャー投資 | 未上場の会社（量子・宇宙・核融合・AI など）。資金調達前の企業価値・財務を見て投資。多くは潰れ、当たれば大きい。会社の口座からも個人からも | 数か月〜年 | 投資部のリサーチと定期のテックショーで機会が現れる。投資先が買収・上場→会社の現金↑→自社株価↑→個人へ（[[web:simgames:r5-cinc-note-umpo|「上場しやすい傾向にある」]]） | ⑤ | [[web:simgames:r5-cinc-applizm-bentya-kakutyou|「テックショーに参加できる」]] |
+| 27 | 買収（投資銀行を通す） | 相手はコーヒー会社だけ。ライバルを買って独占できる。逆に自社が傾くとライバルが名乗りを上げる | 数週 | 買収→店と店長が一度に増える→委任の負担（声 #150：5社買うと毎週の店長の辞任が50件）。独占禁止の法律（#29）→8割の上限 | ④ | [[web:simgames:r5-cinc-cfy-blog|「名乗りを上げる」]] [[web:simgames:r4-cinc-levelwinner-guide|「more than 80% of market」]] |
+| 28 | 不動産（売り物件の印のある建物） | **指値で提示し、翌週に成否**。賃料を上げれば占有率が下がり、下げれば上がる釣り合いを自分で決める。会社でも個人でも買える。長い年月で価格が暴落することも（声 #150） | 翌週＋毎週 | 余った現金・増資（#24）→不動産→家賃収入→後半の利益の大部分。会社の資産の増加→株価 | ⑤ | [[web:simgames:r5-cinc-applizm-hudousan-business|「年間賃料を下げると占有率が上がり」]] [[web:simgames:r4-cinc-appreview|「東京のタワマンやオフィス」]] |
+| 29 | 政治（法律・市長選・ロビー） | 法律7種（環境配慮の建設・男女均等・リサイクル税・最低賃金・売上税・砂糖税・独占禁止）。市長の立場で通る法律が変わる。献金・ロビーで動かせる。設定で切れる | 数か月 | 法律→建設の期間と費用・人件費・値段・罰金。新聞（9章）で予告→読み落とすと罰金（[[web:simgames:r5-cinc-mugazine|「男女機会均等法の施行」]]） | ① | [[web:simgames:r4-cinc-levelwinner-guide|「engage in lobbying」]] [[web:simgames:r4-cinc-gamewatch|「最低賃金法」]] |
+| 30 | 個人の財布（報酬・配当・持ち株の売却で移す） | 使い道：車・別荘（建て替え可）・美術品のオークション・大学への寄付（順位が上がる）・スポーツ球団・不動産・株 | 長い | 会社の利益→取締役会（#21）→個人。個人の資産→自分で決める最終目標（1兆円など、[[web:simgames:r5-cinc-note-umpo|「個人資産を最終的に増やす」]]） | ③〜⑤ | [[web:simgames:r4-cinc-applizm-kojinsisan|「大学に寄付できる」]] [[web:simgames:r5-cinc-applizm-hudousan-business|「個人資産のみ購入できます」]] |
+| 31 | スポーツ球団 | 買収・資本注入・選手の移籍。球団に広告してもらう | 長い | 個人・会社の資金→球団。口コミでは「触れるのは資本注入と移籍くらい」 | ⑤ | [[web:simgames:r4-cinc-appreview|「資本注入と移籍くらい」]] [[web:simgames:r5-cinc-applion-p4|「20チームのリーグ戦」]] |
+| 32 | 出来事への対応（店員・客のトラブル） | 毎週起きる出来事を自分で裁くか店長・COO に任せる | 即時 | 委任（#13・#20）→自動で処理。任せていても回ってくることがある（声 #70） | ② | [[web:simgames:r5-cinc-appgoblin-ci2|「unexpected incidents」]] [[web:simgames:r4-cinc-4gamer|「お店では毎週色々なことが起こります」]] |
+| 33 | 移動（別の国・都市へ飛行機で行く） | 別の国の店を見る・店長を雇い直すには現地へ飛ぶ。移動の制限は拡張で外れる | 即時 | 移動の煩わしさ→人事部（#18）を作ると国ごとの全店が見え、飛ぶ必要が減る（[[web:simgames:r5-cinc-applizm-jinjibu|「マイルを使って出張し」]]）。課金で制限を外す作りへの不満（声 #42） | ①（無制限は⑤） | [[web:simgames:r5-cinc-applizm-jinjibu|「マイルを使って出張し」]] [[web:simgames:r5-cinc-applion-p3|「別の地域に移動するのに制限」]] |
 
 **表から読めること**
 - **同じ形の判断が層を変えてくり返し出てくる**：「値段↔量」（店の値段↔客数、不動産の賃料↔占有率）、「質↔費用」（機材・豆・ブレンド・内装・福利厚生）、「期間×予算→確率」（新商品・技術・農園）、「今の現金↔将来の価値」（借入・増資・ベンチャー・株）、「自分でやる↔任せる」（店長・重役・CPO の豆の仕入れ）。一つの層で覚えた考え方が次の層でも通じるので、新しい層が開くたびに「分かる、でも新しい」が起きる【推論：この転移を名指しした資料はない。口コミの「やる事多過ぎて混乱するくらい要素増えてて嬉しい」（#99）「所々に飽きさせない工夫」（#39）と整合】。
@@ -267,23 +267,23 @@
 ### 4.1 市場と立地
 
 **どう動くか**
-- 実在の都市（初期は11都市、のちに13都市と保養地2か所【検索の要約のみ】）。都市は地区の地図で、区画（テナント物件）に番号と住所がある [[web:simgames:r4-cinc-4gamer]] [[web:simgames:r4-cinc-levelwinner-guide]]。
-- 区画の数値は3つ：**週の歩行者数**（広告なしで自然に来る客の量を決める、最重要）・**週の賃料**（毎週の固定費）・**敷金**（1回だけ）[[web:simgames:r4-cinc-levelwinner-guide]]。人通りの上限はおよそ1万2千人/週 [[web:simgames:r4-cinc-zenn-messos]]。
-- 区画は「高いが人が多い／中くらい／安いが人が少ない」の3つの型で示され、その中に割安な掘り出し物がある [[web:simgames:r4-cinc-applizm-inc2-bukken]] [[web:simgames:r4-cinc-chitara-early]]。都市ごとに掘り出し物の多さが違う [[web:simgames:r4-cinc-levelwinner-guide]]。
-- 通行量だけでなく客層も効く（住宅街よりビジネス街）[[web:simgames:r4-cinc-appget-review]]。
-- 地域単位の「認知度」がある。同じ地域に店をまとめると認知度がたまりやすい [[web:simgames:r4-cinc-zenn-messos]]。
-- オフィスの物件も市場に出たり消えたりし、日が進むと新しい物件が出る [[web:simgames:r4-cinc-applizm-office]]。
-- 店の空き区画は少しずつ増えるが、いずれ出したい場所がなくなる [[web:simgames:r4-cinc-zenn-messos]]。
-- 季節：温かい飲み物と冷たい飲み物の1日の販売数が分かれて見える [[web:simgames:r4-cinc-applizm-shouhinkaihatsu]]。季節で需要がどう動くかの式は【資料なし】。
+- 実在の都市（初期は11都市、のちに13都市と保養地2か所【検索の要約のみ】）。都市は地区の地図で、区画（テナント物件）に番号と住所がある [[web:simgames:r4-cinc-4gamer|「現実の都市をゲームに採用」]] [[web:simgames:r4-cinc-levelwinner-guide|「Umeda 2-5-9 (lot 50)」]]。
+- 区画の数値は3つ：**週の歩行者数**（広告なしで自然に来る客の量を決める、最重要）・**週の賃料**（毎週の固定費）・**敷金**（1回だけ）[[web:simgames:r4-cinc-levelwinner-guide|「and Security Deposit」]]。人通りの上限はおよそ1万2千人/週 [[web:simgames:r4-cinc-zenn-messos|「以上くらいが最大ぽい」]]。
+- 区画は「高いが人が多い／中くらい／安いが人が少ない」の3つの型で示され、その中に割安な掘り出し物がある [[web:simgames:r4-cinc-applizm-inc2-bukken|「交通量が少なめですが、賃料が割安」]] [[web:simgames:r4-cinc-chitara-early|「賃料と交通量がバランスの取れた物件」]]。都市ごとに掘り出し物の多さが違う [[web:simgames:r4-cinc-levelwinner-guide|「many good deals」]]。
+- 通行量だけでなく客層も効く（住宅街よりビジネス街）[[web:simgames:r4-cinc-appget-review|「多く発生するビジネス街」]]。
+- 地域単位の「認知度」がある。同じ地域に店をまとめると認知度がたまりやすい [[web:simgames:r4-cinc-zenn-messos|「認知度の累積が効く」]]。
+- オフィスの物件も市場に出たり消えたりし、日が進むと新しい物件が出る [[web:simgames:r4-cinc-applizm-office|「日をかえると新しくリース」]]。
+- 店の空き区画は少しずつ増えるが、いずれ出したい場所がなくなる [[web:simgames:r4-cinc-zenn-messos|「出店できる箇所は少しずつ増える」]]。
+- 季節：温かい飲み物と冷たい飲み物の1日の販売数が分かれて見える [[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「冷たい飲料の日の販売数」]]。季節で需要がどう動くかの式は【資料なし】。
 - 人口・客層の内訳の画面は【資料なし】（Gaming Route が「人口構成の重ね表示」と書くが、信頼度が低いので使わない）。
 
 **プレイヤーの判断**：どの都市から始めるか、高い区画で大きく稼ぐか安い区画で低く始めるか、同じ地域に固めるか散らすか、自分の店同士をどれだけ離すか。
 
-**返り**：開店後の客数と売上。店の宣伝の画面に、その店の周りの売上シェア（自社の別の店・ライバル）が出る [[web:simgames:r4-cinc-zenn-messos]]。
+**返り**：開店後の客数と売上。店の宣伝の画面に、その店の周りの売上シェア（自社の別の店・ライバル）が出る [[web:simgames:r4-cinc-zenn-messos|「宣伝タブの売上シェア欄」]]。
 
-**面白さの源**：地図で掘り出し物を探す。「人通りが多い所に出したら一気に黒字」という分かりやすい因果 [[web:simgames:r4-cinc-appget-review]]。
+**面白さの源**：地図で掘り出し物を探す。「人通りが多い所に出したら一気に黒字」という分かりやすい因果 [[web:simgames:r4-cinc-appget-review|「黒字化達成」]]。
 
-**不満の源**：区画が少ない・地図が狭い、建物の後ろに区画の印が隠れて押しにくい [[web:simgames:r4-cinc-applion-reviews]] [[web:simgames:r4-cinc-appreview]]。後半は出す場所がなくなる。
+**不満の源**：区画が少ない・地図が狭い、建物の後ろに区画の印が隠れて押しにくい [[web:simgames:r4-cinc-applion-reviews|「建物の後ろにテナントのマーク」]] [[web:simgames:r4-cinc-appreview|「建物の後ろにテナントのマーク」]]。後半は出す場所がなくなる。
 
 **ピヨ商店への写し方（会計の論点）**
 - 出店の候補は「人通り（の目安）・月の家賃・保証金・内装の費用の見積り」の4つの数で見せる。保証金は**差入保証金（資産）**、家賃は**支払家賃（費用、前払なら前払費用）**。
@@ -293,23 +293,23 @@
 
 
 **第2版で足したこと（出店エリア）**
-- **同じ地域の地図の中で客を分け合う**。自社の店同士でも売上を食い合い、合計の利益が減る（序盤ほど痛い）。開店後は店の宣伝の欄で、その地域の占有率が見える。攻略者は「自社の1店で占有率100%」を理想とし、良い区画を取り尽くしたら次の地域・都市へ移る（広い地域で5〜8店、狭い地域で4〜6店）[[web:simgames:r5-cinc-note-araki]]。
-- 良い人通りの区画は1か国に5〜9か所ほど。高難度ではライバルに先に取られるので、国を分散させる [[web:simgames:r5-cinc-applizm-guide]]。
-- 新店は地図の「テナント募集」の印から選び、週のテナント料・保証金・建設費の予算で判断する [[web:simgames:r5-cinc-cfy-blog]]。
-- 1都市に固めて33店まで増やすと、その都市の他社がほとんどいなくなった、という記録 [[web:simgames:r5-cinc-note-umpo]]（固めることで競合を押し出せる）。
+- **同じ地域の地図の中で客を分け合う**。自社の店同士でも売上を食い合い、合計の利益が減る（序盤ほど痛い）。開店後は店の宣伝の欄で、その地域の占有率が見える。攻略者は「自社の1店で占有率100%」を理想とし、良い区画を取り尽くしたら次の地域・都市へ移る（広い地域で5〜8店、狭い地域で4〜6店）[[web:simgames:r5-cinc-note-araki|「自社の1店舗でシェア率100%」]]。
+- 良い人通りの区画は1か国に5〜9か所ほど。高難度ではライバルに先に取られるので、国を分散させる [[web:simgames:r5-cinc-applizm-guide|「各国で大体5~9店舗」]]。
+- 新店は地図の「テナント募集」の印から選び、週のテナント料・保証金・建設費の予算で判断する [[web:simgames:r5-cinc-cfy-blog|「週間テナント料」]]。
+- 1都市に固めて33店まで増やすと、その都市の他社がほとんどいなくなった、という記録 [[web:simgames:r5-cinc-note-umpo|「他社がかなり少ない」]]（固めることで競合を押し出せる）。
 
 ### 4.2 競合（AI のライバル）
 
 **資料で確かめられたこと**
-- 数は開始時に選ぶ（最高難度で5社）[[web:simgames:r4-cinc-zenn-messos]] [[web:simgames:r4-cinc-levelwinner-guide]]。
-- ライバルは店を出して広げる。最初に店を出した都市にライバルも出てきやすい、という観察 [[web:simgames:r4-cinc-levelwinner-guide]]。広告に金を使っている間にライバルの店が増え、売上が下がって赤字になった、という記録 [[web:simgames:r4-cinc-zenn-messos]]。
-- 近くにライバルの店があると、相手のシェアが小さくても伸びが妨げられる [[web:simgames:r4-cinc-levelwinner-guide]]。ライバルが新しく近くに来ると、客が店を比べ始め、内装の居心地の不満が出る（改装が必要になる）[[web:simgames:r4-cinc-levelwinner-guide]]。
-- 地域ごとにどの会社が何店出しているかを一覧できる [[web:simgames:r4-cinc-chitara-early]]。宣伝部で国ごとの店数と収益の市場シェアが見られる [[web:simgames:r4-cinc-applizm-sendenbu]]。
-- 自社が圧倒的になれば、大きく広告を打ってライバルの売上を奪える。ライバルを「店は残るが伸びない」状態まで追い込める [[web:simgames:r4-cinc-zenn-messos]]。
-- 投資銀行を通じて企業買収ができる [[web:simgames:r4-cinc-4gamer]]。ライバルを買収して市場を独占する遊び方がある [[web:simgames:r4-cinc-applion-reviews]]。ライバルを消す方法は買収だけ、という口コミ【検索の要約のみ】。
-- 独占禁止法が施行されると、1社が都市のシェアの8割を超えるのを防ぎ、M&A も監督し、破ると罰金 [[web:simgames:r4-cinc-levelwinner-guide]]。
-- ライバルが上場してくれない、という質問がある【検索の要約のみ】＝ライバルも上場する設計らしい。株式市場には自社以外の銘柄もある [[web:simgames:r4-cinc-gamewatch]]。
-- 自分の店を全部たたんでライバルに投資し、その成長を見守る遊び方 [[web:simgames:r4-cinc-applion-reviews]]（ライバルの株が買える）。
+- 数は開始時に選ぶ（最高難度で5社）[[web:simgames:r4-cinc-zenn-messos|「競合5社」]] [[web:simgames:r4-cinc-levelwinner-guide|「number of competitors」]]。
+- ライバルは店を出して広げる。最初に店を出した都市にライバルも出てきやすい、という観察 [[web:simgames:r4-cinc-levelwinner-guide|「competitors to start」]]。広告に金を使っている間にライバルの店が増え、売上が下がって赤字になった、という記録 [[web:simgames:r4-cinc-zenn-messos|「だんだん競合の店が増えて」]]。
+- 近くにライバルの店があると、相手のシェアが小さくても伸びが妨げられる [[web:simgames:r4-cinc-levelwinner-guide|「always hinder growth」]]。ライバルが新しく近くに来ると、客が店を比べ始め、内装の居心地の不満が出る（改装が必要になる）[[web:simgames:r4-cinc-levelwinner-guide|「comparing the two shops」]]。
+- 地域ごとにどの会社が何店出しているかを一覧できる [[web:simgames:r4-cinc-chitara-early|「地域ごとの競合状況を確認」]]。宣伝部で国ごとの店数と収益の市場シェアが見られる [[web:simgames:r4-cinc-applizm-sendenbu|「収益市場シェアを確認」]]。
+- 自社が圧倒的になれば、大きく広告を打ってライバルの売上を奪える。ライバルを「店は残るが伸びない」状態まで追い込める [[web:simgames:r4-cinc-zenn-messos|「他社の売上を奪って」]]。
+- 投資銀行を通じて企業買収ができる [[web:simgames:r4-cinc-4gamer|「株式公開や企業買収も可能」]]。ライバルを買収して市場を独占する遊び方がある [[web:simgames:r4-cinc-applion-reviews|「ライバルを買収して市場を独占」]]。ライバルを消す方法は買収だけ、という口コミ【検索の要約のみ】。
+- 独占禁止法が施行されると、1社が都市のシェアの8割を超えるのを防ぎ、M&A も監督し、破ると罰金 [[web:simgames:r4-cinc-levelwinner-guide|「more than 80% of market」]]。
+- ライバルが上場してくれない、という質問がある【検索の要約のみ】＝ライバルも上場する設計らしい。株式市場には自社以外の銘柄もある [[web:simgames:r4-cinc-gamewatch|「さまざまな銘柄が並んで」]]。
+- 自分の店を全部たたんでライバルに投資し、その成長を見守る遊び方 [[web:simgames:r4-cinc-applion-reviews|「競合に投資して彼らの成長を見守る」]]（ライバルの株が買える）。
 
 **【資料なし】（読んだ資料では分からない）**
 - ライバルの性格の違い（値下げ型・品質型など）があるか
@@ -320,12 +320,12 @@
 
 
 **第2版で分かったこと（競合）**
-- **他社の出店状況は、画面の左上の自社のアイコンから、地域ごとに何店かを見られる**。攻略者は「1〜3店なら割り込む、4店以上なら避ける」と判断している [[web:simgames:r5-cinc-note-araki]]。
-- **難度が上がるとライバルが良い区画を先に取る** [[web:simgames:r5-cinc-applizm-guide]]。ライバルの強さは「区画の取り合い」として現れる。
-- **中盤から外資の大手が参入してシェアを奪う**、それが「本番」という声（#23）[[web:simgames:r5-cinc-applion-p2]]。
-- **自社の経営が傾くと、ライバルが買収に名乗りを上げる** [[web:simgames:r5-cinc-cfy-blog]]。プレイヤーは買う側にも買われる側にもなる。
-- 上場企業の業績は**四半期ごとに公表**され、新聞の市場の欄に四半期の売上と配当が出る [[web:simgames:r5-cinc-mugazine]] [[web:simgames:r4-cinc-levelwinner-guide]]＝上場したライバルの業績は読める。
-- 技術部の会員の仕組みは**競争の激しい地区・都市で特に効く** [[web:simgames:r5-cinc-applizm-gijutubu]]（競合の密度が施策の効き目を変える）。
+- **他社の出店状況は、画面の左上の自社のアイコンから、地域ごとに何店かを見られる**。攻略者は「1〜3店なら割り込む、4店以上なら避ける」と判断している [[web:simgames:r5-cinc-note-araki|「左上の自社のアイコンを押す」]]。
+- **難度が上がるとライバルが良い区画を先に取る** [[web:simgames:r5-cinc-applizm-guide|「良い物件を取られて」]]。ライバルの強さは「区画の取り合い」として現れる。
+- **中盤から外資の大手が参入してシェアを奪う**、それが「本番」という声（#23）[[web:simgames:r5-cinc-applion-p2|「外資大手が参入してきて」]]。
+- **自社の経営が傾くと、ライバルが買収に名乗りを上げる** [[web:simgames:r5-cinc-cfy-blog|「ライバル企業が買収に名乗り」]]。プレイヤーは買う側にも買われる側にもなる。
+- 上場企業の業績は**四半期ごとに公表**され、新聞の市場の欄に四半期の売上と配当が出る [[web:simgames:r5-cinc-mugazine|「3ヶ月ごとに決算短信」]] [[web:simgames:r4-cinc-levelwinner-guide|「Quarterly Revenues」]]＝上場したライバルの業績は読める。
+- 技術部の会員の仕組みは**競争の激しい地区・都市で特に効く** [[web:simgames:r5-cinc-applizm-gijutubu|「競争が激しい地区や都市」]]（競合の密度が施策の効き目を変える）。
 - 買収した相手の店は地図や一覧で見分けにくく、メニューが前の持ち主のまま残る（#22）。半分以上持つ株の会社が、意思の確認なしに別の会社に買収される（#14）。
 - **動かないライバルへの不満**：運営されていない会社が3つもあって面白くない（#126）、機能していないライバルは消してほしい、競い合うから楽しいのに（#108）。ライバルが会社ごと消える不具合（#26）。
 - 最終的にライバル5社を全部買収した記録もある（#150）。
@@ -334,42 +334,42 @@
 
 **面白さの源**：ライバルが勝手に広がって来る圧力。逆転して相手を伸びなくさせる達成感。
 
-**不満の源**：ライバルの動きが読めない（何に反応するか分からない）【推測】。友達と対戦したい、ライバルが人間なら面白い、という要望が複数 [[web:simgames:r4-cinc-appreview]]＝AI のライバルが「人らしい相手」と感じられていない可能性【推測】。
+**不満の源**：ライバルの動きが読めない（何に反応するか分からない）【推測】。友達と対戦したい、ライバルが人間なら面白い、という要望が複数 [[web:simgames:r4-cinc-appreview|「フレンドとの対戦機能」]]＝AI のライバルが「人らしい相手」と感じられていない可能性【推測】。
 
 **ピヨ商店への写し方**：5.2 で詳しく。要点は、Coffee Inc 2 で【資料なし】の所（性格・反応・倒産・買収の値段）こそ、ピヨ商店が作り込むべき所。ライバルの決算書（公告）を読ませれば、ライバルの動きの理由が会計で読める＝簿記が「敵を読む道具」になる。
 
 ### 4.3 店（出店・内装・機材・人・宣伝）
 
 **出店と建設**
-- 区画を契約→外装・内装・機材（エスプレッソ機・抽出器・ブレンダー）を選ぶ→見積りの金額が出る→工事 [[web:simgames:r4-cinc-gamewatch]] [[web:simgames:r4-cinc-appget-review]]。
-- 建設に3週間（環境配慮の建設の法律が通っていると4週間・費用も増）。改装も3週間 [[web:simgames:r4-cinc-levelwinner-guide]]。開店から収入が立つまで3週以上、その間は資本金か借入で持ちこたえる [[web:simgames:r4-cinc-levelwinner-guide]]。借りてすぐ出しすぎると開店前に返済で詰む [[web:simgames:r4-cinc-zenn-messos]]。
-- 1店目の設立はおよそ4,000万〜5,000万円（円・最大資本の例）[[web:simgames:r4-cinc-chitara-early]]。
-- 機材は最初に1回払うだけ（毎週の支払いではない）なので、多少高くてもよい、と攻略者は判断する [[web:simgames:r4-cinc-appget-review]]。
-- 内装は自分で配置できる（有料の拡張）。最低限しか置かないと居心地の不満が出る [[web:simgames:r4-cinc-levelwinner-guide]]。
-- 費用の内訳に減価償却費が出る [[web:simgames:r4-cinc-minnano]]（画面で確かめたわけではない【推測】）。
+- 区画を契約→外装・内装・機材（エスプレッソ機・抽出器・ブレンダー）を選ぶ→見積りの金額が出る→工事 [[web:simgames:r4-cinc-gamewatch|「見積り金額が表示される」]] [[web:simgames:r4-cinc-appget-review|「エスプレッソマシンなどの什器」]]。
+- 建設に3週間（環境配慮の建設の法律が通っていると4週間・費用も増）。改装も3週間 [[web:simgames:r4-cinc-levelwinner-guide|「take 4 weeks if Eco」]]。開店から収入が立つまで3週以上、その間は資本金か借入で持ちこたえる [[web:simgames:r4-cinc-levelwinner-guide|「up to 3 weeks or more」]]。借りてすぐ出しすぎると開店前に返済で詰む [[web:simgames:r4-cinc-zenn-messos|「ローン破産しないよう注意」]]。
+- 1店目の設立はおよそ4,000万〜5,000万円（円・最大資本の例）[[web:simgames:r4-cinc-chitara-early|「1店舗目の設立コスト」]]。
+- 機材は最初に1回払うだけ（毎週の支払いではない）なので、多少高くてもよい、と攻略者は判断する [[web:simgames:r4-cinc-appget-review|「高くてもお金が発生するのは最初だけ」]]。
+- 内装は自分で配置できる（有料の拡張）。最低限しか置かないと居心地の不満が出る [[web:simgames:r4-cinc-levelwinner-guide|「Interior you designed」]]。
+- 費用の内訳に減価償却費が出る [[web:simgames:r4-cinc-minnano|「賃貸料・人件費・減価償却費」]]（画面で確かめたわけではない【推測】）。
 
 **機材と品質**
-- 機材は「品質」と「処理量（さばける杯数）」の2つの星。品質は高いが数がさばけない機械と、その逆がある。人通りの多い店は処理量、少ない店は品質を選ぶ [[web:simgames:r4-cinc-levelwinner-guide]]。
-- 店で出せる豆のブレンドは一度に1種類 [[web:simgames:r4-cinc-levelwinner-guide]]。
+- 機材は「品質」と「処理量（さばける杯数）」の2つの星。品質は高いが数がさばけない機械と、その逆がある。人通りの多い店は処理量、少ない店は品質を選ぶ [[web:simgames:r4-cinc-levelwinner-guide|「quality with lesser」]]。
+- 店で出せる豆のブレンドは一度に1種類 [[web:simgames:r4-cinc-levelwinner-guide|「blend at a time」]]。
 
 **人（店長と店員）**
-- 店員の人数と時給を決める。店員には能力とモラルがあり、条件が良ければ上がる（最大99）[[web:simgames:r4-cinc-zenn-messos]]。
-- 店長は4つの能力（人・商品・マーケティング・倫理。資料により人材・洗練などの言い方もある）、最大100 [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r4-cinc-applizm-inc2-tentyou]]。今の給料より高く出さないと断られる [[web:simgames:r4-cinc-levelwinner-guide]]。
-- 店長に任せる範囲（人事・メニュー・マーケティング・トラブル解決）を選ぶ。任せないと何もしない。任せると人数や時給を勝手に下げることがある [[web:simgames:r4-cinc-applizm-inc2-tentyou]] [[web:simgames:r4-cinc-zenn-messos]]。
-- 店長は勤続で能力が上がる。辞めると育った能力は失われる [[web:simgames:r4-cinc-applizm-inc2-tentyou]]。店長はすぐ辞めたり、成績に見合わない昇給を求めたりする [[web:simgames:r4-cinc-applion-reviews]]。
-- 不満と満足は理由つきの吹き出しで見える（給料・福利厚生・店長への信頼・委任）[[web:simgames:r4-cinc-applizm-inc2-tentyou]]。
-- 店が増えると福利厚生（健康保険・年金・育児支援・学費支援・研修・無料ランチなど）の不満が出て、人事部がないと退職が続く [[web:simgames:r4-cinc-zenn-messos]] [[web:simgames:r4-cinc-gamewatch]]。
-- 毎週、店でいろいろな出来事（トラブル）が起き、自分で解決するか店長に任せる [[web:simgames:r4-cinc-4gamer]]。
+- 店員の人数と時給を決める。店員には能力とモラルがあり、条件が良ければ上がる（最大99）[[web:simgames:r4-cinc-zenn-messos|「いずれ99になります」]]。
+- 店長は4つの能力（人・商品・マーケティング・倫理。資料により人材・洗練などの言い方もある）、最大100 [[web:simgames:r4-cinc-levelwinner-guide|「Marketing, and Ethics」]] [[web:simgames:r4-cinc-applizm-inc2-tentyou|「人事能力が高い店長」]]。今の給料より高く出さないと断られる [[web:simgames:r4-cinc-levelwinner-guide|「their current salary」]]。
+- 店長に任せる範囲（人事・メニュー・マーケティング・トラブル解決）を選ぶ。任せないと何もしない。任せると人数や時給を勝手に下げることがある [[web:simgames:r4-cinc-applizm-inc2-tentyou|「トラブル解決を委任」]] [[web:simgames:r4-cinc-zenn-messos|「勝手に変更されてしまう」]]。
+- 店長は勤続で能力が上がる。辞めると育った能力は失われる [[web:simgames:r4-cinc-applizm-inc2-tentyou|「育てた能力はリセット」]]。店長はすぐ辞めたり、成績に見合わない昇給を求めたりする [[web:simgames:r4-cinc-applion-reviews|「給与引き上げを打診」]]。
+- 不満と満足は理由つきの吹き出しで見える（給料・福利厚生・店長への信頼・委任）[[web:simgames:r4-cinc-applizm-inc2-tentyou|「吹き出しで要求を確認」]]。
+- 店が増えると福利厚生（健康保険・年金・育児支援・学費支援・研修・無料ランチなど）の不満が出て、人事部がないと退職が続く [[web:simgames:r4-cinc-zenn-messos|「福利厚生に関する不満」]] [[web:simgames:r4-cinc-gamewatch|「無料ランチに至るまで」]]。
+- 毎週、店でいろいろな出来事（トラブル）が起き、自分で解決するか店長に任せる [[web:simgames:r4-cinc-4gamer|「お店では毎週色々なことが起こります」]]。
 - 営業時間・席数・待ち時間の数値は【資料なし】（席は内装の配置で決まるらしい【推測】）。
 
 **店の宣伝（店ごと）**
-- 無料Wi-Fi・コンセント・音楽配信・ケータリング・SNS・リサイクル容器・地域振興・おかわり無料（曜日を選べる）・ダイレクトメール・地域の検索広告など。毎週お金が出る [[web:simgames:r4-cinc-zenn-messos]] [[web:simgames:r4-cinc-appget-review]]。
+- 無料Wi-Fi・コンセント・音楽配信・ケータリング・SNS・リサイクル容器・地域振興・おかわり無料（曜日を選べる）・ダイレクトメール・地域の検索広告など。毎週お金が出る [[web:simgames:r4-cinc-zenn-messos|「おかわり1杯無料を平日だけ」]] [[web:simgames:r4-cinc-appget-review|「宣伝は毎週お金が出て行って」]]。
 
-**返り**：毎週の客の口コミ（不満の理由つき）、店の損益（売上・費用・営業利益）、苦情 [[web:simgames:r4-cinc-gamewatch]]。
+**返り**：毎週の客の口コミ（不満の理由つき）、店の損益（売上・費用・営業利益）、苦情 [[web:simgames:r4-cinc-gamewatch|「レビューとして届く」]]。
 
-**面白さの源**：限られたお金で「何に力を入れるか」を選ぶ（人を増やすか、安くするか、宣伝か）[[web:simgames:r4-cinc-gamewatch]]。理由つきの口コミで「店に足りないもの」が分かる。人が育つ・辞める人間くささ。
+**面白さの源**：限られたお金で「何に力を入れるか」を選ぶ（人を増やすか、安くするか、宣伝か）[[web:simgames:r4-cinc-gamewatch|「どの部分に力を入れるのか」]]。理由つきの口コミで「店に足りないもの」が分かる。人が育つ・辞める人間くささ。
 
-**不満の源**：出店のたびに同じ設定の入れ直し、辞めた店長を雇い直しに現地まで行く煩わしさ、全店の一覧がない [[web:simgames:r4-cinc-appreview]] [[web:simgames:r4-cinc-applion-reviews]]。
+**不満の源**：出店のたびに同じ設定の入れ直し、辞めた店長を雇い直しに現地まで行く煩わしさ、全店の一覧がない [[web:simgames:r4-cinc-appreview|「店長の再雇用でくたくた」]] [[web:simgames:r4-cinc-applion-reviews|「全体のストア一覧が見たい」]]。
 
 **ピヨ商店への写し方（会計の論点）**
 | 仕組み | ピヨ商店での形 | 簿記2級の論点 |
@@ -388,18 +388,18 @@
 ### 4.4 商品（豆・ブレンド・開発・値付け）
 
 **どう動くか**
-- 最初は特徴のない標準ブレンド。いろいろな地域の焙煎会社を回って、性質が高く値段の安い豆を探して買う。豆は5つの性質で比べ、値段と品質は比例しない [[web:simgames:r4-cinc-zenn-messos]] [[web:simgames:r4-cinc-chitara-early]]。豆は店の運営費用の中で大きな割合 [[web:simgames:r4-cinc-zenn-messos]]。
-- 商品開発部で自社ブレンド（市場の豆を割合で混ぜる、合計100%）[[web:simgames:r4-cinc-applizm-shouhinkaihatsu]]。
-- 新商品の開発：種類・目標の小売価格・開発期間・週の開発費を決める。期間と費用で、完成品の星の数の確率が決まる。途中で破棄できる。売上が少ない時期に開発すると赤字になる [[web:simgames:r4-cinc-applizm-shouhinkaihatsu]]。上限の週500万円・12週で星5を狙い、出したらすぐ次を作るのが攻略 [[web:simgames:r4-cinc-zenn-messos]]。
-- 新商品を出すと売上が跳ね、しばらく続く [[web:simgames:r4-cinc-zenn-messos]]。商品は温かい飲み物・冷たい飲み物・菓子・軽食 [[web:simgames:r4-cinc-gamewatch]]。
-- 値段：店ごとに決めるか、全店で同じにするか（国ごとの統一はできない）。値段を決める画面で原価と粗利が見える [[web:simgames:r4-cinc-gamewatch]] [[web:simgames:r4-cinc-appreview]]。
-- 最高製品責任者（CPO）に開発・豆の仕入れ・ブレンドを任せられる [[web:simgames:r4-cinc-applizm-shouhinkaihatsu]]。
+- 最初は特徴のない標準ブレンド。いろいろな地域の焙煎会社を回って、性質が高く値段の安い豆を探して買う。豆は5つの性質で比べ、値段と品質は比例しない [[web:simgames:r4-cinc-zenn-messos|「デフォルトの豆はステータスが低い」]] [[web:simgames:r4-cinc-chitara-early|「5つのステータスがバランス良く」]]。豆は店の運営費用の中で大きな割合 [[web:simgames:r4-cinc-zenn-messos|「豆が占める割合はそこそこ大きい」]]。
+- 商品開発部で自社ブレンド（市場の豆を割合で混ぜる、合計100%）[[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「最大100%で」]]。
+- 新商品の開発：種類・目標の小売価格・開発期間・週の開発費を決める。期間と費用で、完成品の星の数の確率が決まる。途中で破棄できる。売上が少ない時期に開発すると赤字になる [[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「目標小売価格開発期間」]]。上限の週500万円・12週で星5を狙い、出したらすぐ次を作るのが攻略 [[web:simgames:r4-cinc-zenn-messos|「週の開発費を最大の500万円」]]。
+- 新商品を出すと売上が跳ね、しばらく続く [[web:simgames:r4-cinc-zenn-messos|「新商品をリリースすると売上が大きく伸びる」]]。商品は温かい飲み物・冷たい飲み物・菓子・軽食 [[web:simgames:r4-cinc-gamewatch|「スイーツや軽食なども開発」]]。
+- 値段：店ごとに決めるか、全店で同じにするか（国ごとの統一はできない）。値段を決める画面で原価と粗利が見える [[web:simgames:r4-cinc-gamewatch|「原価と粗利をチェック」]] [[web:simgames:r4-cinc-appreview|「国ごとに統一できるように」]]。
+- 最高製品責任者（CPO）に開発・豆の仕入れ・ブレンドを任せられる [[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「管理をCPOに委任可能」]]。
 - 2025年の更新：コーヒー農園（7つの産地）、豆の在庫、サプライチェーンの部署【検索の要約のみ】。それ以前は在庫の概念がなかったらしい【推測】。
 - 仕入先の信用・品質不良・納期遅れの出来事は【資料なし】。
 
 **面白さの源**：良くて安い豆を探す宝探し。開発の確率への賭け。新商品で売上が跳ねる手応え。
 
-**不満の源**：グッズも開発したい、という要望 [[web:simgames:r4-cinc-applion-reviews]]。国ごとに値段をそろえられない。
+**不満の源**：グッズも開発したい、という要望 [[web:simgames:r4-cinc-applion-reviews|「グッズ開発もできる」]]。国ごとに値段をそろえられない。
 
 **ピヨ商店への写し方（会計の論点）**
 | 仕組み | ピヨ商店での形 | 簿記2級の論点 |
@@ -414,31 +414,31 @@
 ### 4.5 宣伝・ブランド
 
 **どう動くか**
-- 店ごとの宣伝（3.3）と、都市単位の大きな広告（看板・ラジオ・テレビ）の2層 [[web:simgames:r4-cinc-zenn-messos]] [[web:simgames:r4-cinc-applizm-sendenbu]]。
-- 都市単位の広告は広告代理店に頼む（その都市の中だけで効く、高い）か、宣伝部で内製する（安い）[[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r4-cinc-applizm-sendenbu]]。宣伝部の目的はブランドの認知度を上げること [[web:simgames:r4-cinc-4gamer]]。
-- 店を増やせば認知度もある程度自然に上がる [[web:simgames:r4-cinc-zenn-messos]]。
-- 広告は序盤は割に合わない、という攻略者の判断（広告を止めたら V 字回復）。後半の圧倒的な時期には、ライバルの売上を奪うのに効いた [[web:simgames:r4-cinc-zenn-messos]]。
-- 技術部でアプリ・モバイル決済・会員制度・ネット配達を作ると、リピーターが増える [[web:simgames:r4-cinc-4gamer]] [[web:simgames:r4-cinc-gamewatch]]。
+- 店ごとの宣伝（3.3）と、都市単位の大きな広告（看板・ラジオ・テレビ）の2層 [[web:simgames:r4-cinc-zenn-messos|「看板広告やラジオ広告」]] [[web:simgames:r4-cinc-applizm-sendenbu|「テレビ広告や看板広告」]]。
+- 都市単位の広告は広告代理店に頼む（その都市の中だけで効く、高い）か、宣伝部で内製する（安い）[[web:simgames:r4-cinc-levelwinner-guide|「only within the」]] [[web:simgames:r4-cinc-applizm-sendenbu|「広告代理店に依頼しますが」]]。宣伝部の目的はブランドの認知度を上げること [[web:simgames:r4-cinc-4gamer|「ブランド認知度を向上」]]。
+- 店を増やせば認知度もある程度自然に上がる [[web:simgames:r4-cinc-zenn-messos|「認知度もある程度は勝手に上がり」]]。
+- 広告は序盤は割に合わない、という攻略者の判断（広告を止めたら V 字回復）。後半の圧倒的な時期には、ライバルの売上を奪うのに効いた [[web:simgames:r4-cinc-zenn-messos|「圧倒的V字回復」]]。
+- 技術部でアプリ・モバイル決済・会員制度・ネット配達を作ると、リピーターが増える [[web:simgames:r4-cinc-4gamer|「モバイルペイや会員制度」]] [[web:simgames:r4-cinc-gamewatch|「リピーターを確保」]]。
 - 認知度の数値の見え方、広告の効き目の減り方（やめると下がるか）は【資料なし】。
 
 **面白さの源**：効く時期と効かない時期を自分で発見する。
 
-**不満の源**：効果が見えにくい（攻略者も「効いているか分からない」と書く）[[web:simgames:r4-cinc-zenn-messos]]。
+**不満の源**：効果が見えにくい（攻略者も「効いているか分からない」と書く）[[web:simgames:r4-cinc-zenn-messos|「広告はあまり効果ない気がしました」]]。
 
 **ピヨ商店への写し方**：広告宣伝費は費用で、認知度という「効果」は帳簿に載らない（資産にならない）。ここが会計と経営のずれを見せる良い場面になる。アプリ・会員制度は**ソフトウェア（無形固定資産）・ソフトウェア仮勘定**（開発中）と**ポイント（契約負債）**に写せる。ピヨ商店の2号店のポイントカードとつながる。
 
 ### 4.6 本部（オフィス・部署・重役）
 
 **どう動くか**
-- 店が増えると経営が複雑になり、諸経費も増えるので、オフィスを借りて部署を置く。オフィスは敷金も賃料も店より高い。小さく始めて後で移れる。物件ごとに収容人数とフロア数がある [[web:simgames:r4-cinc-4gamer]] [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r4-cinc-applizm-office]]。
-- 部署と開くもの：人事（全店の人事の一括管理・研修・福利厚生）、経理（三表を週・四半期・通期で、借入の一覧と返済）、商品開発（ブレンド・新商品・全店の値段）、宣伝（都市の広告・シェア）、技術（アプリ）、投資（不動産・株）、取締役室（重役・取締役会）[[web:simgames:r4-cinc-4gamer]] [[web:simgames:r4-cinc-applizm-keiribu]]。後の更新でサプライチェーンの部署【検索の要約のみ】。
-- 取締役室で COO・CFO・CPO・CMO などの重役を雇い、部署の管理を任せる。重役には高い給料や株式報酬が要る [[web:simgames:r4-cinc-gamewatch]] [[web:simgames:r4-cinc-4gamer]]。CFO はリーダー・専門・忠誠の能力 [[web:simgames:r4-cinc-applizm-inc2-kabusiki]]。
-- 取締役会で配当と自分（CEO）の報酬を決める [[web:simgames:r4-cinc-4gamer]] [[web:simgames:r4-cinc-applizm-kojinsisan]]。
-- 部署を開く順は人それぞれ（人事が先、上場狙いなら取締役室が先など）[[web:simgames:r4-cinc-applizm-office]]。
+- 店が増えると経営が複雑になり、諸経費も増えるので、オフィスを借りて部署を置く。オフィスは敷金も賃料も店より高い。小さく始めて後で移れる。物件ごとに収容人数とフロア数がある [[web:simgames:r4-cinc-4gamer|「諸経費も増えます」]] [[web:simgames:r4-cinc-levelwinner-guide|「weekly rent of an office」]] [[web:simgames:r4-cinc-applizm-office|「収容定員フロア数が多い」]]。
+- 部署と開くもの：人事（全店の人事の一括管理・研修・福利厚生）、経理（三表を週・四半期・通期で、借入の一覧と返済）、商品開発（ブレンド・新商品・全店の値段）、宣伝（都市の広告・シェア）、技術（アプリ）、投資（不動産・株）、取締役室（重役・取締役会）[[web:simgames:r4-cinc-4gamer|「人事部、経理部、商品開発部」]] [[web:simgames:r4-cinc-applizm-keiribu|「未払いの銀行融資を確認」]]。後の更新でサプライチェーンの部署【検索の要約のみ】。
+- 取締役室で COO・CFO・CPO・CMO などの重役を雇い、部署の管理を任せる。重役には高い給料や株式報酬が要る [[web:simgames:r4-cinc-gamewatch|「重役を任命できる」]] [[web:simgames:r4-cinc-4gamer|「Cレベルの重役も雇え」]]。CFO はリーダー・専門・忠誠の能力 [[web:simgames:r4-cinc-applizm-inc2-kabusiki|「リーダー能力専門能力忠誠能力」]]。
+- 取締役会で配当と自分（CEO）の報酬を決める [[web:simgames:r4-cinc-4gamer|「配当金や自身の報酬を議論」]] [[web:simgames:r4-cinc-applizm-kojinsisan|「CEO報酬を設定する」]]。
+- 部署を開く順は人それぞれ（人事が先、上場狙いなら取締役室が先など）[[web:simgames:r4-cinc-applizm-office|「部署開設のおすすめの順番」]]。
 
-**面白さの源**：現場から離れて「任せる社長」になっていく役割の変化 [[web:simgames:r4-cinc-dime-interview]]。本部の機能を全部動かすと費用が足りず、どこに資源を配るか常に考える [[web:simgames:r4-cinc-applion-reviews]]。
+**面白さの源**：現場から離れて「任せる社長」になっていく役割の変化 [[web:simgames:r4-cinc-dime-interview|「部下に事業を一任する社長業」]]。本部の機能を全部動かすと費用が足りず、どこに資源を配るか常に考える [[web:simgames:r4-cinc-applion-reviews|「どこに配分するのか」]]。
 
-**不満の源**：重役や店長は決まった動きしかせず、数週ごとに手で直す必要がある。ほどよく任せる設定がない [[web:simgames:r4-cinc-applion-reviews]]。
+**不満の源**：重役や店長は決まった動きしかせず、数週ごとに手で直す必要がある。ほどよく任せる設定がない [[web:simgames:r4-cinc-applion-reviews|「何週間かに一度こちらが手動で」]]。
 
 **ピヨ商店への写し方（会計の論点）**
 - 本部の費用（本部の家賃・経理部の人件費）をどう扱うか：**本支店会計**（本店が負担・支店に付け替え）、工場なら**部門別の配賦**（補助部門費の配賦）。
@@ -449,33 +449,33 @@
 ### 4.7 会社とお金
 
 **借入**
-- 銀行は国ごとにある。国ごとに GDP 成長率と政策金利が違うので金利に注意 [[web:simgames:r4-cinc-4gamer]]。
-- 申し込むと1週間で可否が出る。最初は少額しか通りにくい。複数の銀行に申し込んでも通るのは1〜2件 [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r4-cinc-zenn-messos]]。
-- 同じ銀行で借りて返すをくり返すと信用が上がり、大きく借りられるようになる [[web:simgames:r4-cinc-levelwinner-guide]]。与信枠が縮むことがある [[web:simgames:r4-cinc-appreview]]。
-- 低金利の国で借りて店を建てまくるのが強い、という口コミ [[web:simgames:r4-cinc-applion-reviews]]。
-- 借入をくり返すと発行株数が増える、という観察が2つの攻略にある [[web:simgames:r4-cinc-chitara-early]] [[web:simgames:r4-cinc-applizm-inc2-kabusiki]]。会計としては不自然で、仕組みの理由は【資料なし】。
+- 銀行は国ごとにある。国ごとに GDP 成長率と政策金利が違うので金利に注意 [[web:simgames:r4-cinc-4gamer|「GDP成長率も違えば」]]。
+- 申し込むと1週間で可否が出る。最初は少額しか通りにくい。複数の銀行に申し込んでも通るのは1〜2件 [[web:simgames:r4-cinc-levelwinner-guide|「lowest loan tier」]] [[web:simgames:r4-cinc-zenn-messos|「1個か2個くらいしか通らない」]]。
+- 同じ銀行で借りて返すをくり返すと信用が上がり、大きく借りられるようになる [[web:simgames:r4-cinc-levelwinner-guide|「increases the bank」]]。与信枠が縮むことがある [[web:simgames:r4-cinc-appreview|「与信枠が縮小した際」]]。
+- 低金利の国で借りて店を建てまくるのが強い、という口コミ [[web:simgames:r4-cinc-applion-reviews|「低金利の国で破産しない程度」]]。
+- 借入をくり返すと発行株数が増える、という観察が2つの攻略にある [[web:simgames:r4-cinc-chitara-early|「株数の増加」]] [[web:simgames:r4-cinc-applizm-inc2-kabusiki|「組んだり返済したりと繰り返す」]]。会計としては不自然で、仕組みの理由は【資料なし】。
 
 **上場・株**
-- 上場の条件：取締役会・CFO・直近3四半期の純利益がプラス・発行済み30万株以上 [[web:simgames:r4-cinc-gamewatch]] [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r4-cinc-applizm-inc2-kabusiki]]。上場の時点でプレイヤーが100%を持つ [[web:simgames:r4-cinc-applizm-kojinsisan]]。上場後に CFO を外しても上場は続く [[web:simgames:r4-cinc-applizm-inc2-kabusiki]]。
-- 上場後は公募増資で資金を集められる。自社株も他社株も毎週株価が動き、売買できる [[web:simgames:r4-cinc-gamewatch]]。
-- 配当は0のままでもよく、CEO を解任されることもない [[web:simgames:r4-cinc-applion-reviews]]＝株主からの圧力がない。
-- 株価は株価収益率（PER）で決まる面があり、PER にシステムの上限がある。新株発行→不動産購入→PER 上昇→持ち株を売る→下がったら買い戻す、で桁外れに稼げる [[web:simgames:r4-cinc-applion-reviews]]。
+- 上場の条件：取締役会・CFO・直近3四半期の純利益がプラス・発行済み30万株以上 [[web:simgames:r4-cinc-gamewatch|「300,000株以上の発行」]] [[web:simgames:r4-cinc-levelwinner-guide|「last three quarters」]] [[web:simgames:r4-cinc-applizm-inc2-kabusiki|「最低300,000株を既に発行」]]。上場の時点でプレイヤーが100%を持つ [[web:simgames:r4-cinc-applizm-kojinsisan|「株の保有数が100%」]]。上場後に CFO を外しても上場は続く [[web:simgames:r4-cinc-applizm-inc2-kabusiki|「上場後CFOを解雇または辞退」]]。
+- 上場後は公募増資で資金を集められる。自社株も他社株も毎週株価が動き、売買できる [[web:simgames:r4-cinc-gamewatch|「毎週株価が変動していく」]]。
+- 配当は0のままでもよく、CEO を解任されることもない [[web:simgames:r4-cinc-applion-reviews|「株式配当は永遠に0円でよく」]]＝株主からの圧力がない。
+- 株価は株価収益率（PER）で決まる面があり、PER にシステムの上限がある。新株発行→不動産購入→PER 上昇→持ち株を売る→下がったら買い戻す、で桁外れに稼げる [[web:simgames:r4-cinc-applion-reviews|「システム上限のPER」]]。
 
 **買収・投資**
-- 投資銀行を通じて企業買収 [[web:simgames:r4-cinc-4gamer]]。買収できるのはコーヒー企業だけで、他業種は買えない（口コミの要望）[[web:simgames:r4-cinc-applion-reviews]] [[web:simgames:r4-cinc-appreview]]。
-- 過半数を持った会社をグループとして管理する仕組みはない（口コミの要望）[[web:simgames:r4-cinc-applion-reviews]]。
-- ベンチャー投資（有料の拡張）：多くは失敗、たまに上場や売却で大きな現金 [[web:simgames:r4-cinc-zenn-messos]]。大株主になれば取締役会の席が得られる、と出来事で言われるのに起きない [[web:simgames:r4-cinc-applion-reviews]]。
-- 不動産（有料の拡張）：会社でも個人でも買える。占有率が動き、家賃収入が入る。後半は不動産の利益が強すぎる [[web:simgames:r4-cinc-appreview]] [[web:simgames:r4-cinc-applizm-kojinsisan]]。
+- 投資銀行を通じて企業買収 [[web:simgames:r4-cinc-4gamer|「株式公開や企業買収も可能」]]。買収できるのはコーヒー企業だけで、他業種は買えない（口コミの要望）[[web:simgames:r4-cinc-applion-reviews|「コーヒー企業以外も買収」]] [[web:simgames:r4-cinc-appreview|「業種の違うところ」]]。
+- 過半数を持った会社をグループとして管理する仕組みはない（口コミの要望）[[web:simgames:r4-cinc-applion-reviews|「過半数保有している企業だけは」]]。
+- ベンチャー投資（有料の拡張）：多くは失敗、たまに上場や売却で大きな現金 [[web:simgames:r4-cinc-zenn-messos|「ほとんど失敗するけどたまに大当たり」]]。大株主になれば取締役会の席が得られる、と出来事で言われるのに起きない [[web:simgames:r4-cinc-applion-reviews|「取締役会などに呼ばれたことは無い」]]。
+- 不動産（有料の拡張）：会社でも個人でも買える。占有率が動き、家賃収入が入る。後半は不動産の利益が強すぎる [[web:simgames:r4-cinc-appreview|「不動産の売上貢献が強すぎて」]] [[web:simgames:r4-cinc-applizm-kojinsisan|「不動産物件は個人口座で購入可能」]]。
 
 **会社と個人**
-- 口座は会社と個人の2つ。売上は会社に入る。個人に移す道は CEO 報酬（取締役会で決める）、配当、持ち株の売却 [[web:simgames:r4-cinc-applizm-kojinsisan]] [[web:simgames:r4-cinc-gamewatch]]。個人の使い道は車・大学への寄付・美術品・ベンチャー・別荘・スポーツ球団など [[web:simgames:r4-cinc-applizm-kojinsisan]]。
-- 個人資産の使い道が少ない、という不満 [[web:simgames:r4-cinc-applion-reviews]]。
+- 口座は会社と個人の2つ。売上は会社に入る。個人に移す道は CEO 報酬（取締役会で決める）、配当、持ち株の売却 [[web:simgames:r4-cinc-applizm-kojinsisan|「会社の資金の口座」]] [[web:simgames:r4-cinc-gamewatch|「個人資産と会社の資産が別物」]]。個人の使い道は車・大学への寄付・美術品・ベンチャー・別荘・スポーツ球団など [[web:simgames:r4-cinc-applizm-kojinsisan|「カーディーラーで自動車を購入」]]。
+- 個人資産の使い道が少ない、という不満 [[web:simgames:r4-cinc-applion-reviews|「個人資産の使い道を作ってほしい」]]。
 
 **フランチャイズ・物流・工場**：フランチャイズ（加盟店）の仕組みは【資料なし】（読んだ資料に出てこない）。物流・倉庫は【資料なし】（2025年のサプライチェーンの部署が近いが【検索の要約のみ】）。工場はなく、農園が近い。
 
-**面白さの源**：上場までの関門（条件を1つずつ満たす）。上場して資金の桁が変わる瞬間。会社と個人の財布の分離が「社長のロールプレイ」を生む [[web:simgames:r4-cinc-gamewatch]]。
+**面白さの源**：上場までの関門（条件を1つずつ満たす）。上場して資金の桁が変わる瞬間。会社と個人の財布の分離が「社長のロールプレイ」を生む [[web:simgames:r4-cinc-gamewatch|「金銭のスケールが一気に大きく」]]。
 
-**不満の源**：上場後に資金が無制限になって実質クリア。株の画面の不具合と分かりにくさ（初心者が損をして怒る）。公募増資・不動産の数量の入力が面倒 [[web:simgames:r4-cinc-applion-reviews]] [[web:simgames:r4-cinc-appreview]]。
+**不満の源**：上場後に資金が無制限になって実質クリア。株の画面の不具合と分かりにくさ（初心者が損をして怒る）。公募増資・不動産の数量の入力が面倒 [[web:simgames:r4-cinc-applion-reviews|「ノーリスクで無制限に資金を調達」]] [[web:simgames:r4-cinc-appreview|「公募増資をするときに元の株数」]]。
 
 **ピヨ商店への写し方（会計の論点）**
 | 仕組み | ピヨ商店での形 | 簿記2級の論点 |
@@ -493,44 +493,44 @@
 
 
 **第2版で分かったこと（財務・上場・投資）**
-- **取締役会の議決**：配当と CEO 報酬の金額によって重役が賛成・反対し、可決・否決が決まる。決まると次の四半期まで変えられない [[web:simgames:r5-cinc-applizm-ceo]]。重役は年俸と株式報酬の組み合わせで口説き、年俸だけだと断られやすい。
-- **CFO の役割**：銀行の借入・新株の発行・経理部・投資部・不動産の管理を任せられる [[web:simgames:r5-cinc-applizm-ceo]]。上場の条件のために雇い、上場後に解雇して COO に替える攻略もある [[web:simgames:r5-cinc-note-umpo]]。
-- **上場後の副作用**：上場すると従業員から不満が出て、放っておくと店長が辞めていく。人事部で福利厚生を整えると費用・人員・人件費が膨らみ、週の純利益が数百万から100万前後に縮んで倒産した例が何度もある。だから上場前に新商品を1つ出しておく [[web:simgames:r5-cinc-note-araki]]。
-- **株数を増やす道**：借りて返すのくり返し（4〜7回）。作者もなぜ増えるのかは分からない [[web:simgames:r5-cinc-note-araki]]。上場先の市場（大きな市場か新興の市場か）を選ぶ場面がある [[web:simgames:r5-cinc-mugazine]]。
-- **株価の決まり方**：純資産で時価総額が決まり、配当や業績では上がらない、という熱心な利用者の観察（#148）。会社の現金が急に増えると自社の株価が跳ね上がった記録 [[web:simgames:r5-cinc-note-umpo]] と整合する。株価が1万3千円近くを超えると自動で株式分割される（#148）。
-- **新規上場の割安株**：上場したばかりで株価収益率0.0と表示される株が数週で十数倍になった（2024年4月時点、仕様か不具合か不明）[[web:simgames:r5-cinc-note-araki]]。数値の端の扱いが攻略の定番になっている。
-- **ベンチャー投資**：投資部のリサーチと、各地で定期的に開かれるテックショーで機会が現れる。分野は量子・風力・宇宙・核融合・AI など。資金調達前の企業価値・財務を見て判断し、会社の口座からも個人からも投資できる [[web:simgames:r5-cinc-applizm-bentya-kakutyou]]。能力のグラフが大きい会社は上場しやすい（体感10%）、すでに利益の出ている会社はほぼ確実に価値が上がる（体感90%以上、買収されることが多い）という攻略者の体感 [[web:simgames:r5-cinc-note-umpo]]。
-- **不動産**：地図の売り物件の印の建物に、**買いたい値段を提示して翌週に成否**。賃料を上げると占有率が下がり、下げると上がる。会社でも個人でも買える。別荘は個人だけで、取得の費用と今の価格で損益が出る [[web:simgames:r5-cinc-applizm-hudousan-business]]。長い年月で都市の不動産の価格が暴落することがある（#150）。
-- **投資部**：株と不動産の一覧と損益 [[web:simgames:r5-cinc-applizm-tousibu]]。並べ替えができない・投資の機会や占有率を毎週一つずつ開いて確かめるのがつらい（#1・#11）。
-- **個人の資産の目標**：会社ではなく CEO 個人の資産を1兆円にする、と自分で目標を決め、店→ベンチャー→上場した投資先の売却→自社株の売却の順で達成した記録 [[web:simgames:r5-cinc-note-umpo]]。
+- **取締役会の議決**：配当と CEO 報酬の金額によって重役が賛成・反対し、可決・否決が決まる。決まると次の四半期まで変えられない [[web:simgames:r5-cinc-applizm-ceo|「他の責任者が否決、可決」]]。重役は年俸と株式報酬の組み合わせで口説き、年俸だけだと断られやすい。
+- **CFO の役割**：銀行の借入・新株の発行・経理部・投資部・不動産の管理を任せられる [[web:simgames:r5-cinc-applizm-ceo|「新株発行増資」]]。上場の条件のために雇い、上場後に解雇して COO に替える攻略もある [[web:simgames:r5-cinc-note-umpo|「CFOを雇いましたが解雇」]]。
+- **上場後の副作用**：上場すると従業員から不満が出て、放っておくと店長が辞めていく。人事部で福利厚生を整えると費用・人員・人件費が膨らみ、週の純利益が数百万から100万前後に縮んで倒産した例が何度もある。だから上場前に新商品を1つ出しておく [[web:simgames:r5-cinc-note-araki|「純利益が100万円前後」]]。
+- **株数を増やす道**：借りて返すのくり返し（4〜7回）。作者もなぜ増えるのかは分からない [[web:simgames:r5-cinc-note-araki|「体感だと4~7回くらい」]]。上場先の市場（大きな市場か新興の市場か）を選ぶ場面がある [[web:simgames:r5-cinc-mugazine|「マザーズにするか」]]。
+- **株価の決まり方**：純資産で時価総額が決まり、配当や業績では上がらない、という熱心な利用者の観察（#148）。会社の現金が急に増えると自社の株価が跳ね上がった記録 [[web:simgames:r5-cinc-note-umpo|「株価は爆上がり」]] と整合する。株価が1万3千円近くを超えると自動で株式分割される（#148）。
+- **新規上場の割安株**：上場したばかりで株価収益率0.0と表示される株が数週で十数倍になった（2024年4月時点、仕様か不具合か不明）[[web:simgames:r5-cinc-note-araki|「1株752円で買ったもの」]]。数値の端の扱いが攻略の定番になっている。
+- **ベンチャー投資**：投資部のリサーチと、各地で定期的に開かれるテックショーで機会が現れる。分野は量子・風力・宇宙・核融合・AI など。資金調達前の企業価値・財務を見て判断し、会社の口座からも個人からも投資できる [[web:simgames:r5-cinc-applizm-bentya-kakutyou|「核融合発電」]]。能力のグラフが大きい会社は上場しやすい（体感10%）、すでに利益の出ている会社はほぼ確実に価値が上がる（体感90%以上、買収されることが多い）という攻略者の体感 [[web:simgames:r5-cinc-note-umpo|「上場しやすい傾向にある(体感10%)」]]。
+- **不動産**：地図の売り物件の印の建物に、**買いたい値段を提示して翌週に成否**。賃料を上げると占有率が下がり、下げると上がる。会社でも個人でも買える。別荘は個人だけで、取得の費用と今の価格で損益が出る [[web:simgames:r5-cinc-applizm-hudousan-business|「次の週に進める事で購入可能」]]。長い年月で都市の不動産の価格が暴落することがある（#150）。
+- **投資部**：株と不動産の一覧と損益 [[web:simgames:r5-cinc-applizm-tousibu|「購入した株や不動産の損益」]]。並べ替えができない・投資の機会や占有率を毎週一つずつ開いて確かめるのがつらい（#1・#11）。
+- **個人の資産の目標**：会社ではなく CEO 個人の資産を1兆円にする、と自分で目標を決め、店→ベンチャー→上場した投資先の売却→自社株の売却の順で達成した記録 [[web:simgames:r5-cinc-note-umpo|「個人資産を最終的に増やす」]]。
 
 ### 4.8 外の世界（新聞・政治・法律・経済）
 
 **どう動くか**
-- 週の終わりに新聞（業界・ビジネス・市場・政治・会議やサミット）[[web:simgames:r4-cinc-levelwinner-guide]]。
-- 都市ごとに法律が施行される：環境配慮の建設（建設費と期間が増える）・男女の均等（店長の男女を同数に、破ると罰金や営業取消）・リサイクル税・最低賃金（破ると営業取消）・都市の売上税（値段が上がり需要が減る）・砂糖税・独占禁止（シェアの8割の上限と M&A の監督）[[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r4-cinc-gamewatch]]。
-- 法律は市長の政治の立場で決まる。市長選挙は定期的。投票やロビー活動（高額）で別の候補を支援できる [[web:simgames:r4-cinc-gamewatch]] [[web:simgames:r4-cinc-levelwinner-guide]]。政治は設定で切れる [[web:simgames:r4-cinc-levelwinner-guide]]。
-- 国ごとの GDP 成長率・政策金利・物価 [[web:simgames:r4-cinc-4gamer]] [[web:simgames:r4-cinc-denfami-news]]。
+- 週の終わりに新聞（業界・ビジネス・市場・政治・会議やサミット）[[web:simgames:r4-cinc-levelwinner-guide|「The newspaper at the end」]]。
+- 都市ごとに法律が施行される：環境配慮の建設（建設費と期間が増える）・男女の均等（店長の男女を同数に、破ると罰金や営業取消）・リサイクル税・最低賃金（破ると営業取消）・都市の売上税（値段が上がり需要が減る）・砂糖税・独占禁止（シェアの8割の上限と M&A の監督）[[web:simgames:r4-cinc-levelwinner-guide|「Sugar Tax」]] [[web:simgames:r4-cinc-gamewatch|「男女機会均等法」]]。
+- 法律は市長の政治の立場で決まる。市長選挙は定期的。投票やロビー活動（高額）で別の候補を支援できる [[web:simgames:r4-cinc-gamewatch|「市長選挙は各都市で定期的」]] [[web:simgames:r4-cinc-levelwinner-guide|「engage in lobbying」]]。政治は設定で切れる [[web:simgames:r4-cinc-levelwinner-guide|「option to turn it off」]]。
+- 国ごとの GDP 成長率・政策金利・物価 [[web:simgames:r4-cinc-4gamer|「政策金利も違います」]] [[web:simgames:r4-cinc-denfami-news|「政策金利や物価」]]。
 
 **面白さの源**：外の出来事が自分の費用を変える「世界の中の会社」の感覚。
 
-**不満の源**：男女の均等の法律で、店長を雇うたびに人数を数える作業が要る [[web:simgames:r4-cinc-appreview]]。ロビーの寄付の単位が小さい。
+**不満の源**：男女の均等の法律で、店長を雇うたびに人数を数える作業が要る [[web:simgames:r4-cinc-appreview|「男女の人数を数える作業」]]。ロビーの寄付の単位が小さい。
 
 **ピヨ商店への写し方**：日本の実際の制度に置き換える：最低賃金の改定（毎年10月）、消費税（税抜方式・軽減税率、2027年の改正案はピヨ商店の要確認のとおり）、法人税等、食材の値上がり、金利の変化。市長選・ロビー活動の扱いは「捨てた案と理由」の表で判断する（日本の選挙と政治資金の法律との関係）。**数える作業のような煩わしさは作らない**（比率が要るなら画面に出す）。
 
 ### 4.9 画面と情報の見せ方
 
 **判断に使える数字（資料で確かめられたもの）**
-- 区画：人通り・週の賃料・敷金 [[web:simgames:r4-cinc-levelwinner-guide]]
-- 値段の画面：原価と粗利 [[web:simgames:r4-cinc-gamewatch]]
-- 店：売上・費用・営業利益、口コミ（理由つき）、店員の能力・モラルとその傾向（上向き・下向き）、満足と不満の吹き出し [[web:simgames:r4-cinc-gamewatch]] [[web:simgames:r4-cinc-zenn-messos]]
-- 店ごとの周りの売上シェア（宣伝のタブ）、国ごとのシェアと店数（宣伝部）、地域ごとの競合の出店状況 [[web:simgames:r4-cinc-zenn-messos]] [[web:simgames:r4-cinc-applizm-sendenbu]] [[web:simgames:r4-cinc-chitara-early]]
-- 週の業績（週の売上高・週の純利益）[[web:simgames:r4-cinc-minnano]]
-- 経理部：損益計算書・貸借対照表・キャッシュフロー計算書を週・四半期・通期で、棒と数字で。借入の一覧 [[web:simgames:r4-cinc-applizm-keiribu]]
-- 株価のグラフと最高値・最安値、ポートフォリオ [[web:simgames:r4-cinc-applion-reviews]]
-- 温かい・冷たい飲み物の1日の販売数 [[web:simgames:r4-cinc-applizm-shouhinkaihatsu]]
+- 区画：人通り・週の賃料・敷金 [[web:simgames:r4-cinc-levelwinner-guide|「and Security Deposit」]]
+- 値段の画面：原価と粗利 [[web:simgames:r4-cinc-gamewatch|「原価と粗利をチェック」]]
+- 店：売上・費用・営業利益、口コミ（理由つき）、店員の能力・モラルとその傾向（上向き・下向き）、満足と不満の吹き出し [[web:simgames:r4-cinc-gamewatch|「売上高や費用、営業利益」]] [[web:simgames:r4-cinc-zenn-messos|「赤セリフが出ている状態」]]
+- 店ごとの周りの売上シェア（宣伝のタブ）、国ごとのシェアと店数（宣伝部）、地域ごとの競合の出店状況 [[web:simgames:r4-cinc-zenn-messos|「宣伝タブの売上シェア欄」]] [[web:simgames:r4-cinc-applizm-sendenbu|「収益市場シェアを確認」]] [[web:simgames:r4-cinc-chitara-early|「地域ごとの競合状況を確認」]]
+- 週の業績（週の売上高・週の純利益）[[web:simgames:r4-cinc-minnano|「週間純利益」]]
+- 経理部：損益計算書・貸借対照表・キャッシュフロー計算書を週・四半期・通期で、棒と数字で。借入の一覧 [[web:simgames:r4-cinc-applizm-keiribu|「を週間、四半期、通期で」]]
+- 株価のグラフと最高値・最安値、ポートフォリオ [[web:simgames:r4-cinc-applion-reviews|「最高価格と最低価格とグラフ」]]
+- 温かい・冷たい飲み物の1日の販売数 [[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「冷たい飲料の日の販売数」]]
 
-**足りないと言われているもの**：全店の一覧、国ごと・地域ごとの売上と費用の一括表示、前期と並べた決算（3期分）、不動産の家賃収入の見える化、ポートフォリオの並べ替え、店長の男女比 [[web:simgames:r4-cinc-applion-reviews]] [[web:simgames:r4-cinc-appreview]]。
+**足りないと言われているもの**：全店の一覧、国ごと・地域ごとの売上と費用の一括表示、前期と並べた決算（3期分）、不動産の家賃収入の見える化、ポートフォリオの並べ替え、店長の男女比 [[web:simgames:r4-cinc-applion-reviews|「全体のストア一覧が見たい」]] [[web:simgames:r4-cinc-appreview|「決算を比較のため、三回分」]]。
 
 **ピヨ商店への写し方**：足りないと言われているものは、ほぼ全部が会計の帳票そのもの（部門別・店別の損益、比較損益計算書、勘定の内訳）。**プレイヤーが欲しがる表を、プレイヤー自身が帳簿から作れるようになる**のが、ピヨ商店の熟達の報酬になる（自動仕訳のルールと同じ考え方）。
 
@@ -542,15 +542,15 @@
 
 ## 5. うまくいく理由（なぜ長く遊ばれるのか：因果の鎖）
 
-**長く遊ばれていることの数**：AppGoblin の推定で、通常版は発売（2021年11月）から約5年の2026年10月でも月の利用者が約1.7万人、新しいインストールが週に約670・月に約5,200で「横ばい」。評価は約1.7万件・平均4.68 [[web:simgames:r5-cinc-appgoblin-ci2]]。2026年6月に全機能入りの Arcade 版が出て、月の利用者は約1.2万人 [[web:simgames:r5-cinc-appgoblin-ci2plus]]。第三者の推定で誤差は分からないが、「何年たっても遊ばれ、新しく買う人も途切れない」ことは数で見える。ただしこの数は、**一人が長く遊ぶのか、新しい人が入れ替わり来るのか**を分けない。
+**長く遊ばれていることの数**：AppGoblin の推定で、通常版は発売（2021年11月）から約5年の2026年10月でも月の利用者が約1.7万人、新しいインストールが週に約670・月に約5,200で「横ばい」。評価は約1.7万件・平均4.68 [[web:simgames:r5-cinc-appgoblin-ci2|「Weekly +667 Steady」]]。2026年6月に全機能入りの Arcade 版が出て、月の利用者は約1.2万人 [[web:simgames:r5-cinc-appgoblin-ci2plus|「Apple Arcade edition」]]。第三者の推定で誤差は分からないが、「何年たっても遊ばれ、新しく買う人も途切れない」ことは数で見える。ただしこの数は、**一人が長く遊ぶのか、新しい人が入れ替わり来るのか**を分けない。
 
-**作り手の説明**：開発者は、採算を考えすぎず、奇をてらわずにこだわり抜いたこと、とことん現実的なゲームを作りたいという情熱を込めたことを、支持された理由に挙げている。少数の熱心なファンでも世界中に売れば合計は大きい、とも [[web:simgames:r4-cinc-dime-interview]]。作り手の言う「現実的」は、下の鎖1（店の中の因果）・鎖2（1つの財布）・鎖7（世界が動く）に当たる【推論：開発者はどの仕組みが効いたかまでは言っていない】。
+**作り手の説明**：開発者は、採算を考えすぎず、奇をてらわずにこだわり抜いたこと、とことん現実的なゲームを作りたいという情熱を込めたことを、支持された理由に挙げている。少数の熱心なファンでも世界中に売れば合計は大きい、とも [[web:simgames:r4-cinc-dime-interview|「採算を度外視」]]。作り手の言う「現実的」は、下の鎖1（店の中の因果）・鎖2（1つの財布）・鎖7（世界が動く）に当たる【推論：開発者はどの仕組みが効いたかまでは言っていない】。
 
 効いている鎖を7本に分けた。括弧の数字は3章の件数（スクリプトの出力）、#は2章の変数の番号。**資料で立つ鎖と、推論の鎖を分けて印を付けた。**
 
 **鎖1（資料で立つ）：店の中の因果が、1週ごとに理由つきで返る**
 区画の人通り（#3）が客の上限を決める → 処理量の機材（#6）と店員の人数（#12）が足りないと待ちと「人手不足」の口コミ → 豆（#7）と機材の品質が味の口コミ → 口コミの理由を見て値段（#10）・販促（#14）を直す → 翌週の数字が変わる。
-- 資料：人通りの多い所に出したら黒字（アプリゲット [[web:simgames:r4-cinc-appget-review]]）、前の週と比べて手を打つか待つかを決める（経営者のブログ [[web:simgames:r5-cinc-cfy-blog]]）、客の反応がレビューとして届き店に足りないものが分かる（GAME Watch [[web:simgames:r4-cinc-gamewatch]]）、店内の口コミの緻密さ（#7）。
+- 資料：人通りの多い所に出したら黒字（アプリゲット [[web:simgames:r4-cinc-appget-review|「通行量の多い場所に出したら」]]）、前の週と比べて手を打つか待つかを決める（経営者のブログ [[web:simgames:r5-cinc-cfy-blog|「前週と比較して」]]）、客の反応がレビューとして届き店に足りないものが分かる（GAME Watch [[web:simgames:r4-cinc-gamewatch|「お店に足りないもの」]]）、店内の口コミの緻密さ（#7）。
 - 声：リアル・学び（24）、要素の細かさ（20）。
 
 **鎖2（資料で立つ）：現金が1つで、全部の層の費用がそこから出る（配分の緊張）**
@@ -564,27 +564,27 @@
 - 声：やり直し・試行錯誤（9）、成長の手応え（7）。
 
 **鎖4（資料で立つ、声は少ない）：管理の煩わしさが、次の層を開ける動機になる**
-店が増える → 現地に行かないと店が見えない・店長が辞める・福利厚生の不満 → オフィスと人事部を作る → 国ごとの全店の一覧が見え、店長の補充を任せられる [[web:simgames:r5-cinc-applizm-jinjibu]] → 重役を雇って部署ごと任せる → 自分は資金・投資・買収に時間を使う → 「現場の店長」から「任せる社長」へ [[web:simgames:r4-cinc-dime-interview]]。
+店が増える → 現地に行かないと店が見えない・店長が辞める・福利厚生の不満 → オフィスと人事部を作る → 国ごとの全店の一覧が見え、店長の補充を任せられる [[web:simgames:r5-cinc-applizm-jinjibu|「店長が辞職しても人事部で対応」]] → 重役を雇って部署ごと任せる → 自分は資金・投資・買収に時間を使う → 「現場の店長」から「任せる社長」へ [[web:simgames:r4-cinc-dime-interview|「部下に事業を一任する社長業」]]。
 - 委任の質が低いので、解放が中途半端に終わる（6章の鎖C）。
 - 声：任せる・社長になっていく（4）、記事では4本。
 
 **鎖5（推論）：同じ形の判断が層をまたいでくり返し、新しい層が開くたびに「分かる、でも新しい」**
-店の値段↔客数 → 不動産の賃料↔占有率で同じ考え方を別の商売で使う → 機材の質↔費用 → 豆・ブレンド・福利厚生でも質↔費用 → 新商品の「期間×予算→星の確率」 → 技術部のアプリの版の更新でも同じ型 [[web:simgames:r5-cinc-applizm-gijutubu]]。
+店の値段↔客数 → 不動産の賃料↔占有率で同じ考え方を別の商売で使う → 機材の質↔費用 → 豆・ブレンド・福利厚生でも質↔費用 → 新商品の「期間×予算→星の確率」 → 技術部のアプリの版の更新でも同じ型 [[web:simgames:r5-cinc-applizm-gijutubu|「星の確率が変わります」]]。
 - 【推論】この転移が面白さに効くと書いた資料はない。変数の表（2章）から読める構造と、口コミの「やる事が多すぎて混乱するくらい要素が増えて嬉しい」（#99）「所々に飽きさせない工夫」（#39）と矛盾しない、というところまで。
 - 声：要素の多さ（20）、副業・金融の層（18）。
 
 **鎖6（一部推論）：金融・不動産・個人の層が、プレイヤーに目標を作り直させる**
 本業で安定した現金ができる → 株・ベンチャー・不動産・オークション・大学への寄付・球団へ → 会社の価値が跳ねる・個人の財布に移す → 「個人資産1兆円」「全ライバルの買収」「大学の順位」と自分で目標を決める。
-- 資料で立つ所：自分で目標を決めた記録が3つある（個人資産1兆円 [[web:simgames:r5-cinc-note-umpo]]、コーヒー経営をせず投資だけで全社の株を取得（#150）、大学の寄付の順位（#20））。後半の遊びとして金融の層を書いた声がある（後半はベンチャーの機会と不動産の占有率を毎週確かめている #11、醍醐味は投資活動 #140）。
+- 資料で立つ所：自分で目標を決めた記録が3つある（個人資産1兆円 [[web:simgames:r5-cinc-note-umpo|「資産としては1兆越え」]]、コーヒー経営をせず投資だけで全社の株を取得（#150）、大学の寄付の順位（#20））。後半の遊びとして金融の層を書いた声がある（後半はベンチャーの機会と不動産の占有率を毎週確かめている #11、醍醐味は投資活動 #140）。
 - **資料で立たない所**：「この層があるから長く遊ばれる」。没入22件のうち後半の長い遊びを書いたのは4件（#10・#11・#140・#141）とあいまい1件（#19）で、最初の数日の没入（8件）より少ない。逆に、層を開き切って飽きた声もある（14時間で飽きた #145、やることが減った #47、一強になりやることがなくなる #43）。【推論】この鎖は「目標を作り直せる人には長く遊ぶ道を与える」までは言えるが、「多くの人を長く遊ばせている」とは言えない。
 - 声：副業・金融の層（18）。
 
 **鎖7（資料で立つ、声は少ない）：世界と相手が動き、同じ状況が二度と来ない**
-週ごとの新聞（小売・ビジネス・市場・政治の4欄 [[web:simgames:r4-cinc-levelwinner-guide]]）→ 法律の施行・市長選・金利・他社の出店と上場・新商品 → 自分の費用と市場が変わる → 対応を迫られる。ライバルは同じ地図の客を分け合い、良い区画を先に取り、中盤から大手が入ってくる → 占有率で押し合う → 傾けば買われる。
+週ごとの新聞（小売・ビジネス・市場・政治の4欄 [[web:simgames:r4-cinc-levelwinner-guide|「Bills Proposed and Laws」]]）→ 法律の施行・市長選・金利・他社の出店と上場・新商品 → 自分の費用と市場が変わる → 対応を迫られる。ライバルは同じ地図の客を分け合い、良い区画を先に取り、中盤から大手が入ってくる → 占有率で押し合う → 傾けば買われる。
 - 声：世界と相手の反応（4）。記事では5本（GAME Watch・電ファミ・むがじん・経営者のブログ・note）。**この柱は利用者の声より記事と攻略に頼っている**。
 
 **鎖の外側：雰囲気と手触り**
-実在の都市の名所のある地図、おしゃれな UI、店の中で人が動く、商品の絵が増えていく（9章）→ 自分の会社への愛着。数字の多いゲームは見やすいグラフィックでないと続かないが、この作品はシンプルで見やすいので苦にならない、と紹介記事は人気の理由に挙げる [[web:simgames:r4-cinc-minnano]]。辛口の声（#146・#162）でさえ雰囲気と UI は認めている。声：見た目・雰囲気（6）。
+実在の都市の名所のある地図、おしゃれな UI、店の中で人が動く、商品の絵が増えていく（9章）→ 自分の会社への愛着。数字の多いゲームは見やすいグラフィックでないと続かないが、この作品はシンプルで見やすいので苦にならない、と紹介記事は人気の理由に挙げる [[web:simgames:r4-cinc-minnano|「見づらいとなかなか続かない」]]。辛口の声（#146・#162）でさえ雰囲気と UI は認めている。声：見た目・雰囲気（6）。
 
 ### 5.1 「スルメ」の仕組みの仮説（第3版）
 
@@ -604,8 +604,8 @@
 - 上場そのもの・不動産そのものが悪いのではない。上場には4つの関門という目標の形があり、不動産には賃料↔占有率のつまみがある。崩れたのは、**増資に希薄化・株主の要求というコストがなく、不動産の数に上限がなく、収益に逓減がない**から。
 
 **鎖B：店の逓減は地図の中だけで、地図を移れば消える**
-- **Coffee Inc 2 にも逓減はある**：同じ地域の地図に自社の店を2つ置くと売上を食い合い、合計の利益が減る [[web:simgames:r5-cinc-note-araki]]。世界中に店を広げても純利益はそれほど増えず、一気に店を増やすと利益が伸びない、という記録もある [[web:simgames:r5-cinc-note-umpo]]。
-- **食い合いを弱く見る資料もある**：出店が進んだら近接して出してもよい、既存店の減益より新店の増益の方が大きく、近接しても全く減益しないかもしれない、という攻略 [[web:simgames:r4-cinc-zenn-messos]]。食い合いの強さは資料で食い違う。
+- **Coffee Inc 2 にも逓減はある**：同じ地域の地図に自社の店を2つ置くと売上を食い合い、合計の利益が減る [[web:simgames:r5-cinc-note-araki|「売上を喰いあってトータルの利益」]]。世界中に店を広げても純利益はそれほど増えず、一気に店を増やすと利益が伸びない、という記録もある [[web:simgames:r5-cinc-note-umpo|「純利益はそんなに増えません」]]。
+- **食い合いを弱く見る資料もある**：出店が進んだら近接して出してもよい、既存店の減益より新店の増益の方が大きく、近接しても全く減益しないかもしれない、という攻略 [[web:simgames:r4-cinc-zenn-messos|「近接しても全く減益しないかも」]]。食い合いの強さは資料で食い違う。
 - **それでも後半に「増やすほど儲かる」と言われる理由**：①良い区画は地域ごとに限られ、取り尽くしたら次の地域・都市・国へ移る（note・Zenn・Applizm）。移った先には食い合いがなく、**逓減は地図の中で閉じていて、会社全体の規模には効かない**。②人手の取り合い（店が増えると時給が上がる）、本部の費用の段差、事故のような、地図をまたいで効く逓減の資料はない（【資料なし】）。③だから「高い人通り・最高級の店・良い豆・借りて返す」の手順が決まり、攻略が出回ると飽和する（#145）。【推論】②の「地図をまたぐ逓減がない」は、資料に書かれていないことからの推論。
 
 **鎖C：委任の質が低い**
@@ -692,24 +692,24 @@
 
 | # | 観察（どう見せているか） | エッセンス（何が効いているか） | ピヨ商店での取り入れ方 | 出典 |
 |---|---|---|---|---|
-| 1 | 実在の都市の街並みの地図。東京は東京タワー、パリはエッフェル塔が目立つ | **一目でどの町か分かる目印**が、町ごとの個性と「乗り込む」気分を作る | 6エリアそれぞれに目印を1つ（駅舎・アーケードの門・大学の時計台・団地の給水塔・幹線のガソリンスタンド・オフィスのビル）。目印はオリジナルの絵 | [[web:simgames:r4-cinc-gamewatch]] |
-| 2 | 地図は灰色や中間色が多く、**会社は自分の色で店を表す**。灰色を会社の色にすると自分の店が見つけにくい、と攻略が勧める | 地の色を抑え、**持ち主の色だけを鮮やかに**して、誰がどこを押さえているかを色で読ませる | 地図の地は淡い色、自社・ライバル5軒にそれぞれの色。エリアの占有率も同じ色の帯で | [[web:simgames:r4-cinc-levelwinner-guide]] |
-| 3 | 地図の上に「テナント募集」「売り物件」の印。印を押すと区画の数（人通り・賃料・敷金）が出る | **地図そのものが市場の一覧**。探す・見比べる宝探しになる。ただし大きな建物の陰に印が隠れる不満（#20）、1つずつ押して比べるのが疲れる（むがじん） | 区画の印は建物の前に出し、隠れない。印を押す前から色や大きさで「人通りの多さ」が分かるようにし、比べる一覧も並べる | [[web:simgames:r5-cinc-cfy-blog]] [[web:simgames:r5-cinc-mugazine]] |
-| 4 | 画面の右上の日付を押すと1週間進む。進める操作はこれ1つ | **時間を進める操作が1つで、いつ押すかをプレイヤーが決める**。準備ができたら押す | 「今月を締める」ボタンを1つだけ、いつも同じ場所に。押す前に未処理の札があれば知らせる | [[web:simgames:r4-cinc-appget-review]] |
-| 5 | 週の締めで、週の売上と純利益の数字が回りながら増える演出 | **数字が回る間の期待**が締めのご褒美になる。ただし規模が大きいと長すぎる（11件の不満） | 月の締めで売上・利益が回る演出を入れる。長さは数秒で上限、増えた分だけ回し、押せば飛ばせる | [[web:simgames:r5-cinc-applion-p4]] [[web:simgames:r4-cinc-appreview]] |
-| 6 | 週の終わりの新聞。小売（店の開店・閉店）・ビジネス（借入・重役・新商品・会議）・市場（四半期の配当と売上・金利）・政治（法案・選挙）の4欄 | **世界の動きを1枚の紙面で**。欄で分けるので、今の自分に関係する欄だけ読める。読み落としの不満もある（#103：読み直したい） | 月初に町の新聞を1枚、4欄で。過去の号を読み返せる棚 | [[web:simgames:r4-cinc-levelwinner-guide]] |
-| 7 | 客の反応が SNS の投稿のように届き、不満は理由つき（「カプチーノが高い」「Wi-Fi がない」） | **原因を名指しする短い声**が、数字の理由を教える | 客の声を月に数件、理由つきで（「並びすぎ」「スープがぬるい」「1,000円は高い」）。声は需要の式の要因から生成し、嘘をつかない | [[web:simgames:r5-cinc-mugazine]] [[web:simgames:r4-cinc-appget-review]] |
-| 8 | 店員・店長の満足と不満が吹き出しで見え、能力とモラルに上向き・下向きの印 | **人の状態が向きつきで見える**ので、手を打つ前に気づける | 店長・アルバイトの顔の横に一言と矢印 | [[web:simgames:r4-cinc-applizm-inc2-tentyou]] [[web:simgames:r4-cinc-zenn-messos]] |
-| 9 | 機材の品質と処理量、新商品の出来を星（1〜5）で | **2軸の星**で選択のトレードオフが一目で分かる。開発の結果は星の数で当たり外れが分かる | 設備は「味」と「さばける杯数」の2軸、限定メニューの出来は星で | [[web:simgames:r4-cinc-levelwinner-guide]] [[web:simgames:r4-cinc-zenn-messos]] |
-| 10 | 値段を決める画面に原価と粗利が並ぶ | **決める画面の中に判断の材料**がある | 値付けの画面に1杯の原価・原価率・粗利・損益分岐の杯数を並べる | [[web:simgames:r4-cinc-gamewatch]] |
-| 11 | 株の売買はトグル・スライダーで数量を動かせて使いやすい。公募増資は＋の長押しだけで不評 | **大きな数量はつまみで、操作の形をそろえる**（#1・#13 は一貫性を求めた） | 数量の入力（借入額・増資・発注）は全部同じスライダー＋直接入力 | [[web:simgames:r4-cinc-applion-reviews]] [[web:simgames:r5-cinc-applion-p3]] |
-| 12 | 経理部で損益計算書・貸借対照表・キャッシュフロー計算書を週・四半期・通期で、棒と数字で | **期間を切り替えられる三表**。数字と棒を並べる | 月・四半期・年で切り替えられる三表。前期と並べる（3期比較）。%表示（#154 の要望） | [[web:simgames:r4-cinc-applizm-keiribu]] |
-| 13 | 株価のグラフと最高値・最安値 | 線の形で流れが分かる。ただし表示の不具合で信用を落とした（#2） | 資金繰りの線（口座の残高の先6か月の見込み）を同じ形で。数字とグラフが食い違わないことを検査 | [[web:simgames:r4-cinc-applion-reviews]] |
-| 14 | 開始時に会社の色・ロゴ・名前・CEO の姿を選ぶ。店名に絵文字も使える（#51） | **自分の会社を作る儀式**が愛着を生む | 屋号・のれんの色・ロゴの形を最初に選ぶ。その色が地図・のれん・グラフの自社の色になる | [[web:simgames:r4-cinc-appget-review]] [[web:simgames:r5-cinc-applion-p3]] |
-| 15 | 店の中で人が動いて店の雰囲気がちらりと見える。内装は自分で配置できる（拡張） | **数字の裏に生きた店がある**手触り（#156） | 月報の上に店の中の小さな絵（客の入り・行列の長さが需要の数字に連動） | [[web:simgames:r4-cinc-appreview]] [[web:simgames:r4-cinc-levelwinner-guide]] |
-| 16 | 開発した商品の絵が可愛く、増えていくのが楽しい（#153） | **集める喜び**。作ったものが絵として残る | 限定メニュー・定番メニューを丼の絵の棚にためていく | [[web:simgames:r4-cinc-appreview]] |
-| 17 | 大学への寄付で順位が上がっていくのを見る（#20） | **小さな順位表**が後半の目標になる | 町の評判の順位・ラーメンの雑誌の順位・地域の占有率の順位 | [[web:simgames:r4-cinc-applion-reviews]] |
-| 18 | 音は店の中の BGM だけで、他の画面は無音・効果音なし。季節と合わない店の音楽（#144） | **音の欠けが不満になる**（5件）。逆に言えば音は手触りの一部 | 締めの音・お金が入る音・のれんをくぐる音。季節で変わる店の音 | [[web:simgames:r4-cinc-appreview]] [[web:simgames:r5-cinc-applion-p6]] |
+| 1 | 実在の都市の街並みの地図。東京は東京タワー、パリはエッフェル塔が目立つ | **一目でどの町か分かる目印**が、町ごとの個性と「乗り込む」気分を作る | 6エリアそれぞれに目印を1つ（駅舎・アーケードの門・大学の時計台・団地の給水塔・幹線のガソリンスタンド・オフィスのビル）。目印はオリジナルの絵 | [[web:simgames:r4-cinc-gamewatch|「東京タワーがそびえたつ」]] |
+| 2 | 地図は灰色や中間色が多く、**会社は自分の色で店を表す**。灰色を会社の色にすると自分の店が見つけにくい、と攻略が勧める | 地の色を抑え、**持ち主の色だけを鮮やかに**して、誰がどこを押さえているかを色で読ませる | 地図の地は淡い色、自社・ライバル5軒にそれぞれの色。エリアの占有率も同じ色の帯で | [[web:simgames:r4-cinc-levelwinner-guide|「not choosing gray」]] |
+| 3 | 地図の上に「テナント募集」「売り物件」の印。印を押すと区画の数（人通り・賃料・敷金）が出る | **地図そのものが市場の一覧**。探す・見比べる宝探しになる。ただし大きな建物の陰に印が隠れる不満（#20）、1つずつ押して比べるのが疲れる（むがじん） | 区画の印は建物の前に出し、隠れない。印を押す前から色や大きさで「人通りの多さ」が分かるようにし、比べる一覧も並べる | [[web:simgames:r5-cinc-cfy-blog|「テナント募集」]] [[web:simgames:r5-cinc-mugazine|「1つずつタップして確認」]] |
+| 4 | 画面の右上の日付を押すと1週間進む。進める操作はこれ1つ | **時間を進める操作が1つで、いつ押すかをプレイヤーが決める**。準備ができたら押す | 「今月を締める」ボタンを1つだけ、いつも同じ場所に。押す前に未処理の札があれば知らせる | [[web:simgames:r4-cinc-appget-review|「画面右上の日付欄をタップ」]] |
+| 5 | 週の締めで、週の売上と純利益の数字が回りながら増える演出 | **数字が回る間の期待**が締めのご褒美になる。ただし規模が大きいと長すぎる（11件の不満） | 月の締めで売上・利益が回る演出を入れる。長さは数秒で上限、増えた分だけ回し、押せば飛ばせる | [[web:simgames:r5-cinc-applion-p4|「4時間ほどかかり」]] [[web:simgames:r4-cinc-appreview|「時間がかかり大変苦痛」]] |
+| 6 | 週の終わりの新聞。小売（店の開店・閉店）・ビジネス（借入・重役・新商品・会議）・市場（四半期の配当と売上・金利）・政治（法案・選挙）の4欄 | **世界の動きを1枚の紙面で**。欄で分けるので、今の自分に関係する欄だけ読める。読み落としの不満もある（#103：読み直したい） | 月初に町の新聞を1枚、4欄で。過去の号を読み返せる棚 | [[web:simgames:r4-cinc-levelwinner-guide|「The newspaper at the end」]] |
+| 7 | 客の反応が SNS の投稿のように届き、不満は理由つき（「カプチーノが高い」「Wi-Fi がない」） | **原因を名指しする短い声**が、数字の理由を教える | 客の声を月に数件、理由つきで（「並びすぎ」「スープがぬるい」「1,000円は高い」）。声は需要の式の要因から生成し、嘘をつかない | [[web:simgames:r5-cinc-mugazine|「カプチーノが高い」]] [[web:simgames:r4-cinc-appget-review|「SNSでお客さんの反応」]] |
+| 8 | 店員・店長の満足と不満が吹き出しで見え、能力とモラルに上向き・下向きの印 | **人の状態が向きつきで見える**ので、手を打つ前に気づける | 店長・アルバイトの顔の横に一言と矢印 | [[web:simgames:r4-cinc-applizm-inc2-tentyou|「吹き出しで不満、満足を確認」]] [[web:simgames:r4-cinc-zenn-messos|「赤セリフが出ている状態」]] |
+| 9 | 機材の品質と処理量、新商品の出来を星（1〜5）で | **2軸の星**で選択のトレードオフが一目で分かる。開発の結果は星の数で当たり外れが分かる | 設備は「味」と「さばける杯数」の2軸、限定メニューの出来は星で | [[web:simgames:r4-cinc-levelwinner-guide|「Quality Productivity」]] [[web:simgames:r4-cinc-zenn-messos|「星5確率あまり変わらない」]] |
+| 10 | 値段を決める画面に原価と粗利が並ぶ | **決める画面の中に判断の材料**がある | 値付けの画面に1杯の原価・原価率・粗利・損益分岐の杯数を並べる | [[web:simgames:r4-cinc-gamewatch|「原価と粗利をチェック」]] |
+| 11 | 株の売買はトグル・スライダーで数量を動かせて使いやすい。公募増資は＋の長押しだけで不評 | **大きな数量はつまみで、操作の形をそろえる**（#1・#13 は一貫性を求めた） | 数量の入力（借入額・増資・発注）は全部同じスライダー＋直接入力 | [[web:simgames:r4-cinc-applion-reviews|「トグル方式に統一してほしい」]] [[web:simgames:r5-cinc-applion-p3|「ボタンを押し続けていて」]] |
+| 12 | 経理部で損益計算書・貸借対照表・キャッシュフロー計算書を週・四半期・通期で、棒と数字で | **期間を切り替えられる三表**。数字と棒を並べる | 月・四半期・年で切り替えられる三表。前期と並べる（3期比較）。%表示（#154 の要望） | [[web:simgames:r4-cinc-applizm-keiribu|「ゲージのみならず、数字で」]] |
+| 13 | 株価のグラフと最高値・最安値 | 線の形で流れが分かる。ただし表示の不具合で信用を落とした（#2） | 資金繰りの線（口座の残高の先6か月の見込み）を同じ形で。数字とグラフが食い違わないことを検査 | [[web:simgames:r4-cinc-applion-reviews|「最高価格と最低価格とグラフ」]] |
+| 14 | 開始時に会社の色・ロゴ・名前・CEO の姿を選ぶ。店名に絵文字も使える（#51） | **自分の会社を作る儀式**が愛着を生む | 屋号・のれんの色・ロゴの形を最初に選ぶ。その色が地図・のれん・グラフの自社の色になる | [[web:simgames:r4-cinc-appget-review|「ブランドカラーやロゴマーク」]] [[web:simgames:r5-cinc-applion-p3|「絵文字を店名とかオーナー名に使える」]] |
+| 15 | 店の中で人が動いて店の雰囲気がちらりと見える。内装は自分で配置できる（拡張） | **数字の裏に生きた店がある**手触り（#156） | 月報の上に店の中の小さな絵（客の入り・行列の長さが需要の数字に連動） | [[web:simgames:r4-cinc-appreview|「お店の雰囲気をちらりと」]] [[web:simgames:r4-cinc-levelwinner-guide|「Interior you designed」]] |
+| 16 | 開発した商品の絵が可愛く、増えていくのが楽しい（#153） | **集める喜び**。作ったものが絵として残る | 限定メニュー・定番メニューを丼の絵の棚にためていく | [[web:simgames:r4-cinc-appreview|「商品の絵が可愛くて」]] |
+| 17 | 大学への寄付で順位が上がっていくのを見る（#20） | **小さな順位表**が後半の目標になる | 町の評判の順位・ラーメンの雑誌の順位・地域の占有率の順位 | [[web:simgames:r4-cinc-applion-reviews|「大学への寄付をしてランキング」]] |
+| 18 | 音は店の中の BGM だけで、他の画面は無音・効果音なし。季節と合わない店の音楽（#144） | **音の欠けが不満になる**（5件）。逆に言えば音は手触りの一部 | 締めの音・お金が入る音・のれんをくぐる音。季節で変わる店の音 | [[web:simgames:r4-cinc-appreview|「クリスマス風の店内BGM」]] [[web:simgames:r5-cinc-applion-p6|「ボタンを押した時に効果音」]] |
 
 **まとめ（エッセンスの共通点）**：①地の色を抑えて持ち主の色だけ鮮やかに、②決める画面の中に判断の材料、③原因を名指しする短い声、④向きつき・星つきの小さな記号で状態を見せる、⑤締めの瞬間に小さな演出、⑥自分の会社を作る儀式と、作ったものが残る棚。どれも「数字の意味を絵が補う」方向で、学びと矛盾しない。
 
@@ -721,16 +721,16 @@
 
 | # | ピヨ商店で安く見える所（画面と部品の名前） | 何が安く見せているか | 直し方（Coffee Inc 2 のエッセンス） | 資料の厚さ |
 |---|---|---|---|---|
-| 1 | **タイトル画面**：淡い緑の地に「ピヨ商店」の字とボタンだけ。屋台も町も描かれていない | 何の世界のゲームかが絵で伝わらない。最初の一枚で期待が立たない | **都市が大きく映ったタイトル画面**（アプリゲットの写真の説明文 [[web:simgames:r4-cinc-appget-review]]）。ピヨ商店なら、町の6エリアを見下ろす絵の中に屋台が一つ、のれんが揺れている。周回で店が増えるとタイトルの町にも店が増える | 記事（写真の説明文1つ） |
-| 2 | **人物のアイコン**（判断の札の「ミライ社長」「ピヨ」など）：薄い色の丸の中に名前の1文字だけ | 人の顔がないので、人間くささ（辞める・昇給を求める・喜ぶ）が伝わらない | **CEO の姿を選ぶ**（攻略・記事 [[web:simgames:r4-cinc-levelwinner-guide]]）、**店員・店長の満足と不満を吹き出しで**（攻略 [[web:simgames:r4-cinc-applizm-inc2-tentyou]]）。ピヨ商店の10人に顔と表情（ふつう・喜ぶ・困る）を描き、札の中で表情が変わる | 攻略2本・記事1本 |
-| 3 | **「マップ」**：押すと「考え方の地図」（ものの見方のカードの一覧）が出る。**町の地図はゲームの中にない** | 店を出す・ライバルと押し合うという経営の場面が、地図として目に見えない | **名所の目印のある都市の地図**（GAME Watch の写真の説明文：東京タワーの港区、エッフェル塔のパリ [[web:simgames:r4-cinc-gamewatch]]）、**地図の上の区画の印**（経営者のブログ [[web:simgames:r5-cinc-cfy-blog]]）。ピヨ商店の6エリアに目印（駅舎・アーケードの門・大学の時計台など）を描き、区画の印・自社とライバルの店を地図の上に置く。「考え方の地図」は別の名前にする | 記事2本・攻略1本 |
-| 4 | **色**：地は淡い緑灰色、カードは白、ボタンは深い緑、の一色系。色に意味があるのは借方の青と貸方の赤だけ | 画面がどれも同じに見え、何が自分のもので何が相手のものかを色で読めない | **地の色を抑え、持ち主の色だけ鮮やかに**（攻略：地図は灰色や中間色が多いので会社の色に灰色を選ぶと見つけにくい [[web:simgames:r4-cinc-levelwinner-guide]]）【推論：攻略の助言からの読み替え】。屋号を作るときに選んだ色を、地図の店・グラフの自社・のれんに通す。ライバル5軒にもそれぞれの色 | 攻略1本（助言からの読み替え） |
-| 5 | **左の列の「口座のお金」「この1年のもうけ」**：大きな数字の字だけ。増えても減っても形が変わらない（赤字のときに字が赤くなるだけ） | 月が締まった瞬間の「どうなった？」の期待と手応えがない | **週の締めで売上と利益の数字が回りながら増える演出**（口コミで、規模が大きいと長すぎると不満が11件出るほど、毎週見られている部品 [[web:simgames:r5-cinc-applion-p4]]）。月の締めで数字が数秒回り、増えた分が緑・減った分が赤の帯で出る。押せば飛ばせる | 声（不満11件の裏から） |
-| 6 | **「会社の棚」**（貸借対照表と損益の表）：表と数字だけ。棒や図がない | 帳簿が「読む表」にとどまり、会社の形が一目で分からない | **三表を棒と数字で、週・四半期・通期を切り替えて**（攻略 [[web:simgames:r4-cinc-applizm-keiribu]]）。棚の左右（資産と負債・純資産）を高さのある箱の絵で並べ、前の期の箱を薄く重ねる | 攻略1本 |
+| 1 | **タイトル画面**：淡い緑の地に「ピヨ商店」の字とボタンだけ。屋台も町も描かれていない | 何の世界のゲームかが絵で伝わらない。最初の一枚で期待が立たない | **都市が大きく映ったタイトル画面**（アプリゲットの写真の説明文 [[web:simgames:r4-cinc-appget-review|「都市が大きく映ったタイトル画面」]]）。ピヨ商店なら、町の6エリアを見下ろす絵の中に屋台が一つ、のれんが揺れている。周回で店が増えるとタイトルの町にも店が増える | 記事（写真の説明文1つ） |
+| 2 | **人物のアイコン**（判断の札の「ミライ社長」「ピヨ」など）：薄い色の丸の中に名前の1文字だけ | 人の顔がないので、人間くささ（辞める・昇給を求める・喜ぶ）が伝わらない | **CEO の姿を選ぶ**（攻略・記事 [[web:simgames:r4-cinc-levelwinner-guide|「CEO name, and portrait」]]）、**店員・店長の満足と不満を吹き出しで**（攻略 [[web:simgames:r4-cinc-applizm-inc2-tentyou|「吹き出しで要求を確認」]]）。ピヨ商店の10人に顔と表情（ふつう・喜ぶ・困る）を描き、札の中で表情が変わる | 攻略2本・記事1本 |
+| 3 | **「マップ」**：押すと「考え方の地図」（ものの見方のカードの一覧）が出る。**町の地図はゲームの中にない** | 店を出す・ライバルと押し合うという経営の場面が、地図として目に見えない | **名所の目印のある都市の地図**（GAME Watch の写真の説明文：東京タワーの港区、エッフェル塔のパリ [[web:simgames:r4-cinc-gamewatch|「エッフェル塔が存在感」]]）、**地図の上の区画の印**（経営者のブログ [[web:simgames:r5-cinc-cfy-blog|「テナント募集」]]）。ピヨ商店の6エリアに目印（駅舎・アーケードの門・大学の時計台など）を描き、区画の印・自社とライバルの店を地図の上に置く。「考え方の地図」は別の名前にする | 記事2本・攻略1本 |
+| 4 | **色**：地は淡い緑灰色、カードは白、ボタンは深い緑、の一色系。色に意味があるのは借方の青と貸方の赤だけ | 画面がどれも同じに見え、何が自分のもので何が相手のものかを色で読めない | **地の色を抑え、持ち主の色だけ鮮やかに**（攻略：地図は灰色や中間色が多いので会社の色に灰色を選ぶと見つけにくい [[web:simgames:r4-cinc-levelwinner-guide|「gray or neutral tones」]]）【推論：攻略の助言からの読み替え】。屋号を作るときに選んだ色を、地図の店・グラフの自社・のれんに通す。ライバル5軒にもそれぞれの色 | 攻略1本（助言からの読み替え） |
+| 5 | **左の列の「口座のお金」「この1年のもうけ」**：大きな数字の字だけ。増えても減っても形が変わらない（赤字のときに字が赤くなるだけ） | 月が締まった瞬間の「どうなった？」の期待と手応えがない | **週の締めで売上と利益の数字が回りながら増える演出**（口コミで、規模が大きいと長すぎると不満が11件出るほど、毎週見られている部品 [[web:simgames:r5-cinc-applion-p4|「4時間ほどかかり」]]）。月の締めで数字が数秒回り、増えた分が緑・減った分が赤の帯で出る。押せば飛ばせる | 声（不満11件の裏から） |
+| 6 | **「会社の棚」**（貸借対照表と損益の表）：表と数字だけ。棒や図がない | 帳簿が「読む表」にとどまり、会社の形が一目で分からない | **三表を棒と数字で、週・四半期・通期を切り替えて**（攻略 [[web:simgames:r4-cinc-applizm-keiribu|「ゲージのみならず、数字で」]]）。棚の左右（資産と負債・純資産）を高さのある箱の絵で並べ、前の期の箱を薄く重ねる | 攻略1本 |
 | 7 | **判断の札と仕訳の画面**（PC の幅1280）：中央の白いカードの外、右側と下が大きく空いている。プロローグの屋台の箱は小さなカードが2つ | 画面の密度が低く、作り込まれていない印象。店も町も見えない余白 | **店の中で人が動いて雰囲気がちらりと見える**（声1 #156）、**内装を自分で配置**（拡張）。空いた所に今の店の小さな絵（客の入り・行列の長さ・天気が需要の数字に連動して変わる）を置く | 声1件・攻略 |
 | 8 | **品物・メニューの絵がない**：レモネード・パラソル・小銭は字のボタン | 作ったもの・持っているものが残らないので、集める喜びがない | **商品の絵が可愛く、増えていくのが楽しい**（声1 #153）。ラーメン版では、丼・限定メニュー・設備を絵の棚にためていく | 声1件 |
 
-**直すときに守ること**：数字の多いゲームは、グラフィックが見づらいと続かない。Coffee Inc 2 はシンプルで見やすいので苦にならない、と紹介記事は人気の理由に挙げる [[web:simgames:r4-cinc-minnano]]。絵を足すときは、数字と帳簿の読みやすさを先に守り、絵は数字の意味を補う所（地図・持ち主の色・店の様子・締めの演出）に置く。
+**直すときに守ること**：数字の多いゲームは、グラフィックが見づらいと続かない。Coffee Inc 2 はシンプルで見やすいので苦にならない、と紹介記事は人気の理由に挙げる [[web:simgames:r4-cinc-minnano|「シンプルで見やすいデザイン」]]。絵を足すときは、数字と帳簿の読みやすさを先に守り、絵は数字の意味を補う所（地図・持ち主の色・店の様子・締めの演出）に置く。
 
 **オーナーへの依頼**：Coffee Inc 2 の画面写真（地図・店の画面・週の業績・新聞・経理部・投資銀行・タイトル・ブランドを作る画面の8種）を、research/WANTED.md に載せた。届いたら、上の右の列（言葉からの読み）を写真で確かめ直す。
 
@@ -781,10 +781,10 @@
 - **「広く浅い」という声**：要素は多いが黒字のために細かく調整する必要がなく、雰囲気のための味付けにすぎない（#162）、どれだけ黒字の店を建てるかが全てで作業感がある（#3）、店も株も不動産も増やすだけ儲かるのでクリッカーと同じ（#146）、店長以外の店員の能力が簡素（#151）。5.1 の仮説の「深さ」の部分に反する。
 - **飽きの早さ**：14時間で飽きた、上級でもすぐ上場できた（#145）。「範囲を広げて」の31件のうち6件は「やることがなくなった」と同じ口コミ。変数の多さが「何年も遊ばれる」理由だという仮説に反する。だから鎖6を柱から外した。
 - **没入は最初の数日が多い**：没入22件のうち最初の数日8件、後半4件（あいまい1件）。第2版の「没入の多くは後半の長い遊び」は誤りだった。
-- **食い合いを弱く見る資料**：Zenn は、出店が進んだら近接して出してもよく、近接しても全く減益しないかもしれないと書く [[web:simgames:r4-cinc-zenn-messos]]。2章の #4（同じ地図の中の食い合い）と8章①（自社の2号店の食い合いを試算で見せる）の土台は note の攻略1本と umpo の記録で、強さは資料で食い違う。
+- **食い合いを弱く見る資料**：Zenn は、出店が進んだら近接して出してもよく、近接しても全く減益しないかもしれないと書く [[web:simgames:r4-cinc-zenn-messos|「近接しても全く減益しないかも」]]。2章の #4（同じ地図の中の食い合い）と8章①（自社の2号店の食い合いを試算で見せる）の土台は note の攻略1本と umpo の記録で、強さは資料で食い違う。
 - **学びは一番多い**：理由を書いた88件のうち学びは24件で、15種の中で最も多い。「学びは中心ではない」と強く言うのは言いすぎで、「4つの柱の一つ、ただし一番多い」が正確。
 - **競合・政治を褒めた声は4件だけ**：鎖7は記事と攻略に頼っている。
-- **不動産を面白さの源とする根拠の薄さ**：副業の層を褒めた18件のうち、不動産そのものに触れたのは #4・#62・#147 など少数。不動産の「賃料↔占有率」を面白さの源とした所は、攻略の記述 [[web:simgames:r5-cinc-applizm-hudousan-business]] と構造からの読みで【推論】。
+- **不動産を面白さの源とする根拠の薄さ**：副業の層を褒めた18件のうち、不動産そのものに触れたのは #4・#62・#147 など少数。不動産の「賃料↔占有率」を面白さの源とした所は、攻略の記述 [[web:simgames:r5-cinc-applizm-hudousan-business|「年間賃料を下げると占有率が上がり」]] と構造からの読みで【推論】。
 
 **資料の限界**
 - **声の標本**：日本の App Store の口コミを集めた2つのページ。星の分布は App Store 全体とほぼ同じ（星5が83%）だが、口コミを書く人は熱心な人に偏る。理由なしが38%。
@@ -850,19 +850,19 @@
 
 | 資料 | 種類 | 信頼度 | 主に使った所 |
 |---|---|---|---|
-| [[web:simgames:r4-cinc-4gamer]] | 開発元の説明文の転載（2021〜2022年ごろ） | 高 | 部署・機能の全体 |
-| [[web:simgames:r5-cinc-appgoblin-ci2]] [[web:simgames:r5-cinc-appgoblin-ci2plus]] | 開発元の説明文の写し（2026年） | 高 | 機能の最新の全体、農園、株式報酬 |
-| [[web:simgames:r4-cinc-dime-interview]] | 開発者の談話 | 高（短い） | 作り手の方針、社長になっていく |
-| [[web:simgames:r4-cinc-gamewatch]] | 媒体の記者の体験記事 | 高 | 流れ・政治・上場・三表・地図の目印 |
-| [[web:simgames:r4-cinc-appget-review]] | 媒体の記者の体験記事（2022） | 中〜高 | 序盤の流れ・時間・ブランドを作る画面 |
-| [[web:simgames:r4-cinc-denfami-news]] [[web:simgames:r4-cinc-minnano]] [[web:simgames:r4-cinc-macstories-arcade]] | ニュース・紹介 | 中（短い） | 評判・週の数字・Arcade 版 |
-| [[web:simgames:r5-cinc-mugazine]] | 地域メディアの体験記（2024年2月） | 中 | 店長の能力の効き方、初心者の破産、四半期の決算の公表 |
-| [[web:simgames:r5-cinc-cfy-blog]] | 経営者のブログ（2024年3月） | 中（経営者の目） | 週の比較の判断、**ライバルからの買収の脅威** |
-| [[web:simgames:r4-cinc-zenn-messos]] | 最高難度の攻略記録 | 中〜高 | 競合・広告・人事・開発 |
-| [[web:simgames:r5-cinc-note-araki]] | 最高難度の攻略（2024年4月） | 中〜高 | **地域の食い合いと占有率、競合の見え方、上場後の副作用** |
-| [[web:simgames:r5-cinc-note-umpo]] | 上場後の攻略記録（2024年10月） | 中 | ベンチャー投資、個人の資産の目標、株価の動き |
-| [[web:simgames:r4-cinc-levelwinner-guide]] | 英語の総合攻略 | 中〜高 | 立地・機材・借入・法律・新聞の4欄・地図の色 |
-| [[web:simgames:r4-cinc-chitara-early]] | 序盤攻略 | 中 | 円の数字・競合の一覧 |
-| Applizm の15本（初版の8本と [[web:simgames:r5-cinc-applizm-guide]] [[web:simgames:r5-cinc-applizm-ceo]] [[web:simgames:r5-cinc-applizm-jinjibu]] [[web:simgames:r5-cinc-applizm-tousibu]] [[web:simgames:r5-cinc-applizm-gijutubu]] [[web:simgames:r5-cinc-applizm-bentya-kakutyou]] [[web:simgames:r5-cinc-applizm-hudousan-business]]） | 部署ごとの攻略 | 中 | 部署・重役の委任の範囲・取締役会・福利厚生・技術・ベンチャー・不動産 |
-| APPLION 7ページ（[[web:simgames:r4-cinc-applion-reviews]] [[web:simgames:r5-cinc-applion-p2]] [[web:simgames:r5-cinc-applion-p3]] [[web:simgames:r5-cinc-applion-p4]] [[web:simgames:r5-cinc-applion-p5]] [[web:simgames:r5-cinc-applion-p6]] [[web:simgames:r5-cinc-applion-p7]]）と [[web:simgames:r4-cinc-appreview]] | 口コミの集約（160件） | 中（個人の意見、星5に偏る） | 3章の分類 |
-| [[web:simgames:r4-cinc-gamingroute-guide]] [[web:simgames:r4-cinc-appmatch]] [[web:simgames:r5-cinc-coffeelovers101]] | 総合攻略・言い換え・AI 生成 | 低 | 他と一致する所だけ（coffeelovers101 は使わない） |
+| [[web:simgames:r4-cinc-4gamer|「配信元の紹介文をそのまま掲載」]] | 開発元の説明文の転載（2021〜2022年ごろ） | 高 | 部署・機能の全体 |
+| [[web:simgames:r5-cinc-appgoblin-ci2|「Build Your Global」]] [[web:simgames:r5-cinc-appgoblin-ci2plus|「Apple Arcade edition」]] | 開発元の説明文の写し（2026年） | 高 | 機能の最新の全体、農園、株式報酬 |
+| [[web:simgames:r4-cinc-dime-interview|「野田智博さんが開発」]] | 開発者の談話 | 高（短い） | 作り手の方針、社長になっていく |
+| [[web:simgames:r4-cinc-gamewatch|「本格経営SLG」]] | 媒体の記者の体験記事 | 高 | 流れ・政治・上場・三表・地図の目印 |
+| [[web:simgames:r4-cinc-appget-review|「アプリゲット」]] | 媒体の記者の体験記事（2022） | 中〜高 | 序盤の流れ・時間・ブランドを作る画面 |
+| [[web:simgames:r4-cinc-denfami-news|「キャッシュフロー計算書など」]] [[web:simgames:r4-cinc-minnano|「グラフィックが見やすく」]] [[web:simgames:r4-cinc-macstories-arcade|「Coffee Inc 2+ (June 4)」]] | ニュース・紹介 | 中（短い） | 評判・週の数字・Arcade 版 |
+| [[web:simgames:r5-cinc-mugazine|「むがじん」]] | 地域メディアの体験記（2024年2月） | 中 | 店長の能力の効き方、初心者の破産、四半期の決算の公表 |
+| [[web:simgames:r5-cinc-cfy-blog|「きものではたらく社長」]] | 経営者のブログ（2024年3月） | 中（経営者の目） | 週の比較の判断、**ライバルからの買収の脅威** |
+| [[web:simgames:r4-cinc-zenn-messos|「The Coffee Inc 2攻略のコツ」]] | 最高難度の攻略記録 | 中〜高 | 競合・広告・人事・開発 |
+| [[web:simgames:r5-cinc-note-araki|「簡単に出来る上場のさせ方」]] | 最高難度の攻略（2024年4月） | 中〜高 | **地域の食い合いと占有率、競合の見え方、上場後の副作用** |
+| [[web:simgames:r5-cinc-note-umpo|「億万長者への道攻略」]] | 上場後の攻略記録（2024年10月） | 中 | ベンチャー投資、個人の資産の目標、株価の動き |
+| [[web:simgames:r4-cinc-levelwinner-guide|「Level Winner」]] | 英語の総合攻略 | 中〜高 | 立地・機材・借入・法律・新聞の4欄・地図の色 |
+| [[web:simgames:r4-cinc-chitara-early|「徹底攻略ゲーム図鑑」]] | 序盤攻略 | 中 | 円の数字・競合の一覧 |
+| Applizm の15本（初版の8本と [[web:simgames:r5-cinc-applizm-guide|「攻略のコツと序盤の流れ」]] [[web:simgames:r5-cinc-applizm-ceo|「取締役室でできること」]] [[web:simgames:r5-cinc-applizm-jinjibu|「人事部でできること」]] [[web:simgames:r5-cinc-applizm-tousibu|「投資部でできる事」]] [[web:simgames:r5-cinc-applizm-gijutubu|「技術部でできる事」]] [[web:simgames:r5-cinc-applizm-bentya-kakutyou|「ベンチャー企業拡張パックでできる事」]] [[web:simgames:r5-cinc-applizm-hudousan-business|「不動産ビジネス拡張パックでできる事」]]） | 部署ごとの攻略 | 中 | 部署・重役の委任の範囲・取締役会・福利厚生・技術・ベンチャー・不動産 |
+| APPLION 7ページ（[[web:simgames:r4-cinc-applion-reviews|「評価/口コミ・レビュー」]] [[web:simgames:r5-cinc-applion-p2|「カフェビジネスで行くところまで行ったら」]] [[web:simgames:r5-cinc-applion-p3|「今作は初級でも破産する難易度ですので」]] [[web:simgames:r5-cinc-applion-p4|「これ300円で遊べるのはやばい」]] [[web:simgames:r5-cinc-applion-p5|「直接数字を入力できるようにして欲しい」]] [[web:simgames:r5-cinc-applion-p6|「他のライバル会社と競い合うから楽しい」]] [[web:simgames:r5-cinc-applion-p7|「店舗事項のスキップを追加してください至急」]]）と [[web:simgames:r4-cinc-appreview|「Coffee Inc 2のレビュー・口コミ」]] | 口コミの集約（160件） | 中（個人の意見、星5に偏る） | 3章の分類 |
+| [[web:simgames:r4-cinc-gamingroute-guide|「Coffee Inc 2 Guide」]] [[web:simgames:r4-cinc-appmatch|「独禁法の罰金に注意」]] [[web:simgames:r5-cinc-coffeelovers101|「published using」]] | 総合攻略・言い換え・AI 生成 | 低 | 他と一致する所だけ（coffeelovers101 は使わない） |

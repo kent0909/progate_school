@@ -65,20 +65,33 @@ def tally(col, name):
             if k != '-':
                 c[k] += 1
     print(name, '：', ', '.join('%s=%d' % kv for kv in sorted(c.items(), key=lambda kv: -kv[1])))
-tally(1, '楽しみ（周回の動機）')
-tally(2, '不満・やめた理由')
-q = collections.Counter(rows[u['id']][3] or '書いていない' for u in rel)
+tally(2, '楽しみ（周回の動機）')
+tally(3, '不満・やめた理由')
+q = collections.Counter(rows[u['id']][4] or '書いていない' for u in rel)
 print('遊んだ量の申告：', dict(q))
 # 量の申告ごとに、楽しみの上位
-for lvl in ['数十時間', '百時間以上', '周回の段を上まで']:
+for lvl in ['数十時間', '百時間以上', '周回の段を上まで', '月・年単位']:
     c = collections.Counter()
     n = 0
     for u in rel:
-        if rows[u['id']][3] == lvl:
+        if rows[u['id']][4] == lvl:
             n += 1
-            for k in rows[u['id']][1].split():
+            for k in rows[u['id']][2].split():
                 if k != '-':
                     c[k] += 1
     print('  %s（%d 件）の楽しみ：' % (lvl, n), ', '.join('%s=%d' % kv for kv in c.most_common()))
-stop = [u for u in rel if any(k in rows[u['id']][2].split() for k in ['x', 'y'])]
+stop = [u for u in rel if any(k in rows[u['id']][3].split() for k in ['x', 'y'])]
 print('やめた・飽きたと書いた口コミ：%d 件（#%s）' % (len(stop), ' #'.join(str(u['id']) for u in stop)))
+
+# 関係ごと（周 と 長）に楽しみを分けて数える
+for r in ['周', '長']:
+    c = collections.Counter(k for u in rel if rows[u['id']][1] == r for k in rows[u['id']][2].split() if k != '-')
+    n = sum(1 for u in rel if rows[u['id']][1] == r)
+    print('関係=%s（%d 件）の楽しみ：' % (r, n), ', '.join('%s=%d' % kv for kv in c.most_common()))
+# 作品ごとの楽しみの上位3
+for w in ['Slay the Spire', 'Balatro', 'FTL', 'Stardew Valley', 'Game Dev Tycoon']:
+    c = collections.Counter(k for u in rel if u['work'] == w for k in rows[u['id']][2].split() if k != '-')
+    print('  %s：' % w, ', '.join('%s=%d' % kv for kv in c.most_common(4)))
+# 周回の段を上まで行った人の不満
+top = [u for u in rel if rows[u['id']][4] == '周回の段を上まで']
+print('周回の段を上まで行った人の不満：', ', '.join('#%d=%s' % (u['id'], rows[u['id']][3]) for u in top))
