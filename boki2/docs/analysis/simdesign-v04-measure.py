@@ -92,8 +92,10 @@ for rlab, rcoef in (('評判の係数 0.16（d.2 のまま）', 0.16), ('評判�
             s = nested(town + [own], lam, e, V0, rcoef)[-1]
             prof[own[2]] = s * 20000 * (ITEMS * own[0] - own[3])
         best = max(prof.values()); worst = min(prof.values())
-        losses.append(pct(best - worst, best))
-    print('  %s：%s' % (rlab, shares(losses)))
+        losses.append((lam, pct(best - worst, best)))
+    print('  %s：%s' % (rlab, shares([x for _, x in losses])))
+    for lam in (0.3, 0.5, 0.7, 1.0):
+        print('    λ=%.1f%s：%s' % (lam, '（入れ子なし＝ふつうのロジット）' if lam == 1.0 else '', shares([x for l, x in losses if l == lam])))
 # 入れ子の比（0.3 の E8）が 1.6 の掛け算に頼っていないか
 for rcoef in (0.16, 0.256):
     base = [CHEAP, KODA]; s0 = nested(base, 0.5, 1.75, 4.0, rcoef); s1 = nested(base + [CHEAP], 0.5, 1.75, 4.0, rcoef)
@@ -266,3 +268,14 @@ for k in (0.0, 0.1, 0.3, 1.0):
     vals = [steady(i, 1.0, 0.35, k) for i in idxs]
     best = int(np.argmax(vals))
     print('  離れの値上げの効き k=%.1f：' % k + '　'.join('%d円 %+.0f' % (P[i], v) for i, v in zip(idxs, vals)) + '　→ 一番よいのは %d円' % P[idxs[best]])
+
+print()
+print('=== F12：M1 に1,000円の壁（越えた分 ε×1.5）を足した形（ε0 1.75〜2.5）。季節・評判・安いライバル（ε×1.6）の取りこぼしと、最適が壁に集まる割合')
+opts = []
+for (e0, cap, Lf, nr, PA) in M1GRID:
+    pr = d2_profit(e0, cap, Lf, nr, PA, kink=True, V0=calib_V0(PA, nr, Lf)); i = int(np.argmax(pr))
+    if P[i] < TOP: opts.append(P[i])
+opts = np.array(opts)
+print('  ふつうの月の最適：中央 %.0f円・最大 %.0f円・壁（995〜1,005円）に集まる組 %d／%d' % (np.median(opts), opts.max(), np.sum(abs(opts - 1000) <= 5), len(opts)))
+for lab, kw in (('冬 W×1.10', dict(W=1.10)), ('8月 W×1.18', dict(W=1.18)), ('評判4.5（×0.7）', dict(R=4.5)), ('評判4（壁 1,100円に動く）', dict(R=4.0, kp=1100.0)), ('安いライバル ε×1.6', dict(eps_mult=1.6))):
+    print('  M1＋壁 %-22s %s' % (lab, shares([r['loss'] for r in run(M1GRID, True, kw)])))
