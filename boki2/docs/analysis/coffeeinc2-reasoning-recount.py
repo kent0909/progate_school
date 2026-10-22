@@ -228,5 +228,5 @@ if os.path.exists(AUDIT):
         cnt[j] += 1
         ids[j].append(m.group(1))
     print('\n4. 検査書の判定', rows, '行：', ' / '.join('%s %d' % (k, cnt[k]) for k in ('妥当', '弱い', '不当')), '（合計', sum(cnt.values()), '）')
-    for k in ('不当', '弱い'):
+    for k in ('不当', '弱い', '妥当'):
         print('  ', k, '・'.join(ids[k]))
