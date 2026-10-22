@@ -150,3 +150,8 @@ for i, lab in enumerate(('雇う人時', '店主の取り分', '銀座の値段'
     print(f'  そろえて両方成り立つ時の{lab}：', dict(sorted(Counter(h[i] for h in hits).items())))
 # そろえない時：1.0 の表と同じ形（銀座 3人8時間・店主30万／奥多摩 家族・店主0円）
 print(f'  1.0 の形（銀座24人時・店主30万、奥多摩0人時・店主0円、値段1,000/890、10坪・42,497、家賃6万、その他25/20万）：銀座 {month(100,1000,424970,3,8,W,250000,80000,owner=300000)/1e4:+.1f}万・奥多摩 {month(30,890,60000,0,6,W,200000,80000)/1e4:+.1f}万')
+# 銀座の側の資料のない端（617円＝区部の統計の銘柄、坪85,000円＝路面の一等地の仮置き）を外した時
+sub = [h for h in hits if h[2] >= 800 and h[3] <= 42497]
+n_sub = len(list(itertools.product(*SH.values()))) * sum(1 for gp, gt, ga in SIDE_G if gp >= 800 and gt <= 42497) * len(SIDE_O)
+print(f'  銀座の値段800円以上・坪単価は資料の2つ（36,250・42,497円）だけにした時（雇う人時の差0）：{n_sub:,}通りのうち 両方成り立つ {len(sub):,}（{len(sub)/n_sub*100:.2f}%）')
+print('   その時の雇う人時：', dict(sorted(Counter(h[0] for h in sub).items())), '店主の取り分：', dict(sorted(Counter(h[1] for h in sub).items())), '銀座の値段：', dict(sorted(Counter(h[2] for h in sub).items())))
