@@ -1773,5 +1773,35 @@
   "verdict": "gray",
   "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"
+ },
+ "jtuc-rengo.or.jp": {
+  "verdict": "gray",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "checked": "2026-10-22"
+ },
+ "chosa.nifty.com": {
+  "verdict": "gray",
+  "basis": "robots.txt は取得できなかった（502）。規約に自動取得の明示的な禁止は見当たらない。1ページだけ取得（2026-10-22）",
+  "checked": "2026-10-22"
+ },
+ "seijiyama.jp": {
+  "verdict": "gray",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "checked": "2026-10-22"
+ },
+ "www.nli-research.co.jp": {
+  "verdict": "gray",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "checked": "2026-10-22"
+ },
+ "keiyaku-watch.jp": {
+  "verdict": "gray",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "checked": "2026-10-22"
+ },
+ "newswitch.jp": {
+  "verdict": "gray",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "checked": "2026-10-22"
  }
 }
