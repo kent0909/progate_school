@@ -6,7 +6,7 @@ file: r5-fv-wiki-gamedevtycoon.html
 sha256: 5c2a6a11dfca9a29ac7c10a414c99e527656665bbe282e04d4355c4b713c217c
 read: partial
 pages: 概要・遊び方・改造の対応・海賊版対策・評価の要約の節。表と参考文献は読んでいない
-anchors: ["starts out in a garage in the early 1980s", "As new games are created, new options are unlocked", "open an R&D lab when reaching certain requirements", "there are 943 mods on Steam Workshop", "gradually lose money until they do go bankrupt"]
+anchors: ["starts out in a garage in the early 1980s", "As new games are created, new options are unlocked", "when reaching certain requirements", "Ultimate Module Editor", "gradually lose money until they do go bankrupt"]
 ---
 英語版 Wikipedia「Game Dev Tycoon」（2012年、Greenheart Games）。概要。
 

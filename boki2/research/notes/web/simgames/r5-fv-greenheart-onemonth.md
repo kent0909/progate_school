@@ -5,7 +5,7 @@ doc: r5-fv-greenheart-onemonth
 file: r5-fv-greenheart-onemonth.html
 sha256: 60d5547f0c57869ea08e968750931703c6179c2ae3d13ac17586691fda5514cf
 read: full
-anchors: ["between positions 3 and 15, depending on the country", "On the first day alone we sold 470 copies", "More than 30% of players who try our game also buy it", "less ville , less social", "the 25 in-game years are over too quickly", "would require substantial changes"]
+anchors: ["between positions 3 and 15, depending on the country", "On the first day alone we sold 470 copies", "More than 30% of players who try our game also buy it", "the 25 in-game years are over too quickly", "would require substantial changes", "made to be fun"]
 ---
 Greenheart Games の公式ブログ「発売1か月のまとめと見通し」（2013年1月）。開発者本人の一次資料。
 

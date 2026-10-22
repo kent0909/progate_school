@@ -5,7 +5,7 @@ doc: r5-fv-pocketgamer-gamedevstory
 file: r5-fv-pocketgamer-gamedevstory.html
 sha256: 3d33d1787760fe6a99e7d73542379b47bdfb421b306f9468325140c72b79f58b
 read: full
-anchors: ["sinks its teeth into you without you even noticing", "take on contracts to pay the bills", "bold emoticons and speech bubbles indicating what your staff are up to at a glance", "Packet Monster Blue winning both the best and worst game", "lack of adequate information early on", "runs out of meaningful challenges in its second half"]
+anchors: ["sinks its teeth into you without you even noticing", "take on contracts to pay the bills", "bold emoticons and speech bubbles indicating what your staff are up to at a glance", "winning both the best and worst game", "lack of adequate information early on", "runs out of meaningful challenges in its second half"]
 ---
 Pocket Gamer の『Game Dev Story』のレビュー（2010年）。記者のレビュー。
 

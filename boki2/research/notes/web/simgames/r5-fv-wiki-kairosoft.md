@@ -6,7 +6,7 @@ file: r5-fv-wiki-kairosoft.html
 sha256: 09d99db2e20665b5dba51022f4b0f8326b7d9dbee9175af7ea6a77bb21741ffd
 read: partial
 pages: 本文（概要・歴史の2節）と参考文献の一覧。作品一覧の表は読んでいない
-anchors: ["dōjin games developer in 1996", "simulated a used bookstore", "much more developed than America's", "reached the top ten in iPhone app sales in its first week", "genre in their own right"]
+anchors: ["switched to developing mobile simulation games", "used bookstore", "much more developed than America's", "reached the top ten in iPhone app sales in its first week", "genre in their own right"]
 ---
 英語版 Wikipedia「Kairosoft」。概要の確認に使う（一次資料ではない）。
 

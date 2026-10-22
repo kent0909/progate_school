@@ -5,7 +5,7 @@ doc: r5-fv-gd-gamedevstory
 file: r5-fv-gd-gamedevstory.html
 sha256: a3e21e9ef29157a03eb1aeb9607d95922296c7e6e1e6b355667dfedeb7ca78e5
 read: full
-anchors: ["nothing more than a tarted-up spreadsheet", "sales figures rarely correlating to review scores", "the player starts writing their own story", "Buggy Shit!! 3", "narrative cannot help but emerge", "a kind of narrative exoskeleton"]
+anchors: ["nothing more than a tarted-up spreadsheet", "sales figures rarely correlating to review scores", "In that little flight of creativity", "Buggy Shit!! 3", "cannot help but emerge", "a kind of narrative exoskeleton"]
 ---
 Game Developer（旧 Gamasutra）に転載された Tom Armitage の分析「物語の外骨格と Game Dev Story」（2010年ごろ）。開発者ではないが、作り手側の論考。
 
