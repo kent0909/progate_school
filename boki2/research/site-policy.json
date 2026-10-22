@@ -2136,7 +2136,12 @@
  },
  "news.nissyoku.co.jp": {
   "verdict": "gray",
-  "basis": "規約確認のため robots.txt だけを先に取得（判定は読んだ後に上書きする）",
+  "basis": "robots.txt（r5-growth-robots-nissyoku）は記事を許可。利用規約（guide.news.nissyoku.co.jp/guide-list/termsofuse/、r5-growth-tos-nissyoku）に自動取得の明示的な禁止はなく、電子版のコンテンツの複写・転載・改変を禁じる。読んで要約するだけで原文は入れない",
+  "checked": "2026-10-22"
+ },
+ "guide.news.nissyoku.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt（r5-growth-robots-nissyoku）は記事を許可。利用規約（guide.news.nissyoku.co.jp/guide-list/termsofuse/、r5-growth-tos-nissyoku）に自動取得の明示的な禁止はなく、電子版のコンテンツの複写・転載・改変を禁じる。読んで要約するだけで原文は入れない",
   "checked": "2026-10-22"
  }
 }
