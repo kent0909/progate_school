@@ -144,3 +144,16 @@
 情報収集の決まり：research-fetch を通す・読了ノート・30字以上の一致なし・終了コード3は止まらず代わりの資料へ・research-check をエラー0で
 保存：章ごとに commit & push（ブランチ boki2-quest。他の担当と同じ作業場所なので index.lock で失敗したら数秒おいて再試行）
 ```
+
+---
+
+## 6. やっていないこと（判定役が読まなかったもの・確かめきれなかったこと）
+
+- **開いた読了ノートは27本のうち12本**：wiki-ippudo・wiki-komeda・tsr-ramen・jfc-panel2016・duke-elasticity・luca-yelp・tsr-insight・wiki-lanchester・jf-nenkan2024・stockout-regensburg（以上 `web/bizmgmt`）、mhlw-chuka・mhlw-kissaten（`law/primary`）。成長の分かれ道・因果・成功例・失敗の集計を支えるノートを優先した。
+- **開いていない15本**：boj-service-price・jfc-kaigyo2024・jfc-shihyou・jma-drink・jma-drug・maff-foodloss・stat-2014q3・stat-cpi2025・stat-gaishoku・stat-ice・tsr-bakery・wiki-aidma（`web/bizmgmt`）、caa-foodloss・mhlw-koyou・mhlw-minwage（`law/primary`）。これらが支える主張（需要の気温の閾値 17・41〜44行、季節 18・39〜40行、物価 21・75〜78行、離職・最低賃金 22・73〜74行、パン屋の倒産 206・235行、食品ロス 189行）は、ノートと照らしていない。ただし判定（アウト）の理由は成長の部分にあり、これらの真偽で判定は変わらない。
+- 開いた12本も**ノートと本文の照合だけ**で、取得した原本（`research/raw/`）は開いていない。ノートの数字が原本どおりかは確かめていない。
+- 本文の数字で、ノートと照らして合っていたもの：14行（廃業の割合）・15行（黒字基調55%→78%）・16行（弾力性0.7〜0.8）・19行（星1つで+5〜9%）・20行（品切れの反応の割合）・70行（ラーメン店の約7割黒字）・136行（人手不足倒産8件・飲食2.2倍）・162行（コメダの店数と業績）。食い違いは見つけていない（品切れの数字は食品小売の研究で、ラーメン店に当てはめることの是非は3章5で別に指摘した）。
+- `node boki2/tools/research-check.js` は走らせていない（判定の対象は中身の深さで、手続きの検査ではないため）。`node boki2/tools/report-check.js boki2/docs/BIZ-MGMT.md` は走らせ、結果は「旧形式（未監査）」だった。
+- BIZ-RAMEN.md・BIZ-CALIB.md そのものは判定していない。成長の分かれ道は BIZ-RAMEN の5章（171〜193行）に一部あり（ギフト・一風堂・山岡家・幸楽苑の実例）、BIZ-MGMT の欠けを一部埋めている可能性がある。BIZ-RAMEN の5章が受け入れの基準を満たすかは別に判定が要る（依頼文では、使ってよいが使ったと書かせる形にした）。
+- 4.1・4.2・5章で挙げた資料・会社の型（急拡大の失敗、FC の争い、非上場化など）は判定役の一般的な知識からの問いで、**外部の資料で存在や数字を確かめていない**（依頼文でも「資料で確かめてから書く」とした）。
+- DESIGN-RAMEN は BIZ-MGMT を引いた所（grep で `BIZ-MGMT`・`bizmgmt`・`CALIB M`）と c.3・e.4・f.2・b.1 だけを読み、全975行は読んでいない。
