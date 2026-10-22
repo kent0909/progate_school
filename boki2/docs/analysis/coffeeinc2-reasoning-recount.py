@@ -234,7 +234,7 @@ for r in (0.02, 0.03):
 need0 = (op + da) / 0.60
 print('     利息を財務の区分に入れる場合：落ち込み ＞ %.1f百万円（%.1f%%）' % (need0, 100 * need0 / sales))
 txt = open(os.path.join(ROOT, 'docs', 'BIZ-COFFEEINC2.md'), encoding='utf8').read().split('\n')
-left = [i + 1 for i, l in enumerate(txt) if '締めの演出' in l and 'K' not in l]
+left = [i + 1 for i, l in enumerate(txt) if '締めの演出' in l and 'K' not in l and '取り下げ' not in l]
 print('5-3 第4版の本文で「締めの演出」を、取り下げの説明なしに表現のエッセンスとして残す行', left)
 
 # ---- 4. 検査書の判定の数 ----
@@ -250,20 +250,22 @@ if os.path.exists(AUDIT):
             fix[j] += 1
     rows = 0
     ids = collections.defaultdict(list)
+    cntN = collections.Counter(); idsN = collections.defaultdict(list)
     for l in open(AUDIT, encoding='utf8'):
         m = re.match(r'^\| ([KN]\d+) \|', l)
         if not m:
             continue
         cells = [x.strip() for x in l.strip().strip('|').split('|')]
         j = cells[-2].replace('*', '')
-        if j in ('直った', '一部', '直っていない'):
-            fix[j] += 1; continue
         if j not in ('妥当', '弱い', '不当'):
             sys.exit('判定の列が読めない：' + m.group(1) + ' ' + j)
+        if m.group(1)[0] == 'N':
+            cntN[j] += 1; idsN[j].append(m.group(1)); continue
         rows += 1
         cnt[j] += 1
         ids[j].append(m.group(1))
     print('\n4a. 第4版の再検査：直しの確かめ', sum(fix.values()), '行：', ' / '.join('%s %d' % (k, fix[k]) for k in ('直った', '一部', '直っていない')))
-    print('\n4. 検査書の判定（K＝第3版の結論、N＝第4版で足された結論）', rows, '行：', ' / '.join('%s %d' % (k, cnt[k]) for k in ('妥当', '弱い', '不当')), '（合計', sum(cnt.values()), '）')
+    print('4b. 第4版で足された結論（N）', sum(cntN.values()), '行：', ' / '.join('%s %d' % (k, cntN[k]) for k in ('妥当', '弱い', '不当')), dict(idsN))
+    print('\n4. 第3版の結論（K）', rows, '行：', ' / '.join('%s %d' % (k, cnt[k]) for k in ('妥当', '弱い', '不当')), '（合計', sum(cnt.values()), '）')
     for k in ('不当', '弱い', '妥当'):
         print('  ', k, '・'.join(ids[k]))
