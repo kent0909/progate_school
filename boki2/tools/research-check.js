@@ -71,7 +71,8 @@ const rawByHash = new Map();
 const HC = path.join(R, 'raw', '.hashcache.json');
 const hashCache = fs.existsSync(HC) ? JSON.parse(fs.readFileSync(HC, 'utf8')) : {};
 function fileSha(p) { const st = fs.statSync(p); const k = `${st.size}:${st.mtimeMs}`; if (hashCache[p] && hashCache[p].k === k) return hashCache[p].h; const h = sha(fs.readFileSync(p)); hashCache[p] = { k, h }; return h; }
-for (const p of lsr(path.join(R, 'raw'))) { if (!p.includes(`${path.sep}.text${path.sep}`) && !p.endsWith('.hashcache.json')) rawByHash.set(fileSha(p), p); }
+// 他の担当が取得・改名している最中のファイルは消えていることがある。検査ごと落とさず、その1件だけ飛ばす
+for (const p of lsr(path.join(R, 'raw'))) { if (!p.includes(`${path.sep}.text${path.sep}`) && !p.endsWith('.hashcache.json')) { try { rawByHash.set(fileSha(p), p); } catch (x) {} } }
 try { fs.writeFileSync(HC, JSON.stringify(hashCache)); } catch (x) {}
 function sha(buf) { return crypto.createHash('sha256').update(buf).digest('hex'); }
 function rawFile(e) {

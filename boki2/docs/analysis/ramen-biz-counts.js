@@ -298,3 +298,11 @@ console.log('経済センサス（平成28年、J-Net21 の引用）18,041店／
     console.log(`1節の資料のうち本文で引いていないもの：${notCited.length ? notCited.join('・') : 'なし'}`);
   }
 }
+
+// ---------- 15. 例え話「大森の大盛」の時間の並びと杯数（r5-rmn-pres-ishido1-p2〜p4。著者の作り話。論証の検査 R05・R20） ----------
+{
+  const open1 = 0, decide2 = open1 + 3, open2 = decide2 + 3, decide3 = open2 + 3, open3 = decide3 + 3;
+  console.log('\n## 15. 例え話の時間の並び（作り話）');
+  console.log(`1軒目の開店 ${open1}か月 → 2軒目の決意 ${decide2} → 開店 ${open2} → 3軒目の決意 ${decide3} → 開店 ${open3}。後発の開店の間隔は ${open2 - open1}か月・${open3 - open2}か月`);
+  console.log(`地区の1日の杯数：200 → 200+130 → 200+130+100 = ${200 + 130 + 100}（後発の出店で地区の合計は ${((430 / 200 - 1) * 100).toFixed(1)}% 増える。1軒目は「少し行列が減った」）`);
+}

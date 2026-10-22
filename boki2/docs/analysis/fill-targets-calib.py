@@ -182,7 +182,8 @@ for i, it, name, text in [
 
 out = []
 for n, (f, i, kind, name, text) in enumerate(rows, 1):
-    if f == 'BIZ-CALIB.md': it = item_calib(kind, name, text, i)
+    if f == AUD: it = {183: 'FOODPOI', 184: 'PRICE', 185: 'JFC', 188: 'RENT', 189: 'SUMMER', 191: 'TAX'}[i]
+    elif f == 'BIZ-CALIB.md': it = item_calib(kind, name, text, i)
     else:
         sec = ''
         it = item_sim(kind, text, '1.' if 83 <= i <= 94 else '')

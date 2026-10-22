@@ -235,7 +235,7 @@ audit = os.path.join(ROOT, 'docs', 'audit', 'BIZ-REPLAY-reasoning.md')
 if os.path.exists(audit):
     ids = {}
     for l in open(audit, encoding='utf-8'):
-        m = re.match(r'\|\s*(R\d{2})\s*\|', l)
+        m = re.match(r'\|\s*([RDL]\d{2})\s*\|', l)
         if not m:
             continue
         cols = [c.strip() for c in l.strip().strip('|').split('|')]
@@ -246,9 +246,11 @@ if os.path.exists(audit):
                 v = key
                 break
         ids[m.group(1)] = v
-    c = Counter(ids.values())
-    print(f'行 {len(ids)}：妥当 {c.get("妥当",0)}／弱い {c.get("弱い",0)}／不当 {c.get("不当",0)}／判定なし {c.get(None,0)}')
-    for key in ('妥当', '弱い', '不当'):
-        print(f'  {key}: ' + '・'.join(sorted(k_ for k_, v in ids.items() if v == key)))
+    for pre, name in (('R', '本文の結論'), ('D', '差し替え'), ('L', '論証の表')):
+        sub = {k_: v for k_, v in ids.items() if k_.startswith(pre)}
+        c = Counter(sub.values())
+        print(f'{name} {len(sub)}：妥当 {c.get("妥当",0)}／弱い {c.get("弱い",0)}／不当 {c.get("不当",0)}／判定なし {c.get(None,0)}')
+        for key in ('妥当', '弱い', '不当'):
+            print(f'  {key}: ' + '・'.join(sorted(k_ for k_, v in sub.items() if v == key)))
 else:
     print('検査書がまだない')
