@@ -465,7 +465,7 @@ print('=== E12：天気が値段でなく仕込み（prep）の判断を作る�
 # 仕込みは週ごとに決める。「ふつうの月の仕込み」を雨の月にそのまま使ったときの取りこぼし（貢献利益に対する％）。
 rng = np.random.default_rng(11)
 def prep_profit(prep_w, Wm, sims=4000, waste=0.4, base=AVG / 4.3):
-    U = rng.uniform(0.9, 1.1, size=(sims,))
+    U = np.random.default_rng(11).uniform(0.9, 1.1, size=(sims,))   # 共通の乱数（どの仕込みの量でも同じ週の揺れ）
     N = base * Wm * U
     X = np.minimum(N, prep_w)
     left = np.maximum(0, prep_w - N)
