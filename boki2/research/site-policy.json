@@ -1643,5 +1643,20 @@
   "verdict": "gray",
   "basis": "Gaming Nexus。robots.txt を確認（該当パスの禁止なし、Claude 系の拒否なし）。規約に自動取得の禁止の明示は見当たらない",
   "checked": "2026-10-22"
+ },
+ "www.sangiin.go.jp": {
+  "verdict": "gray",
+  "basis": "参議院。robots.txt は接続できず確認不能（ledger r5-blr-robots-www-sangiin-go-jp）。国会の議案情報の公開ページで、自動取得を禁じる規約は見当たらない。1ページのみ",
+  "checked": "2026-10-22"
+ },
+ "www.cas.go.jp": {
+  "verdict": "gray",
+  "basis": "内閣官房。robots.txt は404（ledger r5-blr-robots-www-cas-go-jp）。政府機関の公表資料で、自動取得を禁じる規約は見当たらない。少数・間隔を守って取得",
+  "checked": "2026-10-22"
+ },
+ "kumanichi.com": {
+  "verdict": "gray",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "checked": "2026-10-22"
  }
 }

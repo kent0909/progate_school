@@ -370,3 +370,52 @@ Capitalism Lab の地図は毎回ランダム [[web:simgames:r5-fv-capilab-begin
 客の好みが決まっていて、型破りなジャンルの組み合わせは罰せられる [[web:simgames:r5-fv-digdl-gamedevtycoon]]。**鎖1の裏側**：相性表が硬すぎると「正解の組み合わせ探し」になり、鎖2の物語の余地も消える。
 
 ---
+
+## 3. 表現・UI・グラフィック：安っぽく見えない作り方（26項目）
+
+### 3.0 まず原則（資料から）
+- **規則を決めて削る**：Mini Metro は素材を最小にする制約を先に決め、色・形・線の規則を厳密にした [[web:simgames:r5-fv-wiki-minimetro]] [[web:simgames:r5-fv-gd-minimetro-gdc]]。カイロソフトはドット絵を選ぶ理由を「少人数・短期間でゲーム性に集中するため」と言う [[web:simgames:r4-sim-denfami-kairosoft]]。
+- **絵はゲームを支えるため**：見た目は状態と判断を伝えるために置く [[web:simgames:r5-fv-cgm-twopoint]]。ジュースは遊びの芯を強めるものに限り、やりすぎは苛立たせる [[web:simgames:r5-fv-gd-juice]]。
+- **作った物を絵にする**：Startup Company の「チープ」は、作った物が一覧でしかなく人が動かないことから来た [[web:simgames:r5-fv-gamesasylum-startup]]。
+- **文字の解像度のグラフ、内容を伝えない目立つ効果を消す** [[web:simgames:r5-fv-tufte-sparkline]]。
+- **目立たせる主役は1つ**：背景を静かにし、主役だけ彩度を上げる [[web:simgames:r5-fv-gd-juice]]。
+
+### 3.1 手法の一覧
+「難しさ」は、ブラウザ（HTML/CSS/SVG と少しの JS、外部の画像なしでも可）で作るときの見当：**易**＝CSS・SVG の基本だけ、**中**＝小さな JS の部品が要る、**難**＝絵の素材を描く・音を作るなど作り込みが要る。**どれも作品の絵・名前・画面の配置は写さず、型だけを使う**。
+
+| # | 観点 | 手法（型） | 何が効くか（根拠） | ピヨ商店での使い方 | HTML/CSS/SVG での作り方の見当 | 難しさ |
+|---|---|---|---|---|---|---|
+| 1 | ドット絵 | **一杯の丼をドット絵で組み立てる**（器・スープの色・麺・具を層で重ねる） | 記者が一番の見どころに挙げ、声でも「食べ物のドット絵が可愛い」「トッピングを変な角度で置くのが好き」[[web:simgames:r5-fv-gamespark-ramenkan]] [[web:simgames:r5-fv-applion-gurume]] [[web:simgames:r5-fv-applion-ramenkan-zenkoku]] | 作戦の机の「一杯の試作」の画面。スープ（醤油・味噌・塩・豚骨）は色、麺は太さで形を替え、具は置き位置を選ぶ | 32×32 の格子を SVG の `<rect>` で描くか、小さな PNG を `image-rendering: pixelated` で拡大。具は別の層の `<g>` を `transform` で置く。`shape-rendering: crispEdges` で輪郭をにじませない | 中（具の絵を十数個描く） |
+| 2 | ドット絵 | **食べる途中の段階**（満杯→半分→空の丼） | 「料理の減り方をもっと段階に」という要望 [[web:simgames:r5-fv-applion-gurume]] | 店内の客の卓。売れた杯数の手ざわりになる | 同じ丼の3枚を `steps(3)` のアニメーション、または状態で `<use href>` を差し替える | 易〜中 |
+| 3 | ドット絵 | **斜め見下ろしの箱庭（等角）** | カイロソフトの型。1996年の2本目から使う [[web:simgames:r5-fv-jawiki-kairosoft]] | 店内（カウンター・寸胴・券売機・席）と町の区画 | CSS の格子に `transform: rotateX(60deg) rotateZ(45deg)` をかけるか、SVG で菱形のタイルを並べる（2:1 の菱形）。前後は描く順で | 中 |
+| 4 | ドット絵 | **段で育つ外観**（屋台→小さな店→2号店→本部ビル→工場） | 場所の移動で成長が目に見える（鎖4）[[web:simgames:r5-fv-wiki-gamedevtycoon]] | 会社の段階 S1〜S5（DESIGN-RAMEN c.3）を外観の絵で。のれん・看板・提灯が段ごとに増える | SVG の部品（屋根・壁・のれん・看板）を段の値で `display` を切り替える。色は CSS 変数 | 中 |
+| 5 | アイコン | **頭上のアイコン・顔文字**（疲れ・不満・ご機嫌・ひらめき） | 社員の状態を一目で分かる [[web:simgames:r5-fv-pocketgamer-gamedevstory]] | 店員・客の頭上に。疲れた職人＝汗、行列で待つ客＝いらいら、常連＝ハート | 絶対配置の小さな SVG アイコンを `@keyframes` で上下に2px揺らす。意味は文字のラベルも付ける（色だけに頼らない） | 易 |
+| 6 | アイコン | **客の吹き出しで理由を言わせる**（「しょっぱい」「高い」「待ちすぎ」） | 売れた・売れない理由の手がかりになる [[web:simgames:r5-fv-pocketgamer-lemonadetycoon]] | 月報の「客の声」の行と、店内の客の頭上。隠れた相性（鎖1）の手がかりにもなる | `<div>` の吹き出し（CSS の `::after` で三角）。短い言葉は最大8字 | 易 |
+| 7 | アイコン | **形で種類を示す**（形＝行き先・種類） | Mini Metro は駅と乗客を形で結ぶ [[web:simgames:r5-fv-wiki-minimetro]] | 客層（会社員・学生・家族・観光客）を形のアイコンで。町の地図とシェアの表で同じ形を使う | SVG の `<circle>` `<rect>` `<polygon>` を `<symbol>` にして `<use>` で使い回す | 易 |
+| 8 | 色の意味 | **色の約束（設計の言語）**：状態の緑・橙・赤、自店とライバルの色、お金の出入りの色 | Two Point の色分けの表示 [[web:simgames:r5-fv-wiki-twopointhospital]]、Tufte の「赤＝最初と最新、青＝最高と最低」[[web:simgames:r5-fv-tufte-sparkline]]、Mini Metro の設計の言語 [[web:simgames:r5-fv-gd-minimetro-gdc]] | 全画面で同じ意味の色を使う（例：自店の色は一つ、借金は一つの色、預かり金は一つの色）。色を増やす前に意味を決める | `:root` に意味の名前の CSS 変数（`--c-own` `--c-rival-1` `--c-debt` `--c-ok` `--c-warn` …）。暗い表示も同じ名前で切り替える | 易（決めることが本体） |
+| 9 | 色の意味 | **エリアごとの色と小物**（地域ごとに見た目と課題を変える） | Two Point は地域ごとに固有の見た目 [[web:simgames:r5-fv-cgm-twopoint]] | 6エリア（駅前・商店街・学生街・住宅地・郊外幹線・オフィス街）に色・小物（電車・提灯・自転車・洗濯物・車・ビル）を | エリアごとに CSS 変数を上書きするクラス（`.area-station` など）。小物は SVG の部品 | 中 |
+| 10 | 情報の密度 | **全店の一覧（並べ替え・型の適用・複製）** | 一覧がない・並べ替えたい・複製できないは不満の定番 [[web:simgames:r5-fv-applion-ramenkan-zenkoku]] [[web:simgames:r5-fv-wiki-twopointhospital]] | 店の一覧（DESIGN-RAMEN j.1）。列の見出しで並べ替え、「1号店の設定を写す」 | `<table>` に `position: sticky` の見出し、`<button>` の並べ替え、数字は `font-variant-numeric: tabular-nums` で桁を揃える | 中 |
+| 11 | 情報の密度 | **余白と細い罫**（太い枠・色の箱を減らす） | 内容を伝えない目立つ効果は雑音 [[web:simgames:r5-fv-tufte-sparkline]] | 帳簿・月報・決算書。罫は1px の薄い色、枠は外す、見出しは太さで | `border-collapse` と `border-bottom: 1px solid var(--line)`、余白は `rem` の倍数で揃える | 易 |
+| 12 | 情報の密度 | **画面を分けず主役を全面に** | 分割の画面をやめ台所を全面にしたら作りやすくなった（会社の発言）[[web:simgames:r5-fv-pmq-goodpizza]] | スマホでは1画面1主役（作戦の机・月報・丼）。PC の3段でも中央を主役に | CSS Grid の領域を画面の幅で組み替える（`grid-template-areas`）。スマホは主役だけ、他はタブ | 中 |
+| 13 | 地図 | **路線図の作法の町の地図**（太い色の線・45度・駅＝丸） | Mini Metro の見た目 [[web:simgames:r5-fv-wiki-minimetro]] | 町の6エリアを線でつなぐ地図。自店・ライバル・空き物件を丸の種類で。隣町・県内も同じ作法で広がる | SVG の `<path>` に `stroke-width` 太め・`stroke-linecap: round`・`stroke-linejoin: round`、角度は 0/45/90 度だけ。駅は `<circle>` | 易〜中 |
+| 14 | 地図 | **色の重ね表示**（人通り・家賃・客層・混み具合の熱の地図） | Capitalism Lab の地価と人通り、Two Point の熱の地図 [[web:simgames:r5-fv-capilab-beginners]] [[web:simgames:r5-fv-cgm-twopoint]] | 物件を選ぶ画面で「人通り」「家賃」「学生の多さ」を切り替え。店内の混み具合 | エリアの `<polygon>` の `fill` を値で段階の色に（5段）。凡例を必ず付ける。切り替えは `<input type="radio">` | 易 |
+| 15 | グラフ | **スパークライン**（12か月の小さな線を表の中に） | 1つの数は文脈の中で意味を持つ、最近を重く見すぎる偏りを減らす [[web:simgames:r5-fv-tufte-sparkline]] | 店の一覧・口座の帯・月報の各行に。最新の点を数字と同じ色に、目安の範囲（原価率30%前後など）を灰色の帯で | 高さ 1em の SVG に `<polyline>`、帯は `<rect>`、最新の点は `<circle>`。縦横比は坂が45度前後になるよう | 易 |
+| 16 | グラフ | **需給の棒・詰まりの表示**（供給と需要の2本） | Capitalism Lab の需給の棒、人の過不足の表示がない不満 [[web:simgames:r5-fv-capilab-beginners]] [[web:simgames:r5-fv-gamesasylum-startup]] | 「スープの仕込み量と客数」「席数と行列」「職人の手と注文」のどれが売上の上限かを2本の棒で | `<div>` 2本の幅を `%` で、または SVG の `<rect>`。差が大きい方に色 | 易 |
+| 17 | グラフ | **前の周の薄い線（幽霊）** | Two Point のオンラインの挑戦はレースの幽霊の考え方から [[web:simgames:r5-fv-wiki-twopointhospital]] | 周のふりかえり（DESIGN-RAMEN j.1）の年×ネットキャッシュの線に、前の周を薄く重ねる | SVG の `<polyline>` を2本、前の周は `opacity: .35` と破線 `stroke-dasharray` | 易 |
+| 18 | 動きと手触り | **緩急のある動き**（出てくるときは最後にゆっくり止まる） | 直線の補間は味気ない [[web:simgames:r5-fv-gd-juice]] | 札（出来事）が机に置かれる、書類が届く、画面の切り替え | CSS `transition` に `cubic-bezier(.2,.8,.2,1)`（ease-out 系）。`prefers-reduced-motion` で止める | 易 |
+| 19 | 動きと手触り | **小さな生きている仕草**（待ちの店員があくび、職人が湯切り、客が麺をすする） | 受付の娘が退屈して鍵盤をいじる [[web:simgames:r5-fv-cgm-twopoint]]、17時に社員が帰る [[web:simgames:r5-fv-automaton-startup]]、反面教師は人が机に現れて消える [[web:simgames:r5-fv-gamesasylum-startup]] | 店内の絵に、状態で変わる2〜3コマの動き。閉店後の店、雨の日の客の傘 | 2〜3コマの絵を `steps()` の `@keyframes` で。状態はクラスで切り替え。間隔をずらすため `animation-delay` を人ごとに | 中〜難（コマの絵） |
+| 20 | 動きと手触り | **湯気・のれんの揺れ**（複数の周期を重ねる） | 植物の揺れは複数の正弦を重ねると自然 [[web:simgames:r5-fv-gd-juice]] | 丼の湯気、寸胴の湯気、のれん。冷めた丼は湯気なし（品質の手がかり） | SVG の湯気の `<path>` を2〜3本、`@keyframes` で `transform: translateY` と `opacity` を周期をずらして | 易 |
+| 21 | 効果音的な演出 | **合った瞬間の一瞬の止め＋短い音** | ぶつかった瞬間に一瞬止める、操作の音ははっきり厚く [[web:simgames:r5-fv-gd-juice]] | 仕訳の貸借が合った、月末の締めが通った、通帳と帳簿が一致した瞬間に | 100ms の止め（`setTimeout` で次の動きを遅らせる）＋ Web Audio の `OscillatorNode` で短い2音。音は設定で切れる | 中 |
+| 22 | 効果音的な演出 | **締めの儀式**（1日・1か月の終わりに店じまい） | 1日の終わりに曲が流れ電気が少しずつ消える演出を惜しむ声 [[web:simgames:r5-fv-applion-goodpizza]] | 月末の締めの後に、のれんを下ろし、明かりが段々消え、通帳の残高が出る。決算の締めは特別な儀式 | 店の絵に `filter: brightness()` を数秒かけて下げる `transition`、のれんの `transform`。数秒で飛ばせる | 易 |
+| 23 | 効果音的な演出 | **環境音とエリアの音**（町の音・厨房の音） | 小さな環境音で世界に根を張る、Two Point は自作の楽器と身近な物で音を作った [[web:simgames:r5-fv-gd-juice]] [[web:simgames:r5-fv-wiki-twopointhospital]] | 駅前は電車、商店街は呼び込み、厨房は寸胴の煮える音。既定は切っておき、設定で入れる | Web Audio でノイズを `BiquadFilterNode` にかけて煮える音、または短い音源を `<audio loop>`。音量は小さく | 中〜難 |
+| 24 | 数字が増える気持ちよさ | **数字のカウントアップと跳ね** | 声の最多は「少しずつ上がる数字」（29件）。具体の数字の上がり方を語る [[web:simgames:r5-fv-applion-ramenkan-zenkoku]] | 月報の売上・ネットキャッシュの帯・一杯の値。上がった分を「＋12万」と小さく浮かせる | `requestAnimationFrame` で ease-out の補間、`tabular-nums` で桁が揺れないように。浮かぶ差分は `@keyframes` で上へ消える | 易 |
+| 25 | 数字が増える気持ちよさ | **節目と段の星**（1〜3つ星・段位・最高記録の更新） | 1つ星で先へ・2〜3つ星はやり込み [[web:simgames:r5-fv-pcgi-twopoint]]、節目で効率が上がる [[web:simgames:r5-fv-gd-idlemath1]] | 月・期の目標を星で（1つ星＝黒字と期日、2つ星＝評判、3つ星＝ネットキャッシュの目標）。最高記録の更新に印 | SVG の星を `clip-path` で塗り、達成で `transform: scale()` の跳ね | 易 |
+| 26 | 数字・世界 | **町の新聞・ニュースの帯**（世界の外側と予兆を運ぶ） | ピザの世界のニュース、読み飛ばせるメール、毎日の見出し [[web:simgames:r5-fv-wiki-goodpizza]] [[web:simgames:r5-fv-gamemaker-csd]] [[web:simgames:r5-fv-wiki-lemonadetycoon]] | 月初の「らーめん新報」（仮）：小麦の売渡価格の改定の予告、流行の味、ライバルの求人と工事、ランキング。プレイヤーの店と一杯の名前が載る | `<article>` の紙面風の段組（CSS `columns`）、見出しの書体を変える。帯なら `@keyframes` の横流れ（動きを止める設定つき） | 易〜中 |
+
+### 3.2 26項目から言えること
+- **ブラウザで易しく作れるもの（易）が14項目**（5・6・7・8・11・13・14・15・16・17・18・20・22・24・25 のうち易のもの）。チープさを直す一番の近道は、絵を描き足すことより先に、**8（色の約束）・11（余白と細い罫）・15（スパークライン）・24（数字の跳ね）・13（路線図の地図）**で画面の規則を作ること【推測】。
+- **作り込みが要るもの（難を含む）は 1・3・4・19・23**。ここは絵と音の作り手が要る。ピヨ商店の「一杯」と「店」が絵にならない限り、鎖C（作った物が絵にならない）は解けない。**作り込みを理由に外さない**（捨てた案と理由）。
+- **動きと音は既定を控えめに**：やりすぎは苛立たせる [[web:simgames:r5-fv-gd-juice]]。`prefers-reduced-motion` と音の設定を最初から（REVIEW-ROUND2 のアクセシビリティの直しと同じ向き）。
+- **写さないもの**：各作品のキャラクター・ロゴ・画面の配置・固有の名前（例：ピザの局の名前、カイロくん）・音源。使うのは「丼を層で組む」「頭上のアイコン」「路線図の作法」「星の段」などの型だけ。
+
+---
