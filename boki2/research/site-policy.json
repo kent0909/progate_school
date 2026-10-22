@@ -1586,7 +1586,7 @@
  },
  "www.nippon.com": {
   "verdict": "gray",
-  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
   "checked": "2026-10-22"
  },
  "www.family.co.jp": {
@@ -1597,6 +1597,21 @@
  "webtan.impress.co.jp": {
   "verdict": "gray",
   "basis": "robots.txt は 403 で読めず、規約の自動取得禁止も未確認。同じ impress の他ホストは gray。1頁だけ取る（gray）",
+  "checked": "2026-10-22"
+ },
+ "president.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "lp.raksul.com": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "agora-web.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
   "checked": "2026-10-22"
  }
 }

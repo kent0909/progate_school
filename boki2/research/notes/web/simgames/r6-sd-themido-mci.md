@@ -2,7 +2,7 @@
 src: web
 coll: simgames
 doc: r6-sd-themido-mci
-file: r6-sd-themido-mci_pdf.html
+file: r6-sd-themido-mci_pdf.pdf
 sha256: 1bcfef59cc3e50323f50425f2291c568b5b9ca6b2fc52230a806734cd7811fb6
 read: full
 anchors: [Multiplicative Competitive Interaction, RELATIVE MARKETING, ARE DIRECT ELASTICITIES ROBUST, Saludães, Malandrinho, COMPETITIVE MAP]
