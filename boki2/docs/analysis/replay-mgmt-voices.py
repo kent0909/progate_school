@@ -44,8 +44,8 @@ print('「周」か「週」の字を含む口コミ：%d 件' % len(H), dict(co
 rows = {}
 if os.path.exists(CODES):
     for line in open(CODES, encoding='utf8'):
-        m = re.match(r'\|\s*(\d+)\s*\|([^|]*)\|([^|]*)\|([^|]*)\|', line)
-        if m: rows[int(m.group(1))] = [x.strip() for x in m.groups()[1:]]
+        m = re.match(r'\|\s*(\d+)\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|', line)
+        if m: rows[int(m.group(1))] = [x.strip() for x in m.groups()[2:]]
 miss = [u['id'] for u in H if u['id'] not in rows]
 print('コードのない口コミ：', miss or 'なし')
 rel = [u for u in H if rows.get(u['id'], ['-'])[0] != '-']
