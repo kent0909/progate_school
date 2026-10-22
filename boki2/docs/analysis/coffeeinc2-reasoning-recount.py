@@ -9,7 +9,8 @@ import re, html, difflib, os, sys, collections
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
 RAW = os.path.join(ROOT, 'research', 'raw', 'web', 'simgames')
-CODES = os.path.join(ROOT, 'docs', 'analysis', 'coffeeinc2-voices-codes.md')
+CODES = os.path.join(ROOT, 'docs', 'analysis', 'coffeeinc2-voices-codes-v1.md')   # 第1版（検査した b055378 の3章の数の元）
+CODES2 = os.path.join(ROOT, 'docs', 'analysis', 'coffeeinc2-voices-codes.md')     # 第2版（03498c7 の3章の点の数の元）
 AUDIT = os.path.join(ROOT, 'docs', 'audit', 'BIZ-COFFEEINC2-reasoning.md')
 nn = lambda s: re.sub(r'[\s\W]', '', s)
 clean = lambda s: re.sub(r'\s+', ' ', html.unescape(re.sub(r'<br\s*/?>', '\n', re.sub(r'<(?!br)[^>]+>', '', s)))).strip()
@@ -44,12 +45,18 @@ for l in open(CODES, encoding='utf8'):
     if re.match(r'^\| \d+ \|', l):
         c = [x.strip() for x in l.strip().strip('|').split('|')]
         C[int(c[0])] = {'stars': int(c[2]), 'P': c[3].split(), 'N': c[4].split(), 'T': c[5]}
+C2 = {}
+for l in open(CODES2, encoding='utf8'):
+    if re.match(r'^\| \d+ \|', l):
+        c = [x.strip() for x in l.strip().strip('|').split('|')]
+        C2[int(c[0])] = {'stars': int(c[2]), 'P': c[3].split(), 'N': c[4].split(), 'T': c[5]}
 V = {}
-mism = 0
+mism = mism2 = 0
 for n, v in zip(NUMS, ALL):
-    V[n] = dict(C[n], body=v['body'])
+    V[n] = dict(C[n], body=v['body'], P2=C2[n]['P'], N2=C2[n]['N'], T2=C2[n]['T'])
     mism += (C[n]['stars'] != v['stars'])
-print('1. 切り出し 160件、コード表との星の不一致', mism, '件（0なら番号の対応は正しい）')
+    mism2 += (C2[n]['stars'] != v['stars'])
+print('1. 切り出し 160件、星の不一致：第1版の表', mism, '件・第2版の表', mism2, '件（0なら番号の対応は正しい）')
 
 def show(title, items):
     """items: [(番号, 原文に出るはずの語句, 検査役の読み)]。語句が本文に無ければ止まる"""
@@ -57,7 +64,7 @@ def show(title, items):
     for i, phrase, note in items:
         if phrase not in V[i]['body']:
             sys.exit('語句が本文にない：#%d「%s」' % (i, phrase))
-        print('  #%-3d 褒め=%-10s 不満=%-12s「%s」 %s' % (i, ' '.join(V[i]['P']), ' '.join(V[i]['N']), phrase, note))
+        print('  #%-3d 褒め v1=%-9s v2=%-9s「%s」 %s' % (i, ' '.join(V[i]['P']), ' '.join(V[i]['P2']), phrase, note))
 
 # ---- 2. 検査役の分類（根拠の語句つき） ----
 # 2-1 長く遊んだ記述（没入 I のコードの有無を問わず、160件全部から）。報告は I の中の「後半」4件＋あいまい1件だけを数えた
@@ -76,7 +83,10 @@ LONG = [
 ]
 show('2-1 長く遊んだ記述（160件から）', LONG)
 noI = [i for i, _, _ in LONG if 'I' not in V[i]['P']]
-print('  うち没入（I）のコードが付いていないもの', len(noI), '件', noI)
+noI2 = [i for i, _, _ in LONG if 'I' not in V[i]['P2']]
+print('  うち没入（I）の印が付いていないもの：第1版', len(noI), '件', noI, '／第2版', len(noI2), '件', noI2)
+late2 = sorted(i for i, v in V.items() if v['T2'] in ('後半', '後半?'))
+print('  第2版の表で「後半」「後半?」の印', late2, '→ 160件全体の11件のうち', len(late2), '件だけ')
 # その人たちが何の層で遊んでいるか（本文の語句で）
 LAYER = {
     10: ('不動産収益(家賃収入)を見える化', '金融・不動産＋店'), 11: ('ベンチャー企業投資の機会と不動産の占有率', '金融・不動産'),
@@ -120,7 +130,9 @@ for i, (ph, k) in LT.items():
     if ph not in V[i]['body']:
         sys.exit('語句が本文にない：#%d「%s」' % (i, ph))
     lc[k.split('（')[0].split('＋')[0]] += 1
-print('\n2-3 学び（L）24件の中身', dict(lc))
+print('\n2-3 学び（L）24件（第1版）の中身', dict(lc))
+L2 = sorted(i for i, v in V.items() if 'L' in v['P2'])
+print('  第2版の L', len(L2), '件。第1版から外れた', sorted(set(LT) - set(L2)), '加わった', sorted(set(L2) - set(LT)))
 print('  店の中の因果（鎖1）に当たるもの：#90（人数・時給・税）・#41（店長のシステム）の2件。金融・会計の語を含むもの', sum(1 for k in LT.values() if '金融' in k[1]), '件')
 
 # 2-4 店の層は儲からない／伸びない、と書いた声・資料 vs 「増やすほど儲かる」
@@ -145,6 +157,8 @@ SDOM = [(4, 'システム上限のPERで', 'PER の抜け道'), (8, 'コーヒ�
         (150, 'コーヒー経営一切行わずに最初から投資だけで', '')]
 show('2-5 S（副業・金融の層を褒める）18件のうち、本業より金融が勝つことを書いているもの', SDOM)
 print('  S と不満 a（後半の手詰まり）の両方を持つ声', [i for i, v in V.items() if 'S' in v['P'] and 'a' in v['N']])
+S2 = sorted(i for i, v in V.items() if 'S' in v['P2'])
+print('  第2版の S', len(S2), '件', S2, '。うち上の4件に入るもの', [i for i, _, _ in SDOM if i in S2])
 
 # 2-6 不動産そのものの操作（指値・占有率）に触れた声の向き
 RE = [(1, '高額な不動産を購入するときの価格調整', '不満'), (14, '不動産を購入するとき、価格の設定がめんどい', '不満'),
@@ -180,7 +194,9 @@ print('  「新しい都市」6件のうち #85 は「新しい都市の追加�
 
 # 2-10 没入（I）のうち「要素の多さ」（D）を同じ声に持つもの（「多さは始めたら止まらない理由として強い」の検査）
 I = sorted(i for i, v in V.items() if 'I' in v['P'])
-print('\n2-10 没入 I', len(I), '件のうち D（要素の多さ）も付く声', [i for i in I if 'D' in V[i]['P']], '／S も付く声', [i for i in I if 'S' in V[i]['P']])
+print('\n2-10 第1版：没入 I', len(I), '件のうち D（要素の多さ）も付く声', [i for i in I if 'D' in V[i]['P']], '／S も付く声', [i for i in I if 'S' in V[i]['P']])
+I2 = sorted(i for i, v in V.items() if 'I' in v['P2'])
+print('     第2版：没入 I', len(I2), '件のうち D も付く声', [i for i in I2 if 'D' in V[i]['P2']], '／「最初」の印', [i for i in I2 if V[i]['T2'] == '最初'])
 
 # 2-11 公式の数（AppGoblin）
 inst, mau, mnew, wnew = 862000, 17000, 5200, 667

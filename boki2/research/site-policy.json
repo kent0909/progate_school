@@ -2038,5 +2038,35 @@
   "verdict": "gray",
   "basis": "robots.txt（https://upload.wikimedia.org/robots.txt）は /wikipedia/commons/archive/ だけを禁止。ClaudeBot・anthropic-ai の名指しなし。Wikimedia の利用規約に閲覧目的の取得の禁止はない。en.wikipedia の記事に載る画面写真（非自由のものを含む）を目で見るためだけに取得し、転載しない",
   "checked": "2026-10-22"
+ },
+ "2.bp.blogspot.com": {
+  "verdict": "gray",
+  "basis": "Google の Blogger の画像配信（bp.blogspot.com）。robots.txt は 400 で取得できず、配信の画像に自動取得の禁止の明示は見当たらない。記事に載った画面写真を目で見るためだけに取得し、転載しない",
+  "checked": "2026-10-22"
+ },
+ "1.bp.blogspot.com": {
+  "verdict": "gray",
+  "basis": "Google の Blogger の画像配信（bp.blogspot.com）。robots.txt は 400 で取得できず、自動取得の禁止の明示なし。画面写真を目で見るためだけ",
+  "checked": "2026-10-22"
+ },
+ "www.hotpepper.jp": {
+  "verdict": "gray",
+  "basis": "hotpepper.jp/robots.txt は /ggs/ を禁止していない。外食総研の公開レポートPDF。規約に自動取得の明示の禁止は見つけていない（2026-10-22）",
+  "checked": "2026-10-22"
+ },
+ "hovgaardgames.com": {
+  "verdict": "gray",
+  "basis": "Hovgaard Games 公式サイト。robots.txt は 404（制限なし）、サイトに自動取得の禁止の明示は見当たらない。作品の紹介と画面写真を読むため",
+  "checked": "2026-10-22"
+ },
+ "mohawkgames.com": {
+  "verdict": "gray",
+  "basis": "Mohawk Games 公式サイト。robots.txt は /wp-admin/ のみ禁止で ClaudeBot の名指しなし。規約に自動取得の禁止の明示は見当たらない。作品の紹介と画面写真を読むため",
+  "checked": "2026-10-22"
+ },
+ "www.mohawkgames.com": {
+  "verdict": "gray",
+  "basis": "Mohawk Games の www 付きの画像配信（同じ WordPress）。robots.txt は /wp-admin/ のみ禁止。画面写真を目で見るためだけ",
+  "checked": "2026-10-22"
  }
 }
