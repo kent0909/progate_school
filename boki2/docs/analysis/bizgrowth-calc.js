@@ -60,6 +60,13 @@ add('C2', '中華 廃業÷成長に向かう選択肢の和', '11.2÷16.2', 11.2
 add('C3', '開業パネル 10人以上の企業の割合 開業時→2020年末', '(2.7+1.2)→(9.7+4.1)', (9.7 + 4.1), '%（開業時は3.9%）', 'r4-mgmt-jfc-panel2016#growth');
 add('C4', '開業パネル 1年目の報酬÷開業直前の収入', '27.4万÷35.9万−1', pct(27.4, 35.9) - 100, '%', 'r4-mgmt-jfc-panel2016#growth');
 
-console.log('| id | 何の数 | 式 | 値 | 単位 | 読了ノート |');
-console.log('|---|---|---|---|---|---|');
-for (const r of rows) console.log(`| ${r.id} | ${r.label} | ${r.formula} | ${r.value} | ${r.unit} | ${r.doc} |`);
+// 標本（誰の数か）：読了ノートの種類から
+const sample = (doc) => {
+  if (/chuka/.test(doc)) return '中華料理店366施設（厚労省の実態調査 2014年10月、中華そば店・食堂レストラン等を含む）';
+  if (/panel2016/.test(doc)) return '全業種の2016年開業の企業（公庫のパネル、従業者は968社）';
+  if (/jfa-komeda/.test(doc)) return '1社（株式会社コメダ単体の法定開示書面）';
+  return '1社（会社の有報・説明資料・短信。連結か単体かは何の数の欄）';
+};
+console.log('| id | 何の数（誰の・何の・いつ） | 標本 | 式 | 値 | 単位 | 読了ノート |');
+console.log('|---|---|---|---|---|---|---|');
+for (const r of rows) console.log(`| ${r.id} | ${r.label} | ${sample(r.doc)} | ${r.formula} | ${r.value} | ${r.unit} | ${r.doc} |`);
