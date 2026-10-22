@@ -5,7 +5,7 @@ doc: r6-cal-q-js-danryokusei-gaishoku
 file: r6-cal-q-js-danryokusei-gaishoku.html
 sha256: 4b8f60b8531538821d8b5a51e4550248b478714b4d5e8ff347ad2dc0911c05d4
 read: full
-anchors: ["jfsr/32/4/32_014", "seisan/23/3/23_9", "jhej/58/2/58_2_65", "seisan/30/2/30_49", "nokei/97/4/97_325", "nokei/87/3/87_306", "lca/7/1/7_48", "nokei/88/3/88_329", "nokei/89/4/89_318", "nokei/57/4/57_228", "jfsr1994/4/1/4_1_18", "nokei/90/4/90_397"]
+anchors: ["jfsr/32/4/32_014", "seisan/23/3/23_9", "jhej/58/2/58_2_65", "jfsr1994/4/1/4_1_18", "nokei/90/4/90_397", "fmsj/54/3/54_15", "nokei/98/1/98_398", "nokei/95/1/95_1", "fmsj1963/38/1/38_165"]
 ---
 
 J-STAGE の検索 API（service=3、語「価格弾力性 外食」、50件まで）の結果の一覧（件数の表示 97、取れた件数 50）。BIZ-CALIB 版0.4 の (c) の行（M1・M11）に「探した資料」を2本以上そろえるために問い合わせた（検索の記録は research/searches/calib.jsonl）。一覧の題名を全部読んだ。

@@ -5,7 +5,7 @@ doc: r6-cal-q-js-kounetsuhi-inshoku
 file: r6-cal-q-js-kounetsuhi-inshoku.html
 sha256: e90ad80541bce298f472a81d687bcb11a20ab2805c68576ebfd8c5e9e9493cf4
 read: full
-anchors: ["jje/46/3/46_3_208", "jisdh1994/7/3/7_3_2", "arp/40/1/40_10", "jarms/54/0/54_5", "jares1985/9/2/9_2_64", "kansei/11/3/11_156", "jfsr/28/3/28_4", "arfe/54/3/54_149", "toshigaku/55/0/55_43", "jfsr/28/3/28_1", "lecgsa/21/0/21_49", "srs/39/4/39_4_991"]
+anchors: ["jje/46/3/46_3_208", "jisdh1994/7/3/7_3_2", "arp/40/1/40_10", "toshigaku/55/0/55_43", "jfsr/28/3/28_1", "lecgsa/21/0/21_49", "jcar/46/1/46_60", "jcar/43/1/43_57", "jmda/14/0/14_52"]
 ---
 
 J-STAGE の検索 API（service=3、語「光熱費 飲食店 経営」、50件まで）の結果の一覧（件数の表示 102、取れた件数 50）。BIZ-CALIB 版0.4 の (c) の行（M20・M21）に「探した資料」を2本以上そろえるために問い合わせた（検索の記録は research/searches/calib.jsonl）。一覧の題名を全部読んだ。
