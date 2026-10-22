@@ -153,6 +153,23 @@ console.log(`どさん子（FC）：1967→1971年 1→500店 ＝ 年 ${r0(499 /
 console.log(`ギフト（直営）：2025年10月期 直営 227→279店（+${r1((279 / 227 - 1) * 100)}%/年）で営業利益率9.4%。山岡家 2010→2012年 102→137店（2年で+34.3%、年 +${r1((Math.sqrt(137 / 102) - 1) * 100)}%）で0.2%`);
 console.log('一風堂：暖簾分け制度を会社自身が「（フランチャイズモデル）」と書き、ロイヤリティを受け取る');
 
+// ---------- 11a. 系統の原価の差は小さいか（r5-rmn-cost-canaeru の1杯の原価、石動龍の40杯の店） ----------
+console.log('\n## 11a. 系統の原価の差を月の利益と比べる');
+for (const cups of [40, 100]) {
+  const diff = (270 - 185) * cups * 25;
+  console.log(`味噌270円と醤油185円の差85円 × ${cups}杯 × 25日 = 月 ${diff.toLocaleString()} 円${cups === 40 ? `。石動龍の40杯の店の税引き前の残り20万円の ${r0(diff / 200000 * 100)}%` : ''}`);
+}
+const jiroCost = 300, shoyu = 185; // 二郎系は報告6章の【推論】300〜360円の下の端
+console.log(`二郎系（約300円）と醤油（185円）の差 ${jiroCost - shoyu}円 × 40杯 × 25日 = 月 ${((jiroCost - shoyu) * 40 * 25).toLocaleString()} 円`);
+
+// ---------- 11b. 一風堂の利益の落ち方の内訳（r4-ramen-chikara-tanshin2026） ----------
+console.log('\n## 11b. 一風堂（力の源）のセグメント利益の落ち方');
+const dom = 1447, domPrevRate = -0.065, ovs = 870, ovsPrevRate = -0.226;
+const domPrev = dom / (1 + domPrevRate), ovsPrev = ovs / (1 + ovsPrevRate);
+const dDom = domPrev - dom, dOvs = ovsPrev - ovs;
+console.log(`国内 前期 約${r0(domPrev)}→${dom}百万円（−${r0(dDom)}）、海外 前期 約${r0(ovsPrev)}→${ovs}百万円（−${r0(dOvs)}）。落ちた分のうち海外が ${r0(dOvs / (dDom + dOvs) * 100)}%`);
+console.log('据え置き（約2年半値上げせず）は国内の話。海外は「価格改定やメニュー変更」をしたうえで利益が22.6%減った。連結の営業利益率 5.4→8.7→10.4→8.2→6.4%（2022〜2026年3月期）');
+
 // ---------- 11. 検査書の判定の数 ----------
 const audit = path.join(__dirname, '..', 'audit', 'BIZ-RAMEN-v2-reasoning.md');
 if (fs.existsSync(audit)) {
