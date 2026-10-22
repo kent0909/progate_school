@@ -1,0 +1,102 @@
+# 判定役の目隠しの符号（BIZ-FUNVISUAL 版0.2 の再判定）。書き手の符号表 funvisual-voices-codes.txt を開く前に付けた。
+# 抜き取り：funvisual-v02-blind-sample.js（原文778件から種20261022で100件）。書式：作品 ページ-番号 符号…
+cinc 1-1 I C2 N BVR S
+cinc 1-11 BV N K
+cinc 1-15 N BVR S
+cinc 1-16 N S
+cinc 1-19 C2 BV N
+cinc 2-5 R
+cinc 2-6 E DF R
+cinc 2-13 O
+cinc 2-15 O
+cinc 2-16 R C2
+cinc 3-4 N
+cinc 3-11 BV B K
+cinc 3-19 BVR
+cinc 4-5 R
+cinc 4-13 W A3 C2 R
+cinc 4-18 R
+cinc 5-10 E A3
+cinc 5-12 ED A3
+cinc 6-5 R
+cinc 6-14 DF
+cinc 6-16 O
+cinc 7-8 N
+ramenkan 1-12 W K
+zenkoku 1-9 C1 C2 D3 H2
+zenkoku 2-18 V C2 D1 J1
+zenkoku 3-1 D1 D3 SG J1
+zenkoku 3-4 W V X
+zenkoku 3-9 A1 D2 W H1 H4 C2
+zenkoku 3-12 J1 C2 N
+zenkoku 3-14 K A2 DF C2
+zenkoku 3-16 K J1 J2
+zenkoku 3-20 K T
+zenkoku 4-2 C2 J1 W
+zenkoku 4-6 SG J2 C2 D2
+zenkoku 4-11 A1 A2 D3 C2
+zenkoku 4-15 K
+zenkoku 4-16 I H1 W SG
+zenkoku 5-1 K C2 U
+zenkoku 5-8 D2 C2 H4 E A3
+zenkoku 6-18 B A1
+zenkoku 7-4 I J2 K
+zenkoku 7-5 J2 C2 O
+zenkoku 8-8 D1 C2
+zenkoku 9-12 A1 A2
+zenkoku 9-18 A1 PP
+zenkoku 10-3 C2 T
+zenkoku 10-7 K O
+zenkoku 10-9 A1 W
+gurume 1-3 K C2
+gds 1-2 Q L1
+gds 1-11 X G1 A3 C2 N J2
+gds 2-8 D3 B C2 K
+gds 2-16 C1 D3 J2
+gds 3-2 C2 A2 G2 D3 J2
+gds 3-4 D3 C1
+gds 3-8 D3 C2 B
+gds 3-15 K B
+gds 3-17 V W C2
+gds 3-19 J1 A1
+gds 4-3 J2 O L4 S
+gds 4-13 K C2 G2 I
+gds 4-16 G1 C2 L4 O
+gds 5-8 J2 C2
+gds 6-6 I C2 K
+gds 6-13 V O
+gds 6-15 V C2 D3
+gds 7-7 D3 I
+gds 8-8 J1
+gds 9-1 B W C2
+gds 9-9 I C2
+gds 9-12 D3 O I
+gds 9-15 C1 C2 J2
+gds 9-16 R
+gds 10-12 V C2
+gds 10-16 D3 K
+pizza 1-15 M3 RD M1
+pizza 2-5 F A3 RD N
+pizza 2-8 J2 M1 F W
+pizza 2-10 F W J2 R
+pizza 2-13 DF H1 D1
+pizza 2-17 J1 H1
+pizza 2-19 V M1
+pizza 3-5 F DF
+pizza 3-9 V H1 E T
+pizza 4-8 F W H2
+pizza 4-11 A3 R S
+pizza 4-12 RD W DF
+pizza 5-3 H1 H2 C2
+pizza 5-17 J2 C2
+pizza 5-18 H1
+pizza 6-1 C2 H1 D1
+pizza 6-8 L1 D1
+pizza 6-19 B RD M1
+pizza 7-5 D1 D3
+pizza 8-6 H3
+pizza 8-12 G1
+pizza 9-17 DF
+pizza 9-19 S
+pizza 10-9 H2
+pizza 10-14 DF RD
