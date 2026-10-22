@@ -1758,5 +1758,20 @@
   "verdict": "ok",
   "basis": "エセックス大学の機関リポジトリ（受理原稿の公開）。robots.txt は /cgi/ のみ Disallow（2026-10-22 確認）",
   "checked": "2026-10-22"
+ },
+ "www.maruha-nichiro.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "mag.smarthr.jp": {
+  "verdict": "gray",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "checked": "2026-10-22"
+ },
+ "www.mc-law.jp": {
+  "verdict": "gray",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
+  "checked": "2026-10-22"
  }
 }
