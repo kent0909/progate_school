@@ -2667,3 +2667,5 @@
 {"t":"2026-10-22T05:20:22.978Z","src":"web","coll":"bizlaw","doc":"r5-blr-rengo-qa07","url":"","status":"skipped","reason":"upstream request failed（接続できず）。労働者側の資料は他で代える","via":"research-fetch"}
 {"t":"2026-10-22T05:20:23.009Z","src":"web","coll":"bizlaw","doc":"r5-blr-nli-menu","url":"","status":"skipped","reason":"404（URL の移動）。外食のメニュー表示は他の資料で代える","via":"research-fetch"}
 {"t":"2026-10-22T05:20:23.042Z","src":"web","coll":"bizlaw","doc":"r5-blr-nli-tabelog","url":"","status":"skipped","reason":"404（URL の移動）。食べログ判決は契約ウォッチの判例解説で代える","via":"research-fetch"}
+{"t":"2026-10-22T05:20:23.664Z","src":"web","coll":"bizmkt","doc":"r5-mktr-japanpost-dmsurvey","url":"","status":"skipped","reason":"https から http への転送で 0 バイト（この環境の proxy で http に出られない）。DM の閲読率は二次の記事の数字しか見ておらず根拠にしない","via":"research-fetch"}
+{"t":"2026-10-22T05:20:23.694Z","src":"web","coll":"bizmkt","doc":"r5-mktr-anderson-yelp","url":"","status":"skipped","reason":"研究者頁の PDF が 404（移動）。同じ系統の研究は BIZ-MGMT の r4-mgmt-luca-yelp を使う","via":"research-fetch"}
