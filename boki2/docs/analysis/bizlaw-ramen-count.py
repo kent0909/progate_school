@@ -115,6 +115,12 @@ if os.path.exists(REP):
     appA = re.findall(r'^\| A\d+ ', sect('付録A の128項目の仕分け'), re.M)
     n5 = re.findall(r'^\| N5-\d+ ', sect('判定書 N5 の14件の取り込み'), re.M)
     print(f'  灰色の判断 {len(gray)} 件')
+    # 型の列（最後の列の先頭の英字 a〜d）を自分で数える（論証の検査 R005 の型分類を写さず、自分の表から数え直す）
+    kinds = {}
+    for row in re.findall(r'^\| G\d+ .*$', sect('灰色の判断の一覧'), re.M):
+        last = row.rstrip().rstrip('|').split('|')[-1].strip()
+        kinds[last[:1] or '?'] = kinds.get(last[:1] or '?', 0) + 1
+    print(f'  灰色の判断の型 {dict(sorted(kinds.items()))}（a 本当の灰色・b 決まりで決まる・c 法と関係の薄い合法どうしの引き換え・d 違反は明らかで発覚だけ揺れる）')
     print(f'  事例と判例 {len(cases)} 件（失敗 {len(fail)}、成功 {len(succ)}、外食・ラーメン {len(gaishoku)}）')
     print(f'  統計 {len(stats)} 項目')
     print(f'  仕訳の例 {len(jrn)} 例（うち2級の外と書いたもの {len(jrn2)}）')
@@ -155,9 +161,10 @@ def kanjinum(x):
         elif ch == '百': n += (cur or 1) * 100; cur = 0
         elif ch == '千': n += (cur or 1) * 1000; cur = 0
     return n + cur
+ALIAS = {'補助金適正化法': '補助金等に係る予算の執行の適正化に関する法律'}  # 略称 → ノートに書いた正式名
 def note_has(law, art):
     for t in lawnotes:
-        if law not in t: continue
+        if law not in t and ALIAS.get(law, '\0') not in t: continue
         nums = {int(m) for m in re.findall(r'第?(\d+)条', t)} | {kanjinum(m) for m in re.findall(r'第([〇一二三四五六七八九十百千]+)条', t)}
         if art in nums: return True
     return False
@@ -265,7 +272,7 @@ if os.path.exists(REP):
            '灰色の判断の一覧': '新', '規模の段階で変わる制度の表': '新', '起きる確率の根拠': '新', '事例と判例': '新', '仕訳の例': '新',
            '消費税の税率の表': '新', 'DESIGN-RAMEN の判断への対応表': '新', '偽りの損得': '旧', 'ゲームへの写し方': '新', 'うまくいく理由': '新',
            'うまくいかない理由': '新', '反証と限界': '新', '捨てた案と理由': '形', '判定書 N5': '旧', '付録A': '旧', '論証の表': '形',
-           '依頼の対応表': '形', 'やっていないこと': '形', '判定書 BIZ-LAW-RAMEN-audit への対応': '形', '論証の検査への対応表': '形'}
+           '依頼の対応表': '形', 'やっていないこと': '形', '判定書 BIZ-LAW-RAMEN-audit への対応': '形', '論証の検査への対応表': '形', '検査役の筋から採ったもの': '形'}
     OLD_SUB = ('1-5', '1-6', '4-3', '7-6', '9-4', '12-3', '12-5')
     tot = {'新': 0, '旧': 0, '形': 0, '?': 0}
     for blk in re.split(r'^(?=## )', s, flags=re.M)[1:]:
