@@ -106,3 +106,9 @@ for (const w of works) { const n = rows.filter((r) => r.w === w).length; const c
     for (const w of works) { const a = ws.filter((x) => x[0] === w); if (a.length) console.log(`  ${NAME[w]}：` + cls.map((c) => `${c} ${a.filter((x) => x[2] === c).length}`).join('・')); }
   }
 }
+
+// 版0.4：K（作り手への信頼）が、仕組みを褒める声に偏って付いているか（K の付く割合を符号ごとに）
+{
+  const pk = (a) => `${a.filter((r) => r.c.includes('K')).length}/${a.length}（${a.length ? Math.round((100 * a.filter((r) => r.c.includes('K')).length) / a.length) : 0}%）`;
+  console.log(`\nK の付く割合：全体 ${pk(rows)}・` + ['A1', 'A2', 'D3', 'B', 'I', 'W', 'H1', 'C2', 'J2', 'BV'].map((c) => `${c} ${pk(rows.filter((r) => r.c.includes(c)))}`).join('・'));
+}
