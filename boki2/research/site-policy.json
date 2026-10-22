@@ -1498,5 +1498,25 @@
   "verdict": "gray",
   "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
   "checked": "2026-10-22"
+ },
+ "are.berkeley.edu": {
+  "verdict": "ok",
+  "basis": "大学の研究者ページの論文PDF。robots.txt は許可。学術の公開資料",
+  "checked": "2026-10-22"
+ },
+ "www.nber.org": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "www.vsnews.fr": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "corporate.kakaku.com": {
+  "verdict": "gray",
+  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
  }
 }
