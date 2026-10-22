@@ -1,0 +1,27 @@
+# 判定役の W の振り分け（版0.4 の再判定）。funvisual-w-split.txt の区分を見る前に、原文の全文を読んで付けた。抜き取りは種11で25件＋指定の2件（うち1件は抜き取りと重複）
+gds 4-1 Wn
+zenkoku 5-9 Wp
+pizza 2-6 Wp
+zenkoku 1-16 Wm
+zenkoku 7-3 Wp
+cinc 6-7 Wm
+gds 8-19 Wn
+cinc 1-5 Wm
+cinc 4-3 Wo
+gds 6-20 Wn
+zenkoku 7-20 Wn
+gds 10-10 Wp
+gurume 1-6 Wm
+gds 7-13 Wn
+pizza 4-8 Wp
+cinc 2-9 Wb
+cinc 1-20 Wo
+zenkoku 5-1 Wn
+zenkoku 4-6 Wm
+gds 8-13 Wn
+gurume 1-5 Wn
+pizza 1-13 Wm
+zenkoku 9-8 Wn
+zenkoku 8-9 Wn
+gds 2-18 Wm
+pizza 3-18 Wm
