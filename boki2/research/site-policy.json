@@ -875,8 +875,8 @@
   "checked": "2026-10-22"
  },
  "www.designer-notes.com": {
-  "verdict": "ok",
-  "basis": "www.designer-notes.com/robots.txt は User-agent:* に /wp-admin/ のみ Disallow。開発者本人（Soren Johnson）のブログ記事1件",
+  "verdict": "gray",
+  "basis": "Soren Johnson の個人ブログ。robots.txt を確認（該当パスの禁止なし、Claude 系の拒否なし）。規約に自動取得の禁止の明示は見当たらない",
   "checked": "2026-10-22"
  },
  "mcvuk.com": {
@@ -1051,7 +1051,7 @@
  },
  "www.gamespark.jp": {
   "verdict": "gray",
-  "basis": "www.gamespark.jp/robots.txt を確認（記事ページの取得は禁止されていない）。開発者インタビュー記事1件の単発閲覧（転載はしない）なので gray",
+  "basis": "Game*Spark。robots.txt を確認（該当パスの禁止なし、Claude 系の拒否なし）。規約に自動取得の禁止の明示は見当たらない",
   "checked": "2026-10-22"
  },
  "prtimes.jp": {
@@ -1612,6 +1612,36 @@
  "agora-web.jp": {
   "verdict": "gray",
   "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
+  "checked": "2026-10-22"
+ },
+ "www.factorio.com": {
+  "verdict": "gray",
+  "basis": "Wube の公式ブログ。robots.txt を確認（該当パスの禁止なし、Claude 系の拒否なし）。規約に自動取得の禁止の明示は見当たらない",
+  "checked": "2026-10-22"
+ },
+ "www.mcvuk.com": {
+  "verdict": "gray",
+  "basis": "業界誌 MCV/DEVELOP。robots.txt を確認（該当パスの禁止なし、Claude 系の拒否なし）。規約に自動取得の禁止の明示は見当たらない",
+  "checked": "2026-10-22"
+ },
+ "www.andrewwillmott.com": {
+  "verdict": "gray",
+  "basis": "講演者本人の個人サイト。robots.txt なし（404）。規約の明示なし",
+  "checked": "2026-10-22"
+ },
+ "www.codecks.io": {
+  "verdict": "gray",
+  "basis": "Codecks（制作管理ツールの会社）の公式ブログ。robots.txt は全許可。規約の明示なし",
+  "checked": "2026-10-22"
+ },
+ "newsletter.gamediscover.co": {
+  "verdict": "gray",
+  "basis": "GameDiscoverCo のニュースレター（Substack）。robots.txt で記事のパスは許可。規約の明示なし",
+  "checked": "2026-10-22"
+ },
+ "gamingnexus.com": {
+  "verdict": "gray",
+  "basis": "Gaming Nexus。robots.txt を確認（該当パスの禁止なし、Claude 系の拒否なし）。規約に自動取得の禁止の明示は見当たらない",
   "checked": "2026-10-22"
  }
 }
