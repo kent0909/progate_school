@@ -23,7 +23,7 @@ KIND = {
  'r5-blr-egov-shohi-full': 'gov', 'r5-blr-egov-shokuei-full': 'gov', 'r5-blr-egov-shokuei-rei': 'gov', 'r5-blr-egov-shokuhyo-kijun': 'gov',
  'r5-blr-egov-shoshinkou-kisoku': 'gov', 'r5-blr-egov-shoshinkou': 'gov', 'r5-blr-egov-sotoku-full': 'gov', 'r5-blr-egov-takken': 'gov',
  'r5-blr-egov-tousan-kyosai': 'gov', 'r5-blr-mhlw-chojikan-r6': 'gov', 'r5-blr-mhlw-fubarai-r6-pdf': 'gov', 'r5-blr-mhlw-fubarai-r6': 'gov',
- 'r5-blr-mhlw-shokuchu-inshoku': 'gov', 'r5-blr-cas-hikisage-gaiyou': 'gov',
+ 'r5-blr-mhlw-shokuchu-inshoku': 'gov', 'r5-blr-cas-hikisage-gaiyou': 'gov', 'r5-blr-egov-toriteki': 'gov',
  # 企業の開示（JPX に載る会社の書類、EDINET の四半期報告書）
  'r5-blr-jpx-kairikiya-1s': 'case', 'r5-blr-gift-yuho-a': 'case',
  # 実務者

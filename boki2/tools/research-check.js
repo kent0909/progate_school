@@ -340,6 +340,7 @@ for (const f of lsr(DOCS).filter((p) => p.endsWith('.md'))) {
   // [[src:coll:doc|「語句」]]：主張ごとの出典。語句（4〜20字）が、その資料の原文にそのまま出ることを確かめる（資料にないことを資料の名で書くのを防ぐ。QUALITY 6章）
   for (const m of s.matchAll(/\[\[([\w-]+):([\w-]+):([^\]\s|]+)(?:\|「([^」]{1,40})」)?\]\]/g)) {
     if (/[<>…]|\.\.\./.test(m[3])) continue; // 記法の説明に書いた見本（<ID>、…）は出典として数えない
+    if (m[1] === 'src' && m[3] === 'doc') continue; // 記法の見本（src:coll:doc）
     const k = `${m[1]}:${m[2]}:${m[3]}`;
     cited.add(k);
     if (!notes.some((n) => `${n.src}:${n.coll}:${n.doc}` === k)) err('出典', `${path.relative(DOCS, f)} が ${k} を引いているが、その読了ノートがない`);
