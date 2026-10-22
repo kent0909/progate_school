@@ -576,6 +576,14 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "ramen",
+     "desc": "ラーメン（歴史・文化・業界・店の経営・製麺とスープの製造・多店舗化とFC・物販やアパレル・通販）の資料",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   }
