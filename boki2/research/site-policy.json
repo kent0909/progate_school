@@ -1898,5 +1898,10 @@
   "verdict": "gray",
   "basis": "robots.txt は一般に制限なし（ClaudeBot には60秒の間隔）。規約に自動取得の明示的な禁止は見当たらない。間隔を60秒以上あける（2026-10-22 確認）",
   "checked": "2026-10-22"
+ },
+ "www.stat-search.boj.or.jp": {
+  "verdict": "gray",
+  "basis": "日本銀行の時系列統計データ検索サイト。robots.txt は取得できず（日銀のエラー頁が返る）、日銀サイトの利用規約（www.boj.or.jp/about/services/kiyaku.htm）に自動取得の明示的な禁止はない（www.boj.or.jp は ok 判定済み）。1件のみ",
+  "checked": "2026-10-22"
  }
 }

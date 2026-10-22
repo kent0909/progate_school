@@ -5,7 +5,7 @@ doc: r6-rp-bahrick1993
 file: r6-rp-bahrick1993.pdf
 sha256: a54e0a574e260393e01c5b32bd62f2971ebac80833a8fdb7c0ceb72c4c43c79f
 read: full
-anchors: ["MAINTENANCE OF FOREIGN LANGUAGE VOCABULARY", "Recruitment of subjects was a challenge", "Two subjects traveled in", "33% vs. 62%", "Thirteen", "By the seventh retraining session", "the life span of knowledge", "2 months, or possibly longer"]
+anchors: ["MAINTENANCE OF FOREIGN LANGUAGE VOCABULARY", "Recruitment of subjects was a challenge", "Two subjects traveled in", "33% vs. 62%", "Thirteen", "By the seventh retraining session", "Present curricula make few provisions", "2 months, or possibly longer"]
 ---
 ## 何の資料か
 Bahrick・Bahrick・Bahrick・Bahrick（1993, Psychological Science 4(5), 6ページ）。心理学者の家族4人が自分で被験者になり、9年かけて外国語の単語300組を覚え、**13回または26回**の学び直しの場を、**14日・28日・56日おき**に設け、終えてから1・2・3・5年後に思い出せるかを測った縦断の研究。原文は紙の雑誌の走査（文字認識の誤りがある）。全部読んだ。研究の強さ：4人だけの準実験。予定の間隔から最大1割ずれ、目標の言語に触れてしまった例もあると著者が書いている。
