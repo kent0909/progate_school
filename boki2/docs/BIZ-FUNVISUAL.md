@@ -585,9 +585,9 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 | 3 | スープの作り方（店炊き／工場／外部） | ⇄24・34・51 | 工場で作ると廃棄ロスが少なく職人が要らない [[web:ramen:r4-ramen-gift-yuho2025|「スープ職人の養成が必要ない」]]、店で仕込む店もある [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「長ネギの仕込み」]] | 自作か外から買うか [[web:simgames:r5-fv-capilab-beginners|「21 different products」]] | 店の数で最適が入れ替わる |
 | 4 | タレ（醤油・味噌・塩） | ⇄1・14 | [[web:ramen:r4-ramen-jnet21-guide|「全国に18,041店」]]の手引きが味の組み立てを説明 | 配信の知らせの一文 [[web:simgames:r5-fv-famitsu-ramenkan|「しょうゆ、塩、とんこつ」]] | スープとの相性で |
 | 5 | 香味油 | ↑26（寒い地域） | 寒い土地の工夫 [[web:ramen:r4-ramen-maff-kyodo-hokkaido|「製麺所でつくった麺」]] の記事と同じ頁 | 【資料なし】（読んだ作品の資料に油の変数がない） | 季節とエリアで効かせる |
-| 6 | 麺の仕入れ方（既製／特注／自家製） | ⇄7・32・50 | 製麺所との関係が深い [[web:ramen:r4-ramen-maff-kyodo-hokkaido|「暖簾が贈られる」]]、自家製麺の原価（売り手の試算）[[web:simgames:r5-fv-prtimes-seimenki|「製麺機」]] | [[web:simgames:r5-fv-capilab-beginners|「21 different products」]] | 店の数で逆転 |
+| 6 | 麺の仕入れ方（既製／特注／自家製） | ⇄7・32・50 | 製麺所との関係が深い [[web:ramen:r4-ramen-maff-kyodo-hokkaido|「暖簾が贈られる」]]、自家製麺の原価（売り手の試算）[[web:simgames:r5-fv-prtimes-seimenki|「業務用ラーメン製麺機」]] | [[web:simgames:r5-fv-capilab-beginners|「21 different products」]] | 店の数で逆転 |
 | 7 | 麺の太さと縮れ | ⇄41 | [[web:ramen:r4-ramen-maff-kyodo-hokkaido|「製麺所でつくった麺」]] | [[web:simgames:r5-fv-mogura-ramenkan|「VTuber」]] | 太麺は茹で時間↑で回転↓ |
-| 8 | 麺の加水率 | 6 | [[web:simgames:r5-fv-prtimes-seimenki|「製麺機」]] | 加水率まで決められる（配信映え）[[web:simgames:r5-fv-mogura-ramenkan|「VTuber」]] | 自家製麺で開く |
+| 8 | 麺の加水率 | 6 | [[web:simgames:r5-fv-prtimes-seimenki|「業務用ラーメン製麺機」]] | 加水率まで決められる（配信映え）[[web:simgames:r5-fv-mogura-ramenkan|「VTuber」]] | 自家製麺で開く |
 | 9 | 小麦の銘柄・産地 | 6・25 | 政府売渡価格は年2回の改定 [[web:ramen:r4-ramen-maff-komugi2610|「10月期」]] | [[web:simgames:r5-fv-capilab-beginners|「21 different products」]] | 1杯の原価への効きは小さい。効きは評判の側に |
 | 10 | 具の種類 | ⇄11・12・15 | 具の充実で値上げ [[web:ramen:r4-ramen-tdb-market25fy|「トッピングの充実化」]] | [[web:simgames:r5-fv-gamespark-ramenkan|「最大のポイント」]] | 全部のせが常に最強にならないよう原価で |
 | 11 | 具の置き方・見た目（映え） | ↑44 | SNS で若い客が増えた [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「アプリ会員数」]]（映えそのものの数字は【資料なし】：有報・説明資料・手引きを探した） | [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p2|「トッピングを自分好みに配置」]] | 効きは SNS に小さく |
@@ -602,7 +602,7 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 | 16 | サイドメニュー | ↑15・40 | 冷凍のギョウザの生産の伸び [[web:ramen:r4-ramen-reishokukyo-2025|「ギョウザ」]] | 餃子・ビールの要望 [[web:simgames:r5-fv-applion-ramenkan|「餃子とかビール」]] | 客単価と夜 |
 | 17 | トッピングの追加料金・セット | ↑15 | トッピングの拡充 [[web:ramen:r4-ramen-kourakuen-setsumei2511|「辛しにんにく」]]、餃子のセット [[web:ramen:r4-ramen-kourakuen-setsumei2511|「餃子セット」]]（判3.4） | [[web:simgames:r5-fv-applion-goodpizza-app|「設備のアップグレード」]] | 原価率の練習 |
 | 18 | 品数 | ⇄14・23・35 | [[web:ramen:r4-ramen-kourakuen-setsumei2511|「冷たい麺3品」]] | [[web:simgames:r5-fv-wiki-csd|「over 180 food types」]] | 品数↑で仕込みと廃棄↑ |
-| 19 | 業態の追加（油そば・つけ麺） | ⇄3・26 | 油そばの業態と模倣の危険 [[web:ramen:r4-ramen-gift-yuho2025|「模倣の」]] | [[web:simgames:r5-fv-capilab-beginners|「21 different products」]] | 同業態の競争 |
+| 19 | 業態の追加（油そば・つけ麺） | ⇄3・26 | 油そばの業態と模倣の危険 [[web:ramen:r4-ramen-gift-yuho2025|「模倣リスク」]] | [[web:simgames:r5-fv-capilab-beginners|「21 different products」]] | 同業態の競争 |
 | 54 | 無料サービスの有料化（ライス無料の有料化） | ⇄15・42 | [[web:ramen:r4-ramen-tdb-market25fy|「ライス無料サービス」]] | 値段の帯の判断（ラーメン館の声）[[web:simgames:r5-fv-applion-ramenkan-zenkoku|「材料費をdown」]] | 常連の不満と組 |
 
 ### 4.3 仕入れ・原価・在庫（9）
@@ -611,8 +611,8 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 | 20 | 豚・鶏・野菜の仕入先 | ⇄1・22 | 家畜伝染病・異常気象で調達が止まる [[web:ramen:r4-ramen-gift-yuho2025|「家畜伝染病」]] | [[web:simgames:r5-fv-capilab-beginners|「21 different products」]] | 予兆と組 |
 | 21 | まとめ買い・一括仕入 | ⇄25・現金 | 全店の一括仕入で低コスト [[web:ramen:r4-ramen-gift-yuho2025|「一括仕入」]]、倉庫の備蓄で保管料が上がる [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「保管料のアップ」]]（判3.4） | 倉庫でまとめ買いして相手を締め上げる [[web:simgames:r6-sd-gamesfuze-bigambitions-rivals|「poach your employees」]] の記事と同じ頁 | 在庫と腐敗（#60）と組 |
 | 22 | 検品 | ⇄20・60 | 輸入業者の品質検査を経て仕入れる [[web:ramen:r4-ramen-gift-yuho2025|「十分な品質検査」]] | 点検の間隔を選ぶ [[web:simgames:r4-sim-openrct2-ride|「getAgePenalty」]] の頁 | 手数と腐敗の確率の引き換え |
-| 23 | 仕込みの量 | ⇄2・14・40 | [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「売上に応じた寸胴サイズ」]]、外食の月の山 [[web:ramen:r4-ramen-stat-gaishoku|「外食」]] | 予報を見て作る量 [[web:simgames:r5-fv-wiki-lemonadetycoon|「weather and news」]] | 品切れと廃棄の両方を月報に |
-| 24 | 光熱費の対策（IH・省エネ） | ⇄2・3・40 | 水道光熱費は固定費的 [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「固定費的な側面」]]、IH 機器に切り替え [[web:ramen:r4-ramen-gift-yuho2025|「IH機器」]]、光熱費の上昇 [[web:ramen:r4-ramen-tdb-market25fy|「光熱費」]]（版0.1 の「2026年に急上昇」は原文にないので消した。判3.2-13） | 寒い地域で暖房 [[web:simgames:r5-fv-sixthaxis-twopoint|「disrupting factors」]] の記事 | 値上がりの年に差が開く |
+| 23 | 仕込みの量 | ⇄2・14・40 | [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「売上に応じた寸胴サイズ」]]、外食の月の山 [[web:ramen:r4-ramen-stat-gaishoku|「外食への支出」]] | 予報を見て作る量 [[web:simgames:r5-fv-wiki-lemonadetycoon|「weather and news」]] | 品切れと廃棄の両方を月報に |
+| 24 | 光熱費の対策（IH・省エネ） | ⇄2・3・40 | 水道光熱費は固定費的 [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「固定費的な側面」]]、IH 機器に切り替え [[web:ramen:r4-ramen-gift-yuho2025|「IH機器」]]、光熱費の上昇 [[web:ramen:r4-ramen-tdb-market25fy|「人件費・光熱費」]]（版0.1 の「2026年に急上昇」は原文にないので消した。判3.2-13） | 寒い地域で暖房 [[web:simgames:r5-fv-sixthaxis-twopoint|「disrupting factors」]] の記事 | 値上がりの年に差が開く |
 | 25 | 輸入の食材と為替 | 9・20 | 円安が輸入原材料を押し上げる [[web:ramen:r4-ramen-gift-yuho2025|「為替相場の変動」]] | Coffee Inc 2 の多通貨 [[web:simgames:r5-fv-applion-cinc-app|「多通貨対応で世界中の市場」]] | 新聞で予兆 |
 | 55 | 自動発注・仕入の規模 | ↑21 | [[web:ramen:r4-ramen-gift-yuho2025|「自動発注」]] | 規模が出たら係に任せる [[web:simgames:r6-sd-gamesfuze-bigambitions-pricing|「HQ Pricing Manager」]] | 任せる層（委任） |
 | 59 | 物流・倉庫・配送（物流センター） | ↑21・51 | 4か所の物流センター [[web:ramen:r4-ramen-gift-yuho2025|「物流センター」]]、冷凍倉庫 [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「冷凍倉庫」]] | 倉庫・輸入の建物 [[web:simgames:r6-sd-gamesfuze-bigambitions-rivals|「buildings they own」]]（画面写真で倉庫の種類） | 配送の遅れで欠品の危険 |
@@ -628,7 +628,7 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 | 30 | **土地を買って建てる**（オーナーの例示） | ⇄29・61 | 土地の保有と売却益 [[web:ramen:r4-ramen-chikara-tanshin2026|「固定資産売却益」]]、出店で建設協力金の貸付 [[web:ramen:r4-ramen-gift-yuho2025|「建設協力金」]]、不動産の保有・管理を子会社から引き継いだ [[web:ramen:r4-ramen-gift-yuho2025|「不動産及び固定資産」]] | 土地の区画 [[web:simgames:r5-fv-capilab-home|「Land Plots」]]、Coffee Inc 2 の物件の購入 [[web:simgames:r4-cinc-applizm-kojinsisan|「不動産物件を購入できる」]] | 本業の現金を奪い合う配分の判断 |
 | 31 | 内装・のれん・看板（改装） | ↑38・43 | 改装で売上が上がった [[web:ramen:r4-ramen-kourakuen-setsumei2511|「リニューアル」]]、劣化した店の改装 [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「既存店舗の改装」]] | [[web:simgames:r5-fv-pcgi-twopoint|「casual player」]]（部屋の格） | 固定資産と評判 |
 | 32 | 厨房設備の質と点検・老朽化 | ⇄23・35 | 店舗の固定資産の減損 [[web:ramen:r4-ramen-gift-yuho2025|「店舗固定資産の減損」]] | 年数で故障が増える [[web:simgames:r4-sim-openrct2-ride|「getAgePenalty」]]（判3.3-9） | 調子の表示と点検の選択 |
-| 33 | 屋台 | ⇄15・40 | 福岡市の屋台の公募 [[web:ramen:r4-ramen-fukuoka-yatai-boshu|「屋台」]] | [[web:simgames:r5-fv-pocketgamer-lemonadetycoon|「at the beach」]] | 上限の低さを見せる |
+| 33 | 屋台 | ⇄15・40 | 福岡市の屋台の公募 [[web:ramen:r4-ramen-fukuoka-yatai-boshu|「屋台営業候補者」]] | [[web:simgames:r5-fv-pocketgamer-lemonadetycoon|「at the beach」]] | 上限の低さを見せる |
 | 56 | 定期借家の期間満了・立退き | ⇄27・30 | [[web:ramen:r4-ramen-gift-yuho2025|「定期建物賃貸借」]] | 建物を貸さないライバル [[web:simgames:r6-sd-gamesfuze-bigambitions-rivals|「buildings they own」]] | 予兆（満了の告知）と移転の判断 |
 | 57 | **副業の不動産：賃貸収入**（オーナーの例示） | ⇄30・61 | 賃貸収入と賃貸収入原価 [[web:ramen:r4-ramen-chikara-tanshin2026|「賃貸収入」]]、開業の手引きの業種に [[web:ramen:r4-ramen-jnet21-guide|「アパート・マンション経営」]] | 集合住宅と商業ビル [[web:simgames:r5-fv-capilab-home|「Commercial Buildings」]]、Coffee Inc 2 の不動産の拡張 [[web:simgames:r5-cinc-applizm-hudousan-business|「不動産ビジネス拡張パック」]] | 店を食わないよう、本業の評判とつなぐ |
 | 58 | 原状回復の義務（資産除去債務） | 27・30 | [[web:ramen:r4-ramen-gift-yuho2025|「原状回復義務」]] | 【資料なし】（読んだ作品の資料に退店の費用がない） | 退店の判断の重み |
@@ -652,18 +652,18 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 | # | 変数 | 絡む相手 | 現実 | 作品 | 危険と対策 |
 |---|---|---|---|---|---|
 | 40 | 営業時間 | ⇄26・35 | 24時間営業が主体 [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「24時間」]]、営業時間の延長（24時間の試験を含む）[[web:ramen:r4-ramen-gift-yuho2025|「営業時間の延長」]] | [[web:simgames:r5-fv-wiki-csd|「Cook, Serve, Delicious」]]の混む時間 | 深夜の人手と組 |
-| 41 | 行列と待ち時間 | ⇄7・28 | 行列の店の通販 [[web:simgames:r5-fv-netshop-takumen|「行列」]] | [[web:simgames:r5-fv-applion-ramenkan-app|「行列の出来るラーメン店」]] | 宣伝にも不満にも |
-| 42 | 常連 | ↑15・26 | アプリの会員とクーポン [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「アプリ会員数」]] | [[web:simgames:r5-fv-applion-ramenkan-zenkoku|「常連」]] | 常連の顔で評判の体温計 |
-| 43 | 口コミ・ランキング・賞 | ↑13・31 | 風評の監視 [[web:ramen:r4-ramen-gift-yuho2025|「風評被害」]]、フェスに選ばれた店 [[web:ramen:r4-ramen-prtimes-tryfes|「フェス」]] | 年1回の大賞 [[web:simgames:r5-fv-applion-gamedevstory|「グランプリを獲得」]] | 段の目標と新聞の素 |
+| 41 | 行列と待ち時間 | ⇄7・28 | 行列の店の通販 [[web:simgames:r5-fv-netshop-takumen|「行列のできるラーメン店」]] | [[web:simgames:r5-fv-applion-ramenkan-app|「行列の出来るラーメン店」]] | 宣伝にも不満にも |
+| 42 | 常連 | ↑15・26 | アプリの会員とクーポン [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「アプリ会員数」]] | [[web:simgames:r5-fv-applion-ramenkan-zenkoku|「常連客を増やしたり」]] | 常連の顔で評判の体温計 |
+| 43 | 口コミ・ランキング・賞 | ↑13・31 | 風評の監視 [[web:ramen:r4-ramen-gift-yuho2025|「風評被害」]]、フェスに選ばれた店 [[web:ramen:r4-ramen-prtimes-tryfes|「ラーメンフェス」]] | 年1回の大賞 [[web:simgames:r5-fv-applion-gamedevstory|「グランプリを獲得」]] | 段の目標と新聞の素 |
 | 44 | SNS・アプリ・クーポン | ⇄11・42 | 繁忙期はクーポンを減らす（説明資料）[[web:ramen:r4-ramen-yamaokaya-setsumei2603|「クーポン」]] | [[web:simgames:r5-fv-gamesasylum-startup|「moreish highs」]]（バズの山と谷） | 値引きの癖と組 |
-| 45 | 催し・フェスへの出店 | ↑13・52 | フェス [[web:ramen:r4-ramen-prtimes-tryfes|「フェス」]]、海外のイベントの反響で出店を決めた [[web:ramen:r4-ramen-jetro-namerica2016|「ラーメンイベント」]] | フェスモード [[web:simgames:r5-fv-applion-zenkoku-app|「フェスモード」]] | 短い出張 |
+| 45 | 催し・フェスへの出店 | ↑13・52 | フェス [[web:ramen:r4-ramen-prtimes-tryfes|「ラーメンフェス」]]、海外のイベントの反響で出店を決めた [[web:ramen:r4-ramen-jetro-namerica2016|「ラーメンイベント」]] | フェスモード [[web:simgames:r5-fv-applion-zenkoku-app|「フェスモード」]] | 短い出張 |
 | 66 | 好みの選択（麺の硬さ・味の濃さ・脂の量） | ↑42・12 | [[web:ramen:r4-ramen-gift-yuho2025|「麺の硬さ」]] | 自分好みの配置 [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p2|「トッピングを自分好みに配置」]] | 手間と満足の引き換え |
 | 67 | 類似の屋号による誤認・他店の事故の巻き添え | ⇄43 | 他社の類似商号で誤認される危険 [[web:ramen:r4-ramen-gift-yuho2025|「類似商号」]] | 【資料なし】 | 予告なしの小さな出来事（両方向） |
 
 ### 4.7 ブランドの展開と会社の事業（15）
 | # | 変数 | 絡む相手 | 現実 | 作品 | 危険と対策 |
 |---|---|---|---|---|---|
-| 46 | 通販（冷凍・お取り寄せ） | ↑13・43・51 | ネットショップ [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「山岡家商店」]]、テレビ通販 [[web:simgames:r5-fv-netshop-takumen|「行列」]] | Coffee Inc 2 の商品開発 [[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「週間開発費」]] | 店の評判が元手 |
+| 46 | 通販（冷凍・お取り寄せ） | ↑13・43・51 | ネットショップ [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「山岡家商店」]]、テレビ通販 [[web:simgames:r5-fv-netshop-takumen|「行列のできるラーメン店」]] | Coffee Inc 2 の商品開発 [[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「週間開発費」]] | 店の評判が元手 |
 | 47 | おみやげ麺・監修・コラボ（商品開発） | ↑13・50 | おみやげの麺 [[web:ramen:r4-ramen-chikara-tanshin2026|「おみやげ」]]、外販の事業 [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「外販事業」]] | [[web:simgames:r5-cinc-applion-p4|「品種改良までできる」]] | 監修料の相場は【要確認】 |
 | 48 | グッズ・アパレル | ↑43 | 有名店と服の店のコラボの T シャツ [[web:ramen:r5-rmn-goods-tenkaippin|「コラボTシャツ」]]（判3.4・4章の受け入れ基準。現実は1本） | 【資料なし】（読んだ作品にグッズの変数はない） | 評判が一定以上で開く小さな枝 |
 | 49 | FC・プロデュース・暖簾分け | ↑36・51 | プロデュース店は PB 商品を買う契約 [[web:ramen:r4-ramen-gift-yuho2025|「取引基本契約」]]、暖簾分け [[web:ramen:r4-ramen-chikara-tanshin2026|「暖簾分け」]] | Coffee Inc 2 の要望 [[web:simgames:r5-cinc-applion-p6|「フランチャイズシステム」]] | 加盟店の質が評判に返る |
@@ -671,13 +671,13 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 | 51 | **工場（生産）**（オーナーの例示） | ⇄3・6・50 | 麺・チャーシュー・スープの国内8工場 [[web:ramen:r4-ramen-gift-yuho2025|「国内８工場体制」]]、自社工場で新商品を早く出す [[web:ramen:r4-ramen-kourakuen-setsumei2511|「自社工場」]] | 工場と縦の統合 [[web:simgames:r5-fv-capilab-beginners|「21 different products」]] | 店の数が少ないと稼働が上がらない（CVP） |
 | 52 | 海外出店 | ⇄25・45 | 米国の店は軟水器を入れ、スープを畜肉エキスの前の状態で輸入した（出典を付け替えた。判3.2-14）[[web:ramen:r4-ramen-jetro-namerica2016|「軟水器を導入」]] [[web:ramen:r4-ramen-jetro-namerica2016|「畜肉エキスを入れる前」]]、海外のライセンス [[web:ramen:r4-ramen-chikara-tanshin2026|「ライセンス」]] | [[web:simgames:r5-fv-applion-cinc-app|「多通貨対応で世界中の市場」]] | 為替と組 |
 | 53 | 訪日客への対応 | ⇄26・52 | 訪日客の需要 [[web:ramen:r4-ramen-gift-yuho2025|「インバウンド」]] | 【資料なし】 | 駅前・観光地だけに効く |
-| 68 | **自社の農地・材料の生産**（オーナーの例示の生産） | ⇄20・60 | ネギのトンネル栽培と加工場 [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「トンネル栽培」]] [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「ネギ加工場」]] | 豆の栽培と品種改良 [[web:simgames:r5-cinc-applion-p4|「品種改良までできる」]]、農場 [[web:simgames:r5-fv-capilab-home|「Farmer」]] | 天候で収穫が揺れる（両方向） |
+| 68 | **自社の農地・材料の生産**（オーナーの例示の生産） | ⇄20・60 | ネギのトンネル栽培と加工場 [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「トンネル栽培」]] [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「ネギ加工場」]] | 豆の栽培と品種改良 [[web:simgames:r5-cinc-applion-p4|「品種改良までできる」]]、農場 [[web:simgames:r5-fv-capilab-home|「Auto Setup Farm」]] | 天候で収穫が揺れる（両方向） |
 | 69 | **M&A（店・ブランドを買う）** | ⇄36・70 | 他ブランドの店の取得 [[web:ramen:r4-ramen-chikara-tanshin2026|「M＆Aにより」]]、会社の全株式の取得 [[web:ramen:r4-ramen-gift-yuho2025|「全株式を取得」]]、ファンドが中小の店を買う [[web:ramen:r4-ramen-tdb-market25fy|「買収・統合」]] | 同業の買収 [[web:simgames:r5-cinc-applion-p6|「店舗経営、M&A、株式投資」]]、弱らせて買う [[web:simgames:r6-sd-gamesfuze-bigambitions-rivals|「value of their」]] | のれん（2級）と減損の危険 |
 | 70 | **資金調達（借入・当座貸越・増資・上場）** | ⇄30・51・69 | 開業資金の約7割は借入（**全業種の値**）[[web:ramen:r4-ramen-jfc-kaigyo2025full|「金融機関等からの借り入れ」]]、長期借入れと当座貸越 [[web:ramen:r4-ramen-gift-yuho2025|「当座貸越」]] [[web:ramen:r4-ramen-chikara-tanshin2026|「長期借入金」]] | 融資と上場 [[web:simgames:r4-cinc-applizm-inc2-kabusiki|「株式公開の条件」]]、[[web:simgames:r5-fv-capilab-beginners|「borrowing up to 100%」]] | 返済と利息の重み |
 | 71 | 社長の個人保証 | ⇄70・29 | 社長が店の賃借料を個人で保証 [[web:ramen:r4-ramen-gift-yuho2025|「債務保証」]] | 個人の資産と会社の資産（Coffee Inc 2）[[web:simgames:r4-cinc-applion-reviews|「個人資産使い道ない」]] | 会社が倒れると個人に返る |
 | 72 | 株主優待 | ↑42 | 株主優待引当金 [[web:ramen:r4-ramen-gift-yuho2025|「株主優待引当金」]]、長期保有の優待 [[web:ramen:r4-ramen-kourakuen-setsumei2511|「長期保有」]] | 配当と株主（Coffee Inc 2 の上場の記事）[[web:simgames:r4-cinc-applizm-inc2-kabusiki|「株式公開の条件」]] | 上場の段だけ |
 | 73 | 持ち帰り・配達・自販機 | ↑46 | 持ち帰りと配達の増加 [[web:ramen:r4-ramen-jnet21-guide|「デリバリーやテイクアウト」]]、自販機の調理機 [[web:ramen:r4-ramen-chikara-tanshin2026|「Yo-Kai」]] | 【資料なし】 | 容器の原価 |
-| 74 | 製麺所との関係（のれん・特注・優先の枠） | ⇄6・50 | 製麺所から店へのれんを贈る習慣 [[web:ramen:r4-ramen-maff-kyodo-hokkaido|「暖簾が贈られる」]]、特注麺の注文の増加 [[web:ramen:r4-ramen-tdb-seimen2025|「特注」]] | 【資料なし】（作品に取引先との関係の変数がない） | 町で数が限られる物（5章 #8 の共有の相場の対象） |
+| 74 | 製麺所との関係（のれん・特注・優先の枠） | ⇄6・50 | 製麺所から店へのれんを贈る習慣 [[web:ramen:r4-ramen-maff-kyodo-hokkaido|「暖簾が贈られる」]]、特注麺の注文の増加 [[web:ramen:r4-ramen-tdb-seimen2025|「特注品の引き合い」]] | 【資料なし】（作品に取引先との関係の変数がない） | 町で数が限られる物（5章 #8 の共有の相場の対象） |
 
 ### 4.8 副業と個人の収入（0。#57・71 に含めた）
 副業の現実の材料（開業者の46.7%が事業の外に収入を持つ＝「ほかの収入はない」が53.3%、**全業種の値** [[web:ramen:r4-ramen-jfc-kaigyo2025full|「ほかの収入はない」]]、手引きの [[web:ramen:r4-ramen-jnet21-guide|「副業から起業する」]]）は、#57（賃貸収入）と #71（個人と会社の境）に入れた。
