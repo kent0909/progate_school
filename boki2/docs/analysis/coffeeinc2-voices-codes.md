@@ -182,3 +182,20 @@ BIZ-COFFEEINC2.md 3章の表の数は、この表から数えた。口コミの�
 - 不満：不具合 34、くり返しの操作 31、範囲を広げて（要望） 31、不満なし 30、一覧・比較の不足 20、委任が当てにならない 17、後半の手詰まり 14、週の集計の待ち 11、説明がない 10、出来事・相手と仕組みのずれ 8、株・金融の画面 7、地図・文字の見づらさ 6、課金・価格 6、音 5、他の機種で遊びたい 4、対戦 3、序盤の赤字 1、評価の求め方 1
 
 数え直し方：この表を読み、褒め・不満の列を空白で分けて記号ごとに数える。
+
+## 記事10本の褒めどころ（3.3 の数）
+
+記号は上の褒めの記号と同じ（K＝因果の分かりやすさ）。
+
+| 記事（読了ノート） | 褒め |
+|---|---|
+| r4-cinc-gamewatch | L W A S R F |
+| r4-cinc-appget-review | L K |
+| r4-cinc-denfami-news | L W |
+| r4-cinc-minnano | L V |
+| r4-cinc-dime-interview | L A |
+| r5-cinc-mugazine | L W S A R |
+| r5-cinc-cfy-blog | L W S |
+| r4-cinc-zenn-messos | L |
+| r5-cinc-note-araki | W F R |
+| r5-cinc-note-umpo | S A |
