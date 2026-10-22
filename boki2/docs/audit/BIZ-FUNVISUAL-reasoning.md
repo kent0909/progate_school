@@ -1,6 +1,6 @@
 # BIZ-FUNVISUAL の論証の検査（reasoning）
 
-版：3（2026-10-22。10章に版0.2、11章に版0.3 の再検査を足した）。書き手：論証検査役（BIZ-FUNVISUAL を書いた担当とも、事実の判定役〔docs/audit/BIZ-FUNVISUAL-audit.md〕とも別）。
+版：4（2026-10-22。10章に版0.2、11章に版0.3、12章に版0.4 の再検査を足した）。書き手：論証検査役（BIZ-FUNVISUAL を書いた担当とも、事実の判定役〔docs/audit/BIZ-FUNVISUAL-audit.md〕とも別）。
 対象：`docs/BIZ-FUNVISUAL.md` 版0.1（コミット 8af9464 の時点、624行）。行番号はこの版のもの。
 やり方：QUALITY 5.2 の7観点（①向き ②範囲 ③選び方 ④飛躍 ⑤逆の結論 ⑥都合のよさ ⑦数字）で、報告の結論を1つずつ取り出し、報告が根拠に挙げた資料の原文（`research/raw/web/simgames/*.html` を文字に直したもの）と読了ノートを開いて突き合わせた。**事実が正しいかではなく、その事実から結論が言えるか**を見た。数え直しは道具で行い、`docs/analysis/funvisual-reasoning-recount.js` に残した（`node boki2/docs/analysis/funvisual-reasoning-recount.js` で同じ数が出る）。外部サイトには取りに行っていない。
 印：原文の語句は「」で、資料名は読了ノートの名前（r5-fv-…）で書く。【検査役の推論】は原文にない、私の筋道。
