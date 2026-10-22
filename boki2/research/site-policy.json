@@ -1468,5 +1468,25 @@
   "verdict": "gray",
   "basis": "ウィーン大学の公開PDF（授業資料として掲載）。robots.txt（www.univie.ac.at）は /search 等のみ Disallow、fileadmin は禁止なし。規約に自動取得の明示的禁止なし。1件のみ",
   "checked": "2026-10-22"
+ },
+ "jp.gdfreak.com": {
+  "verdict": "gray",
+  "basis": "robots.txt はカート・会員・画像・xlsx 等のみ禁止で公開の詳細ページは可。規約に自動取得の明示的な禁止は見当たらない（少数・間隔を守る）2026-10-22",
+  "checked": "2026-10-22"
+ },
+ "chikumashobo.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "www.kodansha.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "www.kinokuniya.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
  }
 }
