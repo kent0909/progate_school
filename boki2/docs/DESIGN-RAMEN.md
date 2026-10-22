@@ -763,3 +763,148 @@
 - 入力欄の横に「600,000（60万）」の読み補助（REVIEW-ROUND2 #47）。桁区切りは本番にないので入力には付けない。
 - 比率が要る所（原価率・人件費率・自己資本比率・借入の月商倍率）は **画面に出す**。数える作業はさせない（Coffee Inc 2 の男女の人数の不満 [[web:simgames:r4-cinc-appreview]]）。
 - 出来事で予告したことは必ず起こす（検査で確かめる）。
+---
+
+## (k) 今のコードから使い回すもの・捨てるもの・作り直すもの。データの形、engine の部品、sim-check
+
+### 結論
+- **engine の芯（帳簿・記帳・発見・月末締め・自動仕訳・決算の作業台・検定会場・保存・成長・S.plan・返りのキュー・表情）は使い回す**。engine.js 2,230行のうち、台本に依存しない部品は約7割。
+- **捨てる（正確には「変種の業種」として棚に上げる）のは台本**：scenario.js（1年目レモネード）と year2.js の出来事の文・数字。部品の作り方（buy/sell/passbook の生成関数、決算の区切り、BE の形、returns・moods・holders）は写して使う。
+- **作り直す／新しく作る**のは6つ：世界の状態（W）、需要と市場（world.js）、ライバル（rivals.js）、札と判断の山札（cards.js・decide.js）、作戦の机と月報とマップの画面、無作為の通し試験（sim-check の新しい段）。
+- S は **v4（run／meta）** にし（DESIGN-ROUND2 3.10）、run に `W`（世界）と `choices[]`（全判断の履歴 [[web:simgames:r4-sim-gd-80days-postmortem]]）を足す。
+
+### k.1 使い回す（そのまま、または小さな拡張）
+| 部品 | 場所 | 使い方 | 拡張 |
+|---|---|---|---|
+| 帳簿と残高 | engine `balances`・`pl`・`sameEntry`・`post`・`preClose`・`closingEntries` | そのまま | 店・工場・子会社の区分（`entry.unit`）を足す（本支店・連結の元） |
+| 記帳の画面 | `docScreen`（タップ入力・3段の返し・alt・橋渡し） | そのまま | 月報の行から呼ぶ（`reportScreen` の行→docScreen） |
+| 発見（5拍） | `discoverScreen`（予想・操作・理由・対比・名前カード） | そのまま | 段2の「本試験の文1問で省略」 |
+| 月末 | `predictClose`・`closeScreen`・見直し | そのまま | 月報の数字との突合 |
+| 自動仕訳 | `rules`・`mastered`・`autoScreen`・条件外の罠 | そのまま | 月報の行の kind に適用 |
+| 決算の作業台 | `deskScreen`・`buildScreen`・`sheetScreen`・`ssScreen`・`auditScreen`・`closingScreen`・`openingScreen` | そのまま | 3期比較、店別の列、連結の合算表（P8 の新しい部品） |
+| 期日の一覧 | `dueItems`・`duelistScreen` | 常設に | 残高から期日を作る表（#15 の直し） |
+| 返りのキュー・表情・株主 | `SIM.returns`・`SIM.moods`・`SIM.holders` | そのまま | ライバル・常連の表情 |
+| 想起・予定表 | `planMark`・`planPick`・`recallScreen`・`dueReview` | そのまま | 番人（g.3）の優先、川を描く |
+| 成長の記録・マップ | growth.js・`scopeState`・`mapOverlay`・`scopeView` | そのまま | 77の升、周の記録 |
+| 検定会場・練習室 | hall.js・`practiceScreen`・`roomDrill`・`speedScreen`・`autoQs` | そのまま | 延長（+1分・+5分）、範囲を選んで受ける |
+| 保存・プロフィール | store.js（v3→v4 の移行） | そのまま | run／meta の分離、choices の履歴 |
+| 語彙・検査 | lexicon.js、tools/lexicon-check.js・coverage.js・validate.js・law-check.js・research-check.js | そのまま | 作戦の机・札・月報の label も検査対象に |
+| 結末の形 | `SIM.endings`（check・cause・numbers・docs・reality・lesson・ifonly） | そのまま | 達成・期限切れ・買収される、の新しい結末 |
+| プロローグ | `boardScreen`（屋台の棚とノート） | 商品をラーメンに差し替え | 始め方の選択の前に置く |
+
+### k.2 捨てる（棚に上げる）
+- scenario.js・year2.js の **出来事の文・数字・登場する取引先**（レモネード・瓶詰め工場・B社・D社・ハッピー問屋）。ただし **1年目の論点の順（仕入→掛け→トラック→通帳のズレ→資金不足→与信→決算）は骨として残す**（10人が山と認めた弧）。
+- facDocs（工場の同型書類の生成）：月報に置き換え（DESIGN-ROUND2 4章）。
+- 「資金繰りは決定論」に依存した台本の固定の数字（preBank・ESHA）：世界の状態から計算する形に。
+- レモネードの台本は **変種の業種**（DESIGN-ROUND2 3.3）として、2周目以降に「屋台のレモネード屋の1年」を選べる形で残すか、完全に外すかはオーナーの判断（n.9）。
+
+### k.3 新しく作る（データの形）
+```
+// 世界の状態（S.run.W）。月をまたいで持ち越す値は W の中だけ（80 Days の「持ち越す値を絞る」）
+W = {
+  month: {y, m}, seed, weather: [{week, forecast, actual}],
+  town: { areas: { [a]: { P, V0, clientele, rentPerTsubo, lots: [{id, traffic, rent, deposit, fitout, vacant, from:'rival'|'new'}] } } },
+  stores: [{ id, area, lot, opened:{y,m}, Q, R, A, L, price, pRef, cap, seats, prep, H, staff:{n, wage, morale}, manager, hours, menu, policy:{...作戦の机の設定}, unit:'店名' }],
+  hq: { opened, depts: {hr, acct, purchase, ad}, rent },
+  factory: { built, lines, util, std:{...}, method:{issue, wip}, rate, ... },
+  rivals: [{ id, type, cash, debt, stores:[...], strategy, mood, lastMove }],
+  partners: { suppliers:[{id, quality, price, relation, invoice}], wholesale:[{id, credit, limit, risk, terms}], fc:[...] },
+  bank: { credit, rating, covenants:[...], rate }, holders:[...],
+  flags: { met:{scopeId:{y,m}}, onceCards:[...] }
+}
+// 札（出来事）：状態を条件に山札から出る（storylet）
+card = { id, kind:'shock'|'decision'|'discover'|'doc'|'talk'|'guard', shelf, when(S,W), weight(S,W), once:boolean, args(S,W)→当てはめる相手（卸先 X など）,
+         body: 既存の event と同じ形（talk・doc・discover…）, decision: e.1 の形, scope:[...], returns:[{after:{months}, card}] }
+// 判断の履歴（保存に入れる）
+S.run.choices = [{ y, m, card, option, outcome, seed }]
+// 周と持ち越し（DESIGN-ROUND2 3.10 の v4 に足す）
+S.meta.runs[].{ start:'A'..'E', tier, seed, years, reached:{y,m}|null, path:'multi'|'factory'|'fc'|'brand', netCashByYear:[...] }
+S.meta.scopeMet = { [id]: { runs:[runId], lv } }
+```
+- 月の生成：`months[]` を台本の固定配列から **生成**に変える。`SIM.ramen.month(S, W)` が「固定の骨（決算・納税・総会・関門）＋山札から引いた札＋月報」を並べて、既存の `events()` と同じ形を返す。engine は月の中身がどう作られたかを知らない（既存の render の流れをそのまま使う）。
+- 需要の式（d章）：`world.demand(W, store)` → `{N, X, lost, sales, factors:{season, weather, price, rep, ad, rival, stockout}}`。純粋関数（seed と W だけで決まる。検査しやすい）。
+- ライバル：`rivals.step(W, seed)`。純粋関数。
+- 判断の抽選：`decide.resolve(card, option, S, W, seed)` → outcome。重みは `w(S,W)` の合計で正規化（合計100の検査）。
+- 金額は `n(S, base)`（変種の倍率）で書く。1年目から変種対応。
+
+### k.4 engine に足す画面・部品
+`planScreen`（作戦の机）、`reportScreen`（月報：店・工場共通）、`riverScreen`（川を描く）、`mapScreen`、`shareScreen`、`storesScreen`、`hqScreen`、`rivalBookScreen`、`debriefScreen`（ふりかえり4問）、`forkMapScreen`（分かれ道の図）、`runReviewScreen`（周のふりかえり）、`consolScreen`（P8 の合算表：対になる行を消す）、`schlatterScreen`（P7：既存の計画にある新規部品）。
+
+### k.5 sim-check（無作為の通し試験を数千回）
+既存の「全枝を1つ替えで検算」は **固定の骨（決算・納税・関門・番人）** に残し、経営の判断は無作為の通し試験で検算する [[web:simgames:r4-sim-emshort-beyondbranching]]。
+
+| 検査 | 中身 | 合格の線 |
+|---|---|---|
+| 帳簿の正しさ（全道） | 各周の各月で：貸借一致、科目の実在、月報の行の合計＝証憑の合計、受払の保存則（材料・製品・商品）、消費税の端数、分配可能額、B/S＝S/S、連結の合算と相殺、alt の貸借 | 違反 0 |
+| 詰み | 「どの手を打っても3か月以内に支払不能」になる状態 | 段0で 1% 未満の周 |
+| いつも勝つ手 | 判断ごとに「全 seed・全状態で期待値が最大の選択肢」があるか（支配的な戦略）。季節・年・競合で最適が入れ替わるか | 同じ選択肢が最適な状態の割合 < 70% |
+| 出ない出来事 | 3,000周で一度も出ない札、番人が期限を越えた項目 | 0 |
+| 出すぎる結末 | 1つの結末が全周の 40% 超 | 0 |
+| 達成の分布 | 無作為な手で達成する周の割合（期待：段0で 5〜15%）、「上手な手」（固定の方針）で達成する年数（期待：8〜9年） | 範囲内 |
+| 倒産の分布 | 無作為で 20〜40%、上手な手で 5% 未満 | 範囲内 |
+| ライバル | f.5 の分布 | 範囲内 |
+| 式の端 | 値段を1円刻みで回して N が単調、係数の範囲、平均の店が110±15杯 | 違反 0 |
+| 予告の実在 | 札が予告した返り（returns）が後の月に実在する、hidden の返りの数字が実在する | 違反 0 |
+| 重み | 各判断の重みの合計＝100、outcomes≧2、pres.right の枝で社長の案の試算が本当に良い | 違反 0 |
+| 分岐の数 | e.8 の4つの数 | 目標以上 |
+| 変種 | seed 0〜9 で上のすべて | 違反 0 |
+| 再現 | 同じ seed と choices で同じ結果（保存から再生できる） | 一致 |
+
+- 実行時間：1周（10期×12か月＋決算）の計算は帳簿の検算を含めて 50ms 以下を目標（純粋関数で DOM を触らない）。3,000周で約3分。CI では 300周、夜の検査で 3,000周。
+- 「上手な手」の方針は3つ固定（多店舗・工場＋卸・FC＋通販）で、設計の期待値（b.3）と照らす。ずれたら係数を直す（3段で置いて分布を見る [[web:simgames:r4-sim-emshort-beyondbranching]]）。
+
+### k.6 移行
+- v3 の保存（レモネード）は読める形で残す。ラーメン版は新しい鍵 `boki2sim.v4`。タイトル画面で「前の会社（レモネード）を開く」を1行で出す（戻れるように）。
+- 成長の記録・検定会場の記録・examLog は meta に移す（論点は同じ scope id なので、レモネードで点いた lv は引き継ぐ）。
+
+---
+
+## (l) 最初に作る「縦の切り身」と関門の基準、その後の実装の順
+
+### 結論
+- 縦の切り身＝**始め方 B（居抜きの1号店）の1年目 12か月＋決算＋銀行＋2年目4月の納税**。1つの町、3エリア（商店街・駅前・住宅地）、ライバル3軒（安売り・こだわり・老舗）、作戦の机の4つのいつでも手＋札22本、需要の式、月報、ふりかえり、分かれ道の図、PC の3段。工場・連結・周回の拡張は入れない。
+- 面白さの関門は **数字で6つ**（l.2）。通らなければ2年目に進まず、係数と札を直して再検査。
+- 実装は **「正しさの直し（済みの分）→ 世界と需要（純粋関数）→ sim-check の無作為試験 → 画面 → 台本の1年目 → 関門の検査」** の順。検査の道具を先に作る。
+
+### l.1 縦の切り身の範囲
+| 要素 | 入れる | 入れない（次の段） |
+|---|---|---|
+| 始め方 | B（既定）。A（屋台）はプロローグの1か月として体験 | C・D・E |
+| 町 | 3エリア（商店街・駅前・住宅地）、物件は各2 | 残り3エリア、隣町 |
+| ライバル | 安売り・こだわり・老舗。反応は f.3 のうち「値下げの追随」「限定で返す」「近くに出店の予兆」の3つ | 宣伝型・急拡大型、買収 |
+| いつでも手 | 値段（price）・仕込み（prep）・集客（flyer・sns・coupon・line・review の5つ）・人（staff） | snsad・influencer・stamp（2年目） |
+| 札 | 22本：supplier・bulk・inspect・haccp・maintain・insurance・waste・soup・hours・menu・limited（年1回）・openloan・mayfund・due・freelance・premium・dual_price・president_cash・卸の打診（断る枝だけ）・取材（R≧4）・最低賃金・食材の値上がり | 投資の棚（site2 は年末の「2号店を考える」の予告だけ） |
+| 論点 | 土台9＋商業 17（s-sanbunpo・s-cogs・s-genmo・s-shohizei・s-hojinzei（翌4月）・s-bankrec・s-denshi（キャッシュレス）・s-allow・s-cost・s-capex・s-dep・s-indirect・s-keika・s-seisanhyo・s-fs・s-revenue（クーポンは値引き、の対比だけ）・k-cvp（店の損益分岐点）） | 残り |
+| 画面 | 作戦の机・月報・マップ（3エリア）・シェアの表・ふりかえり・分かれ道の図・口座の帯（ゴールまでの距離）・期日の一覧（常設）・PC 3段 | 店の一覧（1店なので）・本部・連結 |
+| 周回 | S v4（run／meta）、seed、choices の履歴。年の選択と段は骨だけ | 段1以上、変種の町 |
+| 検査 | sim-check の無作為試験（1年版）、lexicon-check・coverage の拡張 | — |
+
+### l.2 面白さの関門（数字）
+検査者は10人（2回目と同じ役の構成＋人の学習者2人を加える）。2回目の道具（harness・archive・verify・BRIEF-FUN）をそのまま使う。
+
+| # | 基準 | 数字 | 測り方 |
+|---|---|---|---|
+| F1 判断が割れる | いつでも手と札の判断のうち、**同じ選択肢を8割以上の人が選んだ判断が全体の 20% 以下**。sim-check の支配的戦略の検査も合わせる | 20%・70% | harness の log の choices |
+| F2 面白さの曲線 | 月ごとの「面白い／退屈」の feel（BRIEF-FUN の5段）の **平均 3.5 以上、2 以下の月が 0**（2回目は1年目に 1 が4か月） | 3.5／0 | report.md の月の曲線（designer の形を全員に） |
+| F3 自分から戻る | 1年目を終えた人のうち **「2年目に自分から進みたい」が 8/10 以上**、「お金を払う」が 3/10 以上（2回目は 0） | 8・3 | 議論の返事 |
+| F4 要因が読める | 月末に「先月の客数が動いた理由」を聞いて、要因（季節・天気・値段・評判・宣伝・競合・品切れ）を **7割の月で言い当てる** | 70% | ふりかえりの①の記録 |
+| F5 会計が勝ち筋に効いたと言える | 「帳簿・試算・期日の一覧が判断に効いた瞬間」を **全員が2つ以上** 挙げる。「教科書の焼き増し」の a/b/c 仕分けで a が過半 | 2／過半 | report.md |
+| F6 学びが落ちていない | 1年目の論点 26 の本試験の文の正答率が、2回目の1年目と同等以上（lv2 以上の割合 7割）。工場の月はないので比較は1年目だけ | 70% | examLog・scopeState |
+| F7 壊れていない | sim-check 無作為 3,000周：違反 0、詰み 1% 未満、倒産 20〜40%（無作為）、上手な手で 1年目末のネットキャッシュが −1,500万〜−2,000万（b.3 の試算の範囲） | — | sim-check |
+
+- F1〜F5 のどれかを落としたら、**係数（3段）と札の重み・試算の見せ方を直して再検査**。2回目の検査で分かった「正解が1つの二択」の症状が出たら、その判断を BIZ-SIMDESIGN 2.1 の7条件で点検し直す。
+- 関門を通ったあとの順（l.3）に進む。
+
+### l.3 その後の実装の順
+1. **正しさの直し（REVIEW-ROUND2 (i)1 の残り）＋ examForm ＋ 年度表**（進行中の分を終える。レモネード版で検査が通る状態を保つ）。
+2. **S v4・run／meta・choices・seed**（DESIGN-ROUND2 3.10）。レモネード版のまま移行して sim-check が通ること。
+3. **world.js（需要）・rivals.js・decide.js・cards.js**：純粋関数。DOM なし。**sim-check の無作為試験を先に書く**（式の端・係数の範囲・支配的戦略・詰み・出ない札）。
+4. **月の生成**（`SIM.ramen.month`）と 1年目の台本（札22本・固定の骨・番人の骨）。lexicon-check・coverage の拡張。
+5. **画面**：作戦の机・月報・マップ・シェア・ふりかえり・分かれ道の図・口座の帯・PC 3段（R3）。
+6. **縦の切り身の通し**（ボット）→ 初見監査 → **面白さの関門（l.2）**。
+7. 関門を通ったら：2年目（S2：増資・2号店・本支店・CVP・stamp・influencer）→ 3年目（S3：本部・引当金・リース・有価証券・外貨・税効果・工場の融資）→ 4〜5年目（S4：工場＝工1、卸、K6）→ 5〜7年目（S5：ブランド・FC・通販・子会社・連結＝K7・K8）→ 8〜10年目（自由区間・変種の再来・番人）。各年で初見監査と sim-check。
+8. 周回の拡張（段1〜5、変種の町・ライバル・始め方 A〜E、館、結末の図鑑、前の周との比較）。
+9. 検定会場（延長・範囲を選ぶ・段3の形）。
+10. 回帰と2回目の面白さの関門（全体版。工場の月は必ず2人が手で）。
+
+- 時間を理由に外した案はない。順番は「正しさ→検査の道具→世界→画面→台本→関門」で、**面白さの関門を先に通す**（オーナーの方針7）。
