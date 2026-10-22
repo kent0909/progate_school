@@ -91,7 +91,11 @@
   - 議論で10人がほぼそろった所：面白さの判定は「無料なら続ける／勉強だから続ける」が中心（お金を払う、はなし）。面白さの芯は「判断が数か月後に返る」所で、谷は判断のない月と2年目の工場の定型書類。8人が「2年目は教科書の目次の順が先に決まり、出来事を当てた作り」と判定（uiux は逆、theory・designer は芯は a と評価）。designer の判断20本の分類：正解1つ8・試算で分かる3・戦略9、面白さの山は戦略型だけ
   - 2回目で分かった検査の道具の不備：①review2/game.html に viewport の meta がなく、スマホの寸法は幅約980の縮小表示だった（本番の index.html にはある）→ スマホの所見は本番で測り直して仕分ける。次の凍結では入れる ②BRIEF に「ゲームとして面白いか」の章がなかった（オーナーの指摘）→ 議論の回で review2/BRIEF-FUN.md（面白さ＋「教科書をゲームの形に落としただけか」の a/b/c 仕分け。designer は月ごとの曲線・判断の質・類作比較）を全員に書かせる。議論の頼みの文は review2/DISCUSS-MSG.md ③verify.js の既定の見出しがふつうのプレイヤー役と食い違い → playtest.json の min.kheads で指定（直した）。仕分けは review2/verify-triage.md
   - 報告で多く重なった指摘（まとめの前の目安）：成長・マップの「書けた」が実際と合わない（ほぼ全員）、外注加工賃の例と正解の食い違い（5人）、出荷の単価292円＝後入先出（5人。会計士が誤りと判定）、もしもの数字（3人）、本試験の文が習った論点とずれる、思い出すの題が先月の最後の書類・範囲外のポイント、2026年度で練習室のリースが2027年度の基準（retaker、致命）、2年目の B/S の純資産の表示（accountant）、キーボードで貸方を打つと見出しが化ける（accountant・lowvision）、焦点が消える・同名ボタン（uiux・lowvision）、ふりがなが2級の語に付かない（access）、物語で2級の範囲の半分しか触れない（accountant・retaker）
-    - **コンテナが再起動したら、最初に** `bash boki2/tools/playtest/archive-loop.sh <playtest.json> status` を見て、止まっていれば `archive-loop.sh <playtest.json>` で動かし直す（再起動でループは消える。/tmp の pid のファイルが残っていても、プロセスがなければ「止まっている」と出る）。2回目の検査の playtest.json は /tmp/claude-0/-home-user-progate-school/0f5c124a-6604-5e69-b554-2beafc4f2038/scratchpad/review2/playtest.json
+    - **再起動で下請けの作業を失わないための決まり（2026-10-22。Fable の設計の書きかけを再起動で一度失った反省）**
+      1. **途中保存のループ**：`bash boki2/tools/wip-sync.sh`（5分ごとに boki2/docs と boki2/research の変更だけをコミットしてプッシュ。ゲームのコードは対象外。見張り役つき）。状態は `bash boki2/tools/wip-sync.sh status`、記録は /tmp/piyo-wip-sync.log
+      2. **下請けへの頼み方**：長い文書を書く下請けには「書き終えた章から順にファイルに保存する」を必ず頼む（最後に1回だけ書く形にしない）
+      3. **再起動で止まった下請けは、新しく作り直す前に再開を試す**：下請けの会話記録 `/root/.claude/projects/-home-user-progate-school/0f5c124a-6604-5e69-b554-2beafc4f2038/subagents/agent-<id>.jsonl` は再起動のあとも残る。残っていれば、その id に SendMessage すると続きから再開できる（読んだ資料と考えたことを持ったまま）。作り直すのは記録がないときだけ
+    - **コンテナが再起動したら、最初に** `bash boki2/tools/wip-sync.sh status`（止まっていれば `bash boki2/tools/wip-sync.sh`）と、止まった下請けの会話記録が残っているか（上の3）を確かめる。そのあと `bash boki2/tools/playtest/archive-loop.sh <playtest.json> status` を見て、止まっていれば `archive-loop.sh <playtest.json>` で動かし直す（再起動でループは消える。/tmp の pid のファイルが残っていても、プロセスがなければ「止まっている」と出る）。2回目の検査の playtest.json は /tmp/claude-0/-home-user-progate-school/0f5c124a-6604-5e69-b554-2beafc4f2038/scratchpad/review2/playtest.json
 
 ## 6. 次にやること
 ★ オーナーの決定（2026-10-20）：**スマホでもPCでも良い体験にする（レスポンシブ）**。「スマホ規格のゲームをPCでやるのしんどい」。いまはPCでも幅720pxの縦長の列のまま。見直しの結果と合わせて、PCでは広い画面を活かす配置（会話・書類・帳簿を横に並べる等）にする。検査も、大人の検査者はスマホとPCの両方で遊ぶ（BRIEF の L）
