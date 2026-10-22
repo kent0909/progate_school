@@ -77,7 +77,7 @@ for k in JFA:
     f = os.path.join(ROOT, 'research', 'raw', 'web', 'bizgrowth', f'r5-growth-jfa-{k}.pdf')
     if not os.path.exists(f): print(k, '原文なし'); continue
     t = subprocess.run(['pdftotext', '-layout', f, '-'], capture_output=True, text=True).stdout
-    i = max(t.rfind('訴訟件数'), t.rfind('における訴訟件数'))
+    i = t.find('提起した訴えの件数')  # 表の見出し（目次の行ではなく本文の表）
     blk = t[i:i + 1500]
     rows = re.findall(r'^\s*((?:令和\s*\d+|\d{4}|[０-９]{4})\s*年度)\s+(\S+)\s+(\S+)', blk, re.M)
     years = len(rows)
