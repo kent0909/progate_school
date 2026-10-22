@@ -1953,5 +1953,20 @@
   "verdict": "ok",
   "basis": "厚生労働省の公開資料（告示の振興指針）。robots.txt は許可。官公庁の公開資料",
   "checked": "2026-10-22"
+ },
+ "data-max.co.jp": {
+  "verdict": "gray",
+  "basis": "データ・マックス（NetIB-News）。robots.txt は一部のタグ頁だけ Disallow。規約に自動取得の明示的禁止は見当たらない。倒産の個別事例の記事1件",
+  "checked": "2026-10-22"
+ },
+ "dxmagazine.jp": {
+  "verdict": "gray",
+  "basis": "DX Magazine。robots.txt は管理画面だけ Disallow。規約に自動取得の明示的禁止は見当たらない。倒産の事例の記事1件",
+  "checked": "2026-10-22"
+ },
+ "deepblue.lib.umich.edu": {
+  "verdict": "no-automation",
+  "basis": "Deep Blue（ミシガン大学）：robots.txt に Content-Signal（ai-train=no、use=reference）と一部UAへの全面禁止があり、取得物はブラウザ確認の画面だった。自動取得しない（2026-10-22 確認、最初の gray の判断を改めた）",
+  "checked": "2026-10-22"
  }
 }
