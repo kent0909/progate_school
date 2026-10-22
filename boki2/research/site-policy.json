@@ -1803,5 +1803,40 @@
   "verdict": "gray",
   "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"
+ },
+ "kanagawa-u.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "神奈川大学学術機関リポジトリ（JAIRO Cloud）：robots.txt は /records/*/files を禁止していない（他の repo.nii.ac.jp と同じ構成、2026-10-22確認）。公開論文。原文は入れず要約のみ",
+  "checked": "2026-10-22"
+ },
+ "u-gakugei.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "東京学芸大学の機関リポジトリで一般公開の紀要論文PDF。robots.txt は /admin/ /api/ /search 等のみ禁止で /records/*/files は禁止していない（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "pweb.cc.sophia.ac.jp": {
+  "verdict": "gray",
+  "basis": "上智大学の教員のゼミのページで公開の卒業論文PDF。robots.txt は存在せず（404）制限の表明なし（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "www.st.nanzan-u.ac.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "www.pref.fukushima.lg.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "fenix.tecnico.ulisboa.pt": {
+  "verdict": "gray",
+  "basis": "リスボン大学 IST の学位論文の公開リポジトリ（Fenix）。robots.txt は置かれていない（404 の案内ページ）。規約の明示の禁止は見当たらない（README の目安で gray）。単発の閲覧",
+  "checked": "2026-10-22"
+ },
+ "ndlsearch.ndl.go.jp": {
+  "verdict": "gray",
+  "basis": "国立国会図書館サーチのAPI（OpenSearch）は利用規約で非営利の利用を認める。robots.txt は /api を禁止していない（2026-10-22 確認）",
+  "checked": "2026-10-22"
  }
 }
