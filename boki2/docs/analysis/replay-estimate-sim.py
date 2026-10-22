@@ -38,9 +38,9 @@ def sim(seed, p0, d, N, run_days, mode='run', q=1.0, recheck=False, k=1, nat=0.0
     day = 0
     while day < horizon:
         if pattern[day % 7]:
-            k = int(mph)
-            for j in range(k):
-                times.append(day + j / k)
+            per = int(mph)
+            for j in range(per):
+                times.append(day + j / per)
         day += 1
     tm = lambda m: times[min(len(times) - 1, max(0, math.ceil(m) - 1))]
     # 項目：[初出の日, 正解の回数（連続または通算）, 期日, 最後が正解か, 届いたか, 正解の累計（正解率用）]

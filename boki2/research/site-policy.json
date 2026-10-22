@@ -2163,5 +2163,25 @@
   "verdict": "gray",
   "basis": "日本不動産研究所。robots.txt をこの取得で確かめる（r6-cal-reinet-robots）",
   "checked": "2026-10-22"
+ },
+ "shashi.pitt.edu": {
+  "verdict": "gray",
+  "basis": "Shashi（ピッツバーグ大学の OJS の学術誌、オープンアクセス）。robots.txt は返らず、規約に自動取得の禁止の明示なし",
+  "checked": "2026-10-22"
+ },
+ "scholarworks.lib.csusb.edu": {
+  "verdict": "gray",
+  "basis": "CSUSB ScholarWorks（機関リポジトリ）。robots.txt は /cgi/ の一部だけ禁止",
+  "checked": "2026-10-22"
+ },
+ "pacificaffairs.ubc.ca": {
+  "verdict": "gray",
+  "basis": "Pacific Affairs（UBC の学術誌）。robots.txt は wp-admin 等のみ禁止",
+  "checked": "2026-10-22"
+ },
+ "www.sbbit.jp": {
+  "verdict": "gray",
+  "basis": "ビジネス+IT（SB クリエイティブ）。robots.txt の User-agent * は一部のみ禁止、規約に自動取得の明示の禁止は見当たらない",
+  "checked": "2026-10-22"
  }
 }

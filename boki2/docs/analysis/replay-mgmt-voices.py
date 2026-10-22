@@ -91,6 +91,9 @@ for w in W:
     print('  %s で届いた %d 件の周：1周目=%d 2周目以降=%d 書かない=%d' % (w, len(got), r['1周目'], r['2周目以降'], r['書かない']))
     for k in ['1周目', '2周目以降']:
         print('    %s：#%s' % (k, ' #'.join(str(i) for i in got if C[i]['round'] == k)))
+    if w == 'ゲーム発展国++':
+        lo, hi = r['2周目以降'], r['2周目以降'] + r['書かない']
+        print('    書かない件を全部1周目に寄せると2周目以降は %d件（%.0f%%）、全部2周目以降に寄せると %d件（%.0f%%）' % (lo, 100.0 * lo / len(got), hi, 100.0 * hi / len(got)))
 print('5) 判定役（docs/audit/BIZ-REPLAY-audit-count.py の 3a・3b）との食い違い（判定役の語の条件をここで同じに組んで件番号を出し、コードと突き合わせる）')
 REPLAY = re.compile(r'最初からやり直|最初からプレイ|やり直しても|２回目|2回目|引き継ぎ|リセットされる')
 a3 = {u['all'] for u in U if not HIT.search(txt(u)) and REPLAY.search(txt(u))}
