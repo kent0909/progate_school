@@ -31,6 +31,10 @@ for (const f of files) {
   });
   const m = s.match(/^#{2,3} .*やっていないこと.*\n([\s\S]*?)(?=^#{2,3} |$(?![\s\S]))/m);
   if (m && (m[1].trim().length < 40 || /^[-・\s]*(なし|特になし|ない)[。\s]*$/.test(m[1].trim()))) console.log(`△ ${name}：「やっていないこと」がほぼ空。本当にないかを疑う（QUALITY 4.1-4）`);
+  // 主張ごとの出典の語句（QUALITY 6章）：quality:v2 の報告の [[…]] はすべて |「語句」 を持つ。語句が原文に出るかは research-check が確かめる
+  const cites = [...s.matchAll(/\[\[[\w-]+:[\w-]+:[^\]\s|]+(\|「[^」]+」)?\]\]/g)];
+  const bare = cites.filter((c) => !c[1]).length;
+  if (!isDesign && bare) { errs++; console.log(`✗ ${name}：出典 ${cites.length} 件のうち ${bare} 件に原文の語句（[[src:coll:doc|「語句」]]）がない`); }
   if (hits.length) console.log(`△ ${name}：台帳の外に簡略化の言い回し ${hits.length} か所（行 ${hits.slice(0, 12).join(', ')}${hits.length > 12 ? '…' : ''}）。台帳に載せて理由を書くか、言い回しを直す`);
   if (!miss.length) console.log(`✓ ${name}`);
 }

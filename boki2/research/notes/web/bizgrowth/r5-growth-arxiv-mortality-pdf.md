@@ -8,7 +8,7 @@ read: partial
 pages: 1〜11（要旨・序論・データ・方法・起業時の規模・景気・飲食店と他のサービス業の比較・表1〜3）。12ページ以降の結論と参考文献は流し読み
 anchors: ["Only the Bad Die Young", "81,000 full-service restaurants", "Multi-establishment and “chain” restaurants are excluded", "Twenty-one percent of small startups survived past age 15", "liability of adolescence", "offices of dentists, physicians, and lawyers"]
 ---
-Luo（米国労働統計局）と Stark（カリフォルニア大学バークレー校）の論文草稿「Only the Bad Die Young: Restaurant Mortality in the Western US」（arXiv:1410.8603、2014年10月）。
+Luo（米国労働統計局）と Stark（カリフォルニア大学バークレー校）による、米国西部のレストランの生存を調べた論文の草稿（arXiv:1410.8603、2014年10月）。
 
 対象：米国西部8州、1992〜2011年に生まれた1店だけの事業所（チェーン・複数事業所は除外）。労働統計局の雇用保険の記録に基づく、ほぼ全数の事業所のデータ。フルサービスのレストラン8.1万、サービス業全体190万。
 

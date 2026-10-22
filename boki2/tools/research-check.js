@@ -334,13 +334,23 @@ function checkImagePages(ns, es, tag) {
 
 // ---------- 出典の参照（docs の [[src:coll:doc]]） ----------
 const cited = new Set();
+let quoted = 0;
 for (const f of lsr(DOCS).filter((p) => p.endsWith('.md'))) {
   const s = fs.readFileSync(f, 'utf8');
-  for (const m of s.matchAll(/\[\[([\w-]+):([\w-]+):([^\]\s]+)\]\]/g)) {
+  // [[src:coll:doc|「語句」]]：主張ごとの出典。語句（4〜20字）が、その資料の原文にそのまま出ることを確かめる（資料にないことを資料の名で書くのを防ぐ。QUALITY 6章）
+  for (const m of s.matchAll(/\[\[([\w-]+):([\w-]+):([^\]\s|]+)(?:\|「([^」]{1,40})」)?\]\]/g)) {
     if (/[<>…]|\.\.\./.test(m[3])) continue; // 記法の説明に書いた見本（<ID>、…）は出典として数えない
     const k = `${m[1]}:${m[2]}:${m[3]}`;
     cited.add(k);
     if (!notes.some((n) => `${n.src}:${n.coll}:${n.doc}` === k)) err('出典', `${path.relative(DOCS, f)} が ${k} を引いているが、その読了ノートがない`);
+    if (m[4] !== undefined) {
+      quoted++;
+      const q = norm(m[4]);
+      if (q.length < 4 || q.length > 20) { err('出典の語句', `${path.relative(DOCS, f)} の ${k} の語句「${m[4]}」は4〜20字にする`); continue; }
+      const files = ledger.filter((e) => e.src === m[1] && e.coll === m[2] && String(e.doc) === m[3] && e.status === 200).map(rawFile).filter(Boolean);
+      if (!files.length) { warn('出典の語句', `${path.relative(DOCS, f)} の ${k}：原文が手元にないので語句を照合できない`); continue; }
+      if (!files.some((x) => textsOf(x).some((t) => t.includes(q)))) err('出典の語句', `${path.relative(DOCS, f)} の ${k}：語句「${m[4]}」が原文に出てこない（資料にないことを資料の名で書いていないか）`);
+    }
   }
 }
 // 外部資料にもとづいて書いた文書は、取得元ごとに少なくとも1本の読了ノートを出典として引くこと（引いていなければ未検査の分析）

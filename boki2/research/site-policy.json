@@ -1968,5 +1968,20 @@
   "verdict": "no-automation",
   "basis": "Deep Blue（ミシガン大学）：robots.txt に Content-Signal（ai-train=no、use=reference）と一部UAへの全面禁止があり、取得物はブラウザ確認の画面だった。自動取得しない（2026-10-22 確認、最初の gray の判断を改めた）",
   "checked": "2026-10-22"
+ },
+ "www.pref.chiba.lg.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "www.rodo.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt で取得を許可（または robots.txt なし）。規約に自動取得の明示の禁止は見つけていない（規約ページは確認していない）。1〜2ページのみ・間隔を守って取得",
+  "checked": "2026-10-22"
+ },
+ "www.zenshoren.or.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt で取得を許可（または robots.txt なし）。規約に自動取得の明示の禁止は見つけていない（規約ページは確認していない）。1〜2ページのみ・間隔を守って取得",
+  "checked": "2026-10-22"
  }
 }
