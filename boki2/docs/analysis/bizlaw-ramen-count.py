@@ -117,10 +117,11 @@ if os.path.exists(REP):
     print(f'  灰色の判断 {len(gray)} 件')
     # 型の列（最後の列の先頭の英字 a〜d）を自分で数える（論証の検査 R005 の型分類を写さず、自分の表から数え直す）
     kinds = {}
-    for row in re.findall(r'^\| G\d+ .*$', sect('灰色の判断の一覧'), re.M):
+    graysec = sect('灰色の判断の一覧').split('### 型の付け直し')[0]  # 付け直しの理由の表は数えない
+    for row in re.findall(r'^\| G\d+ .*$', graysec, re.M):
         last = row.rstrip().rstrip('|').split('|')[-1].strip()
         kinds[last[:1] or '?'] = kinds.get(last[:1] or '?', 0) + 1
-    print(f'  灰色の判断の型 {dict(sorted(kinds.items()))}（a 本当の灰色・b 決まりで決まる・c 法と関係の薄い合法どうしの引き換え・d 違反は明らかで発覚だけ揺れる）')
+    print(f'  灰色の判断の型 {dict(sorted(kinds.items()))}（a 当てはめが揺れる・b 文言で決まる・c 法の外で決まる引き換え・d 発覚だけ揺れる・e 会計基準の判断・未 未確定。定義は報告の灰色の判断の一覧の頭、第3版で書き手が立てたもの）')
     print(f'  事例と判例 {len(cases)} 件（失敗 {len(fail)}、成功 {len(succ)}、外食・ラーメン {len(gaishoku)}）')
     print(f'  統計 {len(stats)} 項目')
     print(f'  仕訳の例 {len(jrn)} 例（うち2級の外と書いたもの {len(jrn2)}）')

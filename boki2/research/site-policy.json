@@ -2208,5 +2208,10 @@
   "verdict": "gray",
   "basis": "robots.txt そのものの確認（取得の可否を決めるための読み取り）",
   "checked": "2026-10-22"
+ },
+ "www.anderson.ucla.edu": {
+  "verdict": "gray",
+  "basis": "UCLA Anderson の教員ページ（Lee Cooper 本人が MCI の本の PDF を公開）。サイトの利用規約に自動取得の明示の禁止は見当たらない（規約頁は未確認）。robots.txt は r7-fc-ucla-robots で取得し、道具が毎回確かめる",
+  "checked": "2026-10-22"
  }
 }
