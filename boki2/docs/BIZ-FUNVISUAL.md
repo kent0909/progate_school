@@ -5,7 +5,7 @@
 依頼：オーナーの指摘（①経営シムが長く遊ばれる＝スルメになる理由の分析が浅い、②画面・グラフィックがチープ）を受けて、経営シム・飲食シムの代表作を調べ直す。Coffee Inc 2 は別の担当（BIZ-COFFEEINC2）なので扱わない。
 読んだ資料：**この調べもので新たに取得して読んだもの 44本**（読了ノートは `boki2/research/notes/web/simgames/r5-fv-*.md`）。規約で取れなかったもの 7本・取得に失敗したもの 3本は「やっていないこと」に書いた。前の調べもの（BIZ-SIMDESIGN・BIZ-RAMEN）の読了ノートも引く。
 **印**：【資料なし】＝一次資料・二次資料に当たれず根拠にしないもの。【推測】＝資料から筋道を立てて置いた案。【要確認】＝試作・試遊で確かめる必要があるもの。
-**出典の書き方**：`[[web:simgames:r5-fv-…]]` は読了ノート。作品名の後の（声 n件）は、APPLION に集められた App Store の口コミを私が1件ずつ読んで数えたもの（2章）。
+**出典の書き方**：二重の角かっこで囲んだ「取得元:集合:文書」は読了ノート。作品名の後の（声 n件）は、APPLION に集められた App Store の口コミを私が1件ずつ読んで数えたもの（2章）。
 
 ---
 
@@ -422,7 +422,7 @@ Capitalism Lab の地図は毎回ランダム [[web:simgames:r5-fv-capilab-begin
 
 ## 4. ラーメン屋で動かせる変数の候補（53個）
 
-**見方**：「現実の根拠」は BIZ-RAMEN（`[[web:ramen:…]]`）とこの調べものの資料、「作品の根拠」は同じ型の変数を持つ作品。片方しかないものは、ない方に【資料なし】と書いた。「絡む相手」は、その変数と掛け算になる変数の番号。「危険」は、効きが弱くて触られなくなる（鎖B）・支配的な答えができる（鎖F）などの心配。数字・重みは DESIGN-RAMEN の側で BIZ-CALIB に合わせる。
+**見方**：「現実の根拠」は BIZ-RAMEN（web:ramen の読了ノート）とこの調べものの資料、「作品の根拠」は同じ型の変数を持つ作品。片方しかないものは、ない方に【資料なし】と書いた。「絡む相手」は、その変数と掛け算になる変数の番号。「危険」は、効きが弱くて触られなくなる（鎖B）・支配的な答えができる（鎖F）などの心配。数字・重みは DESIGN-RAMEN の側で BIZ-CALIB に合わせる。
 
 ### 4.1 一杯の組み立て（14）
 | # | 変数（選択肢・深さ） | 絡む相手 | 現実の根拠 | 作品の根拠 | 危険と対策 |
@@ -621,4 +621,4 @@ Capitalism Lab の地図は毎回ランダム [[web:simgames:r5-fv-capilab-begin
 **表現・手ざわり・数字**：[[web:simgames:r5-fv-wiki-minimetro]] [[web:simgames:r5-fv-gd-minimetro-gdc]] [[web:simgames:r5-fv-gd-juice]] [[web:simgames:r5-fv-tufte-sparkline]] [[web:simgames:r5-fv-gd-idlemath1]] [[web:simgames:r5-fv-gd-idlemath3]] [[web:simgames:r5-fv-gd-mgmtdepth]]
 **ラーメンの現実**：[[web:simgames:r5-fv-netshop-takumen]] [[web:simgames:r5-fv-prtimes-seimenki]]
 
-**引いた既存のノート**：BIZ-RAMEN の `web:ramen:r4-ramen-*`（25本のうち20本）、BIZ-SIMDESIGN の [[web:simgames:r4-sim-denfami-kairosoft]] [[web:simgames:r4-sim-gdt-modapi-topics]] [[web:simgames:r4-sim-gdt-modapi-checks]] [[web:simgames:r4-sim-soren-otc-stockmarket]] [[web:simgames:r4-sim-soren-otc-eapostmortem]] [[web:simgames:r4-sim-capilab-improvedai]] [[web:simgames:r4-sim-lemonade-apple1979]] [[web:simgames:r4-sim-openrct2-ride]] [[web:simgames:r4-sim-tynan-simdream]] [[web:simgames:r4-sim-gd-meier2012]]、Coffee Inc 2 の比較に [[web:simgames:r4-cinc-applion-reviews]]。
+**引いた既存のノート**：BIZ-RAMEN の web:ramen の読了ノート（25本のうち23本）、BIZ-SIMDESIGN の [[web:simgames:r4-sim-denfami-kairosoft]] [[web:simgames:r4-sim-gdt-modapi-topics]] [[web:simgames:r4-sim-gdt-modapi-checks]] [[web:simgames:r4-sim-soren-otc-stockmarket]] [[web:simgames:r4-sim-soren-otc-eapostmortem]] [[web:simgames:r4-sim-capilab-improvedai]] [[web:simgames:r4-sim-lemonade-apple1979]] [[web:simgames:r4-sim-openrct2-ride]] [[web:simgames:r4-sim-tynan-simdream]] [[web:simgames:r4-sim-gd-meier2012]]、Coffee Inc 2 の比較に [[web:simgames:r4-cinc-applion-reviews]]。
