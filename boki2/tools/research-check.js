@@ -109,7 +109,18 @@ function textOf(file) {
   if (!file) return null;
   if (textCache.has(file)) return textCache.get(file);
   let t = '';
+  const magic = (() => { try { const fd = fs.openSync(file, 'r'); const b = Buffer.alloc(8); fs.readSync(fd, b, 0, 8, 0); fs.closeSync(fd); return b; } catch (x) { return Buffer.alloc(0); } })();
   if (/\.pdf$/i.test(file)) t = pdfText(file);
+  // 表計算（xlsx は zip の PK、旧形式の xls は D0CF11E0）：拡張子に関係なく中身の印で見分け、tools/sheet-text.py でセルの値を文字にする（結果は raw/.text/ に保存して使い回す）
+  else if ((magic[0] === 0x50 && magic[1] === 0x4b) || magic.toString('hex') === 'd0cf11e0a1b11ae1') {
+    const dir = path.join(R, 'raw', '.text');
+    const c = path.join(dir, fileSha(file) + '.sheet.txt');
+    if (fs.existsSync(c)) t = fs.readFileSync(c, 'utf8');
+    else {
+      t = spawnSync('python3', ['-I', path.join(__dirname, 'sheet-text.py'), file], { encoding: 'utf8', maxBuffer: 1 << 28 }).stdout || '';
+      if (t) { fs.mkdirSync(dir, { recursive: true }); fs.writeFileSync(c, t); }
+    }
+  }
   else {
     // 文字コード：Shift_JIS・EUC-JP のページも読む
     const buf = fs.readFileSync(file);
