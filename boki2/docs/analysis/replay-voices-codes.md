@@ -127,18 +127,18 @@ Steam・Reddit・Hacker News は規約か遮断で読めない（BIZ-REPLAY.md�
 | 107 | Balatro | - | - | - |  |
 | 108 | Balatro | 周 | K T F | - |  |
 | 109 | Balatro | 周 | K S | r |  |
-| 110 | Balatro | 周 | M | - |  |
+| 110 | Balatro | 長 | M | - |  |
 | 111 | Balatro | 長 | S Z | - |  |
 | 112 | Balatro | 長 | Z | - |  |
-| 113 | Balatro | 周 | K | - |  |
+| 113 | Balatro | 長 | K | - |  |
 | 114 | Balatro | - | - | - |  |
 | 115 | Balatro | - | - | - |  |
 | 116 | Balatro | 長 | F | - |  |
 | 117 | Balatro | - | - | - |  |
 | 118 | Balatro | 長 | Z | - |  |
-| 119 | Balatro | 周 | M | - |  |
+| 119 | Balatro | 長 | M | - |  |
 | 120 | Balatro | - | - | - |  |
-| 121 | Balatro | 周 | K Z | - |  |
+| 121 | Balatro | 長 | K Z | - |  |
 | 122 | Balatro | 周 | N | b u |  |
 | 123 | Balatro | 周 | M | d |  |
 | 124 | Balatro | 長 | S | - |  |
@@ -166,8 +166,8 @@ Steam・Reddit・Hacker News は規約か遮断で読めない（BIZ-REPLAY.md�
 | 146 | FTL | 周 | M | d |  |
 | 147 | FTL | - | - | - |  |
 | 148 | FTL | 周 | M K T | - |  |
-| 149 | FTL | 周 | M K | - |  |
-| 150 | FTL | 周 | M | d |  |
+| 149 | FTL | 長 | M K | - |  |
+| 150 | FTL | 長 | M | d |  |
 | 151 | FTL | - | - | - |  |
 | 152 | FTL | 周 | K M | d | 百時間以上 |
 | 153 | FTL | 長 | K | - | 月・年単位 |
@@ -183,7 +183,7 @@ Steam・Reddit・Hacker News は規約か遮断で読めない（BIZ-REPLAY.md�
 | 163 | FTL | 周 | Z | - |  |
 | 164 | FTL | 周 | K E | - |  |
 | 165 | FTL | - | - | - |  |
-| 166 | FTL | 周 | M | d |  |
+| 166 | FTL | 長 | M | d |  |
 | 167 | FTL | - | - | - |  |
 | 168 | Stardew | 周 | E F N | - |  |
 | 169 | Stardew | 周 | Z | u |  |
@@ -246,6 +246,6 @@ Steam・Reddit・Hacker News は規約か遮断で読めない（BIZ-REPLAY.md�
 | 226 | Stardew | 長 | E | - |  |
 | 227 | Stardew | - | - | - |  |
 | 228 | GDT | 長 | S | - |  |
-| 229 | GDT | 周 | M | - |  |
+| 229 | GDT | 長 | M | - |  |
 | 230 | GDT | 長 | Z | - |  |
 | 231 | GDT | - | - | - |  |
