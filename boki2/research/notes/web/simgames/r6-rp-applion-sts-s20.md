@@ -1,0 +1,18 @@
+---
+src: web
+coll: simgames
+doc: r6-rp-applion-sts-s20
+file: r6-rp-applion-sts-s20.html
+sha256: f5c310c5b6a5dc7161c7713801d2f28fde9d3a6148bebd63ccbdbc5b7bd7646e
+read: partial
+pages: 口コミ（Slay the Spire の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない
+anchors: ["面白さはみなさんが", "操作性とiPhon", "今までプレイしたゲ", "いつまでも飽きが来", "おもろすぎて時間溶", "んがレビューしてい", "ある程度自分で調べ"]
+---
+## 何の資料か
+APPLION（App Store の口コミを転載するサイト）の「Slay the Spire」の口コミのページ（https://applion.jp/Slay-the-Spire/iphone-1491530147/review/?start=20）。利用者の声。載っている口コミは星4〜5ばかりで、低い星の口コミは載っていない（偏りがある）。
+口コミは `boki2/docs/analysis/replay-voices-count.py --dump` で切り出し、通し番号 #21〜#40 をつけた。分類のコードは `boki2/docs/analysis/replay-voices-codes.md`。
+
+## 読み取れること（自分の言葉で。件数はスクリプトの表から）
+- このページの20件のうち、始め直し（周回・ラン・別の牧場など）に触れたもの 8件、長く遊び続けたことだけに触れたもの 6件、どちらにも触れないもの（不具合・翻訳の要望など） 6件。
+- 楽しみとして書かれたもの：理由を書かない中毒 6件、上達・理解が深まる 5件、組み合わせ・毎回違う展開 3件、難度の段を上げる 3件、新しい発見・解放 1件、目標・実績を埋める 1件、間をあけて戻る 1件。
+- 不満・やめた理由：操作・不具合 2件、難しすぎる 1件。

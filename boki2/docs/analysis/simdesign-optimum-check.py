@@ -126,3 +126,38 @@ for weather in WEATHER:
         b1[(weather, nriv)] = argmax(lambda q: b1_profit(q, weather, nriv), ps2)[0]
 print('  ', '  '.join('%s/ライバル%d→%d円' % (k[0], k[1], v) for k, v in b1.items()))
 print('  最適の値段の種類', sorted(set(b1.values())))
+
+print()
+print('=== (5) 地域の損益分岐点（CVP）：同じ杯数でも場所で黒字・赤字が逆になるか。地域の数字は全部【推論】の置き値（本当の値は BIZ-CALIB 0.2 の担当）')
+AREAS = {  # 名前: (月の家賃, 時給, 1日の人時, ふつうの値段 p_ref, 1日の潜在客, ライバル数)
+    '都心型（銀座のような所）': (1200000, 1500, 40, 1100, 3000, 4),
+    '郊外型（奥多摩のような所）': (150000, 1050, 14, 850, 300, 0),
+}
+DAYS, OTHER = 26, 250000   # 営業日・その他の月の固定費（水道光熱の基本・保険・リース）【推論】
+def area_profit(area, cups_per_day, p):
+    rent, wage, hours, pref, pot, nriv = AREAS[area]
+    fixed = rent + wage * hours * DAYS + OTHER
+    var = COST  # 1杯の材料（d.2 と同じ 324円）
+    return cups_per_day * DAYS * (ITEMS * p - var) - fixed, fixed
+for area, (rent, wage, hours, pref, pot, nriv) in AREAS.items():
+    p = pref  # その地域のふつうの値段で売る
+    for cups in (30, 60, 100, 150):
+        pr, fixed = area_profit(area, cups, p)
+        print('  %s 値段%d円 1日%d杯 → 月の営業利益 %+d円（固定費 %d円）' % (area, p, cups, pr, fixed))
+    be = (rent + wage * hours * DAYS + OTHER) / (DAYS * (ITEMS * p - COST))
+    print('  %s の損益分岐点 %.0f杯/日 ＝ 固定費 ÷ (26日 ×(1.2×%d円 − 324円))' % (area, be, p))
+print('  式の形の確かめ：d.2 は家賃・人件費が需要の式の外（c.2 の表と月次の損益）にあり、損益分岐点は「固定費÷1杯の粗利」でエリアごとに変わる。')
+print('  d.2 で地域の需要に効くのは P_a（人の多さ）・ライバル（分母）・p_ref（値段の受け入れ）の3つ。人件費と家賃は需要の式に入らない。')
+
+print()
+print('=== (6) 案M2 での地域の最適の値段と、その値段での損益（ライバル2軒、ふつうの天気）')
+AREA['都心型'] = {'会社員': .8, '学生': .1, '高齢': .1}
+AREA['郊外型'] = {'会社員': .2, '学生': .1, '高齢': .7}
+for a, pref, pa, nriv, key in (('都心型', 1100, 3000 * DAYS, 4, '都心型（銀座のような所）'), ('郊外型', 850, 300 * DAYS, 0, '郊外型（奥多摩のような所）')):
+    PA_saved = PA; PA = pa
+    p, prof = argmax(lambda q: m2_profit(q, a, 'ふつう', nriv, pref=pref), ps)
+    cups = prof / (ITEMS * p - COST) / DAYS
+    rent, wage, hours, _, _, _ = AREAS[key]
+    fixed = rent + wage * hours * DAYS + OTHER
+    print('  %s：最適の値段%d円、1日約%.0f杯、粗利 %d円 − 固定費 %d円 ＝ %+d円' % (a, p, cups, prof, fixed, prof - fixed))
+    PA = PA_saved

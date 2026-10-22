@@ -1,0 +1,18 @@
+---
+src: web
+coll: simgames
+doc: r6-rp-applion-stardew-s20
+file: r6-rp-applion-stardew-s20.html
+sha256: b349f66aca79d003b202a26691f3ee7f0e9f291c162fab7e63144dc54244291e
+read: partial
+pages: 口コミ（Stardew Valley の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない
+anchors: ["安くはない価格だけ", "スマホ版からスター", "とても楽しい面白い", "すごくのどかで、ま", "パソコン版が楽しく", "だけれど、その価格", "家具の設置や回転が"]
+---
+## 何の資料か
+APPLION（App Store の口コミを転載するサイト）の「Stardew Valley」の口コミのページ（https://applion.jp/%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%87%E3%83%A5%E3%83%BC%E3%83%90%E3%83%AC%E3%83%BC-Stardew-Valley/iphone-1406710800/review/?start=20）。利用者の声。載っている口コミは星4〜5ばかりで、低い星の口コミは載っていない（偏りがある）。
+口コミは `boki2/docs/analysis/replay-voices-count.py --dump` で切り出し、通し番号 #188〜#207 をつけた。分類のコードは `boki2/docs/analysis/replay-voices-codes.md`。
+
+## 読み取れること（自分の言葉で。件数はスクリプトの表から）
+- このページの20件のうち、始め直し（周回・ラン・別の牧場など）に触れたもの 1件、長く遊び続けたことだけに触れたもの 9件、どちらにも触れないもの（不具合・翻訳の要望など） 10件。
+- 楽しみとして書かれたもの：自由な遊び方 5件、理由を書かない中毒 3件、上達・理解が深まる 2件、新しい発見・解放 2件、持ち越しの成長 2件、1回が短い・隙間に遊べる 1件。
+- 不満・やめた理由：操作・不具合 3件。
