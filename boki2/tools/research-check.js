@@ -359,7 +359,10 @@ for (const f of lsr(DOCS).filter((p) => p.endsWith('.md'))) {
       quoted++;
       const q = norm(m[4]);
       if (q.length < 4 || q.length > 20) { err('出典の語句', `${path.relative(DOCS, f)} の ${k} の語句「${m[4]}」は4〜20字にする`); continue; }
-      const files = ledger.filter((e) => e.src === m[1] && e.coll === m[2] && String(e.doc) === m[3] && e.status === 200).map(rawFile).filter(Boolean);
+      // 頁つき（doc#p2）や別名のノート（doc#rp）は、# の前の文書の原文で照合する
+      const pick = (d) => ledger.filter((e) => e.src === m[1] && e.coll === m[2] && String(e.doc) === d && e.status === 200).map(rawFile).filter(Boolean);
+      let files = pick(m[3]);
+      if (!files.length && m[3].includes('#')) files = pick(m[3].split('#')[0]);
       if (!files.length) { warn('出典の語句', `${path.relative(DOCS, f)} の ${k}：原文が手元にないので語句を照合できない`); continue; }
       if (!files.some((x) => textsOf(x).some((t) => t.includes(q)))) err('出典の語句', `${path.relative(DOCS, f)} の ${k}：語句「${m[4]}」が原文に出てこない（資料にないことを資料の名で書いていないか）`);
     }
