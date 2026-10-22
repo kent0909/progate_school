@@ -116,3 +116,37 @@ for lab, f in (('値段', lambda x: prof(x, medr, medw)), ('家賃', lambda x: p
 tky = ['東京都区部', '八王子市', '立川市', '府中市']
 print('東京都の4市の中華そば：', {c: price[c] for c in tky}, f'最高÷最低 {max(price[c] for c in tky)/min(price[c] for c in tky):.2f}（最低賃金は同じ1,280円）')
 print(f'中華そばの81市の中央値 {medp:.0f}円（床の値に使う）')
+
+print('\n## 7. オーナーの例を前提を両側でそろえて試す（QUALITY 6.3 の末尾の決まり）')
+# そろえる前提：雇う人時（1日）・店主の取り分・家族の労働（＝無給の人時は両側とも人時に数えない）・その他の固定費・返済税保険・原価率・営業日数。
+# 両側で別に振る前提（資料のある場所の違い）：値段・坪単価・広さ（銀座）／値段・家賃（奥多摩）。
+def both(gH, oH, own, other, debt, cost, days, gp, gt, ga, op, orent):
+    g = month(100, gp, gt * ga, 1, gH, W, other, debt, owner=own, days=days, cost=cost)
+    o = month(30, op, orent, 1, oH, W, other, debt, owner=own, days=days, cost=cost)
+    return g < 0, o >= 0
+SH = dict(H=(0, 4, 8, 12, 16, 24), own=(0, 50000, 100000, 150000, 200000, 300000), other=(150000, 200000, 250000), debt=(0, 80000), cost=(0.30, 0.35), days=(22, 25))
+SIDE_G = list(itertools.product((617, 800, 1000, 1300, 1500), (36250, 42497, 85000), (10, TSUBO)))
+SIDE_O = list(itertools.product((747, 890, 1000), (0, 30000, 60000, 100000)))
+def run(delta):
+    n = hit = 0; gr = 0; ob = 0
+    for H, own, other, debt, cost, days in itertools.product(*SH.values()):
+        for gp, gt, ga in SIDE_G:
+            for op, orent in SIDE_O:
+                a, b = both(H + delta, H, own, other, debt, cost, days, gp, gt, ga, op, orent)
+                n += 1; hit += a and b; gr += a; ob += b
+    return n, hit, gr, ob
+for delta in (0, 8, 16):
+    n, hit, gr, ob = run(delta)
+    print(f'  銀座の雇う人時＝奥多摩＋{delta}時間：{n:,}通りのうち 両方成り立つ {hit:,}（{hit/n*100:.2f}%）／銀座が赤字 {gr/n*100:.0f}%／奥多摩が黒字 {ob/n*100:.0f}%')
+# 両方成り立つ組み合わせ（差0時間）で、どの前提がそろっているか
+hits = []
+for H, own, other, debt, cost, days in itertools.product(*SH.values()):
+    for gp, gt, ga in SIDE_G:
+        for op, orent in SIDE_O:
+            a, b = both(H, H, own, other, debt, cost, days, gp, gt, ga, op, orent)
+            if a and b: hits.append((H, own, gp, gt, round(ga, 1), op, orent))
+from collections import Counter
+for i, lab in enumerate(('雇う人時', '店主の取り分', '銀座の値段', '銀座の坪単価', '銀座の広さ', '奥多摩の値段', '奥多摩の家賃')):
+    print(f'  そろえて両方成り立つ時の{lab}：', dict(sorted(Counter(h[i] for h in hits).items())))
+# そろえない時：1.0 の表と同じ形（銀座 3人8時間・店主30万／奥多摩 家族・店主0円）
+print(f'  1.0 の形（銀座24人時・店主30万、奥多摩0人時・店主0円、値段1,000/890、10坪・42,497、家賃6万、その他25/20万）：銀座 {month(100,1000,424970,3,8,W,250000,80000,owner=300000)/1e4:+.1f}万・奥多摩 {month(30,890,60000,0,6,W,200000,80000)/1e4:+.1f}万')
