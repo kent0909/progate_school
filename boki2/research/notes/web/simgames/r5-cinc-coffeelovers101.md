@@ -6,7 +6,7 @@ file: r5-cinc-coffeelovers101.html
 sha256: 14b75c4628f214d3bcf49aeb9aa2af2b1db97717c908a313c8450e8366b930b7
 read: partial
 pages: 記事本文（導入・初期設定・立地・豆・宣伝・人・勝ち方・全レベル・利益・よくある質問・まとめ）。サイトのナビ・広告・関連記事は除く
-anchors: ["This post was created with the assistance of artificial intelligence", "Opt for logos with large, solid shapes", "Avoid spots with less than 8,000 Foot Traffic", "Hire white-collar workers", "Unlocking All Levels Guide", "Is It Possible to Customize the Music Played in My Coffee Shops?"]
+anchors: ["This post was created with the assistance of artificial intelligence", "Opt for logos with large", "Aim for 10", "Hire white-collar workers", "Unlocking All Levels Guide", "Is It Possible to Customize the Music Played in My Coffee Shops"]
 ---
 英語のコーヒー情報サイトの「Coffee Inc 2 の勝ち方」の記事（2024年11月）。**記事の冒頭とサイトの末尾に、AI の助けで作った記事・サイトの内容は AI で作っていると明記されている**。
 

@@ -1318,5 +1318,70 @@
   "verdict": "gray",
   "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"
+ },
+ "wikiwiki.jp": {
+  "verdict": "gray",
+  "basis": "wikiwiki.jp/robots.txt は User-Agent:* に /*? と /*/::* のみ Disallow（記事ページは許可）。ファン運営の攻略wikiの単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.appbank.net": {
+  "verdict": "gray",
+  "basis": "www.appbank.net/robots.txt は画像・プレビュー・クエリ付きURLのみ Disallow。レビュー記事1件の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.pocketgamer.com": {
+  "verdict": "gray",
+  "basis": "www.pocketgamer.com/robots.txt は User-agent:* Allow:/。規約本文は未確認。レビュー記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.greenheartgames.com": {
+  "verdict": "gray",
+  "basis": "www.greenheartgames.com/robots.txt は 404（制限の表明なし）。開発元の公式ブログ記事1件の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.digitallydownloaded.net": {
+  "verdict": "gray",
+  "basis": "www.digitallydownloaded.net/robots.txt は /wp-admin/ のみ Disallow。レビュー記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.matchstickeyes.com": {
+  "verdict": "gray",
+  "basis": "www.matchstickeyes.com/robots.txt は管理用ディレクトリのみ Disallow。インタビュー記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.cgmagonline.com": {
+  "verdict": "gray",
+  "basis": "www.cgmagonline.com/robots.txt は /wp-admin/ のみ Disallow。記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.thesixthaxis.com": {
+  "verdict": "gray",
+  "basis": "www.thesixthaxis.com/robots.txt は /wp-admin/・フォーラム等のみ Disallow。インタビュー記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.pcgamesinsider.biz": {
+  "verdict": "gray",
+  "basis": "www.pcgamesinsider.biz/robots.txt は User-agent:* Allow:/。インタビュー記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.pmq.com": {
+  "verdict": "gray",
+  "basis": "www.pmq.com/robots.txt は User-agent:* Disallow:（空＝全許可）。業界誌のインタビュー記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "gamemaker.io": {
+  "verdict": "gray",
+  "basis": "gamemaker.io/robots.txt は User-Agent:* Allow:/（下書きのみ Disallow）。公式ブログのインタビュー1件、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.gamesasylum.com": {
+  "verdict": "gray",
+  "basis": "www.gamesasylum.com/robots.txt に Disallow の行なし。レビュー記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "indieranger.com": {
+  "verdict": "gray",
+  "basis": "indieranger.com/robots.txt に Disallow の行なし。レビュー記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
  }
 }
