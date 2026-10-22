@@ -14,7 +14,7 @@ QUALITY 4章（性悪説）・5章（論証の検査）・6章（主張ごとの
 | BIZ-COFFEEINC2 第3版 | 性悪説・論証・語句の後 | 小6点（再判定） | 0（語句370件すべて原文に。主張を支えない語句3件） | 不当14・弱い48（161件中、不当の中身5つ） | ─ | 0（対応表は原文と一字一句一致） | audit/BIZ-COFFEEINC2-audit.md 10章・BIZ-COFFEEINC2-reasoning.md |
 | BIZ-RAMEN 第2版 | 性悪説・論証・語句の後 | 5件 | 6件 | 不当13・弱い37（80件中） | 15件 | 基準3つが意味で未達 | audit/BIZ-RAMEN-v2-audit.md・BIZ-RAMEN-v2-reasoning.md |
 | BIZ-CALIB 版0.2 | 性悪説・論証・語句の後 | 9（区分の付け違い9行は別） | 4 | 7（事実の判定）／不当26・弱い65（241行中、論証の検査） | 10 | 7（うち5は未達と申告） | audit/BIZ-CALIB-v02-audit.md・BIZ-CALIB-v02-reasoning.md |
-| BIZ-SIMDESIGN 版0.2 | 性悪説・論証・語句の後 | 事実の判定中 | 事実の判定中 | 不当28・弱い62（184件中） | ─ | ─ | audit/BIZ-SIMDESIGN-v02-reasoning.md |
+| BIZ-SIMDESIGN 版0.2 | 性悪説・論証・語句の後 | 10 | 8 | 12（事実の判定）／不当28・弱い62（184件中、論証の検査） | 26 | 4 | audit/BIZ-SIMDESIGN-v02-reasoning.md |
 | BIZ-REPLAY 版0.1 | 性悪説・論証・語句の後 | 5 | 3 | 6（事実の判定）／不当28（本文14・差し替え10・論証の表4） | 9 | 2＋語句の付け所違い6 | audit/BIZ-REPLAY-audit.md・BIZ-REPLAY-reasoning.md |
 | BIZ-GROWTH 第1版 | 性悪説・論証・語句の後 | 11（大2・中3・小6） | 6 | 不当28・弱い73（183件中、芯10） | 10 | 基準の未達4＋処理表の使った場所なし5 | audit/BIZ-GROWTH-audit.md・BIZ-GROWTH-reasoning.md |
 | BIZ-FUNVISUAL | 性悪説の後・論証/語句の前 | 原文との食い違い20項目（23件） | 含む（原文にない語・出典の付け違い） | 看板の結論3つ（向きが逆・片側の材料）＋論証検査中 | 【資料なし】10中6に材料あり、仮説を支える材料7 | 3文に行なし | audit/BIZ-FUNVISUAL-audit.md |

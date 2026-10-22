@@ -211,22 +211,59 @@ for da in (0.02, 0.03, 0.04):
     print('3-2 支払利息だけで営業CF（利息を営業の区分に入れる場合）を赤字にするのに要る金利：減価償却 %.0f%% のとき %.1f%%' % (100 * da, 100 * r_need))
 print('     利息を財務の区分に入れる会社なら、金利が上がっても営業CFは変わらない。例の「金利が上がる→営業CFが赤字」は運転資本や売上の落ち込みを足さないと起きない')
 
+# ---- 5. 第4版（91cb016）の再検査 ----
+print('\n5. 第4版の再検査')
+for doc, ph in [('r5-cinc-note-umpo', 'ここで保存を忘れないようにしましょう。 やり直せるメタプレイできます。'),
+                ('r5-cinc-note-araki', 'ギリギリまで利益を上げたい方は1度保存してから日にちを進めた方がいいかもしれませんね'),
+                ('r5-cinc-note-araki', '引いてしまえば勝ち確です')]:
+    raw = re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', open(os.path.join(RAW, doc + '.html'), encoding='utf8').read())))
+    print('  原文の語句の確認（セーブのやり直し）', doc, '「%s」' % ph, '→', 'ある' if re.sub(r'\s+', ' ', ph) in raw else 'ない')
+show('5-1 難易度と店の層の深さ（C16 の別の解釈「上級では深い」の材料）', [
+    (26, '店舗ごとにマーケティングが必要なので作業ゲーになりにくいです。最上級でライバル5店舗', '最上級で店の層が作業にならない'),
+    (7, '最少資金で地道に店舗を増やしてます', '縛りで店の層を遊ぶ'),
+    (64, '刺激が欲しくて最初から最難関でやりましたが難しいです', '最難関は難しい'),
+    (145, '上級にして条件を厳しくして始めたのですが、倒産することもなくすぐに上場できてしまい飽きました', '上級でも浅い'),
+    (146, '最高難易度でも簡単に100兆円でも1000兆でも', '最高難度でも浅い')])
+# 決算書の例：4年目の営業CF（近似）が赤字になる売上の落ち込みの境目
+sales, op, da = 160.0, 3.2, 4.8
+debt = sales * 8 / 12 / 12 * 12 / 12 * 12 / 12  # 年商の8/12
+debt = sales * 8 / 12
+for r in (0.02, 0.03):
+    need = (op + da - debt * r) / 0.60
+    print('5-2 金利 %.0f%%：営業CF の近似が赤字になる売上の落ち込み ＞ %.1f百万円（%.1f%%）。例の12%%は境目の %.1f 倍' % (100 * r, need, 100 * need / sales, 0.12 * sales / need))
+need0 = (op + da) / 0.60
+print('     利息を財務の区分に入れる場合：落ち込み ＞ %.1f百万円（%.1f%%）' % (need0, 100 * need0 / sales))
+txt = open(os.path.join(ROOT, 'docs', 'BIZ-COFFEEINC2.md'), encoding='utf8').read().split('\n')
+left = [i + 1 for i, l in enumerate(txt) if '締めの演出' in l and 'K' not in l]
+print('5-3 第4版の本文で「締めの演出」を、取り下げの説明なしに表現のエッセンスとして残す行', left)
+
 # ---- 4. 検査書の判定の数 ----
 if os.path.exists(AUDIT):
     cnt = collections.Counter()
+    fix = collections.Counter()
+    for l in open(AUDIT, encoding='utf8'):
+        m = re.match(r'^\| (V\d+) \|', l)
+        if m:
+            j = [x.strip() for x in l.strip().strip('|').split('|')][-2].replace('*', '')
+            if j not in ('直った', '一部', '直っていない'):
+                sys.exit('直しの判定が読めない：' + m.group(1) + ' ' + j)
+            fix[j] += 1
     rows = 0
     ids = collections.defaultdict(list)
     for l in open(AUDIT, encoding='utf8'):
-        m = re.match(r'^\| (K\d+) \|', l)
+        m = re.match(r'^\| ([KN]\d+) \|', l)
         if not m:
             continue
         cells = [x.strip() for x in l.strip().strip('|').split('|')]
         j = cells[-2].replace('*', '')
+        if j in ('直った', '一部', '直っていない'):
+            fix[j] += 1; continue
         if j not in ('妥当', '弱い', '不当'):
             sys.exit('判定の列が読めない：' + m.group(1) + ' ' + j)
         rows += 1
         cnt[j] += 1
         ids[j].append(m.group(1))
-    print('\n4. 検査書の判定', rows, '行：', ' / '.join('%s %d' % (k, cnt[k]) for k in ('妥当', '弱い', '不当')), '（合計', sum(cnt.values()), '）')
+    print('\n4a. 第4版の再検査：直しの確かめ', sum(fix.values()), '行：', ' / '.join('%s %d' % (k, fix[k]) for k in ('直った', '一部', '直っていない')))
+    print('\n4. 検査書の判定（K＝第3版の結論、N＝第4版で足された結論）', rows, '行：', ' / '.join('%s %d' % (k, cnt[k]) for k in ('妥当', '弱い', '不当')), '（合計', sum(cnt.values()), '）')
     for k in ('不当', '弱い', '妥当'):
         print('  ', k, '・'.join(ids[k]))
