@@ -91,3 +91,18 @@ for (const [k, v] of Object.entries(B)) console.log(`  ${k}：${any(v)}`);
 // オーナーの仮説（やれることの多さ・店の外の事業の変数）に直接かかわる件を作品ごとに
 console.log('\n仮説にかかわる符号の作品ごとの件数（W＝やれることの多さ・深さ、BV・BVR・BVN＝店の外の事業、L1・L2・L3＝だれ、S＝要素の不足）：');
 for (const w of works) { const n = rows.filter((r) => r.w === w).length; const c = (k) => rows.filter((r) => r.w === w && r.c.includes(k)).length; console.log(`  ${NAME[w]}（${n}件）：W ${c('W')}・BV ${c('BV')}・BVR ${c('BVR')}・BVN ${c('BVN')}・L1 ${c('L1')}・L2 ${c('L2')}・L3 ${c('L3')}・S ${c('S')}`); }
+
+// 版0.4：W（やれることの多さ）の中身の振り分け（funvisual-w-split.txt。書き手1人が全件を読んで付けた）を作品ごとに数える
+{
+  const sp = path.join(__dirname, 'funvisual-w-split.txt');
+  if (fs.existsSync(sp)) {
+    const ws = fs.readFileSync(sp, 'utf8').split('\n').filter((l) => l && !l.startsWith('#')).map((l) => l.trim().split(/\s+/));
+    const wRows = rows.filter((r) => r.c.includes('W'));
+    const miss = wRows.filter((r) => !ws.some((x) => x[0] === r.w && x[1] === `${r.p}-${r.i}`));
+    if (miss.length || ws.length !== wRows.length) console.log(`注意：W の件 ${wRows.length} と振り分け ${ws.length} が合わない（抜け ${miss.length}）`);
+    const cls = ['Wp', 'Wo', 'Wb', 'Wm', 'Wn'];
+    const lab = { Wp: '作る物の組み合わせ・種類', Wo: '店の外の事業', Wb: '店の中と外の両方', Wm: '店の中の具体の中身', Wn: '中身を言わない' };
+    console.log(`\nW の中身の振り分け（計 ${ws.length}）：` + cls.map((c) => `${c} ${lab[c]} ${ws.filter((x) => x[2] === c).length}`).join('・'));
+    for (const w of works) { const a = ws.filter((x) => x[0] === w); if (a.length) console.log(`  ${NAME[w]}：` + cls.map((c) => `${c} ${a.filter((x) => x[2] === c).length}`).join('・')); }
+  }
+}

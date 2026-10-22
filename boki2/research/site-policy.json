@@ -2123,5 +2123,10 @@
   "verdict": "gray",
   "basis": "Google Books API（公開の API。書誌と閲覧の可否を返す。API の利用規約は API 経由の取得を前提とする）",
   "checked": "2026-10-22"
+ },
+ "www.askul.co.jp": {
+  "verdict": "gray",
+  "basis": "ASKUL（業務用通販）。robots.txt の User-agent * は /review/ など一部のみ禁止、検索と商品頁は許可。利用規約の自動取得の明示の禁止は確認できず（gray）",
+  "checked": "2026-10-22"
  }
 }

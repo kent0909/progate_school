@@ -10,12 +10,13 @@ const fs = require('fs');
 // d と e は書き手の【見立て】。a・b・c は数えられる。
 // 版0.3（論証の検査 10章 N12b）：声 W（やれることの多さ）を「店の外の事業」に丸ごと数えるのをやめ、funvisual-w-split.txt で件ごとに中身で振り分けた
 //   Wp（作る物の組み合わせ・種類の多さ）は「一杯の組み立て」に、Wo（店の外の事業の多さ）は「店の外の事業」に、Ws（店の運営・全体の多さ）はどの項目にも数えない。
+// 版0.4：Ws を全件読み直して Wm（店の中の具体）38・Wn（中身を言わない）38・Wb（店の中と外の両方）2 に分け、取りこぼしの2件を Wo に移した（Wo 7）。Wo と Wb を「店の外の事業」に数え、Wm・Wn はどこにも数えない。
 // 害の鎖（I：店の外が店を食う）は加点の a から外した（条件として本文に書く）。
 // 同点は c（声の件数）の多い順。順は見立て1段で入れ替わるので、本文では「上位の組」として読む（funvisual-priority-sensitivity.js）。
 const items = [
   { n: '毎回変わる町・相手・相場と周回の持ち越し', old: 7, chains: ['10', '3', '6'], src: ['r5-fv-capilab-home', 'r5-fv-mohawk-offworld', 'r5-fv-matchstick-offworld', 'r4-cinc-applion-reviews', 'r5-fv-capilab-beginners', 'r5-fv-wiki-offworld'], voices: { I: 55 }, d: 1, e: 2 },
   { n: '店・一杯・客を絵にする（絵と音の作り手を置く）、締めの儀式', old: 3, chains: ['7', 'C'], src: ['r5-fv-wiki-minimetro', 'r5-fv-cgm-twopoint', 'r5-fv-pcgi-twopoint', 'r4-sim-denfami-kairosoft', 'r5-fv-gamesasylum-startup', 'r5-fv-gd-juice', 'r5-fv-applion-cinc-app', 'r5-fv-applion-ramenkan-app', 'r5-fv-capilab-home'], voices: { H1: 57, H2: 12, H3: 35, H4: 15 }, d: 2, e: 1 },
-  { n: '店の外の事業の変数（土地・賃貸・工場・農地・通販・M&A・資金）と、店→会社へ段が変わる形', old: null, chains: ['0'], src: ['r4-cinc-applion-reviews', 'r5-cinc-applion-p2', 'r5-cinc-applion-p4', 'r5-fv-capilab-home', 'r4-cinc-applizm-kojinsisan', 'r6-sd-gamesfuze-bigambitions-rivals', 'r5-fv-wiki-twopointhospital', 'r6-sd-gamediscover-bigambitions'], voices: { BV: 22, BVR: 18, Wo: 5 }, d: 1, e: 2 },
+  { n: '店の外の事業の変数（土地・賃貸・工場・農地・通販・M&A・資金）と、店→会社へ段が変わる形', old: null, chains: ['0'], src: ['r4-cinc-applion-reviews', 'r5-cinc-applion-p2', 'r5-cinc-applion-p4', 'r5-fv-capilab-home', 'r4-cinc-applizm-kojinsisan', 'r6-sd-gamesfuze-bigambitions-rivals', 'r5-fv-wiki-twopointhospital', 'r6-sd-gamediscover-bigambitions'], voices: { BV: 22, BVR: 18, Wo: 7, Wb: 2 }, d: 1, e: 2 },
   { n: '一杯の組み立て＋名づけ（現実に沿って当てられる相性）', old: 1, chains: ['1', '2', '9'], src: ['r5-fv-applion-ramenkan-app', 'r5-fv-applion-gamedevstory', 'r5-fv-gd-gamedevstory', 'r5-fv-mogura-ramenkan', 'r5-fv-applion-gurume-app', 'r5-fv-applion-ramenkan-zenkoku'], voices: { A1: 83, A2: 16, A3: 16, B: 32, Wp: 25 }, d: 1, e: 1 },
   { n: '客の個性と物語（客を同じ線の約束で大勢描き分け、注文を読む）', old: null, chains: ['8', '7'], src: ['r5-fv-wiki-goodpizza', 'r5-fv-pmq-goodpizza', 'r5-fv-applion-goodpizza', 'r5-fv-applion-goodpizza-app'], voices: { F: 74, RD: 25 }, d: 2, e: 1 },
   { n: '設計の言語（意味の色・罫・余白・数字の帯・小さな線・地図の印）', old: 2, chains: ['C'], src: ['r5-fv-tufte-sparkline', 'r5-fv-wiki-minimetro', 'r5-fv-applion-cinc-app', 'r5-fv-capilab-home', 'r5-fv-applion-goodpizza-app'], voices: { H3: 35 }, d: 2, e: 0 },
