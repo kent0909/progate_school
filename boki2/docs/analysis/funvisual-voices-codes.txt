@@ -1,0 +1,645 @@
+# BIZ-FUNVISUAL の利用者の声の符号（1行1件：作品 ページ-番号 符号…）。符号の定義は funvisual-voices.js の DEF。
+# 作品：ramenkan＝こだわりラーメン館（買い切り）／zenkoku＝同 全国編／gurume＝大盛グルメ食堂／gds＝ゲーム発展国++／pizza＝グッドピザ、グレートピザ
+ramenkan 1-1 X S P
+ramenkan 1-2 K Q R H2
+ramenkan 1-3 O C2 I R
+ramenkan 1-4 K C1 Y L4
+ramenkan 1-5 DF
+ramenkan 1-6 J2 W
+ramenkan 1-7 A1 O R
+ramenkan 1-8 K A1
+ramenkan 1-9 H1 W
+ramenkan 1-10 K J2
+ramenkan 1-11 -
+ramenkan 1-12 O W K
+ramenkan 1-13 O K
+ramenkan 1-14 I K
+ramenkan 1-15 C2
+ramenkan 1-16 K S
+ramenkan 1-17 N
+ramenkan 1-18 D1 I
+ramenkan 1-19 R
+ramenkan 1-20 C2
+zenkoku 1-1 A1 F J2 S FR C2
+zenkoku 1-2 J1 H3 R M3 A1 A2
+zenkoku 1-3 E C1 J2 S
+zenkoku 1-4 C2 L1 W H1 J2
+zenkoku 1-5 C2 W J2 N SG
+zenkoku 1-6 V I C1 J2 E P
+zenkoku 1-7 V L1 SG A1
+zenkoku 1-8 W O J1
+zenkoku 1-9 C2 A2 D3 H2
+zenkoku 1-10 X B A1 D1
+zenkoku 1-11 C2 J2 J1
+zenkoku 1-12 C2 I A1
+zenkoku 1-13 J2 R
+zenkoku 1-14 X A1 A2 W C2
+zenkoku 1-15 Q
+zenkoku 1-16 D1 J2 H3 SG W X
+zenkoku 1-17 H1 J2 J1 D2 C1 W
+zenkoku 1-18 K
+zenkoku 1-19 V H3 C2
+zenkoku 1-20 B
+zenkoku 2-1 C2 I D2
+zenkoku 2-2 M3 T
+zenkoku 2-3 C2 W N
+zenkoku 2-4 C2 J2 D1 A1
+zenkoku 2-5 J2 A1 E H4 D1
+zenkoku 2-6 C2 B E
+zenkoku 2-7 A1 W D1
+zenkoku 2-8 O A1 C1 SGm
+zenkoku 2-9 J2 I
+zenkoku 2-10 H1 C2 A1 W H3
+zenkoku 2-11 A1 D3 E A2
+zenkoku 2-12 H3 E C2
+zenkoku 2-13 J2 I W C2
+zenkoku 2-14 A2 C2 X
+zenkoku 2-15 K I C2
+zenkoku 2-16 A1 E P W C2 J2
+zenkoku 2-17 A1 D2 W C2
+zenkoku 2-18 V A1 D1 J1 C2
+zenkoku 2-19 K O P
+zenkoku 2-20 A1 N
+zenkoku 3-1 D1 O SG J1
+zenkoku 3-2 K L3 O
+zenkoku 3-3 J2 C1 L3 J1
+zenkoku 3-4 W V X
+zenkoku 3-5 X H1 W A2
+zenkoku 3-6 J2 A1 L1
+zenkoku 3-7 W H4 A1 C2
+zenkoku 3-8 SG S
+zenkoku 3-9 E W H1 C2
+zenkoku 3-10 J2 D1 H3
+zenkoku 3-11 K H1
+zenkoku 3-12 H3 J1 C2 N
+zenkoku 3-13 F
+zenkoku 3-14 A2 C2
+zenkoku 3-15 O C1 H1 K
+zenkoku 3-16 C2 J2 J1
+zenkoku 3-17 D2 W D1 F SG D3
+zenkoku 3-18 J2 C2 D2
+zenkoku 3-19 J2 J1
+zenkoku 3-20 -
+zenkoku 4-1 X J2 O
+zenkoku 4-2 C2 W A1 X
+zenkoku 4-3 I C2 T
+zenkoku 4-4 W J2 C2
+zenkoku 4-5 A1 X C2
+zenkoku 4-6 J2 W SG C2 D2
+zenkoku 4-7 T
+zenkoku 4-8 J1 A1 X
+zenkoku 4-9 W A1 J1 C2
+zenkoku 4-10 J1 W
+zenkoku 4-11 A1 A2 D3 C2
+zenkoku 4-12 A2
+zenkoku 4-13 V A1 W J1 C2
+zenkoku 4-14 C1 I C2
+zenkoku 4-15 J2
+zenkoku 4-16 I H1 SG W
+zenkoku 4-17 A1 E C2 H3
+zenkoku 4-18 V J1 C2
+zenkoku 4-19 J1 X C2
+zenkoku 4-20 J1 SG C1
+zenkoku 5-1 W U
+zenkoku 5-2 J1 W K C2
+zenkoku 5-3 H4 A1 C2
+zenkoku 5-4 K
+zenkoku 5-5 H1 A1 J2 L1
+zenkoku 5-6 W J1
+zenkoku 5-7 V J2 W D1
+zenkoku 5-8 D2 H4 E C2
+zenkoku 5-9 W A1 J1
+zenkoku 5-10 J2 H3
+zenkoku 5-11 K C2
+zenkoku 5-12 V X A1 A2
+zenkoku 5-13 C2 A1 H1
+zenkoku 5-14 K C2 M3 J2
+zenkoku 5-15 SG K
+zenkoku 5-16 H1 O
+zenkoku 5-17 C2 W
+zenkoku 5-18 O F J2
+zenkoku 5-19 C2 I W
+zenkoku 5-20 R
+zenkoku 6-1 D3 J1
+zenkoku 6-2 W K
+zenkoku 6-3 D1 C1 D3 P
+zenkoku 6-4 K C2
+zenkoku 6-5 SG W E J1
+zenkoku 6-6 J2 O W
+zenkoku 6-7 J1 J2
+zenkoku 6-8 H4 R
+zenkoku 6-9 T
+zenkoku 6-10 J2 A1 J1
+zenkoku 6-11 L1 I
+zenkoku 6-12 R C2 K
+zenkoku 6-13 K W
+zenkoku 6-14 C1 J2
+zenkoku 6-15 H3 J2 K
+zenkoku 6-16 X A1 A3
+zenkoku 6-17 U A1 W J1
+zenkoku 6-18 B A1
+zenkoku 6-19 J1 DF
+zenkoku 6-20 H4 O J2 K
+zenkoku 7-1 C2 O
+zenkoku 7-2 FR
+zenkoku 7-3 A1 W J1
+zenkoku 7-4 K I
+zenkoku 7-5 J2 C2 O
+zenkoku 7-6 C1 H4 D3 C2
+zenkoku 7-7 C2 D1 J2
+zenkoku 7-8 I C2
+zenkoku 7-9 C2 J2
+zenkoku 7-10 I C1 D3
+zenkoku 7-11 D1 W
+zenkoku 7-12 J2
+zenkoku 7-13 V A1 H3
+zenkoku 7-14 SG W H1
+zenkoku 7-15 K X
+zenkoku 7-16 J1 C2
+zenkoku 7-17 H1 J2 S
+zenkoku 7-18 J2 K P
+zenkoku 7-19 V J2 U
+zenkoku 7-20 W J2 C1
+zenkoku 8-1 C2 D2 W
+zenkoku 8-2 D1 N
+zenkoku 8-3 W A1 J2
+zenkoku 8-4 K A2
+zenkoku 8-5 K C2
+zenkoku 8-6 DF O
+zenkoku 8-7 C1 D3 S
+zenkoku 8-8 D1 C2
+zenkoku 8-9 V P U H1 W
+zenkoku 8-10 J2 C2
+zenkoku 8-11 D1 A1 C2
+zenkoku 8-12 X A1 A3 S C2
+zenkoku 8-13 J2 C2 K
+zenkoku 8-14 V H1 A1 K
+zenkoku 8-15 H3
+zenkoku 8-16 C2
+zenkoku 8-17 H4 N
+zenkoku 8-18 V A1 H4 F
+zenkoku 8-19 U J1 T
+zenkoku 8-20 O J2 K
+zenkoku 9-1 O W DF
+zenkoku 9-2 SG P C2
+zenkoku 9-3 K H1
+zenkoku 9-4 X A3 C2
+zenkoku 9-5 X
+zenkoku 9-6 C2
+zenkoku 9-7 J2
+zenkoku 9-8 H1 W R
+zenkoku 9-9 J2 C2
+zenkoku 9-10 K J1 C1
+zenkoku 9-11 C2 O
+zenkoku 9-12 A1 A3
+zenkoku 9-13 W A1 C2 X
+zenkoku 9-14 C2 J1 A1 W
+zenkoku 9-15 I U D3
+zenkoku 9-16 K SGm P
+zenkoku 9-17 K
+zenkoku 9-18 A1 X PP
+zenkoku 9-19 K C2
+zenkoku 9-20 J1 C2
+zenkoku 10-1 K H4 C2
+zenkoku 10-2 J2 H4
+zenkoku 10-3 W T
+zenkoku 10-4 K C2
+zenkoku 10-5 V X
+zenkoku 10-6 K I
+zenkoku 10-7 K O
+zenkoku 10-8 W O C2
+zenkoku 10-9 J1 A1 W
+zenkoku 10-10 C1 A1 F W
+zenkoku 10-11 C2 J1
+zenkoku 10-12 C2
+zenkoku 10-13 H4 X
+zenkoku 10-14 C2 D1 W
+zenkoku 10-15 H3 DF
+zenkoku 10-16 H1 J1 PP
+zenkoku 10-17 W WX C2
+zenkoku 10-18 J2 T
+zenkoku 10-19 A2 C2
+zenkoku 10-20 C2 K
+gurume 1-1 K C2 A1 J2
+gurume 1-2 NG
+gurume 1-3 K C2
+gurume 1-4 H1 H4 S
+gurume 1-5 J1 J2 W
+gurume 1-6 W A1 C2 Y
+gurume 1-7 R
+gurume 1-8 L3
+gurume 1-9 R
+gurume 1-10 I
+gurume 1-11 R
+gurume 1-12 J2
+gurume 1-13 R
+gurume 1-14 K
+gurume 1-15 R
+gurume 1-16 -
+gurume 1-17 D2
+gurume 1-18 R
+gurume 1-19 K
+gurume 1-20 R
+gurume 2-1 H1 W
+gurume 2-2 R
+gurume 2-3 J2 C2
+gds 1-1 A4 E G1 FR M2 O X
+gds 1-2 L4 Q C1
+gds 1-3 K D1 D3 E
+gds 1-4 I D3 B H1 H2 X A3 C2
+gds 1-5 V K M2 P
+gds 1-6 H3 C2 L3 N
+gds 1-7 K
+gds 1-8 V Y
+gds 1-9 C2 C1 W L2 N B
+gds 1-10 C1 D3 N
+gds 1-11 A1 G1 X W N
+gds 1-12 I L2 F
+gds 1-13 V G2 B J2
+gds 1-14 W A1 D3 C2 V J2
+gds 1-15 J2 L2 I C2
+gds 1-16 A1 B G1 X
+gds 1-17 H3 D3 L3
+gds 1-18 V C2 D1 D3
+gds 1-19 H3 G1 W D3
+gds 1-20 A4 I C2
+gds 2-1 D3 D2 A1
+gds 2-2 K D3
+gds 2-3 V B A3
+gds 2-4 A1 A2 A3 B
+gds 2-5 V M3
+gds 2-6 C2 D3
+gds 2-7 V B N L1
+gds 2-8 D3 B FR
+gds 2-9 Q L3
+gds 2-10 I L3 A1 C2
+gds 2-11 A1 X
+gds 2-12 K C2 L3
+gds 2-13 H1 E W C2 B
+gds 2-14 W B
+gds 2-15 J1 J2
+gds 2-16 C1 D3 D2
+gds 2-17 C1 B I W
+gds 2-18 V W E B
+gds 2-19 C2 H3
+gds 2-20 V E L1 L2
+gds 3-1 H1 W S C2
+gds 3-2 A2 G2 D3 J2 C2
+gds 3-3 V L2
+gds 3-4 D3 C1
+gds 3-5 H1 C2 D1 J1 J2
+gds 3-6 V C2 A1 A3
+gds 3-7 V M2 S
+gds 3-8 D3 F C2
+gds 3-9 O
+gds 3-10 B
+gds 3-11 HL
+gds 3-12 B K
+gds 3-13 V H3 O
+gds 3-14 HL C2 S
+gds 3-15 K X
+gds 3-16 V C2 B
+gds 3-17 V W C2
+gds 3-18 I D3 V
+gds 3-19 A1 E
+gds 3-20 I O S
+gds 4-1 W H3 D3 J1
+gds 4-2 V A1 B C1
+gds 4-3 O S
+gds 4-4 V G1 D3 D2
+gds 4-5 HL
+gds 4-6 DF J1 I
+gds 4-7 V D3 C2
+gds 4-8 E L2
+gds 4-9 D3 C1 H3
+gds 4-10 Q E H3
+gds 4-11 K S
+gds 4-12 H1 HL X
+gds 4-13 G2 I
+gds 4-14 V
+gds 4-15 H3 C2 N
+gds 4-16 G1 C2 L4 O
+gds 4-17 I V X
+gds 4-18 K
+gds 4-19 I J1
+gds 4-20 N
+gds 5-1 H3 W A1 D3
+gds 5-2 V D3 U
+gds 5-3 E FR D2 S
+gds 5-4 V
+gds 5-5 C1 D3 H3
+gds 5-6 C1 L3 U
+gds 5-7 A1 W L3 H3
+gds 5-8 C2
+gds 5-9 D3 B
+gds 5-10 B
+gds 5-11 X C2
+gds 5-12 C1 D1 B
+gds 5-13 V
+gds 5-14 E
+gds 5-15 E FR C2
+gds 5-16 D2 A1 C2
+gds 5-17 D3 E B
+gds 5-18 K
+gds 5-19 I
+gds 5-20 V H1 ED
+gds 6-1 A1 W D3
+gds 6-2 C1 J2 G2
+gds 6-3 HL K
+gds 6-4 L3 H1
+gds 6-5 V C2 U C1
+gds 6-6 I W X
+gds 6-7 C2
+gds 6-8 J1 HL
+gds 6-9 C1 D3 D1 I
+gds 6-10 N C2
+gds 6-11 I D1
+gds 6-12 V
+gds 6-13 V O Y
+gds 6-14 C2 N
+gds 6-15 V D3 C2
+gds 6-16 H3 I
+gds 6-17 E I
+gds 6-18 FR C2
+gds 6-19 C1 J1
+gds 6-20 H3 W J2
+gds 7-1 V
+gds 7-2 L2 S
+gds 7-3 H3 C1 J1 L4
+gds 7-4 J1
+gds 7-5 E F C1 W
+gds 7-6 K
+gds 7-7 D3 I
+gds 7-8 D3 J1
+gds 7-9 K J1
+gds 7-10 A1 S
+gds 7-11 C1 X H1 K
+gds 7-12 B F D3
+gds 7-13 V I W
+gds 7-14 FR I D3
+gds 7-15 O C2 J2
+gds 7-16 L3 C2
+gds 7-17 A1 K
+gds 7-18 V F E
+gds 7-19 A2 L3 C2 W
+gds 7-20 U D3 C2
+gds 8-1 S
+gds 8-2 C2 Y
+gds 8-3 V D3 M2
+gds 8-4 I L2 S
+gds 8-5 X C2
+gds 8-6 K H3
+gds 8-7 V M3
+gds 8-8 J1
+gds 8-9 V C2
+gds 8-10 V C2
+gds 8-11 X I H2
+gds 8-12 D3 J1
+gds 8-13 V J1 W
+gds 8-14 -
+gds 8-15 I H3 W
+gds 8-16 D3 F B
+gds 8-17 K D3
+gds 8-18 V K
+gds 8-19 L2 W
+gds 8-20 V A1
+gds 9-1 B C1 W
+gds 9-2 DF D3 H1 D1
+gds 9-3 C2
+gds 9-4 D2 D3
+gds 9-5 K HL
+gds 9-6 V A4 C2
+gds 9-7 X
+gds 9-8 I C2 B
+gds 9-9 I C1 C2
+gds 9-10 FR E D3
+gds 9-11 D3 L2 HL
+gds 9-12 D3 O C1 I
+gds 9-13 E J1
+gds 9-14 B A3 I
+gds 9-15 C1 Y C2
+gds 9-16 R
+gds 9-17 K J2
+gds 9-18 V A1
+gds 9-19 A1 F C2
+gds 9-20 HL
+gds 10-1 C2
+gds 10-2 L3
+gds 10-3 L4
+gds 10-4 C2 B
+gds 10-5 H3 A1 A4 J1
+gds 10-6 A1 W F
+gds 10-7 C2 L4
+gds 10-8 D3 C1
+gds 10-9 V C2
+gds 10-10 A1 D1 D3 W
+gds 10-11 V C2
+gds 10-12 V C2
+gds 10-13 V I A1
+gds 10-14 C2 X P
+gds 10-15 V F
+gds 10-16 D3 K
+gds 10-17 O
+gds 10-18 B A2 D3 FR
+gds 10-19 K HL
+gds 10-20 D3 D1
+pizza 1-1 J1 F A1 E J2
+pizza 1-2 F M1 R
+pizza 1-3 F R N
+pizza 1-4 M1
+pizza 1-5 F H1 K
+pizza 1-6 H1 J1 F J2
+pizza 1-7 F W H2 J2
+pizza 1-8 H1 F J1 J2
+pizza 1-9 R
+pizza 1-10 M1 C2 H1 D1
+pizza 1-11 M1 R
+pizza 1-12 F E RD
+pizza 1-13 C2 A1 H1 J2 W
+pizza 1-14 I G2 E
+pizza 1-15 M3 F
+pizza 1-16 H4 S
+pizza 1-17 D1 J2 F
+pizza 1-18 -
+pizza 1-19 J1 J2 A1 R
+pizza 1-20 J1 H1 H3 F
+pizza 2-1 M1 W F X H1
+pizza 2-2 F A1 X
+pizza 2-3 RD
+pizza 2-4 U R
+pizza 2-5 F X RD
+pizza 2-6 F W S L1
+pizza 2-7 F S L1
+pizza 2-8 M1 J2 F
+pizza 2-9 RD C1 F
+pizza 2-10 F W J2 R
+pizza 2-11 M1
+pizza 2-12 J2 D1 F C2
+pizza 2-13 DF H1 D1
+pizza 2-14 J2 J1
+pizza 2-15 F L1
+pizza 2-16 T
+pizza 2-17 J1 H1
+pizza 2-18 J1 J2 M1
+pizza 2-19 V RD M1
+pizza 2-20 F S
+pizza 3-1 M1
+pizza 3-2 J1 C2
+pizza 3-3 A1 H4 H1 M1
+pizza 3-4 M1
+pizza 3-5 F X C2
+pizza 3-6 F D1
+pizza 3-7 F X G1
+pizza 3-8 R
+pizza 3-9 V H1 E P T
+pizza 3-10 D1 K
+pizza 3-11 F ED
+pizza 3-12 X C2 J2
+pizza 3-13 F H2 M1 RD
+pizza 3-14 V J2
+pizza 3-15 F X
+pizza 3-16 RD
+pizza 3-17 -
+pizza 3-18 J1 W J2
+pizza 3-19 J1 G1 R
+pizza 3-20 M1
+pizza 4-1 F E J2
+pizza 4-2 X N
+pizza 4-3 F RD
+pizza 4-4 K
+pizza 4-5 M1
+pizza 4-6 O J2
+pizza 4-7 DF
+pizza 4-8 F H2 W
+pizza 4-9 K
+pizza 4-10 RD C2
+pizza 4-11 X R S
+pizza 4-12 RD DF
+pizza 4-13 R
+pizza 4-14 M1 O
+pizza 4-15 R
+pizza 4-16 F
+pizza 4-17 RD H1 W
+pizza 4-18 L2
+pizza 4-19 D2 E
+pizza 4-20 F E W
+pizza 5-1 M1 T
+pizza 5-2 RD C2
+pizza 5-3 H1 H2
+pizza 5-4 RD H2 L1
+pizza 5-5 M1
+pizza 5-6 C2 S
+pizza 5-7 E H1
+pizza 5-8 R
+pizza 5-9 RD
+pizza 5-10 H1 R
+pizza 5-11 F P RD
+pizza 5-12 F
+pizza 5-13 R
+pizza 5-14 F
+pizza 5-15 D3 J1
+pizza 5-16 C1 ED
+pizza 5-17 C1 J2
+pizza 5-18 H1 F
+pizza 5-19 RD ED
+pizza 5-20 O L2
+pizza 6-1 H1 D1 I
+pizza 6-2 H3 F C2
+pizza 6-3 RD L3 C2
+pizza 6-4 R
+pizza 6-5 J2 RD
+pizza 6-6 L3 S
+pizza 6-7 R
+pizza 6-8 L1
+pizza 6-9 H1 L1
+pizza 6-10 M1 C2
+pizza 6-11 -
+pizza 6-12 J2 A1
+pizza 6-13 M1
+pizza 6-14 S
+pizza 6-15 N
+pizza 6-16 -
+pizza 6-17 F X
+pizza 6-18 F W
+pizza 6-19 RD
+pizza 6-20 I X
+pizza 7-1 DF F
+pizza 7-2 V
+pizza 7-3 X C2
+pizza 7-4 S
+pizza 7-5 D3
+pizza 7-6 ED
+pizza 7-7 H1 F
+pizza 7-8 M1 O
+pizza 7-9 R
+pizza 7-10 C2 F
+pizza 7-11 O M1
+pizza 7-12 F X
+pizza 7-13 J1 S
+pizza 7-14 G1 H1
+pizza 7-15 F J2
+pizza 7-16 M1 S
+pizza 7-17 J2 RD
+pizza 7-18 R
+pizza 7-19 O
+pizza 7-20 F RD
+pizza 8-1 -
+pizza 8-2 RD ED
+pizza 8-3 X S
+pizza 8-4 C2
+pizza 8-5 F
+pizza 8-6 H3
+pizza 8-7 R
+pizza 8-8 F X
+pizza 8-9 D1 C2
+pizza 8-10 H1 C2
+pizza 8-11 W M1 H1
+pizza 8-12 FR
+pizza 8-13 X
+pizza 8-14 E
+pizza 8-15 A1 F
+pizza 8-16 H1 H2 J1
+pizza 8-17 D1 C2
+pizza 8-18 X
+pizza 8-19 J2
+pizza 8-20 V
+pizza 9-1 T
+pizza 9-2 H1
+pizza 9-3 -
+pizza 9-4 J2
+pizza 9-5 ED
+pizza 9-6 C1
+pizza 9-7 J1
+pizza 9-8 F X DF
+pizza 9-9 RD S
+pizza 9-10 S X
+pizza 9-11 F
+pizza 9-12 X
+pizza 9-13 R
+pizza 9-14 N
+pizza 9-15 H1 F
+pizza 9-16 X
+pizza 9-17 F
+pizza 9-18 W F
+pizza 9-19 S
+pizza 9-20 J2 H1 F
+pizza 10-1 C2
+pizza 10-2 -
+pizza 10-3 DF
+pizza 10-4 V
+pizza 10-5 J2 W
+pizza 10-6 C2
+pizza 10-7 -
+pizza 10-8 F
+pizza 10-9 H2
+pizza 10-10 U
+pizza 10-11 S
+pizza 10-12 ED
+pizza 10-13 C2
+pizza 10-14 RD
+pizza 10-15 F RD
+pizza 10-16 U
+pizza 10-17 F
+pizza 10-18 -
+pizza 10-19 J1
+pizza 10-20 ED
