@@ -1518,5 +1518,10 @@
   "verdict": "gray",
   "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
   "checked": "2026-10-22"
+ },
+ "tabelog.com": {
+  "verdict": "gray",
+  "basis": "robots.txt は /help/ を許可。食べログ利用規約（tabelog.com/help/rules/）に自動取得の明示的禁止はなく、口コミの無断転載・営利利用を禁じる。口コミは取らず公式の説明頁だけを読む",
+  "checked": "2026-10-22"
  }
 }
