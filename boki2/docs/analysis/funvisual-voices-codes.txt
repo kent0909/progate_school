@@ -1,11 +1,11 @@
 # BIZ-FUNVISUAL の利用者の声の符号（1行1件：作品 ページ-番号 符号…）。符号の定義は funvisual-voices.js の DEF。
 # 作品：ramenkan＝こだわりラーメン館（買い切り）／zenkoku＝同 全国編／gurume＝大盛グルメ食堂／gds＝ゲーム発展国++／pizza＝グッドピザ、グレートピザ
-ramenkan 1-1 X S P
+ramenkan 1-1 X S P K
 ramenkan 1-2 K Q R H2
 ramenkan 1-3 O C2 I R
 ramenkan 1-4 K C1 Y L4
-ramenkan 1-5 DF
-ramenkan 1-6 J2 W
+ramenkan 1-5 DF K
+ramenkan 1-6 J2 W K
 ramenkan 1-7 A1 O R
 ramenkan 1-8 K A1
 ramenkan 1-9 H1 W
@@ -27,23 +27,23 @@ zenkoku 1-4 C2 L1 W H1 J2
 zenkoku 1-5 C2 W J2 N SG
 zenkoku 1-6 V I C1 J2 E P
 zenkoku 1-7 V L1 SG A1
-zenkoku 1-8 W O J1
+zenkoku 1-8 W O J1 K
 zenkoku 1-9 C2 A2 D3 H2
 zenkoku 1-10 X B A1 D1
 zenkoku 1-11 C2 J2 J1
 zenkoku 1-12 C2 I A1
-zenkoku 1-13 J2 R
-zenkoku 1-14 X A1 A2 W C2
+zenkoku 1-13 J2 R K
+zenkoku 1-14 X A1 A2 W C2 K
 zenkoku 1-15 Q
-zenkoku 1-16 D1 J2 H3 SG W X
-zenkoku 1-17 H1 J2 J1 D2 C1 W
+zenkoku 1-16 D1 J2 H3 SG W X K
+zenkoku 1-17 H1 J2 J1 D2 C1 W K
 zenkoku 1-18 K
-zenkoku 1-19 V H3 C2
-zenkoku 1-20 B
+zenkoku 1-19 V H3 C2 K
+zenkoku 1-20 B K
 zenkoku 2-1 C2 I D2
 zenkoku 2-2 M3 T
-zenkoku 2-3 C2 W N
-zenkoku 2-4 C2 J2 D1 A1
+zenkoku 2-3 C2 W N K
+zenkoku 2-4 C2 J2 D1 A1 K
 zenkoku 2-5 J2 A1 E H4 D1
 zenkoku 2-6 C2 B E
 zenkoku 2-7 A1 W D1
@@ -67,22 +67,22 @@ zenkoku 3-4 W V X
 zenkoku 3-5 X H1 W A2
 zenkoku 3-6 J2 A1 L1
 zenkoku 3-7 W H4 A1 C2
-zenkoku 3-8 SG S
+zenkoku 3-8 SG S K
 zenkoku 3-9 E W H1 C2
 zenkoku 3-10 J2 D1 H3
 zenkoku 3-11 K H1
 zenkoku 3-12 H3 J1 C2 N
 zenkoku 3-13 F
-zenkoku 3-14 A2 C2
+zenkoku 3-14 A2 C2 K
 zenkoku 3-15 O C1 H1 K
-zenkoku 3-16 C2 J2 J1
+zenkoku 3-16 C2 J2 J1 K
 zenkoku 3-17 D2 W D1 F SG D3
-zenkoku 3-18 J2 C2 D2
-zenkoku 3-19 J2 J1
+zenkoku 3-18 J2 C2 D2 K
+zenkoku 3-19 J2 J1 K
 zenkoku 3-20 -
 zenkoku 4-1 X J2 O
 zenkoku 4-2 C2 W A1 X
-zenkoku 4-3 I C2 T
+zenkoku 4-3 I C2 T K
 zenkoku 4-4 W J2 C2
 zenkoku 4-5 A1 X C2
 zenkoku 4-6 J2 W SG C2 D2
@@ -91,22 +91,22 @@ zenkoku 4-8 J1 A1 X
 zenkoku 4-9 W A1 J1 C2
 zenkoku 4-10 J1 W
 zenkoku 4-11 A1 A2 D3 C2
-zenkoku 4-12 A2
+zenkoku 4-12 A2 K
 zenkoku 4-13 V A1 W J1 C2
 zenkoku 4-14 C1 I C2
-zenkoku 4-15 J2
+zenkoku 4-15 J2 K
 zenkoku 4-16 I H1 SG W
 zenkoku 4-17 A1 E C2 H3
-zenkoku 4-18 V J1 C2
+zenkoku 4-18 V J1 C2 K
 zenkoku 4-19 J1 X C2
 zenkoku 4-20 J1 SG C1
-zenkoku 5-1 W U
+zenkoku 5-1 W U K
 zenkoku 5-2 J1 W K C2
-zenkoku 5-3 H4 A1 C2
+zenkoku 5-3 H4 A1 C2 K
 zenkoku 5-4 K
-zenkoku 5-5 H1 A1 J2 L1
-zenkoku 5-6 W J1
-zenkoku 5-7 V J2 W D1
+zenkoku 5-5 H1 A1 J2 L1 K
+zenkoku 5-6 W J1 K
+zenkoku 5-7 V J2 W D1 K
 zenkoku 5-8 D2 H4 E C2
 zenkoku 5-9 W A1 J1
 zenkoku 5-10 J2 H3
@@ -116,9 +116,9 @@ zenkoku 5-13 C2 A1 H1
 zenkoku 5-14 K C2 M3 J2
 zenkoku 5-15 SG K
 zenkoku 5-16 H1 O
-zenkoku 5-17 C2 W
+zenkoku 5-17 C2 W K
 zenkoku 5-18 O F J2
-zenkoku 5-19 C2 I W
+zenkoku 5-19 C2 I W K
 zenkoku 5-20 R
 zenkoku 6-1 D3 J1
 zenkoku 6-2 W K
@@ -128,15 +128,15 @@ zenkoku 6-5 SG W E J1
 zenkoku 6-6 J2 O W
 zenkoku 6-7 J1 J2
 zenkoku 6-8 H4 R
-zenkoku 6-9 T
+zenkoku 6-9 T K
 zenkoku 6-10 J2 A1 J1
 zenkoku 6-11 L1 I
 zenkoku 6-12 R C2 K
 zenkoku 6-13 K W
-zenkoku 6-14 C1 J2
+zenkoku 6-14 C1 J2 K
 zenkoku 6-15 H3 J2 K
 zenkoku 6-16 X A1 A3
-zenkoku 6-17 U A1 W J1
+zenkoku 6-17 U A1 W J1 K
 zenkoku 6-18 B A1
 zenkoku 6-19 J1 DF
 zenkoku 6-20 H4 O J2 K
@@ -148,11 +148,11 @@ zenkoku 7-5 J2 C2 O
 zenkoku 7-6 C1 H4 D3 C2
 zenkoku 7-7 C2 D1 J2
 zenkoku 7-8 I C2
-zenkoku 7-9 C2 J2
+zenkoku 7-9 C2 J2 K
 zenkoku 7-10 I C1 D3
 zenkoku 7-11 D1 W
 zenkoku 7-12 J2
-zenkoku 7-13 V A1 H3
+zenkoku 7-13 V A1 H3 K
 zenkoku 7-14 SG W H1
 zenkoku 7-15 K X
 zenkoku 7-16 J1 C2
@@ -178,14 +178,14 @@ zenkoku 8-15 H3
 zenkoku 8-16 C2
 zenkoku 8-17 H4 N
 zenkoku 8-18 V A1 H4 F
-zenkoku 8-19 U J1 T
+zenkoku 8-19 U J1 T K
 zenkoku 8-20 O J2 K
 zenkoku 9-1 O W DF
 zenkoku 9-2 SG P C2
 zenkoku 9-3 K H1
-zenkoku 9-4 X A3 C2
+zenkoku 9-4 X A3 C2 K
 zenkoku 9-5 X
-zenkoku 9-6 C2
+zenkoku 9-6 C2 K
 zenkoku 9-7 J2
 zenkoku 9-8 H1 W R
 zenkoku 9-9 J2 C2
@@ -201,7 +201,7 @@ zenkoku 9-18 A1 X PP
 zenkoku 9-19 K C2
 zenkoku 9-20 J1 C2
 zenkoku 10-1 K H4 C2
-zenkoku 10-2 J2 H4
+zenkoku 10-2 J2 H4 K
 zenkoku 10-3 W T
 zenkoku 10-4 K C2
 zenkoku 10-5 V X
@@ -218,7 +218,7 @@ zenkoku 10-15 H3 DF
 zenkoku 10-16 H1 J1 PP
 zenkoku 10-17 W WX C2
 zenkoku 10-18 J2 T
-zenkoku 10-19 A2 C2
+zenkoku 10-19 A2 C2 K
 zenkoku 10-20 C2 K
 gurume 1-1 K C2 A1 J2
 gurume 1-2 NG
@@ -240,7 +240,7 @@ gurume 1-17 D2
 gurume 1-18 R
 gurume 1-19 K
 gurume 1-20 R
-gurume 2-1 H1 W
+gurume 2-1 H1 W K
 gurume 2-2 R
 gurume 2-3 J2 C2
 gds 1-1 A4 E G1 FR M2 O X
@@ -266,29 +266,29 @@ gds 1-20 A4 I C2
 gds 2-1 D3 D2 A1
 gds 2-2 K D3
 gds 2-3 V B A3
-gds 2-4 A1 A2 A3 B
-gds 2-5 V M3
+gds 2-4 A1 A2 A3 B K
+gds 2-5 V M3 K
 gds 2-6 C2 D3
 gds 2-7 V B N L1
 gds 2-8 D3 B FR
 gds 2-9 Q L3
 gds 2-10 I L3 A1 C2
-gds 2-11 A1 X
+gds 2-11 A1 X K
 gds 2-12 K C2 L3
 gds 2-13 H1 E W C2 B
 gds 2-14 W B
 gds 2-15 J1 J2
 gds 2-16 C1 D3 D2
-gds 2-17 C1 B I W
+gds 2-17 C1 B I W K
 gds 2-18 V W E B
-gds 2-19 C2 H3
+gds 2-19 C2 H3 K
 gds 2-20 V E L1 L2
 gds 3-1 H1 W S C2
 gds 3-2 A2 G2 D3 J2 C2
 gds 3-3 V L2
 gds 3-4 D3 C1
 gds 3-5 H1 C2 D1 J1 J2
-gds 3-6 V C2 A1 A3
+gds 3-6 V C2 A1 A3 K
 gds 3-7 V M2 S
 gds 3-8 D3 F C2
 gds 3-9 O
@@ -303,25 +303,25 @@ gds 3-17 V W C2
 gds 3-18 I D3 V
 gds 3-19 A1 E
 gds 3-20 I O S
-gds 4-1 W H3 D3 J1
+gds 4-1 W H3 D3 J1 K
 gds 4-2 V A1 B C1
 gds 4-3 O S
-gds 4-4 V G1 D3 D2
-gds 4-5 HL
+gds 4-4 V G1 D3 D2 K
+gds 4-5 HL K
 gds 4-6 DF J1 I
 gds 4-7 V D3 C2
 gds 4-8 E L2
 gds 4-9 D3 C1 H3
 gds 4-10 Q E H3
 gds 4-11 K S
-gds 4-12 H1 HL X
-gds 4-13 G2 I
+gds 4-12 H1 HL X K
+gds 4-13 G2 I K
 gds 4-14 V
 gds 4-15 H3 C2 N
 gds 4-16 G1 C2 L4 O
-gds 4-17 I V X
+gds 4-17 I V X K
 gds 4-18 K
-gds 4-19 I J1
+gds 4-19 I J1 K
 gds 4-20 N
 gds 5-1 H3 W A1 D3
 gds 5-2 V D3 U
@@ -346,11 +346,11 @@ gds 5-20 V H1 ED
 gds 6-1 A1 W D3
 gds 6-2 C1 J2 G2
 gds 6-3 HL K
-gds 6-4 L3 H1
+gds 6-4 L3 H1 K
 gds 6-5 V C2 U C1
-gds 6-6 I W X
+gds 6-6 I W X K
 gds 6-7 C2
-gds 6-8 J1 HL
+gds 6-8 J1 HL K
 gds 6-9 C1 D3 D1 I
 gds 6-10 N C2
 gds 6-11 I D1
@@ -361,9 +361,9 @@ gds 6-15 V D3 C2
 gds 6-16 H3 I
 gds 6-17 E I
 gds 6-18 FR C2
-gds 6-19 C1 J1
+gds 6-19 C1 J1 K
 gds 6-20 H3 W J2
-gds 7-1 V
+gds 7-1 V K
 gds 7-2 L2 S
 gds 7-3 H3 C1 J1 L4
 gds 7-4 J1
@@ -391,13 +391,13 @@ gds 8-5 X C2
 gds 8-6 K H3
 gds 8-7 V M3
 gds 8-8 J1
-gds 8-9 V C2
-gds 8-10 V C2
+gds 8-9 V C2 K
+gds 8-10 V C2 K
 gds 8-11 X I H2
 gds 8-12 D3 J1
 gds 8-13 V J1 W
 gds 8-14 -
-gds 8-15 I H3 W
+gds 8-15 I H3 W K
 gds 8-16 D3 F B
 gds 8-17 K D3
 gds 8-18 V K
@@ -422,10 +422,10 @@ gds 9-16 R
 gds 9-17 K J2
 gds 9-18 V A1
 gds 9-19 A1 F C2
-gds 9-20 HL
+gds 9-20 HL K
 gds 10-1 C2
 gds 10-2 L3
-gds 10-3 L4
+gds 10-3 L4 K
 gds 10-4 C2 B
 gds 10-5 H3 A1 A4 J1
 gds 10-6 A1 W F
@@ -459,7 +459,7 @@ pizza 1-13 C2 A1 H1 J2 W
 pizza 1-14 I G2 E
 pizza 1-15 M3 F
 pizza 1-16 H4 S
-pizza 1-17 D1 J2 F
+pizza 1-17 D1 J2 F K
 pizza 1-18 -
 pizza 1-19 J1 J2 A1 R
 pizza 1-20 J1 H1 H3 F
@@ -548,7 +548,7 @@ pizza 6-2 H3 F C2
 pizza 6-3 RD L3 C2
 pizza 6-4 R
 pizza 6-5 J2 RD
-pizza 6-6 L3 S
+pizza 6-6 L3 S K
 pizza 6-7 R
 pizza 6-8 L1
 pizza 6-9 H1 L1
@@ -556,7 +556,7 @@ pizza 6-10 M1 C2
 pizza 6-11 -
 pizza 6-12 J2 A1
 pizza 6-13 M1
-pizza 6-14 S
+pizza 6-14 S K
 pizza 6-15 N
 pizza 6-16 -
 pizza 6-17 F X
@@ -598,7 +598,7 @@ pizza 8-12 FR
 pizza 8-13 X
 pizza 8-14 E
 pizza 8-15 A1 F
-pizza 8-16 H1 H2 J1
+pizza 8-16 H1 H2 J1 K
 pizza 8-17 D1 C2
 pizza 8-18 X
 pizza 8-19 J2
@@ -650,7 +650,7 @@ cinc 1-3 H1 H2 A3 L3 L1 Q
 cinc 1-4 BV Q
 cinc 1-5 K DF E W N
 cinc 1-6 BVR S L1
-cinc 1-7 DF E F D1
+cinc 1-7 DF E F D1 K
 cinc 1-8 C2 BV Q
 cinc 1-9 N K
 cinc 1-10 ED N
@@ -659,9 +659,9 @@ cinc 1-12 BV BVR S
 cinc 1-13 K D1 BV N
 cinc 1-14 C2 L1 BV N
 cinc 1-15 BV N BVR
-cinc 1-16 N BVR
+cinc 1-16 N BVR K
 cinc 1-17 L1 BVR R
-cinc 1-18 D1 BVR R
+cinc 1-18 D1 BVR R K
 cinc 1-19 C2 BV N
 cinc 1-20 BV D1 W J1 N
 cinc 2-1 BV BVR
@@ -674,7 +674,7 @@ cinc 2-7 L2 I
 cinc 2-8 FR DF C2
 cinc 2-9 J1 W
 cinc 2-10 DF K
-cinc 2-11 DF N
+cinc 2-11 DF N K
 cinc 2-12 Q T K
 cinc 2-13 O
 cinc 2-14 L3
@@ -684,11 +684,11 @@ cinc 2-17 N
 cinc 2-18 N
 cinc 2-19 ED W H3 C2 N
 cinc 2-20 R
-cinc 3-1 DF FR A3
-cinc 3-2 DF T S
-cinc 3-3 L1 S
+cinc 3-1 DF FR A3 K
+cinc 3-2 DF T S K
+cinc 3-3 L1 S K
 cinc 3-4 N
-cinc 3-5 R
+cinc 3-5 R K
 cinc 3-6 K D1
 cinc 3-7 C2 ED L1 S
 cinc 3-8 N
@@ -699,7 +699,7 @@ cinc 3-12 C2
 cinc 3-13 A1 BV W
 cinc 3-14 -
 cinc 3-15 R
-cinc 3-16 ED BV
+cinc 3-16 ED BV K
 cinc 3-17 ED
 cinc 3-18 C2 BVR
 cinc 3-19 BVR
@@ -710,7 +710,7 @@ cinc 4-3 W BV R
 cinc 4-4 DF
 cinc 4-5 R
 cinc 4-6 R
-cinc 4-7 D1 BV R N
+cinc 4-7 D1 BV R N K
 cinc 4-8 R
 cinc 4-9 R
 cinc 4-10 C2 R
@@ -719,16 +719,16 @@ cinc 4-12 R
 cinc 4-13 W A3 R
 cinc 4-14 T
 cinc 4-15 R
-cinc 4-16 O
+cinc 4-16 O K
 cinc 4-17 ED BV
 cinc 4-18 R
 cinc 4-19 D1 BV W
 cinc 4-20 J2
-cinc 5-1 N BVR
+cinc 5-1 N BVR K
 cinc 5-2 BVR
 cinc 5-3 R
 cinc 5-4 C2 N
-cinc 5-5 S
+cinc 5-5 S K
 cinc 5-6 R
 cinc 5-7 I DF
 cinc 5-8 C2 BVR
@@ -740,9 +740,9 @@ cinc 5-13 R
 cinc 5-14 ED BVR
 cinc 5-15 O
 cinc 5-16 N
-cinc 5-17 N
+cinc 5-17 N K
 cinc 5-18 N
-cinc 5-19 W C2
+cinc 5-19 W C2 K
 cinc 5-20 L1
 cinc 6-1 N
 cinc 6-2 N
@@ -760,12 +760,12 @@ cinc 6-13 BV W
 cinc 6-14 DF N
 cinc 6-15 ED
 cinc 6-16 O
-cinc 6-17 BVR
+cinc 6-17 BVR K
 cinc 6-18 C2 J2
 cinc 6-19 C2
 cinc 6-20 S
 cinc 7-1 N
-cinc 7-2 BVR
+cinc 7-2 BVR K
 cinc 7-3 -
 cinc 7-4 O
 cinc 7-5 O
