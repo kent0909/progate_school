@@ -23,6 +23,6 @@ QUALITY 4章（性悪説）・5章（論証の検査）・6章（主張ごとの
 | BIZ-FUNVISUAL 版0.3 | 性悪説・論証・語句の後 | 1件 | 0（弱い：新語句11/56・無作為2/55） | 0（事実の判定）／論証の検査：妥当10・弱い2・不当0（検査役への迎合1） | 2 | 0（一部3） | audit/BIZ-FUNVISUAL-audit.md 10章・BIZ-FUNVISUAL-reasoning.md 11章 |
 | BIZ-REPLAY 版0.2 | 性悪説・論証・語句の後 | 3件（E6・E7＋R9） | 1件 | 3件（芯の結論「2〜3周目で届く目標」が全643件と合わない）／論証の検査：新しい結論20件で妥当8・弱い12・不当0 | 3件 | 0（一部だけ2件） | audit/BIZ-REPLAY-audit.md 9章・BIZ-REPLAY-reasoning.md 14章 |
 | BIZ-FILL-RAMEN 版1 | 性悪説・論証・語句の後 | 12件（中5・小7） | 5件（ほか記録で確かめきれない11） | 不当14・弱い28・妥当12（54件中） | 11件 | 4件（探していない4行） | audit/BIZ-FILL-RAMEN-audit.md・BIZ-FILL-RAMEN-reasoning.md |
-| BIZ-FUNVISUAL 版0.4 | 性悪説・論証・語句の後 | 1（778/782件の数の混ざり） | 0 | 1（弱い。店の外へ移した2件） | 1（#61） | 0 | audit/BIZ-FUNVISUAL-audit.md 11章 |
+| BIZ-FUNVISUAL 版0.4 | 性悪説・論証・語句の後 | 1（778/782件の数の混ざり） | 0 | 1（弱い。店の外へ移した2件）／論証の検査：結論11件で妥当8・弱い2・不当1（P04 作品を混ぜた88%） | 1（#61） | 0 | audit/BIZ-FUNVISUAL-audit.md 11章・BIZ-FUNVISUAL-reasoning.md 12章 |
 
 「─（未検査）」は、その観点の検査がまだなかったことを示す（0件の意味ではない）。数え方は判定書ごとに揃っていないので、次の版からは判定書の先頭にこの7列の数を書かせる。

@@ -6,7 +6,10 @@
 import os, re, math, itertools, collections
 
 D = os.path.join(os.path.dirname(__file__), '..')
-REP = open(os.path.join(D, 'BIZ-MKT-RAMEN.md'), encoding='utf-8').read()
+import subprocess
+# 前半（版1.0の検査）は版1.0（コミット 8b1d663）を読む。後半（版1.1の再検査）は今の版を読む
+REP = subprocess.run(['git', 'show', '8b1d663:boki2/docs/BIZ-MKT-RAMEN.md'], cwd=os.path.abspath(os.path.join(D, '..', '..')),
+                     capture_output=True, text=True, check=True).stdout
 
 
 def section(text, start, end):
@@ -209,3 +212,107 @@ if os.path.exists(A):
     print(f'  番号の重複：{dup if dup else "なし"}')
 else:
     print('  （検査書がまだない）')
+
+
+# ===================== 版1.1の再検査（2026-10-22 追加）=====================
+print()
+print('######## 版1.1の再検査 ########')
+REP = open(os.path.join(D, 'BIZ-MKT-RAMEN.md'), encoding='utf-8').read()
+
+print('== V1) 8章の格子の感度（版1.1の bizmkt-ramen-cpa.py と同じ式。g×f×m×r×反応率×費用）==')
+
+
+def grid_share(F, RESP, lemon_f=4.0, C=(21000, 41000), G=(600, 650, 700), M=(12, 18, 24), R=(0.10, 0.20, 0.30, 0.40)):
+    tot = ok = lok = 0
+    for g, f, m, r, q, c in itertools.product(G, F, M, R, RESP, C):
+        tot += 1
+        new = g + r * g * f * m
+        lnew = 200 + r * 200 * lemon_f * m
+        ok += 3000 * q * new >= c
+        lok += 3000 * q * lnew >= c
+    return tot, ok, lok
+
+
+cases = [
+    ('報告のまま（f 0.5/1/1.5・反応率0.05〜0.3%・レモネード月4杯）', (0.5, 1.0, 1.5), (0.0005, 0.001, 0.002, 0.003), 4.0),
+    ('レモネードを月2杯に', (0.5, 1.0, 1.5), (0.0005, 0.001, 0.002, 0.003), 2.0),
+    ('レモネードを月6杯に', (0.5, 1.0, 1.5), (0.0005, 0.001, 0.002, 0.003), 6.0),
+    ('ラーメンの f の上を全体への平均1.8回に', (0.5, 1.0, 1.8), (0.0005, 0.001, 0.002, 0.003), 4.0),
+    ('反応率を0.1〜0.5%に', (0.5, 1.0, 1.5), (0.001, 0.002, 0.003, 0.005), 4.0),
+    ('反応率を0.3〜1.0%に', (0.5, 1.0, 1.5), (0.003, 0.005, 0.0075, 0.01), 4.0),
+    ('反応率を0.01〜0.1%に', (0.5, 1.0, 1.5), (0.0001, 0.0003, 0.0005, 0.001), 4.0),
+]
+for name, F, RESP, lf in cases:
+    tot, ok, lok = grid_share(F, RESP, lf)
+    print(f'  {name}：{tot}組、ラーメン {ok}（{ok / tot * 100:.0f}%）・レモネード {lok}（{lok / tot * 100:.0f}%）')
+print('  → 「元が取れるのは2割、レモネードとほとんど変わらない」は、反応率の幅（報告が使わないとした業者の目安）とレモネードの月4杯（BIZ-MKT の置き値）で決まる')
+# 常連1人の月の粗利：ラーメン g×f とレモネード 200×4
+for f in (0.5, 1.0, 1.5, 1.8):
+    print(f'  ラーメン f={f}：月の粗利 {650 * f:.0f}円 対 レモネード 800円（比 {650 * f / 800:.2f}）')
+
+print()
+print('== V2) 「残る長さは評判しだい」と、原文の10店のふだんの強さ（r5-mktr-tcbmag-ddd）==')
+# 原文の語句を添えて、放送前の店の状態を手で写した（検査役の印）
+before = [
+    ('Smalley’s', '弱い', '「At the time we were really struggling」「We wondered if we were going to have to close」', '毎年7-10%増'),
+    ('Donatelli’s', '弱い', '「We had debt and were really scared. It saved us from going out of business.」', '20%が続く'),
+    ('QFanatic', '弱い', '「labored in relative obscurity」', '2年後に+75%'),
+    ('Pizzeria Lola', '強い', '「riding the crest of a wave of strong local reviews」', '頭打ちなし'),
+    ('Casper & Runyon’s Nook', '強い', '「already had a cult following」', '毎年伸びる'),
+    ('Chester Creek Cafe', '不明', '（伸びなかった理由は「out-of-the-way location」）', '伸びなし'),
+]
+weak_persist = sum(1 for _, s, _, l in before if s == '弱い' and l != '伸びなし')
+print(f'  放送前に弱かった店（原文の語句あり）{sum(1 for b in before if b[1] == "弱い")} 店のうち、長期に伸びが残った店 {weak_persist}')
+for n, s, q, l in before:
+    print(f'    {n}：放送前 {s} {q} → 長期 {l}')
+print('  → 米国の資料の中では、弱い店でも伸びが長く残った。「評判の強い店は年単位、弱い店は直後だけ」は原文の向きと合わない。分ける変数は、媒体（全シーズンを流し続けるケーブル局か、一度きりか）・立地のほうが資料に近い')
+
+print()
+print('== V3) 当たりの確率の置き値と、選ばれた10店（R13 の「放送の後に目に見えて伸びる 60〜90%」）==')
+st = [0, 5, 35, 45, 50, 50, 60, 60, 100, 500]
+print(f'  10店で短期+30%以上 {sum(v >= 30 for v in st)}/10＝{sum(v >= 30 for v in st) * 10}%、長期に残る 9/10＝90% → 置き値 60〜90% はほぼ選ばれた成功例の割合そのもの')
+
+print()
+print('== V4) 6章の声（版1.1の表）==')
+t6 = section(REP, '## 6. 利用者の声', '## 7. 店主')
+v6 = table_rows(t6, r'V\d+')
+cl = collections.Counter(v[2] for v in v6)
+jn = [v for v in v6 if 'jnet21-consramen2' in v[3]]
+print(f'  声 {len(v6)} 件、J-Net21 {len(jn)} 件（{len(jn) / len(v6) * 100:.1f}%。報告の6章は「49%」）')
+print(f'  味 {cl["味"]} 件のうち J-Net21 {sum(1 for v in jn if v[2] == "味")} 件')
+print(f'  行列の声：待 {cl["待"]}・許 {cl["許"]}・行 {cl["行"]}（待 {cl["待"]} 対 許＋行 {cl["許"] + cl["行"]}）→ 「多くの人は並ぶのを嫌う」は声の数からは出ず、出典なしの16%／84%に頼る')
+so = [v for v in v6 if 'soranews' in v[3]]
+print(f'  撮 {cl["撮"]} 件のうち SoraNews {sum(1 for v in so if v[2] == "撮")} 件（記事の書き手が選んで訳した反応）')
+
+print()
+print('== V5) 5章の「自前の発信」の成功（版1.1の表）==')
+t5 = section(REP, '## 5. 成功と失敗の事例', '## 6. 利用者の声')
+c5 = table_rows(t5, r'[SFT]\d+')
+own = [c for c in c5 if c[2] == '自前の発信']
+for c in own:
+    print(f'  {c[0]}：{c[3][:60]}')
+print(f'  自前の発信の成功 {len(own)} 件は、ラーメンでない店（菓子）とチェーン（195店）。ふつうの小さなラーメン店の例は0件')
+
+print()
+print('== V6) 再検査の判定の数（検査書16章の表）==')
+A = os.path.join(D, 'audit', 'BIZ-MKT-RAMEN-reasoning.md')
+if os.path.exists(A):
+    txt = open(A, encoding='utf-8').read()
+    resp = collections.Counter(); jud = collections.Counter(); seen = []
+    for line in txt.splitlines():
+        mm = re.match(r'^\| (A-[KL]\d+|M\d+) \|', line)
+        if not mm:
+            continue
+        cells = split_cells(line)
+        v = re.sub(r'\*', '', cells[-2])
+        seen.append(mm.group(1))
+        if mm.group(1).startswith('A-'):
+            k = '応えていない' if '応えていない' in v else ('一部' if '一部' in v else ('応えた' if '応えた' in v else '?'))
+            resp[k] += 1
+        else:
+            k = '不当' if '不当' in v else ('弱い' if '弱い' in v else ('妥当' if '妥当' in v else '?'))
+            jud[k] += 1
+    print(f'  I への応え {sum(resp.values())} 項：' + '・'.join(f'{k} {resp[k]}' for k in ('応えた', '一部', '応えていない', '?')))
+    print(f'  版1.1の結論 {sum(jud.values())} 件：' + '・'.join(f'{k} {jud[k]}' for k in ('妥当', '弱い', '不当', '?')))
+    dup = [k for k, v in collections.Counter(seen).items() if v > 1]
+    print(f'  番号の重複：{dup if dup else "なし"}')

@@ -66,6 +66,7 @@ print('  周（この作品で始め直した・2周目以降・周の回数・�
 print('    うち「周」「週」の字を含まない件：%d 件 #%s' % (len([i for i in shu if i not in hit]), ' #'.join(str(i) for i in shu if i not in hit)))
 print('  再（時間をおいて・別の機種で遊び直した。周回かは区切れない）：%d 件（%s）' % (len(sai), by_work(sai)))
 print('  「周」「週」の字を含むのに周回の話でない件：%d 件 #%s' % (len([i for i in sorted(hit) if C[i]['rel'] == '-']), ' #'.join(str(i) for i in sorted(hit) if C[i]['rel'] == '-')))
+print('  「周」「週」の字を含み 再 とした件：#%s' % ' #'.join(str(i) for i in sorted(hit) if C[i]['rel'] == '再'))
 print('  周 の中身：', tally(shu, 'code'))
 print('  周 の回数の申告：', ', '.join('#%d=%s' % (i, C[i]['count']) for i in shu if C[i]['count'] != '-'))
 zk = [i for i in shu if C[i]['work'] == 'こだわりラーメン館 全国編']
@@ -103,7 +104,21 @@ def lab(i):
     return '2周目以降' if i in lat else '1周目' if i in fst else '書かない'
 for i in sorted(gd & mygd):
     if lab(i) != C[i]['round']: print('     周の読みが違う #%d：判定役=%s コード=%s メモ=%s' % (i, lab(i), C[i]['round'], C[i]['memo']))
+print('     → 判定役の %d 件と「届いた」%d 件の差 %d 件は、上の「届いた」でない件（大賞を狙う・大賞に触れるだけ）' % (len(gd), len(mygd), len(gd) - len(mygd)))
 old = set(shu) & hit
 print('  5b) 周回の声：判定役は「周・週の字の %d 件のうち周回の話」+「字のない %d 件」で32件以上と見た。このコードの 周 は %d 件（字あり %d・字なし %d）、再 は %d 件' % (len(hit), len(a3), len(shu), len(old), len(shu) - len(old), len(sai)))
 for i in sorted(a3): print('     判定役の字なし #%d：コード=%s（%s）' % (i, C[i]['rel'], C[i]['memo']))
 for i in [i for i in shu if i not in hit and i not in a3]: print('     コードで字なしの 周 として足した #%d：%s' % (i, C[i]['memo']))
+# 6) メモが原文の写しになっていないか（メモと本文の共通部分が30字未満か）
+def lcs(a, b):
+    best = 0; prev = [0] * (len(b) + 1)
+    for x in a:
+        cur = [0] * (len(b) + 1)
+        for j, y in enumerate(b, 1):
+            if x == y:
+                cur[j] = prev[j - 1] + 1
+                if cur[j] > best: best = cur[j]
+        prev = cur
+    return best
+long = [i for i in sorted(C) if lcs(nn(C[i]['memo']), nn(txt(U[i - 1]))) >= 30]
+print('6) メモと原文の共通部分が30字以上の件：', long or 'なし')
