@@ -176,7 +176,7 @@
 - 尽きる点：集め終わったところ（#186 の全実績、#103 の予想）。解放をカードだけにすると、解放の終わりが動機の終わりになる。
 
 ### 1回が短い・再開の壁が低い（どの動機にも効く下地）
-- 鎖：1回が短いと完走を目指して繰り返す動機になる、と Wikipedia のローグライクの記事は書く [[web:simgames:r3-fable-wiki-roguelike|「short gameplay runs」]]。FTL は負けた後に再開する壁をほとんどなくした [[web:simgames:r6-rp-wiki-ftl|「learning experience」]]。Hades は短い時間でも長くでも遊べることを企画の条件にした [[web:simgames:r6-rp-gd-hades-devprocess|「one-and-done game」]]。
+- 鎖：1回が短いと完走を目指して繰り返す動機になる、と Wikipedia のローグライクの記事は書く [[web:simgames:r3-fable-wiki-roguelike|「short gameplay runs」]]。FTL は負けた後に再開する壁をほとんどなくした [[web:simgames:r6-rp-wiki-ftl|「learning experience」]]。Hades は短い時間でも長くでも遊べることを企画の条件にした [[web:simgames:r6-rp-gd-hades-devprocess|「in short stretches」]]。
 - 声：1回が短い・隙間に遊べるが15件、うち長く遊んだ側が12件。
 - ラーメン版との差：1周は10期で10〜15時間（DESIGN-RAMEN 95行）。StS の1周1〜2時間（#5）の5〜15倍で、この下地は弱い【推論】。年の選択（年を単位に遊び直す）がこの差を埋める手段になる。
 
