@@ -236,7 +236,9 @@ for (const s of sources) {
         const fj = rawFile(e); let isJson = false; try { if (fj) { JSON.parse(fs.readFileSync(fj, 'utf8')); isJson = true; } } catch (x) {}
         // robots.txt は、規約の確かめのためだけに取るもので、短くて当たり前（読了ノートも要らない）。小ささの検査から外す
         const robots = /\/robots\.txt(\?|$)/.test(e.url || '');
-        if (!isJson && !robots && (!e.bytes || e.bytes < 200)) { r.bad++; err(tag, `${d} の取得物が小さすぎる（${e.bytes} バイト）`); }
+        // 小さすぎる取得物でも、その後に理由つきの「取らない」記録（skipped）があれば、取れなかったことを正直に残したものとして注意にとどめる（根拠には使わない）
+        const laterSkip = es.find((x) => x.status === 'skipped' && x.reason && x.reason.length >= 8 && Date.parse(x.t) >= Date.parse(e.t));
+        if (!isJson && !robots && (!e.bytes || e.bytes < 200)) { if (laterSkip) warn(tag, `${d} の取得物が小さすぎる（${e.bytes} バイト）が、取れない記録がある（${laterSkip.reason}）。根拠には使っていないこと`); else { r.bad++; err(tag, `${d} の取得物が小さすぎる（${e.bytes} バイト）`); } }
         const f = rawFile(e);
         if (f && /\.html?$/i.test(f) && /type=["']?password/i.test(fs.readFileSync(f, 'utf8')) && (textOf(f) || '').length < 3000) { r.bad++; err(tag, `${d} はログイン画面を取得しているように見える`); }
       }
