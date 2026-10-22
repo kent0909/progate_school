@@ -1383,5 +1383,60 @@
   "verdict": "gray",
   "basis": "automaton-media.com/robots.txt は特定の記事・about 等のみ Disallow（この記事は対象外）。ニュース記事の単発閲覧、転載しない",
   "checked": "2026-10-22"
+ },
+ "www.edwardtufte.com": {
+  "verdict": "gray",
+  "basis": "www.edwardtufte.com/robots.txt は管理・ショップ用パスのみ Disallow。著者の公式サイトの記事1件の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "netshop.impress.co.jp": {
+  "verdict": "gray",
+  "basis": "netshop.impress.co.jp/robots.txt は記事ページを禁止していない（素材の Allow と特定クローラ向けの制限のみ）。業界誌の記事1件の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.moguravr.com": {
+  "verdict": "gray",
+  "basis": "www.moguravr.com/robots.txt は管理画面と検索のみ Disallow。記事1件の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.famitsu.com": {
+  "verdict": "gray",
+  "basis": "www.famitsu.com/robots.txt は旧サービス等のパスのみ Disallow（/article/ は許可）。ニュース記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.hardcoregaming101.net": {
+  "verdict": "no-automation",
+  "basis": "www.hardcoregaming101.net/robots.txt が ClaudeBot・anthropic-ai などを名指しで Disallow:/（明示の拒否）",
+  "checked": "2026-10-22"
+ },
+ "giantbomb.com": {
+  "verdict": "no-automation",
+  "basis": "giantbomb.com/robots.txt が ClaudeBot を名指しで Disallow:/、AI 入力の利用を留保（明示の拒否）",
+  "checked": "2026-10-22"
+ },
+ "www.shacknews.com": {
+  "verdict": "no-automation",
+  "basis": "www.shacknews.com/robots.txt が ClaudeBot・anthropic-ai を名指しで拒否（明示の拒否）",
+  "checked": "2026-10-22"
+ },
+ "pcgamesn.com": {
+  "verdict": "no-automation",
+  "basis": "pcgamesn.com/robots.txt にスクレイピング・テキストマイニング・AI 利用の権利留保の明記と AI クローラの拒否",
+  "checked": "2026-10-22"
+ },
+ "caniplaythat.com": {
+  "verdict": "no-automation",
+  "basis": "caniplaythat.com/robots.txt が anthropic-ai などを名指しで拒否",
+  "checked": "2026-10-22"
+ },
+ "strategywiki.org": {
+  "verdict": "no-automation",
+  "basis": "strategywiki.org/robots.txt が ClaudeBot を名指しで Disallow:/",
+  "checked": "2026-10-22"
+ },
+ "www.indieorama.com": {
+  "verdict": "no-automation",
+  "basis": "www.indieorama.com/robots.txt の Content-Signal で AI 入力（ai-input）の利用を明示的に留保",
+  "checked": "2026-10-22"
  }
 }
