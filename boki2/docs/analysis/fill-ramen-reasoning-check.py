@@ -154,6 +154,17 @@ for y, vals in GD.items():
         k = kind_orig(datetime.date(y, 8, i + 1)); c[k] = c.get(k, 0) + 1
     print(f'  {y}年：予測 {pred[8]/pa*100:.0f}・実際 {vals[7]/act*100:.0f}（8月の日の型 {c}）。7月 予測 {pred[7]/pa*100:.0f}・実際 {vals[6]/act*100:.0f}。12月 予測 {pred[12]/pa*100:.0f}・実際 {vals[11]/act*100:.0f}')
 
+# 趨勢（値上げ・伸び）を除く：2×12か月の中心移動平均に対する比（2023年1月〜2025年12月。2025年12月は家計の日別の計800円）
+ser = GD[2023] + GD[2024] + [tot[m] for m in range(1, 13)]
+print('\n趨勢を除いた月の比（中心移動平均＝100。2023年7月〜2025年6月の2年）：')
+ratios = {}
+for i in range(6, len(ser) - 6):
+    ma = (sum(ser[i - 6:i + 6]) + sum(ser[i - 5:i + 7])) / 24
+    ratios.setdefault(i % 12 + 1, []).append(ser[i] / ma * 100)
+print('  ' + '・'.join(f'{m}月 ' + '/'.join(f'{v:.0f}' for v in ratios[m]) for m in range(1, 13)))
+yoy = [tot[m] / GD[2024][m - 1] * 100 - 100 for m in range(1, 13)]
+print('  2025年の前年同月比（%）：' + '・'.join(f'{m}月{v:+.0f}' for m, v in zip(range(1, 13), yoy)) + f'。平均 {statistics.mean(yoy):+.1f}%')
+
 # ---------------------------------------------------------------- B. こづかい
 print('\n## B. 家計の「こづかい（使途不明）」と中華そばの、平日と土日の比（2025年12か月の日の平均）\n')
 print('| 世帯 | 品目 | 平日の日の平均（円） | 土日の日の平均（円） | 土日÷平日 |')

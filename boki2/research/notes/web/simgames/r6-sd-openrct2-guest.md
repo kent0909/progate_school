@@ -5,8 +5,8 @@ doc: r6-sd-openrct2-guest
 file: r6-sd-openrct2-guest.html
 sha256: 2a4cfe10e4f1b870450017322926ce60124fdaf1b99e0cc6fff0d7b46a790851
 read: partial
-pages: 客が乗り物・店に行くか決める shouldGoOnRide と GuestShouldGoToShop、次に向かう乗り物の選び方（GuestPickRideToGoOn・GuestFindRidesToGoOn・GuestFindBestRideToGoOn）、もう一度乗るか（GuestShouldGoOnRideAgain）、乗った後の満足（GuestCalculateRideSatisfaction・値段の満足・お気に入り）、園を出るか（GuestLeavePark の前後）、名前の隠し要素。移動・行列・食べ物・天気の細部・画面の更新など残りの大部分は読んでいない
-anchors: [katieBrayshaw, GuestLeavePark, Always take the tall rides into consideration, realistic as you can usually see them from anywhere in the park, Pick the most exciting ride, won't pay more than twice the value of the ride, decreased by 75% if they had to pay to enter the park, good value if the price is 50% or less, GuestCalculateRideValueSatisfaction, GuestShouldGoOnRideAgain, Peeps that are happy enough, have enough energy, Approx 95% chance of staying in the park]
+pages: 客が乗り物・店に行くか決める shouldGoOnRide と GuestShouldGoToShop、次に向かう乗り物の選び方（GuestPickRideToGoOn・GuestFindRidesToGoOn・GuestFindBestRideToGoOn）、もう一度乗るか（GuestShouldGoOnRideAgain）、乗った後の満足（GuestCalculateRideSatisfaction・値段の満足・お気に入り）、園を出るか（GuestLeavePark の前後）、名前の隠し要素、【0.3で追加】店の品を買うかの判定（getItemValue と GuestDecideAndBuyItem の値段・価値・幸福の段・満足の段の所）。移動・行列・食べ物・天気の細部・画面の更新など残りの大部分は読んでいない
+anchors: [katieBrayshaw, GuestLeavePark, Always take the tall rides into consideration, realistic as you can usually see them from anywhere in the park, Pick the most exciting ride, won't pay more than twice the value of the ride, decreased by 75% if they had to pay to enter the park, good value if the price is 50% or less, GuestCalculateRideValueSatisfaction, GuestShouldGoOnRideAgain, Peeps that are happy enough, have enough energy, Approx 95% chance of staying in the park, TooMuchThought, GoodValueThought]
 ---
 OpenRCT2（RollerCoaster Tycoon 2 を作り直した公開のソース、GitHub の develop の枝）の `src/openrct2/entity/Guest.cpp`。客（peep）一人ずつの判断のコード。元のゲームの番地（rct2: 0x…）の注記が残っていて、原作の判断をそのまま写したものとされる。一次資料（コード）。
 
@@ -28,3 +28,11 @@ OpenRCT2（RollerCoaster Tycoon 2 を作り直した公開のソース、GitHub 
 2. ただし値段の最適は「価値の2倍のすぐ下」（入園料を取るならその4分の1の2倍）で、**閾値の位置にほぼ固定**される。上手な人はこれを覚えて全部の乗り物をその値にする（判定書が Lemonade Stand に見つけた「最適が1つに決まる」と同じ型。最適が動くのは、入園料を取るか・乗り物ごとに取るかの大きな選択の側）。
 3. **場所の効果**が強い：客は周りの乗り物しか候補にせず、高い乗り物は遠くからでも見える。店・乗り物の配置（客の通り道の上に置く）が需要を決める＝ラーメン屋なら「駅からの動線」「看板の見え方」を、エリアの潜在客の掛け算でなく、客の流れの中の位置として扱う大胆案の根拠。
 4. 一人ずつの判断は、プレイヤーに「理由の吹き出し」（高すぎる・雨だから・激しすぎる）として見せられる。ピヨ商店でも、来なかった客の理由を数えて「高すぎ 32%・遠い 18%・待ちが長い 11%」と月報に出せば、需要の式を推測する手がかりになる（Tynan の頭の中の模型の原則への答えの一つ）。
+
+【0.3で追加：店の品の判定（getItemValue・GuestDecideAndBuyItem）を読んだ】
+- 店の品（食べ物・飲み物・土産）の「価値」は1つではなく、その時の気温で切り替わる：暖かい閾値以上なら暑い日の価値、寒い閾値未満なら寒い日の価値、ほかは基本の価値。気候の設定がなければ基本の価値。
+- 雨の日は風船・アイス・綿あめ・サングラスを買わない。アイスとサングラスは気温が低い日も買わない。
+- 値段が価値を越えたとき、越えた分を幸福の段でゆるめる（幸福128以上で半分、180以上でさらに半分）。それが 0〜7 の乱数より大きければ「高すぎる」と思って買わない＝**断りは崖ではなく、越えた分の大きさに比例するなだらかな確率**。値段が価値以下なら値段では断らず、得な分だけ幸福が上がる。
+- 乗った（買った）後の満足は、価値−値段が −8・−3・+3 の3つの境で4段。
+- 上の分析の2（「値段の最適は価値の2倍のすぐ下に固定」）は**乗り物だけ**の話。店の品は価値が気温で動くので、最適の値段も気温で動く。0.2 の BIZ-SIMDESIGN はここを読まずに RCT を「固定の最適」の例にした（判定書 E3）。
+

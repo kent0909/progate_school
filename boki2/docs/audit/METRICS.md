@@ -17,6 +17,7 @@ QUALITY 4章（性悪説）・5章（論証の検査）・6章（主張ごとの
 | BIZ-SIMDESIGN 版0.2 | 性悪説・論証・語句の後 | 10 | 8 | 12（事実の判定）／不当28・弱い62（184件中、論証の検査） | 26 | 4 | audit/BIZ-SIMDESIGN-v02-reasoning.md |
 | BIZ-REPLAY 版0.1 | 性悪説・論証・語句の後 | 5 | 3 | 6（事実の判定）／不当28（本文14・差し替え10・論証の表4） | 9 | 2＋語句の付け所違い6 | audit/BIZ-REPLAY-audit.md・BIZ-REPLAY-reasoning.md |
 | BIZ-GROWTH 第1版 | 性悪説・論証・語句の後 | 11（大2・中3・小6） | 6 | 不当28・弱い73（183件中、芯10） | 10 | 基準の未達4＋処理表の使った場所なし5 | audit/BIZ-GROWTH-audit.md・BIZ-GROWTH-reasoning.md |
+| BIZ-LAW-RAMEN 第1版 | 性悪説・論証・語句の後 | 6（法令2・仕訳4） | 5 | 3（事実の判定）／不当8・弱い76（291件中） | 10 | 3 | audit/BIZ-LAW-RAMEN-audit.md・BIZ-LAW-RAMEN-reasoning.md |
 | BIZ-FUNVISUAL | 性悪説の後・論証/語句の前 | 原文との食い違い20項目（23件） | 含む（原文にない語・出典の付け違い） | 看板の結論3つ（向きが逆・片側の材料）＋論証検査中 | 【資料なし】10中6に材料あり、仮説を支える材料7 | 3文に行なし | audit/BIZ-FUNVISUAL-audit.md |
 
 「─（未検査）」は、その観点の検査がまだなかったことを示す（0件の意味ではない）。数え方は判定書ごとに揃っていないので、次の版からは判定書の先頭にこの7列の数を書かせる。
