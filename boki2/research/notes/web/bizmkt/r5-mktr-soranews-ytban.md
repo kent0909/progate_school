@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-soranews-ytban#main
+doc: r5-mktr-soranews-ytban
 file: r5-mktr-soranews-ytban.html
 sha256: 9d698c2e59c338e35b65975331a07545ad73904c31f92e9f95eb4697ca0157f7
 read: partial

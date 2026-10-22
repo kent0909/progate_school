@@ -216,8 +216,8 @@
  },
  "aichiu.repo.nii.ac.jp": {
   "verdict": "ok",
-  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
-  "checked": "2026-10-20"
+  "basis": "愛知大学学術機関リポジトリ（JAIRO Cloud）：robots.txt は /records/*/files を禁止していない（他の repo.nii.ac.jp と同じ構成、2026-10-22確認）。公開論文。原文は入れず要約のみ",
+  "checked": "2026-10-22"
  },
  "sakushin-u.repo.nii.ac.jp": {
   "verdict": "ok",
@@ -1987,6 +1987,11 @@
  "athome-inc.jp": {
   "verdict": "gray",
   "basis": "アットホーム（不動産情報サービス）の公開調査PDF。robots.txt は取得できず（空）、規約に自動取得の明示的禁止は見当たらない。調査レポート1件のみ",
+  "checked": "2026-10-22"
+ },
+ "gamesfuze.com": {
+  "verdict": "gray",
+  "basis": "攻略記事のサイト。robots.txt は検索のみ Disallow、Claude 系の拒否なし。規約に自動取得の禁止の明示は見当たらない。記事1本の閲覧、転載しない",
   "checked": "2026-10-22"
  }
 }

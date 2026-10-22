@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-digitalpr-raohaku#main
+doc: r5-mktr-digitalpr-raohaku
 file: r5-mktr-digitalpr-raohaku.html
 sha256: fa4bc76c516798b778e9fc31c657e3b8ee5df84a15b1a1838506f00b51345517
 read: partial

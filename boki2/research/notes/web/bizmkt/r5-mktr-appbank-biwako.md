@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-appbank-biwako#main
+doc: r5-mktr-appbank-biwako
 file: r5-mktr-appbank-biwako.html
 sha256: 6ee5979f80d0004d390a995b02e24750d28596f8d14824943a4fd8f922aae975
 read: partial

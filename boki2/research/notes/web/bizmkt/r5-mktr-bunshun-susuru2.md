@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-bunshun-susuru2#p1
+doc: r5-mktr-bunshun-susuru2
 file: r5-mktr-bunshun-susuru2.html
 sha256: a4542cdcd24233e0d0d5a0305343ea054d4fd0d9e69a2da82adad693d14d2c46
 read: partial

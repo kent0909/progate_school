@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-forbes-mycat#main
+doc: r5-mktr-forbes-mycat
 file: r5-mktr-forbes-mycat.html
 sha256: c561d73d97dd8e5686a7e93d6e8f8ac0bd8390fec0be7f30d4b67ec4aeb33e86
 read: partial

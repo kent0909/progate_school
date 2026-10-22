@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-president-eita#p1
+doc: r5-mktr-president-eita
 file: r5-mktr-president-eita.html
 sha256: 63b923ceb152d5d003ba39cc6b2a0c6d05fbdab93add1517452679c7513c6099
 read: partial

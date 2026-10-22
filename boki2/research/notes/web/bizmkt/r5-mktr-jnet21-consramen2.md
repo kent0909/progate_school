@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-jnet21-consramen2#main
+doc: r5-mktr-jnet21-consramen2
 file: r5-mktr-jnet21-consramen2.html
 sha256: 2fd8df3c000b20fc02a83f54b60b5bd57d4b4a78de718eaaba5f5d3965e97643
 read: partial

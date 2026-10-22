@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-family-shinasoba#main
+doc: r5-mktr-family-shinasoba
 file: r5-mktr-family-shinasoba.html
 sha256: aba1b6ed91cde9f32c2e50bbd6b6ea387f577e2738a08443fb3238fafc8c4ffc
 read: partial

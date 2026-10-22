@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-agora-tabelog#main
+doc: r5-mktr-agora-tabelog
 file: r5-mktr-agora-tabelog.html
 sha256: 832c453874b87e999511cd428514efe2b2497325fb92227aa0f73bcccf08b0d4
 read: partial

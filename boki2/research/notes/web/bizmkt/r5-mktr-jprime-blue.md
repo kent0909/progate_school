@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-jprime-blue#p1
+doc: r5-mktr-jprime-blue
 file: r5-mktr-jprime-blue.html
 sha256: 45a28f99e7f1b9e7693acaa772f6bd51fed3df278febde8bc5e25d5595ce028f
 read: partial

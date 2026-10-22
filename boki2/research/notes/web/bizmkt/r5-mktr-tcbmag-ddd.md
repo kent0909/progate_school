@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-tcbmag-ddd#main
+doc: r5-mktr-tcbmag-ddd
 file: r5-mktr-tcbmag-ddd.html
 sha256: a0d59260e573ad45836280dc823cb5af9cdb478a3cd473dd6daa95ec6cf898d6
 read: partial

@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-webtan-yamagata#main
+doc: r5-mktr-webtan-yamagata
 file: r5-mktr-webtan-yamagata.html
 sha256: 02ac48acefb87cb7157878ceb4efcda8d1a25687fb25a609f02a10ce655dc469
 read: partial

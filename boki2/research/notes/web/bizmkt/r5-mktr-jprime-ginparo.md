@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-jprime-ginparo#p1
+doc: r5-mktr-jprime-ginparo
 file: r5-mktr-jprime-ginparo.html
 sha256: 6e2c1d0ffdb0b3828f2c64ac7081fefb2896d441c344d09412e5d07bd48f0fe4
 read: partial

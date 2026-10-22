@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-kobenp-ramendeka#main
+doc: r5-mktr-kobenp-ramendeka
 file: r5-mktr-kobenp-ramendeka.html
 sha256: b905d1ee83346316857f706519aa5b26fc897ae52331a7c021828d66bbd4ae34
 read: partial

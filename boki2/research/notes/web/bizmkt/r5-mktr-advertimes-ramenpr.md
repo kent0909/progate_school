@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-advertimes-ramenpr#p1
+doc: r5-mktr-advertimes-ramenpr
 file: r5-mktr-advertimes-ramenpr.html
 sha256: 3dedda7d6cfc6dccbd5cfc7d0ea37cea808f74a53fa91f45de527db3fdc05772
 read: partial

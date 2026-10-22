@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-daily-susuru-tsujita#main
+doc: r5-mktr-daily-susuru-tsujita
 file: r5-mktr-daily-susuru-tsujita.html
 sha256: 6fe1fd1fe499d114cedd1d35600071f3b06b1203891f6d6879db54438cf008f7
 read: partial

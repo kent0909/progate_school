@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-moneypost-susuru#p1
+doc: r5-mktr-moneypost-susuru
 file: r5-mktr-moneypost-susuru.html
 sha256: 2f580f8277e09f2e8d12646ade50bddb8d5f2fd16b1d272e1bcebedcb36d9790
 read: partial

@@ -1,7 +1,7 @@
 ---
 src: web
 coll: bizmkt
-doc: r5-mktr-tabelog-score#main
+doc: r5-mktr-tabelog-score
 file: r5-mktr-tabelog-score.html
 sha256: dd8bf8ff769b92b909760c4398ab6af98155e40da70bb6fec714cc23ed8c696d
 read: partial
