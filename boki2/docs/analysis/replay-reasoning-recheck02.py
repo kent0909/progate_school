@@ -146,3 +146,14 @@ cnt = Counter(ids.values())
 print(f'行 {len(ids)}：妥当 {cnt.get("妥当",0)}／弱い {cnt.get("弱い",0)}／不当 {cnt.get("不当",0)}／判定なし {cnt.get(None,0)}')
 for key in ('妥当', '弱い', '不当'):
     print(f'  {key}: ' + '・'.join(sorted(x for x, v in ids.items() if v == key)))
+
+hr('6) 版1の不当28件への応え（A01〜A28 の最後から2つ目の列）')
+ans = {}
+for l in open(audit, encoding='utf-8'):
+    m = re.match(r'\|\s*(A\d{2})\s*\|', l)
+    if m:
+        cols = [x.strip() for x in l.strip().strip('|').split('|')]
+        ans[m.group(1)] = cols[-1]
+c = Counter(ans.values())
+print(f'行 {len(ans)}：' + '／'.join(f'{k} {v}' for k, v in c.items()))
+print('  一部: ' + '・'.join(sorted(k for k, v in ans.items() if v == '一部')))

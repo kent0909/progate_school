@@ -187,3 +187,48 @@ if os.path.exists(REP):
     new_len = sum(len(p) for p in parts if (mm := re.match(r'### 群(\d+)', p)) and mm.group(1) not in OLD)
     print(f'  打ち手の章 {len(body)} 字のうち新しい群（群6 を除く13群）{new_len} 字、割合 {new_len / len(body):.3f}')
     print(f'  報告の全体 {len(s)} 字に対する新しい群の字数の割合 {new_len / len(s):.3f}（ほかの章は群をまたぐ表で、元の BIZ-LAW の販促の節の写しではない）')
+
+# ---- 7) 課徴金の試算（第2版）：税抜・税込・免税の前提と、店の数で届く限定の1品 ----
+print('\n## 7) 課徴金の試算（税の前提と店の数）')
+NET = 35_000_000            # 1号店の年の売上（税抜。DESIGN 68行の置き値）
+MIX = 0.7 * 1.10 + 0.3 * 1.08  # 店内7・持ち帰り3と置いたときの税込の倍率【推論：構成の置き値】
+cases = {'税抜の年商のまま（第1版の表）': NET, '税込（店内10%・持ち帰り8%を7:3）': NET * MIX, '免税の1号店（3,500万円が対価の総額）': NET}
+for name, annual in cases.items():
+    m = 1_500_000 * 12 / (0.03 * annual * 0.85)
+    k = annual * 0.85 * 3 * 0.03
+    print(f'  {name}：年 {annual:,.0f}円、看板の麺0.85で150万円に届くのは {m:.1f} か月、36か月で {k:,.0f}円')
+import math
+print('  全店で同じ限定の1品（1店の売上の10%）を偽ったとき、150万円（対象の売上5,000万円）に届く店の数')
+for months in (12, 24, 36):
+    a = math.ceil(50_000_000 / (0.10 * NET * months / 12))
+    b = math.ceil(50_000_000 / (0.10 * NET * MIX * months / 12))
+    print(f'    {months}か月：税抜 {a} 店、税込 {b} 店')
+
+# ---- 8) 偽りの損得（得の側と損の側。置き値はすべて【推論】）----
+print('\n## 8) 偽りの損得（1号店・看板の麺に「国産小麦100%」と偽る・36か月）')
+PRICE = 900                     # 1杯の値段（税抜）【推論】
+bowls = NET * 0.85 / PRICE * 3  # 36か月の看板の麺の杯数
+kacho = NET * MIX * 0.85 * 3 * 0.03       # 課徴金（税込の売上×3%）
+shuchi = 400_000                # 措置命令の周知の新聞広告（J19 の置き値）【推論】
+kyakugen = NET * 0.10 * 0.65    # 発覚の後1年、客が1割減ったときの粗利の減り（粗利率65%）【推論】
+print(f'  看板の麺の杯数（36か月）{bowls:,.0f} 杯、課徴金 {kacho:,.0f}円、周知 {shuchi:,.0f}円、客の減り {kyakugen:,.0f}円')
+for label, d in [('原価の差だけ（1杯15円安い輸入小麦）', 15), ('値段の上乗せ（「国産」で1杯50円高く売る）', 50)]:
+    gain = bowls * d
+    p1 = gain / kacho
+    p2 = gain / (kacho + shuchi + kyakugen)
+    print(f'  {label}：得 {gain:,.0f}円。釣り合う発覚の確率（3年で）：課徴金だけなら {min(p1, 9.99):.2f}、課徴金＋周知＋客の減りなら {min(p2, 9.99):.2f}（1を超えれば、必ず見つかっても得が勝つ）')
+
+# ---- 9) 仕訳の貸借の検算（（借）…／（貸）… の区切りごと）----
+print('\n## 9) 仕訳の貸借')
+if os.path.exists(REP):
+    s = open(REP, encoding='utf-8').read()
+    m = re.search(r'^## 仕訳の例.*?$(.*?)(?=^## |\Z)', s, re.M | re.S)
+    bad = []; n = 0
+    for line in re.findall(r'^（J\d+.*$', m.group(1) if m else '', re.M):
+        jid = re.match(r'^（(J\d+)', line).group(1)
+        for seg in re.findall(r'（借）(.*?)／（貸）(.*?)(?=、（借）|。|（\d|$|（[^借貸]{2,})', line):
+            dr = sum(int(x.replace(',', '')) for x in re.findall(r'(\d[\d,]{2,})', seg[0]))
+            cr = sum(int(x.replace(',', '')) for x in re.findall(r'(\d[\d,]{2,})', re.split(r'（', seg[1])[0]))
+            n += 1
+            if dr != cr: bad.append(f'{jid}: 借 {dr:,} 貸 {cr:,}')
+    print(f'  区切り {n} 件、貸借が合わないもの {len(bad)} {bad}')

@@ -5,7 +5,7 @@ doc: r5-growth-ndl-dl-3525239-info
 file: r5-growth-ndl-dl-3525239-info.html
 sha256: c1012635386dbabe54d04b180949fcc6cfb2cf7ea10ebf6e2c8c3bdd85acc8ef
 read: full
-anchors: ["フランチャイズ・チェーン本部との取引に関する調査報告書", "110707honbun.pdf", "インターネット資料収集保存事業（WARP）", "internet"]
+anchors: ["フランチャイズ・チェーン本部との取引に関する調査報告書", "110707honbun.pdf", "インターネット資料収集保存事業（WARP）", "internet", "722495"]
 ---
 国立国会図書館デジタルコレクションのAPIが返した、公取委の2011年の加盟店実態調査報告書（pid 3525239）の書誌と保存ファイルの情報（JSON）。全部読んだ。
 

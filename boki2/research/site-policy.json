@@ -2101,7 +2101,7 @@
  },
  "api.jstage.jst.go.jp": {
   "verdict": "gray",
-  "basis": "J-STAGE WebAPI（api.jstage.jst.go.jp）：J-STAGE が公開する検索用API。robots.txt は置かれていない（404、2026-10-22確認）。WebAPI利用規約は登録不要の範囲での利用を認めている（アクセス間隔を守る）。書誌の検索だけに使う",
+  "basis": "J-STAGE WebAPI（https://www.jstage.jst.go.jp/static/pages/WebAPI/-char/ja の利用規約は検索APIの利用を許す）。api.jstage.jst.go.jp の robots.txt は無し（404）。検索結果は書誌のみ",
   "checked": "2026-10-22"
  },
  "www.appunwrapper.com": {
@@ -2112,6 +2112,16 @@
  "www.nenkin.go.jp": {
   "verdict": "gray",
   "basis": "日本年金機構。robots.txt は一般のページを禁止していない（2026-10-22 確認）。利用規約に自動取得の明示の禁止は確認できず",
+  "checked": "2026-10-22"
+ },
+ "escholarship.org": {
+  "verdict": "gray",
+  "basis": "eScholarship（カリフォルニア大学のオープンアクセスの機関リポジトリ）。robots.txt は202で中身が返らず確認できない。規約は学術利用のオープンアクセスで自動取得の禁止の明示は見当たらない",
+  "checked": "2026-10-22"
+ },
+ "www.googleapis.com": {
+  "verdict": "gray",
+  "basis": "Google Books API（公開の API。書誌と閲覧の可否を返す。API の利用規約は API 経由の取得を前提とする）",
   "checked": "2026-10-22"
  }
 }

@@ -457,3 +457,22 @@ for e0 in (1.0, 1.25, 1.5):
     a = d2_profit(e0, 2900, 0.2, 2, 20000, V0=V0, PAmult=1.5); b = d2_profit(e0, 3700, 0.2, 2, 20000, V0=V0, PAmult=1.5)
     i = int(np.where(P == 1000)[0][0])
     print('  ε0=%.2f・1,000円：上限2,900 %+.0f円 → 3,700 %+.0f円（差 %+.0f円＝パート約%.0f人時分）' % (e0, a[i], b[i], b[i] - a[i], (b[i] - a[i]) / 1085))
+
+print()
+print('=== E12：天気が値段でなく仕込み（prep）の判断を作る大きさ（d.2 の X=min(N, prep)、d.6 の廃棄）')
+# 置き値【推論】：月の見込み 2,860杯（ふつうの月）、週ごとの ±10% の一様乱数（d.2）を4.3週分、値段1,000円・点数1.2。
+# 仕込んで売れ残った分は、1杯の材料費 324円のうち 40%（スープ・具。麺は持ち越せる）を廃棄で失う。
+# 仕込みは週ごとに決める。「ふつうの月の仕込み」を雨の月にそのまま使ったときの取りこぼし（貢献利益に対する％）。
+rng = np.random.default_rng(11)
+def prep_profit(prep_w, Wm, sims=4000, waste=0.4, base=AVG / 4.3):
+    U = rng.uniform(0.9, 1.1, size=(sims,))
+    N = base * Wm * U
+    X = np.minimum(N, prep_w)
+    left = np.maximum(0, prep_w - N)
+    return np.mean(X * (ITEMS * 1000 - COST) - left * COST * waste)
+grid = np.arange(400, 900, 1.0)
+for Wm, lab in ((0.93, '店内・雨の多い月 W×0.93'), (0.85, '屋台・雨の多い月 W×0.85（d.3 の屋外）'), (1.18, '観光地・8月 W×1.18（席の上限は別）')):
+    pr_n = np.array([prep_profit(g, 1.0) for g in grid]); g_n = grid[int(np.argmax(pr_n))]
+    pr_r = np.array([prep_profit(g, Wm) for g in grid]); g_r = grid[int(np.argmax(pr_r))]
+    best = pr_r.max(); keep = prep_profit(g_n, Wm)
+    print('  %s：週の仕込み ふつう %.0f杯 → この月 %.0f杯。ふつうの仕込みのままの取りこぼし %.2f%%（%+.0f円/週）' % (lab, g_n, g_r, pct(best - keep, best), keep - best))
