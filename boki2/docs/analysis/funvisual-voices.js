@@ -31,9 +31,9 @@ const DEF = {
   P: 'ライバルへの不満・ライバルとの勝負', Q: '支配的な手・抜け道・裏技', T: '課金・広告・スタミナへの不満', U: '難しすぎ', Y: '値段が高い', SGm: 'すごろくを嫌う', NG: '全体に物足りない',
 };
 const KAIRO = new Set(['ramenkan', 'zenkoku', 'gurume', 'gds']);
-const NAME = { cinc: 'Coffee Inc 2', ramenkan: 'ラーメン館（買い切り）', zenkoku: 'ラーメン館 全国編', gurume: '大盛グルメ食堂', gds: 'ゲーム発展国++', pizza: 'グッドピザ' };
-const BASE = { cinc: 'r5-cinc-applion', ramenkan: 'r5-fv-applion-ramenkan', zenkoku: 'r5-fv-applion-ramenkan-zenkoku', gurume: 'r5-fv-applion-gurume', gds: 'r5-fv-applion-gamedevstory', pizza: 'r5-fv-applion-goodpizza' };
-const PAGES = { cinc: 7, ramenkan: 1, zenkoku: 10, gurume: 2, gds: 10, pizza: 10 };
+const NAME = { gdt: 'Game Dev Tycoon', cinc: 'Coffee Inc 2', ramenkan: 'ラーメン館（買い切り）', zenkoku: 'ラーメン館 全国編', gurume: '大盛グルメ食堂', gds: 'ゲーム発展国++', pizza: 'グッドピザ' };
+const BASE = { gdt: 'r6-sd-applion-gamedevtycoon', cinc: 'r5-cinc-applion', ramenkan: 'r5-fv-applion-ramenkan', zenkoku: 'r5-fv-applion-ramenkan-zenkoku', gurume: 'r5-fv-applion-gurume', gds: 'r5-fv-applion-gamedevstory', pizza: 'r5-fv-applion-goodpizza' };
+const PAGES = { gdt: 1, cinc: 7, ramenkan: 1, zenkoku: 10, gurume: 2, gds: 10, pizza: 10 };
 
 // 符号を読む
 const rows = fs.readFileSync(CODES, 'utf8').split('\n').filter((l) => l && !l.startsWith('#')).map((l) => { const [w, pi, ...c] = l.trim().split(/\s+/); const [p, i] = pi.split('-').map(Number); return { w, p, i, c: c.filter((x) => x !== '-') }; });
@@ -41,7 +41,7 @@ for (const r of rows) for (const c of r.c) if (!DEF[c]) { console.error(`未定�
 
 // 原文からページごとの口コミを取り出す（★の行で区切る）
 const strip = (s) => s.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<(br|\/p|\/div|\/li|\/h\d)[^>]*>/gi, '\n').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').split('\n').map((l) => l.replace(/\s+/g, ' ').trim()).filter(Boolean);
-const pageFile = (w, p) => path.join(RAW, w === 'cinc' ? (p === 1 ? 'r4-cinc-applion-reviews.html' : `r5-cinc-applion-p${p}.html`) : `${BASE[w]}${p === 1 ? '' : '-p' + p}.html`);
+const pageFile = (w, p) => path.join(RAW, w === 'gdt' ? 'r6-sd-applion-gamedevtycoon.html' : w === 'cinc' ? (p === 1 ? 'r4-cinc-applion-reviews.html' : `r5-cinc-applion-p${p}.html`) : `${BASE[w]}${p === 1 ? '' : '-p' + p}.html`);
 const reviews = {}; const dist = {}; let haveRaw = true;
 for (const w of Object.keys(PAGES)) for (let p = 1; p <= PAGES[w]; p++) {
   const f = pageFile(w, p);
@@ -61,6 +61,7 @@ if (haveRaw) for (const w of Object.keys(PAGES)) for (let p = 1; p <= PAGES[w]; 
   if (a !== b) { console.error(`件数の不一致：${w} ${p}ページ 原文${a}件・符号${b}件`); process.exit(1); }
 }
 
+if (process.argv.includes('--dump')) { rows.forEach((r) => { const t = haveRaw ? (reviews[r.w].find((x) => x.p === r.p && x.i === r.i) || {}).t || '' : ''; console.log(`${r.w}\t${r.p}-${r.i}\t${r.c.join(' ')}\t${t.replace(/\s+/g, ' ')}`); }); process.exit(0); }
 const list = process.argv.indexOf('--list');
 if (list >= 0) { const c = process.argv[list + 1]; rows.filter((r) => r.c.includes(c)).forEach((r) => { const t = haveRaw ? (reviews[r.w].find((x) => x.p === r.p && x.i === r.i) || {}).t || '' : ''; console.log(`${r.w} ${r.p}-${r.i} [${r.c.join(' ')}] ${t.slice(0, 80)}`); }); process.exit(0); }
 

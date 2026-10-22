@@ -779,3 +779,8 @@ cinc 7-12 N
 cinc 7-13 BVR A3
 cinc 7-14 -
 cinc 7-15 N
+# Game Dev Tycoon（APPLION 1ページ・4件。版0.3 で足した。全体の評価は77件しかない）
+gdt 1-1 K R J1
+gdt 1-2 C2 W DF J2
+gdt 1-3 C2
+gdt 1-4 S
