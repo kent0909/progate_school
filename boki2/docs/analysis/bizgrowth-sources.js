@@ -15,10 +15,15 @@ rep.forEach((l, i) => {
   }
 });
 const type = (doc) => {
-  if (/jfa-soudan/.test(doc)) return '利用者の声（の代わり：協会の相談件数）';
+  // 第2版（2026-10-22）：判定書の指摘で開業パネルを統計に数え直し、作り手の話・反対意見・加盟店の聞き取りを足した
+  if (/js-cvs-part/.test(doc)) return '利用者の声（加盟店オーナーの聞き取りの言葉を引いた論文）';
+  if (/jfa-soudan/.test(doc)) return '一次資料・統計（取引所の規則・官庁と公庫の調査・協会の件数）';
+  if (/creator-|oppose-gendai69815/.test(doc)) return '作り手の話（経営者・店主の語り・著書の抜粋）';
+  if (/js-fc-ranyo|js-fc-hou/.test(doc)) return '反対意見（FC本部の濫用と規制の不足を論じる法学の論文）';
+  if (/oppose-gendai/.test(doc)) return '事例（報道・解説：成長を急がない型）';
+  if (/aichiu|js-|arxiv/.test(doc)) return '研究（論文・判例批評）';
   if (/jfa-/.test(doc)) return '実務者・業界（FCの法定開示書面・協会の一覧）';
-  if (/jpx-|mhlw-|jfc-shoukei/.test(doc)) return '一次資料・統計（取引所の規則・官庁と公庫の調査）';
-  if (/jfc-panel2016|arxiv/.test(doc)) return '研究（論文）';
+  if (/jpx-|mhlw-|jfc-shoukei|jfc-panel2016|kubun/.test(doc)) return '一次資料・統計（取引所の規則・官庁と公庫の調査・協会の件数）';
   if (/wiki-/.test(doc)) return '入口（ウィキペディア。根拠にせず有報で確かめ直した）';
   if (/yuho|q3-|ipo|setsumei|tanshin/.test(doc)) return '事例（会社の一次資料：有報・四半期報告書・決算説明資料・決算短信・取引所の上場資料）';
   return '分類なし';
