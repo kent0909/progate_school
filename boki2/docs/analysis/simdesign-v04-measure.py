@@ -279,3 +279,22 @@ opts = np.array(opts)
 print('  ふつうの月の最適：中央 %.0f円・最大 %.0f円・壁（995〜1,005円）に集まる組 %d／%d' % (np.median(opts), opts.max(), np.sum(abs(opts - 1000) <= 5), len(opts)))
 for lab, kw in (('冬 W×1.10', dict(W=1.10)), ('8月 W×1.18', dict(W=1.18)), ('評判4.5（×0.7）', dict(R=4.5)), ('評判4（壁 1,100円に動く）', dict(R=4.0, kp=1100.0)), ('安いライバル ε×1.6', dict(eps_mult=1.6))):
     print('  M1＋壁 %-22s %s' % (lab, shares([r['loss'] for r in run(M1GRID, True, kw)])))
+on = n = 0
+for (e0, cap, Lf, nr, PA) in M1GRID:
+    pr = d2_profit(e0, cap, Lf, nr, PA, kink=True, V0=calib_V0(PA, nr, Lf), R=4.0, kp=1100.0); i = int(np.argmax(pr))
+    if P[i] >= TOP: continue
+    n += 1; on += abs(P[i] - 1100) <= 5
+print('  M1＋壁・評判4・壁1,100円：最適が壁±5円 %d／%d（%.0f%%）' % (on, n, 100 * on / n))
+
+print()
+print('=== F3b：入れ子が足すもの＝「どちらの型が正解か」が町の顔ぶれで入れ替わるか。釣り合った町（安い1・こだわり1）での正解の型を、実際の町でそのまま使ったときの取りこぼし')
+for lam in (0.3, 0.5, 0.7, 1.0):
+    losses = []
+    for e, V0, nc, nk in itertools.product((1.25, 1.75), (2.0, 4.0, 8.0), range(4), range(4)):
+        if nc + nk == 0: continue
+        def prof(town, own): return nested(town + [own], lam, e, V0, 0.16)[-1] * 20000 * (ITEMS * own[0] - own[3])
+        ref = max((CHEAP, KODA), key=lambda o: prof([CHEAP, KODA], o))
+        town = [CHEAP] * nc + [KODA] * nk
+        best = max(prof(town, CHEAP), prof(town, KODA))
+        losses.append(pct(best - prof(town, ref), best))
+    print('  λ=%.1f：%s' % (lam, shares(losses)))

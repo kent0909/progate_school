@@ -125,7 +125,7 @@ for l in open(audit, encoding='utf-8'):
     cols = [x.strip() for x in l.strip().strip('|').split('|')]
     key = m.group(1)
     if key.startswith('B'):
-        v = next((k for k in ('応えていない', '一部', '応えた') if k in cols[-2]), None)
+        v = next((k for k in ('応えていない', '一部', '応えた') if k in cols[-1]), None)
         B[key] = v
     else:
         v = next((k for k in ('不当', '弱い', '妥当') if k in cols[-2]), None)

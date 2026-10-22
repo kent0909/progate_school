@@ -2201,7 +2201,7 @@
  },
  "cir.nii.ac.jp": {
   "verdict": "gray",
-  "basis": "robots.txt そのものの確認（取得の可否を決めるための読み取り）。CiNii の規約は https://support.nii.ac.jp/ja/cir/terms",
+  "basis": "CiNii Research：robots.txt（2026-10-22 取得 r7-fc-cinii-robots）は User-agent:* に Allow: /crid/（個別の論文の頁）だけを許し、ほかは Disallow: /（検索の /all・/opensearch を含む）。検索には使わない。個別の /crid/ の頁は取得してよい（間隔1秒以上）",
   "checked": "2026-10-22"
  },
  "irdb.nii.ac.jp": {
