@@ -8,7 +8,7 @@ read: partial
 pages: 記事の本文（GDC 2012 の講演の取材）。サイトの見出し・関連記事の一覧は読まない
 anchors: [Resources, Units, Maps and Globals, harvestWood, mustardFactory, growGrass, developHouses, 10,000+ agents, goToWork]
 ---
-Game Developer（旧 Gamasutra）の取材記事「GDC 2012: Breaking down SimCity's Glassbox engine」（Frank Cifaldi）。Maxis の Andrew Willmott の講演の要約で、講演者の発言と例の台本を含む。
+Game Developer（旧 Gamasutra）の GDC 2012 の講演の取材記事（Frank Cifaldi、SimCity の模擬の仕組み）。Maxis の Andrew Willmott の講演の要約で、講演者の発言と例の台本を含む。
 
 要点（自分の言葉で）：
 - SimCity（2013）の模擬の芯は4種類の物：**資源**（容量のある箱）、**ユニット**（家・工場・人。状態は資源の箱の集まり）、**地図**（地下の油・汚染・地価・住みたさなど、場所に広がる値）、**全体の値**（町のお金・電気の使用量）。これらを**規則**（入力と出力を持つ動詞）がつなぐ。

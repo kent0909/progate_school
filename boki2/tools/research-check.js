@@ -159,7 +159,7 @@ for (const [id, hs] of Object.entries(tosHits)) err(id, `規約で自動取得�
 for (const s of sources) {
   if (s.tos.verdict === 'unchecked' && ledger.some((e) => e.src === s.id)) err(s.id, '利用規約を確認してから取得すること（sources.json の tos を埋める）');
   const hostOf = (e) => { try { return new URL(e.url).host; } catch (x) { return ''; } };
-  const hits = ledger.filter((e) => e.src === s.id && e.via !== 'backfill' && e.t && e.status !== 'skipped' && e.status !== 'headings-only').sort((a, b) => Date.parse(a.t) - Date.parse(b.t));
+  const hits = ledger.filter((e) => e.src === s.id && e.via !== 'backfill' && e.via !== 'relocate' && e.via !== 'owner' && e.t && e.status !== 'skipped' && e.status !== 'headings-only').sort((a, b) => Date.parse(a.t) - Date.parse(b.t));
   let fast = 0;
   const lastAt = {};
   // 起きてしまった違反で、原因と直し方を sources.json の tos.incidents に書いたものは数えない（記録は消さない）
