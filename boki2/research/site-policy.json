@@ -1663,5 +1663,65 @@
   "verdict": "gray",
   "basis": "tomsguide.com robots.txt：User-agent * は記事を Disallow しない。AI クローラの名指しの拒否に ClaudeBot・anthropic なし（2026-10-22 確認）。利用規約の明示の禁止は未確認。単発の記事閲覧、転載しない",
   "checked": "2026-10-22"
+ },
+ "deepnight.net": {
+  "verdict": "gray",
+  "basis": "deepnight.net robots.txt は /wordpress/wp-admin/ のみ Disallow。開発者本人のブログ記事の単発閲覧、転載しない（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "gutefabrik.com": {
+  "verdict": "gray",
+  "basis": "gutefabrik.com robots.txt は /ghost/ /p/ のみ Disallow。開発会社のブログ記事の単発閲覧、転載しない（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "www.superjumpmagazine.com": {
+  "verdict": "gray",
+  "basis": "superjumpmagazine.com robots.txt は /ghost/ /email/ 等のみ Disallow、AI の名指しの拒否なし（2026-10-22 確認）。単発の記事閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "twistedvoxel.com": {
+  "verdict": "gray",
+  "basis": "twistedvoxel.com robots.txt は User-agent * に Disallow なし（2026-10-22 確認）。単発の記事閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "rogueliker.com": {
+  "verdict": "gray",
+  "basis": "rogueliker.com robots.txt は User-agent * に Disallow なし（2026-10-22 確認）。単発の記事閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "butwhytho.net": {
+  "verdict": "gray",
+  "basis": "butwhytho.net robots.txt は全面許可（Disallow 行はコメントアウト）（2026-10-22 確認）。単発の記事閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.gpb.org": {
+  "verdict": "gray",
+  "basis": "gpb.org robots.txt は管理・検索ページ等のみ Disallow、記事は許可（2026-10-22 確認）。NPR 配信の論評の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "rpgamer.com": {
+  "verdict": "gray",
+  "basis": "rpgamer.com robots.txt は /wp-admin/ のみ Disallow、Crawl-Delay 10（2026-10-22 確認）。単発の記事閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "dl.digra.org": {
+  "verdict": "ok",
+  "basis": "DiGRA Digital Library はオープンアクセスの学会論文集。robots.txt は /cache/ のみ Disallow（2026-10-22 確認）",
+  "checked": "2026-10-22"
+ },
+ "jesperjuul.net": {
+  "verdict": "gray",
+  "basis": "Jesper Juul の個人サイト（www.jesperjuul.net は判定済み ok）。robots.txt の禁止なし",
+  "checked": "2026-10-22"
+ },
+ "cdn.aaai.org": {
+  "verdict": "gray",
+  "basis": "AAAI の論文の公開の配布（AIIDE 2011）。robots.txt なし。規約に自動取得の禁止の明示なし",
+  "checked": "2026-10-22"
+ },
+ "www.kent.edu": {
+  "verdict": "gray",
+  "basis": "kent.edu robots.txt は管理画面等のみ Disallow（2026-10-22 確認）。大学の研究室の公開ページ、論文PDFは個人の研究目的で閲覧",
+  "checked": "2026-10-22"
  }
 }
