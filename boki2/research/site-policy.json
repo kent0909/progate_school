@@ -1438,5 +1438,35 @@
   "verdict": "no-automation",
   "basis": "www.indieorama.com/robots.txt の Content-Signal で AI 入力（ai-input）の利用を明示的に留保",
   "checked": "2026-10-22"
+ },
+ "eml.berkeley.edu": {
+  "verdict": "gray",
+  "basis": "robots.txt は全許可。choice2.html に「個人の研究と学習のための利用に公開」と明記（他の用途は出版社の同意が要る）。本調査は個人の設計の学習で、原文は保存のみ・再配布しない",
+  "checked": "2026-10-22"
+ },
+ "web.archive.org": {
+  "verdict": "ok",
+  "basis": "Internet Archive（archive.org と同じ組織）。web.archive.org/robots.txt は保存版の閲覧を禁じていない（archive.org の判定を参照）。研究目的の閲覧、少数・間隔を守る。公庫の公開PDFの過去の版を読むためだけ",
+  "checked": "2026-10-22"
+ },
+ "repositorio.uac.pt": {
+  "verdict": "gray",
+  "basis": "アソーレス大学の機関リポジトリ（DSpace）。robots.txt を確認、bitstream の個別取得の明示的な禁止なし。規約に自動取得の禁止の明示なし",
+  "checked": "2026-10-22"
+ },
+ "search.r-project.org": {
+  "verdict": "gray",
+  "basis": "CRAN の説明書の検索サイト。robots.txt を確認（明示の禁止なし）。規約に自動取得の禁止の明示なし",
+  "checked": "2026-10-22"
+ },
+ "www.e-stat.go.jp": {
+  "verdict": "ok",
+  "basis": "e-Stat は政府標準利用規約（第2.0版）で二次利用可。robots.txt は /stat-search/ を禁止していない（/core/ /admin/ /search/ 等のみ）2026-10-22 確認",
+  "checked": "2026-10-22"
+ },
+ "foodethics.univie.ac.at": {
+  "verdict": "gray",
+  "basis": "ウィーン大学の公開PDF（授業資料として掲載）。robots.txt（www.univie.ac.at）は /search 等のみ Disallow、fileadmin は禁止なし。規約に自動取得の明示的禁止なし。1件のみ",
+  "checked": "2026-10-22"
  }
 }
