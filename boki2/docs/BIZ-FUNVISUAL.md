@@ -484,3 +484,89 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 **鎖H 型破りが常に罰せられる → 自由が狭まる**：Game Dev Tycoon の記者 [[web:simgames:r5-fv-digdl-gamedevtycoon|「not afraid to punish」]]（同じ記者は無責任な判断を罰するのは長所とも書く）。
 
 **鎖I 店の外が店を食う → 題材の遊びが消える**（新設）：前作の Coffee Inc は投資会社になって面白くなかった [[web:simgames:r5-cinc-applion-p2|「面白くなかったのですが」]]、金融屋として経営した方が良い（1-8、BVN 1件・Q 5件）。
+
+---
+
+## 3. 表現・UI・グラフィック：安っぽく見えない作り方
+
+### 3.0 原則（版0.1 の「規則を決めて削る」を撤回。K06・K36・判3.2-2）
+- **規則（設計の言語）を決め、そのうえで主役を厚く描く**。二択（削る／足す）ではない。Mini Metro は作り切るために素材の制約を置いたが [[web:simgames:r5-fv-wiki-minimetro|「reach a finished state」]]、絵と音に外の作り手を入れ [[web:simgames:r5-fv-wiki-minimetro|「hired external help」]]、絵を作り直した [[web:simgames:r5-fv-wiki-minimetro|「graphical overhaul」]]。Two Point の美術の人は絵が遊びを支えると言ったうえで、絵と動きを重ねることが基本だと言う [[web:simgames:r5-fv-cgm-twopoint|「support the game」]] [[web:simgames:r5-fv-cgm-twopoint|「That layering」]]、別の聞き取りで [[web:simgames:r5-fv-pcgi-twopoint|「layer on this stuff」]]。ジュースの寄稿も層を足す話 [[web:simgames:r5-fv-gd-juice|「adding layers」]]。
+- **視点で絵の見栄えを上げる**：カイロソフトは、上からだと下手な絵は下手に見えるが、クオータービューにすると [[web:simgames:r4-sim-denfami-kairosoft|「それなりの絵でもカッコイイ」]]。ドット絵を選ぶ理由（少人数・短い期間でゲーム性に集中）は作る労力の理由で、見栄えの理由ではない（K36）。
+- **作った物・人・店を主役にして絵にする**（Startup Company の反面教師 [[web:simgames:r5-fv-gamesasylum-startup|「lack of character」]]）。
+- **数字の画面は Tufte の型**（文字の解像度の小さな線、意味のない飾りを消す）。範囲は判断のための数字の画面に限る（K39）。Tufte は赤・黄・緑の信号の色を避けよと言う [[web:simgames:r5-fv-tufte-sparkline|「stoplight charts」]]（版0.1 の緑・橙・赤の推しは撤回。判3.2-4）。
+- **主役を1つにするのは判断の画面**。店の画面は世界ごと動かしてよい（ジュースは視覚効果の多さで褒める例も挙げる [[web:simgames:r5-fv-gd-juice|「visual effects」]] [[web:simgames:r5-fv-gd-juice|「The world breathes」]]。K40）。
+- **音は厚く作る**：音は見落とされがちで、悪い音はゲームを壊し、作曲家を雇うのをためらうな [[web:simgames:r5-fv-gd-juice|「Bad sound design」]] [[web:simgames:r5-fv-gd-juice|「hesitate to hire one」]]（K46）。
+
+### 3.0.1 画面写真を見た記録（15の資料。判3.5・受け入れ基準15本）
+取得は research-fetch（画像は各文書の part shotN）。見たものだけを「見た」と書く。
+
+| # | 資料（文書） | 見た画像 | 見て分かった型 |
+|---|---|---|---|
+| 1 | こだわりラーメン館（r5-fv-applion-ramenkan-app） | 遊びの画面2・宣伝1 | クオータービューの箱庭を断面で切る／客の吹き出し・売上の札が浮く／丼を大きく描き具を散らす |
+| 2 | 全国編（r5-fv-applion-zenkoku-app） | 3 | 木の床・色のソファで店の格が見える／上の帯にランク・日時・所持金／すごろくは島の地形にます目と大きなさいころ |
+| 3 | 大盛グルメ食堂（r5-fv-applion-gurume-app） | 4 | 表の形の窓（項目名・小さな絵・星）／店員の顔と「何ができそうか」の一言／窓の後ろで箱庭が見える |
+| 4 | ゲーム発展国++（r5-fv-applion-gds-app） | 1 | 上下の帯に数字と小さな絵、真ん中に人を選ぶ窓（顔・能力の数字・費用・一言） |
+| 5 | グッドピザ（r5-fv-applion-goodpizza-app） | 4 | 手描きの平らな絵、くすんだ暖色、太い輪郭線で全部を統一／客を同じ線の約束で描き分ける |
+| 6 | Coffee Inc 2（r5-fv-applion-cinc-app） | 4 | 密な立体の都市に、貸し・売り物件と自他の店の印／半透明の暗い札／店の断面に店長の顔と一言、評価の4つの内訳 |
+| 7 | Game Dev Tycoon（r5-fv-digdl-gamedevtycoon） | 2 | 評の窓の大きな点数の数字／社員の名を床に書く／右上に売れ行きの小さな棒グラフ |
+| 8 | Two Point Hospital（r5-fv-wiki-twopointhospital） | 1（小さい） | 壁を低く切った部屋の断面／星の目標の札／助言役の顔と一文。色の約束は読めない |
+| 9 | Cook Serve Delicious（r5-fv-wiki-csd） | 1 | 番号付きの注文の札と待ち時間の棒／窓の外の夜の街の前のカウンター |
+| 10 | Capitalism Lab（r5-fv-capilab-home） | 3 | 部品→完成品の流れの図と品質の重みの棒／各社の行に顔・ロゴ・36か月の小さな線／密な街の俯瞰が常に右に |
+| 11 | Offworld（r5-fv-mohawk-offworld） | 2 | 地形を静かに置き、会社ごとの色の光の縁で持ち物を区別 |
+| 12 | Big Ambitions（r6-sd-gamespark-bigambitions） | 2 | 街の3D の地図に建物の種類を切り替えの重ねの色で／ゲームの中のパソコンのアプリの形の管理画面、色の札のシフト表 |
+| 13 | Startup Company（r5-fv-hovgaard-startup） | 2（紹介の絵） | 斜め上からの事務所を家具の色で分ける（遊びの画面かは不明） |
+| 14 | Mini Metro（r5-fv-wiki-minimetro） | 1（題名の絵） | 太い色の線、角を丸め、重なりは透ける。白に近い背景 |
+| 15 | Lemonade Tycoon（r5-fv-wiki-lemonadetycoon） | 1（題名の絵） | 遊びの画面ではない。型の根拠に使わない |
+
+**見て分かった共通点**【推論】：①**店（または街）を断面か俯瞰で常に見せ、判断の窓をその上に重ねる**（1・3・4・6・7・10）。②**事業の変数を地図の上の印・色で見せる**（6・10・12）。③**数字は帯と窓にまとめ、大きな数字は評や結果の時だけ**（4・7）。④**絵の約束（線の太さ・色・視点）を全画面で揃える**（5・14）。⑤人の顔の小さな絵を、判断の窓に必ず添える（3・4・6・10）。
+
+### 3.0.2 絵と音の作り手の置き方（少人数の実例。判4章）
+| 作品 | 作り手の数と置き方 | 原文 |
+|---|---|---|
+| カイロソフト | 1作を「プログラマー1人、デザイナー1〜2人」で作る。デザイナーは常にいる | [[web:simgames:r4-sim-denfami-kairosoft|「デザイナーがひとりかふたり」]] |
+| Mini Metro | 兄弟2人で始め、絵（Jamie Churchman）と音（Disasterpeace）に外の手を入れ、音で賞 | [[web:simgames:r5-fv-wiki-minimetro|「Jamie Churchman」]] [[web:simgames:r5-fv-wiki-minimetro|「Excellence in Audio」]] |
+| Two Point | 絵と動きに時間と労力をかけたと美術の人 | [[web:simgames:r5-fv-cgm-twopoint|「time and energy put in」]] |
+| Good Pizza | 書き手を雇って会話・ニュースを足し、絵と人物の意匠で賞 | [[web:simgames:r5-fv-pmq-goodpizza|「worked with writers」]] [[web:simgames:r5-fv-wiki-goodpizza|「Best Visual Art」]] |
+| Meier の助言 | 絵描きと書き手を使って味を足せ | [[web:simgames:r4-sim-gd-meier2012|「add flavor」]] |
+
+**ピヨ商店への写し方**：**置く場合**（推し）：絵の作り手1人（店・丼・客・町の部品と線の約束）と、音の作り手（操作の音・締めの曲・環境音）を置き、3.1 の「中〜難」を作る。**置かない場合**：3.1 の「易」の項目（色・罫・数字・小さな線・地図）と、SVG の幾何の絵（Mini Metro の型）で店と町を描く。ただし鎖C の診断（店・一杯・客が絵にならない）は、置かない場合には直りきらない【推論】。
+
+### 3.1 手法の一覧（28項目）
+「見た」は 3.0.1 の画面写真で確かめた型、「文章」は文章の記述だけ。難しさ：**易**＝CSS・SVG の基本だけ、**中**＝小さな JS の部品か絵の部品が要る、**難**＝絵・音の素材を作り込む。どれも作品の絵・名前・画面の配置は写さず、型だけを使う。
+
+| # | 観点 | 手法（型） | 根拠 | 見た／文章 | ピヨ商店での使い方 | HTML/CSS/SVG の作り方の見当 | 難しさ |
+|---|---|---|---|---|---|---|---|
+| 1 | 絵 | 一杯の丼を層で組み立てる（器・スープの色・麺・具） | ラーメン館の宣伝の絵と丼の画面 | 見た | 試作の画面。スープは色、麺は太さ、具は置き位置 | 32×32 の格子を SVG の `<rect>` か小さな PNG を `image-rendering: pixelated` で。具は別の `<g>` を `transform` で | 中 |
+| 2 | 絵 | 食べる途中の段階（満杯→半分→空） | グルメ食堂の要望 [[web:simgames:r5-fv-applion-gurume|「食べ物のドット絵」]] | 文章 | 店内の客の卓 | 3枚を `steps(3)` か `<use href>` の差し替え | 中 |
+| 3 | 絵 | クオータービューの断面の箱庭 | カイロソフト・Coffee Inc 2・Two Point | 見た | 店内（カウンター・寸胴・券売機・席・行列）を壁の断面で | 2:1 の菱形タイルを SVG で並べ、前後は描く順で | 中〜難 |
+| 4 | 絵 | 段で育つ外観（屋台→店→本部→工場） | 場所が変わる解放 | 文章 | 会社の段階を外観で | SVG の部品を段の値で `display` 切り替え | 中 |
+| 5 | 絵 | 判断の窓の後ろで世界が見えたまま | グルメ食堂・発展国++・Capitalism Lab | 見た | 作戦の机の窓を半透明に、後ろで店が動く | `backdrop-filter: blur()` と半透明の背景 | 易 |
+| 6 | 人 | 頭上のアイコン・顔文字 | [[web:simgames:r5-fv-pocketgamer-gamedevstory|「speech bubbles」]] | 文章 | 店員・客の頭上 | 絶対配置の SVG を `@keyframes` で2px 揺らす。文字も添える | 易（絵の上） |
+| 7 | 人 | 客の吹き出しで理由を言わせる | ラーメン館の画面・Lemonade | 見た | 店内の客と月報の「客の声」 | `::after` の三角の吹き出し | 易 |
+| 8 | 人 | 判断の窓に顔の小さな絵と一言 | グルメ食堂・Coffee Inc 2・Capitalism Lab | 見た | 店長・職人・取引先の顔を窓の端に | SVG の顔の部品（輪郭・髪・目）の組み合わせで人数を作る | 中 |
+| 9 | 人 | 客を同じ線の約束で大勢描き分ける | グッドピザ [[web:simgames:r5-fv-wiki-goodpizza|「Best Character Design」]] | 見た | 常連・客層の顔 | 線の太さ・色数を CSS 変数で決め、部品を組む | 中〜難 |
+| 10 | 色 | 意味の色の約束（自店・ライバル・借金・預かり）。信号の三色は使わない | Offworld の会社の色・Coffee Inc 2 の印・Tufte | 見た | 全画面で同じ意味の色 | `:root` に意味の名前の CSS 変数。暗い表示も同じ名で | 易 |
+| 11 | 色 | 地形・背景を静かに、持ち物を色と光で | Offworld | 見た | 町の地図で自店だけ縁を光らせる | `filter: drop-shadow` と彩度の低い背景色 | 易 |
+| 12 | 地図 | 事業の変数を地図の上の印で（売り・貸し物件、自他の店、工場） | Coffee Inc 2・Big Ambitions | 見た | 町の地図に空き物件・売り土地・製麺所・ライバルの印 | SVG の `<symbol>` の印を `<use>` で、種類で形と色 | 易〜中 |
+| 13 | 地図 | 切り替えの重ねの色（人通り・家賃・客層） | Capitalism Lab [[web:simgames:r5-fv-capilab-beginners|「is high value」]]・Big Ambitions | 見た（Big Ambitions） | 物件を選ぶ画面 | `<polygon>` の `fill` を5段に、凡例必須、`<input type=radio>` で切り替え | 易 |
+| 14 | 地図 | 路線図の作法（太い線・角を丸める・重なりは透ける） | Mini Metro の題名の絵 | 見た（題名の絵） | 町の6エリアと通販の配送網 | `stroke-linecap: round`、`mix-blend-mode: multiply` | 易 |
+| 15 | 数字 | 上下の帯に数字を集め、本体を隠さない半透明の札 | 全国編・発展国++・Coffee Inc 2 | 見た | 口座・日付・評判の帯 | `position: sticky` と `rgba` の背景 | 易 |
+| 16 | 数字 | 表の各行に小さな線（スパークライン） | Capitalism Lab の企業一覧・Tufte | 見た | 店の一覧・取引先の一覧・月報 | 高さ 1em の SVG `<polyline>` | 易 |
+| 17 | 数字 | 評や結果の時だけ大きな数字の窓 | Game Dev Tycoon の評の窓 | 見た | 年1回の格付け・決算の結果 | 大きな `font-size` と `tabular-nums` | 易 |
+| 18 | 数字 | 評価の内訳（値段・商品・接客・雰囲気）を星と数字で | Coffee Inc 2 の店の画面 | 見た | 一杯と店の評価の内訳 | SVG の星を `clip-path` で部分塗り | 易 |
+| 19 | 数字 | 需給の棒・詰まりの表示 | Capitalism Lab（文章）、Startup の不満 | 文章 | 売上の上限を決める詰まり | 2本の `<div>` の幅 | 易 |
+| 20 | 数字 | 前の周の薄い線（幽霊） | Two Point の挑戦の考え方（文章） | 文章 | 周のふりかえり | 2本の `<polyline>`、前の周は `opacity:.35` | 易 |
+| 21 | 動き | 緩急のある動き（最後にゆっくり止まる） | ジュースの寄稿（文章） | 文章 | 札・書類・画面の切り替え | `cubic-bezier(.2,.8,.2,1)`、`prefers-reduced-motion` | 易 |
+| 22 | 動き | 小さな生きている仕草（あくび・湯切り・すする） | Two Point [[web:simgames:r5-fv-cgm-twopoint|「bored」]] | 文章 | 店内の絵に2〜3コマ | `steps()` の `@keyframes` と人ごとの `animation-delay` | 中〜難 |
+| 23 | 動き | 湯気・のれんの揺れ（周期を重ねる） | ジュースの寄稿 | 文章 | 丼・寸胴・のれん。冷めた丼は湯気なし | 周期のずれた2〜3本の `<path>` | 易 |
+| 24 | 音 | 合った瞬間の一瞬の止め＋短い音 | ジュースの寄稿 | 文章 | 貸借が合った・締めが通った瞬間 | 100ms の止め＋Web Audio の短い2音 | 中 |
+| 25 | 音 | 曲と環境音を作り手が作る（エリアの音・厨房の音）。最初は鳴らさず、利用者の操作の後に小さく鳴らす（ブラウザの決まり） | ジュース [[web:simgames:r5-fv-gd-juice|「Bad sound design」]]・Mini Metro の音の賞 | 文章 | 駅前・商店街・厨房 | Web Audio。止める設定つき | 難 |
+| 26 | 儀式 | 締めの儀式（店じまい・明かりが消える） | グッドピザの声（1日の終わりの演出を惜しむ） | 文章 | 月末の締めの後 | `filter: brightness()` の `transition` | 易 |
+| 27 | 世界 | 町の新聞（予兆と世界の外側を運ぶ） | Good Pizza のニュース・CSD のメール | 文章 | 月初の新聞。自分の一杯の名前が載る | CSS `columns` の紙面 | 易〜中 |
+| 28 | 段 | 節目と段の星 | Two Point（作り手の意図） | 見た（星の札） | 月・期の目標を星で | SVG の星と `transform: scale()` の跳ね | 易 |
+
+### 3.2 28項目から言えること
+- **画面を見て確かめた型は17項目**、文章だけは11項目。色・余白・罫の型（#10・11・15）は、見た作品だけを根拠にした（判3.5）。
+- **それだけで成り立つ易**は 5・10・11・13・14・15・16・17・18・19・20・21・23・26・28 の15項目。6・7 は絵の上に載る易。中〜難は 1〜4・8・9・22・24・25。
+- **チープさを直す芯は、易の規則の項目ではなく、店・一杯・客を絵にすること（#1・3・8・9・22）と音（#25）**（K44 の「近道」は撤回）。規則の項目（#10・15・16）はその土台として**同時に**作る。報告自身の鎖C の診断と同じ向き。
+- **写さないもの**：各作品のキャラクター・ロゴ・画面の配置・固有の名前・音源。
