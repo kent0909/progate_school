@@ -6,7 +6,7 @@ file: r8-rmn-solt-rev-pacaff.html
 sha256: 63e451a399c91fb268cf49c2e5b31ceba569f09d7b71b6c59222a6b148ff3e4f
 read: partial
 pages: 書評の本文（雑誌の頁の書評1本の全文。サイトのナビは読んでいない）
-anchors: ["Pacific Affairs", "everyman", "Chinese-style eateries", "pushcarts", "postindustrial alternative", "apprentice-entrepreneur"]
+anchors: ["Pacific Affairs", "everyman", "Chinese-style eateries", "pushcarts", "postindustrial alternative", "apprentice-entrepreneur", "postindustrial", "post-salaryman era"]
 ---
 カナダの学術誌 Pacific Affairs（UBC）の書評。Solt『The Untold History of Ramen』の内容を章ごとに要約し、評価と注文を書く。本の本文ではないが、本の主張と章立ての第三者による要約。
 - 構成：前半は戦前の屋台の中華そばと都市の労働者（1章）、占領期の米国の小麦と闇市のラーメン（2章）、高度成長期の食と労働の工業化（3章）。後半は1980〜90年代にラーメンが職人の起業の象徴として懐かしさとともに作り直されたこと（4章）、2000年代の若者文化としての世界への広がり（5章）。

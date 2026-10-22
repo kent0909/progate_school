@@ -506,7 +506,7 @@ DESIGN-RAMEN の limited（当たり20・普通50・外れ30 (c)）には、**�
 - 研究の本（読めたのは書誌・目次・紹介だけ）：岡田哲『ラーメンの誕生』は中国の麺が日本で作り変えられた「中華風の和食の麺料理」の通史と自らを紹介する [[web:ramen:r5-rmn-book-okada-chikuma|「中華風の和食めん料理」]]。関満博ほか『ご当地ラーメンの地域ブランド戦略』は喜多方などのご当地ラーメンを地域おこしの側から扱う [[web:ramen:r5-rmn-book-gotochi-kino|「によるまちおこしが各地で取り組まれて」]]。速水健朗はご当地ラーメンを作られた物語と見る [[web:ramen:r5-rmn-book-hayamizu-kino|「ご当地ラーメンは郷土料理ではない」]]、Solt は戦後の安い燃料としての歴史を書く [[web:ramen:r5-rmn-book-solt-ucpress|「humble fuel」]]。Solt の本の目次は、労働者の中華そば→闇市と占領期→高度成長の燃料→作り直し（ブランド化）→米国の流行の順に章を立てる（第4版で書誌の頁を取った。本文は読めていない）[[web:ramen:r7-rmn-ucpress-solt|「Fuel for Rapid Growth」]]【N3】。
 - 第5版で足した、本の中身の第三者・著者の説明（どちらも本の本文ではないので、基準2はなお未達）：
   - 速水健朗は刊行直後のインタビューで、この本はうまい店の案内ではなく、ラーメンの変化から日本の現代史を追う本だと言う [[web:ramen:r8-rmn-hayamizu-sbbit|「日本の現代史を追った本」]]。聞き手は、首都圏だけで人気店の新作・季節の限定の情報があふれ、評論家が選んで届ける役を担うと話す [[web:ramen:r8-rmn-hayamizu-sbbit|「シーズナルな限定メニュー」]]（限定と情報の流れは BIZ-MKT-RAMEN の領分）。
-  - Pacific Affairs の書評は Solt の本を章ごとに要約し、後半の章が1980〜90年代のラーメンを会社勤めの外の生き方の象徴として描くと読む [[web:ramen:r8-rmn-solt-rev-pacaff|「postindustrial alternative」]]。屋台の主や修業して独立する者の像も挙げる [[web:ramen:r8-rmn-solt-rev-pacaff|「apprentice-entrepreneur」]]。【推論】ゲームの「会社員をやめて修業し独立する」筋の背景に使える（物語の根拠で、数の根拠ではない）。
+  - Pacific Affairs の書評は Solt の本を章ごとに要約し、後半の章が1980〜90年代のラーメンを会社勤めの外の生き方の象徴として描くと読む [[web:ramen:r8-rmn-solt-rev-pacaff|「postindustrial」]]。屋台の主や、会社員の時代のあとの修業して独立する者の像も挙げる [[web:ramen:r8-rmn-solt-rev-pacaff|「post-salaryman era」]]。【推論】ゲームの「会社員をやめて修業し独立する」筋の背景に使える（物語の根拠で、数の根拠ではない）。
 
 ---
 

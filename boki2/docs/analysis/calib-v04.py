@@ -251,6 +251,50 @@ for lab, pos in [('下の端', 0.0), ('中央', 0.5), ('上の端', 1.0)]:
     v = (84.7 * sum(pc) - s_) / pc[8]
     p(f'- 150人以上の階級の平均の逆算（ほかの階級を{lab}で置く）：約{v:.0f}人')
 
+
+# ---------- Y. 曜日：家計の土日÷平日を、祝日・お盆・年末年始を除いて（中華そば・外食・こづかい）。店の比への換算の幅 ----------
+import datetime
+HOL = {(1, 1), (1, 13), (2, 11), (2, 23), (2, 24), (3, 20), (4, 29), (5, 3), (5, 4), (5, 5), (5, 6), (7, 21), (8, 11), (9, 15), (9, 23), (10, 13), (11, 3), (11, 23), (11, 24)}
+SKIP = {(8, d) for d in range(13, 17)} | {(12, d) for d in range(29, 32)} | {(1, d) for d in range(1, 4)}
+TOOLS = os.path.join(HERE, '..', '..', 'tools')
+def sheet(f): return subprocess.run(['python3', '-I', os.path.join(TOOLS, 'sheet-text.py'), f], capture_output=True, text=True).stdout
+acc = {}
+for mth in range(1, 13):
+    f = raw('web', 'bizmgmt', f'r6-fc-estat-kakei-hibetsu-2025{mth:02d}.html')
+    if not os.path.exists(f): continue
+    blk = []
+    for l in sheet(f).split('\n'):
+        if l.startswith('# '):
+            if blk: break
+            continue
+        blk.append(l)
+    nd = (datetime.date(2025 + (mth == 12), mth % 12 + 1, 1) - datetime.date(2025, mth, 1)).days
+    for name in ['中華そば', '外食', 'こづかい(使途不明)', '世帯主こづかい']:
+        for l in blk:
+            c = l.split('\t')
+            if name in c and '円' in c:
+                i = c.index('円'); v = [float(x) if x not in ('', '-') else 0.0 for x in c[i + 1:]][:nd]
+                for d, x in enumerate(v, 1):
+                    dt = datetime.date(2025, mth, d)
+                    if (mth, d) in SKIP: continue
+                    kind = 'we' if dt.weekday() >= 5 else ('hol' if (mth, d) in HOL else 'wd')
+                    acc.setdefault(name, {}).setdefault(kind, []).append(x)
+                break
+p('## Y. 曜日：家計調査の日別支出（2025年1〜12月、二人以上の世帯）の土日÷平日。祝日は平日から外し、お盆（8/13〜16）・年末年始（12/29〜1/3）を除く\n')
+p('| 品目 | 平日の1日平均（円） | 土日の1日平均（円） | 土日÷平日 | 日の数（平日・土日） |'); p('|---|---|---|---|---|')
+R = {}
+for name, d in acc.items():
+    wd, we = st.mean(d['wd']), st.mean(d['we']); R[name] = we / wd
+    p(f'| {name} | {wd:.2f} | {we:.2f} | {we / wd:.2f} | {len(d["wd"])}・{len(d["we"])} |')
+if '中華そば' in R and 'こづかい(使途不明)' in R:
+    r, k = R['中華そば'], R['こづかい(使途不明)']
+    p('\n店の土日÷平日への換算（家計に入らない平日の客＝会社員・単身の昼食が、平日の客の q の割合とし、その層の土日÷平日を「こづかい(使途不明)」の比で置く。q は (c)）：')
+    p('| q（平日の客のうち家計に入らない層） | 店の土日÷平日 |'); p('|---|---|')
+    for q in [0.0, 0.2, 0.4, 0.6, 0.8]:
+        o = q / (1 - q) if q < 1 else 0
+        p(f'| {q:.0%} | {(r + k * o) / (1 + o):.2f} |')
+    p(f'\n読み：家計の中華そばの {r:.2f} 倍は、平日の客に家計に入らない層がいないときの上の端。その層が平日の4割なら約{(r + k * 0.4 / 0.6) / (1 + 0.4 / 0.6):.2f}倍、6割なら約{(r + k * 1.5) / 2.5:.2f}倍、8割なら1に近い（オフィス街）。q の資料はない（(c)）。\n')
+
 # ---------- W. 地域で人の厚さ・家族の労働が違うか（肯定側の問い。経済センサス2016 第17表、ラーメン店・都道府県） ----------
 import csv, io
 f = raw('web', 'bizmgmt', 'r5-cal-estat-census2016-inshoku.html')
