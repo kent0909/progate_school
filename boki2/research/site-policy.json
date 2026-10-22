@@ -1838,5 +1838,10 @@
   "verdict": "gray",
   "basis": "国立国会図書館サーチのAPI（OpenSearch）は利用規約で非営利の利用を認める。robots.txt は /api を禁止していない（2026-10-22 確認）",
   "checked": "2026-10-22"
+ },
+ "www.jfa-fc.or.jp": {
+  "verdict": "gray",
+  "basis": "日本フランチャイズチェーン協会：robots.txt は特定のAIクローラー（Amazonbot・PerplexityBot 等）だけを禁止し、その他のUAは禁止していない（2026-10-22確認）。サイトの利用条件に自動取得の明示の禁止は見当たらない。会員本部が公開する法定開示書面。原文は入れず要約と数字のみ",
+  "checked": "2026-10-22"
  }
 }
