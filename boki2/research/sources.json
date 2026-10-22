@@ -592,6 +592,14 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "bizlaw",
+     "desc": "ラーメン屋・外食の経営の打ち手にかかる法律と会計（物件・FC・労務・許認可・資金・上場・M&A・ライバル・倒産・消費税）の実務者の解説・事例・判例・統計・反対意見",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   }
