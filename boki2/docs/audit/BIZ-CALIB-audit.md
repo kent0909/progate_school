@@ -654,87 +654,87 @@ node boki2/tools/report-check.js docs/BIZ-CALIB.md を通す
 
 凡例：ノート＝読了ノートを開いた。原文＝`research/raw/` の保存分を開いた（PDF は pdftotext、HTML は文字の抜き出し、e-Gov は JSON の条文、画像は目視）。主張＝報告のうちその資料を引く主張で、原文と照らした数。食い違い＝「なし」は数字・中身が原文と一致したもの。「未使用」は食い違いではないが、原文にあって拾われなかった分布など。
 
-| # | 資料 | ノート | 原文 | 主張 | 食い違い |
-|---|---|---|---|---|---|
-| 1 | web:bizmgmt:r4-calib-jfc-shihyou-08a | ○ | ○ PDF（中華・喫茶・一般飲食店・全体の頁） | 15 | 数値はなし。標準偏差・信頼限界を不採用。法人・融資先だけの限界を本文に書かない |
-| 2 | web:bizmgmt:r4-calib-tokyo-inshoku-jigyosho | ○ | ○ PDF・HTML | 9 | なし（2014年・2001年の古さは報告も記載） |
-| 3 | web:bizmgmt:r4-mgmt-jfc-panel2016 | ○ | ○ PDF | 7 | **あり**：年の数え違い（2.2%＝2年目末、12.3%＝4年目末、8.9%＝5年目末）。M43 は自己資金割合を自己資本と書いた。黒字基調の推移は未使用 |
-| 4 | web:bizmgmt:r4-calib-jfc-shihyou-08c | ○ | ○ PDF（中華・飲食宿泊・一般飲食の頁） | 7 | 数値はなし。標準偏差の列を不採用 |
-| 5 | web:ramen:r4-ramen-yamaokaya-setsumei2603 | ○ | ○ PDF | 5 | なし（家賃2.4%・光熱6.6%・限定13.1%・原価30.5%・1店の月商の割り算）。急な出店の時期は未使用 |
-| 6 | law:primary:r4-mgmt-mhlw-koyou | ○ | ○ PDF・HTML | 4 | 数値はなし（25.1・29.9・28.4）。M44 は店長に全体の値を当てた（一般は18.1%） |
-| 7 | web:ramen:r4-ramen-gift-yuho2025 | ○ | ○ PDF | 3 | なし（賃借料7.5%・FC 10年／海外5年・加盟金の期間配分）。連結の有報に製造原価明細書はない（版1の記述を訂正）。店数・減損は未使用 |
-| 8 | web:bizmkt:r4-mkt-siemple-enjou2025 | ○ | ○ HTML | 3 | **あり**：K17 の39%・53%は部分集計（全体は26.0%・35.2%）。312件・39.0%は一致 |
-| 9 | web:bizmgmt:r4-mgmt-stat-cpi2025 | ○ | ○ PDF | 3 | なし（外食+4.0・食料+6.8・設備修繕の上昇）。品目別の振れは未使用 |
-| 10 | web:bizmgmt:r4-calib-monodukuri-saitaku | ○ | ○ HTML | 3 | なし（各次の採択数・交付決定1,932／1,506） |
-| 11 | web:bizmgmt:r4-calib-mlit-kouki-r7 | ○ | ○ PDF | 3 | **あり**：約8割は企業単位の回答で、遅れの頻度ではない（M59）。54.9%・45%・約4割は一致 |
-| 12 | web:bizmgmt:r4-calib-jfc-shihyou-07a | ○ | ○ PDF（パン小売の頁） | 3 | 数値はなし。標準偏差（営業利益率8.4・総利益率16.2）を不採用 |
-| 13 | law:primary:r4-mgmt-mhlw-chuka | ○ | ○ PDF | 3 | なし（885.8円・注文点数・味の満足の方向）。84.7人／日・ラーメン店の約7割が黒字は未使用（反証） |
-| 14 | web:ramen:r4-ramen-reishokukyo-2025 | ○ | ○ PDF | 2 | なし（157万t・8,577億円・家庭用+9.6%・中華めん98.1%） |
-| 15 | web:ramen:r4-ramen-jnet21-guide | ○ | ○ HTML＋画像2枚（目視） | 2 | なし（18,041店・TKC 黒字60社の人件費41%） |
-| 16 | web:bizmkt:r4-mkt-refprice-loyalty | ○ | ○ PDF | 2 | なし（更新ウェイト .25）。客の3つの型は未使用 |
-| 17 | web:bizmkt:r4-mkt-itmedia-pointcard | ○ | ○ HTML | 2 | なし（9.4%・ポイント合戦） |
-| 18 | web:bizmgmt:r4-mgmt-stockout-regensburg | ○ | ○ PDF | 2 | 数値はなし（41.5+12.2・18.1・パン84%）。食品小売の研究を (a) でラーメン店に当てた |
-| 19 | web:bizmgmt:r4-mgmt-jma-drink | ○ | ○ PDF | 2 | なし（22℃・予報で配送を前もって） |
-| 20 | web:bizmgmt:r4-calib-tfd-youto | ○ | ○ PDF | 2 | なし（393・中華66・ぼや337・大型ガスこんろ111・放置102） |
-| 21 | web:bizmgmt:r4-calib-shinshutsu-results | ○ | ○ HTML | 2 | なし（34〜37%） |
-| 22 | web:bizmgmt:r4-calib-saikouchiku-result | ○ | ○ HTML | 2 | なし（第8〜10回45〜51%、第11〜13回26〜36%） |
-| 23 | web:bizmgmt:r4-calib-onamae-jizoku17-20 | ○ | ○ HTML | 2 | なし（51.1・48.1・47.2%） |
-| 24 | web:bizmgmt:r4-calib-jizoku-saitaku | ○ | ○ HTML（＋backnumber） | 2 | なし（約12週・約10週） |
-| 25 | web:bizmgmt:r4-calib-env-foodloss-r5 | ○ | ○ PDF（図の文字は崩れ） | 2 | なし（66万t・29% のラベルを確認） |
-| 26 | law:primary:r4-calib-egov-sotoku67-5 | ○ | ○ JSON | 2 | なし（40万・300万・2029年3月31日・青色） |
-| 27 | law:primary:r4-calib-egov-hojin42 | ○ | ○ JSON | 2 | なし |
-| 28 | web:ramen:r4-ramen-tsr-2026h1 | ○ | ○ HTML | 1 | なし |
-| 29 | web:ramen:r4-ramen-tsr-2024 | ○ | ○ HTML | 1 | なし（29.8・24.5） |
-| 30 | web:ramen:r4-ramen-tdb-tosan2024 | ○ | ○ PDF | 1 | なし（700円未満）。赤字33.8% は未使用 |
-| 31 | web:ramen:r4-ramen-tdb-market25fy | ○ | ○ HTML | 1 | なし（中間価格帯の二重の危険）。増収・減収の分布、上位50社6,305店は未使用 |
-| 32 | web:ramen:r4-ramen-kourakuen-setsumei2511 | ○ | ○ PDF | 1 | なし（夏の注文率30%超え）。再建の数字は未使用 |
-| 33 | web:ramen:r4-ramen-jfc-kaigyo2025full | ○ | ○ PDF | 1 | なし（約6割）。達成率の分布は未使用 |
-| 34 | web:bizmkt:r4-mkt-tkc-point | ○ | ○ HTML | 1 | **あり**：K28 の「返金が見込まれる分」はこの回にない（ポイント・商品券の回） |
-| 35 | web:bizmkt:r4-mkt-lycbiz-msgfee | ○ | ○ HTML | 1 | なし（3円・2.5円） |
-| 36 | web:bizmkt:r4-mkt-honichi-instaads | ○ | ○ HTML | 1 | なし（CPM 500〜3,000円・CPC 40〜100円） |
-| 37 | web:bizmkt:r4-mkt-honichi-gourmetsurvey | ○ | ○ HTML | 1 | なし（約70%・95%） |
-| 38 | web:bizmkt:r4-mkt-findmodel-gourmet | ○ | ○ HTML | 1 | なし |
-| 39 | web:bizmkt:r4-mkt-dentsu-adspend2024 | ○ | ○ HTML | 1 | なし（折込94.8%）。1年の値を毎年×0.95に延ばしたのは推測で、(a) と書いたのは強すぎる |
-| 40 | web:bizmkt:r4-mkt-crowdworks-posting | ○ | ○ HTML | 1 | なし（配布せずに廃棄するリスク・GPS） |
-| 41 | web:bizmgmt:r4-mgmt-wiki-ippudo | ○ | ○ HTML | 1 | なし（後継者難の店の買収） |
-| 42 | web:bizmgmt:r4-mgmt-tsr-ramen | ○ | ○ HTML | 1 | なし（1000円の壁） |
-| 43 | web:bizmgmt:r4-mgmt-tsr-insight | ○ | ○ HTML | 1 | なし（破産93.9%） |
-| 44 | web:bizmgmt:r4-mgmt-stat-ice | ○ | ○ PDF | 1 | なし（1,442÷407≒3.5倍） |
-| 45 | web:bizmgmt:r4-mgmt-stat-gaishoku | ○ | ○ PDF | 1 | なし（8月最多） |
-| 46 | web:bizmgmt:r4-mgmt-stat-2014q3 | ○ | ○ PDF | 1 | **あり**：外食 −3.5% は食肉の問題も重なる（M7 の (a) は不可） |
-| 47 | web:bizmgmt:r4-mgmt-luca-yelp | ○ | ○ HTML | 1 | なし（5-9%・個人店） |
-| 48 | web:bizmgmt:r4-mgmt-jma-drug | ○ | ○ PDF | 1 | なし（25℃） |
-| 49 | web:bizmgmt:r4-mgmt-jf-nenkan2024 | ○ | ○ PDF | 1 | なし（客数104.3%・客単価103.9%）。30年の年次表は未使用 |
-| 50 | web:bizmgmt:r4-mgmt-duke-elasticity | ○ | ○ HTML | 1 | なし（外食0.7〜0.8。米国の値であることを報告は書かない） |
-| 51 | web:bizmgmt:r4-mgmt-boj-service-price | ○ | ○ PDF | 1 | なし（期初の値上げ） |
-| 52 | web:bizmgmt:r4-calib-sogyotecho-jizoku17 | ○ | ○ HTML | 1 | なし（3,883→1,473＝38%） |
-| 53 | web:bizmgmt:r4-calib-sogyotecho-jizoku-rate | ○ | ○ HTML | 1 | なし（平均約59.2%・41.8%・37.2%） |
-| 54 | web:bizmgmt:r4-calib-shopowner-ramenfc | ○ | ○ HTML | 1 | **あり**：加盟金100万〜500万円は資料にない（200万円か0円。100万は保証金、500万は開業資金）。ノートも同じ誤り |
-| 55 | web:bizmgmt:r4-calib-jnet21-fc | ○ | ○ HTML | 1 | なし（他の加盟店の事件が自店に及ぶ） |
-| 56 | web:bizmgmt:r4-calib-ishikawa-shokuchu | ○ | ○ PDF | 1 | なし（21件中飲食店11件） |
-| 57 | law:primary:r4-mkt-caa-stealth | ○ | ○ HTML | 1 | なし |
-| 58 | law:primary:r4-mgmt-mhlw-kissaten | ○ | ○ PDF | 1 | なし（老朽化68.6%） |
-| 59 | law:primary:r4-law-stema-yuushinkai | ○ | ○ PDF（報道発表の本文） | 1 | なし |
-| 60 | law:primary:r4-law-stema-kijun | ○ | ○ PDF | 1 | なし |
-| 61 | law:primary:r4-law-keihyo-kaisei2024 | ○ | ○ PDF | 1 | なし |
-| 62 | law:primary:r4-law-hojokin-tekiseika | ○ | ○ HTML | 1 | なし（年10.95%） |
-| 63 | law:primary:r4-calib-egov-tokusho11 | ○ | ○ JSON | 1 | なし |
-| 64 | law:primary:r4-calib-egov-shotoku205 | ○ | ○ JSON | 1 | なし（10%・100万超20%） |
-| 65 | law:primary:r4-calib-egov-shotoku204b | ○ | ○ JSON | 1 | なし |
-| 66 | law:primary:r4-calib-egov-shokuhyo5 | ○ | ○ JSON | 1 | なし |
-| 67 | law:primary:r4-calib-egov-shokuhyo4 | ○ | ○ JSON | 1 | なし |
-| 68 | law:primary:r4-calib-egov-shohou526 | ○ | ○ JSON | 1 | なし |
-| 69 | law:primary:r4-calib-egov-minpo566 | ○ | ○ JSON | 1 | なし |
-| 70 | law:primary:r4-calib-egov-minpo565 | ○ | ○ JSON | 1 | なし |
-| 71 | law:primary:r4-calib-egov-minpo564 | ○ | ○ JSON | 1 | なし |
-| 72 | law:primary:r4-calib-egov-minpo563 | ○ | ○ JSON | 1 | なし |
-| 73 | law:primary:r4-calib-egov-minpo562 | ○ | ○ JSON | 1 | なし |
-| 74 | law:primary:r4-calib-egov-keihyo5 | ○ | ○ JSON | 1 | なし |
-| 75 | law:primary:r4-calib-egov-keihyo4 | ○ | ○ JSON | 1 | なし |
-| 76 | law:primary:r4-calib-egov-hojinrei133 | ○ | ○ JSON | 1 | なし |
-| 77 | law:primary:r4-calib-egov-hojinrei133-2 | ○ | ○ JSON | 1 | なし |
-| 78 | law:primary:r4-calib-egov-fukkou28 | ○ | ○ JSON | 1 | なし（2.1%・2037年12月31日まで） |
-| 79 | law:primary:nta-6375 | ○ | ○ HTML | 1 | **あり**：K24「取れず」は誤り。2031年9月30日まで80→70→50→30% が原文にある。飲食料品の税率引下げの注記を落とした |
+| # | 資料 | ノート | 原文 | 通読（全文を通読した／一部と理由） | 主張 | 食い違い |
+|---|---|---|---|---|---|---|
+| 1 | web:bizmgmt:r4-calib-jfc-shihyou-08a | ○ | ○ PDF（中華・喫茶・一般飲食店・全体の頁） | 全文（宿泊業の10頁は主要行だけ） | 15 | 数値はなし。標準偏差・信頼限界を不採用。法人・融資先だけの限界を本文に書かない |
+| 2 | web:bizmgmt:r4-calib-tokyo-inshoku-jigyosho | ○ | ○ PDF・HTML | 全文 | 9 | なし（2014年・2001年の古さは報告も記載） |
+| 3 | web:bizmgmt:r4-mgmt-jfc-panel2016 | ○ | ○ PDF | 全文 | 7 | **あり**：年の数え違い（2.2%＝2年目末、12.3%＝4年目末、8.9%＝5年目末）。M43 は自己資金割合を自己資本と書いた。黒字基調の推移は未使用 |
+| 4 | web:bizmgmt:r4-calib-jfc-shihyou-08c | ○ | ○ PDF（中華・飲食宿泊・一般飲食の頁） | 全文 | 7 | 数値はなし。標準偏差の列を不採用 |
+| 5 | web:ramen:r4-ramen-yamaokaya-setsumei2603 | ○ | ○ PDF | 全文（39〜43頁は画像） | 5 | なし（家賃2.4%・光熱6.6%・限定13.1%・原価30.5%・1店の月商の割り算）。急な出店の時期は未使用 |
+| 6 | law:primary:r4-mgmt-mhlw-koyou | ○ | ○ PDF・HTML | 全文（抜粋の2頁） | 4 | 数値はなし（25.1・29.9・28.4）。M44 は店長に全体の値を当てた（一般は18.1%） |
+| 7 | web:ramen:r4-ramen-gift-yuho2025 | ○ | ○ PDF | 全文（117頁） | 3 | なし（賃借料7.5%・FC 10年／海外5年・加盟金の期間配分）。連結の有報に製造原価明細書はない（版1の記述を訂正）。店数・減損は未使用 |
+| 8 | web:bizmkt:r4-mkt-siemple-enjou2025 | ○ | ○ HTML | 全文（リリース本文。白書の本体は保存なし） | 3 | **あり**：K17 の39%・53%は部分集計（全体は26.0%・35.2%）。312件・39.0%は一致 |
+| 9 | web:bizmgmt:r4-mgmt-stat-cpi2025 | ○ | ○ PDF | 一部（概況・中分類・50年の表は全部。10大費目の月次表・財サービス表・連鎖基準表は見出しだけ。理由：外食・食料・光熱以外の品目の月次） | 3 | なし（外食+4.0・食料+6.8・設備修繕の上昇）。品目別の振れは未使用 |
+| 10 | web:bizmgmt:r4-calib-monodukuri-saitaku | ○ | ○ HTML | 全文 | 3 | なし（各次の採択数・交付決定1,932／1,506） |
+| 11 | web:bizmgmt:r4-calib-mlit-kouki-r7 | ○ | ○ PDF | 全文 | 3 | **あり**：約8割は企業単位の回答で、遅れの頻度ではない（M59）。54.9%・45%・約4割は一致 |
+| 12 | web:bizmgmt:r4-calib-jfc-shihyou-07a | ○ | ○ PDF（パン小売の頁） | 一部（209頁。全頁の主要行を機械で抜き出し、食料品の小売・卸の頁は全行。理由：他業種の残りの指標はシムに使わない） | 3 | 数値はなし。標準偏差（営業利益率8.4・総利益率16.2）を不採用 |
+| 13 | law:primary:r4-mgmt-mhlw-chuka | ○ | ○ PDF | 全文（58頁） | 3 | なし（885.8円・注文点数・味の満足の方向）。84.7人／日・ラーメン店の約7割が黒字は未使用（反証） |
+| 14 | web:ramen:r4-ramen-reishokukyo-2025 | ○ | ○ PDF | 全文（本文6頁。別添資料は保存なし） | 2 | なし（157万t・8,577億円・家庭用+9.6%・中華めん98.1%） |
+| 15 | web:ramen:r4-ramen-jnet21-guide | ○ | ○ HTML＋画像2枚（目視） | 全文（表は画像2枚） | 2 | なし（18,041店・TKC 黒字60社の人件費41%） |
+| 16 | web:bizmkt:r4-mkt-refprice-loyalty | ○ | ○ PDF | 全文 | 2 | なし（更新ウェイト .25）。客の3つの型は未使用 |
+| 17 | web:bizmkt:r4-mkt-itmedia-pointcard | ○ | ○ HTML | 全文 | 2 | なし（9.4%・ポイント合戦） |
+| 18 | web:bizmgmt:r4-mgmt-stockout-regensburg | ○ | ○ PDF | 全文 | 2 | 数値はなし（41.5+12.2・18.1・パン84%）。食品小売の研究を (a) でラーメン店に当てた |
+| 19 | web:bizmgmt:r4-mgmt-jma-drink | ○ | ○ PDF | 全文 | 2 | なし（22℃・予報で配送を前もって） |
+| 20 | web:bizmgmt:r4-calib-tfd-youto | ○ | ○ PDF | 一部（62頁のうち飲食店の節5頁を画像で全部。ほかは見出しだけ。理由：住宅・学校・事務所などの用途） | 2 | なし（393・中華66・ぼや337・大型ガスこんろ111・放置102） |
+| 21 | web:bizmgmt:r4-calib-shinshutsu-results | ○ | ○ HTML | 全文 | 2 | なし（34〜37%） |
+| 22 | web:bizmgmt:r4-calib-saikouchiku-result | ○ | ○ HTML | 全文 | 2 | なし（第8〜10回45〜51%、第11〜13回26〜36%） |
+| 23 | web:bizmgmt:r4-calib-onamae-jizoku17-20 | ○ | ○ HTML | 全文 | 2 | なし（51.1・48.1・47.2%） |
+| 24 | web:bizmgmt:r4-calib-jizoku-saitaku | ○ | ○ HTML（＋backnumber） | 全文（頁の本文。採択者一覧の PDF は保存なし） | 2 | なし（約12週・約10週） |
+| 25 | web:bizmgmt:r4-calib-env-foodloss-r5 | ○ | ○ PDF（図の文字は崩れ） | 全文（4頁を画像で） | 2 | なし（66万t・29% のラベルを確認） |
+| 26 | law:primary:r4-calib-egov-sotoku67-5 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 2 | なし（40万・300万・2029年3月31日・青色） |
+| 27 | law:primary:r4-calib-egov-hojin42 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 2 | なし |
+| 28 | web:ramen:r4-ramen-tsr-2026h1 | ○ | ○ HTML | 全文 | 1 | なし |
+| 29 | web:ramen:r4-ramen-tsr-2024 | ○ | ○ HTML | 全文 | 1 | なし（29.8・24.5） |
+| 30 | web:ramen:r4-ramen-tdb-tosan2024 | ○ | ○ PDF | 全文（図は画像） | 1 | なし（700円未満）。赤字33.8% は未使用 |
+| 31 | web:ramen:r4-ramen-tdb-market25fy | ○ | ○ HTML | 全文（HTML 本文。添付 PDF は保存なし） | 1 | なし（中間価格帯の二重の危険）。増収・減収の分布、上位50社6,305店は未使用 |
+| 32 | web:ramen:r4-ramen-kourakuen-setsumei2511 | ○ | ○ PDF | 全文（44頁） | 1 | なし（夏の注文率30%超え）。再建の数字は未使用 |
+| 33 | web:ramen:r4-ramen-jfc-kaigyo2025full | ○ | ○ PDF | 全文（16頁、12頁は画像） | 1 | なし（約6割）。達成率の分布は未使用 |
+| 34 | web:bizmkt:r4-mkt-tkc-point | ○ | ○ HTML | 全文 | 1 | **あり**：K28 の「返金が見込まれる分」はこの回にない（ポイント・商品券の回） |
+| 35 | web:bizmkt:r4-mkt-lycbiz-msgfee | ○ | ○ HTML | 全文 | 1 | なし（3円・2.5円） |
+| 36 | web:bizmkt:r4-mkt-honichi-instaads | ○ | ○ HTML | 一部（無料の部分だけ。理由：続きは会員登録が要り、保存されていない） | 1 | なし（CPM 500〜3,000円・CPC 40〜100円） |
+| 37 | web:bizmkt:r4-mkt-honichi-gourmetsurvey | ○ | ○ HTML | 一部（要約版だけ。理由：本体レポートは登録制で、保存されていない） | 1 | なし（約70%・95%） |
+| 38 | web:bizmkt:r4-mkt-findmodel-gourmet | ○ | ○ HTML | 全文 | 1 | なし |
+| 39 | web:bizmkt:r4-mkt-dentsu-adspend2024 | ○ | ○ HTML | 一部（リリース本文。理由：図表の添付 PDF・画像は保存されていない） | 1 | なし（折込94.8%）。1年の値を毎年×0.95に延ばしたのは推測で、(a) と書いたのは強すぎる |
+| 40 | web:bizmkt:r4-mkt-crowdworks-posting | ○ | ○ HTML | 全文 | 1 | なし（配布せずに廃棄するリスク・GPS） |
+| 41 | web:bizmgmt:r4-mgmt-wiki-ippudo | ○ | ○ HTML | 全文 | 1 | なし（後継者難の店の買収） |
+| 42 | web:bizmgmt:r4-mgmt-tsr-ramen | ○ | ○ HTML | 全文 | 1 | なし（1000円の壁） |
+| 43 | web:bizmgmt:r4-mgmt-tsr-insight | ○ | ○ HTML | 全文 | 1 | なし（破産93.9%） |
+| 44 | web:bizmgmt:r4-mgmt-stat-ice | ○ | ○ PDF | 全文 | 1 | なし（1,442÷407≒3.5倍） |
+| 45 | web:bizmgmt:r4-mgmt-stat-gaishoku | ○ | ○ PDF | 全文 | 1 | なし（8月最多） |
+| 46 | web:bizmgmt:r4-mgmt-stat-2014q3 | ○ | ○ PDF | 全文（グラフは本文の数字で代えた） | 1 | **あり**：外食 −3.5% は食肉の問題も重なる（M7 の (a) は不可） |
+| 47 | web:bizmgmt:r4-mgmt-luca-yelp | ○ | ○ HTML | 一部（要旨と書誌の頁。理由：論文本体は保存されていない） | 1 | なし（5-9%・個人店） |
+| 48 | web:bizmgmt:r4-mgmt-jma-drug | ○ | ○ PDF | 全文 | 1 | なし（25℃） |
+| 49 | web:bizmgmt:r4-mgmt-jf-nenkan2024 | ○ | ○ PDF | 全文（5頁、3・4頁は画像） | 1 | なし（客数104.3%・客単価103.9%）。30年の年次表は未使用 |
+| 50 | web:bizmgmt:r4-mgmt-duke-elasticity | ○ | ○ HTML | 一部（要旨の頁。理由：論文本体は保存されていない） | 1 | なし（外食0.7〜0.8。米国の値であることを報告は書かない） |
+| 51 | web:bizmgmt:r4-mgmt-boj-service-price | ○ | ○ PDF | 全文 | 1 | なし（期初の値上げ） |
+| 52 | web:bizmgmt:r4-calib-sogyotecho-jizoku17 | ○ | ○ HTML | 全文 | 1 | なし（3,883→1,473＝38%） |
+| 53 | web:bizmgmt:r4-calib-sogyotecho-jizoku-rate | ○ | ○ HTML | 全文 | 1 | なし（平均約59.2%・41.8%・37.2%） |
+| 54 | web:bizmgmt:r4-calib-shopowner-ramenfc | ○ | ○ HTML | 全文 | 1 | **あり**：加盟金100万〜500万円は資料にない（200万円か0円。100万は保証金、500万は開業資金）。ノートも同じ誤り |
+| 55 | web:bizmgmt:r4-calib-jnet21-fc | ○ | ○ HTML | 全文 | 1 | なし（他の加盟店の事件が自店に及ぶ） |
+| 56 | web:bizmgmt:r4-calib-ishikawa-shokuchu | ○ | ○ PDF | 全文（グラフ4頁は画像） | 1 | なし（21件中飲食店11件） |
+| 57 | law:primary:r4-mkt-caa-stealth | ○ | ○ HTML | 全文 | 1 | なし |
+| 58 | law:primary:r4-mgmt-mhlw-kissaten | ○ | ○ PDF | 全文 | 1 | なし（老朽化68.6%） |
+| 59 | law:primary:r4-law-stema-yuushinkai | ○ | ○ PDF（報道発表の本文） | 全文 | 1 | なし |
+| 60 | law:primary:r4-law-stema-kijun | ○ | ○ PDF | 全文 | 1 | なし |
+| 61 | law:primary:r4-law-keihyo-kaisei2024 | ○ | ○ PDF | 全文 | 1 | なし |
+| 62 | law:primary:r4-law-hojokin-tekiseika | ○ | ○ HTML | 全文（条文） | 1 | なし（年10.95%） |
+| 63 | law:primary:r4-calib-egov-tokusho11 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 64 | law:primary:r4-calib-egov-shotoku205 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし（10%・100万超20%） |
+| 65 | law:primary:r4-calib-egov-shotoku204b | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 66 | law:primary:r4-calib-egov-shokuhyo5 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 67 | law:primary:r4-calib-egov-shokuhyo4 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 68 | law:primary:r4-calib-egov-shohou526 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 69 | law:primary:r4-calib-egov-minpo566 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 70 | law:primary:r4-calib-egov-minpo565 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 71 | law:primary:r4-calib-egov-minpo564 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 72 | law:primary:r4-calib-egov-minpo563 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 73 | law:primary:r4-calib-egov-minpo562 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 74 | law:primary:r4-calib-egov-keihyo5 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 75 | law:primary:r4-calib-egov-keihyo4 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 76 | law:primary:r4-calib-egov-hojinrei133 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 77 | law:primary:r4-calib-egov-hojinrei133-2 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし |
+| 78 | law:primary:r4-calib-egov-fukkou28 | ○ | ○ JSON | 全文（JSON の条文。版2で） | 1 | なし（2.1%・2037年12月31日まで） |
+| 79 | law:primary:nta-6375 | ○ | ○ HTML | 全文（版2で） | 1 | **あり**：K24「取れず」は誤り。2031年9月30日まで80→70→50→30% が原文にある。飲食料品の税率引下げの注記を落とした |
 
 集計：
 - ノート79／79本、原文79／79本（開けなかったもの0）
