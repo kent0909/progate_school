@@ -30,6 +30,12 @@ for a in A:
     if any(u['work'] == a['work'] and difflib.SequenceMatcher(None, nn(u['body'])[:200], nn(a['body'])[:200]).ratio() >= 0.9 for u in U):
         continue
     U.append(a)
+for i, u in enumerate(U, 1):
+    u['all'] = i
+if '--dumpall' in sys.argv:
+    for u in U:
+        print('@%d [%s] %s ★%d | %s | %s' % (u['all'], u['work'], u['page'], u['stars'], u['title'], u['body'].replace('\n', ' / ')))
+    sys.exit()
 HIT = re.compile(r'[周週]')
 H = [u for u in U if HIT.search(u['title'] + u['body'])]
 for i, u in enumerate(H, 1):
