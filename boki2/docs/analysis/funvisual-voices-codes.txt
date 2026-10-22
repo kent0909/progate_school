@@ -643,3 +643,139 @@ pizza 10-17 F
 pizza 10-18 -
 pizza 10-19 J1
 pizza 10-20 ED
+# Coffee Inc 2（APPLION、7ページ・135件。比較の作品。オーナーの例示〔豆・土地・不動産・商品開発〕に一番近い作品なので全件に符号を付けた。BV・BVR・BVN はこの作品で足した符号）
+cinc 1-1 C2 I BV N
+cinc 1-2 ED BV R
+cinc 1-3 H1 H2 A3 L3 L1 Q
+cinc 1-4 BV Q
+cinc 1-5 K DF E W N
+cinc 1-6 BVR S L1
+cinc 1-7 DF E F D1
+cinc 1-8 C2 BV Q
+cinc 1-9 N K
+cinc 1-10 ED N
+cinc 1-11 C2 BV N
+cinc 1-12 BV BVR S
+cinc 1-13 K D1 BV N
+cinc 1-14 C2 L1 BV N
+cinc 1-15 BV N BVR
+cinc 1-16 N BVR
+cinc 1-17 L1 BVR R
+cinc 1-18 D1 BVR R
+cinc 1-19 C2 BV N
+cinc 1-20 BV D1 W J1 N
+cinc 2-1 BV BVR
+cinc 2-2 BV N
+cinc 2-3 X A1 PP C2
+cinc 2-4 DF BVN N
+cinc 2-5 R
+cinc 2-6 E DF PP R
+cinc 2-7 L2 I
+cinc 2-8 FR DF C2
+cinc 2-9 J1 W
+cinc 2-10 DF K
+cinc 2-11 DF N
+cinc 2-12 Q T K
+cinc 2-13 O
+cinc 2-14 L3
+cinc 2-15 O
+cinc 2-16 R W
+cinc 2-17 N
+cinc 2-18 N
+cinc 2-19 ED W H3 C2 N
+cinc 2-20 R
+cinc 3-1 DF FR A3
+cinc 3-2 DF T S
+cinc 3-3 L1 S
+cinc 3-4 N
+cinc 3-5 R
+cinc 3-6 K D1
+cinc 3-7 C2 ED L1 S
+cinc 3-8 N
+cinc 3-9 N
+cinc 3-10 L3 E N
+cinc 3-11 BV B
+cinc 3-12 C2
+cinc 3-13 A1 BV W
+cinc 3-14 -
+cinc 3-15 R
+cinc 3-16 ED BV
+cinc 3-17 ED
+cinc 3-18 C2 BVR
+cinc 3-19 BVR
+cinc 3-20 J2 D1
+cinc 4-1 BVR
+cinc 4-2 BV Q
+cinc 4-3 W BV R
+cinc 4-4 DF
+cinc 4-5 R
+cinc 4-6 R
+cinc 4-7 D1 BV R N
+cinc 4-8 R
+cinc 4-9 R
+cinc 4-10 C2 R
+cinc 4-11 R
+cinc 4-12 R
+cinc 4-13 W A3 R
+cinc 4-14 T
+cinc 4-15 R
+cinc 4-16 O
+cinc 4-17 ED BV
+cinc 4-18 R
+cinc 4-19 D1 BV W
+cinc 4-20 J2
+cinc 5-1 N BVR
+cinc 5-2 BVR
+cinc 5-3 R
+cinc 5-4 C2 N
+cinc 5-5 S
+cinc 5-6 R
+cinc 5-7 I DF
+cinc 5-8 C2 BVR
+cinc 5-9 R
+cinc 5-10 A3 E
+cinc 5-11 S
+cinc 5-12 ED A3
+cinc 5-13 R
+cinc 5-14 ED BVR
+cinc 5-15 O
+cinc 5-16 N
+cinc 5-17 N
+cinc 5-18 N
+cinc 5-19 W C2
+cinc 5-20 L1
+cinc 6-1 N
+cinc 6-2 N
+cinc 6-3 N
+cinc 6-4 R
+cinc 6-5 R
+cinc 6-6 ED DF A3
+cinc 6-7 E W
+cinc 6-8 PP P
+cinc 6-9 S
+cinc 6-10 C2
+cinc 6-11 R
+cinc 6-12 BVR N
+cinc 6-13 BV W
+cinc 6-14 DF N
+cinc 6-15 ED
+cinc 6-16 O
+cinc 6-17 BVR
+cinc 6-18 C2 J2
+cinc 6-19 C2
+cinc 6-20 S
+cinc 7-1 N
+cinc 7-2 BVR
+cinc 7-3 -
+cinc 7-4 O
+cinc 7-5 O
+cinc 7-6 P
+cinc 7-7 R
+cinc 7-8 N
+cinc 7-9 C2
+cinc 7-10 C2
+cinc 7-11 R
+cinc 7-12 N
+cinc 7-13 BVR A3
+cinc 7-14 -
+cinc 7-15 N

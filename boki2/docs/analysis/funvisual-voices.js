@@ -2,7 +2,7 @@
 // BIZ-FUNVISUAL 2章の利用者の声を数える（QUALITY 6.2-2：件数は道具で数える）。
 // 使い方：node boki2/docs/analysis/funvisual-voices.js        （集計の表を出す）
 //         node boki2/docs/analysis/funvisual-voices.js --list C1   （その符号の件を本文の頭つきで並べる。数え直しの確かめ用）
-// 入力：①原文 research/raw/web/simgames/r5-fv-applion-*.html（APPLION の口コミのページ。git に入らないので手元にあるときだけ照合）
+// 入力：①原文 research/raw/web/simgames/r5-fv-applion-*.html と Coffee Inc 2 の r4-cinc-applion-reviews.html・r5-cinc-applion-p2〜p7.html（APPLION の口コミのページ。git に入らないので手元にあるときだけ照合）
 //       ②符号 docs/analysis/funvisual-voices-codes.txt（1行1件。書き手が1件ずつ読んで付けた）
 // 照合：ページごとの件数が原文と符号で一致しないとエラーで止まる。
 const fs = require('fs');
@@ -23,6 +23,7 @@ const DEF = {
   I: '周回・再訪・持ち越し', J1: 'せかされない・自分のペース・隙間時間・待ちの楽しみ', J2: '買い切り・課金や広告が少ない・無料で遊べる',
   K: '作り手への信頼・ファン', V: '配信・動画で知った', X: '題材が好き・その仕事の気分', ED: '学び・練習になる', DF: '難しさ・手ごたえを好む',
   SG: 'すごろく・ミニゲームを楽しむ', PP: 'ライバルが出ることを好む',
+  BV: '店の外の事業の変数（株・不動産・融資・上場・買収・豆の栽培・投資）を楽しむ（Coffee Inc 2 で足した）', BVR: '店の外の事業の変数をもっと欲しがる（別業種の買収・社債・子会社など）', BVN: '店の外の事業が店の遊びを食う・面白くない',
   // 不満
   R: '不具合・動作・保存が消える', L1: '中身の谷・やることがなくなる・物語が尽きる', L2: '目標が消える・クリア後・終わりが早い', L3: '作業感・繰り返し', L4: '易しすぎ',
   M1: '注文・評価の判定が一貫しない（不具合を含む）', M2: '悪い方だけの出来事・対処の手がない', M3: '運が強すぎ・罰が重い',
@@ -30,9 +31,9 @@ const DEF = {
   P: 'ライバルへの不満・ライバルとの勝負', Q: '支配的な手・抜け道・裏技', T: '課金・広告・スタミナへの不満', U: '難しすぎ', Y: '値段が高い', SGm: 'すごろくを嫌う', NG: '全体に物足りない',
 };
 const KAIRO = new Set(['ramenkan', 'zenkoku', 'gurume', 'gds']);
-const NAME = { ramenkan: 'ラーメン館（買い切り）', zenkoku: 'ラーメン館 全国編', gurume: '大盛グルメ食堂', gds: 'ゲーム発展国++', pizza: 'グッドピザ' };
-const BASE = { ramenkan: 'r5-fv-applion-ramenkan', zenkoku: 'r5-fv-applion-ramenkan-zenkoku', gurume: 'r5-fv-applion-gurume', gds: 'r5-fv-applion-gamedevstory', pizza: 'r5-fv-applion-goodpizza' };
-const PAGES = { ramenkan: 1, zenkoku: 10, gurume: 2, gds: 10, pizza: 10 };
+const NAME = { cinc: 'Coffee Inc 2', ramenkan: 'ラーメン館（買い切り）', zenkoku: 'ラーメン館 全国編', gurume: '大盛グルメ食堂', gds: 'ゲーム発展国++', pizza: 'グッドピザ' };
+const BASE = { cinc: 'r5-cinc-applion', ramenkan: 'r5-fv-applion-ramenkan', zenkoku: 'r5-fv-applion-ramenkan-zenkoku', gurume: 'r5-fv-applion-gurume', gds: 'r5-fv-applion-gamedevstory', pizza: 'r5-fv-applion-goodpizza' };
+const PAGES = { cinc: 7, ramenkan: 1, zenkoku: 10, gurume: 2, gds: 10, pizza: 10 };
 
 // 符号を読む
 const rows = fs.readFileSync(CODES, 'utf8').split('\n').filter((l) => l && !l.startsWith('#')).map((l) => { const [w, pi, ...c] = l.trim().split(/\s+/); const [p, i] = pi.split('-').map(Number); return { w, p, i, c: c.filter((x) => x !== '-') }; });
@@ -40,7 +41,7 @@ for (const r of rows) for (const c of r.c) if (!DEF[c]) { console.error(`未定�
 
 // 原文からページごとの口コミを取り出す（★の行で区切る）
 const strip = (s) => s.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<(br|\/p|\/div|\/li|\/h\d)[^>]*>/gi, '\n').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').split('\n').map((l) => l.replace(/\s+/g, ' ').trim()).filter(Boolean);
-const pageFile = (w, p) => path.join(RAW, `${BASE[w]}${p === 1 ? '' : '-p' + p}.html`);
+const pageFile = (w, p) => path.join(RAW, w === 'cinc' ? (p === 1 ? 'r4-cinc-applion-reviews.html' : `r5-cinc-applion-p${p}.html`) : `${BASE[w]}${p === 1 ? '' : '-p' + p}.html`);
 const reviews = {}; const dist = {}; let haveRaw = true;
 for (const w of Object.keys(PAGES)) for (let p = 1; p <= PAGES[w]; p++) {
   const f = pageFile(w, p);
@@ -82,6 +83,10 @@ const kai = rows.filter((r) => KAIRO.has(r.w)).length;
 console.log(`\nカイロソフト4作のページの件：${kai}/${rows.length}（${(100 * kai / rows.length).toFixed(0)}%）`);
 // 合わせた見出し（本文で使う束ね）
 const any = (cs) => rows.filter((r) => r.c.some((c) => cs.includes(c))).length;
-const B = { 'A（作る・組む）': ['A1', 'A2', 'A3', 'A4'], 'C（積み上げ・ハマった）': ['C1', 'C2'], 'D（解放・段）': ['D1', 'D2', 'D3'], 'H（見た目・音・手ざわり）': ['H1', 'H2', 'H3', 'H4'], 'J（ペース・料金）': ['J1', 'J2'], 'L（だれ）': ['L1', 'L2', 'L3', 'L4'], 'M（理不尽）': ['M1', 'M2', 'M3'], 'F または RD（客・物語・読解）': ['F', 'RD'], 'G（出来事）': ['G1', 'G2'] };
+const B = { 'A（作る・組む）': ['A1', 'A2', 'A3', 'A4'], 'C（積み上げ・ハマった）': ['C1', 'C2'], 'D（解放・段）': ['D1', 'D2', 'D3'], 'H（見た目・音・手ざわり）': ['H1', 'H2', 'H3', 'H4'], 'J（ペース・料金）': ['J1', 'J2'], 'L（だれ）': ['L1', 'L2', 'L3', 'L4'], 'M（理不尽）': ['M1', 'M2', 'M3'], 'F または RD（客・物語・読解）': ['F', 'RD'], 'G（出来事）': ['G1', 'G2'], 'BV 系（店の外の事業：楽しむ・欲しがる）': ['BV', 'BVR'] };
 console.log('\n束ねた件数（どれか1つでも付いた件）：');
 for (const [k, v] of Object.entries(B)) console.log(`  ${k}：${any(v)}`);
+
+// オーナーの仮説（やれることの多さ・店の外の事業の変数）に直接かかわる件を作品ごとに
+console.log('\n仮説にかかわる符号の作品ごとの件数（W＝やれることの多さ・深さ、BV・BVR・BVN＝店の外の事業、L1・L2・L3＝だれ、S＝要素の不足）：');
+for (const w of works) { const n = rows.filter((r) => r.w === w).length; const c = (k) => rows.filter((r) => r.w === w && r.c.includes(k)).length; console.log(`  ${NAME[w]}（${n}件）：W ${c('W')}・BV ${c('BV')}・BVR ${c('BVR')}・BVN ${c('BVN')}・L1 ${c('L1')}・L2 ${c('L2')}・L3 ${c('L3')}・S ${c('S')}`); }
