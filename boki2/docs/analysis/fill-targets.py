@@ -53,8 +53,10 @@ for f in FILES:
     for i, l in enumerate(lines, 1):
         if re.match(r'^#{2,3} ', l):
             sec = re.sub(r'^#+ ', '', l).strip(); header = None
+        # 出典の [[…|「…」]] の中の | で列が割れないよう、同じ長さの別の字に置き換えてから割る
+        lm = re.sub(r'\[\[[^\]]*\]\]', lambda x: x.group(0).replace('|', '¦'), l)
         if l.startswith('|'):
-            cells = [c.strip() for c in l.strip().strip('|').split('|')]
+            cells = [c.strip().replace('¦', '|') for c in lm.strip().strip('|').split('|')]
             if i < len(lines) and re.match(r'^\|[\s\-|:]+\|?$', lines[i]):
                 header = cells; continue
             if re.match(r'^\|[\s\-|:]+\|?$', l):
@@ -64,8 +66,8 @@ for f in FILES:
         for m in MARK.finditer(l):
             if cells:
                 # 印のある列を探す
-                pos = 0; ci = 0; acc = l.strip().strip('|')
-                off = l.index(acc) if acc in l else 0
+                ci = 0; acc = lm.strip().strip('|')
+                off = lm.index(acc) if acc in lm else 0
                 k = m.start() - off
                 parts = acc.split('|'); run = 0
                 for j, p in enumerate(parts):
