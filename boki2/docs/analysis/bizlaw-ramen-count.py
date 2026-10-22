@@ -30,7 +30,7 @@ KIND = {
  'r5-blr-ejinzai-invoice-r8': 'prac', 'r5-blr-smarthr-tencho': 'prac', 'r5-blr-mclaw-kanrishoku': 'prac', 'r5-blr-shiodome-ipo': 'prac',
  'r5-blr-masouken-zangyo': 'prac', 'r5-blr-mf-ma-boogai': 'prac', 'r5-blr-mf-genjou': 'prac', 'r5-blr-mf-teikishakuya': 'prac',
  'r5-blr-mf-futourenbai': 'prac', 'r5-blr-mf-roukisho': 'prac', 'r5-blr-batonz-hosho': 'prac', 'r5-blr-monolith-tabelog': 'prac',
- 'r5-blr-rodo-hibou': 'prac', 'r5-blr-rodo-shaho-inshoku': 'prac', 'r5-blr-zeiken-chuko': 'prac', 'r5-blr-jinjer-ipo': 'prac',
+ 'r5-blr-rodo-hibou': 'prac', 'r5-blr-rodo-shaho-inshoku': 'prac', 'r5-blr-rodo-shaho-hanbai': 'prac', 'r5-blr-zeiken-chuko': 'prac', 'r5-blr-jinjer-ipo': 'prac',
  'r5-blr-keiyaku-tabelog': 'prac',
  # 事例（報道）
  'r5-blr-seijiyama-hotel': 'case', 'r5-blr-seijiyama-ichiran': 'case', 'r5-blr-jcast-sukiya': 'case', 'r5-blr-rodo-souken-inshoku': 'case',
