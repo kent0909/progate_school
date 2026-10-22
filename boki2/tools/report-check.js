@@ -19,7 +19,7 @@ for (const f of files) {
   const has = (h) => heads.some((l) => l.includes(h));
   const isDesign = name.startsWith('DESIGN-');
   if (!v2) { console.log(`- ${name}：旧形式（未監査）`); continue; }
-  const need = (isDesign ? ['簡略化の台帳'] : REPORT).concat(['依頼の対応表', 'やっていないこと']);
+  const need = (isDesign ? ['簡略化の台帳'] : REPORT).concat(['依頼の対応表', 'やっていないこと', '論証の表']);
   const miss = need.filter((h) => !has(h));
   if (miss.length) { errs++; console.log(`✗ ${name}：章がない：${miss.join('・')}`); }
   // 台帳の外にある簡略化の言い回し
