@@ -96,6 +96,10 @@ for name, _, _ in MODELS:
 for N in (2, 3, 4):
     xs = [a[5] for a in fin if a[3] == N]
     print('  N=%d：%.1f〜%.1f周分' % (N, min(xs), max(xs)))
+for name, _, _ in MODELS:
+    for N in (2, 3, 4):
+        xs = [a[5] for a in fin if a[0] == name and a[3] == N]
+        print('  %s・N=%d：%.1f〜%.1f周分' % (name, N, min(xs), max(xs)))
 print()
 print('表2 届いた項目も30日後にまた出し、誤れば外れる（engine.js 411行の「最後の試行が正解」）。1周10日・毎日')
 print()

@@ -2143,5 +2143,20 @@
   "verdict": "gray",
   "basis": "robots.txt（r5-growth-robots-nissyoku）は記事を許可。利用規約（guide.news.nissyoku.co.jp/guide-list/termsofuse/、r5-growth-tos-nissyoku）に自動取得の明示的な禁止はなく、電子版のコンテンツの複写・転載・改変を禁じる。読んで要約するだけで原文は入れない",
   "checked": "2026-10-22"
+ },
+ "www.sangyo-rodo.metro.tokyo.lg.jp": {
+  "verdict": "gray",
+  "basis": "東京都の公的統計の頁。利用規約で自動取得の禁止の明示は見つからず、robots.txt をこの取得で確かめる（r6-cal-tokyo-sangyo-robots）",
+  "checked": "2026-10-22"
+ },
+ "www.iwate-np.co.jp": {
+  "verdict": "gray",
+  "basis": "岩手日報のサイト。robots.txt をこの取得で確かめる（r6-cal-iwatenp-robots）。記事の転載はしない",
+  "checked": "2026-10-22"
+ },
+ "www.aizu-cci.or.jp": {
+  "verdict": "gray",
+  "basis": "会津若松商工会議所。robots.txt をこの取得で確かめる（r6-cal-aizu-robots）",
+  "checked": "2026-10-22"
  }
 }
