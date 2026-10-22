@@ -6,7 +6,7 @@ file: r6-rp-superjump-nier-notreplayable.html
 sha256: a7bc1654e9f4dbf87ed40ad3c0f397b4bc4a57f2c7b8a110055445b30bba7039
 read: partial
 pages: 記事本文をすべて。サイトの会員案内は読んでいない
-anchors: ["Singularly Brilliant...But They're Not Replayable", "uncanny gift for gift-giving", "a whopping 13 times", "One playthrough is not one playthrough", "the [E]nd of YoRHa", "she’s had to kill him again", "Tree of Memory", "my time with NieR has come to an end"]
+anchors: ["Replicant ver.1.22474487139", "uncanny gift for gift-giving", "a whopping 13 times", "One playthrough is not one playthrough", "the [E]nd of YoRHa", "she’s had to kill him again", "Tree of Memory", "my time with NieR has come to an end"]
 ---
 ## 何の資料か
 SUPERJUMP の寄稿（遊ぶ人の論考）「NieR は比類なく素晴らしい、でも遊び直せない」。筆者は The Last of Us を13回遊んだ、物語のゲームの遊び直しに慣れた人。反対の資料（周回しない理由）として使う。
