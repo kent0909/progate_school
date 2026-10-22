@@ -295,6 +295,37 @@ if '中華そば' in R and 'こづかい(使途不明)' in R:
         p(f'| {q:.0%} | {(r + k * o) / (1 + o):.2f} |')
     p(f'\n読み：家計の中華そばの {r:.2f} 倍は、平日の客に家計に入らない層がいないときの上の端。その層が平日の4割なら約{(r + k * 0.4 / 0.6) / (1 + 0.4 / 0.6):.2f}倍、6割なら約{(r + k * 1.5) / 2.5:.2f}倍、8割なら1に近い（オフィス街）。q の資料はない（(c)）。\n')
 
+# ---------- Z. 規模別（従業者の段）の4つの年度：中華料理店・一般飲食店（08c の頁。2021・2023年度は WARP の写し） ----------
+def parse_size(f):
+    txt = subprocess.run(['pdftotext', '-layout', f, '-'], capture_output=True, text=True).stdout; recs = []
+    for page in txt.split('\f'):
+        lines = page.split('\n'); hi = None
+        for i, l in enumerate(lines):
+            if '従業者規模別経営指標' in l and '…' not in l: hi = i; break
+        if hi is None: continue
+        rec = {'name': lines[hi + 1].strip(), 'n': [int(x) for x in re.findall(r'調査対象数\s+(\d+)', page)], 'rows': {}}
+        for l in lines:
+            mm = re.match(r'\s*(\S+?(?:\(償却前\))?)\s*[（(]([^)）]+)[)）]\s+(.*)$', l)
+            if not mm: continue
+            vals = re.findall(r'-?[\d,]+\.\d+|-?[\d,]+|(?<!\S)-(?!\S)', mm.group(3))
+            if len(vals) < 4: continue
+            rec['rows'][mm.group(1)] = [None if v == '-' else float(v.replace(',', '')) for v in vals]
+        recs.append(rec)
+    return recs
+p('## Z. 従業者の段ごとの営業利益率（平均±標準偏差）の4つの年度（公庫の表の規模別の頁）\n')
+SZ = [('2019年度', 'r5-cal-jfc-shihyou-202008-08c.pdf'), ('2021年度', 'r6-fc-warp-jfc-202302-08c.pdf'), ('2023年度', 'r6-fc-warp-jfc-2024-08c.pdf'), ('2025年度', 'r4-calib-jfc-shihyou-08c.pdf')]
+for name in ['中華料理店', '一般飲食店']:
+    p(f'### {name}\n'); p('| 年度 | 調査対象数 | 1〜4人 | 5〜9人 | 10〜19人 | 20(21)〜49人 |'); p('|---|---|---|---|---|---|')
+    for y, fn in SZ:
+        g = raw('web', 'bizmgmt', fn)
+        if not os.path.exists(g): p(f'| {y} | ファイルなし | | | | |'); continue
+        r = [x for x in parse_size(g) if x['name'] == name]
+        if not r: p(f'| {y} | 規模別の頁なし | | | | |'); continue
+        v = r[0]['rows'].get('売上高営業利益率')
+        if not v: p(f'| {y} | {r[0]["n"]} | 行なし | | | |'); continue
+        p(f'| {y} | {r[0]["n"]} | ' + ' | '.join(f'{v[i]:g}±{v[i + 1]:g}' for i in range(0, 8, 2)) + ' |')
+    p('')
+
 # ---------- W. 地域で人の厚さ・家族の労働が違うか（肯定側の問い。経済センサス2016 第17表、ラーメン店・都道府県） ----------
 import csv, io
 f = raw('web', 'bizmgmt', 'r5-cal-estat-census2016-inshoku.html')
