@@ -315,7 +315,7 @@
 - stat-cpi2025 の1971〜2010年の月別の表、jfc-shihyou の算式の頁は流し読みした。
 - 原文が開けなかったもの：なし（27本すべて raw に原文があった）。ただし duke-elasticity と luca-yelp は原文そのものが書誌・要旨の頁で、論文の本文ではない。stockout-regensburg が引く先行研究（メタ分析など）、wiki の出典欄にある一次資料（コメダの目論見書・FC 開示書面・有報、力の源の有報）は開いていない（5.3で依頼）。
 - 2.6の20（関連記事の題）は本文を読んでいない。根拠としては扱わない。
-- 報告が引いていない取得物（fdma-fire・monodukuri・rudd-elasticity・pmc-elasticity・stockout-penn・wiki-stockout・wiki-gift・mirasapo-hojo・chusho-kakaku）は、中身があるか（殻・エラー頁か）だけを見た。fdma-fire と monodukuri は中身を読んでいない。
+- 報告が引いていない取得物（fdma-fire・monodukuri・rudd-elasticity・pmc-elasticity・stockout-penn・wiki-stockout・wiki-gift・mirasapo-hojo・chusho-kakaku）は、中身があるか（殻・エラー頁か）だけを見た。fdma-fire（消防白書の火災種別の節。飲食店の件数は図の画像の中）と monodukuri（公募要領の案内。採択率なし）は第3版で本文に目を通し、取得記録の「根拠にしない」の判断と合うことを確かめた。
 - BIZ-CALIB は、BIZ-MGMT の資料に頼る行のうち M2・M7・M15・M34 の4行と、第1版で見た成長の行（M42〜M48・M59〜M65）だけ見た。BIZ-CALIB 自身の資料（r4-calib-*）は開いていない。BIZ-RAMEN・BIZ-CALIB の判定はしていない。
 - DESIGN-RAMEN は BIZ-MGMT・BIZ-CALIB の M 行を引いた所と c.3・e.4・f.2・b.1 だけ読んだ。2.5節の「影響」の欄に挙げた DESIGN-RAMEN の行以外に、同じ誤りが流れていないかは確かめていない。
 - 4.1・4.2・5章で挙げた資料・会社の型（急拡大の失敗、FC の争い、非上場化など）は判定役の一般的な知識からの問いで、外部の資料で存在や数字を確かめていない。
