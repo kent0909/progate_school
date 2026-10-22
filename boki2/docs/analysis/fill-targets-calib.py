@@ -48,6 +48,8 @@ IT = {
  'RAMEN': (3, '新商品・ブーム・監修料・スープ（M14・R6・R10・R16）', '引き継ぎ'),
  'DEC': (4, '判断の分岐の重み（M35・M36・M38・M47・M49・M50）', '補填'),
  'MISC': (2, 'レモネード・パン屋・予報（M4 系の残り：M8・M27・M30）', '補填'),
+ 'SUMMER': (8, '猛暑・酷暑で客が減るか（M5 の「夏の谷を消す」の反対の事実。手元の力の源・ギフトの有報）', '補填'),
+ 'TAX': (4, '外食が消費税の引下げの対象外か（G2・K24、手元のリーフレット）', '補填'),
  'CALC': (2, '資料の値の計算・按分（中央値の按分・逆算・割り算）', '計算'),
  'CNT': (3, '(c) を30%以下に（受け入れの基準2）', '補填'),
  'LOGIC': (2, '論証の表の反対の事実を2つずつ', '補填'),
@@ -165,6 +167,19 @@ for i, l in enumerate(L, 1):
     if h2 == 'やっていないこと' and l.startswith('- ') and re.search(r'置き値|需要の式の一次資料', l):
         rows.append([f, i, '未達', '箇条', l[2:]])
 
+# ⑥ 取りまとめ役の追加（2026-10-22）：事実の判定役の docs/audit/BIZ-CALIB-v02-audit.md 3.6 の「取れなかった」の検証の表で、
+#    手元で答えられた・取れた可能性が高いとされた行。報告の行番号は判定書の表の行（BIZ-CALIB の行は括弧の中）
+AUD = 'audit/BIZ-CALIB-v02-audit.md'
+for i, it, name, text in [
+    (183, 'FOODPOI', '判定3.6', '全国の食中毒の表は取得済み（r4-calib-mhlw-shokuchu-r7、中身は xlsx）。楽をした'),
+    (184, 'PRICE', '判定3.6', '都市別の中華そばの価格は取れた可能性が高い（e-Stat のファイルは拡張子なしで取れる）'),
+    (185, 'JFC', '判定3.6', '公庫の2021・2023年度の表はファイル名の推測違いの可能性。国会図書館のアーカイブを試していない'),
+    (188, 'RENT', '判定3.6', '地方の賃料：手元のアットホーム13〜16頁・山岡家と幸楽苑の都道府県別の売上と店数を読んでいない'),
+    (189, 'SUMMER', '判定3.6', '季節：手元の力の源の有報（酷暑・厳寒は売上を下げる、梅雨は閑散期）とギフトの有報（猛暑日で来店頻度が減る）を読んでいない（BIZ-CALIB 580・745行）'),
+    (191, 'TAX', '判定3.6', '外食が消費税の引下げの対象外か：手元のリーフレットで答えられた（BIZ-CALIB 707・1111行）'),
+]:
+    rows.append([AUD, i, '判定の追加', name, text])
+
 out = []
 for n, (f, i, kind, name, text) in enumerate(rows, 1):
     if f == 'BIZ-CALIB.md': it = item_calib(kind, name, text, i)
@@ -184,7 +199,7 @@ with open(os.path.join(DOCS, 'analysis', 'fill-targets-calib.tsv'), 'w', encodin
 
 C = collections.Counter
 print('対象の総数:', len(out))
-for f in ('BIZ-CALIB.md', 'BIZ-SIMDESIGN.md'):
+for f in ('BIZ-CALIB.md', 'BIZ-SIMDESIGN.md', AUD):
     rr = [r for r in out if r[1] == f]
     print(f, len(rr), dict(C(r[3] for r in rr)))
 print('扱い:', dict(C(r[9] for r in out)))

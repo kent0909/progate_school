@@ -160,3 +160,9 @@ C157	BIZ-SIMDESIGN.md	514	推論	【推論】	QUALITY 6章（語句つきの出�
 C158	BIZ-SIMDESIGN.md	546	資料なし	【資料なし】	1章の表で【資料なし】	SDDESIGN	1	SIMDESIGN の設計の推論（案の性質・推し・差し替え）	設計
 C159	BIZ-SIMDESIGN.md	546	未達	箇条	**Game Dev Tycoon・Big Ambitions・カイロソフト・Two Point の需要の式の一次資料に当たれていない**。1章の表で【資料なし】。	DEMANDSRC	6	他作品の需要の式の一次資料（Game Dev Tycoon・Big Ambitions・カイロソフト・Two Point）	補填
 C160	BIZ-SIMDESIGN.md	548	未達	箇条	**検算の係数は置き値**。最適が動くかの形の性質だけを確かめた。M2・B2 の具体の係数の幅は BIZ-CALIB 0.2 の担当の数字で入れ直す前提。B2 は検算のスクリプトに入れていない（M2 と B1 だけ）。	COEF	6	検算の係数の置き値（外の選択 V0・潜在客・1杯の材料・客層の係数・地域の数字）	補填
+C161	audit/BIZ-CALIB-v02-audit.md	183	判定の追加	判定3.6	全国の食中毒の表は取得済み（r4-calib-mhlw-shokuchu-r7、中身は xlsx）。楽をした	SDDESIGN	1	SIMDESIGN の設計の推論（案の性質・推し・差し替え）	設計
+C162	audit/BIZ-CALIB-v02-audit.md	184	判定の追加	判定3.6	都市別の中華そばの価格は取れた可能性が高い（e-Stat のファイルは拡張子なしで取れる）	SDDESIGN	1	SIMDESIGN の設計の推論（案の性質・推し・差し替え）	設計
+C163	audit/BIZ-CALIB-v02-audit.md	185	判定の追加	判定3.6	公庫の2021・2023年度の表はファイル名の推測違いの可能性。国会図書館のアーカイブを試していない	SDDESIGN	1	SIMDESIGN の設計の推論（案の性質・推し・差し替え）	設計
+C164	audit/BIZ-CALIB-v02-audit.md	188	判定の追加	判定3.6	地方の賃料：手元のアットホーム13〜16頁・山岡家と幸楽苑の都道府県別の売上と店数を読んでいない	SDDESIGN	1	SIMDESIGN の設計の推論（案の性質・推し・差し替え）	設計
+C165	audit/BIZ-CALIB-v02-audit.md	189	判定の追加	判定3.6	季節：手元の力の源の有報（酷暑・厳寒は売上を下げる、梅雨は閑散期）とギフトの有報（猛暑日で来店頻度が減る）を読んでいない（BIZ-CALIB 580・745行）	SDDESIGN	1	SIMDESIGN の設計の推論（案の性質・推し・差し替え）	設計
+C166	audit/BIZ-CALIB-v02-audit.md	191	判定の追加	判定3.6	外食が消費税の引下げの対象外か：手元のリーフレットで答えられた（BIZ-CALIB 707・1111行）	SDDESIGN	1	SIMDESIGN の設計の推論（案の性質・推し・差し替え）	設計
