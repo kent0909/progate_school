@@ -865,7 +865,7 @@ Lemonade を骨組みにしない（[[web:simgames:r4-sim-lemonade-apple1979|「
 - **5.4 の札の差を測る検査は sim-check に実装していない**。
 - **Lemonade Stand の RND(-1) はエミュレータで確かめていない**。
 - **DESIGN-RAMEN・HANDOFF.md は書き換えていない**（依頼は自分の報告だけ）。
-- 検査の結果：`node boki2/tools/report-check.js boki2/docs/BIZ-SIMDESIGN.md` と `node boki2/tools/research-check.js` の結果は報告（取りまとめ役への返し）に書く。
+- 検査の結果（2026-10-22）：`node boki2/tools/report-check.js boki2/docs/BIZ-SIMDESIGN.md` は ✓（警告0）。`node boki2/tools/research-check.js` はこの報告が引く資料・ノートにエラー0（全体のエラー18件は別の担当の bizgrowth・bizmkt・ramen のノート）。
 
 ---
 
