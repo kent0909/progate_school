@@ -17,7 +17,7 @@
 #  - 全77項目が同時に条件Aを満たした最初の時刻。600日以内に届かなければ「届かない」。各条件40人の中央値（半数以上が届かなければ「届かない」）。
 import random, math, heapq, itertools
 DAY_GAPS = (7, 30, 90)
-def sim(seed, p0, lam, f, run_days=10, d=7, rise=False, n=77, horizon=600):
+def sim(seed, p0, lam, f, run_days=10, d=7, rise=False, n=77, horizon=600, qv=0.5):
     rnd = random.Random(seed)
     run_real = run_days * 7.0 / d            # 1周の実日数
     rate = lam / run_real                    # 1日あたりの本試験の文の問題の回数（1項目）
@@ -33,7 +33,7 @@ def sim(seed, p0, lam, f, run_days=10, d=7, rise=False, n=77, horizon=600):
     while ev:
         t, i, kd = heapq.heappop(ev)
         if t > horizon: break
-        p = 1 - (1 - p0) * (0.5 ** corr[i]) if rise else p0
+        p = 1 - (1 - p0) * (qv ** corr[i]) if rise else p0
         ok = rnd.random() < p
         if ok: corr[i] += 1
         if kd == 'exam':
@@ -52,13 +52,13 @@ def sim(seed, p0, lam, f, run_days=10, d=7, rise=False, n=77, horizon=600):
         if ngood == n:
             return t / run_real
     return float('inf')
-def med(**kw):
-    r = sorted(sim(2000 + s, **kw) for s in range(40))
+def med(people=40, **kw):
+    r = sorted(sim(2000 + s, **kw) for s in range(people))
     m = r[len(r) // 2]
     reach = sum(1 for x in r if x != float('inf'))
     return m, reach
-def cell(m, reach):
-    return ('届かない（40人中%d人）' % reach) if m == float('inf') else '%.1f周分（%d人）' % (m, reach)
+def cell(m, reach, people=40):
+    return ('届かない（%d人中%d人）' % (people, reach)) if m == float('inf') else '%.1f周分（%d人）' % (m, reach)
 print('表4 条件Aの入り口を実装に合わせた模擬：全77項目が同時に条件Aを満たす周分（中央値）と、600日以内に届いた人数（40人中）。1周10日・毎日')
 print()
 print('| λ（1項目・1周あたりの本試験の文の問題） | f（想起の誤りで外れる項目の割合） | 正解率 | 一定 | 上がる |')
@@ -74,3 +74,28 @@ print('|---|---|---|---|')
 for lam, p in itertools.product((1, 2, 4), (1.0, 0.9, 0.8)):
     a = med(p0=p, lam=lam, f=0.12, d=3); b = med(p0=p, lam=lam, f=0.12, d=3, rise=True)
     print('| %d | %.1f | %s | %s |' % (lam, p, cell(*a), cell(*b)))
+print()
+print('表6 正解のたびに誤る率に掛ける値 q の感度（版0.5。q=0.5 が表4の「上がる」）。1周10日・毎日・f=0.12・40人')
+print()
+print('| λ | 初回の正解率 | q=0.5 | q=0.7 | q=0.9 |')
+print('|---|---|---|---|---|')
+for lam, p in itertools.product((1, 4, 8), (0.9, 0.8)):
+    print('| %d | %.1f | %s |' % (lam, p, ' | '.join(cell(*med(p0=p, lam=lam, f=0.12, rise=True, qv=q)) for q in (0.5, 0.7, 0.9))))
+print()
+print('表7 人数の粗さ：一定90%・f=0.12 で、40人と200人を比べる（600日以内に届いた人の割合と中央値）')
+print()
+print('| λ | 40人 | 200人 |')
+print('|---|---|---|')
+for lam in (1, 4, 8):
+    out = []
+    for n in (40, 200):
+        m, reach = med(people=n, p0=0.9, lam=lam, f=0.12)
+        out.append('%s・届いた%.0f%%' % (cell(m, reach, n), 100.0 * reach / n))
+    print('| %d | %s |' % (lam, ' | '.join(out)))
+print()
+print('表8 いまの試作の流れに近い λ（replay-lambda-count.js：場面のある項目で1回の台本に最大約1.2問、全項目で割ると約0.6問）。λ=0.5・1.0、f=0.12')
+print()
+print('| λ | 正解率 | 一定 | q=0.5 | q=0.9 |')
+print('|---|---|---|---|---|')
+for lam, p in itertools.product((0.5, 1.0), (1.0, 0.9, 0.8)):
+    print('| %.1f | %.1f | %s | %s | %s |' % (lam, p, cell(*med(p0=p, lam=lam, f=0.12)), cell(*med(p0=p, lam=lam, f=0.12, rise=True, qv=0.5)), cell(*med(p0=p, lam=lam, f=0.12, rise=True, qv=0.9))))

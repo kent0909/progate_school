@@ -2243,5 +2243,15 @@
   "verdict": "gray",
   "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"
+ },
+ "kokkai.ndl.go.jp": {
+  "verdict": "gray",
+  "basis": "国会会議録検索システムは検索用APIを一般に公開している（利用の案内のページは未取得）。自動取得の明示の禁止は確認していない。robots.txt は research-fetch が自動で確かめる。1回だけ取得",
+  "checked": "2026-10-22"
+ },
+ "www.courts.go.jp": {
+  "verdict": "gray",
+  "basis": "裁判所ウェブサイトの判例検索。自動取得の明示の禁止は確認していない（利用規約の頁は未取得）。robots.txt は research-fetch が自動で確かめる。1回だけ取得",
+  "checked": "2026-10-22"
  }
 }
