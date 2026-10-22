@@ -1,0 +1,15 @@
+---
+src: web
+coll: simgames
+doc: r5-fv-applion-gamedevstory-p6
+file: r5-fv-applion-gamedevstory-p6.html
+sha256: aca611cfa1bc3cfe4f12e9ad2640520a54eaa8366db4537a6276663f83f1d209
+read: partial
+pages: このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない）
+anchors: ["ゲームを作って売るというシ","況を見て、とても気になった","たいに外国人ですが、英語よ","きなVtuberがプレイし","くさく進むスピード感、多種"]
+---
+APPLION に集められた App Store（日本）の『ゲーム発展国++』の口コミの6ページ目（101〜120件目）。20件を1件ずつ読み、符号を docs/analysis/funvisual-voices-codes.txt の「gds 6-1」〜「gds 6-20」に付けた（符号の定義は docs/analysis/funvisual-voices.js）。載っている口コミの星はすべて★5で、集約ページが選んだ肯定寄りの口コミである。
+
+このページの符号の内訳（多い順、1件が複数に入る）：C2 6・I 5・C1 4・V 4・W 3・D3 3・J2 2・HL 2・J1 2・D1 2・N 2・H3 2・A1 1・G2 1・K 1・L3 1・H1 1・U 1・X 1・O 1・Y 1・E 1・FR 1。
+
+PAGEMEMO

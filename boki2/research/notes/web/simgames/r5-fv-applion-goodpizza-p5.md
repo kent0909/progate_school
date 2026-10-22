@@ -1,0 +1,15 @@
+---
+src: web
+coll: simgames
+doc: r5-fv-applion-goodpizza-p5
+file: r5-fv-applion-goodpizza-p5.html
+sha256: 1388b07a4c57b57312c8068b106c5d218922f2d18059bb630c68c3f439abe59a
+read: partial
+pages: このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない）
+anchors: ["で大好きなゲームなんだがソ","ーフピザチーズ抜きでと頼ま","し系なイラストで内容もいい","てもやっても次の目標ができ","てます、でも一つわからなの"]
+---
+APPLION に集められた App Store（日本）の『グッドピザ、グレートピザ』の口コミの5ページ目（81〜100件目）。20件を1件ずつ読み、符号を docs/analysis/funvisual-voices-codes.txt の「pizza 5-1」〜「pizza 5-20」に付けた（符号の定義は docs/analysis/funvisual-voices.js）。載っている口コミの星はすべて★5で、集約ページが選んだ肯定寄りの口コミである。
+
+このページの符号の内訳（多い順、1件が複数に入る）：RD 5・H1 4・F 4・R 3・M1 2・C2 2・H2 2・C1 2・ED 2・T 1・L1 1・S 1・E 1・P 1・D3 1・J1 1・J2 1・O 1・L2 1。
+
+PAGEMEMO

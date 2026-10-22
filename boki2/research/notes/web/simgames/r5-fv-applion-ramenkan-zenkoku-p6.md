@@ -1,0 +1,15 @@
+---
+src: web
+coll: simgames
+doc: r5-fv-applion-ramenkan-zenkoku-p6
+file: r5-fv-applion-ramenkan-zenkoku-p6.html
+sha256: 18b6f4bce953381dd61321725d1813188b4ab8690fb17b9dd18fb17b40af9876
+read: partial
+pages: このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない）
+anchors: ["な誤作動もなく、毎日ログイ","ーメン製作はもとより、スゴ","ーメンを作るアプリでトップ","ロソフトさんのゲーム大好き","さいキャラがイソイソと動き"]
+---
+APPLION に集められた App Store（日本）の『こだわりラーメン館〜全国編〜』の口コミの6ページ目（101〜120件目）。20件を1件ずつ読み、符号を docs/analysis/funvisual-voices-codes.txt の「zenkoku 6-1」〜「zenkoku 6-20」に付けた（符号の定義は docs/analysis/funvisual-voices.js）。載っている口コミの星はすべて★5で、集約ページが選んだ肯定寄りの口コミである。
+
+このページの符号の内訳（多い順、1件が複数に入る）：J1 6・K 6・J2 6・W 5・A1 4・D3 2・C1 2・C2 2・O 2・H4 2・R 2・D1 1・P 1・SG 1・E 1・T 1・L1 1・I 1・H3 1・X 1・A3 1・U 1・B 1・DF 1。
+
+PAGEMEMO

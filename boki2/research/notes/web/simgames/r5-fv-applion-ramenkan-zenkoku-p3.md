@@ -1,0 +1,15 @@
+---
+src: web
+coll: simgames
+doc: r5-fv-applion-ramenkan-zenkoku-p3
+file: r5-fv-applion-ramenkan-zenkoku-p3.html
+sha256: 22f2a083440b58171968eda615093f72d14c69fddb52d5de39be95cf0f9c38a0
+read: partial
+pages: このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない）
+anchors: ["最初は大会とか勝てなかった","ことがたくさんあって飽きな","番最初なら無課金でとても楽","初は、たくさんやることがあ","しいですけど箱庭シティ鉄道"]
+---
+APPLION に集められた App Store（日本）の『こだわりラーメン館〜全国編〜』の口コミの3ページ目（41〜60件目）。20件を1件ずつ読み、符号を docs/analysis/funvisual-voices-codes.txt の「zenkoku 3-1」〜「zenkoku 3-20」に付けた（符号の定義は docs/analysis/funvisual-voices.js）。載っている口コミの星はすべて★5で、集約ページが選んだ肯定寄りの口コミである。
+
+このページの符号の内訳（多い順、1件が複数に入る）：J2 6・C2 6・J1 5・W 5・H1 4・D1 3・O 3・SG 3・K 3・L3 2・C1 2・X 2・A2 2・A1 2・H3 2・F 2・D2 2・V 1・L1 1・H4 1・S 1・E 1・N 1・D3 1。
+
+PAGEMEMO

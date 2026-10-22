@@ -1,0 +1,15 @@
+---
+src: web
+coll: simgames
+doc: r5-fv-applion-gamedevstory-p3
+file: r5-fv-applion-gamedevstory-p3.html
+sha256: 49dc8b4ce3b6b7050a9058f698b7ee28f59849bd6faebed2edf685b38f702c81
+read: partial
+pages: このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない）
+anchors: ["ームを作るゲームっていう他","気付いたら何時間も遊んでし","ダウンロード。ゲームの名付","こんにちは！私はカイロソフ","ランプリ取るために2周しま"]
+---
+APPLION に集められた App Store（日本）の『ゲーム発展国++』の口コミの3ページ目（41〜60件目）。20件を1件ずつ読み、符号を docs/analysis/funvisual-voices-codes.txt の「gds 3-1」〜「gds 3-20」に付けた（符号の定義は docs/analysis/funvisual-voices.js）。載っている口コミの星はすべて★5で、集約ページが選んだ肯定寄りの口コミである。
+
+このページの符号の内訳（多い順、1件が複数に入る）：C2 8・V 7・S 4・D3 4・O 3・B 3・H1 2・W 2・J2 2・A1 2・HL 2・K 2・I 2・A2 1・G2 1・L2 1・C1 1・D1 1・J1 1・A3 1・M2 1・F 1・H3 1・X 1・E 1。
+
+PAGEMEMO
