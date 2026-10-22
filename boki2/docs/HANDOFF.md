@@ -47,6 +47,7 @@
 - **ラーメン屋への作り直し（2026-10-22）**：設計書 `docs/DESIGN-RAMEN.md`（Fable、(a)〜(n) 14章）と試算 `docs/analysis/ramen-goal-estimate.js` が届いた。オーナーに n章の15件の決定を依頼中。決定が来たら縦の切り身（居抜き1号店の1年目＋決算＋翌4月）を作り、面白さの関門 F1〜F7 で遊んでもらう
 - 情報収集の規約まわりを止まらない形に改めた（research/README.md 末尾。禁止ページは WANTED.md に回して続行、site-policy.json で判定を使い回す、オーナーが開いた資料は research-import.js で via: owner）。Coffee Inc 2 の代わりの公式窓口を別の担当が調査中
 - **オーナーの指摘（2026-10-22）**：①Coffee Inc 2 の「褒められている所」の分析が浅い（変数の多さ・深さ・自由度がスルメの源では？）＝調査の設計が「簿記に使える所と不満」に寄っていた ②DESIGN-RAMEN に楽な打ち手・抜本的な開発を避ける打ち手がある ③表現の一律禁止はやりすぎ、今の絵はチープ。対応：Coffee Inc 2 の担当に変数の棚卸し・褒め言葉の分類・表現のエッセンスを追加、比較作品の面白さと表現の調査（BIZ-FUNVISUAL.md）を別の担当に依頼、m.2 の写す・写さないを改めた。両方が届いたら Fable に DESIGN-RAMEN の改訂（楽な打ち手の洗い出しと代案・変数の広さ・表現の章）を頼む。15件の決定はその後に出し直す
+- **傾向と対策（2026-10-22）**：原因と決まりを docs/QUALITY.md に（依頼文の型 BRIEF-TEMPLATE.md、tools/report-check.js、簡略化の台帳、書いた本人以外の判定）。CLAUDE.md にも1行。DESIGN-RAMEN が使った報告7本（BIZ-CALIB・LAW・MGMT・MKT・RAMEN・SIMDESIGN・DESIGN-ROUND2）を別の担当が再点検中 → docs/audit/*-audit.md。アウト・要補強は、その依頼文で調べ直し・書き直しを頼む
 - 2027年度区分表への更新、外部資料の全文読解、設計改訂（案F）、5章の試作改修、6章の問題と検定会場：**完了**
 - 検定会場の大問は85題（第2問30・第3問15・第4問22・第5問18）。全題に範囲タグと題ごとの先輩の下書き。2級65項目すべてに大問がある（coverage）
 - **2年目（docs/YEAR2.md、Fable の設計）を実装中**：`js/sim/year2.js`（index.html で scenario.js の次に読む）
