@@ -1,0 +1,85 @@
+# BIZ-SIMDESIGN 0.2：APPLION の口コミ83件を1件ずつ分類した表。id の頭：c=RCT Classic（r6-sd-applion-rctclassic）g=Game Dev Tycoon（r6-sd-applion-gamedevtycoon）si=SimCity BuildIt iOS（r6-sd-applion-simcitybuildit）sa=同 Android（r6-sd-applion-simcitybuildit-android）rt=RCT Touch（r6-sd-applion-rcttouch）pc=Pocket City（r6-sd-applion-pocketcity）。並びは各ページの上から。期間は本文に書いてあるときだけ。
+id	作品	星	年	期間	褒め	不満	辞めた
+c1	RCTClassic	4	2026	不明	値段;互換	AI動き	
+c2	RCTClassic	5	2026	不明	見た目		
+c3	RCTClassic	5	2017	不明	-	説明不足	
+c4	RCTClassic	5	2019	不明	懐かしさ		
+c5	RCTClassic	5	2023	不明	懐かしさ		
+g1	GDT	4	2017	不明	持ち運び	バグ;UI	
+g2	GDT	5	2022	不明	奥深さ;考える;値段		
+g3	GDT	5	2020	不明	中毒性		
+g4	GDT	5	2019	不明	-	言語	
+si1	SCB-iOS	5	2021	不明	作り込み;対人	序盤資金	
+si2	SCB-iOS	5	2025	不明	考える;眺める;トラブル		
+si3	SCB-iOS	5	2025	長年	奥深さ;眺める	UI	
+si4	SCB-iOS	5	2021	数年	成長;対人;懐かしさ	災害;バグ	
+si5	SCB-iOS	5	2021	不明	眺める	序盤資金	
+si6	SCB-iOS	5	2025	不明	-	課金	
+si7	SCB-iOS	5	2024	不明	考える	作業	
+si8	SCB-iOS	5	2022	不明	-	課金	
+si9	SCB-iOS	5	2026	不明	-	バグ;中身	
+si10	SCB-iOS	5	2024	不明	解放;時間	序盤資金	
+si11	SCB-iOS	5	2025	不明	-	ずる	
+si12	SCB-iOS	5	2025	不明	眺める;作り込み	UI	
+si13	SCB-iOS	5	2024	不明	考える;作り込み	対人で壊される	
+si14	SCB-iOS	5	2023	不明	作り込み	UI	
+si15	SCB-iOS	5	2025	数年	対人	課金	
+si16	SCB-iOS	5	2024	数年	対人;時間	ずる	
+si17	SCB-iOS	5	2026	数年	-	バグ	
+si18	SCB-iOS	5	2025	不明	時間	作業	
+si19	SCB-iOS	5	2022	不明	値段	作業	作業
+si20	SCB-iOS	5	2026	数年	時間		
+sa1	SCB-And	5	2021	1年	成長;作り込み;眺める		
+sa2	SCB-And	5	2026	数年	対人;更新;値段		
+sa3	SCB-And	5	2024	不明	ユーモア	説明不足	
+sa4	SCB-And	5	2026	不明	対人	-	
+sa5	SCB-And	5	2020	不明	対人;値段	UI	
+sa6	SCB-And	5	2022	1年	成長;眺める	序盤資金	
+sa7	SCB-And	5	2024	1年	-	ずる	
+sa8	SCB-And	5	2021	不明	-	UI;作業	
+sa9	SCB-And	5	2026	不明	-	市場の不況	
+sa10	SCB-And	4	2020	不明	対人	UI	
+sa11	SCB-And	5	2021	不明	眺める	作業	繰り返し離脱
+sa12	SCB-And	5	2019	不明	眺める;時間		
+sa13	SCB-And	5	2022	数年	対人;考える		
+sa14	SCB-And	5	2020	不明	対人	作業;UI	
+sa15	SCB-And	5	2025	不明	懐かしさ	作業	
+sa16	SCB-And	5	2022	不明	考える;周回		
+sa17	SCB-And	5	2021	数年	時間;考える		
+sa18	SCB-And	5	2022	不明	対人	作り込み不足	
+sa19	SCB-And	5	2023	不明	成長;対人		
+sa20	SCB-And	5	2021	不明	-	UI	
+rt1	RCT-Touch	5	2023	不明	作り込み	前作より少ない	
+rt2	RCT-Touch	5	2020	不明	作り込み;値段	作業	
+rt3	RCT-Touch	5	2020	不明	考える;成長	説明不足	
+rt4	RCT-Touch	5	2024	不明	作り込み	課金	
+rt5	RCT-Touch	5	2021	不明	解放;成長;中毒性		
+rt6	RCT-Touch	5	2024	不明	値段	UI	
+rt7	RCT-Touch	5	2021	不明	中毒性	説明不足;対人	
+rt8	RCT-Touch	5	2019	不明	作り込み		
+rt9	RCT-Touch	5	2020	長年	考える;成長	説明不足	
+rt10	RCT-Touch	5	2020	不明	-	作業	
+rt11	RCT-Touch	5	2019	不明	考える	序盤資金	
+rt12	RCT-Touch	5	2020	不明	考える	目標喪失	
+rt13	RCT-Touch	5	2024	不明	成長	目標喪失	目標喪失
+rt14	RCT-Touch	5	2020	不明	値段	課金	
+rt15	RCT-Touch	5	2023	不明	作り込み		
+rt16	RCT-Touch	5	2020	不明	値段	UI	
+rt17	RCT-Touch	5	2025	不明	考える		
+rt18	RCT-Touch	5	2019	不明	眺める;作り込み		
+rt19	RCT-Touch	5	2020	不明	眺める	課金	
+rt20	RCT-Touch	5	2019	不明	考える;成長		
+pc1	PocketCity	5	2020	不明	作り込み;値段	簡単すぎ	
+pc2	PocketCity	5	2019	不明	値段;時間	中身	
+pc3	PocketCity	5	2018	数時間	見た目;作り込み	UI	
+pc4	PocketCity	5	2023	不明	値段		
+pc5	PocketCity	5	2020	不明	時間	バグ	
+pc6	PocketCity	5	2021	不明	値段;懐かしさ		
+pc7	PocketCity	5	2021	不明	作り込み;値段		
+pc8	PocketCity	4	2021	不明	-	バグ	
+pc9	PocketCity	5	2020	不明	時間		
+pc10	PocketCity	4	2019	不明	-	作り込み不足	
+pc11	PocketCity	4	2018	2日	-	中身	中身が薄く2日で終了
+pc12	PocketCity	5	2022	不明	時間;中毒性	単調	
+pc13	PocketCity	5	2022	不明	懐かしさ;中毒性		
+pc14	PocketCity	5	2020	不明	奥深さ		
