@@ -23,12 +23,28 @@ const append = (o) => fs.appendFileSync(L, JSON.stringify({ t: new Date().toISOS
 
 if (skip) { append({ url: url || '', status: 'skipped', reason: skip, via: 'research-fetch' }); console.log('取得しないことを記録した'); process.exit(0); }
 if (!url) die('--url が必要');
-if (S.tos.verdict === 'no-automation') die(`${S.name} は利用規約で自動取得が禁止されている（${S.tos.note}）`);
-// サイトを横断する取得元（tos.verdict が per-site）は、取得ごとにそのサイトの規約確認の結果を付ける
-const [tosV, tosB, tosC] = ['--tos-verdict', '--tos-basis', '--tos-checked'].map(opt);
+// 自動取得が禁止のページで作業を止めない：「取らない」記録と、オーナーに頼むページの一覧（research/WANTED.md）への追記だけして、
+// 終了コード3で返す。調べる側は代わりの資料（二次資料・別の公式窓口）で続け、オーナーへの依頼は区切りでまとめて出す（毎回は止めない）
+const wanted = (why) => {
+  append({ url: url || '', status: 'skipped', reason: why, via: 'research-fetch' });
+  const W = path.join(R, 'WANTED.md');
+  const cur = fs.existsSync(W) ? fs.readFileSync(W, 'utf8') : '# オーナーに開いて保存してほしいページ\n\n自動取得が規約で禁止されているページ。research-fetch が自動で追記する。保存のしかたと取り込み方は research/README.md の「オーナーが開いた資料」。\n\n| 追加日 | 取得元/集合/文書 | URL | 理由 | 状態 |\n|---|---|---|---|---|\n';
+  if (url && !cur.includes(url)) fs.writeFileSync(W, cur + `| ${new Date().toISOString().slice(0, 10)} | ${src}/${coll}/${doc} | ${url} | ${why.replace(/\|/g, '／')} | 未 |\n`);
+  console.log(`取得しない（${why}）。WANTED.md に追加した。止まらずに代わりの資料で続けること`);
+  process.exit(3);
+};
+if (S.tos.verdict === 'no-automation') wanted(`${S.name} は利用規約で自動取得が禁止（${S.tos.note}）`);
+// サイトを横断する取得元（tos.verdict が per-site）は、取得ごとにそのサイトの規約確認の結果を付ける。
+// 一度確認したホストの結果は research/site-policy.json に残り、次からは誰も確認し直さなくてよい（付けた場合はその結果で上書き）
+let [tosV, tosB, tosC] = ['--tos-verdict', '--tos-basis', '--tos-checked'].map(opt);
 if (S.tos.verdict === 'per-site') {
-  if (!tosV || !tosB) die('このサイトの利用規約・robots.txt を確認し、--tos-verdict ok|gray|no-automation と --tos-basis "根拠（規約のURLと条項、robotsの結果）" を付けること');
-  if (tosV === 'no-automation') die('規約で自動取得が禁止されているサイトは取得しない');
+  const PP = path.join(R, 'site-policy.json');
+  const P = fs.existsSync(PP) ? JSON.parse(fs.readFileSync(PP, 'utf8')) : {};
+  const h = url ? new URL(url).host : '';
+  if (tosV && tosB) { P[h] = { verdict: tosV, basis: tosB, checked: tosC || new Date().toISOString().slice(0, 10) }; fs.writeFileSync(PP, JSON.stringify(P, null, 1) + '\n'); }
+  else if (P[h]) ({ verdict: tosV, basis: tosB, checked: tosC } = P[h]);
+  if (!tosV || !tosB) die('このサイトの利用規約・robots.txt を一度だけ確認し、--tos-verdict ok|gray|no-automation と --tos-basis "根拠（規約のURLと条項、robotsの結果）" を付けること（結果は site-policy.json に残る）。\n判定の目安：規約に自動取得・スクレイピング・bot の明示的な禁止がある→no-automation。規約に明示がない／規約ページが開けないが robots.txt が許している→gray として取得してよい');
+  if (tosV === 'no-automation') wanted(`規約で自動取得が禁止のサイト（${tosB}）`);
 }
 if (S.tos.verdict === 'unchecked') die(`${S.name} の利用規約がまだ確認されていない。sources.json の tos を埋めてから取得すること`);
 const host = new URL(url).host;

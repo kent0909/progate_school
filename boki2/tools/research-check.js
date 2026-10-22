@@ -148,10 +148,10 @@ for (const e of ledger) {
   // 取得しなかった記録（skipped）は、URL がなくてよい（取得できなかった・取らないと決めた理由が要る）
   if (e.status === 'skipped' && !e.url) { if (!e.reason) err('記録', `${e._at} 取得しなかった理由がない`); continue; }
   try { host = new URL(e.url).host; } catch (x) { err('記録', `${e._at} URL が不正`); }
-  if (s.tos.verdict === 'per-site' && e.status !== 'skipped' && (!e.tos || !e.tos.verdict || !e.tos.basis)) err(e.src, `${e._at} サイトごとの規約確認の記録（tos.verdict・tos.basis）がない（${e.url}）`);
+  if (s.tos.verdict === 'per-site' && e.status !== 'skipped' && e.via !== 'owner' && (!e.tos || !e.tos.verdict || !e.tos.basis)) err(e.src, `${e._at} サイトごとの規約確認の記録（tos.verdict・tos.basis）がない（${e.url}）`);
   if (s.tos.verdict === 'per-site' && e.tos && e.tos.verdict === 'no-automation' && !e.tos.owner_approved) err(e.src, `${e._at} 規約で自動取得が禁止のサイトを取得した（${e.url}）`);
   if (host && !s.hosts.includes('*') && !s.hosts.includes(host)) err(e.src, `${e._at} ${host} は台帳の hosts にない（取得元の登録漏れ）`);
-  const auto = e.via && e.via !== 'manual-view';
+  const auto = e.via && e.via !== 'manual-view' && e.via !== 'owner';
   if (auto && s.tos.verdict === 'no-automation' && !(e.purpose === 'tos-check' && (s.tos.urls || []).includes(e.url))) (tosHits[e.src] = tosHits[e.src] || []).push(e);
   if (!e.t) err(e.src, `${e._at} 取得時刻がない`);
 }

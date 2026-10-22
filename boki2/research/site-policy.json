@@ -1,0 +1,1262 @@
+{
+ "www.frontiersin.org": {
+  "verdict": "ok",
+  "basis": "Frontiers誌はCC BYのオープンアクセス。robots.txtは記事を許可(/images/等のみ禁止)",
+  "checked": "2026-10-20"
+ },
+ "remix.berklee.edu": {
+  "verdict": "ok",
+  "basis": "Berklee の機関リポジトリ（bepress Digital Commons）で著者版を一般公開。robots.txt は /cgi/ の管理系スクリプトのみ禁止で viewcontent.cgi は禁止されていない（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "pdf.poojaagarwal.com": {
+  "verdict": "ok",
+  "basis": "著者本人のサイトで一般公開している論文PDF（retrievalpractice.org/review から誰でもダウンロード可とリンク）。pdf.poojaagarwal.com の robots.txt は応答なし（制限の表明なし）。利用規約ページなし（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "www.psychologie.uni-wuerzburg.de": {
+  "verdict": "ok",
+  "basis": "ヴュルツブルク大学の著者所属研究室が公開する受理原稿。robots.txt は /fileadmin/42010000/app-60a 等の別ディレクトリのみ禁止（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "summit.sfu.ca": {
+  "verdict": "ok",
+  "basis": "サイモンフレーザー大学の機関リポジトリ Summit で一般公開の学位論文。robots.txt は /admin/ /user/ /search/ 等のみ禁止（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "pmc.ncbi.nlm.nih.gov": {
+  "verdict": "ok",
+  "basis": "PMC の robots.txt は /articles/ を Allow（Crawl-delay 1）。PMC Copyright Notice：個人の閲覧・研究目的の利用は可、原文の再配布はしない。米国政府助成の公開論文",
+  "checked": "2026-10-22"
+ },
+ "www.mgtco.co.jp": {
+  "verdict": "ok",
+  "basis": "robots.txt なし（/robots.txt はトップHTMLを返す）。サイトに利用規約ページはなく privacy.html に転載・自動取得の禁止条項なし（2026-10-20確認）。研修案内の公開ページ",
+  "checked": "2026-10-20"
+ },
+ "link.springer.com": {
+  "verdict": "ok",
+  "basis": "link.springer.com robots.txt: User-agent * Allow /article/ ; article is Open Access under CC BY 4.0 (stated on article page)",
+  "checked": "2026-10-21"
+ },
+ "amamatsusae.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "maitake-blog.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "igcn.hateblo.jp": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "sasanopan.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "arte-life.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "wakabame.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "comchama.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "dokuboki.hateblo.jp": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "conyblog.hatenablog.com": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "maruoka88.hateblo.jp": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "keiri.hatenablog.jp": {
+  "verdict": "ok",
+  "basis": "はてな利用規約（https://policies.hatena.ne.jp/rule）は機械的手段でアクセスする者をゲストユーザーとして定義し自動取得の禁止規定なし。各ブログの robots.txt は /api/ /draft/ /preview 以外を許可。個人の公開記事を分析のため1回取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "cgu.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）。robots.txt は /record/ のファイルを禁止していない。紀要論文のオープンアクセス公開",
+  "checked": "2026-10-20"
+ },
+ "otaru-uc.ac.jp": {
+  "verdict": "ok",
+  "basis": "otaru-uc.ac.jp の robots.txt は wp-content/uploads を禁じていない。大学の公開した研修案内PDF（閲覧のみ、原文はリポジトリに入れない）。2026-10-20確認",
+  "checked": "2026-10-20"
+ },
+ "business-games.jp": {
+  "verdict": "ok",
+  "basis": "robots.txt は /wp-admin/ 以外を許可。privacypolicy に転載・自動取得の禁止条項なし（2026-10-20確認）。公開のコラム",
+  "checked": "2026-10-20"
+ },
+ "www.insource.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt なし（404）。サイト内に利用規約・サイトポリシーのページが見つからない（2026-10-20確認）。著作権表示はあるため、取得物は照合用にのみ保存し分析・要約だけを書く",
+  "checked": "2026-10-20"
+ },
+ "research.ou.nl": {
+  "verdict": "ok",
+  "basis": "第一著者の所属（オランダ公開大学）の機関リポジトリが公開する原稿。robots.txt は rss/xls の出力のみ禁止、Crawl-Delay 5（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "www.davidlewisphd.com": {
+  "verdict": "gray",
+  "basis": "大学教員の授業読書資料として置かれた写し。robots.txt未設定。出版社公認ではないためgray",
+  "checked": "2026-10-20"
+ },
+ "www.nature.com": {
+  "verdict": "ok",
+  "basis": "Humanities and Social Sciences Communications（OA誌）の撤回告知ページ。nature.com の robots.txt は articles を許可（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "pboki.com": {
+  "verdict": "gray",
+  "basis": "pboki.com に利用規約ページなし（サイト運営者ページ https://pboki.com/site は著作権表示のみで自動取得の禁止規定なし）。robots.txt は /wp-admin/ 以外を許可。分析のため1ページずつ取得し転載しない",
+  "checked": "2026-10-20"
+ },
+ "www.ebi.ac.uk": {
+  "verdict": "ok",
+  "basis": "www.ebi.ac.uk robots.txt: no rule for User-agent * on /europepmc/webservices; Europe PMC REST API is public and full text is served only for Open Access articles",
+  "checked": "2026-10-21"
+ },
+ "ipu.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "kwansei.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "our.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "hakodate-u.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "ynu.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "www.utupub.fi": {
+  "verdict": "ok",
+  "basis": "トゥルク大学の機関リポジトリ UTUPub、CC BY-NC。robots.txt は /search /admin 等のみ禁止（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "files.eric.ed.gov": {
+  "verdict": "ok",
+  "basis": "ERIC（米国教育省）の全文公開PDF。eric.ed.gov の robots.txt は全許可",
+  "checked": "2026-10-20"
+ },
+ "komazawa-u.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "www.zb.em-net.ne.jp": {
+  "verdict": "ok",
+  "basis": "個人の教育用リンク集（河野氏の会計ポータル）。robots.txt なし（404）。ページ・サイトに転載や自動取得の禁止の記載なし（2026-10-20確認）。リンク先を辿るための一覧として取得",
+  "checked": "2026-10-20"
+ },
+ "k-kentan.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "kkawano.com": {
+  "verdict": "ok",
+  "basis": "川野克典（日本大学）の個人サイト。robots.txt なし（404）。転載・自動取得の禁止の記載なし（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "www.smg-gr.jp": {
+  "verdict": "ok",
+  "basis": "robots.txt は /app/ /j/ 以外を許可、Crawl-Delay 5（取得間隔を5秒以上あけた）。ショップ利用規約(/j/shop/terms)は教材の無断複製・改変を禁じるがサイト閲覧・取得の禁止はなし（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "saijo.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "cuc.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "doshisha.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "aichiu.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "sakushin-u.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "seinan-gu.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "ngu.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）の紀要論文オープンアクセス。robots.txt は /record/ のファイルを禁止していない",
+  "checked": "2026-10-20"
+ },
+ "keiho.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "www.cst.nihon-u.ac.jp": {
+  "verdict": "ok",
+  "basis": "日本大学理工学部の学術講演会論文（公開PDF）。robots.txt は全許可",
+  "checked": "2026-10-20"
+ },
+ "www.value-press.com": {
+  "verdict": "ok",
+  "basis": "プレスリリース配信サイト（配信・転載を前提とした公開記事）。robots.txt は /rss/ 等のみ禁止",
+  "checked": "2026-10-20"
+ },
+ "dime.jp": {
+  "verdict": "gray",
+  "basis": "dime.jp robots.txt は管理画面と検索のみ Disallow。記事の単発閲覧、転載しない。規約本文は未確認のため gray",
+  "checked": "2026-10-22"
+ },
+ "matsumoto-u.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "selfdeterminationtheory.org": {
+  "verdict": "ok",
+  "basis": "selfdeterminationtheory.org の robots.txt は wp-admin 以外を許可、Crawl-delay 10。研究者が公開する論文PDF。1件のみ取得",
+  "checked": "2026-10-21"
+ },
+ "arxiv.org": {
+  "verdict": "ok",
+  "basis": "arXiv。robots.txt は /pdf を許可（Crawl-delay 15、無差別な自動取得は不可とあるため1本だけ取得）。転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "documents.worldbank.org": {
+  "verdict": "ok",
+  "basis": "世界銀行 Policy Research Working Paper（CC BY 3.0 IGO）。documents.worldbank.org の robots.txt は Allow:* で /apps/ 等のみ禁止（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "ndownloader.figshare.com": {
+  "verdict": "ok",
+  "basis": "ラフバラ大学の機関リポジトリ（figshare基盤）、CC BY-NC-ND 4.0 の著者版（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "yamanashi.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "documents1.worldbank.org": {
+  "verdict": "ok",
+  "basis": "世界銀行 Policy Research Working Paper（CC BY 3.0 IGO）。documents.worldbank.org の robots.txt は Allow:* で /apps/ 等のみ禁止。documents.worldbank.org からの http へのリダイレクト先を https で直接取得（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "kurume.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "hue.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）でオープンアクセス公開。robots.txt は /admin /api /search 等のみ禁止で /record/*/files は許可。規約に自動取得の禁止なし。個人の学習設計の分析のみ・転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "www.bugin-eri.co.jp": {
+  "verdict": "ok",
+  "basis": "武蔵野銀行系シンクタンクのセミナー案内PDF（公開）。robots.txt なし（404）、転載・自動取得の禁止の記載なし",
+  "checked": "2026-10-20"
+ },
+ "www.irrodl.org": {
+  "verdict": "ok",
+  "basis": "IRRODL はオープンアクセス誌（CC BY）。robots.txt は /cache/ のみ禁止、Crawl-delay 60（単発の取得）（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "hrmars.com": {
+  "verdict": "ok",
+  "basis": "IJARBSS（HRMARS）オープンアクセス誌。robots.txt は User-agent * Allow / Crawl-delay 3。転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "pesaagora.com": {
+  "verdict": "ok",
+  "basis": "ACCESS 誌（PESA Agora）のアーカイブ公開PDF。robots.txt は /wp-admin/ のみ禁止。転載しない（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "repositorio.iscte-iul.pt": {
+  "verdict": "ok",
+  "basis": "ISCTE リスボン大学の機関リポジトリ、CC BY-NC-ND の著者版。robots.txt は /search /admin 等のみ禁止（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "hachinohe-hachitan.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）の紀要論文オープンアクセス。robots.txt は /record/ のファイルを禁止していない",
+  "checked": "2026-10-20"
+ },
+ "nakamura-u.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）の紀要論文オープンアクセス。robots.txt は /record/ のファイルを禁止していない",
+  "checked": "2026-10-20"
+ },
+ "www.cuc.ac.jp": {
+  "verdict": "ok",
+  "basis": "千葉商科大学が公開する研究報告書PDF。robots.txt はHTML（実質なし）で禁止なし、転載・自動取得の禁止の記載なし",
+  "checked": "2026-10-20"
+ },
+ "www.jsise.org": {
+  "verdict": "ok",
+  "basis": "教育システム情報学会の全国大会講演論文（公開PDF）。robots.txt は /wp-admin/ のみ禁止",
+  "checked": "2026-10-20"
+ },
+ "takushoku-u.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "拓殖大学学術リポジトリ（JAIRO Cloud）で一般公開。robots.txt は /admin/ /api/ /search 等のみ禁止（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "public.websites.umich.edu": {
+  "verdict": "ok",
+  "basis": "第二著者（ミシガン大学）の大学サイトで公開されている原稿。robots.txt は全面許可（2026-10-20 確認）",
+  "checked": "2026-10-20"
+ },
+ "hirosaki.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "機関リポジトリ（JAIRO Cloud）。robots.txt は /record/ のファイルを禁止していない。紀要のオープンアクセス（前回は一時的に502）",
+  "checked": "2026-10-20"
+ },
+ "panasonic.co.jp": {
+  "verdict": "ok",
+  "basis": "パナソニック系の研修案内PDF（公開）。robots.txt なし（404）、転載・自動取得の禁止の記載はPDFになし",
+  "checked": "2026-10-20"
+ },
+ "nozomi-tax.jp": {
+  "verdict": "ok",
+  "basis": "会計事務所の公開PDF。robots.txt は /wp-admin/ のみ禁止。転載・自動取得の禁止の記載なし",
+  "checked": "2026-10-20"
+ },
+ "article.ejinzai.jp": {
+  "verdict": "ok",
+  "basis": "e-人材の公開インタビュー記事。robots.txt は全許可。転載・自動取得の禁止条項は確認できず（2026-10-20）",
+  "checked": "2026-10-20"
+ },
+ "www.net-school.co.jp": {
+  "verdict": "gray",
+  "basis": "ネットスクールのサイトには利用規約ページが見当たらず（サイトマップ・トップのリンクはプライバシーポリシーのみ）、自動取得を禁じる規定は確認できない。robots.txt は /wp/wp-admin/ 以外を許可",
+  "checked": "2026-10-20"
+ },
+ "celemi.com": {
+  "verdict": "ok",
+  "basis": "robots.txt は全許可・Crawl-delay 10（取得間隔を10秒以上あけた）。サイトに利用規約ページはなく cookie-policy のみ（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "play.google.com": {
+  "verdict": "ok",
+  "basis": "Google 利用規約（policies.google.com/terms）は、robots.txt 等の機械可読の指示に反する自動的手段でのアクセスを禁じる（反しない取得は禁止されていない）。play.google.com の robots.txt は /store/apps/details を禁止していない（/store/search 等は禁止）",
+  "checked": "2026-10-20"
+ },
+ "www.lec-jp.com": {
+  "verdict": "ok",
+  "basis": "LEC「本サイトの利用について」（/copyright.html）は無断転載・複製等を禁じるが、自動的手段による閲覧・取得を禁じる規定はない。robots.txt は /cgi-bin/ /error/ 以外を許可、Crawl-delay 5（間隔を空けて取得）",
+  "checked": "2026-10-20"
+ },
+ "en.wikipedia.org": {
+  "verdict": "ok",
+  "basis": "Wikipedia（CC BY-SA 4.0）。robots.txt は /wiki/ を禁止していない。概要の確認だけに使う",
+  "checked": "2026-10-22"
+ },
+ "www.capsim.com": {
+  "verdict": "ok",
+  "basis": "robots.txt は一部のプレビュー以外を許可。Terms 7.3 は個人・非商用の閲覧・ダウンロードを許可（著作権表示を残す）。照合用にのみ保存し要約のみ（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "www.crear-ac.co.jp": {
+  "verdict": "gray",
+  "basis": "クレアールのサイトに利用規約ページは見当たらない（トップ・簿記サイトのリンクに規約なし）。自動取得を禁じる規定は確認できない。robots.txt は /wp-admin/ 以外を許可",
+  "checked": "2026-10-20"
+ },
+ "escp.eu": {
+  "verdict": "ok",
+  "basis": "ESCP Business School の公開PDF。robots.txt は academ_attachments を禁止していない",
+  "checked": "2026-10-20"
+ },
+ "extralenin444.itch.io": {
+  "verdict": "ok",
+  "basis": "itch.io。robots.txt はゲームページを禁止していない。利用規約に自動取得の禁止条項なし（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "www.intangiblecapital.org": {
+  "verdict": "ok",
+  "basis": "Intangible Capital のオープンアクセス論文、CC BY 4.0。robots.txt は cache/ 以外を許可（拡張子なしのURLでは .html として保存されたため、同じPDFを ?f=.pdf つきで取り直した）",
+  "checked": "2026-10-20"
+ },
+ "www.mext.go.jp": {
+  "verdict": "ok",
+  "basis": "文部科学省ホームページ利用規約（https://www.mext.go.jp/b_menu/1351168.htm）：PDL1.0 準拠で複製等自由。robots.txt は 404（制限なし）",
+  "checked": "2026-10-20"
+ },
+ "www.pref.miyagi.jp": {
+  "verdict": "ok",
+  "basis": "pref.miyagi.jp/robots.txt を確認、公開PDFの取得を禁じていない。官公庁の公開資料を個人の設計参照で取得。",
+  "checked": "2026-10-20"
+ },
+ "2018.cedec.cesa.or.jp": {
+  "verdict": "ok",
+  "basis": "cedec.cesa.or.jp/robots.txt は Disallow 空（全許可）、2018.cedec.cesa.or.jp も同組織の公開PDF。CESA が報道向けに公開した調査速報で、転載せず分析のみに使う",
+  "checked": "2026-10-20"
+ },
+ "users.cs.northwestern.edu": {
+  "verdict": "ok",
+  "basis": "大学の個人ページで公開された論文PDF。robots.txt なし（404）。利用規約の制限なし、学術目的の閲覧",
+  "checked": "2026-10-21"
+ },
+ "cedec.cesa.or.jp": {
+  "verdict": "ok",
+  "basis": "cedec.cesa.or.jp/robots.txt は Disallow 空（全許可）。CESA/CEDEC運営委員会が報道向けに公開した調査速報PDF。転載せず分析のみ（前回の取得は誤URLでHTMLを取ったため --force で取り直し）",
+  "checked": "2026-10-20"
+ },
+ "www.nngroup.com": {
+  "verdict": "gray",
+  "basis": "nngroup.com/robots.txt は User-agent * を禁止していない(Crawl-Delay 60 を守って1回のみ取得)。読むだけで転載しない(2026-10-21確認)",
+  "checked": "2026-10-21"
+ },
+ "www.w3.org": {
+  "verdict": "ok",
+  "basis": "w3.org/robots.txt は一般記事を禁止していない。W3C Document License で出典明記なら利用可(2026-10-21確認)",
+  "checked": "2026-10-21"
+ },
+ "design.digital.go.jp": {
+  "verdict": "gray",
+  "basis": "design.digital.go.jp/robots.txt は全許可(User-Agent * のみ、Disallow なし)。デジタル庁の資料は政府標準利用規約に準拠する旨を確認(2026-10-21)",
+  "checked": "2026-10-21"
+ },
+ "blog.duolingo.com": {
+  "verdict": "gray",
+  "basis": "blog.duolingo.com/robots.txt は一般記事を禁止していない。読むだけで転載しない(2026-10-21確認)",
+  "checked": "2026-10-21"
+ },
+ "developer.apple.com": {
+  "verdict": "ok",
+  "basis": "developer.apple.com robots.txt は /design/ を禁止せず(2026-10-20確認)",
+  "checked": "2026-10-20"
+ },
+ "shura.shu.ac.uk": {
+  "verdict": "ok",
+  "basis": "shura.shu.ac.uk/robots.txt は /cgi/ のみ Disallow。機関リポジトリに著者が置いた受理原稿（オープンアクセス）",
+  "checked": "2026-10-20"
+ },
+ "khoury.northeastern.edu": {
+  "verdict": "gray",
+  "basis": "Northeastern大学の授業資料として置かれたCACM論文の写し。robots.txtなし。著者公認かは未確認のためgray",
+  "checked": "2026-10-20"
+ },
+ "psychnet.wustl.edu": {
+  "verdict": "ok",
+  "basis": "著者(Roediger)の研究室サイトで公開。robots.txtなし",
+  "checked": "2026-10-20"
+ },
+ "www.evullab.org": {
+  "verdict": "ok",
+  "basis": "共著者(Vul)の研究室サイトで公開。robots.txtは全許可",
+  "checked": "2026-10-20"
+ },
+ "www.gwern.net": {
+  "verdict": "gray",
+  "basis": "gwern.netの資料置き場の写し(第三者ミラー)。robots.txtは/doc/を禁止していない。著者公認ではないためgray",
+  "checked": "2026-10-20"
+ },
+ "myweb.fsu.edu": {
+  "verdict": "ok",
+  "basis": "著者(Shute)のFSU個人ページで公開。robots.txtなし",
+  "checked": "2026-10-20"
+ },
+ "opus.bibliothek.uni-augsburg.de": {
+  "verdict": "ok",
+  "basis": "Augsburg大学の機関リポジトリ。論文はCC BY 4.0のオープンアクセス。robots.txtなし",
+  "checked": "2026-10-20"
+ },
+ "www.aft.org": {
+  "verdict": "ok",
+  "basis": "www.aft.org robots.txt: User-agent * disallows only /core/ /profiles/ etc; periodical PDF is freely posted by AFT",
+  "checked": "2026-10-21"
+ },
+ "www.gamedeveloper.com": {
+  "verdict": "gray",
+  "basis": "www.gamedeveloper.com/robots.txt は User-agent:* に対し /search 等のみ Disallow。AI学習クローラは別途拒否されているが、本取得は個人の学習設計のための単発の閲覧（学習用クロールではない）なので gray",
+  "checked": "2026-10-22"
+ },
+ "raco.cat": {
+  "verdict": "ok",
+  "basis": "カタルーニャの学術誌オープンアクセス・リポジトリRACO。robots.txtなし",
+  "checked": "2026-10-20"
+ },
+ "magic.wizards.com": {
+  "verdict": "ok",
+  "basis": "magic.wizards.com/robots.txt は Sitemap のみで Disallow なし。公式サイトの公開コラム（前回のURLは404だったため正しいURLで --force 取り直し）",
+  "checked": "2026-10-20"
+ },
+ "www.jesperjuul.net": {
+  "verdict": "ok",
+  "basis": "jesperjuul.net/robots.txt（上に表示）に Disallow なし。著者本人が自サイトで公開している論文テキスト",
+  "checked": "2026-10-20"
+ },
+ "www.asb-j.jp": {
+  "verdict": "gray",
+  "basis": "https://www.asb-j.jp/robots.txt はトップへ転送され実質なし（取得制限の記載なし）。https://www.asb-j.jp/jp/about.html は掲載情報の無断の複写・転載を禁じるが、閲覧・個人の学習目的の取得は禁じていない。原文はリポジトリに入れず、ノートは自分の言葉の要約のみ（2026-10-20確認）",
+  "checked": "2026-10-20"
+ },
+ "learninglab.psych.purdue.edu": {
+  "verdict": "ok",
+  "basis": "共著者(Karpicke)のPurdue大学研究室サイトで公開。robots.txtなし(404)",
+  "checked": "2026-10-20"
+ },
+ "ntnu.no": {
+  "verdict": "gray",
+  "basis": "NTNU(ノルウェー科学技術大学)の授業wikiに置かれた論文の写し。著者公認かは未確認のためgray",
+  "checked": "2026-10-20"
+ },
+ "ja.wikipedia.org": {
+  "verdict": "ok",
+  "basis": "Wikipedia：CC BY-SA 4.0。ja.wikipedia.org の robots.txt は一般UAの /wiki/ を許可",
+  "checked": "2026-10-22"
+ },
+ "www.jenovachen.com": {
+  "verdict": "ok",
+  "basis": "著者本人のサイトで公開された修士論文PDF。robots.txt なし（404）。制限の記載なし",
+  "checked": "2026-10-21"
+ },
+ "zensho.or.jp": {
+  "verdict": "ok",
+  "basis": "zensho.or.jp/robots.txt_は空で禁止なし。公開PDF/ページ、ログイン不要",
+  "checked": "2026-10-21"
+ },
+ "learn.microsoft.com": {
+  "verdict": "ok",
+  "basis": "learn.microsoft.com/robots.txt は当該パスを禁止せず(2026-10-20確認)",
+  "checked": "2026-10-20"
+ },
+ "waic.jp": {
+  "verdict": "ok",
+  "basis": "waic.jp/robots.txt は /wp-admin/ のみ禁止(2026-10-20確認)",
+  "checked": "2026-10-20"
+ },
+ "education.mit.edu": {
+  "verdict": "ok",
+  "basis": "education.mit.edu/robots.txt は /calendar/ 配下のみ Disallow。CC BY 3.0 で公開された MIT Education Arcade の白書",
+  "checked": "2026-10-20"
+ },
+ "lostgarden.com": {
+  "verdict": "gray",
+  "basis": "lostgarden.com/robots.txt は User-agent:* に /wp-admin/ のみ Disallow。anthropic-ai・ClaudeBot 等のAI学習クローラは Disallow:/ だが、本取得は学習用クロールではなく個人の学習設計のための単発閲覧なので gray と判定",
+  "checked": "2026-10-20"
+ },
+ "gameaccessibilityguidelines.com": {
+  "verdict": "gray",
+  "basis": "gameaccessibilityguidelines.com は robots.txt なし(空)。指針は CC BY-SA の表示があり読むだけで転載しない(2026-10-21確認)",
+  "checked": "2026-10-21"
+ },
+ "www.raphkoster.com": {
+  "verdict": "ok",
+  "basis": "著者(Raph Koster)本人のサイトで講演スライドとして公開。robots.txtはカレンダー系のみ禁止",
+  "checked": "2026-10-20"
+ },
+ "blogs.ubc.ca": {
+  "verdict": "gray",
+  "basis": "UBCの教員ブログに授業資料として置かれたGeeの論文の写し。robots.txtは/wp-admin等のみ禁止。出版元公認ではないためgray",
+  "checked": "2026-10-20"
+ },
+ "ocw.metu.edu.tr": {
+  "verdict": "gray",
+  "basis": "中東工科大学のOCW(授業公開)に置かれた論文のOnline First版。robots.txtなし。出版社公認ではないためgray",
+  "checked": "2026-10-20"
+ },
+ "peer.asee.org": {
+  "verdict": "ok",
+  "basis": "ASEE PEER(米国工学教育学会の論文アーカイブ、無料公開)。robots.txtは/correction_requestsのみ禁止",
+  "checked": "2026-10-20"
+ },
+ "ja.wikibooks.org": {
+  "verdict": "ok",
+  "basis": "ja.wikibooks.org: robots.txt は /wiki/ を禁止していない。CC BY-SA 3.0 の教材で、出典を示せば利用可。転載せず自分の言葉で要約する",
+  "checked": "2026-10-21"
+ },
+ "www.freee.co.jp": {
+  "verdict": "gray",
+  "basis": "www.freee.co.jp/robots.txt は pdf/xlsx 等のみ禁止で当該パスは対象外(2026-10-20確認)。要約のみ",
+  "checked": "2026-10-20"
+ },
+ "www.sri.com": {
+  "verdict": "ok",
+  "basis": "SRI International(研究の実施機関)が無料公開する報告書の要旨。robots.txt は全許可",
+  "checked": "2026-10-20"
+ },
+ "wesleyan.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "wesleyan.repo.nii.ac.jp は機関リポジトリ（JAIRO Cloud）で公開論文の閲覧・取得を認める。robots.txt は /record/ を禁じていない。2026-10-20確認",
+  "checked": "2026-10-20"
+ },
+ "www.rehab.go.jp": {
+  "verdict": "gray",
+  "basis": "国立障害者リハビリテーションセンターの発達障害情報・支援センター。サイトポリシーは出典明記での利用を認める旨（公的機関の一般的な扱い）。自動取得を禁じる記載は確認できず、1ページのみ取得",
+  "checked": "2026-10-21"
+ },
+ "journals.plos.org": {
+  "verdict": "ok",
+  "basis": "journals.plos.org/robots.txt は記事ページを禁止していない（search・metrics・user のみ禁止）。PLOS ONE は CC BY 4.0",
+  "checked": "2026-10-20"
+ },
+ "m3.material.io": {
+  "verdict": "gray",
+  "basis": "m3.material.io/robots.txt は該当ページを禁止していない。読むだけで転載しない(2026-10-21確認)",
+  "checked": "2026-10-21"
+ },
+ "lawsofux.com": {
+  "verdict": "gray",
+  "basis": "lawsofux.com/robots.txt は Disallow 空で全許可。読むだけで転載しない(2026-10-21確認)",
+  "checked": "2026-10-21"
+ },
+ "www.gankaikai.or.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt は Disallow 空（全許可）。privacy_policy に無断複写・転載の禁止あり、自動取得の禁止条項はなし。読むだけで転載しない",
+  "checked": "2026-10-21"
+ },
+ "webaim.org": {
+  "verdict": "ok",
+  "basis": "robots.txt は /search/ と contrastchecker のみ禁止。https://webaim.org/copyright は無償・出典明記での複製を許す。自動取得の禁止なし",
+  "checked": "2026-10-21"
+ },
+ "ies.ed.gov": {
+  "verdict": "ok",
+  "basis": "ies.ed.gov robots.txt: User-agent * no Disallow for /ncee/; US federal government work (public domain)",
+  "checked": "2026-10-21"
+ },
+ "www.kentei.ne.jp": {
+  "verdict": "ok",
+  "basis": "kentei.ne.jp は台帳 kentei で確認済み（robots.txt は /wp/wp-admin/ のみ禁止。自動取得を禁じる規約なし。原文は転載しない）",
+  "checked": "2026-10-21"
+ },
+ "www.sendaicci.or.jp": {
+  "verdict": "gray",
+  "basis": "仙台商工会議所が一般公開する受験要項PDF。ログイン不要・無料。自動取得を禁じる記載は見当たらない。1ファイルのみ・転載しない",
+  "checked": "2026-10-21"
+ },
+ "www.jasso.go.jp": {
+  "verdict": "gray",
+  "basis": "日本学生支援機構の公開ハンドブック。ログイン不要。サイトポリシーは出典明示での利用を認める公的機関の扱い、自動取得を禁じる記載は見当たらない。1ページのみ",
+  "checked": "2026-10-21"
+ },
+ "www.bdadyslexia.org.uk": {
+  "verdict": "gray",
+  "basis": "British Dyslexia Association の公開ページ。ログイン不要・無料。robots.txt で一般ページの禁止なし（と判断）、1ページのみ取得・転載しない",
+  "checked": "2026-10-21"
+ },
+ "www.edu.hokudai.ac.jp": {
+  "verdict": "gray",
+  "basis": "北海道大学の公開PDF（支援資料）。ログイン不要・無料。自動取得を禁じる記載は見当たらない。1ファイルのみ・転載しない",
+  "checked": "2026-10-21"
+ },
+ "jumonji-u.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "大学の機関リポジトリで公開された論文PDF（オープンアクセス）。ログイン不要。リポジトリは閲覧・ダウンロードを公開目的とする。1ファイルのみ・転載しない",
+  "checked": "2026-10-21"
+ },
+ "support.google.com": {
+  "verdict": "gray",
+  "basis": "Google ヘルプセンターの公開ページ。ログイン不要。Google の利用規約は通常の閲覧を許可、1ページのみ取得・転載しない",
+  "checked": "2026-10-21"
+ },
+ "mud.co.uk": {
+  "verdict": "ok",
+  "basis": "著者本人のサイトで公開された論文HTML。robots.txt なし（404）。制限の記載なし",
+  "checked": "2026-10-21"
+ },
+ "www.jstage.jst.go.jp": {
+  "verdict": "gray",
+  "basis": "J-STAGE robots.txt は /*_pdf のみ Disallow。_article ページは許可。利用規約は個人の閲覧を認める。PDF は取らない",
+  "checked": "2026-10-21"
+ },
+ "www.nishiken.jp": {
+  "verdict": "ok",
+  "basis": "西研究所の公式サイト。robots.txt は wp-admin 以外を許可。公開の紹介ページ",
+  "checked": "2026-10-21"
+ },
+ "bizstorm.jp": {
+  "verdict": "ok",
+  "basis": "ビズストームの公式サイト。robots.txt は wp-admin 以外を許可。公開の紹介ページ",
+  "checked": "2026-10-21"
+ },
+ "www.stat.go.jp": {
+  "verdict": "ok",
+  "basis": "総務省統計局：robots.txt は /library/opac/ のみ Disallow。政府統計は公共データ利用規約（PDL1.0）準拠で出典明記により利用可",
+  "checked": "2026-10-22"
+ },
+ "www.city.tomakomai.hokkaido.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt: 苫小牧市は存在せず（404のHTML）、取得対象の/files/配下に制限なし。教科書採択の公開資料で、転載せず自分の言葉で要約する",
+  "checked": "2026-10-21"
+ },
+ "www.pref.miyazaki.lg.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt: 宮崎県は /documents/91027/ を禁止していない。教科書採択の公開資料で、転載せず自分の言葉で要約する",
+  "checked": "2026-10-21"
+ },
+ "design-system.service.gov.uk": {
+  "verdict": "ok",
+  "basis": "design-system.service.gov.uk の robots.txt は無い(404)。内容は Open Government Licence v3.0 で出典明記なら利用可(ページ末尾の表示を2026-10-21確認)",
+  "checked": "2026-10-21"
+ },
+ "www.pref.gifu.lg.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt を確認、/uploaded/attachment/ の禁止なし。県公開の中学3年公民の復習プリント。転載せず自分の言葉で要約する",
+  "checked": "2026-10-21"
+ },
+ "ds.data.jma.go.jp": {
+  "verdict": "ok",
+  "basis": "気象庁ホームページ利用規約（https://www.jma.go.jp/jma/kishou/info/coment.html）は政府標準利用規約準拠で出典を書けば複製・加工可。ds.data.jma.go.jp の robots.txt は無し（404）",
+  "checked": "2026-10-22"
+ },
+ "www.data.jma.go.jp": {
+  "verdict": "ok",
+  "basis": "気象庁ホームページ利用規約（https://www.jma.go.jp/jma/kishou/info/coment.html）は政府標準利用規約準拠で出典を書けば複製・加工可。robots.txt に該当の禁止なし",
+  "checked": "2026-10-22"
+ },
+ "www.jma.go.jp": {
+  "verdict": "ok",
+  "basis": "気象庁ホームページ利用規約は政府標準利用規約準拠で出典を書けば複製・加工可。robots.txt に該当の禁止なし",
+  "checked": "2026-10-22"
+ },
+ "www.jfc.go.jp": {
+  "verdict": "gray",
+  "basis": "日本政策金融公庫サイト：著作権は公庫、出典明記の引用は可と解した（前回の取得と同じ判断）。原文はリポジトリに入れず要約と数字の引用のみ",
+  "checked": "2026-10-22"
+ },
+ "jfnet.or.jp": {
+  "verdict": "gray",
+  "basis": "日本フードサービス協会：公開の統計資料。robots.txt は /wp/wp-admin/ のみ禁止。サイトに転載条件の明示を見つけられず gray とし、原文は入れず要約・数字の引用のみ",
+  "checked": "2026-10-22"
+ },
+ "www.jfnet.or.jp": {
+  "verdict": "gray",
+  "basis": "日本フードサービス協会：公開の統計資料。robots.txt は /wp/wp-admin/ のみ禁止。サイトに転載条件の明示を見つけられず gray とし、原文は入れず要約・数字の引用のみ",
+  "checked": "2026-10-22"
+ },
+ "raw.githubusercontent.com": {
+  "verdict": "ok",
+  "basis": "GitHub Acceptable Use Policies（公開リポジトリの研究目的の取得は可）。OpenRCT2（GPLv3 の公開ソース）1ファイル",
+  "checked": "2026-10-22"
+ },
+ "j-net21.smrj.go.jp": {
+  "verdict": "ok",
+  "basis": "J-Net21（中小企業基盤整備機構）：公的機関の起業の手引き。出典明記の引用は可と解した（前回の J-Net21 取得と同じ判断）。原文は入れず要約のみ",
+  "checked": "2026-10-22"
+ },
+ "crowdworks.jp": {
+  "verdict": "gray",
+  "basis": "crowdworks.jp robots.txt で /times/ は Disallow なし（2026-10-22確認）。利用規約は無断転載禁止。閲覧・要約のみで原文は配布しない。業者メディア",
+  "checked": "2026-10-22"
+ },
+ "www.advertimes.com": {
+  "verdict": "gray",
+  "basis": "advertimes robots.txt で記事は Disallow なし（/wp-admin/ 等のみ。2026-10-22確認）。転載禁止の商用メディア。閲覧・要約のみ",
+  "checked": "2026-10-22"
+ },
+ "www.ownly.jp": {
+  "verdict": "gray",
+  "basis": "ownly.jp robots.txt で User-agent:* は /sslab/ を Disallow せず（2026-10-22確認）。業者ブログ・転載禁止。閲覧・要約のみ",
+  "checked": "2026-10-22"
+ },
+ "www.post.japanpost.jp": {
+  "verdict": "ok",
+  "basis": "日本郵便 robots.txt で /yubin_dm/ は Disallow なし（/search/ /cgi-bin/ 等のみ。2026-10-22確認）。サービス案内の閲覧",
+  "checked": "2026-10-22"
+ },
+ "www.lycbiz.com": {
+  "verdict": "gray",
+  "basis": "lycbiz robots.txt で /jp/column/ は Disallow なし（2026-10-22確認）。提供元の宣伝コラム。閲覧要約のみ",
+  "checked": "2026-10-22"
+ },
+ "kyodonewsprwire.jp": {
+  "verdict": "ok",
+  "basis": "共同通信PRワイヤー robots.txt はAIクローラも含め明示的に Allow（2026-10-22確認）。電通のプレスリリース転載",
+  "checked": "2026-10-22"
+ },
+ "glim-re.repo.nii.ac.jp": {
+  "verdict": "ok",
+  "basis": "学習院大学の機関リポジトリ（オープンアクセス）。robots.txt で /record/ は Disallow なし（2026-10-22確認）",
+  "checked": "2026-10-22"
+ },
+ "digitalpr.jp": {
+  "verdict": "ok",
+  "basis": "デジタルPRプラットフォーム（プレスリリース配信）。robots.txt は404で制限なし（2026-10-22確認）。プレスリリースは周知目的",
+  "checked": "2026-10-22"
+ },
+ "www.issoh.co.jp": {
+  "verdict": "gray",
+  "basis": "issoh.co.jp robots.txt は /wp/wp-admin/ のみ Disallow（2026-10-22確認）。業者コラム・転載禁止。閲覧要約のみ",
+  "checked": "2026-10-22"
+ },
+ "honichi.com": {
+  "verdict": "gray",
+  "basis": "honichi.com robots.txt は User-agent:* Disallow 空（全許可。2026-10-22確認）。業者の調査記事・転載禁止。閲覧要約のみ",
+  "checked": "2026-10-22"
+ },
+ "www.boj.or.jp": {
+  "verdict": "ok",
+  "basis": "日本銀行「著作権について」：出典を明記すれば転載・引用可（商用は要連絡）。robots.txt なし（404）",
+  "checked": "2026-10-22"
+ },
+ "www.tsr-net.co.jp": {
+  "verdict": "gray",
+  "basis": "東京商工リサーチ：robots.txt は全許可（Disallow 空）。https://www.tsr-net.co.jp/policy/ では出典明示の引用は可、無断の転載・複製・改変は不可。自動取得の禁止条項なし。原文はリポジトリに入れず要約と数字のみ",
+  "checked": "2026-10-22"
+ },
+ "www.pref.yamanashi.jp": {
+  "verdict": "ok",
+  "basis": "山梨県。robots.txt は特定のSEOボットのみ Disallow、一般は制限なし（2026-10-22確認）。県の公表資料",
+  "checked": "2026-10-22"
+ },
+ "www.itmedia.co.jp": {
+  "verdict": "gray",
+  "basis": "itmedia robots.txt は User-agent:* に Disallow なし（Sitemapのみ。2026-10-22確認）。報道記事・転載禁止。閲覧要約のみ",
+  "checked": "2026-10-22"
+ },
+ "imitsu.jp": {
+  "verdict": "gray",
+  "basis": "imitsu.jp robots.txt は503で確認できず。業者メディア。閲覧要約のみ",
+  "checked": "2026-10-22"
+ },
+ "emshort.blog": {
+  "verdict": "ok",
+  "basis": "emshort.blog/robots.txt は User-agent:* に /wp-admin/ /wp-login.php のみ Disallow。公開記事1件の単発閲覧",
+  "checked": "2026-10-22"
+ },
+ "www.failbettergames.com": {
+  "verdict": "gray",
+  "basis": "www.failbettergames.com に robots.txt がない（404）。自動取得を禁じる掲示なし。開発元の公開ブログ記事1件の単発閲覧なので gray",
+  "checked": "2026-10-22"
+ },
+ "mkremins.github.io": {
+  "verdict": "ok",
+  "basis": "著者本人の GitHub Pages で公開された論文PDF（ICIDS 2018）。robots.txt なし（404）。GitHub の利用規約上、公開ページの閲覧は可",
+  "checked": "2026-10-22"
+ },
+ "www.designer-notes.com": {
+  "verdict": "ok",
+  "basis": "www.designer-notes.com/robots.txt は User-agent:* に /wp-admin/ のみ Disallow。開発者本人（Soren Johnson）のブログ記事1件",
+  "checked": "2026-10-22"
+ },
+ "mcvuk.com": {
+  "verdict": "gray",
+  "basis": "mcvuk.com/robots.txt は User-agent:* に /calendar/ 等のみ Disallow。業界誌の公開記事1件の単発閲覧（転載はしない）なので gray",
+  "checked": "2026-10-22"
+ },
+ "tkc.jp": {
+  "verdict": "gray",
+  "basis": "tkc.jp robots.txt で /consolidate/webcolumn/ は Disallow なし（2026-10-22確認）。会計システム会社のコラム・転載禁止。閲覧要約のみ",
+  "checked": "2026-10-22"
+ },
+ "jicpa.or.jp": {
+  "verdict": "ok",
+  "basis": "日本公認会計士協会。robots.txt で /specialized_field/0-* は Disallow なし（2026-10-22確認）。公表Q&A。原文は再配布しない",
+  "checked": "2026-10-22"
+ },
+ "find-model.jp": {
+  "verdict": "gray",
+  "basis": "find-model.jp robots.txt で /insta-lab/ は Disallow なし（2026-10-22確認）。インフルエンサー仲介業者のメディア＝宣伝。閲覧要約のみ",
+  "checked": "2026-10-22"
+ },
+ "www.fdma.go.jp": {
+  "verdict": "ok",
+  "basis": "消防庁ホームページの利用規約は政府標準利用規約準拠で出典を書けば複製・加工可。robots.txt なし（404）",
+  "checked": "2026-10-22"
+ },
+ "portal.monodukuri-hojo.jp": {
+  "verdict": "gray",
+  "basis": "ものづくり補助金総合サイト（全国中小企業団体中央会の事務局）が公表する採択結果。国の補助金の公表情報で、出典明記の引用は可と解した。原文は入れず件数のみ",
+  "checked": "2026-10-22"
+ },
+ "www.no-trouble.caa.go.jp": {
+  "verdict": "gray",
+  "basis": "消費者庁が運営する特定商取引法ガイド。政府機関の公開資料で閲覧のみ・転載しない。利用規約ページは未取得（消費者庁本体 www.caa.go.jp は law 台帳でPDL準拠と確認済み）",
+  "checked": "2026-10-22"
+ },
+ "www.ppc.go.jp": {
+  "verdict": "gray",
+  "basis": "個人情報保護委員会（政府機関）の公開資料。閲覧と分析のみ・転載しない。サイトの利用規約ページは未取得のため gray",
+  "checked": "2026-10-22"
+ },
+ "www.maff.go.jp": {
+  "verdict": "ok",
+  "basis": "農林水産省：ウェブサイト利用規約は政府標準利用規約準拠で出典を書けば複製・加工可。robots.txt は /j/apply/koji/content/ のみ禁止",
+  "checked": "2026-10-22"
+ },
+ "www.mlit.go.jp": {
+  "verdict": "ok",
+  "basis": "国土交通省：政府標準利用規約準拠で出典を書けば複製・加工可。原文は入れず要約と数字のみ",
+  "checked": "2026-10-22"
+ },
+ "ideas.repec.org": {
+  "verdict": "ok",
+  "basis": "IDEAS/RePEc：書誌と要旨の公開ページ。robots.txt は /cgi-bin/ のみ禁止。要旨の要約のみ使う",
+  "checked": "2026-10-22"
+ },
+ "epub.uni-regensburg.de": {
+  "verdict": "ok",
+  "basis": "レーゲンスブルク大学の機関リポジトリ（オープンアクセス）。robots.txt は /cgi/ のみ禁止",
+  "checked": "2026-10-22"
+ },
+ "ageconsearch.umn.edu": {
+  "verdict": "ok",
+  "basis": "AgEcon Search（ミネソタ大学のオープンアクセス・リポジトリ）。robots.txt は /rss /search 等のみ禁止、Crawl-Delay 5",
+  "checked": "2026-10-22"
+ },
+ "uconnruddcenter.org": {
+  "verdict": "ok",
+  "basis": "UConn Rudd Center の論文紹介ページ（要旨）。robots.txt は /wp-admin/ 以外を許可。要旨の要約のみ使う",
+  "checked": "2026-10-22"
+ },
+ "timexsinclair.com": {
+  "verdict": "ok",
+  "basis": "timexsinclair.com/robots.txt は User-agent:* に /wp-admin/ のみ Disallow。公有（ISTUG Public Domain Library）のプログラムの解説ページ1件",
+  "checked": "2026-10-22"
+ },
+ "archive.org": {
+  "verdict": "ok",
+  "basis": "archive.org/robots.txt は /control/ /report/ 等のみ Disallow。Internet Archive の利用規約は研究・学術目的の閲覧を認める。保存された1979年のApple II版のディスクイメージ1件を、BASICの一覧を読むためだけに取得（再配布しない）",
+  "checked": "2026-10-22"
+ },
+ "scholars.duke.edu": {
+  "verdict": "ok",
+  "basis": "Duke Scholars の公開書誌・要旨ページ。robots.txt を確認（下記）。要旨の要約のみ使う",
+  "checked": "2026-10-22"
+ },
+ "www.tdb.co.jp": {
+  "verdict": "gray",
+  "basis": "帝国データバンク：https://www.tdb.co.jp/policy/ でコンテンツの著作権はTDBに帰属し許諾なき複製・改変・転用を禁止（閲覧・分析は可と解した）。自動取得を禁じる条項なし。robots.txt は応答400（存在しない）。原文はリポジトリに入れず数字と要旨のみ",
+  "checked": "2026-10-22"
+ },
+ "www.invenglobal.com": {
+  "verdict": "ok",
+  "basis": "www.invenglobal.com/robots.txt は User-agent:* に Disallow なし。講演の取材記事1件の単発閲覧",
+  "checked": "2026-10-22"
+ },
+ "tynansylvester.com": {
+  "verdict": "ok",
+  "basis": "tynansylvester.com/robots.txt は User-agent:* に /wp-admin/ のみ Disallow。開発者本人（RimWorld の設計者）のブログ記事1件",
+  "checked": "2026-10-22"
+ },
+ "mirasapo-plus.go.jp": {
+  "verdict": "gray",
+  "basis": "ミラサポplus（中小企業庁の中小企業向け補助金・支援サイト）：政府系サイトの利用条件（出典明記で利用可）と解した。原文は入れず要約と数字のみ",
+  "checked": "2026-10-22"
+ },
+ "www.stratxsimulations.com": {
+  "verdict": "gray",
+  "basis": "www.stratxsimulations.com/robots.txt は講師用の手引き（instructor-guide）等を Disallow とし、参加者用の手引き（handbook）は禁じていない。公開の参加者用ページの単発閲覧。教材のため gray",
+  "checked": "2026-10-22"
+ },
+ "gamingtrend.com": {
+  "verdict": "gray",
+  "basis": "gamingtrend.com/robots.txt は User-agent:* に /ghost/ /email/ 等のみ Disallow。取材記事1件の単発閲覧なので gray",
+  "checked": "2026-10-22"
+ },
+ "disclosure2dl.edinet-fsa.go.jp": {
+  "verdict": "ok",
+  "basis": "EDINET（金融庁）：開示書類は法定の公衆縦覧書類。EDINET利用規約で閲覧・ダウンロードは可。robots.txt なし（disclosure2dl は文書配信用）。原文はリポジトリに入れず要約と数字のみ",
+  "checked": "2026-10-22"
+ },
+ "www2.jpx.co.jp": {
+  "verdict": "gray",
+  "basis": "JPX適時開示（www2.jpx.co.jp/disc）：上場会社の決算短信の公開PDF。JPXサイトのご利用上の注意で著作権表示・無断改変不可、閲覧は可と解した。www2 の robots.txt は404。原文は入れず要約と数字のみ",
+  "checked": "2026-10-22"
+ },
+ "www.city.fukuoka.lg.jp": {
+  "verdict": "gray",
+  "basis": "福岡市：リンク・著作権等について https://www.city.fukuoka.lg.jp/sub/tyosakuken.html で著作権は原則市に帰属、私的複製・引用など法で認められた場合を除き無断の複製・転用不可。閲覧は可。robots.txt は一部の広報ページのみ Disallow（屋台のページは対象外）。原文は入れず要約のみ",
+  "checked": "2026-10-22"
+ },
+ "hd.kourakuen.co.jp": {
+  "verdict": "gray",
+  "basis": "幸楽苑：利用規約 https://hd.kourakuen.co.jp/terms-of-service で著作権は同社等に帰属、個人的利用等法で認められた範囲を超える複製等は不可（閲覧・分析は可）。自動取得の禁止条項なし。robots.txt は全許可。原文は入れず要約と数字のみ",
+  "checked": "2026-10-22"
+ },
+ "maruchiyo.yamaokaya.com": {
+  "verdict": "gray",
+  "basis": "丸千代山岡家：IRサイト。robots.txt は wp-admin のみ禁止。利用規約ページは見当たらず（サイトマップのみ）、自動取得の禁止の明示なし。著作物として扱い原文は入れず要約と数字のみ",
+  "checked": "2026-10-22"
+ },
+ "www.reishokukyo.or.jp": {
+  "verdict": "gray",
+  "basis": "日本冷凍食品協会：robots.txt は /wp-content/uploads/secret/ のみ禁止。統計資料は公表用の速報PDF。利用規約ページはソーシャルメディアポリシーとプライバシーのみで、取得・閲覧を禁じる条項なし。原文は入れず要約と数字のみ",
+  "checked": "2026-10-22"
+ },
+ "www.scielo.br": {
+  "verdict": "ok",
+  "basis": "www.scielo.br/robots.txt は /admin のみ Disallow で他は Allow。BBR はオープンアクセス（CC BY）の論文誌。論文の全文ページ1件",
+  "checked": "2026-10-22"
+ },
+ "www.inklestudios.com": {
+  "verdict": "ok",
+  "basis": "www.inklestudios.com/robots.txt は User-agent:* に特定の1パスのみ Disallow。開発元（inkle）の公式ブログ記事1件",
+  "checked": "2026-10-22"
+ },
+ "news.denfaminicogamer.jp": {
+  "verdict": "gray",
+  "basis": "news.denfaminicogamer.jp/robots.txt は /wp-admin/ のみ Disallow（既存の記録と同じ）。記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.instantramen.or.jp": {
+  "verdict": "gray",
+  "basis": "日本即席食品工業協会：robots.txt は /wp-admin/ のみ禁止。利用規約ページはなくプライバシーのみで、閲覧・取得を禁じる条項は見当たらない。原文は入れず要約のみ",
+  "checked": "2026-10-22"
+ },
+ "www.jetro.go.jp": {
+  "verdict": "gray",
+  "basis": "ジェトロ：利用規約 https://www.jetro.go.jp/legal/ でコンテンツのダウンロード・印刷は意図した目的の範囲で可、事前許可なき複製・頒布は不可。robots.txt はアクセス拒否で読めず。原文は入れず要約のみ",
+  "checked": "2026-10-22"
+ },
+ "www.gamespark.jp": {
+  "verdict": "gray",
+  "basis": "www.gamespark.jp/robots.txt を確認（記事ページの取得は禁止されていない）。開発者インタビュー記事1件の単発閲覧（転載はしない）なので gray",
+  "checked": "2026-10-22"
+ },
+ "prtimes.jp": {
+  "verdict": "gray",
+  "basis": "PR TIMES：robots.txt は全体を許可（一部APIのみ禁止）。企業が公表のために配信したプレスリリース。利用規約上、閲覧は可・無断転載は不可と解した。原文は入れず要約のみ",
+  "checked": "2026-10-22"
+ },
+ "www.capitalismlab.com": {
+  "verdict": "ok",
+  "basis": "www.capitalismlab.com/robots.txt は /wp/wp-admin/ のみ Disallow。開発元（Enlight）の公式サイトの説明ページ1件",
+  "checked": "2026-10-22"
+ },
+ "apps.apple.com": {
+  "verdict": "no-automation",
+  "basis": "Apple Website Terms of Use が robot・spider・page-scrape 等を禁止（ledger r4-cinc-tos-apple）",
+  "checked": "2026-10-22"
+ },
+ "www.sidelabs.com": {
+  "verdict": "no-automation",
+  "basis": "Sidelabs Terms of Use 2. Acceptable Use が bots・scraping を禁止（ledger r4-cinc-tos-sidelabs）",
+  "checked": "2026-10-22"
+ },
+ "sidelabsblog.substack.com": {
+  "verdict": "no-automation",
+  "basis": "Substack 利用規約が crawl・scrape・spider を禁止（ledger r4-cinc-tos-substack）",
+  "checked": "2026-10-22"
+ },
+ "note.com": {
+  "verdict": "gray",
+  "basis": "利用規約ページが本ツールに403で確認できず、明示的な禁止を確認できない。robots.txt は記事ページを許可（ledger r4-cinc-robots-note-com）。少数・間隔を守って取得",
+  "checked": "2026-10-22"
+ },
+ "zenn.dev": {
+  "verdict": "ok",
+  "basis": "zenn.dev 利用規約にクローリング禁止の条項なし（取得して確認）。robots.txt は /search のみ Disallow。記事1本の閲覧",
+  "checked": "2026-10-22"
+ },
+ "toucharcade.com": {
+  "verdict": "ok",
+  "basis": "利用規約の確認のため robots.txt のみを取得",
+  "checked": "2026-10-22"
+ },
+ "minnano-rakuraku.com": {
+  "verdict": "gray",
+  "basis": "minnano-rakuraku.com は robots.txt なし（404）。記事の単発閲覧、転載しない。規約本文は未確認のため gray",
+  "checked": "2026-10-22"
+ },
+ "game.watch.impress.co.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt は Googlebot 向けの画像・動画パスのみ Disallow、全エージェント向けの禁止なし。記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "www.4gamer.net": {
+  "verdict": "gray",
+  "basis": "robots.txt は全エージェントに Disallow なし。ニュース記事の単発閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "rawg.io": {
+  "verdict": "ok",
+  "basis": "利用規約の確認のため robots.txt のみを取得",
+  "checked": "2026-10-22"
+ },
+ "apps.appfollow.io": {
+  "verdict": "ok",
+  "basis": "利用規約の確認のため robots.txt のみを取得",
+  "checked": "2026-10-22"
+ },
+ "designer-notes.com": {
+  "verdict": "ok",
+  "basis": "www.designer-notes.com/robots.txt は User-agent:* に /wp-admin/ のみ Disallow。開発者本人（Soren Johnson）のブログ記事1件",
+  "checked": "2026-10-22"
+ },
+ "substack.com": {
+  "verdict": "ok",
+  "basis": "利用規約の確認のため規約ページのみを取得",
+  "checked": "2026-10-22"
+ },
+ "www.apple.com": {
+  "verdict": "ok",
+  "basis": "利用規約の確認のため規約ページのみを取得",
+  "checked": "2026-10-22"
+ },
+ "www.levelwinner.com": {
+  "verdict": "gray",
+  "basis": "robots.txt は /wp-admin/ のみ Disallow。利用規約は未確認のため gray。記事1本の閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "gamingroute.com": {
+  "verdict": "gray",
+  "basis": "robots.txt は /wp-admin/ のみ Disallow。利用規約は未確認のため gray。記事1本の閲覧、転載しない",
+  "checked": "2026-10-22"
+ },
+ "games.appmatch.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt は /wp-admin/ のみ Disallow。利用規約は未確認のため gray。記事1本の閲覧",
+  "checked": "2026-10-22"
+ },
+ "www.macstories.net": {
+  "verdict": "gray",
+  "basis": "macstories.net robots.txt は /wp-admin/ のみ Disallow。記事の単発閲覧、転載しない。規約本文は未確認のため gray",
+  "checked": "2026-10-22"
+ },
+ "iphonesoft.fr": {
+  "verdict": "ok",
+  "basis": "利用規約の確認のため robots.txt のみを取得",
+  "checked": "2026-10-22"
+ },
+ "appget.com": {
+  "verdict": "gray",
+  "basis": "appget.com robots.txt は Allow: / 。レビュー記事の単発閲覧、転載しない。規約本文は未確認のため gray",
+  "checked": "2026-10-22"
+ },
+ "applion.jp": {
+  "verdict": "gray",
+  "basis": "applion.jp robots.txt は全エージェントに Disallow なし。App Store レビューの集約ページの単発閲覧、転載しない。規約本文は未確認のため gray",
+  "checked": "2026-10-22"
+ },
+ "appreview.jp": {
+  "verdict": "gray",
+  "basis": "appreview.jp robots.txt は全エージェントに Disallow なし。単発閲覧、転載しない。規約本文は未確認のため gray",
+  "checked": "2026-10-22"
+ },
+ "applizm.com": {
+  "verdict": "gray",
+  "basis": "applizm.com robots.txt は /wp-admin/ のみ Disallow。攻略記事の単発閲覧、転載しない。規約本文は未確認のため gray",
+  "checked": "2026-10-22"
+ },
+ "chi-tara.com": {
+  "verdict": "gray",
+  "basis": "chi-tara.com robots.txt は /wp-admin/ 等のみ Disallow。攻略記事の単発閲覧、転載しない。規約本文は未確認のため gray",
+  "checked": "2026-10-22"
+ },
+ "warp.ndl.go.jp": {
+  "verdict": "gray",
+  "basis": "国立国会図書館WARP：robots.txt の確認のための取得。保存版の利用は元サイトの条件に従う",
+  "checked": "2026-10-22"
+ },
+ "s23.jizokukahojokin.info": {
+  "verdict": "gray",
+  "basis": "小規模事業者持続化補助金の事務局（日本商工会議所）が公表する採択結果。国の補助金の公表情報で、出典明記の引用は可と解した。原文は入れず件数のみ",
+  "checked": "2026-10-22"
+ },
+ "r6.jizokukahojokin.info": {
+  "verdict": "gray",
+  "basis": "小規模事業者持続化補助金の事務局が公表する採択結果。国の補助金の公表情報で、出典明記の引用は可と解した。原文は入れず件数のみ",
+  "checked": "2026-10-22"
+ },
+ "jigyou-saikouchiku.go.jp": {
+  "verdict": "gray",
+  "basis": "事業再構築補助金の事務局サイト（中小企業庁の補助事業）が公表する採択結果。国の補助金の公表情報で、出典明記の引用は可と解した。原文は入れず件数のみ",
+  "checked": "2026-10-22"
+ },
+ "shinjigyou-shinshutsu.smrj.go.jp": {
+  "verdict": "gray",
+  "basis": "中小企業新事業進出補助金の事務局サイト（中小機構）が公表する採択結果。国の補助金の公表情報で、出典明記の引用は可と解した。原文は入れず件数のみ",
+  "checked": "2026-10-22"
+ },
+ "sogyotecho.jp": {
+  "verdict": "gray",
+  "basis": "創業手帳（起業・補助金のニュースサイト）。記事の閲覧と件数の引用のみ、原文は入れない。公式頁に件数がないので二次資料として使う",
+  "checked": "2026-10-22"
+ },
+ "www.onamae.com": {
+  "verdict": "gray",
+  "basis": "お名前.com のコラム（GMOインターネットグループ）。記事の閲覧と件数の引用のみ、原文は入れない。公式頁に件数がないので二次資料として使う",
+  "checked": "2026-10-22"
+ },
+ "www.tfd.metro.tokyo.lg.jp": {
+  "verdict": "gray",
+  "basis": "東京消防庁「火災の実態」：東京都の公的な統計資料。出典明記の引用は可と解した。原文は入れず要約と数字のみ",
+  "checked": "2026-10-22"
+ },
+ "www.kankyo.metro.tokyo.lg.jp": {
+  "verdict": "gray",
+  "basis": "東京都環境局の公表資料（審議会資料）。都の公的資料で出典明記の引用は可と解した。原文は入れず数字のみ。前回は拡張子なしのURLでPDFが .html として保存され照合できないため、同じ文書をPDFとして保存し直す（問い合わせ文字列は保存名のため）",
+  "checked": "2026-10-22"
+ },
+ "fc-g.jfa-fc.or.jp": {
+  "verdict": "gray",
+  "basis": "日本フランチャイズチェーン協会のJFAフランチャイズガイド（業界団体の一般向け解説）。閲覧と要約のみ、原文は入れない",
+  "checked": "2026-10-22"
+ },
+ "www.shopowner-support.net": {
+  "verdict": "gray",
+  "basis": "店舗オーナー向けの業者メディア（フランチャイズ紹介。宣伝の数字）。閲覧と金額の引用のみ、原文は入れない",
+  "checked": "2026-10-22"
+ },
+ "www.env.go.jp": {
+  "verdict": "ok",
+  "basis": "環境省：政府標準利用規約（第2.0版）準拠で出典を書けば複製・加工可。原文は入れず数字のみ",
+  "checked": "2026-10-22"
+ },
+ "www.meiji.ac.jp": {
+  "verdict": "gray",
+  "basis": "明治大学商学部の公開資料（研究報告・機関サイト）。学術資料の閲覧と要約のみ、原文は入れない",
+  "checked": "2026-10-22"
+ },
+ "www.pref.ishikawa.lg.jp": {
+  "verdict": "gray",
+  "basis": "石川県の食の安全・安心懇話会の配布資料（県の公表資料）。出典明記の引用は可と解した。原文は入れず数字のみ",
+  "checked": "2026-10-22"
+ },
+ "www.inshokuten.com": {
+  "verdict": "gray",
+  "basis": "飲食店ドットコム（飲食店向け業者メディア）の会員アンケート結果。閲覧と数字の引用のみ、原文は入れない",
+  "checked": "2026-10-22"
+ }
+}
