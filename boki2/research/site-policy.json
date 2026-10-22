@@ -761,7 +761,7 @@
  },
  "www.jfc.go.jp": {
   "verdict": "gray",
-  "basis": "日本政策金融公庫サイト：著作権は公庫、出典明記の引用は可と解した（前回の取得と同じ判断）。原文はリポジトリに入れず要約と数字の引用のみ",
+  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"
  },
  "jfnet.or.jp": {
@@ -980,8 +980,8 @@
   "checked": "2026-10-22"
  },
  "mirasapo-plus.go.jp": {
-  "verdict": "gray",
-  "basis": "ミラサポplus（中小企業庁の中小企業向け補助金・支援サイト）：政府系サイトの利用条件（出典明記で利用可）と解した。原文は入れず要約と数字のみ",
+  "verdict": "ok",
+  "basis": "中小企業庁のミラサポplus：robots.txt は /wp-admin/ だけ禁止。政府のサイト（政府標準利用規約）。原文は要約と短い語句のみ",
   "checked": "2026-10-22"
  },
  "www.stratxsimulations.com": {
@@ -2210,8 +2210,8 @@
   "checked": "2026-10-22"
  },
  "www.anderson.ucla.edu": {
-  "verdict": "gray",
-  "basis": "UCLA Anderson の教員ページ（Lee Cooper 本人が MCI の本の PDF を公開）。サイトの利用規約に自動取得の明示の禁止は見当たらない（規約頁は未確認）。robots.txt は r7-fc-ucla-robots で取得し、道具が毎回確かめる",
+  "verdict": "no-automation",
+  "basis": "robots.txt（2026-10-22 取得 r7-fc-ucla-robots）は User-agent:* の組では /faculty/ を禁じていないが、名指しの組で anthropic-ai・Claude-Web・Google-Extended・CCBot などの AI の取得を Disallow: / にしている。この調べ物は Claude が動かしているので、名指しの禁止に従い取得しない（09:39 の2回は状態0で何も取れていない。その後この判定に直した）",
   "checked": "2026-10-22"
  },
  "www.keidanren.or.jp": {
@@ -2225,11 +2225,21 @@
   "checked": "2026-10-22"
  },
  "www.jpo.go.jp": {
+  "verdict": "ok",
+  "basis": "特許庁：robots.txt は403で取れず（明示の禁止は確認できない）。サイトの利用規約は政府標準利用規約（出典を書けば利用可）。原文は要約と短い語句のみ",
+  "checked": "2026-10-22"
+ },
+ "www.chusho.meti.go.jp": {
   "verdict": "gray",
   "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"
  },
- "www.chusho.meti.go.jp": {
+ "work-holiday.mhlw.go.jp": {
+  "verdict": "ok",
+  "basis": "厚労省の働き方・休み方改善ポータル：robots.txt を確認（下に結果）。政府のサイトで政府標準利用規約。原文は要約と短い語句のみ",
+  "checked": "2026-10-22"
+ },
+ "shoukei.smrj.go.jp": {
   "verdict": "gray",
   "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
   "checked": "2026-10-22"

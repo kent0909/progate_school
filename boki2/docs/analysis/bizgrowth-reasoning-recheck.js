@@ -129,7 +129,7 @@ out('\n## 11. 第2版の再検査：判例の争点の数え方');
   const sp = V.filter((v) => v.topic === '売上予測・情報提供');
   out(`「売上予測・情報提供」${sp.length}件の出どころ：${[...new Set(sp.map((v) => v.source))].join('・')}（売上予測の判決を評釈した1本の判例批評が引いた判例だけ）`);
   const known = V.filter((v) => v.kind === '判例' && !/記載なし/.test(v.result));
-  const win = known.filter((v) => /一部勝/.test(v.result));
+  const win = known.filter((v) => /^一部勝/.test(v.result));
   out(`勝敗の分かる判例 ${known.length} 件のうち加盟者が一部でも勝った ${win.length} 件（${r1(win.length / known.length * 100)}%）`);
 }
 

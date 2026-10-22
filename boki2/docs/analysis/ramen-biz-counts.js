@@ -93,7 +93,13 @@ console.log('\n## 2. 利用者の声（自由回答）の分類');
 console.log(`マイナビ ${mynavi.length} 件 + NEXER ${nexer.length} 件 + ナビット ${navit.length} 件 = ${all.length} 件`);
 console.log('| 分類 | マイナビ | NEXER | ナビット | 計 |\n|---|---|---|---|---|');
 for (const k of Object.keys(CAT)) if (ca[k]) console.log(`| ${CAT[k]} | ${cm[k] || 0} | ${cn[k] || 0} | ${cv[k] || 0} | ${ca[k]} |`);
-{ const cj = count(jnet); console.log(`\nJ-Net21 2023（ラーメン店の利用者・1,000人の調査の記事に載った自由回答）${jnet.length} 件`); for (const k of Object.keys(CAT2)) console.log(`- ${CAT2[k]}: ${cj[k] || 0}`); console.log(`店から遠ざける声（P・S・T・V・X）${['P', 'S', 'T', 'V', 'X'].reduce((a, k) => a + (cj[k] || 0), 0)} 件、店を求める声（O・Q・R・U）${['O', 'Q', 'R', 'U'].reduce((a, k) => a + (cj[k] || 0), 0)} 件。79件と合わせて ${all.length + jnet.length} 件、うち店の利用者の声は ${jnet.length} 件`); }
+{ const cj = count(jnet); console.log(`\nJ-Net21 2023（ラーメン店の利用者・1,000人の調査の記事に載った自由回答）${jnet.length} 件`); for (const k of Object.keys(CAT2)) console.log(`- ${CAT2[k]}: ${cj[k] || 0}`); console.log(`店から遠ざける声（P・S・T・V・X）${['P', 'S', 'T', 'V', 'X'].reduce((a, k) => a + (cj[k] || 0), 0)} 件、店を求める声（O・Q・R・U）${['O', 'Q', 'R', 'U'].reduce((a, k) => a + (cj[k] || 0), 0)} 件。79件と合わせて ${all.length + jnet.length} 件、うち店の利用者の声は ${jnet.length} 件`);
+  // 第6版（論証の検査 Y13・事実の判定 13.2）：遠ざける声のうち、コロナの影響を聞いた段の声（P の5件）と、境目の1件
+  // 「衛生面に気をつけているような店ならまた利用したい」（コロナの段の8件目、文字列の 'PPPP'+'QQQP' の最後の P）を求める側に移した場合
+  const away = [...jnet].filter((k) => 'PSTVX'.includes(k)).length, toward = jnet.length - away; const covid = jnet.slice(2, 10); const covidAway = [...covid].filter((k) => 'PSTVX'.includes(k)).length;
+  console.log(`遠ざける声${away}件のうち、コロナの影響を聞いた段（8件）の声 ${covidAway} 件。境目の1件（${jnet[9]}）を求める側に置くと、遠ざける ${away - 1}・求める ${toward + 1}`);
+  const posNeg = { 積極的な層: ['U', 'U', 'U'], 消極的な層: ['S', 'X', 'S', 'V', 'T'] };
+  console.log(`まとめの段の8件の原文の分け方：利用に積極的な層 ${posNeg['積極的な層'].length} 件・消極的な層 ${posNeg['消極的な層'].length} 件（記事は年代・性別ごとの自由回答を載せない）`); }
 const praise = all.length - (ca.G || 0) - (ca.N || 0);
 console.log(`褒め・好きの理由 ${praise} 件、苦手・不満 ${ca.G || 0} 件、異議 ${ca.N || 0} 件`);
 
@@ -172,6 +178,9 @@ console.log(`USEN の1杯の原価: 醤油 ${12.5 + 50 + 60 + 65}（タレ10〜1
 console.log(`石動龍の1日40杯の個人店: 1000円×40杯×25日 = ${1000 * 40 * 25} 円/月、残り ${1000000 - 300000 - 100000 - 400000} 円、税・保険3万と返済5万を引いて ${1000000 - 300000 - 100000 - 400000 - 30000 - 50000} 円`);
 console.log(`山岡家 2023→2026年1月期: 店 179→195（${((195 / 179 - 1) * 100).toFixed(1)}%増）、売上 18,676→43,000百万円（${(43000 / 18676).toFixed(2)}倍）`);
 console.log(`山岡家 2010→2012年1月期: 店 102→137（${((137 / 102 - 1) * 100).toFixed(1)}%増）、売上 7,223→8,712百万円（${((8712 / 7223 - 1) * 100).toFixed(1)}%増）`);
+// 原文（r4-ramen-fukuoka-yatai-5th の3(1)の表）は PDF の文字の並びが崩れていて、回ごとの「開始時→現在」が続いた文字列で読めない。
+// 並びは「18軒 第1回… 第2回… 23軒 9軒 第3回… 5軒 4軒 第4回… 13軒 13軒 50軒 39軒」。合計の行（開始時50・現在39）に合う数の組はこの組だけで、回の順は原文の並びのとおり（第1回 23→18・第2回 9→4・第3回 5→4・第4回 13→13）で、下で合計を確かめる
+console.log(`福岡の公募屋台の割り当ての検算：開始時の合計 ${23 + 9 + 5 + 13}（原文の合計50）・現在の合計 ${18 + 4 + 4 + 13}（原文の合計39）`);
 console.log(`福岡の公募屋台（開始時→2025年3月）: 23→18, 9→4, 5→4, 13→13。残った割合 ${[[23, 18], [9, 4], [5, 4], [13, 13]].map(([a, b]) => (b / a * 100).toFixed(0) + '%').join('・')}、計 ${23 + 9 + 5 + 13}→${18 + 4 + 4 + 13}`);
 console.log(`立川の集合施設の店の割合: 89 ÷ 142 = ${(89 / 142 * 100).toFixed(1)}%`);
 console.log(`NEXER のお取り寄せ: 経験 11.4% + 関心 22.8% = ${(11.4 + 22.8).toFixed(1)}%`);
@@ -222,14 +231,26 @@ const types = [
 console.log('\n## 8. 立地の型ごとの1日の損益分岐の杯数（店主の取り分0／月30万円）と、ピークだけで届く上限');
 console.log(`原価率${Math.round(COGS * 100)}%・光熱費率${Math.round(UTIL * 100)}%（USEN の目安）。1杯の貢献＝客単価×${(1 - COGS - UTIL).toFixed(2)}`);
 console.log('| 立地の型 | 家賃/月 | 家賃の出どころ | 席 | 客単価 | 人件費/月 | 分岐(取り分0) | 分岐(取り分30万) | ピークの上限 | 分岐÷上限 |\n|---|---|---|---|---|---|---|---|---|---|');
+// 第6版（論証の検査 Y08・C2）：大型の行は8b節と同じ計算にそろえる（同社の原価率30.5%・水道光熱6.6%。
+// その他の販管費は「売上比で貢献から引く」〜「全部固定」の幅で出す）。ほかの行は USEN の率のまま
+const YAMA_COGS = 0.305, YAMA_UTIL = 0.066, YAMA_OTHER_RATIO = (438 + 462 + 664 + 4795) / 43000;
+const isYama = (n) => n.startsWith('郊外ロードサイドの大型');
+const rates = (n) => (isYama(n) ? [YAMA_COGS, YAMA_UTIL] : [COGS, UTIL]);
 const beRows = [];
 for (const [n, rent, src, seats, price, ph, wage, other, days] of types) {
   const labor = ph < 0 ? yamaLabor : ph * wage * days;
-  const c = price * (1 - COGS - UTIL) * days;
+  const [cg, ut] = rates(n);
+  const c = price * (1 - cg - ut) * days;
   const be0 = (rent + labor + other) / c, be30 = (rent + labor + other + 300000) / c;
   const cap = seats * 0.75 * 3 * 5;
   beRows.push([n, be0, be30, cap]);
-  console.log(`| ${n} | ${Math.round(rent).toLocaleString()} | ${src} | ${seats} | ${price} | ${Math.round(labor).toLocaleString()} | ${be0.toFixed(0)} | ${be30.toFixed(0)} | ${cap.toFixed(0)} | ${(be30 / cap * 100).toFixed(0)}% |`);
+  if (isYama(n)) {
+    const cV = price * (1 - cg - ut - YAMA_OTHER_RATIO) * days;
+    const lo0 = (rent + labor) / cV, lo30 = (rent + labor + 300000) / cV;
+    console.log(`| ${n}【同社の原価率30.5%・光熱6.6%。8b節と同じ計算】 | ${Math.round(rent).toLocaleString()} | ${src} | ${seats} | ${price} | ${Math.round(labor).toLocaleString()}（本社を含む会社全体の値） | ${lo0.toFixed(0)}〜${be0.toFixed(0)} | ${lo30.toFixed(0)}〜${be30.toFixed(0)} | ${cap.toFixed(0)} | ${(lo30 / cap * 100).toFixed(0)}〜${(be30 / cap * 100).toFixed(0)}%（大箱は24時間営業で、ピーク5時間の上限は当てはまらない） |`);
+  } else {
+    console.log(`| ${n} | ${Math.round(rent).toLocaleString()} | ${src} | ${seats} | ${price} | ${Math.round(labor).toLocaleString()} | ${be0.toFixed(0)} | ${be30.toFixed(0)} | ${cap.toFixed(0)} | ${(be30 / cap * 100).toFixed(0)}% |`);
+  }
 }
 
 // 8b. 大型ロードサイドを山岡家の内訳で置き直す（論証の検査 T03→X01。第5版：その他の販管費を「変動」とみる時は売上比で1杯の貢献から引く）
@@ -313,7 +334,7 @@ for (const [n, rent, src, seats, price, ph, wage, other, days] of types) {
 // 同じ100杯で利益はいくらか（オーナーの「銀座だと100杯売れても赤字、奥多摩なら30杯でも採算」に対応）
 console.log('同じ杯数での月の利益（店主の取り分の前）：');
 for (const [n, rent, , , price, ph, wage, other, days] of types) {
-  const labor = ph < 0 ? yamaLabor : ph * wage * days, c = price * (1 - COGS - UTIL);
+  const [cg, ut] = rates(n); const labor = ph < 0 ? yamaLabor : ph * wage * days, c = price * (1 - cg - ut);
   const p = (k) => Math.round((k * c * days - rent - labor - other) / 1000);
   console.log(`- ${n}: 30杯 ${p(30)}千円・60杯 ${p(60)}千円・100杯 ${p(100)}千円`);
 }
