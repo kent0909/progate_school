@@ -1,0 +1,73 @@
+# BIZ-SIMDESIGN 0.2 が引く資料の台帳。区分：新規＝この版で取得して読んだ／再読＝前の版（r4-sim-*）の原文を読み直した／他担当＝別の担当（BIZ-FUNVISUAL r5-fv-*）の原文を引いた。数える＝作り手の話の本数に数えるか（受け入れの基準2。物語ゲームと中身のない頁は数えない）
+doc	区分	種類	作品	数える
+r6-sd-train-ch03	新規	研究	（市場の取り合いの式）	
+r6-sd-train-ch04	新規	研究	（市場の取り合いの式）	
+r6-sd-mcfadden-nobel	新規	研究	（市場の取り合いの式）	
+r6-sd-themido-mci	新規	研究	（市場の取り合いの式）	
+r6-sd-wiki-huff	新規	研究	（市場の取り合いの式）	
+r6-sd-reat-huff	新規	一次資料	（市場の取り合いの式）	
+r6-sd-juul-openclosed	新規	研究	（創発と進行）	
+r6-sd-dormans-aaai2011	新規	研究	（内部経済）	
+r6-sd-soren-cheatinhearts	新規	作り手の話	Civilization	1
+r6-sd-soren-otc-devjournal	新規	作り手の話	Offworld	1
+r6-sd-gamingnexus-offworld	新規	作り手の話	Offworld	1
+r6-sd-factorio-fff129	新規	作り手の話	Factorio	1
+r6-sd-mcv-twopoint	新規	作り手の話	Theme Hospital/Two Point	1
+r6-sd-gd-glassbox2012	新規	作り手の話	SimCity	1
+r6-sd-codecks-hovgaard	新規	作り手の話	Big Ambitions	1
+r6-sd-gamespark-bigambitions	新規	作り手の話	Big Ambitions	1
+r6-sd-gamediscover-bigambitions	新規	作り手の話	Big Ambitions	1
+r6-sd-pecorella-idle1	新規	作り手の話	AdVenture Capitalist	1
+r6-sd-soren-playingtolose	新規	作り手の話	Civilization	0
+r6-sd-willmott-glassbox	新規	作り手の話	SimCity	0
+r6-sd-capilab-subsidiary	新規	一次資料	Capitalism Lab	
+r6-sd-capilab-subsidiary-control	新規	一次資料	Capitalism Lab	
+r6-sd-capilab-subsidiary-policies	新規	一次資料	Capitalism Lab	
+r6-sd-capilab-subsidiary-finance	新規	一次資料	Capitalism Lab	
+r6-sd-capilab-retailsim	新規	一次資料	Capitalism Lab	
+r6-sd-capilab-highpriced	新規	一次資料	Capitalism Lab	
+r6-sd-capilab-mgmtpolicies	新規	一次資料	Capitalism Lab	
+r6-sd-capilab-balance	新規	一次資料	Capitalism Lab	
+r6-sd-capilab-script-sample	新規	一次資料	Capitalism Lab	
+r6-sd-openrct2-guest	新規	一次資料	RollerCoaster Tycoon	
+r6-sd-micropolis-ssim	新規	一次資料	SimCity	
+r6-sd-corsixth-world	新規	一次資料	Theme Hospital/Two Point	
+r6-sd-gamesfuze-bigambitions-pricing	新規	実務者・業界	Big Ambitions	
+r6-sd-gamesfuze-bigambitions-rivals	新規	実務者・業界	Big Ambitions	
+r6-sd-applion-rctclassic	新規	利用者の声	RollerCoaster Tycoon	
+r6-sd-applion-rcttouch	新規	利用者の声	RollerCoaster Tycoon	
+r6-sd-applion-gamedevtycoon	新規	利用者の声	Game Dev Tycoon	
+r6-sd-applion-simcitybuildit	新規	利用者の声	SimCity	
+r6-sd-applion-simcitybuildit-android	新規	利用者の声	SimCity	
+r6-sd-applion-pocketcity	新規	利用者の声	（街づくり）	
+r4-sim-tynan-simdream	再読	作り手の話	RimWorld	
+r4-sim-gd-rimworld	再読	作り手の話	RimWorld	
+r4-sim-gd-meier2012	再読	作り手の話	Civilization	
+r4-sim-gd-pdg	再読	作り手の話	（判断の設計）	
+r4-sim-soren-waterfinds	再読	作り手の話	Civilization	
+r4-sim-soren-otc-stockmarket	再読	作り手の話	Offworld	
+r4-sim-soren-otc-eapostmortem	再読	作り手の話	Offworld	
+r4-sim-gd-intothebreach	再読	作り手の話	Into the Breach	
+r4-sim-inven-frostpunk	再読	作り手の話	Frostpunk	
+r4-sim-denfami-kairosoft	再読	作り手の話	カイロソフト	
+designer-recettear-gd2010	再読	事例	Recettear	
+designer-papersplease-gd2014	再読	作り手の話	Papers, Please	
+r4-sim-gamingtrend-reigns	再読	作り手の話	Reigns	
+r4-sim-emshort-beyondbranching	再読	作り手の話	（分岐の型）	
+r4-sim-wiki-detroit	再読	事例	Detroit	
+r4-sim-lemonade-apple1979	再読	一次資料	Lemonade Stand	
+r4-sim-openrct2-ride	再読	一次資料	RollerCoaster Tycoon	
+r4-sim-markstrat-predictionofidealpoints	再読	一次資料	Markstrat	
+r4-sim-markstrat-positioning	再読	一次資料	Markstrat	
+r4-sim-markstrat-assessingperceptionsandpreferences	再読	一次資料	Markstrat	
+r4-sim-capilab-competitors	再読	一次資料	Capitalism Lab	
+r4-sim-capilab-improvedai	再読	一次資料	Capitalism Lab	
+r2-designer-bizstorm-play	再読	事例	ビズストーム	
+r4-sim-bbr2018-debriefing	再読	研究	（振り返り）	
+r5-fv-capilab-beginners	他担当	一次資料	Capitalism Lab	
+r5-fv-greenheart-onemonth	他担当	作り手の話	Game Dev Tycoon	
+r5-fv-digdl-gamedevtycoon	他担当	実務者・業界	Game Dev Tycoon	
+r5-fv-wiki-twopointhospital	他担当	事例	Theme Hospital/Two Point	
+r5-fv-matchstick-offworld	他担当	作り手の話	Offworld	
+r5-fv-denfami-ramenkan	他担当	実務者・業界	カイロソフト	
+r5-fv-applion-gamedevstory	他担当	利用者の声	カイロソフト	
