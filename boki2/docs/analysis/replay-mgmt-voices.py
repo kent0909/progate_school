@@ -64,6 +64,9 @@ sai = [i for i in sorted(C) if C[i]['rel'] == '再']
 print('2) 周回の関係（全643件）')
 print('  周（この作品で始め直した・2周目以降・周の回数・周回の仕組みに触れた。意向を含む）：%d 件（%s）' % (len(shu), by_work(shu)))
 print('    うち「周」「週」の字を含まない件：%d 件 #%s' % (len([i for i in shu if i not in hit]), ' #'.join(str(i) for i in shu if i not in hit)))
+kairo = [i for i in C if C[i]['work'] != 'Good Pizza, Great Pizza']
+ks = [i for i in shu if i in kairo]
+print('  割合：周は643件の %.1f%%（%d件）、カイロソフト3作 %d件の %.1f%%（%d件）。周＋再は643件の %.1f%%' % (100.0 * len(shu) / len(C), len(shu), len(kairo), 100.0 * len(ks) / len(kairo), len(ks), 100.0 * (len(shu) + len([i for i in C if C[i]['rel'] == '再'])) / len(C)))
 print('  再（時間をおいて・別の機種で遊び直した。周回かは区切れない）：%d 件（%s）' % (len(sai), by_work(sai)))
 print('  「周」「週」の字を含むのに周回の話でない件：%d 件 #%s' % (len([i for i in sorted(hit) if C[i]['rel'] == '-']), ' #'.join(str(i) for i in sorted(hit) if C[i]['rel'] == '-')))
 print('  「周」「週」の字を含み 再 とした件：#%s' % ' #'.join(str(i) for i in sorted(hit) if C[i]['rel'] == '再'))
