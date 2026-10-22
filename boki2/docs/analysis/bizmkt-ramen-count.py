@@ -70,9 +70,10 @@ cases = rows(t5, r'[SFT]\d+')
 succ = [r for r in cases if r[1] == '成功']
 fail = [r for r in cases if r[1] == '失敗']
 tries = [r for r in cases if r[1] == '試み']
+ref = [r for r in cases if r[1] == '参考']
 ftypes = collections.Counter(r[2] for r in fail)
 stypes = collections.Counter(r[2] for r in succ)
-print(f'事例：成功 {len(succ)} 件・失敗 {len(fail)} 件・試み {len(tries)} 件')
+print(f'事例：成功 {len(succ)} 件・失敗 {len(fail)} 件・試み {len(tries)} 件・参考 {len(ref)} 件')
 print(f'  失敗の型（束ねた型）{len(ftypes)} 種類：' + '・'.join(f'{k} {v}' for k, v in ftypes.items()))
 print(f'  成功の型 {len(stypes)} 種類：' + '・'.join(f'{k} {v}' for k, v in stypes.items()))
 csrc = collections.Counter(re.search(r'r[45]-[\w-]+', r[-1]).group(0) for r in cases)

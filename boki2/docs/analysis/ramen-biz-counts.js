@@ -74,18 +74,20 @@ const mynavi = 'ACAFALLAAFFAL' + 'BCCEFCEEFBD' + 'BCBBGFCC' + 'DAEFDCDC' + 'BAAB
 const nexer = 'HHLHLHIKH' + 'IIIIIMIII' + 'JJIJJ';
 // ナビット（おすすめの店の自由回答の抜粋3）
 const navit = 'CKK';
-// J-Net21 ラーメン店（2023年版）の利用者1,000人のアンケートで記事が載せた自由回答19件（記事の順）。第4版で足した「店の利用者の声」
-// O＝店の味は家で出せない／P＝衛生・感染の不安／Q＝店が恋しい・安心／R＝どうしても食べたい／S＝健康の心配／T＝値上がり・物価高
-const jnet = 'OO' + 'PPPP' + 'QQQP' + 'RRRR' + 'SSSTT';
+// J-Net21 ラーメン店（2023年版）の利用者1,000人のアンケートで記事が載せた自由回答27件（記事の順：利用の基準2・コロナ8・今後の意向9・まとめの段8）。
+// 第4版は19件と数えまとめの段の8件を落としていた（事実の判定 12.5 の V1）。第5版で27件に
+// O＝店の味は家で出せない／P＝衛生・感染の不安／Q＝店が恋しい・安心／R＝どうしても食べたい／S＝健康（塩分・カロリー・栄養表示・糖質）／
+// T＝値上がり・値段への疑問／U＝入りやすさ・営業時間（夜遅く・一人・子連れ）／V＝並んでまで食べたくない／X＝子供が小さくて行けない
+const jnet = 'OO' + 'PPPP' + 'QQQP' + 'RRRR' + 'SSSTT' + 'UUU' + 'SXSVT';
 const count = (s) => { const c = {}; for (const ch of s) c[ch] = (c[ch] || 0) + 1; return c; };
 const all = mynavi + nexer + navit;
-const CAT2 = { O: '店の味は家で出せない', P: '衛生・感染の不安（行かなくても困らない を含む）', Q: '店が恋しい・食券と仕切りで安心', R: 'どうしても食べたい・確かめたい', S: '健康（塩分・カロリー・太る）', T: '値上がり・物価高' };
+const CAT2 = { O: '店の味は家で出せない', P: '衛生・感染の不安（行かなくても困らない を含む）', Q: '店が恋しい・食券と仕切りで安心', R: 'どうしても食べたい・確かめたい', S: '健康（塩分・カロリー・太る・栄養表示・糖質制限）', T: '値上がり・値段への疑問', U: '入りやすさ・営業時間（夜遅く・一人・子連れ）', V: '並んでまで食べたくない', X: '子供が小さくて連れていけない' };
 const cm = count(mynavi), cn = count(nexer), cv = count(navit), ca = count(all);
 console.log('\n## 2. 利用者の声（自由回答）の分類');
 console.log(`マイナビ ${mynavi.length} 件 + NEXER ${nexer.length} 件 + ナビット ${navit.length} 件 = ${all.length} 件`);
 console.log('| 分類 | マイナビ | NEXER | ナビット | 計 |\n|---|---|---|---|---|');
 for (const k of Object.keys(CAT)) if (ca[k]) console.log(`| ${CAT[k]} | ${cm[k] || 0} | ${cn[k] || 0} | ${cv[k] || 0} | ${ca[k]} |`);
-{ const cj = count(jnet); console.log(`\nJ-Net21 2023（ラーメン店の利用者・1,000人の調査の記事に載った自由回答）${jnet.length} 件`); for (const k of Object.keys(CAT2)) console.log(`- ${CAT2[k]}: ${cj[k] || 0}`); console.log(`店の側に向いた不満・不安（P・S・T）${(cj.P || 0) + (cj.S || 0) + (cj.T || 0)} 件、店を求める声（O・Q・R）${(cj.O || 0) + (cj.Q || 0) + (cj.R || 0)} 件。79件と合わせて ${all.length + jnet.length} 件、うち店の利用者の声は ${jnet.length} 件`); }
+{ const cj = count(jnet); console.log(`\nJ-Net21 2023（ラーメン店の利用者・1,000人の調査の記事に載った自由回答）${jnet.length} 件`); for (const k of Object.keys(CAT2)) console.log(`- ${CAT2[k]}: ${cj[k] || 0}`); console.log(`店から遠ざける声（P・S・T・V・X）${['P', 'S', 'T', 'V', 'X'].reduce((a, k) => a + (cj[k] || 0), 0)} 件、店を求める声（O・Q・R・U）${['O', 'Q', 'R', 'U'].reduce((a, k) => a + (cj[k] || 0), 0)} 件。79件と合わせて ${all.length + jnet.length} 件、うち店の利用者の声は ${jnet.length} 件`); }
 const praise = all.length - (ca.G || 0) - (ca.N || 0);
 console.log(`褒め・好きの理由 ${praise} 件、苦手・不満 ${ca.G || 0} 件、異議 ${ca.N || 0} 件`);
 
@@ -224,14 +226,19 @@ for (const [n, rent, src, seats, price, ph, wage, other, days] of types) {
   console.log(`| ${n} | ${Math.round(rent).toLocaleString()} | ${src} | ${seats} | ${price} | ${Math.round(labor).toLocaleString()} | ${be0.toFixed(0)} | ${be30.toFixed(0)} | ${cap.toFixed(0)} | ${(be30 / cap * 100).toFixed(0)}% |`);
 }
 
-// 8b. 大型ロードサイドを山岡家の内訳で置き直す（論証の検査 T03）。その他の固定費を0〜全部の幅で
+// 8b. 大型ロードサイドを山岡家の内訳で置き直す（論証の検査 T03→X01。第5版：その他の販管費を「変動」とみる時は売上比で1杯の貢献から引く）
+// 注意（事実の判定 V6）：給与・雑給は会社全体の販管費の値で、本社の人件費も含む。1店の人件費としては多めに出る
 {
-  const c = 900 * (1 - 0.305 - 0.066) * 30.4; // 原価率30.5%・水道光熱6.6%（同じ内訳）
-  const lo = (yamaRent + yamaLabor) / c, hi = (yamaRent + yamaLabor + yamaOther) / c;
+  const sales = 43000, otherRatio = (438 + 462 + 664 + 4795) / sales; // その他の販管費の売上比
+  const cBase = 900 * (1 - 0.305 - 0.066) * 30.4;
+  const cVar = 900 * (1 - 0.305 - 0.066 - otherRatio) * 30.4;
+  const lo = (yamaRent + yamaLabor) / cVar, hi = (yamaRent + yamaLabor + yamaOther) / cBase;
   const sold = 43000e6 / 195 / 365 / 900;
-  console.log(`\n### 8b. 大型ロードサイド（山岡家の1店平均）：人件費 月${Math.round(yamaLabor).toLocaleString()}円・家賃 月${Math.round(yamaRent).toLocaleString()}円・その他の販管費 月${Math.round(yamaOther).toLocaleString()}円`);
-  console.log(`分岐 ${lo.toFixed(0)}杯（その他の販管費を変動とみる）〜 ${hi.toFixed(0)}杯（全部固定とみる）。実際の売上は1日約${sold.toFixed(0)}杯（客単価900円【仮定】で割った目安）。分岐÷実際 ${(lo / sold * 100).toFixed(0)}〜${(hi / sold * 100).toFixed(0)}%。ピークの上限450杯（40席）を超える＝24時間のピーク外の売上が大きい`);
-  console.log(`（第3版の177杯は人件費を月216万円【仮定】と置いた値で、内訳の${(yamaLabor / 2160000).toFixed(1)}分の1だった）`);
+  console.log(`\n### 8b. 大型ロードサイド（山岡家の1店平均）：人件費 月${Math.round(yamaLabor).toLocaleString()}円（本社の人件費を含む会社全体の値）・家賃 月${Math.round(yamaRent).toLocaleString()}円・その他の販管費 月${Math.round(yamaOther).toLocaleString()}円（売上の${(otherRatio * 100).toFixed(1)}%）`);
+  console.log(`分岐 ${lo.toFixed(0)}杯（その他の販管費を売上比で引く）〜 ${hi.toFixed(0)}杯（全部固定とみる）。実際の売上は1日約${sold.toFixed(0)}杯（客単価900円【仮定】で割った目安）。分岐÷実際 ${(lo / sold * 100).toFixed(0)}〜${(hi / sold * 100).toFixed(0)}%`);
+  const coFixed = 13561 + 1396 + 1046 + 438 + 462 + 664 + 4795, coVarRate = (13129 + 2831) / sales;
+  console.log(`会社全体で確かめる：固定費（販管費から水道光熱を除く）${coFixed.toLocaleString()}百万円 ÷ 貢献率 ${(1 - coVarRate).toFixed(3)} ＝ 損益分岐の売上 ${(coFixed / (1 - coVarRate)).toLocaleString(undefined, { maximumFractionDigits: 0 })}百万円（実際の${(coFixed / (1 - coVarRate) / sales * 100).toFixed(1)}%）`);
+  console.log(`（第4版の下限397杯は、その他の販管費を変動とみると言いながら貢献から引いていなかった。第3版の177杯は人件費を月216万円【仮定】と置いた値）`);
 }
 // 8c. 小さな店7立地の分岐の幅と順位（置き値を同時に動かす。乱数の種を固定）
 {
@@ -269,6 +276,34 @@ for (const [n, rent, src, seats, price, ph, wage, other, days] of types) {
   console.log(`銀座の1階で100杯：店主の取り分の前 ${Math.round(prof(g, 100) / 1000)}千円、取り分30万を引くと ${Math.round((prof(g, 100) - 300000) / 1000)}千円`);
   console.log(`地方の商店街で30杯：雇う（8人時）${Math.round(prof(chi, 30) / 1000)}千円、雇わず家族で回す（人時0）${Math.round(prof(chi, 30, { ph: 0 }) / 1000)}千円（分岐 ${beOf(chi, { ph: 0 }).toFixed(1)}杯）`);
 }
+
+// ---------- 8d. オーナーの2つの例を、前提を両側でそろえた格子で試す（QUALITY 6.3、論証の検査 X09・事実の判定 V7） ----------
+// 例：「銀座だと100杯売れても赤字」「奥多摩（ここでは地方の商店街の置き値）なら30杯でも採算」。採算＝店主の取り分を引いて0以上
+{
+  const g = types.find((t) => t[0].startsWith('都心')), r = types.find((t) => t[0].startsWith('地方'));
+  const prof = (t, cups, ph, draw, price) => { const [n, rent, src, seats, p0, ph0, wage, other, days] = t; const P = price ?? p0; return cups * P * (1 - COGS - UTIL) * days - rent - ph * wage * days - other - draw; };
+  const PH = [0, 4, 8, 12, 16, 22], DRAW = [0, 150000, 300000];
+  console.log('\n### 8d. オーナーの2つの例：同じ店の形（人時・店主の取り分）を両側に置いた格子（客単価は置き値：銀座1,000円・地方800円）');
+  console.log('| 人時/日 | 店主の取り分/月 | 銀座100杯（千円） | 地方30杯（千円） | 両方が成り立つ |\n|---|---|---|---|---|');
+  let both = 0, n = 0;
+  for (const ph of PH) for (const d of DRAW) {
+    const a = prof(g, 100, ph, d), b = prof(r, 30, ph, d); n++; const ok = a < 0 && b >= 0; if (ok) both++;
+    console.log(`| ${ph} | ${d / 10000}万 | ${Math.round(a / 1000)} | ${Math.round(b / 1000)} | ${ok ? 'はい' : 'いいえ'} |`);
+  }
+  console.log(`同じ形で両方が成り立つ：${both}/${n} 通り`);
+  // 銀座の客単価を動かす（統計の区部の基本の値段617円〜1,000円）
+  let both2 = 0, n2 = 0; const hit = [];
+  for (const price of [617, 700, 800, 900, 1000]) for (const ph of PH) for (const d of DRAW) { n2++; if (prof(g, 100, ph, d, price) < 0 && prof(r, 30, ph, d) >= 0) { both2++; hit.push(`${price}円・${ph}人時・取り分${d / 10000}万`); } }
+  console.log(`銀座の客単価を617〜1,000円で動かしても同じ形で両方が成り立つ：${both2}/${n2} 通り${hit.length ? '（' + hit.join('／') + '）' : ''}`);
+  // 例が成り立つのはどの前提が違うときか
+  const gNeed = PH.map((ph) => { const a0 = prof(g, 100, ph, 0); return `${ph}人時なら取り分${a0 < 0 ? '0' : Math.ceil(a0 / 10000) + '万円超'}で赤字`; });
+  console.log('銀座100杯（1,000円）が赤字になる条件：' + gNeed.join('・'));
+  const rOK = PH.map((ph) => `${ph}人時なら取り分${Math.max(0, Math.floor(prof(r, 30, ph, 0) / 10000))}万円まで${prof(r, 30, ph, 0) < 0 ? '（取り分0でも赤字）' : ''}`);
+  console.log('地方30杯が採算に乗る条件：' + rOK.join('・'));
+  for (const price of [617, 700]) console.log(`銀座の客単価${price}円なら：` + PH.map((ph) => `${ph}人時で100杯 ${Math.round(prof(g, 100, ph, 0, price) / 1000)}千円（取り分0）`).join('・'));
+  const fam = prof(r, 30, 0, 0);
+  for (const [people, h] of [[2, 8], [2, 10], [3, 8]]) console.log(`地方30杯を雇わず回す：残り${Math.round(fam).toLocaleString()}円 ÷（${people}人（店主を含む）×${h}時間×25日）＝ 時給 ${Math.round(fam / (people * h * 25))} 円（置き値の地方の時給は1,000円）`);
+}
 // 同じ100杯で利益はいくらか（オーナーの「銀座だと100杯売れても赤字、奥多摩なら30杯でも採算」に対応）
 console.log('同じ杯数での月の利益（店主の取り分の前）：');
 for (const [n, rent, , , price, ph, wage, other, days] of types) {
@@ -301,6 +336,12 @@ for (const [n, seats, base, fam] of [['12席の駅前店・平常は分岐の89�
   }
 }
 for (const fam of [0.2, 0.5, 0.8]) console.log(`12席（上限135）で8月に席が詰まる平常の需要の下限（家族${fam * 100}%・単身1.0）：${(135 / (fam * family8 + (1 - fam))).toFixed(0)}杯/日（上限の${(100 / (fam * family8 + (1 - fam))).toFixed(0)}%）`);
+// 9b. 昼の2時間に需要が集まる場合（論証の検査 X03）。昼の割合は資料にない【仮定】
+{
+  const lunchCap = 12 * 0.75 * 3 * 2, dinnerCap = 12 * 0.75 * 3 * 3;
+  console.log(`12席の昼（11:30〜13:30）の上限 ${lunchCap}杯・夜（18〜21時）の上限 ${dinnerCap}杯`);
+  for (const base of [89, 100]) { const aug = base * (0.5 * family8 + 0.5); for (const sh of [0.4, 0.5, 0.6, 0.7]) { const d = aug * sh; console.log(`- 平常${base}杯（8月${aug.toFixed(1)}杯、家族5割）・昼に${sh * 100}%：昼の需要 ${d.toFixed(1)}杯／上限${lunchCap} → ${d > lunchCap ? '昼に詰まる（取りこぼし ' + (d - lunchCap).toFixed(1) + '杯）' : '詰まらない'}`); } }
+}
 console.log('7月→8月：家計の指数 98→118（4節）。8月だけ跳ねるのは暦（お盆・夏休み）と重なる。7月・6月の低さの一部は暑さや梅雨とも読める【推論】');
 
 // ---------- 10. 値上げの4社の物差し（論証の検査 R04、事実の判定 N1・E3） ----------
@@ -315,25 +356,26 @@ console.log('| 会社 | 値段の判断 | 客数・客単価・既存店売上 |
 for (const r of price4) console.log(`| ${r.join(' | ')} |`);
 console.log('共通の物差しは「既存店売上の前年比」が3社（山岡家119.1・幸楽苑110.3（上期）・ギフト105.8）。期がずれ、一風堂は無い。客数は2社だけ');
 
-// ---------- 11. 系統の原価の表のマスを数える（事実の判定 基準7。第4版：本文の6章の表を読んで機械で数える） ----------
-// 区分：【推論】を含むマス＝推論、【計算】を含むマス＝計算（資料の数どうしを式でつないだ値）、それ以外＝資料（数か、向きの記述）
+// ---------- 11. 系統の原価の表のマスを数える（事実の判定 基準7・12.3 の V4。第5版：印で5区分に） ----------
+// 区分：【推論】＝推論、【計算】＝計算、【代替】＝別の系統・店1軒の値で代えた、【記述】＝その系統の資料だが金額・数がない、印なし＝その系統の金額・数
 {
   const fs = require('fs'), path = require('path');
   const t = fs.readFileSync(path.join(__dirname, '..', 'BIZ-RAMEN.md'), 'utf8');
   const sec = t.split('\n## 6.')[1].split('\n## 7.')[0];
   const rows = sec.split('\n').filter((l) => /^\| [^-|系]/.test(l) && !l.startsWith('| 系統'));
-  let tot = { 資料: 0, 計算: 0, 推論: 0 };
+  const K = ['金額・数', '記述', '代替', '計算', '推論']; const tot = {}; K.forEach((k) => { tot[k] = 0; });
+  const kind = (x) => (x.includes('【推論') ? '推論' : x.includes('【計算') ? '計算' : x.includes('【代替') ? '代替' : x.includes('【記述') ? '記述' : '金額・数');
   console.log('\n## 11. 系統の原価の表（6章）のマス：10系統×9項目');
-  console.log('| 系統 | 資料 | 計算 | 推論 |\n|---|---|---|---|');
+  console.log('| 系統 | ' + K.join(' | ') + ' |\n|---|---|---|---|---|---|');
   for (const r of rows) {
     const c = r.split('|').slice(1, -1).map((x) => x.trim());
-    const cells = c.slice(1, 10); const k = { 資料: 0, 計算: 0, 推論: 0 };
-    for (const x of cells) k[x.includes('【推論') ? '推論' : x.includes('【計算') ? '計算' : '資料']++;
-    Object.keys(k).forEach((q) => { tot[q] += k[q]; });
-    console.log(`| ${c[0]} | ${k.資料} | ${k.計算} | ${k.推論} |`);
+    const k = {}; K.forEach((q) => { k[q] = 0; });
+    for (const x of c.slice(1, 10)) k[kind(x)]++;
+    K.forEach((q) => { tot[q] += k[q]; });
+    console.log(`| ${c[0]} | ${K.map((q) => k[q]).join(' | ')} |`);
   }
-  const n = tot.資料 + tot.計算 + tot.推論;
-  console.log(`計 ${n} マス：資料 ${tot.資料}・計算 ${tot.計算}・推論 ${tot.推論}（${(tot.推論 / n * 100).toFixed(1)}%）。第3版は資料37・推論53（58.9%）`);
+  const n = K.reduce((s, q) => s + tot[q], 0);
+  console.log(`計 ${n} マス：` + K.map((q) => `${q} ${tot[q]}`).join('・') + `。推論の割合 ${(tot.推論 / n * 100).toFixed(1)}%（第3版は資料37・推論53、第4版の数え方では資料46・計算2・推論42）`);
 }
 console.log('TSR 2024年の倒産したラーメン店のスープ：醤油・中華29.8%・とんこつ24.5%・みそ12.2%・塩8.7%・家系5.2%・つけ麺1.7%（計 ' + (29.8 + 24.5 + 12.2 + 8.7 + 5.2 + 1.7).toFixed(1) + '%、残りはその他）。店の数の構成比がないので「倒れやすさ」ではない');
 console.log(`系統の原価の差を月の利益と比べる：味噌270−醤油185＝85円 × 40杯 × 25日 = ${(85 * 40 * 25).toLocaleString()} 円（石動龍の40杯の店の残り20万円の ${Math.round(85 * 40 * 25 / 200000 * 100)}%）`);
