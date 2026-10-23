@@ -5,7 +5,7 @@ doc: r5-growth-arxiv-mortality-pdf
 file: r5-growth-arxiv-mortality-pdf.pdf
 sha256: 7866819123daad8e9580e87569bde9d607a33697114d2fc1b578752560d9f7ee
 read: partial
-pages: 1〜11（要旨・序論・データ・方法・起業時の規模・景気・飲食店と他のサービス業の比較・表1〜3）。12ページ以降の結論と参考文献は流し読み
+pages: 1〜11（要旨・序論・データ・方法・起業時の規模・景気・飲食店と他のサービス業の比較・表1〜3）。12ページ以降の結論と参考文献は流し読み。読まなかった所の理由：12頁以降は結論の繰り返しと参考文献で、使う数（表2・表3）は11頁までにあるため流し読み
 anchors: ["Only the Bad Die Young", "81,000 full-service restaurants", "Multi-establishment and “chain” restaurants are excluded", "Twenty-one percent of small startups survived past age 15", "liability of adolescence", "offices of dentists, physicians, and lawyers"]
 ---
 Luo（米国労働統計局）と Stark（カリフォルニア大学バークレー校）による、米国西部のレストランの生存を調べた論文の草稿（arXiv:1410.8603、2014年10月）。

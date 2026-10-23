@@ -184,11 +184,22 @@ for i, it, name, text in [
 ]:
     rows.append([AUD, i, '判定の追加', name, text])
 
+# ⑦ 版2で足した（事実の判定 2.1 の漏れ13か所と、印のない「無い」7行）。C001〜C166 の番号を動かさないため、末尾に足す
+NOMARK = {}
+Lc = read_rev('BIZ-CALIB.md').split('\n'); Ls = read_rev('BIZ-SIMDESIGN.md').split('\n')
+for i, kind, name, it in [(1199, '推論', '【推測】', 'FCW'), (1105, '未達', '基準16', 'FOODPOI'), (1098, '未達', '基準9', 'META')]:
+    rows.append(['BIZ-CALIB.md', i, kind, name, Lc[i - 1]]); NOMARK[('BIZ-CALIB.md', i)] = it
+for i, it in [(542, 'SDGAME'), (543, 'SDGAME'), (544, 'SDGAME'), (545, 'SDGAME'), (547, 'SDGAME'), (549, 'SDDESIGN'), (550, 'SDDESIGN'), (551, 'SDGAME'), (552, 'SDGAME'), (553, 'SDDESIGN')]:
+    rows.append(['BIZ-SIMDESIGN.md', i, '未達', '箇条', Ls[i - 1][2:]]); NOMARK[('BIZ-SIMDESIGN.md', i)] = it
+for i, it in [(1215, 'JFC'), (1217, 'EXIT'), (1219, 'PLANT'), (1221, 'PLANT'), (1224, 'FCW'), (1225, 'FCW'), (1228, 'DEBT')]:
+    rows.append(['BIZ-CALIB.md', i, '無い', '印なし', Lc[i - 1]]); NOMARK[('BIZ-CALIB.md', i)] = it
+
 out = []
 for n, (f, i, kind, name, text) in enumerate(rows, 1):
-    if f == AUD: it = {183: 'FOODPOI', 184: 'PRICE', 185: 'JFC', 188: 'RENT', 189: 'SUMMER', 191: 'TAX'}[i]
+    if (f, i) in NOMARK and n > 166: it = NOMARK[(f, i)]
+    elif f == AUD: it = {183: 'FOODPOI', 184: 'PRICE', 185: 'JFC', 188: 'RENT', 189: 'SUMMER', 191: 'TAX'}[i]
     elif f == 'BIZ-CALIB.md': it = item_calib(kind, name, text, i)
-    else:
+    elif True:
         sec = ''
         it = item_sim(kind, text, '1.' if 83 <= i <= 94 else '')
     sc, lab, how = IT[it]

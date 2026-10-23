@@ -2253,5 +2253,15 @@
   "verdict": "gray",
   "basis": "裁判所ウェブサイトの判例検索。自動取得の明示の禁止は確認していない（利用規約の頁は未取得）。robots.txt は research-fetch が自動で確かめる。1回だけ取得",
   "checked": "2026-10-22"
+ },
+ "news.cornell.edu": {
+  "verdict": "gray",
+  "basis": "robots.txt は research-fetch が自動で確かめる（禁止なら取らない）。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。1頁だけ・間隔を守る（2026-10-23）",
+  "checked": "2026-10-23"
+ },
+ "ascii.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt は research-fetch が自動で確かめる（禁止なら取らない）。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。1頁だけ・間隔を守る（2026-10-23）",
+  "checked": "2026-10-23"
  }
 }
