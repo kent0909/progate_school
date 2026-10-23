@@ -329,7 +329,7 @@
   function rescueFails(W, n) {
     for (const d of [0, 100, -100]) {
       let x = W, dead = false;
-      for (let k = 0; k < n; k++) { const p = policy0(x, null, { neutral: true }); p.price = W.stores[0].price + d; p.parts = 0; p.borrow = true; p.family = Math.max(1, x.stores[0].family); p.flyer = 0; p.line = false; const r = month(x, p, { noise: false, noCards: true, noFactors: true }); x = r.W; if (x.cash < 0) { dead = true; break; } }
+      for (let k = 0; k < n; k++) { const p = policy0(x, null, { neutral: true }); p.price = W.stores[0].price + d; p.parts = 0; p.borrow = true; p.family = 0; p.flyer = 0; p.line = false; const r = month(x, p, { noise: false, noCards: true, noFactors: true }); x = r.W; if (x.cash < 0) { dead = true; break; } }
       if (!dead) return false;
     }
     return true;
