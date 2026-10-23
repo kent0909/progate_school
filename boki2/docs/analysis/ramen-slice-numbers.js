@@ -212,7 +212,7 @@ function model(V) {
       const y = Math.floor(t / 12) + 1, p = pol(y, t, seed, out[out.length - 1]), ramp = t < 12 ? 0.55 + 0.30 * t / 11 : t < 24 ? 0.85 + 0.15 * (t - 11) / 12 : 1;
       if (dead) { out.push({ t, y, N: 0, L, R, cash, cum, dead: true }); continue; }
       const sup = SUP[p.supplier || 'std'], Q = sup[1] + (sup[1] < 3 && t % 6 === 0 ? -0.3 : 0);   // 安い仕入先は半年に1度の不良で評判が下がる
-      if (V.decay && t >= 12) Fbase = Math.max(0.6, Fbase * (1 - 0.015)); if (p.tweak && t % 12 === 1 && t >= 12) Fbase = Math.min(1, Fbase + 0.1);   // 13か月目から −1.5%/月、手直し（毎年5月）で +0.1
+      if (V.decay && t >= 12) Fbase = Math.max(0.6, Fbase * (1 - (V.decayRate || 0.015))); if (p.tweak && t % 12 === 1 && t >= 12) Fbase = Math.min(1, Fbase + 0.1);   // 13か月目から −1.5%/月、手直し（毎年5月）で +0.1
       F = p.limited && t % 12 === 7 ? Fbase + 0.15 : Math.max(Fbase, F - 0.0375);
       const sg = SIGN[p.sign || 'none'], signOn = p.sign && p.sign !== 'none' && t >= (p.signAt || 3);
       const faded = V.renew && p.sign === 'large' && t >= (p.signAt || 3) + 30 && t < (p.signAt || 3) + 36 ? 0.5 : 1;
@@ -220,7 +220,7 @@ function model(V) {
       const Atot = A.sign + A.flyer + A.sns;
       const M = Math.exp(BR * (R - 3) + 0.06 * (Q - 3) + BF * Math.log(F) + (p.fit || 0) + BA * Math.log(1 + Atot));
       pRef = 0.75 * pRef + 0.25 * (V.w * p.price + (1 - V.w) * 850);
-      const cheapRamp = Math.min(1, Math.max(0, (pRef - p.price) / (0.3 * pRef)));   // 相場より安いほど（相場から0.7倍へ向けて）なだらかに。崖を作らない（版0.8：0.9倍からの坂だと最適が坂の直前に集まった）
+      const cheapRamp = Math.min(1, Math.max(0, (0.9 * pRef - p.price) / (0.2 * pRef)));   // 相場の0.9倍から0.7倍へ向けてなだらかに（相場から始める坂だと1年目の値下げが全部消え、入れ替わりが0%になった）
       const Mn = M * (1 - (1 - (V.cheapNest || 1)) * cheapRamp);   // 安い店は「安売りの型」へ寄り、安売りチェーンと取り合う（入れ子の近似。崖にしない）
       const share = (Mn * S0SHARE) / ((1 - S0SHARE) + Mn * S0SHARE), epsR = R >= 4.5 ? 0.7 : 1;
       const Nnew = S0 * seed.pool * share * ramp * (p.map ? 1.2 : 0.8) * Math.pow(p.price / pRef, -EPS_NEW * epsR);
@@ -313,6 +313,8 @@ function model(V) {
   console.log(`家族の勝率（3年目末NC・60周）：放置どうし ${(100 * fi / 60).toFixed(0)}%・上手どうし（家族のまま） ${(100 * fs / 60).toFixed(0)}%・分別のある家族 ${(100 * fw / 60).toFixed(0)}%・家族1人＋パート1人（上限70・人件費32万） ${(100 * fp / 60).toFixed(0)}%`);
   // 追加：味を変える判断（毎年の限定＋手直し vs 何もしない）と値上げの損（hikeChurn）。5年目末NC で
   if (V.decay) {
+    const o = run(S0, seeds[1], idle('part1'), 3, { nodeath: true }); const F36 = o[35] && o[35].F;
+    console.log(`放置の一杯：3年目末の F ${(Math.max(0.6, Math.pow(1 - (V.decayRate || 0.015), 24))).toFixed(3)}（13か月目から −${100 * (V.decayRate || 0.015)}%/月。段0は半分で ${(Math.max(0.6, Math.pow(1 - (V.decayRate || 0.015) / 2, 24))).toFixed(3)}）→ 客数 ${(100 * (Math.exp(0.30 * Math.log(Math.max(0.6, Math.pow(1 - (V.decayRate || 0.015), 24)))) - 1)).toFixed(1)}%（段0 ${(100 * (Math.exp(0.30 * Math.log(Math.max(0.6, Math.pow(1 - (V.decayRate || 0.015) / 2, 24)))) - 1)).toFixed(1)}%）。F<0.9 になる月（基準）：${Math.max(0, 36 - 12 - Math.ceil(Math.log(0.9) / Math.log(1 - (V.decayRate || 0.015))))}か月`);
     let tw = 0; const dn = [];
     for (const sd of seeds) { const a = run(S0, sd, sk('quality', { limited: true, tweak: true }), 5), b = run(S0, sd, sk('quality', { limited: false, tweak: false }), 5); if (NC(a) > NC(b)) tw++; dn.push(NC(a) - NC(b)); }
     console.log(`味を変える判断（quality・60 seed・5年目末NC）：毎年の限定＋手直しが勝つ ${(100 * tw / 60).toFixed(0)}%、差の中央値 ${q(dn, 0.5).toFixed(0)}万（減衰 −1.5%/月・F<0.9 で離れ +1%${V.fChurn ? 'あり' : 'なし'}）`);
@@ -332,15 +334,8 @@ function model(V) {
     console.log(`値段（多店舗・20 seed・1年目は10円刻み）：入れ替わり ${(100 * flip / 20).toFixed(0)}%、1年目の最適の中央値 ${q(p1s, 0.5)}円・最頻値 ${mode[0]}円が ${(100 * mode[1] / 20).toFixed(0)}%（<70%）、3年目の中央値 ${q(p3s, 0.5)}円`);
   }
 }
-const E8 = { name: 'E8（版0.8 の採用案）', w: 0, epsReg: 0.3, retain: 0.035, churnRep: 0.005, retainP: 1.0, cheapHit: 0.3, D: 6, qHigh: 3.8, qCost: 30000, highCogs: 0.41, signSmall: 0.03, signLarge: 0.07, largeCost: 500000, permit: 2500, renew: true, cheapNest: 0.7, priceScan: true, decay: true, fChurn: true, hikeChurn: true, familyCap: 35 };
+const E8 = { name: 'E8（版0.8 の採用案）', w: 0, epsReg: 0.3, retain: 0.035, churnRep: 0.005, retainP: 1.0, cheapHit: 0.3, D: 6, qHigh: 3.8, qCost: 30000, highCogs: 0.41, signSmall: 0.03, signLarge: 0.07, largeCost: 500000, permit: 2500, renew: true, cheapNest: 0.7, priceScan: true, decay: true, fChurn: true, hikeChurn: true, familyCap: 40 };
 model(E8);
 model({ ...E8, name: 'E8・w=0.05（追随の上限を探る）', w: 0.05 });
-model({ ...E8, name: 'E8・w=0.1', w: 0.1 });
-model({ ...E8, name: 'E8・家族の上限40', familyCap: 40, priceScan: false });
+model({ ...E8, name: 'E8・古び −2%/月（段0 −1%）', decayRate: 0.02, priceScan: false });
 model({ ...E8, name: 'E8・放置に小の看板（条件6）', idleSign: 'small', priceScan: false });
-model({ ...E8, name: '切り分け：値上げの離れなし', hikeChurn: false });
-model({ ...E8, name: '切り分け：古びた一杯の離れなし', fChurn: false, priceScan: false });
-model({ ...E8, name: '切り分け：安売りの型なし', cheapNest: 1 });
-model({ ...E8, name: '切り分け：印象なし', cheapHit: 0 });
-model({ ...E8, name: '切り分け：retainP なし', retainP: 0 });
-model({ ...E8, name: '切り分け：癖なし（D=0）', D: 0 });
