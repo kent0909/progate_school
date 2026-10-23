@@ -854,11 +854,6 @@
   "basis": "itmedia robots.txt は User-agent:* に Disallow なし（Sitemapのみ。2026-10-22確認）。報道記事・転載禁止。閲覧要約のみ",
   "checked": "2026-10-22"
  },
- "imitsu.jp": {
-  "verdict": "gray",
-  "basis": "imitsu.jp robots.txt は503で確認できず。業者メディア。閲覧要約のみ",
-  "checked": "2026-10-22"
- },
  "emshort.blog": {
   "verdict": "ok",
   "basis": "emshort.blog/robots.txt は User-agent:* に /wp-admin/ /wp-login.php のみ Disallow。公開記事1件の単発閲覧",
@@ -1089,11 +1084,6 @@
   "basis": "zenn.dev 利用規約にクローリング禁止の条項なし（取得して確認）。robots.txt は /search のみ Disallow。記事1本の閲覧",
   "checked": "2026-10-22"
  },
- "toucharcade.com": {
-  "verdict": "ok",
-  "basis": "利用規約の確認のため robots.txt のみを取得",
-  "checked": "2026-10-22"
- },
  "minnano-rakuraku.com": {
   "verdict": "gray",
   "basis": "minnano-rakuraku.com は robots.txt なし（404）。記事の単発閲覧、転載しない。規約本文は未確認のため gray",
@@ -1102,11 +1092,6 @@
  "game.watch.impress.co.jp": {
   "verdict": "gray",
   "basis": "robots.txt は Googlebot 向けの画像・動画パスのみ Disallow、全エージェント向けの禁止なし。記事の単発閲覧、転載しない",
-  "checked": "2026-10-22"
- },
- "www.4gamer.net": {
-  "verdict": "gray",
-  "basis": "robots.txt は全エージェントに Disallow なし。ニュース記事の単発閲覧、転載しない",
   "checked": "2026-10-22"
  },
  "rawg.io": {
@@ -1252,11 +1237,6 @@
  "www.pref.ishikawa.lg.jp": {
   "verdict": "gray",
   "basis": "石川県の食の安全・安心懇話会の配布資料（県の公表資料）。出典明記の引用は可と解した。原文は入れず数字のみ",
-  "checked": "2026-10-22"
- },
- "www.inshokuten.com": {
-  "verdict": "gray",
-  "basis": "飲食店ドットコム（飲食店向け業者メディア）の会員アンケート結果。閲覧と数字の引用のみ、原文は入れない",
   "checked": "2026-10-22"
  },
  "store.steampowered.com": {
@@ -1544,11 +1524,6 @@
   "basis": "robots.txt に制限なし（または対象ページを禁止していない）。利用規約に自動取得・スクレイピングの明示的な禁止は見当たらない。少数・間隔を守る（2026-10-22 確認）",
   "checked": "2026-10-22"
  },
- "www.j-cast.com": {
-  "verdict": "gray",
-  "basis": "robots.txt で取得を許可（または robots.txt なし）。規約に自動取得の明示の禁止は見つけていない（規約ページは確認していない）。1〜2ページのみ・間隔を守って取得",
-  "checked": "2026-10-22"
- },
  "www.toy-people.com": {
   "verdict": "gray",
   "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
@@ -1567,11 +1542,6 @@
  "forbesjapan.com": {
   "verdict": "gray",
   "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
-  "checked": "2026-10-22"
- },
- "www.moneypost.jp": {
-  "verdict": "gray",
-  "basis": "robots.txt は GPTBot のみ全禁止、一般は /wp-admin/ 等のみ禁止。規約に自動取得の明示的な禁止は見当たらない（2026-10-22 確認）",
   "checked": "2026-10-22"
  },
  "www.daily.co.jp": {
@@ -1597,11 +1567,6 @@
  "webtan.impress.co.jp": {
   "verdict": "gray",
   "basis": "robots.txt は 403 で読めず、規約の自動取得禁止も未確認。同じ impress の他ホストは gray。1頁だけ取る（gray）",
-  "checked": "2026-10-22"
- },
- "president.jp": {
-  "verdict": "gray",
-  "basis": "robots.txt（User-agent: *）は対象ページを許可し、AI 向けの全面禁止もない。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。少数・間隔を守る",
   "checked": "2026-10-22"
  },
  "lp.raksul.com": {
@@ -2292,6 +2257,76 @@
  "blog.kongregate.com": {
   "verdict": "no-automation",
   "basis": "Kongregate Terms of Service（kongregate.com/pages/terms、2026-10-23 取得 r10-tos-kongregate）が robots・bots・spiders・extraction tools でサービスに触れることを禁止",
+  "checked": "2026-10-23"
+ },
+ "www.pcgamer.com": {
+  "verdict": "gray",
+  "basis": "PC Gamer（Future plc）。robots.txt（2026-10-23 取得 r10-robots-www.pcgamer.com）の User-agent:* は deals・comments 等の一部のパスだけ Disallow、Anthropic の名の組なし。規約の頁（futureplc.com/terms-conditions、r10-tos-futureplc）は本文がスクリプトで描かれ読めない。目安どおり gray（少数・間隔を守る）",
+  "checked": "2026-10-23"
+ },
+ "geekdad.com": {
+  "verdict": "gray",
+  "basis": "GeekDad。robots.txt（2026-10-23 取得 r10-robots-geekdad.com）は /wp-admin/ だけ Disallow、Anthropic の名の組なし。規約の明示的な自動取得の禁止は確かめていない（目安どおり gray）",
+  "checked": "2026-10-23"
+ },
+ "www.tpr.org": {
+  "verdict": "gray",
+  "basis": "Texas Public Radio。robots.txt（2026-10-23 取得 r10-robots-www.tpr.org）は User-agent:* に空の Disallow（全部許す）、Anthropic の名の組なし。規約の頁は見つからず、privacy-policy（r10-tos-tpr-privacy）に自動取得の禁止の明示なし。目安どおり gray。NPR の配信記事の写し（npr.org は Anthropic の名の組で禁じる）であることを報告に書く",
+  "checked": "2026-10-23"
+ },
+ "www.4gamer.net": {
+  "verdict": "gray",
+  "basis": "4Gamer.net（Aetas）。robots.txt（2026-10-23 取得 r10-robots-www.4gamer.net）は User-agent:* に空の Disallow（全部許す）、Anthropic の名の組なし。about/policy.shtml（r10-tos-4gamer）は個人情報の方針で、自動取得の禁止の明示なし。目安どおり gray（記事の単発の閲覧、転載しない）",
+  "checked": "2026-10-23"
+ },
+ "cliqist.com": {
+  "verdict": "gray",
+  "basis": "Cliqist。robots.txt（2026-10-23 取得 r10-robots-cliqist.com）は User-agent:* にカレンダーの頁だけ Disallow、Anthropic の名の組なし。規約の頁は見当たらず、目安どおり gray（記事の単発の閲覧、転載しない）",
+  "checked": "2026-10-23"
+ },
+ "api.crossref.org": {
+  "verdict": "ok",
+  "basis": "Crossref REST API。書誌情報は公開のメタデータ（Crossref はメタデータの再利用を認め、API の公開利用を案内）。robots.txt（2026-10-23 取得 r10-robots-api.crossref.org）は本文なし。要旨だけ使う",
+  "checked": "2026-10-23"
+ },
+ "api.openalex.org": {
+  "verdict": "ok",
+  "basis": "OpenAlex API。データは CC0 で、API の公開利用を案内している。robots.txt（2026-10-23 取得 r10-robots-api.openalex.org）は User-agent:* に Allow: /。要旨だけ使う",
+  "checked": "2026-10-23"
+ },
+ "absel-ojs-ttu.tdl.org": {
+  "verdict": "gray",
+  "basis": "ABSEL の論文誌（Developments in Business Simulation and Experiential Learning、Texas Digital Library の OJS）。robots.txt（2026-10-23 取得 r10-robots-absel-ojs-ttu.tdl.org）は /cache/ だけ Disallow、Anthropic の名の組なし。オープンアクセスの論文誌。規約の明示的な自動取得の禁止は確かめていない（目安どおり gray）。記事の頁（要旨）だけ取る",
+  "checked": "2026-10-23"
+ },
+ "imitsu.jp": {
+  "verdict": "gray",
+  "basis": "imitsu（業者メディア）。robots.txt（2026-10-23 取得 r10-robots-imitsu.jp）は User-agent:* に /api/・検索の組み合わせの頁などだけ Disallow、ClaudeBot の組は Allow: /。規約に自動取得の明示的な禁止は確かめていない（目安どおり gray）。閲覧と要約のみ",
+  "checked": "2026-10-23"
+ },
+ "www.moneypost.jp": {
+  "verdict": "gray",
+  "basis": "robots.txt（2026-10-23 取得 r10-robots-www.moneypost.jp）は検索と /wp-admin/ だけ Disallow、Anthropic の名の組なし。規約に自動取得の明示的な禁止は見当たらない（2026-10-22 の判定と同じ、gray）",
+  "checked": "2026-10-23"
+ },
+ "www.inshokuten.com": {
+  "verdict": "gray",
+  "basis": "飲食店ドットコム。robots.txt（2026-10-23 取得 r10-robots-www.inshokuten.com）は User-agent:* に /recruit/option/preview/ だけ、ClaudeBot の組は /signup/free だけ Disallow。2026-10-22 の判定と同じ gray。閲覧と要約のみ",
+  "checked": "2026-10-23"
+ },
+ "san-tatsu.jp": {
+  "verdict": "gray",
+  "basis": "サンタツ（さんたつ by 散歩の達人）。robots.txt（2026-10-23 取得 r10-robots-san-tatsu.jp）は空（制限なし）。規約に自動取得の明示的な禁止は確かめていない（目安どおり gray）。記事の単発の閲覧、転載しない",
+  "checked": "2026-10-23"
+ },
+ "www.j-cast.com": {
+  "verdict": "gray",
+  "basis": "J-CAST ニュース。robots.txt（2026-10-23 取得 r10-robots-www.j-cast.com）は User-agent:* に一部のパスだけ Disallow、Anthropic の名の組なし。規約に自動取得の明示的な禁止は確かめていない（目安どおり gray）。記事の単発の閲覧、転載しない",
+  "checked": "2026-10-23"
+ },
+ "www.nikkan-gendai.com": {
+  "verdict": "gray",
+  "basis": "日刊ゲンダイ DIGITAL。robots.txt（2026-10-23 取得 r10-robots-www.nikkan-gendai.com）に User-agent:* の組も Anthropic の名の組もない（制限なし）。規約は取得後に確かめる",
   "checked": "2026-10-23"
  }
 }
