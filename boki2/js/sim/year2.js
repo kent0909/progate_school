@@ -387,7 +387,8 @@
   const RENT = 600000, MACH = 1200000;
   // 受験する年度で、家賃の札を変える（2027年度の2級は支払リース料。前払いの分は前払費用）。年度を選んでいなければ今日の日付で決める（engine の modeOf と同じ）
   const y27 = (S) => (S.mode || (Date.now() < Date.parse('2027-04-01T00:00:00+09:00') ? '2026' : '2027')) !== '2026';
-  const RENT_A = (S) => (y27(S) ? '支払リース料' : '支払家賃'), PRE_A = (S) => (y27(S) ? '前払費用' : '前払家賃');
+  // 年度で変わる札の名前は年度表（js/data/kubun.js の B.kubun.yearly）から
+  const RENT_A = (S) => window.BOKI.kubun.Y(S).rent, PRE_A = (S) => window.BOKI.kubun.Y(S).prepaidRent;
   const m7 = { m: 7, year: Y, label: L(7), title: '2号店と、工場の機械', events: [
     { t: 'talk', lines: [['shacho', '2号店、居抜きで借りたよ！ 家賃は1年分まとめて払うと安くなるって言うから、払っちゃった。'], ['shacho', 'あと、中古の瓶詰めの機械も買った。搬入と試運転で、動くのは秋から。']] },
     // 株主ごとの行（株の数に応じて分ける：会社法454条3項）。行の合計は配当の総額
@@ -598,8 +599,8 @@
     if (gaichu({ decisions: {} }, m) || m === 12 || yotei(m)) {
       d({ kind: 'outsource', id: `y2gai${m}`, doc: { type: '請求書', title: '請求書（殺菌の外注）', from: 'キレイ殺菌', to: SHOP, date: `${m}月末`, rows: (S) => [['殺菌（1本20円）', `${lots(S, m).toLocaleString()}本`], ['税抜の金額', gaichu(S, m), 'amt'], ['消費税（10％）', tax10(gaichu(S, m)), 'amt'], ['合計', gaichu(S, m) + tax10(gaichu(S, m)), 'amt'], ['お支払期日', '翌月末']] },
         // 正は試験の書き方（直接経費：仕掛品／買掛金の1行。docs/DESIGN-ROUND2.md 6章）。外注加工賃の箱を通す会社の書き方は alt（通るが一言）
-        ans: (S) => je([['仕掛品', gaichu(S, m)], ['仮払消費税', tax10(gaichu(S, m))]], [['買掛金', gaichu(S, m) + tax10(gaichu(S, m))]]),
-        alts: (S) => [{ entry: je([['外注加工賃', gaichu(S, m)], ['仮払消費税', tax10(gaichu(S, m))]], [['買掛金', gaichu(S, m) + tax10(gaichu(S, m))]]), note: '外注加工賃の箱を通しても正しい（会社では月末に仕掛品へ運ぶ2段にすることもある）。試験では、直接経費の外注加工賃は「仕掛品／買掛金」の1行で書く。帳簿は1行の形で書いた。' }] });
+        // 会社の書き方（外注加工賃の箱を通す）は B.kubun.examForm の表から engine が作る（alt）
+        ans: (S) => je([['仕掛品', gaichu(S, m)], ['仮払消費税', tax10(gaichu(S, m))]], [['買掛金', gaichu(S, m) + tax10(gaichu(S, m))]]) });
     }
     if (m !== 10) {
       d({ kind: 'alloc', id: `y2alloc${m}`, doc: { type: '製造間接費の集計表', title: `${m}月の製造間接費の集計表`, from: '工場', to: '経理', date: `${m}月末`, rows: (S) => [['今月の瓶の分にまとめて配る額', OH(S, m), 'amt']] }, ans: (S) => je([['仕掛品', OH(S, m)]], [['製造間接費', OH(S, m)]]) });
@@ -1013,8 +1014,8 @@
       hand: '年をまたぐお金の札：前払費用（来年の費用を先に払った・資産）、前受（来年の収益を先にもらった・負債）、未払（今年の費用をまだ払っていない・負債）、未収（今年の収益をまだもらっていない・資産）。来年の4月1日に、元の札に戻す。' },
     { t: 'doc', kind: 'prepaid', id: 'pre-rent', doc: { type: '家賃の計算表', title: '家賃の切り分け（3月31日）', from: '経理', to: '経理', date: '3月31日', rows: [['7月に払った家賃（12か月分・税抜）', RENT, 'amt'], ['来年4〜6月の3か月分', PRE_RENT, 'amt']] },
       ans: (S) => je([[PRE_A(S), PRE_RENT]], [[RENT_A(S), PRE_RENT]]), opts: opts('前払家賃', '前払費用', '支払家賃', '支払リース料', '未払金'),
-      // 前払費用と前払家賃は、どちらも正しい札。帳簿はその年度の試験の名前で書く
-      alts: (S) => [{ entry: je([[y27(S) ? '前払家賃' : '前払費用', PRE_RENT]], [[RENT_A(S), PRE_RENT]]), note: y27(S) ? '前払家賃でも正しい。2027年度の試験では家賃を支払リース料で書くので、前払いの分は「前払費用」と書くのが安全。帳簿は前払費用で書いた。' : '前払費用でも正しい。家賃と分かる札として、帳簿は「前払家賃」で書いた。試験では、問題が示す札の名前に合わせる。' }] },
+      // 前払費用と前払家賃は、どちらも正しい札。帳簿はその年度の試験の名前で書く（もう一方は B.kubun.examForm の alt）
+    },
     { t: 'doc', kind: 'wage_accrue', id: 'wage-accrue', doc: { type: '賃金の計算表', title: '賃金の未払分（3月31日）', from: '工場', to: '経理', date: '3月31日', rows: (S) => [['3月26日〜31日に働いて、まだ払っていない分', -balEx(S, '賃金', 'wage-accrue'), 'amt'], ['払う日', '4月25日']] },
       ans: (S) => je([['賃金', -balEx(S, '賃金', 'wage-accrue')]], [['未払賃金', -balEx(S, '賃金', 'wage-accrue')]]), opts: opts('賃金', '未払賃金', '未払金', '給料') },
     { t: 'doc', kind: 'dep', id: 'dep-y2', doc: { type: '固定資産台帳', title: '固定資産台帳（トラック・2年目）', from: '経理', to: '経理', date: '3月31日', rows: (S) => [['トラック 取得原価', 240000, 'amt'], ['やり方', D_(S).dep === 'rate' ? '定率法（償却率0.4）' : '定額法（5年）'], ['今年の減価償却費（12か月）', depY2(S), 'amt']] },

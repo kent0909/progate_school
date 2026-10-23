@@ -8,7 +8,7 @@
 global.window = global;
 const path = require('path');
 const root = path.join(__dirname, '..');
-['js/core.js', 'js/data/accounts.js', 'js/sim/scenario.js', 'js/sim/year2.js'].forEach((f) => require(path.join(root, f)));
+['js/core.js', 'js/data/accounts.js', 'js/data/kubun.js', 'js/sim/scenario.js', 'js/sim/year2.js'].forEach((f) => require(path.join(root, f)));
 const B = window.BOKI, D = window.SIMDATA;
 const errors = [];
 const err = (m) => { if (!errors.includes(m)) errors.push(m); };
@@ -28,7 +28,7 @@ function closingOf(T, mi) {
   if (ni > 0) out.push({ dr: [['損益', ni]], cr: [['繰越利益剰余金', ni]] }); else if (ni < 0) out.push({ dr: [['繰越利益剰余金', -ni]], cr: [['損益', -ni]] });
   return out.map((e) => Object.assign(e, { y, closing: true }));
 }
-let leaves = 0;
+let leaves = 0, altN = 0;
 const ends = {};
 
 // 1年目の判断の最初の選択肢と、2年目を替えて試す1年目の代表の枝
@@ -123,6 +123,15 @@ function run(i, S) {
     const sum = (s) => a[s].reduce((t, x) => t + x[1], 0);
     if (sum('dr') !== sum('cr')) err(`${label} ${e.id}: 貸借不一致 ${sum('dr')} / ${sum('cr')}`);
     for (const [acc] of a.dr.concat(a.cr)) if (!B.accounts[acc]) err(`${label} ${e.id}: 科目がない ${acc}`);
+    // 会社の書き方（alt。台本の ev.alts と、B.kubun.examForm の表から作るもの）：貸借一致、科目の実在、正と違う、合計が正と同じ（docs/DESIGN-ROUND2.md 6.3）
+    for (const x of [...(val(e.alts, S) || []), ...B.kubun.altsOf(a, e)]) {
+      const al = x.entry, sa = (sd) => al[sd].reduce((t, y) => t + y[1], 0);
+      if (sa('dr') !== sa('cr')) err(`${label} ${e.id}：alt（${x.form || '台本'}）の貸借が合わない`);
+      if (sa('dr') !== sum('dr')) err(`${label} ${e.id}：alt（${x.form || '台本'}）の合計が正と違う`);
+      if (JSON.stringify(al) === JSON.stringify(a)) err(`${label} ${e.id}：alt（${x.form || '台本'}）が正と同じ`);
+      for (const [acc] of al.dr.concat(al.cr)) if (!B.accounts[acc]) err(`${label} ${e.id}：alt の科目がない ${acc}`);
+      altN++;
+    }
     const taps = val(e.doc.rows, S).filter((r) => r[2] === 'amt').map((r) => r[1]);
     for (const [, v] of a.dr.concat(a.cr)) if (!taps.includes(v)) err(`${label} ${e.id}: 金額 ${v} が書類のタップ欄にない`);
     // 消費税の端数：書類の「消費税（8％）」「（10％）」の行は、その前の金額の行（前の消費税の行のあとから）の合計×率の切り捨て
@@ -237,4 +246,4 @@ for (const id of Object.keys(D.endings)) if (!ends[id] && !D.endings[id].ifOnly)
 } }
 
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
-console.log(`OK：${leaves} 本の分かれ道で検算した（結末：${Object.entries(ends).map(([k, v]) => `${k} ${v}`).join('・')}）`);
+console.log(`OK：${leaves} 本の分かれ道で検算した（会社の書き方 alt ${altN} 件も検算。結末：${Object.entries(ends).map(([k, v]) => `${k} ${v}`).join('・')}）`);

@@ -1356,10 +1356,11 @@
         const d = entry.dr.reduce((t, x) => t + x[1], 0), c = entry.cr.reduce((t, x) => t + x[1], 0);
         if (!entry.dr.length || !entry.cr.length || d !== c) { const bl = $('.s-bal', app); bl.textContent = !entry.dr.length || !entry.cr.length ? '左と右の両方に、札と金額を入れよう' : '左と右を同じ数にしてから書こう'; bl.classList.add('shake'); setTimeout(() => bl.classList.remove('shake'), 400); return; }
         // 別の書き方でも正しいもの（ev.alts：[{ entry, note }]）。通ったら帳簿には正解の形で書き、試験での書き方を一言そえる
-        const altHit = sameEntry(entry, truth) ? null : (val(ev.alts, S) || []).find((x) => sameEntry(entry, x.entry));
+        // 会社の書き方（alt）は、台本の ev.alts と書き方の規範の表（B.kubun.examForm。docs/DESIGN-ROUND2.md 6章）から
+        const altHit = sameEntry(entry, truth) ? null : [...(val(ev.alts, S) || []), ...(B.kubun && B.kubun.altsOf ? B.kubun.altsOf(truth, ev) : [])].find((x) => sameEntry(entry, x.entry));
         const ok = sameEntry(entry, truth) || !!altHit;
         tries++;
-        if (!fixMode && tries === 1) { S.docLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi, ok, hint: hintLv > 0 }); planMark(ev.kind, ok && hintLv === 0, 'doc'); S.metrics.docs.n++; if (ok) { S.metrics.docs.first++; if (ev.kind) (S.kinds[ev.kind] = S.kinds[ev.kind] || []).push(S.mi); } }
+        if (!fixMode && tries === 1) { S.docLog.push({ ev: ev.id, kind: ev.kind, mi: S.mi, ok, hint: hintLv > 0, ...(altHit ? { alt: altHit.form || true } : {}) }); planMark(ev.kind, ok && hintLv === 0, 'doc'); S.metrics.docs.n++; if (ok) { S.metrics.docs.first++; if (ev.kind) (S.kinds[ev.kind] = S.kinds[ev.kind] || []).push(S.mi); } }
         if (coach && !ok) {
           // 正解は言わない。1回目：書類から確かに言えることと、自分の仕訳が言っていること（？の行）を並べる
           const lines = [...entry.dr.map(([a, v]) => ['dr', a, v]), ...entry.cr.map(([a, v]) => ['cr', a, v])];

@@ -12,6 +12,7 @@ const STORY = RAMEN ? require('./ramen-files.js').story : ['js/sim/scenario.js',
 const B = window.BOKI, D = window.SIMDATA, LX = B.lex;
 const errors = [], notes = [];
 const taught = new Set();
+const altSeen = new Set();
 const fake = { decisions: {}, T: [], L: [] };
 const val = (x) => (typeof x === 'function' ? x(fake) : x);
 const branches = [{ crunch: 'loan', credit: 'credit', dep: 'straight' }, { crunch: 'discount', credit: 'cash', dep: 'rate' }];
@@ -130,6 +131,11 @@ D.months.forEach((m, mi) => {
       if (ki && !practiced.has(ki.move)) { check(`${w} はじめての問い`, [ki.q, ...ki.opts.map((o) => `${o.t} ${o.react || ''}`), ki.line].join(' ')); practiced.add(ki.move); }
       for (const b of branches) {
         const a = val(typeof e.ans === 'function' ? e.ans({ ...fake, decisions: b }) : e.ans);
+        // 会社の書き方（alt。B.kubun.examForm の表）：書類の札の候補にある alt の札は既習、橋渡しの一言はその場までの語で読める
+        for (const x of B.kubun.altsOf(a, e)) {
+          for (const [acc] of x.entry.dr.concat(x.entry.cr)) if ((e.opts || []).includes(acc) && !taught.has(acc) && !D.namings[acc]) errors.push(`${w}：会社の書き方（${x.form}）の札「${acc}」をまだ教えていない`);
+          if (!altSeen.has(x.form + e.id)) { altSeen.add(x.form + e.id); check(`${w} 橋渡しの一言（${x.form}）`, x.note); len(`${w} 橋渡しの一言`, x.note, 120); }
+        }
         moves(a).forEach((mv) => { if (!practiced.has(mv)) { errors.push(`${w}：はじめての動き「${mv}」を、それまでに練習していない（発見の moves か kindIntro が要る）`); practiced.add(mv); } });
         for (const [acc] of a.dr.concat(a.cr)) {
           if (!before.has(acc)) used.add(acc);

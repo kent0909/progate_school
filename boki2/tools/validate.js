@@ -218,7 +218,20 @@ for (const x of B.exams) {
 }
 
 // 年度の切り替え（docs/DESIGN-ROUND2.md 7.5・決定12）：2026年度に見せる参考書と問題に新リースの語がない。2027年度に見せる参考書に手形・旧リースの語がない
-{ const NEW27 = /使用権資産|リース負債/, OLD = /約束手形|支払手形|受取手形|リース資産|リース債務|ファイナンス・リース|オペレーティング・リース/;
+// 年度ごとの札・禁じる語は年度表（js/data/kubun.js の B.kubun.yearly）が1か所で持つ
+{ const YT = B.kubun.yearly, NEW27 = YT[2026].forbid, OLD = YT[2027].forbid;
+  for (const [y, t] of Object.entries(YT)) {
+    for (const a of [t.rent, t.prepaidRent, ...t.lease]) if (!B.accounts[a]) err(`年度表 ${y}`, `札「${a}」が勘定科目マスタにない`);
+    for (const a of t.lease) if (t.forbid.test(a)) err(`年度表 ${y}`, `その年度の札「${a}」が、その年度に禁じる語に当たる`);
+  }
+  // 書き方の規範（B.kubun.examForm）：置きかえ先の札が実在し、置きかえ元と違う
+  for (const r of B.kubun.examForm) {
+    if (!B.accounts[r.to]) err(`書き方の規範 ${r.id}`, `会社の書き方の札「${r.to}」が勘定科目マスタにない`);
+    if (typeof r.from === 'string' && !B.accounts[r.from]) err(`書き方の規範 ${r.id}`, `試験の書き方の札「${r.from}」が勘定科目マスタにない`);
+    if (r.from === r.to) err(`書き方の規範 ${r.id}`, '置きかえ元と先が同じ');
+    if (!String(r.bridge() || '').trim()) err(`書き方の規範 ${r.id}`, '橋渡しの一言がない');
+  }
+  console.log(`年度表：${Object.entries(YT).map(([y, t]) => `${y}＝家賃 ${t.rent}・前払 ${t.prepaidRent}・リース ${t.lease.join('／')}・手形 ${t.tegata ? 'あり' : 'なし'}`).join('　')}。書き方の規範 ${B.kubun.examForm.length} 行`);
   for (const c of B.chapters) {
     const l26 = c.lessons26 || c.lessons || [], l27 = c.lessons || [];
     for (const [i, l] of l26.entries()) if (c.lessons26 && NEW27.test(`${l.t}${l.h}`)) err(`${c.id}.lessons26[${i}]`, '2026年度の参考書に新リースの語（使用権資産・リース負債）');
