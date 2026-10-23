@@ -617,6 +617,7 @@ if (EXP === 'hire10') {
   withCoef({ wagePart: 180000 }, () => run('パートの給料 20万→18万'));
   withCoef({ repWait: 6 }, () => run('待ちの評判 3→6'));
   withCoef({ wagePart: 160000, capBy: [45, 60, 100, 125, 145, 160, 170] }, () => run('16万＋上限60'));
+  for (const w of [0.5, 1.0]) withX({ waitChurn: w }, () => run(`仕組み案：待たされた月は常連の離れ +${w}×待ちの割合`));
 }
 if (EXP === 'final' || EXP === 'final-ceiling') {
   setX(X09); C.table.decay.v = 0.02; C.table.capBy.v = [Number(arg('--famCap', 45)), 70, 100, 125, 145, 160, 170]; C.table.discountChurn.v = Number(arg('--discountChurn', 1));
