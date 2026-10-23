@@ -97,11 +97,57 @@
 
   // ---------- 端末をまたぐ手動の引っ越し（アカウントなしでも使える） ----------
   ST.exportText = (base) => local.get(keyOf(base)) || '';
-  ST.importText = (base, text) => { const st = JSON.parse(text); if (!st || typeof st !== 'object' || !('mi' in st)) throw new Error('bad'); local.set(keyOf(base), JSON.stringify(st)); return st; };
+  ST.importText = (base, text) => { const st = JSON.parse(text); if (!st || typeof st !== 'object' || !('mi' in st || (st.v === 4 && st.meta && Array.isArray(st.slots)))) throw new Error('bad'); local.set(keyOf(base), JSON.stringify(st)); return st; };
   ST.download = async (filename, text) => {
     try { const dl = g.claude && g.claude.use ? await g.claude.use('downloads') : null; if (dl) { await dl.save({ filename, data: text }); return true; } } catch (e) { /* 断られたら下の方法 */ }
     try { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'application/json' })); a.download = filename; a.click(); return true; } catch (e) { return false; }
   };
+
+  // ---------- 保存の v4（ラーメン版。DESIGN-ROUND2 3.10・DESIGN-RAMEN k.3・k.6）----------
+  // 形：{ v:4, meta:{…全スロットで共有：学びの記録・成長・検定会場・条件A・周の記録・屋号と名前・受験日…}, slots:[{ id, label, savedAt, run:{…その周の状態：帳簿・月・判断・choices・seed・W…} }], cur }
+  // engine は今までどおり1枚の S で動き、保存のときに meta と run に分ける（split）・読むときに合わせる（compose）。
+  // セーブスロットは3つ以上（n.15）。meta（examLog・成長・S.plan など）はスロットをまたいで共有、run はスロットごと。
+  // v3（ピヨ商店・レモネード）の保存はそのまま残し（index.html が読む）、v4 を初めて作るとき学びの記録だけ meta に写す（fromV3）
+  const V4 = (ST.v4 = {});
+  V4.SLOTS = 3;
+  V4.META = ['examLog', 'growth', 'speedLog', 'speedRuns', 'plan', 'hall', 'profile', 'profileOk', 'mode', 'modeOk', 'furigana', 'textScale', 'examExtra', 'examDate', 'scopeMet', 'runs'];
+  const clone = (x) => (x == null ? x : JSON.parse(JSON.stringify(x)));
+  V4.empty = () => ({ v: 4, meta: { examLog: [], growth: [], runs: [], scopeMet: {}, examDate: null }, slots: [...Array(V4.SLOTS).keys()].map((i) => ({ id: `s${i + 1}`, label: '', savedAt: 0, run: null })), cur: 's1' });
+  // v3 の保存から学びの記録（成長・検定会場・examLog・予定表・設定）だけを meta に。レモネードの会社（run）は写さない（n.9：レモネードを開く入口は作らない）
+  V4.fromV3 = (v3) => {
+    const d = V4.empty();
+    if (!v3 || typeof v3 !== 'object') return d;
+    for (const k of V4.META) if (v3[k] !== undefined && k !== 'profile' && k !== 'profileOk') d.meta[k] = clone(v3[k]);
+    d.meta.examLog = (v3.examLog || []).map((x) => ({ ...x, src: x.src || 'v3' }));
+    d.meta.fromV3 = { at: Date.now(), mi: v3.mi || 0, examLog: (v3.examLog || []).length, growth: (v3.growth || []).length };
+    return d;
+  };
+  V4.isV4 = (d) => !!(d && d.v === 4 && d.meta && Array.isArray(d.slots));
+  // 読む：v4 があればそれ、なければ v3 から作る（v3 は消さない）
+  V4.load = (base, v3base) => {
+    const raw = ST.loadLocal(base);
+    if (V4.isV4(raw)) { while (raw.slots.length < V4.SLOTS) raw.slots.push({ id: `s${raw.slots.length + 1}`, label: '', savedAt: 0, run: null }); return raw; }
+    return V4.fromV3(v3base ? ST.loadLocal(v3base) : null);
+  };
+  // 1枚の S（engine の形）に合わせる。slot が空なら run は {}
+  V4.compose = (d, slotId) => {
+    const sl = d.slots.find((x) => x.id === (slotId || d.cur)) || d.slots[0];
+    return Object.assign({}, clone(sl.run) || {}, clone(d.meta), { __slot: sl.id });
+  };
+  // 1枚の S を meta と run に分けて d に書き戻す（新しい d を返す）
+  V4.split = (d, S, label) => {
+    const out = clone(d) || V4.empty();
+    const meta = {}, run = {};
+    for (const [k, v] of Object.entries(S)) { if (k === '__slot' || k === 'savedAt') continue; if (V4.META.includes(k)) meta[k] = v; else run[k] = v; }
+    out.meta = Object.assign(out.meta || {}, clone(meta));
+    const id = S.__slot || out.cur, sl = out.slots.find((x) => x.id === id) || out.slots[0];
+    sl.run = clone(run); sl.savedAt = Date.now(); if (label != null) sl.label = label;
+    out.cur = sl.id;
+    return out;
+  };
+  V4.clearSlot = (d, id) => { const out = clone(d); const sl = out.slots.find((x) => x.id === id); if (sl) { sl.run = null; sl.label = ''; sl.savedAt = 0; } return out; };
+  // 判断の履歴（S.run.choices）。前の周の自分（f.1）と周のふりかえりに使う
+  V4.choice = (S, c) => { (S.choices = S.choices || []).push(Object.assign({ t: Date.now() }, c)); };
 
   // ---------- 確認テストの記録 ----------
   const TKEY = 'boki2sim.testlogs';

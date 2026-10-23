@@ -27,10 +27,21 @@
     discDone: {}, docLog: [], fixLog: [], closes: [], examLog: [], reportSeen: false, profile: { ...PROFILE0 },
     metrics: { started: Date.now(), disc: {}, docs: { n: 0, first: 0 }, fixes: 0, hints: 0, hand: 0, autoPosted: 0, quiz: null, forks: {} } });
   let S = fresh();
+  let RECALL = null;
   // 保存は store.js：端末の中にすぐ、公開ページの保存機能にも少し遅らせて（docs/STORAGE.md）
   const ST = B.store;
-  { const raw = ST.loadLocal(KEY); if (raw) S = Object.assign(fresh(), raw); }
-  const save = () => ST.save(KEY, S);
+  // ラーメン版は保存の v4（store.js の ST.v4：meta はスロットで共有、run はスロットごと。セーブスロット3つ）。ピヨ商店は v3 のまま
+  const V4 = ST.v4;
+  let DOC = null;
+  const fromDoc = (d, slot) => Object.assign(fresh(), V4.compose(d, slot));
+  const loadS = () => { if (RAMEN) { DOC = V4.load(KEY, 'boki2sim.v3'); return fromDoc(DOC); } const raw = ST.loadLocal(KEY); return raw ? Object.assign(fresh(), raw) : fresh(); };
+  // やり直し：ラーメン版は周（run）だけ新しく、学びの記録（meta）は残す
+  const freshKeep = () => { const o = fresh(); if (RAMEN) for (const k of V4.META) if (S[k] !== undefined) o[k] = S[k]; if (RAMEN) o.__slot = S.__slot; return o; };
+  const slotLabel = () => `${shopName()}・${(month() || {}).label || 'おわり'}`;
+  S = loadS();
+  // 保存の文書（端末・クラウド・ファイル）から S を作る。ラーメン版は v4 の文書（v3 のファイルなら学びの記録だけ写す）
+  const fromSaved = (st) => { if (!RAMEN) return Object.assign(fresh(), st); DOC = V4.isV4(st) ? st : V4.fromV3(st); return fromDoc(DOC); };
+  const save = () => { if (RAMEN) { DOC = V4.split(DOC, S, slotLabel()); ST.save(KEY, DOC); } else ST.save(KEY, S); };
   const knows = (w) => S.taught.includes(w);
   const teach = (list) => { (list || []).forEach((w) => { if (!knows(w)) S.taught.push(w); }); save(); };
   // 5つのグループの呼び方。名前を教わる前は、プロローグの棚の言葉で言う
@@ -739,12 +750,16 @@
     const ps = ST.profiles(), cur = ST.currentProfile();
     const who = ps.length > 1 || (ps[0] && ps[0].name) ? `<div class="s-who"><small>だれが遊ぶ？</small>${ps.map((p, k) => `<button class="${p.id === cur ? 'on' : ''}" data-prof="${p.id}">${esc(p.name || `${k + 1}人目`)}</button>`).join('')}<button data-addprof>＋</button></div>` : '<button class="link" data-addprof>ほかの人もこの端末で遊ぶ</button>';
     const logo = RAMEN ? `<div class="s-logo" data-nofuri>${esc(shopName())}<br><b>ラーメン</b></div><p>屋台の一杯から、町いちばんの店へ。<br>一杯を作り、値段を決め、お金の出入りを記録して店を育てよう。</p>` : '<div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p>';
-    app.innerHTML = `<main class="s-main s-title">${logo}<p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・ふりがな・文字の大きさ・保存と引っ越し</summary>${RAMEN && S.profileOk ? `<div class="s-who"><small>店の名前・あなたの名前（いま：${esc(shopName())}・${esc(playerName())}）</small><button data-rename>名前を変える</button></div>` : ''}<div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div>${S.pro3 && S.pro3.on ? '<div class="s-who"><small>近道（3級の型は自動）</small><button data-p3off>近道を切る（3級の型も手で書く）</button></div>' : ''}<div class="s-who"><small>ふりがな</small><button class="${S.furigana !== 'always' ? 'on' : ''}" data-furi="auto">はじめてと、押したとき</button><button class="${S.furigana === 'always' ? 'on' : ''}" data-furi="always">いつも</button></div><div class="s-who"><small>文字の大きさ（書類と表も同じ割合で大きくなる）</small>${[100, 125, 150].map((z) => `<button class="${(S.textScale || 100) === z ? 'on' : ''}" data-tscale="${z}">${z}%</button>`).join('')}</div><div class="s-who"><small>検定会場の時間（読むのに時間がかかる人のための、はじめからの延長）</small>${[0, 10, 20, 30].map((z) => `<button class="${(S.examExtra || 0) === z ? 'on' : ''}" data-exx="${z}">${z ? `+${z}分` : 'なし'}</button>`).join('')}</div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
+    // セーブスロット（ラーメン版。n.15）：店ごとに3つ。学びの記録はスロットをまたいで共有
+    const slots = RAMEN && DOC ? `<div class="s-who s-slots"><small>セーブスロット（学びの記録は共通）</small>${DOC.slots.map((sl, k) => `<button class="${sl.id === S.__slot ? 'on' : ''}" data-slot="${sl.id}">${k + 1}：${esc(sl.run && sl.label ? sl.label : 'あき')}</button>`).join('')}</div>` : '';
+    app.innerHTML = `<main class="s-main s-title">${logo}${slots}<p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・ふりがな・文字の大きさ・保存と引っ越し</summary>${RAMEN && S.profileOk ? `<div class="s-who"><small>店の名前・あなたの名前（いま：${esc(shopName())}・${esc(playerName())}）</small><button data-rename>名前を変える</button></div>` : ''}<div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div>${S.pro3 && S.pro3.on ? '<div class="s-who"><small>近道（3級の型は自動）</small><button data-p3off>近道を切る（3級の型も手で書く）</button></div>' : ''}<div class="s-who"><small>ふりがな</small><button class="${S.furigana !== 'always' ? 'on' : ''}" data-furi="auto">はじめてと、押したとき</button><button class="${S.furigana === 'always' ? 'on' : ''}" data-furi="always">いつも</button></div><div class="s-who"><small>文字の大きさ（書類と表も同じ割合で大きくなる）</small>${[100, 125, 150].map((z) => `<button class="${(S.textScale || 100) === z ? 'on' : ''}" data-tscale="${z}">${z}%</button>`).join('')}</div><div class="s-who"><small>検定会場の時間（読むのに時間がかかる人のための、はじめからの延長）</small>${[0, 10, 20, 30].map((z) => `<button class="${(S.examExtra || 0) === z ? 'on' : ''}" data-exx="${z}">${z ? `+${z}分` : 'なし'}</button>`).join('')}</div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
     app.onclick = (e) => {
       if (e.target.closest('[data-start]')) { const go = () => { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }; if (!started && RAMEN && !S.profileOk) return nameScreen(() => (S.modeOk ? pro3Ask(go) : modeScreen(() => pro3Ask(go)))); if (!started && !S.modeOk) return modeScreen(() => pro3Ask(go)); go(); }
-      if (e.target.closest('[data-reset]')) { if (!confirm('この人の記録を消して、最初からやり直しますか？')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); }
+      if (e.target.closest('[data-reset]')) { if (!confirm(RAMEN ? 'このスロットの店を消して、最初からやり直しますか？（学びの記録は残る）' : 'この人の記録を消して、最初からやり直しますか？')) return; S = freshKeep(); S.phase = 'monthIntro'; save(); render(); }
       const pb = e.target.closest('[data-prof]');
-      if (pb) { ST.switchProfile(pb.dataset.prof); const raw = ST.loadLocal(KEY); S = raw ? Object.assign(fresh(), raw) : fresh(); render(); ST.connect(KEY, (st) => { S = Object.assign(fresh(), st); if (document.querySelector('.s-title')) render(); }); }
+      if (pb) { ST.switchProfile(pb.dataset.prof); S = loadS(); render(); ST.connect(KEY, (st) => { S = fromSaved(st); if (document.querySelector('.s-title')) render(); }); }
+      const sb = e.target.closest('[data-slot]');
+      if (sb) { save(); S = fromDoc(DOC, sb.dataset.slot); DOC.cur = S.__slot; save(); titleScreen(); return; }
       if (e.target.closest('[data-addprof]')) { const name = prompt('遊ぶ人の呼び名（あとで変えられる。本名でなくてよい）', ''); if (name == null) return; ST.addProfile(name); S = fresh(); render(); }
       if (e.target.closest('[data-rename]')) { nameScreen(() => titleScreen()); return; }
       if (e.target.closest('[data-export]')) { ST.download(`piyo-save-${new Date().toISOString().slice(0, 10)}.json`, ST.exportText(KEY) || JSON.stringify(S)); }
@@ -760,7 +775,7 @@
       if (xx) { S.examExtra = +xx.dataset.exx; save(); titleScreen(); }
     };
     const inp = $('[data-import]', app);
-    if (inp) inp.onchange = async () => { const f = inp.files[0]; if (!f) return; try { S = Object.assign(fresh(), ST.importText(KEY, await f.text())); save(); render(); } catch (err) { alert('このファイルは読み込めませんでした。'); } };
+    if (inp) inp.onchange = async () => { const f = inp.files[0]; if (!f) return; try { const st = ST.importText(KEY, await f.text()); S = fromSaved(st); save(); render(); } catch (err) { alert('このファイルは読み込めませんでした。'); } };
   }
 
   /* ---- 確認テスト：ヒントなし・答え合わせなしで、体験した論点の本試験形式の仕訳を解く（docs/STORAGE.md）。
@@ -1100,9 +1115,10 @@
     const pd = val(pick.ev.doc, S) || {}, who = pd.from && !/ピヨ/.test(pd.from) ? pd.from : (pd.to && !/ピヨ/.test(pd.to) ? pd.to : ''), docName = `${pd.date ? pd.date + 'の' : ''}${who ? who + 'の' : ''}「${pd.title}」`;
     const truth = { dr: t.dr.map(([a, v]) => [a, v * k]), cr: t.cr.map(([a, v]) => [a, v * k]) };
     const opts = [...new Set([...(pick.ev.opts || []), ...truth.dr.map((x) => x[0]), ...truth.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
+    RECALL = { kind: pick.x.kind, truth }; // 検査の道具（tools・scratchpad の通し試験）が想起の答えを読むため
     const opt = `<option value="">札をえらぶ</option>${opts.map((a) => `<option>${esc(a)}</option>`).join('')}`;
     const side = (sd) => [...Array(Math.max(2, truth[sd].length)).keys()].map((i) => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の札">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
-    frame(`<div class="s-card"><small>${esc(month().label)}のはじめに 思い出す</small>${talk([['senpai', `${pick.x.mi === S.mi - 1 ? '先月' : ((D.months[pick.x.mi] || {}).label || '前') + '（' + (S.mi - pick.x.mi) + 'か月前）'}の${docName}を思い出して。同じ種類の書類で、金額が下の数だったら、どう書く？ 書類は見ないで。`]])}<p class="s-recall-amt">使う金額（順不同）：${[...new Set([...truth.dr, ...truth.cr].map(([, v]) => v))].sort(() => Math.random() - 0.5).map((v) => `<b>${fmt(v)}</b>円`).join('・')}</p>${''}<div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-rc>書いた</button><button class="link" data-rskip>思い出せないので、今月へ進む</button></div>`);
+    frame(`<div class="s-card"><small>${esc(month().label)}のはじめに 思い出す</small>${talk([['senpai', `${pick.x.mi === S.mi - 1 ? '先月' : ((D.months[pick.x.mi] || {}).label || '前') + '（' + (S.mi - pick.x.mi) + 'か月前）'}の${docName}を思い出して。同じ種類の書類で、金額が下の数だったら、どう書く？ 書類は見ないで。`]])}${D.examText && D.examText[pick.x.kind] ? `<p class="s-q">本試験の文の形で：${esc(D.examText[pick.x.kind](truth))}</p>` : ''}<p class="s-recall-amt">使う金額（順不同）：${[...new Set([...truth.dr, ...truth.cr].map(([, v]) => v))].sort(() => Math.random() - 0.5).map((v) => `<b>${fmt(v)}</b>円`).join('・')}</p>${''}<div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-rc>書いた</button><button class="link" data-rskip>思い出せないので、今月へ進む</button></div>`);
     app.onclick = (e) => {
       if (e.target.closest('[data-rnext]')) { done(); return; }
       const skip = e.target.closest('[data-rskip]');
@@ -1111,7 +1127,8 @@
       for (const sd of ['dr', 'cr']) { const sel = $$(`select[data-s="${sd}"]`, app), ins = $$(`input[data-s="${sd}"]`, app); sel.forEach((x, i) => { const v = Number((ins[i].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }); }
       const ok = !skip && entry.dr.length && entry.cr.length && sameEntry(entry, truth);
       S.recall.push({ mi: S.mi, kind: pick.x.kind, ok: !!ok, skipped: !!skip }); planMark(pick.x.kind, !!ok, 'recall');
-      if (!ok && pick.x.kind) S.examLog.push({ key: 'auto:' + pick.x.kind, ok: false, t: Date.now(), from: 'recall' });
+      // 月はじめの想起は、正解も誤りも examLog に入れる（DESIGN-RAMEN i.4・X10、オーナーの決定 n.20：条件A「日をあけても書けた」の入口）。思い出せないで飛ばしたのは誤り
+      if (pick.x.kind) S.examLog.push({ key: 'auto:' + pick.x.kind, ok: !!ok, t: Date.now(), from: 'recall', ...(skip ? { skipped: true } : {}) });
       save();
       $('[data-res]', app).innerHTML = `${ok ? `<p class="s-react">思い出せた。書き方はこれで合っている（金額は${k}倍）。</p>${jeTable(truth)}` : skip ? `<p class="s-react ng">前の書き方は、こうだった（金額は${k}倍）。</p>${jeTable(truth)}` : missHTML(entry, truth, `前の書き方（金額は${k}倍）`)}<button class="btn wide" data-rnext>今月へ</button>`;
       $$('[data-rc], [data-rskip]', app).forEach((x) => x.remove());
@@ -1617,7 +1634,8 @@
 
   // 判断：選ぶ前に見られるのは、経理が出せる「すぐ動く数字」（試算）だけ。外の反応や結末は、選んでから返ってくる
   // 判断の画面に来たら、会社の状態を栞にはさむ（バッドエンドから、ここへ戻れる）
-  const KEEP = ['leaves', 'taught', 'diary', 'seenEnds', 'ifSeen', 'metrics', 'bm'];
+  // 栞で戻っても残すもの。ラーメン版は学びの記録（meta：examLog・成長・条件A）とスロットも戻さない（X12）
+  const KEEP = ['leaves', 'taught', 'diary', 'seenEnds', 'ifSeen', 'metrics', 'bm', ...(RAMEN ? [...V4.META, '__slot'] : [])];
   function snapshot() { const o = {}; for (const [k, v] of Object.entries(S)) if (!KEEP.includes(k)) o[k] = v; return JSON.parse(JSON.stringify(o)); }
   function restore(id) {
     const snap = S.bm[id];
@@ -1702,7 +1720,7 @@
       if (e.target.closest('[data-back-view]')) { render(); return; }
       if (e.target.closest('[data-bm]')) { restore(E.back); return; }
       if (e.target.closest('[data-cont]')) { next(); return; }
-      if (e.target.closest('[data-restart]')) { const keep = { leaves: S.leaves, taught: S.taught, diary: S.diary, seenEnds: S.seenEnds, ifSeen: S.ifSeen }; S = Object.assign(fresh(), keep); S.phase = 'monthIntro'; S.mi = 1; save(); render(); }
+      if (e.target.closest('[data-restart]')) { const keep = { leaves: S.leaves, taught: S.taught, diary: S.diary, seenEnds: S.seenEnds, ifSeen: S.ifSeen }; S = Object.assign(freshKeep(), keep); S.phase = 'monthIntro'; S.mi = 1; save(); render(); }
     };
   }
   // 事後のもしも：正しく選んだ人も、選ばなかった道の結末を見に行ける（会社の状態は動かない）
@@ -2195,11 +2213,11 @@
     const mins = Math.round((Date.now() - M.started) / 60000);
     const forks = Object.entries(M.forks).sort((a, c) => c[1] - a[1]);
     frame(`<div class="s-card"><small>1年のふりかえり</small><h3>${endY}年目、おつかれさま</h3><p>${endY === 1 ? '屋台の小銭2,000円から始まった会社は、1年で' : `${endY}年目の1年で、会社は`}もうけ <b>${fmt(p.ni)}円</b>、口座のお金 <b>${fmt(cashOf(b))}円</b> になった。</p><h4>あなたが決めたこと</h4><ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul><button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button><details class="s-devlog" ${DEV ? "" : "hidden"}><summary>開発用の記録</summary><table class="s-tb"><tr><td>考える場面で、1回目から正しくたどり着いた</td><td class="n">${firstOk} / ${disc.length}</td></tr><tr><td>先輩の手帳を開いた回数</td><td class="n">${M.hand}</td></tr><tr><td>書類の記帳で、1回目から正しかった</td><td class="n">${M.docs.first} / ${M.docs.n}</td></tr><tr><td>月末に直した回数</td><td class="n">${M.fixes}</td></tr><tr><td>ヒントを見た回数</td><td class="n">${M.hints}</td></tr><tr><td>自動仕訳で進んだ書類</td><td class="n">${M.autoPosted}</td></tr><tr><td>腕だめし</td><td class="n">${M.quiz ? `${M.quiz.score} / ${M.quiz.of}` : '-'}</td></tr><tr><td>予想が当たった（発見の前・月末の締めの前）</td><td class="n">${disc.filter(([, d]) => d.predict && d.predict.ok).length} / ${disc.filter(([, d]) => d.predict).length}・${Object.values(S.predicts || {}).filter((x) => x.ok).length} / ${Object.values(S.predicts || {}).filter((x) => x.act).length}</td></tr><tr><td>ヒントなしで1回目から正しく書けた書類</td><td class="n">${S.docLog.filter((l) => l.ok && !l.hint).length} / ${S.docLog.length}</td></tr><tr><td>月はじめの思い出し</td><td class="n">${(S.recall || []).filter((r) => r.ok).length} / ${(S.recall || []).filter((r) => !r.due).length}</td></tr><tr><td>決算の机（1回目で全部見つけた）</td><td class="n">${S.metrics.desk ? (S.metrics.desk.first ? 'はい' : 'いいえ') : '-'}</td></tr><tr><td>かかった時間</td><td class="n">${mins}分</td></tr></table>${forks.length ? `<p>迷ったところ</p><ul class="s-diary">${forks.map(([f, n]) => `<li>${esc(f)} <b>${n}</b></li>`).join('')}</ul>` : ''}</details><button class="btn wide ghost" data-ov="hall">検定会場で、本試験の形で確かめる</button>${month() && D.months[S.mi + 1] ? `<button class="btn wide" data-n>${endY + 1}年目へ進む</button>` : ''}<button class="btn wide ghost" data-again>最初からもう一度</button></div>`);
-    app.onclick = (e) => { if (e.target.closest('[data-n]')) { next(); return; } if (e.target.closest('[data-again]')) { if (!confirm('ここまでの記録を消して、最初からやり直しますか？（2年目へ進むなら「2年目へ進む」）')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); } };
+    app.onclick = (e) => { if (e.target.closest('[data-n]')) { next(); return; } if (e.target.closest('[data-again]')) { if (!confirm('ここまでの記録を消して、最初からやり直しますか？（2年目へ進むなら「2年目へ進む」）')) return; S = freshKeep(); S.phase = 'monthIntro'; save(); render(); } };
   }
 
   B.chapters.forEach((c) => c.qs.forEach((q, i) => { q._key = `${c.id}:${i}`; }));
-  window.__sim = { get S() { return S; }, balances, events, render, mastered, testForms };
+  window.__sim = { get S() { return S; }, get recall() { return RECALL; }, get doc() { return DOC; }, balances, events, render, mastered, testForms };
   // ふりがな（オーナーの決定 2026-10-21）：設定「いつも」なら画面の用語すべてにふりがな。既定（はじめて＋押したとき）は、名前の札などで最初にふりがなを見せ、
   // それ以外の場所の用語は押すと読みが出る。画面が描き直されるたびに、まだ処理していない文字だけを見る
   const RD = LX.read, RDW = Object.keys(RD).sort((a, b) => b.length - a.length);
@@ -2256,7 +2274,7 @@
   if (/[?&]test\b/.test(location.search)) testScreen(); else render();
   // 公開ページとして開かれていれば、ページの保存機能につなぐ。別の端末の新しい続きがあれば読み込む
   const bootAt = Date.now();
-  const pulled = (st) => { if (Date.now() - bootAt > 20000 && !document.querySelector('.s-title')) return; S = Object.assign(fresh(), st); render(); };
+  const pulled = (st) => { if (Date.now() - bootAt > 20000 && !document.querySelector('.s-title')) return; S = fromSaved(st); render(); };
   ST.connect(KEY, pulled);
   ST.onStatus(() => { const w = document.querySelector('[data-saveword]'); if (w) w.textContent = saveWord(); });
 })();
