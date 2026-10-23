@@ -193,112 +193,99 @@ for (const [w, rm] of [[0.2, 0.4], [0.5, 0.4], [0.2, 0.5]]) {
   console.log(`w=${w}・常連×${rm}：` + row.join('、'));
 }
 
-// ---- 版0.6 で足した検算（Codex の PR #1 の問い：需要の式・育成の手・値段の入れ替わり・目安）----
-// (10) 36か月の小さな模型：世界の式（world.js）を1店に絞って写し、(1−ℓ) を外し、相場は町の店だけ（自店の重み0）、
-//     「放置」と「上手な3方針」で 平均店 44±8・上手な店 100±15・家族の勝率・値段の入れ替わり の4つが同時に目安に入るかを、置き値の組（案）ごとに見る。
-//     潜在客 S0 は「放置の3年目の中央値が44になる」ように逆算した（逆算と明記）。seed は潜在客 ±20%・その他固定費 15/20万・家賃 ±20%（i.3 の町の変種）。
+// ---- 版0.6→0.7 の検算（Codex の PR #1 の問いと、版0.6 の論証の検査の条件1〜7）----
+// (10) 60か月の小さな模型：世界の式（world.js）を1店に絞って写す。(1−ℓ) なし。相場 p_ref は町の店の平均（自店の重み w を選べる）。
+//     「放置」と「上手な3方針」で 平均店・上手な店・家族の勝率・値段の入れ替わり・看板と仕入先の勝率 を、置き値の組（案）ごとに見る。
+//     潜在客 S0 は「放置の店の calibYear 年目の中央値が44」になるように逆算（逆算と明記）。seed：潜在客 ±20%・その他固定費 15/20万・家賃 ±20%。
+//     検査の条件2：w は 0／0.3／0.5 で回す。条件4：値段の下端 600 と値引きの癖の続く月数 D。条件6：ライバルの値段の反応（自店が相場より安いと町の平均も半分ついてくる＝w の別名で近似）。
 function model(V) {
-  const BR = 0.16, BF = 0.30, BA = 0.25, S0SHARE = 0.25;
-  const EPS_NEW = 2.1, EPS_REG = V.epsReg, RETAIN = V.retain, CHURN = 0.03, VISITS = 4;
-  const CAPS = { family: 35, part1: 70, part2: 100 }, LABOR = { family: 120000, part1: 200000, part2: 400000 };
+  const BR = 0.16, BF = 0.30, BA = 0.25, S0SHARE = 0.25, EPS_NEW = 2.1;
+  const CAPS = { family: 35, part1: 70, part2: 100, part3: 125 }, LABOR = { family: 120000, part1: 200000, part2: 400000, part3: 600000 };
   const seeds = []; for (let i = 0; i < 60; i++) seeds.push({ pool: 0.8 + 0.4 * ((i * 37) % 60) / 59, other: i % 2 ? 150000 : 200000, rent: 100000 * (0.8 + 0.4 * ((i * 13) % 60) / 59) });
-  function run(S0, seed, pol, { years = 3 } = {}) {
-    let R = 3, A = 0, L = 0, cash = 7000000 - 1500000 - 900000 - 600000, cum = 0, F = 1, Q = 3, ramp;
+  function run(S0, seed, pol, years) {
+    let R = 3, A = { sign: 0, flyer: 0, sns: 0 }, L = 0, cash = 7000000 - 1500000 - 900000 - 600000, cum = 0, F = 1, Q = 3, pRef = 850, discounted = false, rebound = 0, prevPrice = 850;
     const out = [];
     for (let t = 0; t < 12 * years; t++) {
-      const y = Math.floor(t / 12) + 1, p = pol(y, t);
-      ramp = t < 12 ? 0.55 + 0.30 * t / 11 : t < 24 ? 0.85 + 0.15 * (t - 11) / 12 : 1;
+      const y = Math.floor(t / 12) + 1, p = pol(y, t), ramp = t < 12 ? 0.55 + 0.30 * t / 11 : t < 24 ? 0.85 + 0.15 * (t - 11) / 12 : 1;
       Q = p.supplier ? V.qHigh : 3; F = p.limited && t % 12 === 7 ? 1.15 : Math.max(1, F - 0.0375);
-      A = (p.sign ? 0.9 : p.sns ? 0.5 : 0.2) * A + (p.flyer || 0) / 100000 + (p.sns ? 0.3 : 0) + (p.sign ? 0.3 : 0);
-      const M = Math.exp(BR * (R - 3) + 0.06 * (Q - 3) + BF * Math.log(F) + (p.fit || 0) + BA * Math.log(1 + A));
-      const share = (M * S0SHARE) / ((1 - S0SHARE) + M * S0SHARE);
-      const pRef = 850, epsR = R >= 4.5 ? 0.7 : 1;
+      // 認知の残りは経路ごと（d.1：看板0.9・チラシ0.2・SNS0.5）
+      A.sign = 0.9 * A.sign + (p.sign ? 0.3 * (V.signMul || 1) : 0); A.flyer = 0.2 * A.flyer + (p.flyer || 0) / 100000; A.sns = 0.5 * A.sns + (p.sns ? 0.3 : 0);
+      const Atot = A.sign + A.flyer + A.sns;
+      const M = Math.exp(BR * (R - 3) + 0.06 * (Q - 3) + BF * Math.log(F) + (p.fit || 0) + BA * Math.log(1 + Atot));
+      const share = (M * S0SHARE) / ((1 - S0SHARE) + M * S0SHARE), epsR = R >= 4.5 ? 0.7 : 1;
+      // 相場：町の店の平均（850）に、自店の重み w で寄る（w=0 は町だけ。ライバルの追随は w で近似）。3か月で寄る（0.25/月）
+      pRef = 0.75 * pRef + 0.25 * (V.w * p.price + (1 - V.w) * 850);
       const Nnew = S0 * seed.pool * share * ramp * (p.map ? 1.2 : 0.8) * Math.pow(p.price / pRef, -EPS_NEW * epsR);
-      const Nreg = L * Math.pow(p.price / pRef, -EPS_NEW * EPS_REG);
+      const Nreg = L * Math.pow(p.price / pRef, -EPS_NEW * V.epsReg);
       const cap = CAPS[p.form], N = Math.min(Nnew + Nreg, cap), waitRate = Math.max(0, (Nnew + Nreg - cap) / (Nnew + Nreg));
-      const sales = N * DAYS * p.price * ITEMS, cogs = N * DAYS * (p.supplier ? PRICE * 0.38 : PRICE * COGS) * ITEMS;
+      const cogsRate = (p.supplier ? 0.38 : COGS) + (V.shockYear && y === V.shockYear ? 0.05 : 0);   // 原価の上がる年：+5pt
+      const sales = N * DAYS * p.price * ITEMS, cogs = N * DAYS * PRICE * cogsRate * ITEMS;
       const fixed = LABOR[p.form] + seed.rent + seed.other + UTIL_FIXED + DEP + (p.flyer || 0) + (p.line ? 5000 : 0) + (p.sign && t === 3 ? 300000 : 0) + (p.supplier ? V.qCost : 0);
       const op = sales * (1 - UTIL_VAR) - cogs - fixed - INTEREST;
       cash += op + DEP - (t >= 3 ? REPAY : 0); cum += op;
-      const exp = Q + 2 * Math.log(F) + 2 * (p.fit || 0) - 3 * waitRate;
+      const cheapHit = V.cheapHit && p.price < 0.8 * pRef ? V.cheapHit : 0;   // 条件4：相場より2割以上安いと「安い店」の印象（e.2 coupon ③ と同じ筋）
+      const exp = Q + 2 * Math.log(F) + 2 * (p.fit || 0) - 3 * waitRate - cheapHit;
       R = Math.max(1, Math.min(5, R + 0.25 * (exp - R)));
+      // 値引きの癖：値下げのあと最初に値上げした月から D か月、常連の離れ ×2
+      if (p.price < prevPrice) discounted = true;
+      if (p.price > prevPrice && discounted) { rebound = V.D; discounted = false; }
+      let churn = Math.max(0.01, 0.03 - (p.line ? 0.009 : 0) - V.churnRep * Math.max(0, R - 3));
+      if (rebound > 0) { churn *= 2; rebound--; }
       const served = N * Nnew / (Nnew + Nreg || 1);
-      const churn = Math.max(0.01, CHURN - (p.line ? 0.009 : 0) - V.churnRep * Math.max(0, R - 3));
-      L = Math.max(0, L * (1 - churn) + RETAIN * served * (1 + 0.3 * (R - 3)));
-      out.push({ t, y, N, Nnew, Nreg, L, R, A, cash, cum, full: Nnew + Nreg > cap });
+      L = Math.max(0, L * (1 - churn) + V.retain * Math.pow(p.price / pRef, V.retainP || 0) * served * (1 + 0.3 * (R - 3)));  // 条件4：安さで来た客は常連になりにくい（retainP）
+      prevPrice = p.price;
+      out.push({ t, y, N, Nnew, Nreg, L, R, A: Atot, cash, cum, full: Nnew + Nreg > cap });
     }
     return out;
   }
   const idle = (form) => (y, t) => ({ price: 850, form, map: true });
-  const sk = (form) => ({
-    '多店舗（人を雇う）': (y, t) => ({ price: y === 1 ? 800 : y === 2 ? 850 : 950, form: form || (y >= 2 ? 'part2' : 'part1'), map: true, flyer: t >= 3 && t < 18 ? 50000 : 0, line: t >= 6, sign: t >= 3, fit: 0.10, limited: true, supplier: y >= 2 }),
-    '品質（こだわり）': (y, t) => ({ price: y === 1 ? 850 : y === 2 ? 900 : 1000, form: form || (y >= 3 ? 'part2' : 'part1'), map: true, sns: true, line: t >= 6, sign: t >= 3, fit: 0.10, limited: true, supplier: true }),
-    '宣伝（安く集める）': (y, t) => ({ price: y === 1 ? 750 : y === 2 ? 800 : 900, form: form || (y >= 2 ? 'part2' : 'part1'), map: true, flyer: t >= 3 ? 80000 : 0, line: t >= 6, sign: t >= 3, fit: 0.05, limited: true, supplier: false }),
-  });
-  const skilled = sk(null);
+  // 上手な3方針（1〜5年目。d.9.3）。sign/supplier を外した比較用に o で上書き
+  const sk = (name, o = {}) => (y, t) => {
+    let b;
+    if (name === 'multi') b = { price: [800, 850, 950, 1000, 1000][y - 1], form: y >= 4 ? 'part3' : y >= 2 ? 'part2' : 'part1', map: true, flyer: t >= 3 && t < 18 ? 50000 : 0, line: t >= 6, sign: t >= 3, fit: 0.10, limited: true, supplier: y >= 2 };
+    else if (name === 'quality') b = { price: [850, 900, 1000, 1000, 1050][y - 1], form: y >= 3 ? 'part2' : 'part1', map: true, sns: true, line: t >= 6, sign: t >= 3, fit: 0.10, limited: true, supplier: true };
+    else b = { price: [750, 800, 900, 950, 950][y - 1], form: y >= 2 ? 'part2' : 'part1', map: true, flyer: t >= 3 ? 80000 : 0, line: t >= 6, sign: t >= 3, fit: 0.05, limited: true, supplier: false };
+    return { ...b, ...o, ...(o.form ? { form: o.form } : {}) };
+  };
   const q = (arr, k) => { const a = arr.slice().sort((x, y) => x - y); return a[Math.floor((a.length - 1) * k)]; };
-  const y3 = (o) => o.filter((x) => x.y === 3).reduce((t, x) => t + x.N, 0) / 12;
-  let S0 = 40; for (let it = 0; it < 30; it++) { const med = q(seeds.map((sd) => y3(run(S0, sd, idle('part1')))), 0.5); S0 *= 44 / med; }
-  console.log(`\n## (10) 案「${V.name}」：(1−ℓ) なし・相場は町だけ・常連 ×${V.epsReg}・retain ${V.retain}・上手の品質 Q ${V.qHigh}（月 ${V.qCost / 1e4}万）・評判で離れ −${V.churnRep}/段。潜在客 S0＝${S0.toFixed(1)}人/日（逆算）`);
-  const idleN = seeds.map((sd) => y3(run(S0, sd, idle('part1'))));
-  const i0 = run(S0, seeds[0], idle('part1'));
-  console.log(`放置（パート1人・850円）3年目：中央値 ${q(idleN, 0.5).toFixed(1)}・上位25% ${q(idleN, 0.75).toFixed(1)}人/日（目安 44±8）。常連の割合 ${(i0[35].L / i0[35].N).toFixed(2)}・R ${i0[35].R.toFixed(2)}`);
-  const skN = {};
-  for (const [name, pol] of Object.entries(skilled)) {
-    const ns = seeds.map((sd) => y3(run(S0, sd, pol))); skN[name] = ns;
-    const o = run(S0, seeds[0], pol), last = o[35];
-    console.log(`上手「${name}」3年目：中央値 ${q(ns, 0.5).toFixed(1)}・上位25% ${q(ns, 0.75).toFixed(1)}人/日（目安 100±15）。seed0：R ${last.R.toFixed(2)}・A ${last.A.toFixed(2)}・常連の割合 ${(last.L / last.N).toFixed(2)}・満席の月 ${o.filter((x) => x.y === 3 && x.full).length}/12・3年目末ネットキャッシュ ${((last.cash - 7000000 + REPAY * 33) / 1e4).toFixed(0)}万`);
+  const yN = (o, yr) => o.filter((x) => x.y === yr).reduce((t, x) => t + x.N, 0) / 12;
+  let S0 = 40; for (let it = 0; it < 30; it++) { const med = q(seeds.map((sd) => yN(run(S0, sd, idle('part1'), V.calibYear), V.calibYear)), 0.5); S0 *= 44 / med; }
+  const R0 = { name: V.name, S0 };
+  console.log(`\n## (10) 案「${V.name}」：w=${V.w}・常連×${V.epsReg}・retain ${V.retain}・Q ${V.qHigh}・D=${V.D}か月・較正は${V.calibYear}年目。S0＝${S0.toFixed(1)}（逆算）`);
+  for (const yr of [3, 5]) { const n = seeds.map((sd) => yN(run(S0, sd, idle('part1'), 5), yr)); console.log(`放置 ${yr}年目：中央値 ${q(n, 0.5).toFixed(1)}・上位25% ${q(n, 0.75).toFixed(1)}`); }
+  for (const nm of ['multi', 'quality', 'ad']) {
+    const o5 = seeds.map((sd) => run(S0, sd, sk(nm), 5));
+    const n3 = o5.map((o) => yN(o, 3)), n5 = o5.map((o) => yN(o, 5)), nc = o5.map((o) => (o[59].cash - 7000000 + REPAY * 57) / 1e4);
+    console.log(`上手「${nm}」：3年目 中央値 ${q(n3, 0.5).toFixed(1)}・上位25% ${q(n3, 0.75).toFixed(1)}／5年目 中央値 ${q(n5, 0.5).toFixed(1)}・上位25% ${q(n5, 0.75).toFixed(1)}／5年目末ネットキャッシュ 中央値 ${q(nc, 0.5).toFixed(0)}万（下位10% ${q(nc, 0.1).toFixed(0)}・上位10% ${q(nc, 0.9).toFixed(0)}）・満席の月(5年目, seed0) ${o5[0].slice(-12).filter((x) => x.full).length}`);
   }
-  let famIdle = 0, famSk = 0;
-  for (const sd of seeds) {
-    if (run(S0, sd, idle('family'))[35].cash > run(S0, sd, idle('part1'))[35].cash) famIdle++;
-    const f = run(S0, sd, sk('family')['多店舗（人を雇う）']), p = run(S0, sd, skilled['多店舗（人を雇う）']); if (f[35].cash > p[35].cash) famSk++;
+  // 家族の勝率（5年目末のネットキャッシュ）：放置どうし／上手どうし（多店舗で家族のまま＝上限35 vs 人を雇う）
+  let fi = 0, fs = 0, fi3 = 0, fs3 = 0; for (const sd of seeds) { const a = run(S0, sd, idle('family'), 5), b = run(S0, sd, idle('part1'), 5), c = run(S0, sd, sk('multi', { form: 'family' }), 5), d = run(S0, sd, sk('multi'), 5); if (a[59].cash > b[59].cash) fi++; if (c[59].cash > d[59].cash) fs++; if (a[35].cash > b[35].cash) fi3++; if (c[35].cash > d[35].cash) fs3++; }
+  console.log(`家族の勝率：3年目末 放置どうし ${(100 * fi3 / 60).toFixed(0)}%・上手どうし ${(100 * fs3 / 60).toFixed(0)}%／5年目末 放置どうし ${(100 * fi / 60).toFixed(0)}%・上手どうし ${(100 * fs / 60).toFixed(0)}%`);
+  // 看板・仕入先の勝率（5年目末のネットキャッシュ。3方針の各 seed で「あり」が「なし」に勝つ割合）。原価の上がる年ありの行も
+  for (const [lab, o] of [['看板', { sign: false }], ['仕入先「高いが安定」', { supplier: false }]]) {
+    let win = 0, n = 0; for (const nm of ['multi', 'quality', 'ad']) for (const sd of seeds) { n++; if (run(S0, sd, sk(nm), 5)[59].cash > run(S0, sd, sk(nm, o), 5)[59].cash) win++; }
+    console.log(`${lab}あり vs なし（3方針×60 seed・5年目末）：ありが勝つ ${(100 * win / n).toFixed(0)}%`);
   }
-  console.log(`家族の勝率（3年目末のネットキャッシュ、${seeds.length}周）：放置どうし ${(100 * famIdle / seeds.length).toFixed(0)}%、上手な手どうし（家族のまま vs 人を雇う） ${(100 * famSk / seeds.length).toFixed(0)}%（目安 30〜60%）`);
-  let flip = 0; const p1s = [], p3s = [];
+  // 値段の入れ替わり：多店舗の手で (p1,p2,p3) を priceMin〜1,000 で総当たり（4・5年目は p3 のまま）。1年目が下端の周も数える
+  let flip = 0, floor = 0; const p1s = [], p3s = [];
   for (const sd of seeds.slice(0, 20)) {
     let best = null;
-    for (let p1 = 700; p1 <= 1000; p1 += 50) for (let p2 = 700; p2 <= 1000; p2 += 50) for (let p3 = 700; p3 <= 1000; p3 += 50) {
-      const base = skilled['多店舗（人を雇う）'];
-      const o = run(S0, sd, (y, t) => ({ ...base(y, t), price: y === 1 ? p1 : y === 2 ? p2 : p3 }));
+    for (let p1 = V.priceMin; p1 <= 1000; p1 += 50) for (let p2 = V.priceMin; p2 <= 1000; p2 += 50) for (let p3 = V.priceMin; p3 <= 1000; p3 += 50) {
+      const o = run(S0, sd, (y, t) => ({ ...sk('multi')(y, t), price: y === 1 ? p1 : y === 2 ? p2 : p3 }), 3);
       if (!best || o[35].cum > best.cum) best = { cum: o[35].cum, p1, p2, p3 };
     }
-    p1s.push(best.p1); p3s.push(best.p3); if (best.p1 < 850 && best.p3 > 850) flip++;
+    p1s.push(best.p1); p3s.push(best.p3); if (best.p1 < 850 && best.p3 > 850) flip++; if (best.p1 === V.priceMin) floor++;
   }
-  console.log(`値段の入れ替わり（上手「多店舗」・20 seed・年ごとの値段を総当たり）：1年目 <850 かつ 3年目 >850 の周 ${(100 * flip / 20).toFixed(0)}%（目安 >50%）。最適の中央値 1年目 ${q(p1s, 0.5)}円 → 3年目 ${q(p3s, 0.5)}円`);
+  console.log(`値段の入れ替わり（多店舗・20 seed・下端 ${V.priceMin}円）：1年目<850 かつ 3年目>850 ${(100 * flip / 20).toFixed(0)}%、1年目が下端 ${(100 * floor / 20).toFixed(0)}%、最適の中央値 ${q(p1s, 0.5)}→${q(p3s, 0.5)}円`);
+  return R0;
 }
-model({ name: 'A 版0.5 のまま', epsReg: 0.4, retain: 0.03, qHigh: 3.4, qCost: 0, churnRep: 0 });
-model({ name: 'B 品質の育成を厚く（Q 4.0・月3万）＋評判で離れ −0.5%/段', epsReg: 0.4, retain: 0.03, qHigh: 4.0, qCost: 30000, churnRep: 0.005 });
-model({ name: 'C B＋常連 ×0.3・retain 0.035', epsReg: 0.3, retain: 0.035, qHigh: 4.0, qCost: 30000, churnRep: 0.005 });
-// (11) 案C で、上手な店を5年目（常連の積み上がりの時定数 ≒ 1/離れ ≒ 33か月の後）まで回したときの客数。CALIB の上位25%＝100人/日は店の年齢を問わない断面なので、定常に近い5年目で比べる
-(function () {
-  const V = { epsReg: 0.3, retain: 0.035, qHigh: 4.0, qCost: 30000, churnRep: 0.005 };
-  // model() の中身を5年で回すため、同じ式を短く写す（放置の S0 は 91.5）
-  const S0 = 91.5, BR = 0.16, BF = 0.30, BA = 0.25, S0SHARE = 0.25, EPS_NEW = 2.1;
-  const CAPS = { family: 35, part1: 70, part2: 100, part3: 125 };
-  function run(seedPool, pol, years) {
-    let R = 3, A = 0, L = 0, F = 1, Q = 3; const out = [];
-    for (let t = 0; t < 12 * years; t++) {
-      const y = Math.floor(t / 12) + 1, p = pol(y, t), ramp = t < 12 ? 0.55 + 0.30 * t / 11 : t < 24 ? 0.85 + 0.15 * (t - 11) / 12 : 1;
-      Q = p.supplier ? V.qHigh : 3; F = p.limited && t % 12 === 7 ? 1.15 : Math.max(1, F - 0.0375);
-      A = (p.sign ? 0.9 : 0.2) * A + (p.flyer || 0) / 100000 + (p.sign ? 0.3 : 0);
-      const M = Math.exp(BR * (R - 3) + 0.06 * (Q - 3) + BF * Math.log(F) + (p.fit || 0) + BA * Math.log(1 + A));
-      const share = (M * S0SHARE) / ((1 - S0SHARE) + M * S0SHARE), epsR = R >= 4.5 ? 0.7 : 1;
-      const Nnew = S0 * seedPool * share * ramp * 1.2 * Math.pow(p.price / 850, -EPS_NEW * epsR), Nreg = L * Math.pow(p.price / 850, -EPS_NEW * V.epsReg);
-      const cap = CAPS[p.form], N = Math.min(Nnew + Nreg, cap), waitRate = Math.max(0, (Nnew + Nreg - cap) / (Nnew + Nreg));
-      R = Math.max(1, Math.min(5, R + 0.25 * (Q + 2 * Math.log(F) + 2 * (p.fit || 0) - 3 * waitRate - R)));
-      const churn = Math.max(0.01, 0.03 - (p.line ? 0.009 : 0) - V.churnRep * Math.max(0, R - 3));
-      L = Math.max(0, L * (1 - churn) + V.retain * (N * Nnew / (Nnew + Nreg || 1)) * (1 + 0.3 * (R - 3)));
-      out.push({ y, N, R, L, full: Nnew + Nreg > cap });
-    }
-    return out;
-  }
-  const pol = (y, t) => ({ price: y === 1 ? 800 : y === 2 ? 850 : y === 3 ? 950 : 1000, form: y >= 4 ? 'part3' : y >= 2 ? 'part2' : 'part1', flyer: t >= 3 && t < 18 ? 50000 : 0, line: t >= 6, sign: t >= 3, fit: 0.10, limited: true, supplier: y >= 2 });
-  const pools = []; for (let i = 0; i < 60; i++) pools.push(0.8 + 0.4 * ((i * 37) % 60) / 59);
-  const q = (arr, k) => { const a = arr.slice().sort((x, y) => x - y); return a[Math.floor((a.length - 1) * k)]; };
-  for (const yr of [3, 4, 5]) {
-    const ns = pools.map((pl) => { const o = run(pl, pol, yr); return o.filter((x) => x.y === yr).reduce((t, x) => t + x.N, 0) / 12; });
-    const o0 = run(1, pol, yr); const last = o0[12 * yr - 1];
-    console.log(`(11) 案C・上手「多店舗」の ${yr}年目：中央値 ${q(ns, 0.5).toFixed(1)}・上位25% ${q(ns, 0.75).toFixed(1)}人/日。seed0：R ${last.R.toFixed(2)}・常連の割合 ${(last.L / last.N).toFixed(2)}・満席の月 ${o0.slice(-12).filter((x) => x.full).length}/12`);
-  }
-})();
+const BASE = { name: 'C（版0.6）w=0', w: 0, epsReg: 0.3, retain: 0.035, qHigh: 4.0, qCost: 30000, churnRep: 0.005, D: 3, calibYear: 3, priceMin: 700 };
+model(BASE);
+model({ ...BASE, name: 'C・w=0.3（条件2）', w: 0.3 });
+model({ ...BASE, name: 'C・w=0.5（条件2・ライバルの追随の近似）', w: 0.5 });
+model({ ...BASE, name: 'C・5年目で較正（条件1）', calibYear: 5 });
+model({ ...BASE, name: 'C・下端600・D=6（条件4）', priceMin: 600, D: 6 });
+model({ ...BASE, name: 'C・原価の上がる年（2年目 +5pt。条件3）', shockYear: 2 });
+model({ ...BASE, name: 'D（版0.7 の案）：下端600・D=6・安さの客は常連になりにくい retainP 0.7・看板は立地で ×0.4（住宅地）', priceMin: 600, D: 6, retainP: 0.7, signMul: 0.4 });
+model({ ...BASE, name: 'D・駅前（看板 ×1.0）', priceMin: 600, D: 6, retainP: 0.7, signMul: 1.0 });
+model({ ...BASE, name: 'E（版0.7 の採用案）：D＋安い店の印象（相場より2割安で体験 −0.3）・retainP 1.0', priceMin: 600, D: 6, retainP: 1.0, signMul: 1.0, cheapHit: 0.3 });
