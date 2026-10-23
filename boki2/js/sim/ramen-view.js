@@ -62,7 +62,8 @@
     const o = { N: [], sales: [], gross: [], cash: [], op: [] };
     for (let j = 0; j < n; j++) {
       const r = SIM.world.month(W, pol, { noCards: true, noFactors: true, rng: SIM.rng(90001 + j * 7919 + W.t * 31) }).res;
-      if (typeof r.regularDelta === 'number') (o.reg = o.reg || []).push(r.regularDelta);
+      // regularDelta は「1日あたりの常連の杯数」の増減。画面は「人/月」で出すので、営業日 ÷ 常連1人の月の来店回数で換算する（world.trial と同じ）
+      if (typeof r.regularDelta === 'number') (o.reg = o.reg || []).push(r.regularDelta * C('days') / C('regularVisits'));
       if (typeof r.fullDays === 'number') (o.full = o.full || []).push(r.fullDays);
       o.N.push(r.N); o.sales.push(r.sales); o.gross.push(r.sales - r.cogs - r.wasteCost); o.cash.push(r.ord + r.dep - r.repay); o.op.push(r.op);
     }
