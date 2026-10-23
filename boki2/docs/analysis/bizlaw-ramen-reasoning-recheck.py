@@ -218,3 +218,20 @@ if os.path.exists(AUD):
         cells = [x.strip() for x in line.strip().strip('|').split('|')]
         ws[cells[-2]] += 1
     print(f'  「検査役の筋から採ったもの」16行の判定：' + '／'.join(f'{k} {v}' for k, v in sorted(ws.items())))
+
+# ================================================================ 第3版の再検査（本書16章）
+print('\n## 12) 第3版の数を検算する')
+print('(a) 偽りの損得：第3版の4.5円・9円の行は、本書10節(b) と同じ式で同じ数になるか')
+for d in (4.5, 9.0):
+    g = cups3 * d
+    print(f'  1杯{d}円：得 {g:,.0f}円、課徴金だけ {g/k:.2f}、課徴金＋周知＋客の減り {g/(k+extra):.2f}')
+print('(b) 灰色の型：第3版の定義で a は15件。G18 を b にすれば', 15 - 1, '件。G05 を a に戻せば', 15 + 1, '件')
+print('(c) 新しい群の割合：第3版の報告は 0.448 と書くが、書き手のスクリプトの 11) を走らせると 0.446（16章 X32）')
+if os.path.exists(AUD):
+    a = open(AUD, encoding='utf-8').read()
+    for pre, col, name in (('X', -2, '第3版の変わった結論'), ('Y', -2, '「検査役の筋から採ったもの」の新しい・直した行'), ('B-', 2, '15.9 への応え')):
+        cnt = Counter()
+        for line in _re.findall(r'^\| ' + _re.escape(pre) + r'\d+ \|.*$', a, _re.M):
+            cells = [x.strip() for x in line.strip().strip('|').split('|')]
+            cnt[cells[col]] += 1
+        print(f'  {name} {sum(cnt.values())} 行：' + '／'.join(f'{kk} {v}' for kk, v in sorted(cnt.items())))
