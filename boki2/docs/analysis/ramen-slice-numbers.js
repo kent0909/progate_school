@@ -132,3 +132,63 @@ for (const [name, labor] of [['パート0（家族）', 0], ['パート1人', 20
   });
   console.log(`${name}：年の営業利益 ${(op12 / 1e4).toFixed(0)}万、期末の口座 ${(c / 1e4).toFixed(0)}万、初めての黒字の月 ${first ?? 'なし'}。この人件費で口座が尽きるまで ${(7000000 / Math.max(1, -(op12 / 12 + DEP - REPAY)) ).toFixed(0)} か月（1年目の平均の月で）`);
 }
+
+// ---- 版0.5 で足した検算（縦の切り身 段0〜4 の sim-check 300周とのずれを受けて） ----
+// (6) 家族の働き手に給料を払う形（1年目から株式会社なので「給料」か「役員報酬」）：月12万【置き値】のとき、1日に要る客数と1年目の損益。
+//     実装の置き値（家賃のフリーレント3か月・返済のすえおき3か月）も入れて、影の線（手を打たない店の初めての黒字の月）を出し直す
+function year1(labor, { freeRent = 0, grace = 0, rent = 100000 } = {}) {
+  let cash = 7000000, cum = 0, first = null, black = 0;
+  months.forEach((m, i) => {
+    const ramp = 0.55 + (0.85 - 0.55) * (i / 11), perDay = 44 * ramp * CAL[m], sales = perDay * DAYS * UNIT;
+    const r = i < freeRent ? 0 : rent, rp = i < grace ? 0 : REPAY;
+    const op = sales * (1 - COGS - UTIL_VAR) - (labor + r + OTHER_FIXED[0] + UTIL_FIXED + DEP) - INTEREST;
+    cash += op + DEP - rp; cum += op; if (op > 0) { black++; if (first == null) first = m; }
+  });
+  return { cum, cash, first, black };
+}
+console.log('\n## 家族の働き手の対価を費用にしたとき（1年目・地方の商店街・手を打たない）');
+for (const [name, labor] of [['家族1人・無給（版0.4 まで）', 0], ['家族1人・給料12万【置き値】', 120000], ['パート1人 20万', 200000]]) {
+  const be = breakEven(labor, 100000, OTHER_FIXED[0]);
+  const a = year1(labor), b = year1(labor, { freeRent: 3, grace: 3 });
+  console.log(`${name}：1日に要る客数 損益 ${be.bowlsPL.toFixed(0)}／口座 ${be.bowlsCash.toFixed(0)}。1年目（設計の置き値）：営業利益 ${(a.cum / 1e4).toFixed(0)}万・黒字の月 ${a.black}・初めての黒字 ${a.first ?? 'なし'}月・期末口座 ${(a.cash / 1e4).toFixed(0)}万／（実装：フリーレント3・すえおき3）：営業利益 ${(b.cum / 1e4).toFixed(0)}万・黒字の月 ${b.black}・初めての黒字 ${b.first ?? 'なし'}月・期末口座 ${(b.cash / 1e4).toFixed(0)}万`);
+}
+// (7) 家族の店の伸びの壁：上限35人/日のとき、客数の坂が 3年目に 55人/日 に届く店で、家族の店が取りこぼす客（週末は平日の1.6倍）
+console.log('\n## 家族の店（上限35）が2・3年目に取りこぼす客');
+for (const [y, perDay] of [['2年目', 44], ['3年目', 55]]) {
+  const weekday = perDay * 26 / (20 + 6 * 1.6), weekend = weekday * 1.6;
+  const lost = 20 * Math.max(0, weekday - 35) + 6 * Math.max(0, weekend - 35);
+  console.log(`${y}：平均 ${perDay}人/日、平日 ${weekday.toFixed(0)}・週末 ${weekend.toFixed(0)} → 月に ${lost.toFixed(0)} 人を帰す（売上 ${(lost * UNIT / 1e4).toFixed(0)}万円ぶん。待ちで評判 −）`);
+}
+// (8) 値段の入れ替わりの大きさ：相場 p_ref が自店の値段に寄る重み w（実装 0.5）を変えたとき、「850円から ±50円 動かした月の営業利益の差」が年でどう入れ替わるか（寄りは3か月後の定常で近似：p_ref = w·p + (1−w)·850）
+console.log('\n## 値下げ50円と値上げ50円の月の営業利益の差（3か月後。商店街の混ざり・個人の傾き・常連 ×0.5）。相場への自店の重み w を変えて');
+function opAt(p, w, shareL, nBase, cap, mix) {
+  const pRef = w * p + (1 - w) * PRICE, r = p / pRef; let n = 0;
+  for (const [wt, eps] of mix) for (const d of [-0.4, 0, 0.4]) n += nBase * (wt / 3) * ((1 - shareL) * Math.pow(r, -(eps + d)) + shareL * Math.pow(r, -(eps + d) / 2));
+  n = Math.min(n, cap);
+  const sales = n * DAYS * p * ITEMS, cogs = n * DAYS * PRICE * COGS * ITEMS;
+  return sales * (1 - UTIL_VAR) - cogs - (200000 + 100000 + 150000 + UTIL_FIXED + DEP) - INTEREST;
+}
+const mixS = MIX['商店街'];
+for (const w of [0.5, 0.3, 0.0]) {
+  const row = [[0.15, 44 * 0.70, '1年目'], [0.30, 44, '2年目'], [0.45, 55, '3年目'], [0.45, 70, '3年目・上限70に届く店']].map(([L, n, nm]) => {
+    const dn = (opAt(800, w, L, n, 70, mixS) - opAt(850, w, L, n, 70, mixS)) / 1e4, up = (opAt(900, w, L, n, 70, mixS) - opAt(850, w, L, n, 70, mixS)) / 1e4;
+    return `${nm}：値下げ ${dn >= 0 ? '+' : ''}${dn.toFixed(1)}万／値上げ ${up >= 0 ? '+' : ''}${up.toFixed(1)}万`;
+  });
+  console.log(`w=${w}：` + row.join('、'));
+}
+// (9) 版0.5 の案：新規の客の ε を +0.2（学生2.5・勤め人2.2・家族2.0・観光1.9）、常連 ×0.4、相場への自店の重み w＝0.2 にしたとき
+console.log('\n## 版0.5 の案（新規 +0.2・常連 ×0.4・w＝0.2）：値下げ50円／値上げ50円の月の営業利益の差');
+function opAt2(p, w, shareL, nBase, cap, mix, regMul) {
+  const pRef = w * p + (1 - w) * PRICE, r = p / pRef; let n = 0;
+  for (const [wt, eps] of mix) for (const d of [-0.4, 0, 0.4]) n += nBase * (wt / 3) * ((1 - shareL) * Math.pow(r, -(eps + 0.2 + d)) + shareL * Math.pow(r, -(eps + 0.2 + d) * regMul));
+  n = Math.min(n, cap);
+  const sales = n * DAYS * p * ITEMS, cogs = n * DAYS * PRICE * COGS * ITEMS;
+  return sales * (1 - UTIL_VAR) - cogs - (200000 + 100000 + 150000 + UTIL_FIXED + DEP) - INTEREST;
+}
+for (const [w, rm] of [[0.2, 0.4], [0.5, 0.4], [0.2, 0.5]]) {
+  const row = [[0.15, 44 * 0.70, '1年目'], [0.30, 44, '2年目'], [0.45, 55, '3年目'], [0.45, 70, '3年目・上限に届く店']].map(([L, n, nm]) => {
+    const dn = (opAt2(800, w, L, n, 70, mixS, rm) - opAt2(850, w, L, n, 70, mixS, rm)) / 1e4, up = (opAt2(900, w, L, n, 70, mixS, rm) - opAt2(850, w, L, n, 70, mixS, rm)) / 1e4;
+    return `${nm}：値下げ ${dn >= 0 ? '+' : ''}${dn.toFixed(1)}万／値上げ ${up >= 0 ? '+' : ''}${up.toFixed(1)}万`;
+  });
+  console.log(`w=${w}・常連×${rm}：` + row.join('、'));
+}
