@@ -34,7 +34,7 @@
     weekendFamily: { v: 2.16, lo: 1.8, hi: 2.5, src: 'd.3 週末の倍率：家族の型 2.16 [FILL-CALIB]' },
     weekendSingle: { v: 1.44, lo: 1.2, hi: 1.7, src: 'd.3 週末の倍率：単身の型 1.44 [FILL-CALIB]' },
     rainCut: { v: 0.9, lo: 0.8, hi: 0.95, src: 'd.3 雨の週は N ×0.9' },
-    potentialScale: { v: 0.558673, lo: 0.2, hi: 1.2, src: '逆算（d.9.1）：地図のみ・850円・パート1人の3年目中央値44。sim-ramen --calibrate --runs 300で再現' },
+    potentialScale: { v: 0.558734, lo: 0.2, hi: 1.2, src: '逆算（d.9.1）：地図のみ・850円・パート1人の3年目中央値44。sim-ramen --calibrate --runs 300で再現' },
     townPotentialSpread: { v: 0.2, lo: 0.2, hi: 0.2, src: 'd.9.5 町seed：潜在客±20%（一様）' },
     townRentSpread: { v: 0.2, lo: 0.2, hi: 0.2, src: 'd.9.5 町seed：家賃±20%（一様）' },
     churnLine: { v: 0.009, lo: 0.009, hi: 0.009, src: 'd.9.1 LINEで離れ−0.009' },

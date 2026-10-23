@@ -155,6 +155,12 @@ function smartPolicy(W, strategy, price) {
     const expected=Math.max(0.01,0.03-(line?0.009:0)-0.005*Math.max(0,r.res.R-3));
     if(Math.abs(r.res.regularLost/10-expected)>1e-9)err('d.9：常連の離れの式が違う');
   }
+  for(const price of [850,950]) for(const F of [1,0.8]) {
+    const W=Wd.create({seed:4});W.stores[0].L=10;W.stores[0].bowl.Fbase=F;
+    const r=Wd.month(W,{...Wd.policy0(W),price},{noise:false,noCards:true});
+    const expected=Math.max(0.01,0.03-0.005*Math.max(0,r.res.R-3)+0.04*Math.max(0,(price-850)/850)*10+(F<0.9?0.01:0));
+    if(Math.abs(r.res.regularLost/10-expected)>1e-9)err('常連：値上げまたは一杯の古びによる離れが抜けた');
+  }
   const alone=Wd.create({seed:5});alone.rivals=[];alone.town.areas[alone.area].pRef=1000;
   const noRivals=Wd.month(alone,{...Wd.policy0(alone),price:1200},{noCards:true,noise:false});
   if(noRivals.res.pRef!==850)err('d.9：他店0軒の相場が850円でない');

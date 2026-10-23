@@ -251,7 +251,7 @@
     const exp = Q + 2 * Math.log(F) + 2 * fitAvg - C('repStock') * stockRate - C('repWait') * waitRate + (fx.Rd || 0) * 4;
     me.R = Math.max(1, Math.min(5, me.R + C('repAlpha') * (exp - me.R)));
     const hike = Math.max(0, (me.price - prevPrice) / prevPrice);
-    const churnBase = Math.max(C('churnFloor'), C('churn') - (me.line ? C('churnLine') : 0) - C('churnRep')*Math.max(0,me.R-3) + (me.churnUp || 0));
+    const churnBase = Math.max(C('churnFloor'), C('churn') - (me.line ? C('churnLine') : 0) - C('churnRep')*Math.max(0,me.R-3) + C('churnPerHike')*hike*10 + (F<0.9?0.01:0) + (me.churnUp || 0));
     // 値下げをした後、最初に値上げした月の離れを2倍にする（d.2 版0.5）。
     const discountRebound = hike > 0 && !!me.discounted;
     const churn = Math.min(1, churnBase * (discountRebound ? C('discountChurn') : 1));
