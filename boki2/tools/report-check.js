@@ -19,7 +19,7 @@ for (const f of files) {
   const has = (h) => heads.some((l) => l.includes(h));
   const isDesign = name.startsWith('DESIGN-');
   if (!v2) { console.log(`- ${name}：旧形式（未監査）`); continue; }
-  const need = (isDesign ? ['簡略化の台帳'] : REPORT).concat(['依頼の対応表', 'やっていないこと', '論証の表']);
+  const need = (isDesign ? ['簡略化の台帳', '体験の検討'] : REPORT).concat(['依頼の対応表', 'やっていないこと', '論証の表']);
   const miss = need.filter((h) => !has(h));
   if (miss.length) { errs++; console.log(`✗ ${name}：章がない：${miss.join('・')}`); }
   // 台帳の外にある簡略化の言い回し
@@ -41,6 +41,22 @@ for (const f of files) {
   if (reused.length) console.log(`△ ${name}：同じ語句を4回以上使っている出典 ${reused.length} 種（${reused.slice(0, 5).map(([q, n]) => `「${q}」×${n}`).join('、')}）。主張ごとに支える箇所の語句にする（QUALITY 6.3）`);
   // 検査役への迎合（QUALITY 6.3 の追記）：検査書・検査役に触れているのに「検査役の筋から採ったもの」の章がない
   if (!isDesign && /検査書|検査役/.test(s) && !has('検査役の筋から採ったもの')) console.log(`△ ${name}：検査書・検査役に触れているが、章「検査役の筋から採ったもの」がない。採った筋ごとに、自分で開いた原文の語句とスクリプトの出力を書く（QUALITY 6.3）`);
+  // 体験の検討（QUALITY 7.1）：設計書は仕様の候補ごとの表を持ち、「悪い面」の列が空の行はエラー
+  if (isDesign) {
+    const mm = s.match(/^#{2,3} .*体験の検討.*\n([\s\S]*?)(?=^#{2,3} [^#]|$(?![\s\S]))/m);
+    if (mm) {
+      const rows = mm[1].split('\n').filter((l) => /^\|/.test(l));
+      const head = rows[0] ? rows[0].split('|').map((c) => c.trim()) : [];
+      const bi = head.findIndex((c) => /悪い面/.test(c));
+      if (bi < 0) { errs++; console.log(`✗ ${name}：「体験の検討」の表に「悪い面」の列がない（QUALITY 7.1）`); }
+      else {
+        const body = rows.slice(2);
+        const empty = body.filter((l) => { const c = (l.split('|')[bi] || '').trim(); return !c || /^[-—ー・なし無し]*$/.test(c); });
+        if (!body.length) { errs++; console.log(`✗ ${name}：「体験の検討」の表に行がない`); }
+        if (empty.length) { errs++; console.log(`✗ ${name}：「体験の検討」で悪い面が空の行 ${empty.length} 件（QUALITY 7.1：悪い面の欄が空の仕様は不完全）`); }
+      }
+    }
+  }
   if (hits.length) console.log(`△ ${name}：台帳の外に簡略化の言い回し ${hits.length} か所（行 ${hits.slice(0, 12).join(', ')}${hits.length > 12 ? '…' : ''}）。台帳に載せて理由を書くか、言い回しを直す`);
   if (!miss.length) console.log(`✓ ${name}`);
 }
