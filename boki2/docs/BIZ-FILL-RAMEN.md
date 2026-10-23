@@ -849,4 +849,5 @@ BIZ-MKT-RAMEN.md 計 116 {'[推]': 70, '【推論': 46} 行数 78
 ```
 
 - ほかのスクリプト：対象の一覧は `fill-ramen-targets-v2.py`、季節の分解は `fill-ramen-season-v2.py` と 1.2 の追加の `fill-ramen-season-v3.py`、気温と雨は `fill-ramen-weather-v2.py`、観光の宿は `fill-season-kanko.py`、地域の採算は `fill-ramen-region-v2.py` と 1.2 の追加の `fill-ramen-region-v3.py`（「## 8」が 1.2 の数）。1.0 の `fill-season-hibetsu.py`・`fill-region.py`・`fill-count.py`、1.1 の `fill-ramen-count-v2.py` はその版の数の再現のために残した。
-- 検査（結果は下に書く）。
+- 検査（2026-10-23）：`node boki2/tools/report-check.js boki2/docs/BIZ-FILL-RAMEN.md` は ✓（警告なし）。`node boki2/tools/research-check.js` は、この報告の出典の語句と r6-fill・r7-fill・r8-fill の読了ノートについてエラー0。全体の終了コードは1で、エラーは他の担当の読了ノート（web:bizmgmt の r7-fc-…）の分。
+- 同じ語句を2回使った出典は、本文の主張と「検査役の筋から採ったもの」の章（または0章と本文）で同じ主張を引いたもの。3回以上の使い回しは無い。
