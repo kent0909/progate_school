@@ -63,7 +63,7 @@ function widePolicy(W, rng, prev, fit = true) {
   p.tweak = rng() < 0.15;
   // 人数は年初に0〜4人を一様に引いて1年保持（毎月雇い直す分布と区別）。
   if (W.t % 12 === 0) p.parts = Math.floor(rng() * 5);
-  p.borrow = W.cash < 300000 && rng() < 0.5; // 口座が薄い月は半々で短期借入（c.4 の手①）
+  p.borrow = rng() < 0.5 && W.cash < 300000; // 口座が薄い月は半々で短期借入（c.4 の手①）
   return fit ? Wd.fitTime(W, p, rng) : p;
 }
 // 段0〜4との比較用の手。拡張したF7の母集団とは混ぜず、既存の価格・時間・店の形の検査に残す。
@@ -77,7 +77,7 @@ function randPolicy(W, rng, prev, fit = true) {
   for (const k of ['forecast', 'map', 'sns', 'haccp', 'inspect']) p[k] = rng() < 0.6;
   p.tweak = rng() < 0.15;
   if (rng() < 0.08) p.parts = Math.max(0, Math.min(3, p.parts + (rng() < 0.5 ? -1 : 1)));
-  p.borrow = W.cash < 300000 && rng() < 0.5;
+  p.borrow = rng() < 0.5 && W.cash < 300000;
   return fit ? Wd.fitTime(W, p, rng) : p;
 }
 function play(seed, o = {}) {
@@ -102,17 +102,45 @@ function play(seed, o = {}) {
 // 1号店で実装済みの手だけを使う3方針。多店舗・工場＋卸・FC＋通販は未実装で別の検査が必要。
 const SMART = ['常連と地図', '一杯と衛生', '集客と席'];
 const median = (xs) => { const a = xs.slice().sort((a,b)=>a-b); return a.length ? a[Math.floor(a.length/2)] : NaN; };
-function smartPolicy(W, strategy) {
+function smartPolicy(W, strategy, price) {
   const p = Wd.policy0(W, null, { neutral: true });
-  p.price = W.t < 12 ? 800 : W.t < 24 ? 850 : 900;
-  p.parts = W.last && W.last.demand > 65 ? 2 : 1;
-  p.family = 0; p.line = true; p.prep = 'high';
+  p.price = price != null ? price : W.t < 12 ? 800 : W.t < 24 ? 850 : 900;
+  // 週末だけ70人を超える段階で20万円を増やすと、育てる手を過剰雇用で罰してしまう。
+  // 価格候補ごとの見込客数・原価から、追加の粗利が給料を上回る時に増員する。
+  const nd = Wd.expectN(W, p.price), mix = W.town.areas[W.area].mix.family;
+  const weekend = mix*C('weekendFamily')+(1-mix)*C('weekendSingle');
+  const weekday = nd*C('days')/(20+6*weekend);
+  const sold = cap => 20*Math.min(weekday,cap)+6*Math.min(weekday*weekend,cap);
+  const cost = BW.cost(W.stores[0].bowl)+(C('items')-1)*C('price0')*C('cogs');
+  const margin = p.price*C('items')*(1-C('utilVar'))-cost;
+  p.parts = (sold(C('capBy')[2])-sold(C('capBy')[1]))*margin > C('wagePart') ? 2 : 1;
+  p.family = 0; p.line = true; p.prep = 'mid';
   p.flyer = [30000, 0, 100000][strategy];
   const order = strategy === 0 ? ['map', 'haccp', 'forecast', 'tweak', 'sns'] : strategy === 1 ? ['haccp', 'tweak', 'map', 'forecast', 'inspect'] : ['map', 'sns', 'haccp', 'forecast', 'tweak'];
   for (const k of Wd.TIME_KEYS) p[k] = false;
   for (const k of order) { p[k] = k !== 'tweak' || Wd.canTweak(W); if (Wd.timeUsed(W,p) > Wd.timeBudget(W,p)) p[k] = false; }
   p.borrow = W.cash < 300000;
   return p;
+}
+// 比較する店の口座・人員が違っても、翌月の抽選位置は同じに保つ。
+{
+  for (const policy of [randPolicy, widePolicy]) {
+    const left = Wd.create({ seed: 7, form: 'family' });
+    const right = Wd.create({ seed: 7, form: 'part1' });
+    left.cash = 0; right.cash = 7000000;
+    const a = D.rng(71), b = D.rng(71);
+    const pa = policy(left, a, null, false), pb = policy(right, b, null, false);
+    for (const k of ['price','prep','flyer','coupon','line',...Wd.TIME_KEYS]) {
+      if (pa[k] !== pb[k]) err(`無作為の比較：口座・形で${k}の抽選が変わる`);
+    }
+    if (a() !== b()) err('無作為の比較：口座・形で翌月の乱数位置がずれる');
+  }
+  const W = Wd.create({ seed: 3 });
+  for (const price of [700,1000]) {
+    const p = smartPolicy(W,0,price);
+    if (p.price !== price || Wd.timeUsed(W,p)>Wd.timeBudget(W,p)) err('上手な手：候補価格または時間の予算が不正');
+  }
+  info.push('比較の回帰：口座・店の形で抽選位置を変えない／価格候補を上手な手に渡す／時間の予算内');
 }
 // 年ごとの価格7候補を全探索（7³=343経路）。共通の年の接頭部分は1回だけ計算。
 // 36か月の同じ営業利益を比較し、1年目と3年目の別々の36か月を比べない。
@@ -123,7 +151,7 @@ function pricePlan(W, strategy, year = 0) {
   for (const price of YEAR_PRICES) {
     let x = W, sum = 0;
     for (let k = 0; k < 12; k++) {
-      const p = { ...smartPolicy(x, strategy), price };
+      const p = smartPolicy(x, strategy, price);
       const r = Wd.month(x, p, { noise: false, noCards: true, noFactors: true, rng: D.rng(90001 + x.t) });
       x = r.W; sum += r.res.op;
       if (x.bankrupt) break;
@@ -139,7 +167,7 @@ function pricePlan(W, strategy, year = 0) {
 function pricePath(W, strategy, prices) {
   let x = W; const hist = [];
   for (let k = 0; k < 36; k++) {
-    const p = { ...smartPolicy(x, strategy), price: prices[Math.floor(k / 12)] };
+    const p = smartPolicy(x, strategy, prices[Math.floor(k / 12)]);
     const r = Wd.month(x, p, { noise: false, noCards: true, noFactors: true, rng: D.rng(90001 + x.t) });
     hist.push({ W: x, pol: p, res: r.res }); x = r.W;
   }
@@ -227,8 +255,7 @@ for (let s = 0; s < RUNS; s++) {
 
 // ---------- 4. 値段：最も良い手が状態で割れるか（X4・k.5） ----------
 // (a) 支配的な手：無作為の周の1年目6月と3年目6月の状態で、いまの値段からの手（下げる・据え置く・上げる・上限まで下げる・1,000円越え）を3か月の試算で比べる
-// (b) 入れ替わり：値段は開店の850円のまま（ほかの手は無作為）で育てた店の、1年目6月と3年目6月の「最も良い値段」（600〜1,300円を25円刻み・3か月の試算）が、850円より下と上で入れ替わるか
-//     （最初は (a) の状態で入れ替わりも数えていたが、無作為に歩いた値段の位置で決まってしまい、店の育ち方（常連の割合）を測れなかったので分けた）
+// (b) 上手な手の年別価格を36か月の累計営業利益で比較する。立地×方針の9通りを巡回。
 {
   const OPTS = [['floor', null], ['down100', -100], ['down50', -50], ['keep', 0], ['up50', 50], ['up100', 100], ['over1000', null]];
   const cat = (id) => (/down|floor/.test(id) ? 'down' : id === 'keep' ? 'keep' : 'up');
@@ -257,7 +284,7 @@ for (let s = 0; s < RUNS; s++) {
   let swap = 0, signSwap = 0, runs = 0;
   const bestP = [], changes = [];
   for (let s = 0; s < N; s++) {
-    const seed = SEED0 + s, strategy = s % 3;
+    const seed = SEED0 + s, strategy = Math.floor(seed / 3) % 3;
     const W = Wd.create({ seed, area: AREAS[seed % 3], form: 'part1', tier: 0, bowl: BW.presets[seed % 3].spec });
     const best = pricePlan(W, strategy);
     runs++; // 全候補が倒産したseedも母数に残す
