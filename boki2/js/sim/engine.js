@@ -18,6 +18,8 @@
   const CAST = { piyo: ['ピヨ', 48], haha: ['お母さん', 330], esha: ['E社の担当者', 100], senpai: ['タカシ先輩', 205], shacho: ['ミライ社長', 24], eigyo: ['ハルカ（営業）', 12], ginko: ['田中さん（銀行）', 222], kansa: ['森さん（会計士）', 150], zeirishi: ['岩田さん（税理士）', 285], kabunushi: ['佐藤さん（株主）', 330], kojo: ['大山さん（工場長）', 60], oyakata: ['屋台の親方', 30] };
   // ラーメン版（ramen.html。DESIGN-RAMEN l.2）は台本（SIMDATA）が ramen:true を持ち、保存の鍵も別にする。index.html のピヨ商店はそのまま
   const RAMEN = !!D.ramen;
+  // ラーメン版の画面（js/ramen/ui.js：作戦の机・一杯の組み立て・月報・ふりかえり・分かれ道の図・地図・口座の帯・3段の枠）。ピヨ商店では null
+  const RUI = RAMEN && D.ramenUI ? D.ramenUI : null;
   const KEY = D.key || 'boki2sim.v3';
   // 屋号とプレイヤーの名前（ラーメン版。自由入力で lexicon-check の外。既定は「麺や ピヨ」「あなた」）
   const PROFILE0 = { shopName: '麺や ピヨ', playerName: 'あなた' };
@@ -215,8 +217,12 @@
   const focusKey = (el) => (el && el.attributes ? [el.tagName, ...[...el.attributes].filter((a) => a.name.startsWith('data-') || a.name === 'name').map((a) => `${a.name}=${a.value}`)].join('|') : '');
   function frame(body) {
     const was = document.activeElement, key = kbUser && was && app.contains(was) && was !== app ? focusKey(was) : null, scrolled = window.scrollY;
-    onFocus = null; app.oninput = null; app.onkeydown = null; app.innerHTML = header() + `<main class="s-main" id="s-main" tabindex="-1">${body}</main>`;
+    onFocus = null; app.oninput = null; app.onkeydown = null;
+    const shell = RUI && RUI.on();
+    app.classList.toggle('r-shell', !!shell);
+    app.innerHTML = shell ? RUI.shell(body) : header() + `<main class="s-main" id="s-main" tabindex="-1">${body}</main>`;
     a11yNames(app);
+    if (shell) RUI.afterFrame();
     $$('input[inputmode="numeric"]', app).forEach(amtHint);
     if (key) {
       const same = [...app.querySelectorAll('button, [role="button"], input, select, textarea, a[href]')].find((x) => focusKey(x) === key && !x.disabled);
@@ -719,6 +725,7 @@
     const m = month();
     if (!m) return RAMEN && D.months.length <= 1 ? sliceTodo() : endScreen();
     if (S.phase === 'monthIntro') return monthIntro();
+    if (S.phase === 'after' && RUI) return RUI.after(advanceMonth);
     // 月のはじめの「思い出す」は phase 'recall' で持つ（途中で閉じて開き直しても、とばされずに出る）
     if (S.phase === 'recall') return recallScreen(() => { S.phase = 'event'; save(); render(); });
     // 月のはじめ：自動仕訳ルールの提案
@@ -732,7 +739,7 @@
     if (ev.t === 'doc' && ev.byPres) { post(ev, val(ev.wrote, S), false); const x = S.L.find((l) => l.id === ev.id + '@' + S.mi); if (x) x.pres = true; return next(); }
     // 3級既習の近道：3級の語を教えるだけの発見は、確認だけの1画面
     if (ev.t === 'discover' && S.pro3 && S.pro3.on && D.pro3 && D.pro3.lite.includes(ev.id) && S.discDone[ev.id] == null) return discoverLite(ev);
-    ({ plan: planScreen, rreport: rreportScreen, calc: calcScreen, ss: ssScreen, duelist: duelistScreen, audit: auditScreen, desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, closing: closingScreen, opening: openingScreen, sheet: sheetScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
+    ({ plan: RUI ? RUI.plan : planScreen, rreport: RUI ? RUI.report : rreportScreen, bowl: RUI ? RUI.bowl : next, recall: () => recallScreen(next), calc: calcScreen, ss: ssScreen, duelist: duelistScreen, audit: auditScreen, desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, closing: closingScreen, opening: openingScreen, sheet: sheetScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
   }
   // 前の判断の返り：いまの月（年・月・区切り）に当たり、条件が真で、まだ見ていないもの
   function pendingReturn() {
@@ -1061,6 +1068,8 @@
   }
   function monthIntro() {
     const m = month();
+    // ラーメン版の店の月：月の順は「作戦の机→書類→札→想起→月報」（c.7）。想起は月の中の出来事（recall）にした
+    if (RUI && m.ramenT != null) return RUI.monthIntro(() => { S.phase = 'event'; S.ei = 0; save(); render(); });
     frame(`<div class="s-card s-intro"><small>${esc(m.label)}</small><h2>${esc(fill(m.title))}</h2><button class="btn wide" data-go>${S.mi === 0 ? '屋台へ行く' : '机に向かう'}</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-go]')) { S.phase = 'recall'; S.ei = 0; save(); render(); } };
   }
@@ -1812,7 +1821,7 @@
       const p = pl(bu);
       const note = knows('収益') && p.ni < 0 && (bu['仕入'] || 0) > 0 && !bu['繰越商品'] ? '<p class="muted" style="font-size:13px;margin:0">仕入れた商品は、売れ残りも全部「仕入」（費用）に入れている。売れ残りを資産に戻すのは1年の終わりだから、それまでは、もうけが小さく見える。</p>' : '';
       frame(`<div class="s-card"><small>${esc(month().label)}の見直し</small><h3>帳簿と書類が、ぜんぶ合った</h3><p class="s-why-off" style="text-align:left">${/決算/.test(month().label) ? (S.mi + 1 < D.months.length && /決算/.test(D.months[S.mi + 1].label || '') ? '書類と帳簿の数字は合った。決算の作業は、まだ続く（次の机へ）。' : '書類と帳簿の数字は合った。これで決算の作業は終わり。') : '書類と帳簿の数字が一致した、という確かめ。売上を入れる月や、費用か資産かの正しさは、決算でもう一度見る。'}</p>${miniBS(bsFrom(bu))}<p style="margin:0">口座のお金 <b>${fmt(cashOf(bu))}</b>${knows('収益') ? `　この1年のもうけ <b>${fmt(p.ni)}</b>` : ''}</p>${predictLine(bu)}${note}<button class="btn wide" data-next>${S.mi + 1 < D.months.length ? '次の月へ' : 'つぎへ'}</button></div>`);
-      app.onclick = (e) => { if (e.target.closest('[data-next]')) { S.closes.push({ mi: S.mi, fixed: S.fixLog.some((f) => f.mi === S.mi) }); grew('月末の締め'); advanceMonth(); } };
+      app.onclick = (e) => { if (e.target.closest('[data-next]')) { S.closes.push({ mi: S.mi, fixed: S.fixLog.some((f) => f.mi === S.mi) }); grew('月末の締め'); if (RUI && month().ramenT != null) { S.phase = 'after'; save(); return RUI.after(advanceMonth); } advanceMonth(); } };
       return;
     }
     // 今月の記帳のうち、書類と合わないもの
@@ -2282,6 +2291,7 @@
   }
 
   B.chapters.forEach((c) => c.qs.forEach((q, i) => { q._key = `${c.id}:${i}`; }));
+  if (RUI) RUI.init({ get S() { return S; }, get app() { return app; }, frame, next, save, render, post, talk, month, overlay, teach, knows, gw, balances, preClose, cashOf, pl, shopName, playerName, fill, companyView, bsFrom, advanceMonth, yearOf });
   window.__sim = { get S() { return S; }, get recall() { return RECALL; }, get doc() { return DOC; }, balances, events, render, mastered, testForms };
   // ふりがな（オーナーの決定 2026-10-21）：設定「いつも」なら画面の用語すべてにふりがな。既定（はじめて＋押したとき）は、名前の札などで最初にふりがなを見せ、
   // それ以外の場所の用語は押すと読みが出る。画面が描き直されるたびに、まだ処理していない文字だけを見る

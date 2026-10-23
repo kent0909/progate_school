@@ -149,6 +149,20 @@
     if (!out.length) out.push({ id: 'cash', label: '口座のお金を、先月より減らさない', check: (r) => r.ord + r.dep - r.repay >= 0 });
     return out.slice(0, 3);
   };
+  // 目の前の目標の答え合わせ（作戦の机で決めた目標の id と、その月の結果）
+  RV.goalCheck = (id, S, t, r) => {
+    const last = (S.res || {})[t - 1], sh = S.W ? RV.shadow(S).months[t] : null;
+    if (!r) return null;
+    switch (id) {
+      case 'black': return sh ? r.op > sh.op : r.op > 0;
+      case 'waste': return last ? r.waste <= last.waste / 2 : null;
+      case 'lost': return last ? r.lost < last.lost : null;
+      case 'reg': return last ? r.L >= last.L + 1 : null;
+      case 'event': return r.lost < 0.02 * Math.max(1, r.X);
+      case 'omen': return last ? r.L >= last.L + 2 : r.L >= 2;
+      default: return r.ord + r.dep - r.repay >= 0;
+    }
+  };
 
   // ---------- 期日の一覧（先6か月。作る前は先2か月だけ：札 due「期日の一覧を作るか」） ----------
   // 1年目の骨（ramen-y1.js）と同じ日付：家賃1日・返済10日・カードの入金20日・給料25日・ガス代27日・材料の代金は月末（6月から掛け）
