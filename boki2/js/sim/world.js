@@ -104,7 +104,6 @@
       const eps0 = (C(EPS[seg]) + tilt) * (a.epsScale || 1), mul = epsMul(s, list, a.pRef);
       const pEff = s.coupon ? s.price * 0.9 : s.price, pt = priceTerm(pEff, a.pRef);
       let v = C('bR') * (s.R - 3) + C('bQ') * (Q - 3) + C('bF') * Math.log(F) + fit - eps0 * (pt > 0 ? mul * pt : pt) + C('bA') * Math.log(1 + (s.A || 0)) - C('bWait') * (s.wait || 0);
-      if (s.mapMul) v += Math.log(s.mapMul);
       return v;
     });
     const nests = {};
@@ -133,7 +132,8 @@
       const ramp = s.id === 'me' ? comp.ramp : 1;
       // 常連の割合 ℓ（先月の客のうち常連）だけ、新規の流れは細る。常連は値段に半分・暦に半分しか反応しない（d.2）
       const ell = Math.min(0.9, (s.L || 0) / Math.max(1, s.Nlast != null ? s.Nlast : (s.L || 0) / 0.4 || 1));
-      const Nnew = a.P * shares[i] * comp.cal * comp.ev * ramp * (s.id === 'me' ? comp.rain : 1) * (1 - ell);
+      // 地図・口コミの整備は新規の来店に ×1.2／未整備 ×0.8（d.4。割合の式の外で掛ける：入れ子の中で掛けると 1/λ 倍に効いてしまう）
+      const Nnew = a.P * shares[i] * comp.cal * comp.ev * ramp * (s.id === 'me' ? comp.rain : 1) * (1 - ell) * (s.mapMul || 1);
       const Nreg = (s.L || 0) * Math.pow(s.price / a.pRef, -epsAvg * C('epsRegular')) * Math.pow(comp.cal, 0.5);
       return { Nnew, Nreg, N: Nnew + Nreg };
     });
@@ -181,7 +181,14 @@
     // 札（出来事）：月の山札から引いて、選んだ手の結果を W に返す（試算では引かない）
     me.pol = { ...pol };
     const fx = { demandMul: 1, cash: 0, Rd: 0 };
-    if (!opts.noCards && SIM.cards) {
+    // 前の月に選んだ札の結果（engine の流れ：札は月の途中で選び、結果は翌月の作戦の机のあとに返る。ramen.js）
+    for (const c of opts.carry || []) {
+      const card = SIM.cards.byId[c.id]; if (!card) continue;
+      const out = SIM.decide.resolve(card, c.option, W, rng);
+      SIM.cards.apply(W, card, c.option, out.id, fx, res, rng);
+      (res.carried = res.carried || []).push({ card: c.id, option: c.option, outcome: out.id, t: c.t });
+    }
+    if (!opts.noCards && !opts.carry && SIM.cards) {
       const ids = SIM.cards.deal(W, rng);
       for (const id of ids) {
         const card = SIM.cards.byId[id];
@@ -216,7 +223,8 @@
     const unitCost = SIM.bowl.cost(me.bowl) * (me.costMul || 1) + (C('items') - 1) * C('price0') * C('cogs');
     const sales = Math.round(sold * me.price * C('items') * (me.coupon ? 0.95 : 1));
     const cogs = Math.round(sold * unitCost), wasteCost = Math.round(waste * SIM.bowl.cost(me.bowl) * C('wasteShare'));
-    const labor = Math.round(laborOf(me) * (me.wageUp || 1)), rent = C('rentPerTsubo')[W.area] * C('tsubo');
+    // 居抜きの契約で最初の3か月は家賃なし（ramen-y1.js の家賃の書類は7月から）
+    const labor = Math.round(laborOf(me) * (me.wageUp || 1)), rent = W.t < C('freeRent') ? 0 : C('rentPerTsubo')[W.area] * C('tsubo');
     const util = Math.round(C('utilFixed') + C('utilVar') * sales), other = W.otherFixed, dep = Math.round(C('fitout') / C('fitoutLife') / 12);
     const ads = (pol.flyer || 0) + (me.line ? 5000 : 0) + (res.limited ? 30000 : 0);
     const op0 = sales - cogs - wasteCost - labor - rent - util - other - dep - ads + fx.cash;
@@ -225,7 +233,9 @@
     const op = op0 - famPay;
     // 短期借入（c.4 の支払不能の手①。枠は1回・置き値）：口座が足りない月の手。金利は年4.5%【置き値 CALIB：4〜5%台】
     if (pol.borrow && !W.flags.shortUsed) { W.cash += C('shortLimit'); W.short = (W.short || 0) + C('shortLimit'); W.flags.shortUsed = true; res.borrowed = C('shortLimit'); }
-    const interest = Math.round((W.loan * C('loanRate')) / 12 + ((W.short || 0) * C('shortRate')) / 12), repay = Math.round(C('loan') / C('loanYears') / 12);
+    // 公庫の返済は最初の3か月はすえおき（利息はためておき、7月に4か月分をまとめて払う）
+    const g0 = C('loanGrace'), intMonth = (W.loan * C('loanRate')) / 12;
+    const interest = Math.round((W.t < g0 ? 0 : W.t === g0 ? intMonth * (g0 + 1) : intMonth) + ((W.short || 0) * C('shortRate')) / 12), repay = W.t < g0 ? 0 : Math.round(C('loan') / C('loanYears') / 12);
     const ord = op - interest;
     W.cash += ord + dep - repay;
     W.loan = Math.max(0, W.loan - repay);

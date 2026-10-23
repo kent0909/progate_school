@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 // 結末（SIM.endings）が画面に出す法令の条文番号が、一次資料で確かめた読了ノート（research/notes/law/）にあるかを調べる。
 // 「〇〇法123条」「会社計算規則5条」の形を拾い、ノートの本文・pages: に同じ法令名と条番号が出ているかで判定する。
-// Usage: node boki2/tools/law-check.js
+// Usage: node boki2/tools/law-check.js [--ramen]
 global.window = global;
 const fs = require('fs');
 const path = require('path');
 const root = path.join(__dirname, '..');
-['js/core.js', 'js/data/accounts.js', 'js/data/kubun.js', 'js/sim/scenario.js', 'js/sim/year2.js'].forEach((f) => require(path.join(root, f)));
+// --ramen：ラーメン版（ramen.html）の台本の結末を調べる
+const STORY = process.argv.includes('--ramen') ? require('./ramen-files.js').story : ['js/sim/scenario.js', 'js/sim/year2.js'];
+['js/core.js', 'js/data/accounts.js', 'js/data/kubun.js', 'js/sim/store.js', ...STORY].forEach((f) => require(path.join(root, f)));
 const D = window.SIMDATA;
 const dir = path.join(root, 'research', 'notes', 'law');
 const lsr = (d) => (fs.existsSync(d) ? fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? lsr(path.join(d, e.name)) : [path.join(d, e.name)])) : []);

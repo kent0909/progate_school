@@ -41,6 +41,12 @@ module.exports = async function autoRun(p, { choose = {}, broad = false, endMode
     if (await has('[data-box]')) { const k = await p.evaluate(() => { const a = document.querySelector('[data-box]').dataset.acc; const c = (window.BOKI.accounts[a] || {}).cat; return /累計額$|^貸倒引当金$/.test(a) || c === '資産' ? 'A' : c === '負債' || c === '純資産' ? 'R' : c === '収益' ? 'I' : 'E'; }); await p.click(`[data-box="${k}"]`); continue; }
     if (await has('[data-join]')) { await shot('build'); await p.click('[data-join="R"]'); continue; }
     if (await has('[data-start]')) { await p.click('[data-start]'); continue; }
+    // ラーメン版（ramen.html）：屋号と名前・作戦の机（仮）・月報（仮）・計算の作業台
+    if (await has('[data-nameok]')) { await p.click('[data-nameok]'); continue; }
+    if (await has('[data-plan-ok]')) { await shot(`plan-${st.label}`); await p.click(choose.plan === 'same' ? '[data-plan-same]' : '[data-plan-ok]'); continue; }
+    if (await has('[data-rep-ok]')) { await shot(`report-${st.label}`); await p.click('[data-rep-ok]'); continue; }
+    if (await has('[data-calc-next]')) { await p.click('[data-calc-next]'); continue; }
+    if (await has('[data-calc-in]')) { const v = await p.evaluate(() => { const S = window.__sim.S; const ev = window.__sim.events()[S.ei]; return Math.round(Number(typeof ev.answer === 'function' ? ev.answer(S) : ev.answer)); }); await p.fill('[data-calc-in]', String(v)); await p.click('[data-calc-ok]'); continue; }
     if (await has('[data-pickmode]')) { await p.click('[data-pickmode] >> nth=0'); continue; }
     if (await has('[data-p3]')) { await p.click('[data-p3="no"] >> nth=0'); continue; }
     if (await has('[data-go2]')) { await p.click('[data-go2]'); continue; }
@@ -60,7 +66,7 @@ module.exports = async function autoRun(p, { choose = {}, broad = false, endMode
     }
     if (await has('[data-step]')) { await p.click('[data-step]'); continue; }
     if (await has('[data-fin]')) { await p.click('[data-fin]'); continue; }
-    if (!(await has('.s-disc')) && (await has('.s-opts [data-pick]'))) { await p.click('[data-pick="100"]'); continue; }
+    if (!(await has('.s-disc')) && (await has('.s-opts [data-pick]'))) { await p.click((await has('[data-pick="100"]')) ? '[data-pick="100"]' : '.s-opts [data-pick] >> nth=0'); continue; }
     // 名前の札
     if (await has('[data-o]')) { const i = await p.evaluate(() => { const q = document.querySelector('.s-q').textContent; const all = [...Object.values(window.SIMDATA.namings), ...Object.values(window.SIMDATA.kindIntro)]; return all.find((n) => n.q === q).opts.findIndex((o) => o.ok); }); await p.click(`[data-o="${i}"]`); continue; }
     // 自動仕訳ルール

@@ -150,6 +150,16 @@ D.months.forEach((m, mi) => {
       }
     }
     if (e.t === 'report') teach(e.teaches);
+    // ラーメン版の計算の作業台（calc）・月報（rreport）・作戦の机（plan）の文（DESIGN-RAMEN l.3：作戦の机・月報の label も検査）
+    if (e.t === 'calc') {
+      const rows = typeof e.rows === 'function' ? e.rows(fake) : e.rows || [];
+      check(w, [e.title, talkText(e.talk), e.q, ...rows.map((r) => r[0]), e.unit].join(' '), e.teaches);
+      len(w, `${talkText(e.talk)}${e.q}`); len(`${w} 理由`, e.why); check(`${w} 理由`, e.why, e.teaches);
+      if (e.answer == null) errors.push(`${w}：計算の答え（answer）がない`);
+      teach(e.teaches);
+    }
+    if (e.t === 'rreport') { const rows = e.rows(fake); check(w, rows.map((r) => r[0]).join(' ')); for (const x of e.auto({ ...fake, res: { 0: {} } }) || []) check(`${w} 一括確定`, x.label); }
+    if (e.t === 'plan') check(w, (e.opens || []).join(' '));
     // 締め切り・開始記入の画面（engine の closingScreen・openingScreen）が教える語
     if (e.t === 'closing') teach(['損益', '繰越利益剰余金', '締め切り', '当期純利益', '決算振替']);
     if (e.t === 'opening') teach(['前期繰越', '開始記入']);

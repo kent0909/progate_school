@@ -122,8 +122,10 @@
     for (const w of Object.keys(LX.docWords).sort((a, b) => b.length - a.length)) { const ew = esc(w); if (h.includes(ew)) { h = h.split(ew).join(`<button class="s-gl" data-gl="${ew}">${ew}</button>`); break; } }
     return h;
   };
-  function docHTML(doc, tappable) {
-    if (!doc) return '';
+  function docHTML(doc0, tappable) {
+    if (!doc0) return '';
+    // ラーメン版：書類の相手・題名の {店}・{名} は、遊ぶ人が決めた屋号と名前
+    const doc = RAMEN ? { ...doc0, from: fill(doc0.from), to: fill(doc0.to), title: fill(doc0.title) } : doc0;
     const rows = val(doc.rows, S);
     return `<div class="s-doc" data-type="${esc(doc.type)}"><div class="s-doc-head"><b>${gloss(doc.title)}</b><span>${esc(doc.date || '')}</span></div><div class="s-doc-meta">${gloss(doc.type !== doc.title ? doc.type : '')} ${esc(doc.from || '')} → ${esc(doc.to || '')}</div><table>${rows.map(([k, v, tap]) => `<tr><td>${gloss(k)}</td><td>${tap && tappable ? `<button class="s-tap" data-tap="${v}">${fmt(v)}</button>` : fmt(v)}</td></tr>`).join('')}</table></div>`;
   }
@@ -730,7 +732,7 @@
     if (ev.t === 'doc' && ev.byPres) { post(ev, val(ev.wrote, S), false); const x = S.L.find((l) => l.id === ev.id + '@' + S.mi); if (x) x.pres = true; return next(); }
     // 3級既習の近道：3級の語を教えるだけの発見は、確認だけの1画面
     if (ev.t === 'discover' && S.pro3 && S.pro3.on && D.pro3 && D.pro3.lite.includes(ev.id) && S.discDone[ev.id] == null) return discoverLite(ev);
-    ({ ss: ssScreen, duelist: duelistScreen, audit: auditScreen, desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, closing: closingScreen, opening: openingScreen, sheet: sheetScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
+    ({ plan: planScreen, rreport: rreportScreen, calc: calcScreen, ss: ssScreen, duelist: duelistScreen, audit: auditScreen, desk: deskScreen, talk: talkScreen, board: boardScreen, doc: docScreen, discover: discoverScreen, decision: decisionScreen, ending: (x) => endingScreen(x.id), ifonly: ifOnlyScreen, report: reportScreen, closing: closingScreen, opening: openingScreen, sheet: sheetScreen, bank: bankScreen, quiz: quizScreen, end: endScreen }[ev.t])(ev);
   }
   // 前の判断の返り：いまの月（年・月・区切り）に当たり、条件が真で、まだ見ていないもの
   function pendingReturn() {
@@ -2199,6 +2201,68 @@
     };
     draw();
   }
+  /* ---- ラーメン版の仮の画面（段5で作戦の机・月報・作業台を作り直す。DESIGN-RAMEN l.3）。いまは台本と世界の式を通して遊べるための最小の形 ---- */
+  // 作戦の机（仮）：今月の手を決める。開いている手だけ。時間の予算の残り。「前月のまま」でも進める
+  let PLAN = null;
+  function planScreen(ev) {
+    const RMx = D.ramen, t = ev.ramenT;
+    if ((S.res || {})[t]) return next();
+    const W = RMx.world(S);
+    if (!PLAN || PLAN.t !== t) PLAN = { t, pol: RMx.policy(S, t) };
+    const p = PLAN.pol, open = ev.opens || [], WD = D.world;
+    const used = WD.timeUsed(W, p), budget = WD.timeBudget(W, p);
+    const tog = (k, label) => (open.includes(k) ? `<button class="s-pill ${p[k] ? 'on' : ''}" data-plan="${k}" data-opt="toggle">${esc(label)}${p[k] ? '：する' : '：しない'}</button>` : '');
+    const row = (k, label, opts) => (open.includes(k) ? `<div class="s-who" data-plan-row="${k}"><small>${esc(label)}</small>${opts.map(([v, l]) => `<button class="${String(p[k === 'staff' ? 'parts' : k]) === String(v) ? 'on' : ''}" data-plan="${k}" data-opt="${v}">${esc(l)}</button>`).join('')}</div>` : '');
+    const trial = (() => { try { const v = WD.evalPolicy(W, p, 1); return `<p class="s-dyn">今月の見込み（乱数なし）：もうけ ${fmt(Math.round(v))}円</p>`; } catch (e) { return ''; } })();
+    frame(`<div class="s-card"><small>${esc(month().label)}の作戦の机（仮の画面）</small>${talk([['senpai', '今月の手を決めよう。時間を使う手は、時間の予算の中で。']])}<p data-time-left>時間の予算：のこり ${budget - used} ／ ${budget}</p>
+      ${row('price', `1杯の値段（いま ${fmt(p.price)}円）`, [[p.price - 50, '−50円'], [p.price, '据え置き'], [p.price + 50, '+50円']])}
+      ${row('prep', '仕込み', [['low', '少なめ'], ['mid', 'ふつう'], ['high', '多め']])}
+      ${row('staff', `パートの人数（いま ${p.parts}人）`, [[Math.max(0, p.parts - 1), '1人へらす'], [p.parts, 'そのまま'], [Math.min(6, p.parts + 1), '1人ふやす']])}
+      ${row('flyer', 'チラシ', [[0, 'なし'], [30000, '3,000部（3万円）'], [100000, '1万部（10万円）']])}
+      <div class="s-opts">${tog('map', '地図と口コミの整備')}${tog('forecast', '天気の予報を見る')}${tog('haccp', '衛生の記録')}${tog('inspect', '材料の検品')}${tog('sns', 'SNS に投稿')}${tog('line', 'LINE の配信')}${tog('coupon', 'クーポン')}${tog('tweak', '一杯の手直し')}</div>
+      ${trial}${used > budget ? '<p class="s-react ng">時間の予算を越えている。手を減らすか、人をふやそう</p>' : ''}<button class="btn wide" data-plan-ok ${used > budget ? 'disabled' : ''}>これで決める</button><button class="btn ghost" data-plan-same>前月のまま</button></div>`);
+    app.onclick = (e) => {
+      const b = e.target.closest('[data-plan]');
+      if (b) { const k = b.dataset.plan, v = b.dataset.opt; if (v === 'toggle') p[k] = !p[k]; else if (k === 'price') p.price = Math.max(WD.PRICE_MIN, Math.min(WD.PRICE_MAX, +v)); else if (k === 'staff') p.parts = +v; else if (k === 'flyer') p.flyer = +v; else p[k] = v; planScreen(ev); return; }
+      if (e.target.closest('[data-plan-same]')) { PLAN = { t, pol: RMx.policy(S, t) }; }
+      if (e.target.closest('[data-plan-ok]') || e.target.closest('[data-plan-same]')) {
+        if (WD.timeUsed(W, PLAN.pol) > WD.timeBudget(W, PLAN.pol)) PLAN.pol = WD.fitTime(W, PLAN.pol, D.rng(t));
+        RMx.plan(S, t, PLAN.pol); S.diary.push({ m: month().label, t: `作戦の机：値段 ${fmt(PLAN.pol.price)}円・パート ${PLAN.pol.parts}人${PLAN.pol.flyer ? '・チラシ' : ''}` }); PLAN = null; save(); next();
+      }
+    };
+  }
+  // 月報（仮）：今月の結果と要因、一括確定の行（その他の店のお金・札のお金）を帳簿へ
+  function rreportScreen(ev) {
+    const r = (S.res || {})[ev.ramenT];
+    if (!r) return next();
+    const rows = ev.rows(S), auto = ev.auto(S);
+    const f = Object.entries(r.factors || {}).filter(([k]) => k !== 'total').sort((a, b) => Math.abs(b[1]) - Math.abs(a[1])).slice(0, 3);
+    const FN = { ramp: '開店からの立ち上がり', calendar: '暦・行事', weather: '天気', price: '値段', rep: '評判', bowl: '一杯', ad: '宣伝・地図', rival: 'ほかの店', stockout: '品切れ' };
+    frame(`<div class="s-card"><small>${esc(month().label)}の月報（仮の画面）</small><table class="s-tb">${rows.map(([k, v]) => `<tr data-rep-row><td>${esc(k)}</td><td class="n">${typeof v === 'number' ? fmt(v) + '円' : esc(v)}</td></tr>`).join('')}</table>${f.length ? `<p class="s-dyn">先月から客数が動いた理由（大きい順）：${f.map(([k, v]) => `<span data-factor="${k}">${esc(FN[k] || k)} ${v >= 0 ? '+' : ''}${v.toFixed(1)}人</span>`).join('・')}</p>` : ''}${auto.length ? `<p class="muted">一括確定で帳簿に入れる行：${auto.map((x) => esc(x.label)).join('・')}</p>` : ''}<button class="btn wide" data-rep-ok>一括確定して、月末の見直しへ</button></div>`);
+    app.onclick = (e) => {
+      if (!e.target.closest('[data-rep-ok]')) return;
+      for (const x of auto) post({ id: x.id, kind: 'auto_report', ans: { dr: x.dr, cr: x.cr } }, { dr: x.dr, cr: x.cr }, true);
+      save(); next();
+    };
+  }
+  // 計算の作業台（calc）：数を1つ、手で計算して入れる
+  function calcScreen(ev) {
+    const rows = typeof ev.rows === 'function' ? ev.rows(S) : ev.rows || [];
+    const ans = Math.round(Number(typeof ev.answer === 'function' ? ev.answer(S) : ev.answer));
+    let tries = 0;
+    const draw = (msg) => frame(`<div class="s-card"><small>計算の作業台</small><h3>${esc(ev.title || '')}</h3>${talk(ev.talk)}${rows.length ? `<table class="s-tb">${rows.map(([k, v]) => `<tr><td>${esc(k)}</td><td class="n">${typeof v === 'number' ? fmt(v) + (/％|割合/.test(k) ? '' : '円') : esc(v)}</td></tr>`).join('')}</table>` : ''}<p class="s-q">${esc(ev.q)}</p><div class="s-row"><input data-calc-in inputmode="numeric" aria-label="答えの数"><span>${esc(ev.unit || '')}</span></div>${msg || ''}<button class="btn wide" data-calc-ok>答える</button><button class="link" data-calc-skip>わからないので答えを見る</button></div>`);
+    draw();
+    app.onclick = (e) => {
+      const skip = e.target.closest('[data-calc-skip]');
+      if (e.target.closest('[data-calc-next]')) { teach(ev.teaches); S.calcLog = (S.calcLog || []).concat([{ id: ev.id, mi: S.mi, ok: !skip && tries === 1, tries }]); save(); next(); return; }
+      if (!skip && !e.target.closest('[data-calc-ok]')) return;
+      tries++;
+      const raw = ($('[data-calc-in]', app).value || '').normalize('NFKC').replace(/[^\d-]/g, ''), v = Number(raw);
+      if (!skip && raw !== '' && v === ans) { frame(`<div class="s-card"><small>計算の作業台</small><p class="s-react">合っている：${fmt(ans)}${esc(ev.unit || '')}</p><p>${esc(ev.why || '')}</p><button class="btn wide" data-calc-next>つぎへ</button></div>`); return; }
+      if (skip || tries >= 3) { frame(`<div class="s-card"><small>計算の作業台</small><p class="s-react ng">答えは ${fmt(ans)}${esc(ev.unit || '')}</p><p>${esc(ev.why || '')}</p><button class="btn wide" data-calc-next>つぎへ</button></div>`); return; }
+      draw('<p class="s-react ng">ちがうみたい。表の数をもう一度見て計算しよう</p>');
+    };
+  }
   // ラーメン版の作りかけ（月の中身は DESIGN-RAMEN l.2 の段4・5で入る）。ここまで遊んだ記録は保存されている
   function sliceTodo() {
     frame(`<div class="s-card"><small>${esc(shopName())}</small><h3>この先は準備中</h3>${talk([['shacho', '{名}、店の話は、もう少し待ってくれ。居抜きの店を見に行く準備をしてる！'], ['piyo', '屋台で見つけた「左と右に書く」約束は、店でも使うピヨ。']])}<button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button></div>`);
@@ -2213,7 +2277,7 @@
     const firstOk = disc.filter(([, d]) => d.first).length;
     const mins = Math.round((Date.now() - M.started) / 60000);
     const forks = Object.entries(M.forks).sort((a, c) => c[1] - a[1]);
-    frame(`<div class="s-card"><small>1年のふりかえり</small><h3>${endY}年目、おつかれさま</h3><p>${endY === 1 ? '屋台の小銭2,000円から始まった会社は、1年で' : `${endY}年目の1年で、会社は`}もうけ <b>${fmt(p.ni)}円</b>、口座のお金 <b>${fmt(cashOf(b))}円</b> になった。</p><h4>あなたが決めたこと</h4><ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul><button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button><details class="s-devlog" ${DEV ? "" : "hidden"}><summary>開発用の記録</summary><table class="s-tb"><tr><td>考える場面で、1回目から正しくたどり着いた</td><td class="n">${firstOk} / ${disc.length}</td></tr><tr><td>先輩の手帳を開いた回数</td><td class="n">${M.hand}</td></tr><tr><td>書類の記帳で、1回目から正しかった</td><td class="n">${M.docs.first} / ${M.docs.n}</td></tr><tr><td>月末に直した回数</td><td class="n">${M.fixes}</td></tr><tr><td>ヒントを見た回数</td><td class="n">${M.hints}</td></tr><tr><td>自動仕訳で進んだ書類</td><td class="n">${M.autoPosted}</td></tr><tr><td>腕だめし</td><td class="n">${M.quiz ? `${M.quiz.score} / ${M.quiz.of}` : '-'}</td></tr><tr><td>予想が当たった（発見の前・月末の締めの前）</td><td class="n">${disc.filter(([, d]) => d.predict && d.predict.ok).length} / ${disc.filter(([, d]) => d.predict).length}・${Object.values(S.predicts || {}).filter((x) => x.ok).length} / ${Object.values(S.predicts || {}).filter((x) => x.act).length}</td></tr><tr><td>ヒントなしで1回目から正しく書けた書類</td><td class="n">${S.docLog.filter((l) => l.ok && !l.hint).length} / ${S.docLog.length}</td></tr><tr><td>月はじめの思い出し</td><td class="n">${(S.recall || []).filter((r) => r.ok).length} / ${(S.recall || []).filter((r) => !r.due).length}</td></tr><tr><td>決算の机（1回目で全部見つけた）</td><td class="n">${S.metrics.desk ? (S.metrics.desk.first ? 'はい' : 'いいえ') : '-'}</td></tr><tr><td>かかった時間</td><td class="n">${mins}分</td></tr></table>${forks.length ? `<p>迷ったところ</p><ul class="s-diary">${forks.map(([f, n]) => `<li>${esc(f)} <b>${n}</b></li>`).join('')}</ul>` : ''}</details><button class="btn wide ghost" data-ov="hall">検定会場で、本試験の形で確かめる</button>${month() && D.months[S.mi + 1] ? `<button class="btn wide" data-n>${endY + 1}年目へ進む</button>` : ''}<button class="btn wide ghost" data-again>最初からもう一度</button></div>`);
+    frame(`<div class="s-card"><small>1年のふりかえり</small><h3>${endY}年目、おつかれさま</h3><p>${endY === 1 ? (RAMEN ? `${esc(shopName())}は、開店の1年で` : '屋台の小銭2,000円から始まった会社は、1年で') : `${endY}年目の1年で、会社は`}もうけ <b>${fmt(p.ni)}円</b>、口座のお金 <b>${fmt(cashOf(b))}円</b> になった。</p><h4>あなたが決めたこと</h4><ul class="s-diary">${S.diary.map((d) => `<li><b>${esc(d.m)}</b> ${esc(d.t)}</li>`).join('')}</ul><button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button><details class="s-devlog" ${DEV ? "" : "hidden"}><summary>開発用の記録</summary><table class="s-tb"><tr><td>考える場面で、1回目から正しくたどり着いた</td><td class="n">${firstOk} / ${disc.length}</td></tr><tr><td>先輩の手帳を開いた回数</td><td class="n">${M.hand}</td></tr><tr><td>書類の記帳で、1回目から正しかった</td><td class="n">${M.docs.first} / ${M.docs.n}</td></tr><tr><td>月末に直した回数</td><td class="n">${M.fixes}</td></tr><tr><td>ヒントを見た回数</td><td class="n">${M.hints}</td></tr><tr><td>自動仕訳で進んだ書類</td><td class="n">${M.autoPosted}</td></tr><tr><td>腕だめし</td><td class="n">${M.quiz ? `${M.quiz.score} / ${M.quiz.of}` : '-'}</td></tr><tr><td>予想が当たった（発見の前・月末の締めの前）</td><td class="n">${disc.filter(([, d]) => d.predict && d.predict.ok).length} / ${disc.filter(([, d]) => d.predict).length}・${Object.values(S.predicts || {}).filter((x) => x.ok).length} / ${Object.values(S.predicts || {}).filter((x) => x.act).length}</td></tr><tr><td>ヒントなしで1回目から正しく書けた書類</td><td class="n">${S.docLog.filter((l) => l.ok && !l.hint).length} / ${S.docLog.length}</td></tr><tr><td>月はじめの思い出し</td><td class="n">${(S.recall || []).filter((r) => r.ok).length} / ${(S.recall || []).filter((r) => !r.due).length}</td></tr><tr><td>決算の机（1回目で全部見つけた）</td><td class="n">${S.metrics.desk ? (S.metrics.desk.first ? 'はい' : 'いいえ') : '-'}</td></tr><tr><td>かかった時間</td><td class="n">${mins}分</td></tr></table>${forks.length ? `<p>迷ったところ</p><ul class="s-diary">${forks.map(([f, n]) => `<li>${esc(f)} <b>${n}</b></li>`).join('')}</ul>` : ''}</details><button class="btn wide ghost" data-ov="hall">検定会場で、本試験の形で確かめる</button>${month() && D.months[S.mi + 1] ? `<button class="btn wide" data-n>${endY + 1}年目へ進む</button>` : ''}<button class="btn wide ghost" data-again>最初からもう一度</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-n]')) { next(); return; } if (e.target.closest('[data-again]')) { if (!confirm('ここまでの記録を消して、最初からやり直しますか？（2年目へ進むなら「2年目へ進む」）')) return; S = freshKeep(); S.phase = 'monthIntro'; save(); render(); } };
   }
 

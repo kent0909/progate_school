@@ -33,7 +33,7 @@
   // 社長の案3つ（X28：1周目は社長の案から直す）
   const presets = [
     { id: 'shoyu', name: '中華そば', spec: { noodle: 'mid', src: 'ready', soup: 'shoyu', top: ['chashu', 'ajitama', 'nori'] }, say: '昔ながらのしょうゆ。だれにでも合う' },
-    { id: 'tonkotsu', name: '濃厚とんこつ', spec: { noodle: 'thin', src: 'custom', soup: 'tonkotsu', top: ['chashu', 'nori'] }, say: '特注の細麺で、こだわりの一杯。原価は高い' },
+    { id: 'tonkotsu', name: '濃厚とんこつ', spec: { noodle: 'thin', src: 'custom', soup: 'tonkotsu', top: ['chashu', 'nori'] }, say: '特注の細麺で、こだわりの一杯。材料の値段は高い' },
     { id: 'miso', name: 'みそ大盛り', spec: { noodle: 'thick', src: 'ready', soup: 'miso', top: ['yasai', 'chashu'] }, say: '野菜たっぷりの太麺。学生と家族向け' },
   ];
   const create = (spec, name) => ({ spec: JSON.parse(JSON.stringify(spec)), name: name || '', Fbase: 1, peak: 0, peak0: 0, peakLeft: 0, age: 0, tweakAt: null, limitedN: 0 });

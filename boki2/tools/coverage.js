@@ -3,7 +3,9 @@
 // ・試作（js/sim/scenario.js）で体験できる場面・本試験形式の問題（章の問題 q と、検定会場の大問の scope タグ）が付いているか
 // ・scope.js が指す発見イベント・書類・問題が実在するか、全章がどこかの項目に属しているか
 // Usage: node boki2/tools/coverage.js [--md]
+//        node boki2/tools/coverage.js --ramen [--stage N]   ラーメン版の場面の表（js/sim/scope-map.js。DESIGN-RAMEN g.5・k.7）を検査する
 global.window = global;
+if (process.argv.includes('--ramen')) { require('./coverage-ramen.js'); return; }
 const path = require('path');
 const fs = require('fs');
 const root = path.join(__dirname, '..');
