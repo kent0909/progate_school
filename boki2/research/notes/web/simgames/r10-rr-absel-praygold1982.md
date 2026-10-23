@@ -8,7 +8,7 @@ read: partial
 pages: 論文の頁の要旨・書誌（本文の PDF は取っていない）
 anchors: ["Inside the Black Box", "eight(8) business simulations", "modern demand theory", "somewhat unstable", "apriori defined demand criteria", "Vol. 9 (1982)"]
 ---
-ABSEL（Developments in Business Simulation and Experiential Learning）第9巻（1982）、Pray と Gold の「Inside the Black Box」の頁の要旨。MPRA の作業論文（r7-sd-mpra-54716、robots.txt が Anthropic の名の組で禁じる経路）が紹介していた Gold & Pray の系統の原典として、差し替えに使う。
+ABSEL の論文誌（経営シミュレーションと体験学習の会の年報）第9巻（1982）、Pray と Gold の「Inside the Black Box」の頁の要旨。MPRA の作業論文（r7-sd-mpra-54716、robots.txt が Anthropic の名の組で禁じる経路）が紹介していた Gold & Pray の系統の原典として、差し替えに使う。
 
 自分の言葉の要約：
 - 8本の経営シミュレーションが需要をどう模型にしたかを比べた。

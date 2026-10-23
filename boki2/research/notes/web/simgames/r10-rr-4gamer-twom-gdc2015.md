@@ -8,7 +8,7 @@ read: partial
 pages: 記事の本文（講演の報告の全部）。サイトの枠・関連記事の一覧は読んでいない
 anchors: ["Pawel Miechowski", "サラエボ", "半分だけ戻す", "自らの行動を判定する", "良心の呵責", "運命共同体", "偏見をずらしてみる", "2日間で開発費を回収"]
 ---
-4Gamer の GDC 2015 の講演の報告（2015-03-05）。11 bit studios の Pawel Miechowski の「This War of Mine: Raising Emotions From Unique Narrative」。Game Developer の同じ講演の記事（r4-sim-gd-thiswarofmine、robots.txt の禁じる経路）の差し替えに使う。
+4Gamer の GDC 2015 の講演の報告（2015-03-05）。11 bit studios の Pawel Miechowski の講演（独特の物語で感情を呼び起こす、という題）。Game Developer の同じ講演の記事（r4-sim-gd-thiswarofmine、robots.txt の禁じる経路）の差し替えに使う。
 
 自分の言葉の要約：
 - 出発点：映画で泣けるなら、操作できるゲームはもっと感情を引き出せるはず。1990年代のサラエボなどを参考に、兵士でなく市民の目で戦争を描く企画にした。ジャンルは最初決めていなかった。

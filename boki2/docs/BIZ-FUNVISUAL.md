@@ -68,7 +68,7 @@
 | 配信の知らせ（プレスリリースの転載。評者の判断はない） | 3 | Game*Spark・電ファミ・ファミ通のラーメン館の記事（判3.2-9・19 で記者の評から移した） |
 | 集約サイトの紹介文 | 6 | APPLION の作品ページ（紹介文・良い点と気になる点の箇条。書き手はサイト） |
 | 攻略の記事（遊んだ人の二次資料） | 8 | Coffee Inc 2 の Applizm の記事、Big Ambitions の GamesFuze の記事 2本 |
-| 開発者の寄稿の論考 | 5 | 物語の外骨格、ジュース、経営ゲームの平凡な深さ、Tynan、Tufte のスパークライン（Tufte は情報デザインの第一人者のサイトの議論） |
+| 開発者の寄稿の論考 | 5 | 物語の外骨格、ジュース、経営ゲームの平凡な深さ、Tynan、Tufte のスパークライン（Tufte は情報デザインの第一人者のサイトの議論）。【2026-10-23 外した】前の3本は robots.txt・規約の禁じる経路で、本文から引用を外した（末尾の章。本数は数え直していない） |
 | **研究（査読のある論文・学術書）** | **0** | 版0.1 で「研究・論考 4」と書いたのは誤り（判3.2-19）。学術の研究には当たっていない（やっていないこと） |
 | 百科事典 | 9 | Wikipedia：カイロソフト（英・日）、Lemonade Tycoon、Game Dev Tycoon、Offworld、Two Point Hospital、Good Pizza、Cook Serve Delicious、Mini Metro |
 | 画面写真（目で見たもの） | 15の資料に付いた画像 | 3.0.1 の表 |
@@ -124,7 +124,7 @@
 | ライバル | 続編を作る途中で似たゲームを出される出来事。対処の手が欲しいという声（版0.3 で「確かめられなかった」として消したのは誤りで、1ページ目の原文にある。判10.2） | [[web:simgames:r5-fv-applion-gamedevstory|「続編中のパクリ」]] |
 | 周回の動機 | 声200件で I（周回・再訪）29件、L2（目標の消失）10件 | （2章の表） |
 | 表現 | （見た）上に年月週と所持金、下に進み具合と能力の点・期待度・知名度の帯、真ん中に人を選ぶ窓（顔の絵・能力の数字・費用・一言）、窓の後ろに事務所の箱庭。（文章）頭上の顔文字と吹き出しで社員の状態が分かる | [[web:simgames:r5-fv-pocketgamer-gamedevstory|「speech bubbles」]] |
-| **抜く型** | 名前の入力＋浮き沈みを起こす仕組み＝物語の外骨格。予告つきの大事件と、両方向の小さな揺れ。頭上のアイコン | |
+| **抜く型** | 名前の入力＋浮き沈みを起こす仕組み＝物語の外骨格（【2026-10-23 外した】この論考の引用は外した。型の名前として残す【推論】）。予告つきの大事件と、両方向の小さな揺れ。頭上のアイコン | |
 
 ### 1.4 Game Dev Tycoon（Greenheart Games）
 | 軸 | 中身 | 出典 |
@@ -293,7 +293,7 @@
 | 支8 | Coffee Inc 2 の声135件のうち、店の外の事業を楽しむ 22件・欲しがる 18件（どちらか37件） | [[web:simgames:r4-cinc-applion-reviews|「コーヒー豆の自家栽培」]] [[web:simgames:r5-cinc-applion-p2|「他の業種(銀行、自動車会社」]] |
 | 支9 | Coffee Inc 2：本部の部門と投資先の配分を考え続けるのが楽しい | [[web:simgames:r4-cinc-applion-reviews|「どこに投資するのか」]] |
 | 支10 | Coffee Inc 2：店→投資会社→企業集団へ段が変わることを楽しむ | [[web:simgames:r4-cinc-applion-reviews|「コングロマリット」]] |
-| 支11 | Meier：遊び方をできるだけ多く許すことが良い設計に欠かせない | [[web:simgames:r4-sim-gd-meier2012|「play styles as possible」]] |
+| 支11 | Meier：選択の影響は遊ぶ人の遊び方と人柄で変わるべき（【2026-10-23 直した】典拠を 4Gamer の同じ講演の記事に替えた。前の版の「遊び方をできるだけ多く許すことが欠かせない」の言葉は取り直せず、多さの支持としては弱まった） | [[web:simgames:r10-rr-4gamer-meier-gdc2012|「プレイスタイルやパーソナリティ」]] |
 | 支12 | 7作品の声 782件で、やれることの多さ・奥の深さ（W）が110件（作品ごとの内訳は 2.3-2。店の外の事業を語る10件のうち7件は Coffee Inc 2） | （2章の表） |
 
 **反する事実・弱める事実（12項目・9資料）**
@@ -301,7 +301,7 @@
 |---|---|---|
 | 反1 | カイロソフトは、夢を見せたいので現実を完璧には模擬しない | [[web:simgames:r4-sim-denfami-kairosoft|「現実を完璧にシミュレートしない」]] |
 | 反2 | Tynan：複雑さに溺れると何も伝わらない。結論は、小さく単純で物語の豊かな仕組みを作れ（版0.2 は同じ資料を支持にも数えていた） | [[web:simgames:r4-sim-tynan-simdream|「Drowning in Complexity」]] [[web:simgames:r4-sim-tynan-simdream|「smaller and simpler」]] |
-| 反3 | Meier：試した物の3分の1以上を削れ | [[web:simgames:r4-sim-gd-meier2012|「Be ruthless」]] |
+| 反3 | 【2026-10-23 外した】Meier：試した物の3分の1以上を削れ（Game Developer の記事にしかなく取り直せなかった。4Gamer の同じ講演の記事にこの話はない。**数えから外す**） | （引用を外した） |
 | 反4 | Coffee Inc 2：黒字の店を建てるかが全てで、遊びの多様性に乏しい（★4） | [[web:simgames:r4-cinc-applion-reviews|「黒字店舗を建てるかが全て」]] |
 | 反5 | Coffee Inc 2：前作は規模が出ると不動産・投資会社になって面白くなかった | [[web:simgames:r5-cinc-applion-p2|「面白くなかったのですが」]] |
 | 反6 | Coffee Inc 2：管理する項目が多く、後半は煩雑（集約サイトの紹介文） | [[web:simgames:r5-fv-applion-cinc-app|「管理すべき項目が多く」]] |
@@ -313,11 +313,11 @@
 | 反12 | Two Point Hospital は繰り返しを批判された（支4 と同じ文） | [[web:simgames:r5-fv-wiki-twopointhospital|「its repetitiveness」]] |
 | 反13 | Startup Company は見張る値が数十あるのに、1.16 の見立てで周回は弱〜中（支1 と同じ資料で、多さが長く遊ばれることに直結しない例）。周回の弱さを原文の語句で支える箇所はなく、見立てである（版0.4 の語句「from being maxed」は値を見張る作業の記述で、周回の弱さを支えないので外した） | （1.16 の見立て） |
 
-**数え方**（版0.4）：項目で数えると支持12・反対12（反9 を外し、反13 Startup を足した）。独立の資料で数えると、支持は Startup・Lemonade・Two Point・Offworld・CSD・Capitalism Lab・Coffee Inc 2・Meier・声 W の9、反対はカイロソフト・Tynan・Meier・Coffee Inc 2・GDT・声 O・Good Pizza・Two Point・Startup の9（Startup・Two Point・Coffee Inc 2・Meier は両側にいる）。同数は重さが同じことを意味しない（結論2）。版0.2 の「支持14・反対11」は、同じ資料の多重計上と Tynan の向きの読み違いで支持側に寄っていた（QUALITY 5.4。N02）。
+**数え方**（版0.4）：項目で数えると支持12・反対12（反9 を外し、反13 Startup を足した）。独立の資料で数えると、支持は Startup・Lemonade・Two Point・Offworld・CSD・Capitalism Lab・Coffee Inc 2・Meier・声 W の9、反対はカイロソフト・Tynan・Meier・Coffee Inc 2・GDT・声 O・Good Pizza・Two Point・Startup の9（Startup・Two Point・Coffee Inc 2・Meier は両側にいる）。同数は重さが同じことを意味しない（結論2）。【2026-10-23 直した】robots.txt の禁じる経路の出典の差し替えで反3（Meier の削れ）の引用を外したので、いまの数は**項目で支持12・反対11、資料で支持9・反対8**（Meier は支持の側だけに残る）。この差は反対の事実が消えたからではなく、取得の経路の都合で引けなくなったからで、支持の側へ傾いたと読まない（QUALITY 5.4）。版0.2 の「支持14・反対11」は、同じ資料の多重計上と Tynan の向きの読み違いで支持側に寄っていた（QUALITY 5.4。N02）。
 
 **表から言えること（結論）**
-1. 支持の資料の多くは**利用者の声と Coffee Inc 2**（支8〜10・12）と、更新で中身を足した作り手（支3〜7）から来る。作り手の設計の一般論（Tynan・Meier の削れ・カイロソフト）は、むしろ「小さく単純で、語れる絡み」を勧める。多さそのものを否定するのは反2・反3で、残りの反対は**多さの条件**（反4：支配的な一手、反5：店の外が店を食う、反6・7・10：管理と入口の重さ、反12：足しても繰り返しになる）か、**別の道でも長く遊ばれる**（反8・11）ことを言う。
-2. したがって「変数の多さが長く遊ばれる源」は**条件つきで支持する**（項目でも資料でも両側は同数で、支持は利用者側に、反対は作り手の設計論の側に多い）。条件：**①支配的な一手を作らない、②店の外の事業は本業で稼いだお金の行き先として開き、店の遊びを置き換えない、③規模が出たら一覧と委任で管理の重さを下げる、④入口は少ない変数から始めて段階で開く、⑤足す物は「語れる絡み」を生む物にする（Tynan）**。
+1. 支持の資料の多くは**利用者の声と Coffee Inc 2**（支8〜10・12）と、更新で中身を足した作り手（支3〜7）から来る。作り手の設計の一般論（Tynan・Meier の削れ・カイロソフト）は、むしろ「小さく単純で、語れる絡み」を勧める。多さそのものを否定するのは反2（【2026-10-23 外した】反3 の Meier の削れは引用を外した）で、残りの反対は**多さの条件**（反4：支配的な一手、反5：店の外が店を食う、反6・7・10：管理と入口の重さ、反12：足しても繰り返しになる）か、**別の道でも長く遊ばれる**（反8・11）ことを言う。
+2. したがって「変数の多さが長く遊ばれる源」は**条件つきで支持する**（項目でも資料でも両側はほぼ同数で（【2026-10-23 直した】反3 を外した後は支持が1つ多いが、経路の都合の差）、支持は利用者側に、反対は作り手の設計論の側に多い）。条件：**①支配的な一手を作らない、②店の外の事業は本業で稼いだお金の行き先として開き、店の遊びを置き換えない、③規模が出たら一覧と委任で管理の重さを下げる、④入口は少ない変数から始めて段階で開く、⑤足す物は「語れる絡み」を生む物にする（Tynan）**。
 3. **店の外の事業の多さ**を支持する資料は、Coffee Inc 2（選ばれた口コミと攻略の記事）と Capitalism Lab（開発元のサイト）と Big Ambitions（作り手の聞き取りと攻略の記事）に限られる。声で店の外の事業を語るのは、それを持つ唯一の作品 Coffee Inc 2 に集まる（W の中身を言う8件のうち7件、BV 22・BVR 18）。全国編などで店の中の声が多いのは、その作品に店の外がないからで、**「利用者は店の中を好む」とも「店の外の事業が芯」とも、この声からは言えない**（版0.4 の「中身を言う声の88%が店の中」は7作品を混ぜた数なので撤回。P04）。
 4. 「数」と「絡み」を分けて測った資料はない。版0.1 の「数より絡み」は言えない（K01・K27）。言えるのは、支持の資料が数（多さ・密度・品目）と絡み（資源の木・配分）の両方を挙げていること。
 
@@ -459,7 +459,7 @@ Coffee Inc 2 では、店で稼いだ後に株・不動産・豆の栽培が開�
 麺×スープ×具、ジャンル×内容×機種、基の料理×食材を自分で組む（声 A1 83件）[[web:simgames:r5-fv-applion-ramenkan-app|「ラーメン作りの自由度が高く」]]。結果の手がかりは、隠すより**少しずつ見せる**作品が多い：グルメ食堂は開発の窓で「何ができそうか」をほのめかし（画面を見た）、発展国++ は実在の物を参考にすると当たる [[web:simgames:r5-fv-applion-gamedevstory|「参考にしていれば大体正解」]]。隠れた相性を楽しむ声（A2 16件）は、当てられる相性を楽しむ声（A3 16件）と同じ数。**効く条件**：相性が現実の常識に沿い、当てられること（鎖9）。硬すぎると型破りが常に罰せられる（鎖H）。
 
 **鎖2 名前の入力＋浮き沈みを起こす仕組み → 物語 → 愛着 → 記録**（K02・K18）
-物語の外骨格の論考は、物語の源を名前と、物語を生まずにいられない一貫した仕組みの両方とし [[web:simgames:r5-fv-gd-gamedevstory|「generate stories」]]、中身は小さな会社の浮き沈みだと言う [[web:simgames:r5-fv-gd-gamedevstory|「rise and fall of little」]]。名前だけでは物語にならない。声 B 32件のうち27件が発展国++（カイロソフトの型）。
+【2026-10-23 外した】物語の外骨格の論考（Tom Armitage。物語の源を名前と一貫した仕組みの両方とし、中身は小さな会社の浮き沈みと言う）は、Game Developer の写しと著者のサイト infovore.org のどちらも Anthropic の名を挙げて禁じるので引用を外した。「名前だけでは物語にならない」は声 B の数え（下）だけに支えられる【推論】に弱まる。声 B 32件のうち27件が発展国++（カイロソフトの型）。
 
 **鎖3 品目・場面ごとに効く手が違う → 同じ手が通らない → 状況を読む**（K19、妥当）
 Capitalism Lab の品目ごとの重み [[web:simgames:r5-fv-capilab-beginners|「comes from branding」]]、Offworld の共有の値段 [[web:simgames:r5-fv-matchstick-offworld|「a single price」]]。**効く条件**：何がどれだけ効くかが選ぶ前におおよそ見えること（Capitalism Lab は重みを画面で見せる。画面写真で確かめた）。
@@ -491,7 +491,7 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 
 **鎖A 上限に達する → 目標が消える → だれる**：強い社員がそろうと挑戦がなくなる [[web:simgames:r5-fv-pocketgamer-gamedevstory|「guaranteed」]]、全部が手に入ると別のデータで始めるしかない [[web:simgames:r5-cinc-applion-p2|「新たに始めるしかなくなって」]]（L2 13件）。
 
-**鎖B 効きの小さい変数 → 触られない**：全部の値をじわじわ上げて完璧に近づくとしぼむ。題材に固有の値と、極端な値に届くドミノが要る [[web:simgames:r5-fv-gd-mgmtdepth|「dominoes」]]。
+**鎖B 効きの小さい変数 → 触られない**：全部の値をじわじわ上げて完璧に近づくとしぼむ。題材に固有の値と、極端な値に届くドミノが要る【推論】（【2026-10-23 外した】根拠にしていた経営ゲームの深さの寄稿は Game Developer にしかなく、取り直せなかった）。
 
 **鎖C' 中身が尽きる・解放の谷 → だれる**（K04 で足した）：店を出し終えるとやることがなくなる [[web:simgames:r4-cinc-applion-reviews|「やることがなくなる」]]、新しい食材までの谷 （前出の出典「虚無期間」）、Lemonade の （前出の出典「less variety」）（L1 20件・S 45件）。
 
@@ -514,12 +514,12 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 ## 3. 表現・UI・グラフィック：安っぽく見えない作り方
 
 ### 3.0 原則（版0.1 の「規則を決めて削る」を撤回。K06・K36・判3.2-2）
-- **規則（設計の言語）を決め、そのうえで主役を厚く描く**。二択（削る／足す）ではない。Mini Metro は作り切るために素材の制約を置いたが [[web:simgames:r5-fv-wiki-minimetro|「reach a finished state」]]、絵と音に外の作り手を入れ [[web:simgames:r5-fv-wiki-minimetro|「hired external help」]]、絵を作り直した [[web:simgames:r5-fv-wiki-minimetro|「graphical overhaul」]]。Two Point の美術の人は絵が遊びを支えると言ったうえで、絵と動きを重ねることが基本だと言う [[web:simgames:r5-fv-cgm-twopoint|「support the game」]] [[web:simgames:r5-fv-cgm-twopoint|「That layering」]]、別の聞き取りで [[web:simgames:r5-fv-pcgi-twopoint|「layer on this stuff」]]。ジュースの寄稿も層を足す話 [[web:simgames:r5-fv-gd-juice|「adding layers」]]。
+- **規則（設計の言語）を決め、そのうえで主役を厚く描く**。二択（削る／足す）ではない。Mini Metro は作り切るために素材の制約を置いたが [[web:simgames:r5-fv-wiki-minimetro|「reach a finished state」]]、絵と音に外の作り手を入れ [[web:simgames:r5-fv-wiki-minimetro|「hired external help」]]、絵を作り直した [[web:simgames:r5-fv-wiki-minimetro|「graphical overhaul」]]。Two Point の美術の人は絵が遊びを支えると言ったうえで、絵と動きを重ねることが基本だと言う [[web:simgames:r5-fv-cgm-twopoint|「support the game」]] [[web:simgames:r5-fv-cgm-twopoint|「That layering」]]、別の聞き取りで [[web:simgames:r5-fv-pcgi-twopoint|「layer on this stuff」]]。【2026-10-23 外した】ジュースの寄稿（層を足す話）は取り直せなかった。
 - **視点で絵の見栄えを上げる**：カイロソフトは、上からだと下手な絵は下手に見えるが、クオータービューにすると [[web:simgames:r4-sim-denfami-kairosoft|「それなりの絵でもカッコイイ」]]。ドット絵を選ぶ理由（少人数・短い期間でゲーム性に集中）は作る労力の理由で、見栄えの理由ではない（K36）。
 - **作った物・人・店を主役にして絵にする**（Startup Company の反面教師 （前出の出典「lack of character」））。
 - **数字の画面は Tufte の型**（文字の解像度の小さな線、意味のない飾りを消す）。範囲は判断のための数字の画面に限る（K39）。Tufte は赤・黄・緑の信号の色を避けよと言う [[web:simgames:r5-fv-tufte-sparkline|「stoplight charts」]]（版0.1 の緑・橙・赤の推しは撤回。判3.2-4）。
-- **主役を1つにするのは判断の画面**。店の画面は世界ごと動かしてよい（ジュースは視覚効果の多さで褒める例も挙げる [[web:simgames:r5-fv-gd-juice|「visual effects」]] [[web:simgames:r5-fv-gd-juice|「The world breathes」]]。K40）。
-- **音は厚く作る**：音は見落とされがちで、悪い音はゲームを壊し、作曲家を雇うのをためらうな [[web:simgames:r5-fv-gd-juice|「Bad sound design」]] [[web:simgames:r5-fv-gd-juice|「hesitate to hire one」]]（K46）。
+- **主役を1つにするのは判断の画面**。店の画面は世界ごと動かしてよい（【2026-10-23 外した】根拠にしていたジュースの寄稿の「視覚効果の多さで褒める例」は取り直せず、この一文は【推論】に弱まる。K40）。
+- **音は厚く作る**：【2026-10-23 外した】根拠にしていたジュースの寄稿（悪い音はゲームを壊す、作曲家を雇うのをためらうな）は、元の掲載先の GameAnalytics が規約で自動取得を禁じ、Game Developer は robots.txt で禁じるので引用を外した。残る支えは Mini Metro が音に外の作り手を入れて音の賞を取った例（1章の表、K46）で、「音は厚く作る」は**1作の例だけに弱まる**。
 
 ### 3.0.1 画面写真を見た記録（15の資料。判3.5・受け入れ基準15本）
 取得は research-fetch（画像は各文書の part shotN）。見たものだけを「見た」と書く。
@@ -551,7 +551,7 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 | Mini Metro | 兄弟2人で始め、絵（Jamie Churchman）と音（Disasterpeace）に外の手を入れ、音で賞 | [[web:simgames:r5-fv-wiki-minimetro|「Jamie Churchman」]] [[web:simgames:r5-fv-wiki-minimetro|「Excellence in Audio」]] |
 | Two Point | 絵と動きに時間と労力をかけたと美術の人 | [[web:simgames:r5-fv-cgm-twopoint|「time and energy put in」]] |
 | Good Pizza | 書き手を雇って会話・ニュースを足し、絵と人物の意匠で賞 | [[web:simgames:r5-fv-pmq-goodpizza|「worked with writers」]] [[web:simgames:r5-fv-wiki-goodpizza|「Best Visual Art」]] |
-| Meier の助言 | 絵描きと書き手を使って味を足せ | [[web:simgames:r4-sim-gd-meier2012|「add flavor」]] |
+| Meier の助言 | 仕組みの無機質な所をファンタジーで包め（【2026-10-23 直した】典拠を 4Gamer の同じ講演の記事に替えた。前の版の「絵描きと書き手を使って」の細部は取り直せなかった） | [[web:simgames:r10-rr-4gamer-meier-gdc2012|「ファンタジーというオブラート」]] |
 
 **ピヨ商店への写し方**：**置く場合**（推し）：絵の作り手1人（店・丼・客・町の部品と線の約束）と、音の作り手（操作の音・締めの曲・環境音）を置き、3.1 の「中〜難」を作る。**置かない場合**：3.1 の「易」の項目（色・罫・数字・小さな線・地図）と、SVG の幾何の絵（Mini Metro の型）で店と町を描く。ただし鎖C の診断（店・一杯・客が絵にならない）は、置かない場合には直りきらない【推論】。
 
@@ -580,11 +580,11 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 | 18 | 数字 | 評価の内訳（値段・商品・接客・雰囲気）を星と数字で | Coffee Inc 2 の店の画面 | 見た | 一杯と店の評価の内訳 | SVG の星を `clip-path` で部分塗り | 易 |
 | 19 | 数字 | 需給の棒・詰まりの表示 | Capitalism Lab（文章）、Startup の不満 | 文章 | 売上の上限を決める詰まり | 2本の `<div>` の幅 | 易 |
 | 20 | 数字 | 前の周の薄い線（幽霊） | Two Point の挑戦の考え方（文章） | 文章 | 周のふりかえり | 2本の `<polyline>`、前の周は `opacity:.35` | 易 |
-| 21 | 動き | 緩急のある動き（最後にゆっくり止まる） | ジュースの寄稿（文章） | 文章 | 札・書類・画面の切り替え | `cubic-bezier(.2,.8,.2,1)`、`prefers-reduced-motion` | 易 |
+| 21 | 動き | 緩急のある動き（最後にゆっくり止まる） | （【2026-10-23 外した】ジュースの寄稿は取り直せず、根拠なし【推論】） | 文章 | 札・書類・画面の切り替え | `cubic-bezier(.2,.8,.2,1)`、`prefers-reduced-motion` | 易 |
 | 22 | 動き | 小さな生きている仕草（あくび・湯切り・すする） | Two Point [[web:simgames:r5-fv-cgm-twopoint|「bored」]] | 文章 | 店内の絵に2〜3コマ | `steps()` の `@keyframes` と人ごとの `animation-delay` | 中〜難 |
-| 23 | 動き | 湯気・のれんの揺れ（周期を重ねる） | ジュースの寄稿 | 文章 | 丼・寸胴・のれん。冷めた丼は湯気なし | 周期のずれた2〜3本の `<path>` | 易 |
-| 24 | 音 | 合った瞬間の一瞬の止め＋短い音 | ジュースの寄稿 | 文章 | 貸借が合った・締めが通った瞬間 | 100ms の止め＋Web Audio の短い2音 | 中 |
-| 25 | 音 | 曲と環境音を作り手が作る（エリアの音・厨房の音）。最初は鳴らさず、利用者の操作の後に小さく鳴らす（ブラウザの決まり） | ジュース [[web:simgames:r5-fv-gd-juice|「Bad sound design」]]・Mini Metro の音の賞 | 文章 | 駅前・商店街・厨房 | Web Audio。止める設定つき | 難 |
+| 23 | 動き | 湯気・のれんの揺れ（周期を重ねる） | （【2026-10-23 外した】ジュースの寄稿は取り直せず、根拠なし【推論】） | 文章 | 丼・寸胴・のれん。冷めた丼は湯気なし | 周期のずれた2〜3本の `<path>` | 易 |
+| 24 | 音 | 合った瞬間の一瞬の止め＋短い音 | （【2026-10-23 外した】ジュースの寄稿は取り直せず、根拠なし【推論】） | 文章 | 貸借が合った・締めが通った瞬間 | 100ms の止め＋Web Audio の短い2音 | 中 |
+| 25 | 音 | 曲と環境音を作り手が作る（エリアの音・厨房の音）。最初は鳴らさず、利用者の操作の後に小さく鳴らす（ブラウザの決まり） | Mini Metro の音の賞（【2026-10-23 外した】ジュースの寄稿は取り直せなかった） | 文章 | 駅前・商店街・厨房 | Web Audio。止める設定つき | 難 |
 | 26 | 儀式 | 締めの儀式（店じまい・明かりが消える） | グッドピザの声（1日の終わりの演出を惜しむ） | 文章 | 月末の締めの後 | `filter: brightness()` の `transition` | 易 |
 | 27 | 世界 | 町の新聞（予兆と世界の外側を運ぶ） | Good Pizza のニュース・CSD のメール | 文章 | 月初の新聞。自分の一杯の名前が載る | CSS `columns` の紙面 | 易〜中 |
 | 28 | 段 | 節目と段の星 | Two Point（作り手の意図） | 見た（星の札） | 月・期の目標を星で | SVG の星と `transform: scale()` の跳ね | 易 |
@@ -616,7 +616,7 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 | 10 | 具の種類 | ⇄11・12・15 | 具の充実で値上げ [[web:ramen:r4-ramen-tdb-market25fy|「トッピングの充実化」]] | [[web:simgames:r5-fv-gamespark-ramenkan|「最大のポイント」]] | 全部のせが常に最強にならないよう原価で |
 | 11 | 具の置き方・見た目（映え） | ↑44 | SNS で若い客が増えた [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「アプリ会員数」]]（映えそのものの数字は【資料なし】：有報・説明資料・手引きを探した） | [[web:simgames:r5-fv-applion-ramenkan-zenkoku-p2|「トッピングを自分好みに配置」]] | 効きは SNS に小さく |
 | 12 | 量（並・大盛・小盛） | ↑26（学生街） | 食べ残しを減らすためサイズ別に出す [[web:ramen:r4-ramen-gift-yuho2025|「サイズ別」]]（判3.4） | 材料にお金を使う釣り合い [[web:simgames:r5-fv-wiki-goodpizza|「money on ingredients」]] | エリアとの相性 |
-| 13 | 一杯の名前（入力） | ↑43・新聞 | 【資料なし】（命名の効果の数字は、有報・説明資料・手引き・業界の報告に見当たらない） | [[web:simgames:r5-fv-gd-gamedevstory|「generate stories」]] | 数字には効かせず、記録と新聞に出す |
+| 13 | 一杯の名前（入力） | ↑43・新聞 | 【資料なし】（命名の効果の数字は、有報・説明資料・手引き・業界の報告に見当たらない） | （【2026-10-23 外した】物語の外骨格の論考は取り直せなかった） | 数字には効かせず、記録と新聞に出す |
 | 14 | 限定麺・季節の麺（商品開発） | ↑1〜10・18 | 期間限定の商品 [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「期間限定商品」]]、夏の冷たい麺 [[web:ramen:r4-ramen-kourakuen-setsumei2511|「冷たい麺3品」]] | 同じ品は飽きられる [[web:simgames:r5-fv-wiki-csd|「over 180 food types」]]、Coffee Inc 2 の商品開発 [[web:simgames:r4-cinc-applizm-shouhinkaihatsu|「週間開発費」]] | 外れは材料の廃棄 |
 
 ### 4.2 メニューと値段（6）
@@ -664,7 +664,7 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 | 34 | 職人（経験者を雇う／育てる） | ⇄2・3 | 開業者の8割超が同業の経験あり（**全業種の値**）[[web:ramen:r4-ramen-jfc-kaigyo2025full|「斯業経験」]]、マイスター [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「マイスター」]] | [[web:simgames:r5-fv-applion-gds-app|「多彩な職業システム」]] | 味と手際の2本 |
 | 35 | アルバイトの人数・時給・シフト | ⇄28・40 | 最低賃金の引き上げで人件費↑ [[web:ramen:r4-ramen-gift-yuho2025|「人材確保」]] | シフトの要望 [[web:simgames:r5-fv-applion-ramenkan-zenkoku|「シフトも組める」]] | 過不足の表示 |
 | 36 | 店長と任せる範囲 | ⇄34・15 | 業務委託店（運営の危険を相手が負う）[[web:ramen:r4-ramen-gift-yuho2025|「業務委託」]] | 店長が決まった動きしかしない [[web:simgames:r4-cinc-applion-reviews|「ある一定の動きしかしない」]] | 任せる範囲を選ばせる |
-| 37 | 店主の体力と時間 | ⇄33・40 | 開業者の約半数が週50時間以上（**全業種の値**）[[web:ramen:r4-ramen-jfc-kaigyo2025full|「50時間以上」]]（判3.4） | [[web:simgames:r5-fv-gd-mgmtdepth|「dominoes」]]の論考の題材固有の値 | 屋台・1号店期の上限 |
+| 37 | 店主の体力と時間 | ⇄33・40 | 開業者の約半数が週50時間以上（**全業種の値**）[[web:ramen:r4-ramen-jfc-kaigyo2025full|「50時間以上」]]（判3.4） | 題材固有の値【推論】（【2026-10-23 外した】ドミノの論考は取り直せなかった） | 屋台・1号店期の上限 |
 | 38 | 人の特性 | ⇄31・41 | 【資料なし】（有報・説明資料・手引きに、人の性格の分類はない） | [[web:simgames:r5-fv-pcgi-twopoint|「actual traits」]]（飾り×特性）。種類の数（版0.1 の5〜6）は【推論】（判3.2-18） | 頭の中の模型に写る数で |
 | 39 | 研修・福利・離職 | ⇄34・35 | 離職率の低下 [[web:ramen:r4-ramen-kourakuen-setsumei2511|「離職率 2.8」]]、研修の専門部署 [[web:ramen:r4-ramen-gift-yuho2025|「年間カリキュラム」]]、研修センター [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「トレーニング」]]（判3.4） | 給料・研修で引き抜きを防ぐ [[web:simgames:r6-sd-gamesfuze-bigambitions-rivals|「poach your employees」]] | 離職の重み |
 | 62 | 外国人の採用・育成 | ⇄35 | [[web:ramen:r4-ramen-yamaokaya-setsumei2603|「特定技能人材」]]、在留資格の対応の負担 [[web:ramen:r4-ramen-gift-yuho2025|「在留資格」]] | 【資料なし】 | 採用の幅と教育の時間 |
@@ -793,7 +793,7 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 ## 反証と限界
 
 **自分の結論に反する資料**
-- 「多さが源」への反対：Tynan の複雑さに溺れる話 [[web:simgames:r4-sim-tynan-simdream|「Drowning in Complexity」]]、Meier の削れ [[web:simgames:r4-sim-gd-meier2012|「Be ruthless」]]、カイロソフトの模擬しすぎない方針 [[web:simgames:r4-sim-denfami-kairosoft|「現実を完璧にシミュレートしない」]]。これらは1.15 の反1〜3に入れ、結論を「条件つきの支持」にとどめた。
+- 「多さが源」への反対：Tynan の複雑さに溺れる話 [[web:simgames:r4-sim-tynan-simdream|「Drowning in Complexity」]]、（【2026-10-23 外した】Meier の削れは取り直せなかった）、カイロソフトの模擬しすぎない方針 [[web:simgames:r4-sim-denfami-kairosoft|「現実を完璧にシミュレートしない」]]。これらは1.15 の反1・反2に入れ（反3 は外した）、結論を「条件つきの支持」にとどめた。
 - 「店の外の事業が1位」への反対：Coffee Inc 2 の前作の声 （前出の出典「面白くなかったのですが」）、黒字の店を建てるかが全て （前出の出典「黒字店舗を建てるかが全て」）。ピヨ商店は学びの作品で、店の外の事業の変数が多いと入口が重くなる（O 46件）。段階で開く条件を付けた。
 - 「絵と音の作り手を置く」への反対：ゲーム発展国++ の声に見た目の簡素さを肯定するものが10件（HL）。カイロソフトの絵は少人数のドット絵で、豪華ではない。→ 求めているのは豪華さではなく、視点と主役の描き込み（3.0）。
 - 「予告なしの小さな事故」への反対：判定の不満（M1 24件）と悪い方だけ（M2 4件）。→ 3条件を付けた。カイロソフトの社長は辛い現実の模擬機にしないと言う [[web:simgames:r4-sim-denfami-kairosoft|「夢を見せたい」]]。
@@ -968,6 +968,7 @@ Offworld [[web:simgames:r5-fv-mohawk-offworld|「changing economy」]]、Capital
 - **BIZ-COFFEEINC2 との突き合わせ**：同じ原文を引いたが、別の担当の結論との食い違いは確かめていない。
 - **DESIGN-RAMEN への波及**：DESIGN-RAMEN の本文は開いていない。判定書6章が止めるよう言った行（隠れた相性の表・設計の言語を先に・緑橙赤・資料なしの重み）は、この版で向きを変えた。
 
+- 【2026-10-23 差し替え】robots.txt の禁じる経路の出典の差し替えでは、資料の内訳の本数と 2章・1.15 以外の数え（声の分類など）は数え直していない（声の分類はこの差し替えに関係しない）。ジュースの寄稿を外した後、11章の表の動き・音の行（21・23・24・25）は根拠のない【推論】のまま残した。代わりの資料（他の作り手の手触りの話）は探していない
 ---
 
 ## 論証の表
@@ -1015,4 +1016,16 @@ QUALITY 5.1 の7列。作り手の労力が減る向きの結論には、反対�
 **版0.1 から引き続き引いたもの**：r5-fv-* の44本と、BIZ-SIMDESIGN の r4-sim-* のノート。
 
 ## robots.txt で禁じられた経路の出典
-2026-10-23 のさかのぼり点検（research/ROBOTS-AUDIT.md）で、この報告の次の出典は、robots.txt が禁じるパス（または Anthropic の名を挙げて禁じる組）から取得していたと分かった。オーナーの決定で引用は残し、事実どおりここに記す。今後は research-fetch が自動で止める：r4-sim-gd-meier2012、r5-fv-gd-gamedevstory、r5-fv-gd-juice、r5-fv-gd-mgmtdepth
+
+2026-10-23 のさかのぼり点検（research/ROBOTS-AUDIT.md）で、この報告の4本の出典が robots.txt の禁じる経路（gamedeveloper.com は Anthropic の名を挙げて全部を禁じる組）から取ったものと分かった。オーナーの決定（A：許された形に取り直して差し替え、できない所は引用を外して結論が変わるかを書く）で、2026-10-23 に差し替えた。本文の直した所には【2026-10-23 外した】【2026-10-23 直した】の印がある。試した経路は `research/searches/robots-replace.jsonl` と取得記録の r10-rr-*・r10-robots-*・r10-tos-*。
+
+### 差し替えの結果
+
+| もとの doc（引用の数） | 新しい doc または「外した」（差し替え／外した） | 試した経路と結果 | 結論への影響 |
+|---|---|---|---|
+| r4-sim-gd-meier2012（4） | r10-rr-4gamer-meier-gdc2012（4Gamer の同じ GDC 2012 の講演の記事）で2、外した2 | 4Gamer：選択の影響は遊び方・人柄で変わる、仕組みをファンタジーで包む。「遊び方をできるだけ多く許す」「3分の1以上を削れ」「絵描きと書き手で味を足せ」の言葉は出ない | 1.15 の反3 を数えから外し、数え方が**項目で支持12・反対11、資料で9・8に変わる**。結論2「条件つきで支持」は**変わらない**（差は経路の都合で、反対の事実が消えたのではないと本文に書いた）。支11 は多さの支持として**弱まる** |
+| r5-fv-gd-gamedevstory（3） | 外した3 | 著者 Tom Armitage のサイト infovore.org に同じ文があるが、robots.txt が ClaudeBot・anthropic-ai・claude-web を全部禁じる（r10-robots-infovore.org、site-policy に no-automation と記録） | 鎖の「名前だけでは物語にならない」「物語の外骨格」は声 B の数え（32件のうち27件）だけの【推論】に**弱まる**。命名の行（13）は元から【資料なし】で**変わらない** |
+| r5-fv-gd-juice（6） | 外した6 | 元の掲載先の GameAnalytics のブログは規約 7.2.3 が robot・spider・page-scrape を禁止（r10-tos-gameanalytics、no-automation と記録）。WebSearch でも別の公開元は出ない | 「音は厚く作る」は Mini Metro の音の賞の1作だけに**弱まる**。「店の画面は世界ごと動かしてよい」は【推論】に**弱まる**。11章の動き・音の行（21・23・24・25）の根拠は**消える**（行は【推論】として残す）。「規則を決め、主役を厚く描く」は Two Point・Mini Metro が残り**変わらない** |
+| r5-fv-gd-mgmtdepth（2） | 外した2 | 著者（Oleg Bobrov）の別の掲載先は WebSearch で出ない | 鎖B（効きの小さい変数は触られない、極端な値に届くドミノが要る）の根拠は**消え**、【推論】として残す。10章の店主の体力の行（37）は全業種の開業の調査が残り**変わらない** |
+
+計：引用15のうち、差し替え2・外した13。数が変わったのは 1.15 の支・反の数え（反3）。設計の決定（11章の表の採否）で、外した引用だけを根拠にしていたのは動き・音の4行で、これは【推論】として残した。
