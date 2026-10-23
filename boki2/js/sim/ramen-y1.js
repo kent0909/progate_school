@@ -64,6 +64,7 @@
     支払手数料: { q: 'カードの会社が、入金のときに引いたお金。これは？', opts: [{ t: 'じぶんのお金をへらした原因（費用）', ok: true }, { t: '返してもらえるお金（資産）', react: 'カードを使えるようにしてもらったお礼。戻ってこないお金だね' }], line: '手続きをしてもらったお礼に払うお金は、費用の「支払手数料」。', teaches: ['支払手数料'] },
     修繕費: { q: 'こわれたコンロを、もとどおりに直したお金。これは？', opts: [{ t: 'じぶんのお金をへらした原因（費用）', ok: true }, { t: 'コンロの値打ちが増えた（資産）', react: 'もとに戻しただけで、前より良くなったわけではないね' }], line: 'もとの状態に戻すための修理のお金は、費用の「修繕費」。', teaches: ['修繕費'] },
     未払消費税: { q: '1年で預かった消費税から、払った消費税を引いた残り。まだ国に納めていない。これは？', opts: [{ t: '返すお金（負債）', ok: true }, { t: 'もっているもの（資産）', react: '国に納める約束がある。払う約束は、どっちだった？' }], line: '預かった消費税と払った消費税の差で、まだ国に納めていないものは、負債の「未払消費税」。', teaches: ['未払消費税'] },
+    未払費用: { q: '3月に働いてもらった分の給料を、4月に払う。いま、右の棚のどっち？', opts: [{ t: '返すお金（負債）', ok: true }, { t: '返さないお金（純資産）', react: 'パートさんに払う約束がある。払う約束は、どっちだった？' }], line: '今年の費用で、まだ払っていない分（給料・ガス代など、続けて受けているもの）は、負債の「未払費用」。', teaches: ['未払費用'] },
     前払保険料: { q: '6月に1年分払った保険料のうち、来年の4・5月の分。今年の費用？', opts: [{ t: '来年の分なので、資産として来年へ', ok: true }, { t: '払ったのは今年なので今年の費用', react: '保険で守ってもらうのは来年の4・5月。費用は、守ってもらう月のもの' }], line: '来年の分を先に払った保険料は、資産の「前払保険料」として来年へ送る。', teaches: ['前払保険料'] },
     法人税等: { q: '1年のもうけに対して、国などに納める税金。これは何の札？', opts: [{ t: 'じぶんのお金をへらした原因（費用）', ok: true }, { t: 'もっているもの（資産）', react: '納めたら戻ってこないお金だね' }], line: 'もうけにかかる税金は、費用の「法人税等」。赤字でも、会社があるだけでかかる分（7万円）がある。', teaches: ['法人税等'] },
     未払法人税等: { q: '税金は、決算のあと2か月以内に納める。いま、まだ納めていない税金は？', opts: [{ t: '返すお金（負債）', ok: true }, { t: '返さないお金（純資産）', react: '国に「納める約束」がある。払う約束のあるお金は、どっちだった？' }], line: 'まだ納めていない税金は、負債の「未払法人税等」。', teaches: ['未払法人税等'] },
@@ -308,7 +309,7 @@
       { t: '4月の売上を生むために働いてもらった分だから', ok: true },
       { t: '給料の明細に4月分と書いてあるから', ok: false, fork: '書類の字で決める', react: '書いてあるのは手がかり。決め手は、いつの売上のために働いてもらったか' },
     ], hints: ['パートさんが働いたのは、いつ？', 'その働きで売れたラーメンは、いつの売上？'] },
-    b3: { ok: 'もうけは「その月に起きたこと」で数える。口座は「お金が動いた日」で動く。だから、もうけと口座の増え方は同じ速さにならない。' },
+    b3: { ok: 'もうけは「その月に起きたこと」で数える。口座は「お金が動いた日」で動く。毎月の帳簿は払った日に書いておき、1年の終わりに、まだ払っていない分を今年の費用に入れて直す。' },
     b4: { name: '発生主義・実現', line: '売上は売れたときに、費用はその売上のために使ったときに数える考え方を「発生主義」、売上が確かになることを「実現」という。口座の動く日とは別に数える。',
       exam: '「当月分の給料は翌月25日に支払う」', teaches: ['発生主義', '実現'], leaf: { p: 'P3', label: 'もうけと口座のずれ' } },
     hand: 'もうけ（収益−費用）は、出来事が起きた月で数える。口座は、払った日・入った日で動く。だから黒字でも口座がへる月がある（給料の翌月払い・あとで払う約束・まとめ払い）。期日の一覧で、先の口座を見る。' };
@@ -403,12 +404,17 @@
   const vatSum = (S, acc) => { let s = 0; for (const e of (S && S.T) || []) { for (const [a, v] of e.cr) if (a === acc) s -= v; for (const [a, v] of e.dr) if (a === acc) s += v; } return s; };
   const vatRecv = (S) => (S && S.T && S.T.length ? -vatSum(S, '仮受消費税') : 120000), vatPaid = (S) => (S && S.T && S.T.length ? vatSum(S, '仮払消費税') : 50000);
   const niPre = (S) => { if (!(S && S.T && S.T.length)) return -500000; const cat = (a) => (window.BOKI.accounts[a] || {}).cat; let n = 0; for (const e of S.T) { if (e.closing) continue; for (const [a, v] of e.cr) if (cat(a) === '収益') n += v; else if (cat(a) === '費用' && a !== '法人税等') n -= v; for (const [a, v] of e.dr) if (cat(a) === '費用' && a !== '法人税等') n -= v; else if (cat(a) === '収益') n += v; } return n; };
+  const marchPay = (S) => Math.round(R(S, 11).labor + R(S, 11).famPay), marchUtil = (S) => Math.round(R(S, 11).util);
   const sumCat = (S, c) => { if (!(S && S.T && S.T.length)) return { 収益: 9000000, 費用: 9500000, 資産: 6500000, 純資産: 2500000 }[c]; const cat = (a) => (window.BOKI.accounts[a] || {}).cat; let n = 0; for (const e of S.T) { if (e.closing) continue; for (const [a, v] of e.dr) if (cat(a) === c) n += v; for (const [a, v] of e.cr) if (cat(a) === c) n -= v; } return c === '資産' || c === '費用' ? n : -n; };
+  // 貸借対照表の数：資産の合計はマイナスの札（累計額・貸倒引当金）を引いた額、純資産はその年のもうけ（締め切りの前）を足した額
+  const contraSum = (S) => { if (!(S && S.T && S.T.length)) return 450000; let n = 0; for (const e of S.T) { for (const [a, v] of e.cr) if (/累計額$|^貸倒引当金$/.test(a)) n += v; for (const [a, v] of e.dr) if (/累計額$|^貸倒引当金$/.test(a)) n -= v; } return n; };
+  const bsAssets = (S) => sumCat(S, '資産') - contraSum(S);
+  const bsEquity = (S) => sumCat(S, '純資産') + (S && S.T && S.T.length && !S.T.some((e) => e.closing) ? sumCat(S, '収益') - sumCat(S, '費用') : 0);
   const taxAmt = (S) => Math.max(70000, Math.floor((niPre(S) * 0.3) / 100) * 100 + 70000);
   const KESSAN = [
     { label: '決算', title: '1年の帳簿を、本当の姿に合わせる', seg: 'desk', events: [
       { t: 'talk', teaches: ['決算'], lines: [['kansa', '3月31日。1年の終わりに、帳簿を本当の姿に合わせて1年の成績表を作ることを「決算」といいます。']] },
-      { t: 'desk', id: 'desk', scope: ['s-seisanhyo', 's-allow'], q: '机の上の6つの書類。決算で帳簿を直す必要があるのは、どれ？（いくつでも）',
+      { t: 'desk', id: 'desk', scope: ['s-seisanhyo', 's-allow'], q: '机の上の6つの書類。1年の終わりに帳簿を直す必要があるのは、どれ？（いくつでも）',
         talk: [['kansa', '決算の日は、1年の帳簿を本当の姿に合わせます。机の上の書類から、直すものを自分で探してみて。'], ['shacho', 'え、全部ちゃんと書いてきたよね？']],
         items: [
           { id: 'stock', title: '冷蔵庫と倉庫の材料の残り（3月31日）', line: '麺・豚・スープのもとが、1週間分ほど残っている。', need: true, why: '残っている材料は、まだ使っていない。全部を今年の費用にしたままだと、もうけが小さく見える。' },
@@ -416,7 +422,7 @@
           { id: 'fee', title: '普通預金 通帳（3月31日）', line: '3月31日に振込の手数料660円が引かれている。帳簿には書いていない。', need: true, why: '口座から出たのに帳簿にない。書き忘れは直す。' },
           { id: 'ar', title: 'カードの会社からの入金の予定', line: '3月にカードで売れた分は、4月20日に入る。カードの会社が払えなくなる見込みは小さいが、ゼロではない。', need: true, why: 'もらえないかもしれない分を見込んでおく。' },
           { id: 'order', title: '予約の電話のメモ（4月の団体）', line: '4月の歓迎会で20人の予約。', need: false, why: 'まだ来ていない来年のお客さん。今年の売上には入れない。' },
-          { id: 'salary', title: '給料の明細（3月分）', line: '3月分は4月25日に払う。', need: false, why: '（今年の書き方：翌月払いの給料は、払った月に書く約束にしている。2年目で未払の書き方を学ぶ）' },
+          { id: 'salary', title: '給料の明細とガス代の知らせ（3月分）', line: '3月分の給料は4月25日に、ガス・水道・電気は4月27日に払う。帳簿にはまだない。', need: true, why: '3月に働いてもらい、3月に使った分。払うのは来年でも、今年の費用。' },
         ] },
       { t: 'discover', id: 'd-stock', moves: ['資産+', '費用-'], p: 'P3', title: '残った材料まで、今年の費用？',
         b1: { talk: [['kansa', '冷蔵庫と倉庫に、材料が1週間分ほど残っていますね。'], ['shacho', '買ったんだから、全部今年の費用でいいでしょ？']] },
@@ -515,6 +521,10 @@
       { t: 'doc', kind: 'vat_close', id: 'vat-close', scope: ['s-shohizei'], doc: { type: '計算表', title: '消費税の精算（3月31日）', from: '経理', to: '経理', date: '3月31日', rows: (S) => [['預かった消費税（仮受消費税）', vatRecv(S), 'amt'], ['払った消費税（仮払消費税）', vatPaid(S), 'amt'], ['納める消費税（差）', vatRecv(S) - vatPaid(S), 'amt']] },
         ans: (S) => je([['仮受消費税', vatRecv(S)]], [['仮払消費税', vatPaid(S)], ['未払消費税', vatRecv(S) - vatPaid(S)]]), opts: opts('仮受消費税', '仮払消費税', '未払消費税') },
     ] },
+    { label: '決算（まだ払っていない分）', title: '3月の給料とガス代は、今年の費用', events: [
+      { t: 'doc', kind: 'accrued', id: 'accrued', scope: ['s-keika'], doc: { type: '計算表', title: 'まだ払っていない3月分（3月31日）', from: '経理', to: '経理', date: '3月31日', rows: (S) => [['3月分の給料（4月25日に払う）', marchPay(S), 'amt'], ['3月分のガス・水道・電気（4月27日に払う）', marchUtil(S), 'amt'], ['合計', marchPay(S) + marchUtil(S), 'amt']] },
+        ans: (S) => je([['給料', marchPay(S)], ['水道光熱費', marchUtil(S)]], [['未払費用', marchPay(S) + marchUtil(S)]]), opts: opts('水道光熱費', '未払費用', '未払金') },
+    ] },
     { label: '決算（税金）', title: 'もうけには、税金がかかる', events: [
       { t: 'talk', lines: [['zeirishi', '会社のもうけには、税金がかかります。赤字でも、会社があるだけでかかる分が7万円。申告して納めるのは決算から2か月以内です。']] },
       { t: 'doc', kind: 'tax', id: 'tax1', scope: ['s-hojinzei'], doc: { type: '税金の見込み（計算メモ）', title: '法人税・住民税・事業税の見込み', from: '岩田税理士事務所', to: SHOP, date: '3月31日', rows: (S) => [['税金をかける前の、この1年のもうけ', yen(niPre(S)) + '円'], ['もうけにかかる分（3割）', Math.max(0, Math.floor((niPre(S) * 0.3) / 100) * 100), 'amt'], ['会社があるだけでかかる分', 70000, 'amt'], ['合計', taxAmt(S), 'amt']] },
@@ -526,7 +536,7 @@
     { label: '翌年4月', title: '1年目の決算書と、銀行の審査', closeless: true, next4: true, events: [
       { t: 'report', id: 'report1', scope: ['s-fs', 'b-cycle'], teaches: ['決算書', '貸借対照表', '損益計算書'] },
       calc('fs-ratio', { scope: ['s-fs'], title: '貸借対照表から、店の体力を読む', talk: [['ginko', '貸借対照表の「資産の合計」のうち、返さなくていいお金（純資産）でまかなっている割合を見ます。']],
-        rows: (S) => [['資産の合計', sumCat(S, '資産')], ['純資産の合計', sumCat(S, '純資産')]], q: '純資産÷資産の割合は何％？（小数点以下は四捨五入）', answer: (S) => Math.round((sumCat(S, '純資産') / Math.max(1, sumCat(S, '資産'))) * 100), unit: '％', why: '純資産÷資産。返さなくていいお金が厚いほど、赤字の年にも耐えられる。銀行は、損益計算書のもうけと一緒にこの割合を見る。' }),
+        rows: (S) => [['資産の合計（マイナスの札を引いたあと）', bsAssets(S)], ['純資産の合計（1年のもうけを入れたあと）', bsEquity(S)]], q: '純資産÷資産の割合は何％？（小数点以下は四捨五入）', answer: (S) => Math.round((bsEquity(S) / Math.max(1, bsAssets(S))) * 100), unit: '％', why: '純資産÷資産。返さなくていいお金が厚いほど、赤字の年にも耐えられる。銀行は、損益計算書のもうけと一緒にこの割合を見る。' }),
       calc('cvp', { scope: ['k-cvp'], title: '1日に何人のお客さんが要る？', talk: [['ginko', '2号店の前に、1号店の数字を見せてください。1年の固定のお金（家賃・人・その他）と、1人のお客さんで残るお金から、1日に何人来れば赤字にならないか。']],
         rows: (S) => { const f = (S && S.res) ? Object.values(S.res).slice(-1)[0] : DEF; const fixed = Math.round((f.labor + f.rent + f.other + C('utilFixed') + 25000 + 10000) / 1000) * 1000; return [['月の固定のお金（給料・家賃・その他・光熱の固定・減価償却・返済の利息）', fixed], ['1人のお客さんで残るお金', 560], ['営業日', '26日']]; },
         q: '赤字にならない1日のお客さんの数は？（小数点以下は切り上げ）', answer: (S) => { const f = (S && S.res) ? Object.values(S.res).slice(-1)[0] : DEF; const fixed = Math.round((f.labor + f.rent + f.other + C('utilFixed') + 25000 + 10000) / 1000) * 1000; return Math.ceil(fixed / 560 / 26); }, unit: '人', why: '月の固定のお金÷1人で残るお金÷26日。これを「損益分岐点」の客数という。人を増やしたり家賃の高い店に出すと、この数が増える。', teaches: ['損益分岐点'] }),

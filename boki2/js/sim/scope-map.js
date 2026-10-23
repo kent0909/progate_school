@@ -71,7 +71,7 @@
     's-hikiate': { stage: 2, deadline: { y: 4 }, gate: 'K4', scenes: [sc({ card: 'bonus', y: 3, hand: 'doc', doc: 'bonus-hikiate' }), sc({ card: 'maintain', y: 4, hand: 'doc', doc: 'shuzen-hikiate' })], alt: ['ec'], again: ['bonus'] },
     's-zeikoka': { stage: 3, deadline: { y: 5 }, gate: 'K8', scenes: [sc({ ev: 'zeikoka', y: 5, hand: 'calc', calc: 'zeikoka' }), sc({ ev: 'zeikoka', y: 5, hand: 'doc', doc: 'zeikoka' })], alt: [], again: ['zeikoka'] },
     // ===== 決算と財務諸表 3 =====
-    's-keika': { stage: 1, deadline: { y: 1 }, gate: 'K1', scenes: [sc({ card: 'insurance', doc: 0, y: 1, hand: 'doc' }), sc({ ev: 'prepaid-ins', y: 1, hand: 'doc', doc: 'prepaid' })], alt: ['line_year'], again: ['prepaid-ins'] },
+    's-keika': { stage: 1, deadline: { y: 1 }, gate: 'K1', scenes: [sc({ card: 'insurance', doc: 0, y: 1, hand: 'doc' }), sc({ ev: 'prepaid-ins', y: 1, hand: 'doc', doc: 'prepaid' }), sc({ ev: 'accrued', y: 1, hand: 'doc', doc: 'accrued' })], alt: ['line_year'], again: ['prepaid-ins'] },
     's-seisanhyo': { stage: 1, deadline: { y: 1 }, gate: 'K1', scenes: [sc({ ev: 'desk', y: 1, hand: 'read', note: '決算整理の書類を選ぶ（数えない）' }), sc({ ev: 'ni-calc', y: 1, hand: 'calc', calc: 'calc' }), sc({ ev: 'sheet1', y: 1, hand: 'calc', calc: 'sheet' })], alt: [], again: ['sheet1'] },
     's-fs': { stage: 1, deadline: { y: 2 }, gate: 'K1', scenes: [sc({ ev: 'report1', y: 1, hand: 'calc', calc: 'report' }), sc({ ev: 'fs-ratio', y: 1, hand: 'calc', calc: 'calc' }), sc({ ev: 'bank1', y: 1, hand: 'read', note: '銀行の審査の台詞（読むだけ）' })], alt: ['rival_fs'], again: ['report1'] },
     // ===== 本支店会計 1 =====
