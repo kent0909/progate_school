@@ -8,7 +8,7 @@ read: partial
 pages: 書誌・要旨（RePEc IDEAS の頁）。本文は取っていない
 anchors: ["conditional cash transfer", "61 firms into 72 markets", "from 2 to 6 percent", "self-reported service quality", "number of entrants was larger", "clientele away from incumbent"]
 ---
-RePEc IDEAS の Busso と Galiani の論文（American Economic Journal: Applied Economics 11(1)、2019）の頁の要旨。Cosman と Schiff の作業論文の参考文献の一覧にあったので開いた。BIZ-CALIB の M13（近くに競合が出たら値段で応じるか）の反例に使う。
+RePEc IDEAS の Busso と Galiani の論文（米国経済学会の応用の論文誌、2019）の頁の要旨。Cosman と Schiff の作業論文の参考文献の一覧にあったので開いた。BIZ-CALIB の M13（近くに競合が出たら値段で応じるか）の反例に使う。
 
 要旨の要点（自分の言葉で）：
 - 小売の分野で、競争が増えると値段と質がどうなるかを実験で示す。ドミニカ共和国の条件つき現金給付の受給者に売る市場72か所に、61社の参入を無作為に割り当てた。
