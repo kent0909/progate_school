@@ -62,16 +62,20 @@
     // 町の行事（X3。切り身は3回：春の商店会・夏祭り・年末の売り出し。月と大きさは seed）
     W.events = [{ id: 'ev_spring', m: pick(rng, [4, 5]), size: 1.3 + 0.2 * rng() }, { id: 'ev_summer', m: 8, size: 1.3 + 0.2 * rng() }, { id: 'ev_year', m: 12, size: 1.3 + 0.2 * rng() }];
     W.rivals = SIM.rivals.create(seed, area, { run: o.run || 1, ghost: o.ghost, ghostChoices: o.ghostChoices });
+    // 町の幅は既存の出来事・一杯の抽選と独立させ、保存後も同じ値を保持する（d.9.5）。
+    const townRng = SIM.rng(seed * 65537 + 173);
+    W.town.areas[area].potentialMul = 1 + (2*townRng()-1)*C('townPotentialSpread');
+    W.rentMul = 1 + (2*townRng()-1)*C('townRentSpread');
     calibrate(W);
     return W;
   }
   // 潜在客 P：「平均の店（評判3・品質3・値段が相場・パート1人・宣伝なし）」が育ったとき中央値 44人/日になるように置く（d.2 外の選択 V0・d 結論）。
-  // 潜在客の従来の較正値。常連はd.2どおり別に加算するため、育った平均店の44±8は別途検査する。
+  // d.9.1：常連を加算した36か月の放置の店からpotentialScaleを逆算する。
   function calibrate(W) {
     const a = W.town.areas[W.area];
     const ref = { id: 'ref', price: a.pRef, R: 3, A: 0, L: 0, bowl: SIM.bowl.create(SIM.bowl.presets[0].spec), parts: 1, family: 0, ref: true };
     const share = sharesFor(W, [ref, ...W.rivals.map(rivalStore)], { neutralFit: true })[0];
-    a.P = C('median') / Math.max(1e-6, share);
+    a.P = C('median') * C('potentialScale') * (a.potentialMul || 1) / Math.max(1e-6, share);
     // 設計の ε は「その店の客数が値段にどれだけ反応するか（弾力性）」。ロジットでは係数 β の店の弾力性は β(1−s)（s はその店の割合）なので、
     // 基準の店の割合で β＝ε/(1−s) に直す（d.2 の案C の試算は弾力性＝ε で計算している。係数のままだと店の弾力性が1割ほど小さくなり、損得のない点1.64をまたがない）
     a.epsScale = 1 / Math.max(0.5, 1 - share);
@@ -176,7 +180,9 @@
     // 予兆のあった新店が開く（f.3「近くに出店の予兆」：2か月前の工事の看板）
     if (W.flags.omen && !W.flags.omenOpened && W.t >= W.flags.omen.at) { const r = SIM.rivals.make(W.flags.omen.kind, W.rivals.length); r.id = 'rnew'; r.name = 'ごうりき軒 駅前店'; if (W.flags.omen.weak) r.R = 2.6; if (W.flags.omen.war) r.price = 650; W.rivals.push(r); W.flags.omenOpened = true; res.opened = r.id; }
     // ライバルの手（反応のルール f.3。予兆・遅れつき）
+    const fixedPrices = opts.fixedRivalPrices || null;
     W.rivals = SIM.rivals.step(W, { prevPrice, price: me.price, limited: !!pol.limited }, rng);
+    if (fixedPrices) for (const r of W.rivals) { if (fixedPrices[r.id] != null) r.price = fixedPrices[r.id]; }
     // 札（出来事）：月の山札から引いて、選んだ手の結果を W に返す（試算では引かない）
     me.pol = { ...pol };
     const fx = { demandMul: 1, cash: 0, Rd: 0 };
@@ -223,7 +229,7 @@
     const sales = Math.round(sold * me.price * C('items') * (me.coupon ? 0.95 : 1));
     const cogs = Math.round(sold * unitCost), wasteCost = Math.round(waste * SIM.bowl.cost(me.bowl) * C('wasteShare'));
     // 居抜きの契約で最初の3か月は家賃なし（ramen-y1.js の家賃の書類は7月から）
-    const labor = Math.round(laborOf(me) + me.parts * C('wagePart') * ((me.wageUp || 1) - 1)), rent = W.t < C('freeRent') ? 0 : C('rentPerTsubo')[W.area] * C('tsubo');
+    const labor = Math.round(laborOf(me) + me.parts * C('wagePart') * ((me.wageUp || 1) - 1)), rent = W.t < C('freeRent') ? 0 : Math.round(C('rentPerTsubo')[W.area] * C('tsubo') * (W.rentMul || 1));
     const util = Math.round(C('utilFixed') + C('utilVar') * sales), other = W.otherFixed, dep = Math.round(C('fitout') / C('fitoutLife') / 12);
     const ads = (pol.flyer || 0) + (me.line ? 5000 : 0) + (res.limited ? 30000 : 0);
     const op0 = sales - cogs - wasteCost - labor - rent - util - other - dep - ads + fx.cash;
@@ -245,7 +251,7 @@
     const exp = Q + 2 * Math.log(F) + 2 * fitAvg - C('repStock') * stockRate - C('repWait') * waitRate + (fx.Rd || 0) * 4;
     me.R = Math.max(1, Math.min(5, me.R + C('repAlpha') * (exp - me.R)));
     const hike = Math.max(0, (me.price - prevPrice) / prevPrice);
-    const churnBase = Math.max(0.005, C('churn') + C('churnPerHike') * hike * 10 + (me.churnUp || 0) + (F < 0.9 ? 0.01 : 0) - (me.line ? C('lineBack') * C('churn') * 3 : 0));
+    const churnBase = Math.max(C('churnFloor'), C('churn') - (me.line ? C('churnLine') : 0) - C('churnRep')*Math.max(0,me.R-3) + (me.churnUp || 0));
     // 値下げをした後、最初に値上げした月の離れを2倍にする（d.2 版0.5）。
     const discountRebound = hike > 0 && !!me.discounted;
     const churn = Math.min(1, churnBase * (discountRebound ? C('discountChurn') : 1));
@@ -260,7 +266,7 @@
     me.churnUp = 0;
     me.Nlast = sold / days;
     me.wait = waitRate * 60;
-    a.pRef = (1 - C('pRefStep')) * a.pRef + C('pRefStep') * weightedPrice(list);
+    a.pRef = list.slice(1).every(x=>x.open===false) ? C('price0') : (1 - C('pRefStep')) * a.pRef + C('pRefStep') * weightedPrice(list);
     me.bowl = SIM.bowl.step(me.bowl, { tier: W.tier, regShare: me.L / Math.max(1, e0.N) });
     // ライバルの月の損益と常連（同じ式で：f.2）
     SIM.rivals.settle(W, ex.slice(1), comp);
@@ -277,8 +283,8 @@
     W.t += 1; W.m = (W.m % 12) + 1; if (W.m === 4) W.y += 1;
     return { W, res };
   }
-  // d.1・k.8 #3：自店0.3、開いている町の店の平均0.7。客数による重みではない。
-  const weightedPrice = (list) => { const r = list.slice(1).filter((x) => x.open !== false); const w = SIM.coef('pRefOwn'); return r.length ? w * list[0].price + (1 - w) * (r.reduce((t, x) => t + x.price, 0) / r.length) : list[0].price; };
+  // d.9.1：相場は開いている町の店だけ。0軒なら基準850円を使い、自店で相場を動かさない。
+  const weightedPrice = (list) => { const r = list.slice(1).filter((x) => x.open !== false); const w = SIM.coef('pRefOwn'); return r.length ? w * list[0].price + (1 - w) * (r.reduce((t, x) => t + x.price, 0) / r.length) : C('price0'); };
   // 要因の分解：要因を前の月の値に戻したときの期待の客数との差（1日あたり）
   function decompose(Wprev, W, comp, list, Nnow) {
     const P = W.comp, out = {};
