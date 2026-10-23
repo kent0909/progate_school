@@ -4,3 +4,4 @@
 {"t": "2026-10-23T01:45:35.192524Z", "query": "WebSearch：gameanalytics.com \"Squeezing more juice out of your game design\" Nathan Lovato", "item": "robots 差し替え：r5-fv-gd-juice", "used": [], "note": "GameAnalytics の元の頁は検索に出ない"}
 {"t": "2026-10-23T01:45:35.259845Z", "query": "WebSearch：infovore.org Game Dev Story narrative exoskeletons Tom Armitage", "item": "robots 差し替え：r5-fv-gd-gamedevstory", "used": [], "note": "著者のサイト infovore.org に同じ文（2010-11-04）。infovore.org/?p=3866 など"}
 {"t": "2026-10-23T01:45:35.302827Z", "query": "WebSearch：blog.kongregate.com \"The Math of Idle Games, Part I\"", "item": "robots 差し替え：r6-sd-pecorella-idle1", "used": [], "note": "Kongregate の元の URL を確かめた"}
+{"t": "2026-10-23T01:46:50.692653Z", "query": "WebSearch：（確かめ）GameAnalytics・Kongregate の規約", "item": "robots 差し替え：r6-sd-pecorella-idle1・r5-fv-gd-juice", "used": [], "note": "どちらも規約が robot・spider での取得を禁止（7.2.3／ToS）。写しは取れない"}

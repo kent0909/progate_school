@@ -2275,8 +2275,23 @@
   "checked": "2026-10-23"
  },
  "gameanalytics.com": {
-  "verdict": "gray",
-  "basis": "規約の確認のための取得（判定は取得後に書き直す）",
+  "verdict": "no-automation",
+  "basis": "GameAnalytics Terms（gameanalytics.com/terms、2026-10-23 取得 r10-tos-gameanalytics）7.2.3 が page-scrape・robot・spider 等の自動の手段での取得を禁止。robots.txt は ClaudeBot に Allow: / だが規約を優先して取らない",
+  "checked": "2026-10-23"
+ },
+ "www.kongregate.com": {
+  "verdict": "no-automation",
+  "basis": "Kongregate Terms of Service（kongregate.com/pages/terms、2026-10-23 取得 r10-tos-kongregate）が robots・bots・spiders・extraction tools でサービスに触れることを禁止",
+  "checked": "2026-10-23"
+ },
+ "www.gameanalytics.com": {
+  "verdict": "no-automation",
+  "basis": "GameAnalytics Terms（gameanalytics.com/terms、2026-10-23 取得 r10-tos-gameanalytics）7.2.3 が page-scrape・robot・spider 等の自動の手段での取得を禁止。robots.txt は ClaudeBot に Allow: / だが規約を優先して取らない",
+  "checked": "2026-10-23"
+ },
+ "blog.kongregate.com": {
+  "verdict": "no-automation",
+  "basis": "Kongregate Terms of Service（kongregate.com/pages/terms、2026-10-23 取得 r10-tos-kongregate）が robots・bots・spiders・extraction tools でサービスに触れることを禁止",
   "checked": "2026-10-23"
  }
 }
