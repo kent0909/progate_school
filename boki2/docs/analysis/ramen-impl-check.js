@@ -518,7 +518,7 @@ if (EXP === 'flip2') {
   withCoef({ epsOver1000: 1.2 }, () => flipStat('1,000円の壁 1.5→1.2', { polFn: polX }));
 }
 const X10 = { ...X09, areaSign: { ekimae: 1.0, shotengai: 0.8, jutaku: 0.6 } };
-function setup10(N) { if (NATIVE) { setX({}); } else { setX(X10); C.table.decay.v = 0.02; C.table.capBy.v = [45, Number(arg('--cap1', 70)), 100, 125, 145, 160, 170]; C.table.discountChurn.v = 1; RV.TYPES.cheap.follow = Number(arg('--follow', 0.25)); C.table.wagePart.v = Number(arg('--wagePart', 200000)); } out(`\n## 版1.0 の置き値：歯止めなし・値下げ後の値上げ ×1・家族の上限45・パート1人の上限 ${C('capBy')[1]}・パートの給料 ${man(C('wagePart'))}・外れの年 −0.05・看板 大50万+0.07・立地倍率 1.0/0.8/0.6・乱数あり・追随 確率${RV.TYPES.cheap.follow}・幅≤50円・試算の乱数に seed を${SEEDMIX ? '混ぜる' : '混ぜない'}`); out(`較正 potentialScale=${calibrate(N)}（放置の3年目中央値 44、${N}周）`); }
+function setup10(N) { if (NATIVE) { setX({}); } else { setX(X10); C.table.decay.v = 0.02; C.table.capBy.v = [Number(arg('--famCap', 45)), Number(arg('--cap1', 70)), 100, 125, 145, 160, 170]; C.table.discountChurn.v = 1; RV.TYPES.cheap.follow = Number(arg('--follow', 0.25)); C.table.wagePart.v = Number(arg('--wagePart', 200000)); } out(`\n## 版1.0 の置き値：歯止めなし・値下げ後の値上げ ×1・家族の上限${C('capBy')[0]}・パート1人の上限 ${C('capBy')[1]}・パートの給料 ${man(C('wagePart'))}・外れの年 −0.05・看板 大50万+0.07・立地倍率 1.0/0.8/0.6・乱数あり・追随 確率${RV.TYPES.cheap.follow}・幅≤50円・試算の乱数に seed を${SEEDMIX ? '混ぜる' : '混ぜない'}`); out(`較正 potentialScale=${calibrate(N)}（放置の3年目中央値 44、${N}周）`); }
 if (EXP === 'final10') { const N = Math.min(RUNS, 120); setup10(N); judgments(N, { follow: true, taste: true, f7: false }); }
 if (EXP === 'flip10') {
   const N = Math.min(RUNS, 120); setup10(N);
