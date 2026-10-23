@@ -2,7 +2,7 @@
 # docs/audit/BIZ-CALIB-v02-reasoning.md の結論ごとの表から、判定（妥当・弱い・不当）を数える。
 # 数える行：表の1列目が番号（英字で始まる）で、7列目が判定の行。判定の欄の ** は外して読む。
 # --sec 11 を付けると、見出し「## 11.」の章（版0.3の再検査）だけを数え、あわせて「応え」の表（4列目が 応えた・一部・応えていない）を数える。
-# 付けないときは 0〜10章（版0.2の検査）だけを数える（版0.2の数 241行を変えないため）。
+# 付けないときは 0〜10章（版0.2の検査）だけを数える（版0.2の数 241行を変えないため）。--sec 12 は版0.4の再検査。
 # 使い方：python3 -I boki2/docs/analysis/calib-v02-reasoning-count.py [--sec 11] [検査書のパス]
 import re, sys, collections
 args = sys.argv[1:]
@@ -15,7 +15,7 @@ sec = sub = None
 for ln in open(path, encoding='utf-8'):
     if ln.startswith('## '): sec = ln.strip()[3:]; sub = None
     if ln.startswith('### '): sub = ln.strip()[4:]
-    insec = (sec or '').startswith(want + '.') if want else not (sec or '').startswith('11.')
+    insec = (sec or '').startswith(want + '.') if want else not (sec or '').startswith(('11.', '12.'))
     if not insec or not ln.startswith('|') or ln.startswith('|---'): continue
     cells = [c.strip() for c in ln.strip().strip('|').split('|')]
     if not cells or not re.match(r'^[A-Z][A-Za-z0-9・〜]*$', cells[0]): continue
