@@ -247,6 +247,30 @@ else {
   md.push('| ホスト | 取得の数 | 最後の状態 | 記録 | 取りに行けない理由 |', '|---|---|---|---|---|');
   for (const h of notOk) { const p = pickSrc(h, L); md.push(`| ${h} | ${H[h].n} | ${H[h].rb.status} | ${H[h].rb.from} ${H[h].rb.at || ''} | ${p.src ? '' : esc(p.why)} |`); }
 }
+const r9 = L.filter((e) => /^r9-robots-/.test(e.doc) && e.status !== 'skipped');
+const r9st = {}; for (const e of r9) r9st[e.status] = (r9st[e.status] || 0) + 1;
+const namedTotal = hosts.reduce((s, h) => s + H[h].namedHits.length, 0);
+const robotsOnly = new Set(L.filter((e) => e.status !== 'skipped').map(urlOf).filter((u) => u && isRobots(u)).map((u) => u.host).filter((h) => !hosts.includes(h)));
+md.push('', '## 依頼の対応表', '');
+md.push('| 依頼 | したこと | 確かめ方 |', '|---|---|---|');
+md.push(`| 1. skipped 以外の取得のホストを全部数える | ${hosts.length} ホスト（robots.txt の取得しかないホスト ${robotsOnly.size} を除く）。ledger.jsonl に加え ledger-pending/*.jsonl も数えた | 「全ホストの一覧」に全部ある。\`node boki2/tools/robots-audit.js\` で数え直せる |`);
+md.push(`| 2. 手元にないホストの robots.txt を research-fetch で取る（r9-robots-<host>、ホストごとに1回） | ${r9.length} ホストを取った（状態 ${Object.entries(r9st).map(([k, v]) => `${k}:${v}`).join(' ')}）。中身は raw/.robots/<host>.txt にも置いた（200 は本文、それ以外は空。自動の確かめと同じ形）。取得後に先例（r5-blr-robots-*）と同じ文言の「読まない」記録を --skip で足した | 取得記録の doc が r9-robots- の行。\`--fetch\` は記録済みのホストを取り直さない |`);
+md.push(`| 2'. 取れない（404 など）は制限なし | 4xx は制限なし。0・5xx・429 も制限なしとして数え、「不確か」の表に分けた | 上の表 |`);
+md.push(`| 3. robotsGate と同じ決め方で全部照らす、スクリプトを残す | tools/robots-audit.js。parseRules・decide は robotsGate の写し。robots.txt 自体の取得は数えない | Allow の優先・同じ長さで Allow・\`*\`・末尾 \`$\`・名指し UA の組を小さな例で確かめた |`);
+md.push('| 4. 表（ホスト／禁じるパス／件数／doc／引く報告と引用の数） | 「禁じるパスに当たった取得」の表。引用は docs/ 以下の全 .md（下の階層も）の `[[src:coll:doc]]`（`|「語句」` つき・`#` つきも、# の前の doc で数える） | research-check と同じ正規表現 |');
+md.push('| 5. 外部への通信は research-fetch だけ | robots.txt の取得はすべて research-fetch を通した（robots-audit.js は research-fetch を呼ぶだけ） | 取得記録の via: research-fetch |');
+md.push('| 6. raw を消さない・報告を書き換えない | 消していない・書き換えていない | git の差分 |');
+md.push('', '## やっていないこと', '');
+md.push(`- site-policy.json で自動取得が禁止のホスト（${notOk.filter((h) => !pickSrc(h, L).src).join('・') || 'なし'}）の robots.txt は取らなかった（research-fetch が WANTED.md に回すため）。このホストへの過去の取得が robots.txt に当たるかは分からない`);
+md.push('- 0・5xx・429 で取れなかったホストを取り直していない（依頼の「ホストごとに1回だけ」）');
+md.push('- 取得した当時の robots.txt は分からない。いまの robots.txt で照らした');
+md.push(`- Claude を名指しした組（${namedTotal} 件）は判定に入れていない（参考の表だけ）。robotsGate も見ていない`);
+md.push('- 当たった取得の原文・読了ノート・報告の扱い（消す・引用を外す・代わりの資料）は決めていない');
+md.push('- 利用規約（robots.txt 以外）の確かめはしていない');
+md.push('', '## 限界', '');
+md.push('- robotsGate の決め方は標準（RFC 9309）と違う所がある：`*` の組と `boki2-quest-research` の組を合わせて使う（標準では名指しの組があれば `*` の組は使わない）。`User-agent:` が空の組も合うものとして扱う。この点検は依頼どおり robotsGate に合わせた');
+md.push('- 5xx・429・つながらない robots.txt は、標準の扱いでは「全部禁止」とみなすことがある。ここでは依頼どおり制限なしとして数えた');
+md.push('- 取得記録の URL は記録どおりに照らした。リダイレクトの行き先のパスは照らしていない');
 md.push('', '## 全ホストの一覧', '');
 md.push('| ホスト | 取得の数 | robots.txt | どこから | 規則の数（*・boki2） | 禁じるパスに当たった数 |', '|---|---|---|---|---|---|');
 for (const h of hosts) { const x = H[h]; md.push(`| ${h} | ${x.n} | ${x.rb.ok ? x.rb.status : '不確か:' + x.rb.status} | ${x.rb.from} ${x.rb.at ? x.rb.at.slice(0, 16) : ''} | ${x.rules.length} | ${x.hits.length} |`); }

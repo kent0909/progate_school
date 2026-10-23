@@ -1,6 +1,6 @@
 # 過去の取得を robots.txt で照らした結果（ROBOTS-AUDIT）
 
-生成：2026-10-23T01:31:28.446Z（`node boki2/tools/robots-audit.js --write`。走らせ直せば作り直せる）
+生成：2026-10-23T01:32:50.521Z（`node boki2/tools/robots-audit.js --write`。走らせ直せば作り直せる）
 
 research-fetch はパスごとの robots.txt を 2026-10-22 夕まで確かめていなかった。それより前の取得も含め、取得記録（`ledger.jsonl` と `ledger-pending/*.jsonl`）の skipped 以外の全取得を、research-fetch の robotsGate と同じ決め方で照らした。
 
@@ -21,7 +21,7 @@ research-fetch はパスごとの robots.txt を 2026-10-22 夕まで確かめ�
 | robots.txt が不確か・取れないホスト（制限なしとして数えた） | 19 |
 | 禁じるパスに当たった取得 | 54（8 組、ホスト 6） |
 | 当たった取得の doc | 54 |
-| その doc を引く報告 | 4 本、引用 23 個 |
+| その doc を引く報告 | 4 本、引用 22 個 |
 
 ## 禁じるパスに当たった取得
 
@@ -33,7 +33,7 @@ research-fetch はパスごとの robots.txt を 2026-10-22 夕まで確かめ�
 | ndlsearch.ndl.go.jp | `/api` | 20 | research-fetch 20／200:15 429:5 | `web:ramen:r5-rmn-ndl-subject`<br>`web:ramen:r5-rmn-ndl-sru-subject`<br>`web:bizgrowth:r5-growth-ndl-q-fc-kameiten`<br>`web:bizgrowth:r5-growth-ndl-q-fc-inshoku`<br>`web:bizgrowth:r5-growth-ndl-q-fc-inshoku2`<br>`web:bizgrowth:r5-growth-ndl-q-fc-kameisha`<br>`web:ramen:r7-rmn-ndl-q-hayamizu`<br>`web:ramen:r7-rmn-ndl-q-digital-ramen`<br>`web:ramen:r7-rmn-ndl-q-ramen-manzoku`<br>`web:ramen:r7-rmn-ndl-q-irdb-ramen`<br>`web:ramen:r7-rmn-ndl-q-digital-ramen2`<br>`web:ramen:r7-fill-q-ndl-gyoretsu-shinri`<br>`web:ramen:r7-fill-q-ndl-inshoku-risk`<br>`web:ramen:r7-fill-q-ndl-joren-kakaku`<br>`web:ramen:r7-fill-q-ndl-repeater-gaishoku`<br>`web:ramen:r7-fill-q-ndl-dm-jittai`<br>`web:ramen:r7-fill-q-ndl-ramen-boom`<br>`web:ramen:r7-fill-q-ndl-repeater-gaishoku2`<br>`web:bizmgmt:r7-fc-q-ndl-gaishoku-kakaku-juyo`<br>`web:bizmgmt:r7-fc-q-ndl-pan-keiei` | docs/BIZ-RAMEN.md（1） |
 | ntnu.no | `/wiki/download/` | 1 | research-fetch 1／200:1 | `web:learnsci:theory-gameflow-sweetser2005` | （引用なし） |
 | warp.ndl.go.jp | `/web/` | 6 | research-fetch 6／200:6 | `web:bizmgmt:r6-fc-warp-jfc-try1`<br>`web:bizmgmt:r6-fc-warp-jfc-try2`<br>`web:bizmgmt:r6-fc-warp-jfc-idx-20200101000000`<br>`web:bizmgmt:r6-fc-warp-jfc-idx-20221001000000`<br>`web:bizmgmt:r6-fc-warp-jfc-kekka-try`<br>`web:bizmgmt:r6-fc-warp-jfc-kekka-try2` | （引用なし） |
-| warp.ndl.go.jp | `/20` | 11 | research-fetch 11／200:10 403:1 | `web:bizmgmt:r6-fc-warp-jfc-2024-08a`<br>`web:bizmgmt:r6-fc-warp-jfc-2024-08c`<br>`web:bizmgmt:r6-fc-warp-jfc-2024-07a`<br>`web:bizmgmt:r6-fc-warp-jfc-idx-2022`<br>`web:bizmgmt:r6-fc-warp-jfc-kekka-2022`<br>`web:bizmgmt:r6-fc-warp-jfc-kekka-2025`<br>`web:bizmgmt:r6-fc-warp-jfc-kekka-2023`<br>`web:bizmgmt:r6-fc-warp-jfc-202302-08a`<br>`web:bizmgmt:r6-fc-warp-jfc-202302-08c`<br>`web:bizmgmt:r6-fc-warp-jfc-202302-07a`<br>`web:bizmgmt:r6-fc-warp-jfc-202302-01` | docs/BIZ-CALIB.md（5）<br>docs/BIZ-FILL-CALIB.md（3） |
+| warp.ndl.go.jp | `/20` | 11 | research-fetch 11／200:10 403:1 | `web:bizmgmt:r6-fc-warp-jfc-2024-08a`<br>`web:bizmgmt:r6-fc-warp-jfc-2024-08c`<br>`web:bizmgmt:r6-fc-warp-jfc-2024-07a`<br>`web:bizmgmt:r6-fc-warp-jfc-idx-2022`<br>`web:bizmgmt:r6-fc-warp-jfc-kekka-2022`<br>`web:bizmgmt:r6-fc-warp-jfc-kekka-2025`<br>`web:bizmgmt:r6-fc-warp-jfc-kekka-2023`<br>`web:bizmgmt:r6-fc-warp-jfc-202302-08a`<br>`web:bizmgmt:r6-fc-warp-jfc-202302-08c`<br>`web:bizmgmt:r6-fc-warp-jfc-202302-07a`<br>`web:bizmgmt:r6-fc-warp-jfc-202302-01` | docs/BIZ-CALIB.md（5）<br>docs/BIZ-FILL-CALIB.md（2） |
 | www.jstage.jst.go.jp | `/*_pdf` | 13 | research-fetch 13／200:13 | `web:bizgrowth:r5-growth-js-fc-haigyou2006`<br>`web:bizgrowth:r5-growth-js-fc-manzoku2025`<br>`web:bizgrowth:r5-growth-js-fc-fukusuten2014`<br>`web:bizgrowth:r5-growth-js-cvs-part2024`<br>`web:bizgrowth:r5-growth-js-gaishoku-kozo2000`<br>`web:bizgrowth:r5-growth-js-fc-royalty2009`<br>`web:bizgrowth:r5-growth-js-fc-shoukei2024`<br>`web:bizgrowth:r5-growth-js-gaishoku-genchika2018`<br>`web:bizgrowth:r5-growth-js-china-kyoso2020`<br>`web:bizgrowth:r5-growth-js-fc-hou2015`<br>`web:bizgrowth:r5-growth-js-fc-ranyo2015`<br>`web:bizgrowth:r5-growth-js-gaishoku-jumyo2015`<br>`web:bizgrowth:r5-growth-js-gaishoku-senryaku2012` | docs/BIZ-GROWTH.md（14） |
 
 ### 報告ごとの引用（当たった doc すべてについて）
@@ -42,7 +42,7 @@ research-fetch はパスごとの robots.txt を 2026-10-22 夕まで確かめ�
 |---|---|---|
 | docs/BIZ-GROWTH.md | 14 | `web:bizgrowth:r5-growth-js-fc-haigyou2006`、`web:bizgrowth:r5-growth-js-fc-royalty2009`、`web:bizgrowth:r5-growth-js-fc-ranyo2015`、`web:bizgrowth:r5-growth-js-cvs-part2024`、`web:bizgrowth:r5-growth-js-fc-manzoku2025`、`web:bizgrowth:r5-growth-js-fc-fukusuten2014`、`web:bizgrowth:r5-growth-js-fc-shoukei2024`、`web:bizgrowth:r5-growth-js-gaishoku-jumyo2015`、`web:bizgrowth:r5-growth-js-gaishoku-kozo2000`、`web:bizgrowth:r5-growth-js-fc-hou2015`、`web:bizgrowth:r5-growth-js-gaishoku-genchika2018` |
 | docs/BIZ-CALIB.md | 5 | `web:bizmgmt:r6-fc-warp-jfc-202302-08a`、`web:bizmgmt:r6-fc-warp-jfc-2024-08a`、`web:bizmgmt:r6-fc-warp-jfc-202302-08c` |
-| docs/BIZ-FILL-CALIB.md | 3 | `web:bizmgmt:r6-fc-warp-jfc-202302-08a`、`web:bizmgmt:r6-fc-warp-jfc-202302-08c`、`web:bizmgmt:r6-fc-warp-jfc-2024-08a` |
+| docs/BIZ-FILL-CALIB.md | 2 | `web:bizmgmt:r6-fc-warp-jfc-202302-08a`、`web:bizmgmt:r6-fc-warp-jfc-2024-08a` |
 | docs/BIZ-RAMEN.md | 1 | `web:ramen:r5-rmn-ndl-sru-subject` |
 
 ### 取得ごとの一覧
@@ -108,21 +108,21 @@ research-fetch はパスごとの robots.txt を 2026-10-22 夕まで確かめ�
 
 robotsGate は `*` と `boki2-quest-research` の組しか見ない。取得は Claude が動かしているので、ClaudeBot・Claude-User・Claude-SearchBot・Claude-Web・anthropic-ai を名指しした組が禁じるパスも別に数えた（上の表と重なるものは除く）。判定に入れるかは取りまとめ役とオーナーが決める。
 
-| ホスト | 件数 | 禁じるパス | doc の一覧 | その doc を引いている報告（引用の数） |
+| ホスト | 件数 | 禁じるパス（名指しの名前） | doc の一覧 | その doc を引いている報告（引用の数） |
 |---|---|---|---|---|
-| crowdworks.jp | 1 | `/` | `web:bizmkt:r4-mkt-crowdworks-posting` | docs/BIZ-MKT-RAMEN.md（11）<br>docs/BIZ-MKT.md（9） |
-| gendai.media | 7 | `/` | `web:bizlaw:r5-blr-gendai-gisou`<br>`web:bizgrowth:r5-growth-creator-pepper-gendai57252`<br>`web:bizgrowth:r5-growth-oppose-gendai168226`<br>`web:bizgrowth:r5-growth-oppose-gendai69815`<br>`web:bizgrowth:r5-growth-oppose-gendai70771`<br>`web:ramen:r6-cal-gendai-144647`<br>`web:ramen:r6-cal-gendai-143126` | docs/BIZ-GROWTH.md（5）<br>docs/BIZ-LAW-RAMEN.md（5） |
-| link.springer.com | 10 | `/` | `web:learnsci:sweller2019-clt-20years`<br>`web:learnsci:mayer2024-ctml-past-future`<br>`web:learnsci:sailer2020-gamification-meta`<br>`web:learnsci:kokkonen2021-cf-conceptual`<br>`web:learnsci:r2-theory-sailer2020`<br>`web:learnsci:r2-theory-sweller2019`<br>`web:learnsci:r2-theory-pan2023`<br>`web:learnsci:r2-theory-latimier2021`<br>`web:learnsci:r2-theory-agarwal2021`<br>`web:learnsci:r6-rp-latimier2021-full` | docs/BIZ-REPLAY.md（1）<br>docs/DESIGN-REVISION.md（7）<br>docs/YEAR2.md（1）<br>docs/analysis/learning-science.md（20） |
-| lostgarden.com | 1 | `/` | `web:learnsci:designer-cook-loopsarcs2012` | （引用なし） |
-| mpra.ub.uni-muenchen.de | 2 | `/` | `web:bizmgmt:r5-cal-mpra-entry-prices`<br>`web:simgames:r7-sd-mpra-54716` | docs/BIZ-CALIB.md（3）<br>docs/BIZ-SIMDESIGN.md（1） |
-| news.livedoor.com | 1 | `/` | `web:bizlaw:r5-blr-livedoor-gmap` | （引用なし） |
-| peer.asee.org | 1 | `/` | `web:learnsci:theory-transfer-asee-barnettceci` | （引用なし） |
-| rpgamer.com | 1 | `/` | `web:simgames:r6-rp-rpgamer-nier` | （引用なし） |
-| www.anderson.ucla.edu | 2 | `/` | `web:simgames:r7-fc-cooper-nakanishi-mci-book`<br>`web:simgames:r7-fc-cooper-mci-index` | （引用なし） |
-| www.gamedeveloper.com | 22 | `/` | `web:learnsci:designer-church-fadt1999`<br>`web:simgames:designer-papersplease-gd2014`<br>`web:learnsci:designer-cook-chemistry2007`<br>`web:simgames:designer-recettear-gd2010`<br>`web:simgames:r4-sim-gd-rimworld`<br>`web:simgames:r4-sim-gd-intothebreach`<br>`web:simgames:r4-sim-gd-80days-postmortem`<br>`web:simgames:r4-sim-gd-thiswarofmine`<br>`web:simgames:r4-sim-gd-meier2012`<br>`web:simgames:r4-sim-gd-pdg`<br>`web:simgames:r5-fv-gd-gamedevstory`<br>`web:simgames:r5-fv-gd-juice`<br>`web:simgames:r5-fv-gd-idlemath1`<br>`web:simgames:r5-fv-gd-idlemath3`<br>`web:simgames:r5-fv-gd-mgmtdepth`<br>`web:simgames:r5-fv-gd-minimetro-gdc`<br>`web:simgames:r6-sd-gd-glassbox2012`<br>`web:simgames:r6-rp-gd-igf-slaythespire`<br>`web:simgames:r6-rp-gd-igf-outerwilds`<br>`web:simgames:r6-rp-gd-balatro-signposting`<br>`web:simgames:r6-sd-pecorella-idle1`<br>`web:simgames:r6-rp-gd-hades-devprocess` | docs/BIZ-FUNVISUAL.md（15）<br>docs/BIZ-REPLAY.md（44）<br>docs/BIZ-SIMDESIGN.md（72）<br>docs/DESIGN-RAMEN.md（5）<br>docs/DESIGN-ROUND2.md（5） |
-| www.gpb.org | 1 | `/` | `web:simgames:r6-rp-gpb-hades-stop` | docs/BIZ-REPLAY.md（3） |
-| www.kodansha.co.jp | 2 | `/` | `web:ramen:r5-rmn-book-hayamizu-kodansha`<br>`web:ramen:r8-rmn-hayamizu-kodansha2` | （引用なし） |
-| www.nature.com | 2 | `/` | `web:learnsci:kestin2025-ai-tutor-rct`<br>`web:learnsci:wangfan2026-retraction-notice` | docs/analysis/learning-science.md（8） |
+| crowdworks.jp | 1 | `/`（claudebot） | `web:bizmkt:r4-mkt-crowdworks-posting` | docs/BIZ-MKT-RAMEN.md（11）<br>docs/BIZ-MKT.md（9） |
+| gendai.media | 7 | `/`（claudebot,anthropic-ai,claude-web） | `web:bizlaw:r5-blr-gendai-gisou`<br>`web:bizgrowth:r5-growth-creator-pepper-gendai57252`<br>`web:bizgrowth:r5-growth-oppose-gendai168226`<br>`web:bizgrowth:r5-growth-oppose-gendai69815`<br>`web:bizgrowth:r5-growth-oppose-gendai70771`<br>`web:ramen:r6-cal-gendai-144647`<br>`web:ramen:r6-cal-gendai-143126` | docs/BIZ-GROWTH.md（5）<br>docs/BIZ-LAW-RAMEN.md（5） |
+| link.springer.com | 10 | `/`（anthropic-ai） | `web:learnsci:sweller2019-clt-20years`<br>`web:learnsci:mayer2024-ctml-past-future`<br>`web:learnsci:sailer2020-gamification-meta`<br>`web:learnsci:kokkonen2021-cf-conceptual`<br>`web:learnsci:r2-theory-sailer2020`<br>`web:learnsci:r2-theory-sweller2019`<br>`web:learnsci:r2-theory-pan2023`<br>`web:learnsci:r2-theory-latimier2021`<br>`web:learnsci:r2-theory-agarwal2021`<br>`web:learnsci:r6-rp-latimier2021-full` | docs/BIZ-REPLAY.md（1）<br>docs/DESIGN-REVISION.md（7）<br>docs/YEAR2.md（1）<br>docs/analysis/learning-science.md（20） |
+| lostgarden.com | 1 | `/`（anthropic-ai） | `web:learnsci:designer-cook-loopsarcs2012` | （引用なし） |
+| mpra.ub.uni-muenchen.de | 2 | `/`（claudebot） | `web:bizmgmt:r5-cal-mpra-entry-prices`<br>`web:simgames:r7-sd-mpra-54716` | docs/BIZ-CALIB.md（3）<br>docs/BIZ-SIMDESIGN.md（1） |
+| news.livedoor.com | 1 | `/`（claudebot） | `web:bizlaw:r5-blr-livedoor-gmap` | （引用なし） |
+| peer.asee.org | 1 | `/`（claudebot） | `web:learnsci:theory-transfer-asee-barnettceci` | （引用なし） |
+| rpgamer.com | 1 | `/`（claudebot） | `web:simgames:r6-rp-rpgamer-nier` | （引用なし） |
+| www.anderson.ucla.edu | 2 | `/`（claudebot） | `web:simgames:r7-fc-cooper-nakanishi-mci-book`<br>`web:simgames:r7-fc-cooper-mci-index` | （引用なし） |
+| www.gamedeveloper.com | 22 | `/`（anthropic-ai,claudebot,claude-web） | `web:learnsci:designer-church-fadt1999`<br>`web:simgames:designer-papersplease-gd2014`<br>`web:learnsci:designer-cook-chemistry2007`<br>`web:simgames:designer-recettear-gd2010`<br>`web:simgames:r4-sim-gd-rimworld`<br>`web:simgames:r4-sim-gd-intothebreach`<br>`web:simgames:r4-sim-gd-80days-postmortem`<br>`web:simgames:r4-sim-gd-thiswarofmine`<br>`web:simgames:r4-sim-gd-meier2012`<br>`web:simgames:r4-sim-gd-pdg`<br>`web:simgames:r5-fv-gd-gamedevstory`<br>`web:simgames:r5-fv-gd-juice`<br>`web:simgames:r5-fv-gd-idlemath1`<br>`web:simgames:r5-fv-gd-idlemath3`<br>`web:simgames:r5-fv-gd-mgmtdepth`<br>`web:simgames:r5-fv-gd-minimetro-gdc`<br>`web:simgames:r6-sd-gd-glassbox2012`<br>`web:simgames:r6-rp-gd-igf-slaythespire`<br>`web:simgames:r6-rp-gd-igf-outerwilds`<br>`web:simgames:r6-rp-gd-balatro-signposting`<br>`web:simgames:r6-sd-pecorella-idle1`<br>`web:simgames:r6-rp-gd-hades-devprocess` | docs/BIZ-FUNVISUAL.md（15）<br>docs/BIZ-REPLAY.md（44）<br>docs/BIZ-SIMDESIGN.md（72）<br>docs/DESIGN-RAMEN.md（5）<br>docs/DESIGN-ROUND2.md（5） |
+| www.gpb.org | 1 | `/`（claudebot） | `web:simgames:r6-rp-gpb-hades-stop` | docs/BIZ-REPLAY.md（3） |
+| www.kodansha.co.jp | 2 | `/`（claudebot,anthropic-ai,claude-web） | `web:ramen:r5-rmn-book-hayamizu-kodansha`<br>`web:ramen:r8-rmn-hayamizu-kodansha2` | （引用なし） |
+| www.nature.com | 2 | `/`（anthropic-ai） | `web:learnsci:kestin2025-ai-tutor-rct`<br>`web:learnsci:wangfan2026-retraction-notice` | docs/analysis/learning-science.md（8） |
 
 ## robots.txt が不確か・取れなかったホスト
 
@@ -149,6 +149,33 @@ robotsGate は `*` と `boki2-quest-research` の組しか見ない。取得は 
 | www.pref.kagawa.lg.jp | 1 | 0 | web:ramen:r9-robots-www.pref.kagawa.lg.jp 2026-10-23T01:13:56.371Z |  |
 | www.unh.edu | 1 | 0 | web:learnsci:r9-robots-www.unh.edu 2026-10-23T01:14:24.633Z |  |
 | www.zb.em-net.ne.jp | 1 | 0 | web:simgames:r9-robots-www.zb.em-net.ne.jp 2026-10-23T01:14:31.298Z |  |
+
+## 依頼の対応表
+
+| 依頼 | したこと | 確かめ方 |
+|---|---|---|
+| 1. skipped 以外の取得のホストを全部数える | 449 ホスト（robots.txt の取得しかないホスト 14 を除く）。ledger.jsonl に加え ledger-pending/*.jsonl も数えた | 「全ホストの一覧」に全部ある。`node boki2/tools/robots-audit.js` で数え直せる |
+| 2. 手元にないホストの robots.txt を research-fetch で取る（r9-robots-<host>、ホストごとに1回） | 367 ホストを取った（状態 0:12 200:274 400:3 401:1 403:14 404:59 429:1 502:1 503:2）。中身は raw/.robots/<host>.txt にも置いた（200 は本文、それ以外は空。自動の確かめと同じ形）。取得後に先例（r5-blr-robots-*）と同じ文言の「読まない」記録を --skip で足した | 取得記録の doc が r9-robots- の行。`--fetch` は記録済みのホストを取り直さない |
+| 2'. 取れない（404 など）は制限なし | 4xx は制限なし。0・5xx・429 も制限なしとして数え、「不確か」の表に分けた | 上の表 |
+| 3. robotsGate と同じ決め方で全部照らす、スクリプトを残す | tools/robots-audit.js。parseRules・decide は robotsGate の写し。robots.txt 自体の取得は数えない | Allow の優先・同じ長さで Allow・`*`・末尾 `$`・名指し UA の組を小さな例で確かめた |
+| 4. 表（ホスト／禁じるパス／件数／doc／引く報告と引用の数） | 「禁じるパスに当たった取得」の表。引用は docs/ 以下の全 .md（下の階層も）の `[[src:coll:doc]]`（`|「語句」` つき・`#` つきも、# の前の doc で数える） | research-check と同じ正規表現 |
+| 5. 外部への通信は research-fetch だけ | robots.txt の取得はすべて research-fetch を通した（robots-audit.js は research-fetch を呼ぶだけ） | 取得記録の via: research-fetch |
+| 6. raw を消さない・報告を書き換えない | 消していない・書き換えていない | git の差分 |
+
+## やっていないこと
+
+- site-policy.json で自動取得が禁止のホスト（appfollow.io・deepblue.lib.umich.edu・redditinc.com）の robots.txt は取らなかった（research-fetch が WANTED.md に回すため）。このホストへの過去の取得が robots.txt に当たるかは分からない
+- 0・5xx・429 で取れなかったホストを取り直していない（依頼の「ホストごとに1回だけ」）
+- 取得した当時の robots.txt は分からない。いまの robots.txt で照らした
+- Claude を名指しした組（53 件）は判定に入れていない（参考の表だけ）。robotsGate も見ていない
+- 当たった取得の原文・読了ノート・報告の扱い（消す・引用を外す・代わりの資料）は決めていない
+- 利用規約（robots.txt 以外）の確かめはしていない
+
+## 限界
+
+- robotsGate の決め方は標準（RFC 9309）と違う所がある：`*` の組と `boki2-quest-research` の組を合わせて使う（標準では名指しの組があれば `*` の組は使わない）。`User-agent:` が空の組も合うものとして扱う。この点検は依頼どおり robotsGate に合わせた
+- 5xx・429・つながらない robots.txt は、標準の扱いでは「全部禁止」とみなすことがある。ここでは依頼どおり制限なしとして数えた
+- 取得記録の URL は記録どおりに照らした。リダイレクトの行き先のパスは照らしていない
 
 ## 全ホストの一覧
 
