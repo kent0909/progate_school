@@ -270,3 +270,35 @@ function model(V) {
 model({ name: 'A 版0.5 のまま', epsReg: 0.4, retain: 0.03, qHigh: 3.4, qCost: 0, churnRep: 0 });
 model({ name: 'B 品質の育成を厚く（Q 4.0・月3万）＋評判で離れ −0.5%/段', epsReg: 0.4, retain: 0.03, qHigh: 4.0, qCost: 30000, churnRep: 0.005 });
 model({ name: 'C B＋常連 ×0.3・retain 0.035', epsReg: 0.3, retain: 0.035, qHigh: 4.0, qCost: 30000, churnRep: 0.005 });
+// (11) 案C で、上手な店を5年目（常連の積み上がりの時定数 ≒ 1/離れ ≒ 33か月の後）まで回したときの客数。CALIB の上位25%＝100人/日は店の年齢を問わない断面なので、定常に近い5年目で比べる
+(function () {
+  const V = { epsReg: 0.3, retain: 0.035, qHigh: 4.0, qCost: 30000, churnRep: 0.005 };
+  // model() の中身を5年で回すため、同じ式を短く写す（放置の S0 は 91.5）
+  const S0 = 91.5, BR = 0.16, BF = 0.30, BA = 0.25, S0SHARE = 0.25, EPS_NEW = 2.1;
+  const CAPS = { family: 35, part1: 70, part2: 100, part3: 125 };
+  function run(seedPool, pol, years) {
+    let R = 3, A = 0, L = 0, F = 1, Q = 3; const out = [];
+    for (let t = 0; t < 12 * years; t++) {
+      const y = Math.floor(t / 12) + 1, p = pol(y, t), ramp = t < 12 ? 0.55 + 0.30 * t / 11 : t < 24 ? 0.85 + 0.15 * (t - 11) / 12 : 1;
+      Q = p.supplier ? V.qHigh : 3; F = p.limited && t % 12 === 7 ? 1.15 : Math.max(1, F - 0.0375);
+      A = (p.sign ? 0.9 : 0.2) * A + (p.flyer || 0) / 100000 + (p.sign ? 0.3 : 0);
+      const M = Math.exp(BR * (R - 3) + 0.06 * (Q - 3) + BF * Math.log(F) + (p.fit || 0) + BA * Math.log(1 + A));
+      const share = (M * S0SHARE) / ((1 - S0SHARE) + M * S0SHARE), epsR = R >= 4.5 ? 0.7 : 1;
+      const Nnew = S0 * seedPool * share * ramp * 1.2 * Math.pow(p.price / 850, -EPS_NEW * epsR), Nreg = L * Math.pow(p.price / 850, -EPS_NEW * V.epsReg);
+      const cap = CAPS[p.form], N = Math.min(Nnew + Nreg, cap), waitRate = Math.max(0, (Nnew + Nreg - cap) / (Nnew + Nreg));
+      R = Math.max(1, Math.min(5, R + 0.25 * (Q + 2 * Math.log(F) + 2 * (p.fit || 0) - 3 * waitRate - R)));
+      const churn = Math.max(0.01, 0.03 - (p.line ? 0.009 : 0) - V.churnRep * Math.max(0, R - 3));
+      L = Math.max(0, L * (1 - churn) + V.retain * (N * Nnew / (Nnew + Nreg || 1)) * (1 + 0.3 * (R - 3)));
+      out.push({ y, N, R, L, full: Nnew + Nreg > cap });
+    }
+    return out;
+  }
+  const pol = (y, t) => ({ price: y === 1 ? 800 : y === 2 ? 850 : y === 3 ? 950 : 1000, form: y >= 4 ? 'part3' : y >= 2 ? 'part2' : 'part1', flyer: t >= 3 && t < 18 ? 50000 : 0, line: t >= 6, sign: t >= 3, fit: 0.10, limited: true, supplier: y >= 2 });
+  const pools = []; for (let i = 0; i < 60; i++) pools.push(0.8 + 0.4 * ((i * 37) % 60) / 59);
+  const q = (arr, k) => { const a = arr.slice().sort((x, y) => x - y); return a[Math.floor((a.length - 1) * k)]; };
+  for (const yr of [3, 4, 5]) {
+    const ns = pools.map((pl) => { const o = run(pl, pol, yr); return o.filter((x) => x.y === yr).reduce((t, x) => t + x.N, 0) / 12; });
+    const o0 = run(1, pol, yr); const last = o0[12 * yr - 1];
+    console.log(`(11) 案C・上手「多店舗」の ${yr}年目：中央値 ${q(ns, 0.5).toFixed(1)}・上位25% ${q(ns, 0.75).toFixed(1)}人/日。seed0：R ${last.R.toFixed(2)}・常連の割合 ${(last.L / last.N).toFixed(2)}・満席の月 ${o0.slice(-12).filter((x) => x.full).length}/12`);
+  }
+})();
