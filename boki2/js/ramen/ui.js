@@ -213,6 +213,8 @@ ${W() ? `<h4>ほかのラーメン屋</h4><div class="r-rivals">${W().rivals.fil
     const RM = D.ramen, t = ev.ramenT, s = S();
     if ((s.res || {})[t]) return api.next();
     const Wx = RM.world(s);
+    // 一杯の組み立てで直した一杯を、世界の自店に入れる（ramen.js の RM.world は社長の案の一杯で作るので、画面の側で差し替える）
+    if (s.bowlSpec && !s.__bowlIn) { Wx.stores[0].bowl = D.bowl.create(s.bowlSpec, (s.profile || {}).bowlName); s.__bowlIn = true; }
     if (!PLAN || PLAN.t !== t) { const pol = RM.policy(s, t); PLAN = { t, pol, base: { ...pol }, spread: null, open: false }; }
     const p = PLAN.pol, open = (ev.opens || []).filter((k) => RV.HANDS[k] || k === 'staff'), WD = D.world;
     if (!PLAN.spread) { PLAN.spread = {}; for (const k of open) PLAN.spread[k] = RV.spread(Wx, PLAN.base, k); }
@@ -252,7 +254,7 @@ ${near ? `<div class="r-near" data-goal="${near.id}">${ICON('flag', 18)}<div><sm
 <div class="r-timebar" data-time-left="${budget - used}"><span>${ICON('clip', 18)}時間の予算</span><span class="dots">${[...Array(budget).keys()].map((i) => `<i class="${i < used ? 'used' : ''}"></i>`).join('')}</span><b>のこり ${budget - used} ／ ${budget}</b>${budget - used <= 0 ? '<small>人をふやすと、時間が1つふえる（2人まで）</small>' : ''}</div>
 <h3 class="r-h3">今月考える手</h3><div class="r-hands">${top.map(hand).join('')}</div>
 ${rest.length ? `<details class="r-more" ${PLAN.open ? 'open' : ''} data-plan-more><summary>ほかの手（${rest.length}）</summary><div class="r-hands">${rest.map(hand).join('')}</div></details>` : ''}
-<div class="r-trial" data-plan-trial><h3 class="r-h3">試算 <small>（12回まわした幅。うすい帯は前月のまま）</small></h3><table class="r-tb"><tbody>${row('客数（1日）', trialNow.N, trialSame.N, '人')}${row('売上（月）', trialNow.sales, trialSame.sales, '', true)}${row('材料を引いた残り（月）', trialNow.gross, trialSame.gross, '', true)}${row('口座の増え方（月）', trialNow.cash, trialSame.cash, '', true)}</tbody></table>
+<div class="r-trial" data-plan-trial><h3 class="r-h3">試算 <small>（12回まわした幅。うすい帯は前月のまま）</small></h3><table class="r-tb"><tbody>${row('客数（1日）', trialNow.N, trialSame.N, '人')}${row(`${word('売上')}（月）`, trialNow.sales, trialSame.sales, '', true)}${row('材料を引いた残り（月）', trialNow.gross, trialSame.gross, '', true)}${row('口座の増え方（月）', trialNow.cash, trialSame.cash, '', true)}</tbody></table>
 <div class="r-five">${arrows.map(([ic, l, v]) => `<span class="${v > 0.5 ? 'up' : v < -0.5 ? 'dn' : ''}">${ICON(ic, 18)}${l}<b>${v > 0.5 ? '↑' : v < -0.5 ? '↓' : '→'}</b></span>`).join('')}</div></div>
 <div class="r-actions"><button class="btn wide" data-plan-ok>これで決める</button><button class="btn ghost" data-plan-same>前月のまま</button></div></div></div>`);
     const md = document.querySelector('[data-plan-more]'); if (md) md.addEventListener('toggle', () => { PLAN.open = md.open; });
@@ -277,6 +279,8 @@ ${rest.length ? `<details class="r-more" ${PLAN.open ? 'open' : ''} data-plan-mo
         if (PLAN.spec) { Wx.stores[0].bowl.spec = PLAN.spec; s.bowlSpec = PLAN.spec; }
         if (near) (s.nearSaved = s.nearSaved || {})[t] = { id: near.id, label: near.label };
         RM.plan(s, t, PLAN.pol);
+        // シェアの表と今の位置のための記録（同じ式で出た客数。ライバルは月の終わりの客数）
+        (s.shareLog = s.shareLog || {})[t] = { me: s.res[t].N, rivals: s.W.rivals.filter((x) => x.type !== 'ghost' || s.W.flags.ghost).map((x) => ({ id: x.id, name: x.name, type: x.type, N: x.open === false ? 0 : x.lastN || 0, R: x.R, open: x.open !== false })) };
         const pp = PLAN.pol;
         s.diary.push({ m: api.month().label, t: `作戦の机：値段 ${yen(pp.price)}・仕込み ${{ low: '少なめ', mid: 'ふつう', high: '多め' }[pp.prep]}・パート ${pp.parts}人${pp.flyer ? `・チラシ ${(pp.flyer / 10000).toFixed(0)}万円` : ''}${pp.sns ? '・SNS' : ''}${pp.line ? '・LINE' : ''}${pp.coupon ? '・クーポン' : ''}${pp.tweak ? '・一杯の手直し' : ''}（見込み ${tr.N[0].toFixed(0)}〜${tr.N[2].toFixed(0)}人/日）` });
         PLAN = null; api.save(); api.next();
@@ -392,9 +396,12 @@ ${regs.length ? `<ul class="r-regs">${regs.filter((x) => x.line).map((x) => `<li
 ${fk.length && prev ? `<section class="s-card r-card"><h3 class="r-h3">先月から客数が動いた理由 <small>（${f.total >= 0 ? '＋' : '−'}${Math.abs(f.total || 0).toFixed(1)}人/日。押すと説明）</small></h3><ul class="r-factors">${fk.sort((a, b) => Math.abs(f[b]) - Math.abs(f[a])).map((k) => `<li><button class="r-frow" data-factor="${k}" aria-expanded="false">${ICON(FN[k].icon, 18)}<span class="nm">${esc(FN[k].label)}</span><span class="fb"><i class="${f[k] >= 0 ? 'p' : 'm'}" style="width:${(Math.abs(f[k]) / fmax) * 50}%"></i></span><b>${f[k] >= 0 ? '＋' : '−'}${Math.abs(f[k]).toFixed(1)}</b></button><p class="r-fline" hidden>${esc(FN[k].line)}</p></li>`).join('')}</ul></section>` : ''}
 ${trial ? `<section class="s-card r-card r-gap"><h3 class="r-h3">あのときの試算と、実際の差</h3><p>作戦の机の試算：口座 ${man(trial.cash[1])}（幅 ${man(trial.cash[0])}〜${man(trial.cash[2])}）→ 実際 <b>${man(r.ord + r.dep - r.repay)}</b>。<b>${man(Math.abs(r.ord + r.dep - r.repay - trial.cash[1]), false)}</b> ずれた。${Math.abs(r.fx || 0) > 0 ? `ずれのうち ${man(r.fx)} は、先月の札の結果。` : ''}${fixesNow ? '今月は帳簿を直した。直したから、来月の試算は合う。' : ''}</p></section>` : ''}
 <details class="s-card r-card r-bridge" data-bridge><summary>帳簿の口座と、店の口座のずれ</summary>${bridgeHTML(t)}</details>
+${(() => { const hand = s.L.filter((x) => x.mi === s.mi && !x.auto); const fixed = new Set((s.fixLog || []).filter((x) => x.mi === s.mi).map((x) => x.ev)); return hand.length ? `<section class="s-card r-card"><h3 class="r-h3">今月、手で書いた書類 <small>（${hand.length}枚。押すと書いた仕訳）</small></h3><ul class="r-handdocs">${hand.map((x) => `<li><button class="link" data-rep-q="${esc(x.id)}">${esc(docTitle(x.ev))}</button>${fixed.has(x.ev) ? '<small>見直しで直した</small>' : ''}</li>`).join('')}</ul></section>` : ''; })()}
 <section class="s-card r-card"><p class="r-small">一括確定で帳簿に入れる行：${auto.map((x) => esc(x.label)).join('・') || 'なし'}。手で書いた書類は、もう帳簿に入っている。</p><button class="btn wide" data-rep-ok>一括確定して、帳簿に入れる</button></section>
 </div>`);
     api.app.onclick = (e) => {
+      const qd = e.target.closest('[data-rep-q]');
+      if (qd) { const x = s.L.find((y) => y.id === qd.dataset.repQ); if (x) api.overlay(`<h3>${esc(docTitle(x.ev))}</h3><table class="r-tb"><tr><th>借方</th><th></th><th>貸方</th><th></th></tr>${[...Array(Math.max(x.dr.length, x.cr.length)).keys()].map((i) => `<tr><td>${esc((x.dr[i] || [''])[0])}</td><td class="n">${x.dr[i] ? x.dr[i][1].toLocaleString('ja-JP') : ''}</td><td>${esc((x.cr[i] || [''])[0])}</td><td class="n">${x.cr[i] ? x.cr[i][1].toLocaleString('ja-JP') : ''}</td></tr>`).join('')}</table>`); return; }
       if (!e.target.closest('[data-rep-ok]')) return;
       for (const x of auto) api.post({ id: x.id, kind: 'auto_report', ans: { dr: x.dr, cr: x.cr } }, { dr: x.dr, cr: x.cr }, true);
       (s.repDone = s.repDone || {})[t] = true;
@@ -411,6 +418,7 @@ ${trial ? `<section class="s-card r-card r-gap"><h3 class="r-h3">あのときの
     if (!br) return '';
     return `<table class="r-tb"><tr><td>帳簿の口座（自分で書いた通帳の残り）</td><td class="n">${yen(br.book)}</td></tr>${br.rows.map((x) => `<tr><td>${esc(x.label)}<small>${esc(x.why)}</small></td><td class="n">${x.v >= 0 ? '＋' : '−'}${yen(Math.abs(x.v))}</td></tr>`).join('')}${br.rest ? `<tr class="warnrow"><td>まだ説明できていない差</td><td class="n">${yen(br.rest)}</td></tr>` : ''}<tr class="sum"><td>店の口座の計算（使った月に動かす）</td><td class="n">${yen(br.world)}</td></tr></table><p class="r-small">月報の「もうけ」は使った月で、通帳は払った日で動く。だから差が出る。差の中身が分かれば、どちらも正しい。</p>`;
   }
+  const docTitle = (id) => { for (const m of D.months) for (const e of m.events) if (e.id === id && e.doc) return `${e.doc.date || ''} ${e.doc.title || ''}`.trim(); return id; };
   const cashMove = (x) => { let v = 0; for (const [a, n] of x.dr) if (a === '普通預金' || a === '現金') v += n; for (const [a, n] of x.cr) if (a === '普通預金' || a === '現金') v -= n; return v; };
   RUI.bridge = (t) => { const s = S(), mi = D.ramen.monthIndexOfT(t); const b = api.balances(s.L.filter((x) => x.mi <= mi && !x.closing)); const cardBook = s.L.filter((x) => x.mi === mi && /-doc\d+@/.test(x.ev || x.id || '')).reduce((tt, x) => tt + cashMove(x), 0); return RV.bridge(s, t, b, cardBook); };
   // 締めの帯（締め2画面目）：店じまいの絵と、数字が前の月から今へ動く。シェアの表は帯の中の1行
@@ -489,7 +497,7 @@ ${p.prev ? `<p data-pos-prev>前の周の自分との差：手もとに残るお
   }
   // 分かれ道の図（forkMapScreen）：今月の判断の木。通った道は太く、通らなかった道は輪郭。先月の札の結果（割れた結果）も
   function forkMapScreen(t, fk, done) {
-    const W0 = 340, rowH = 74;
+    const W0 = 420;
     const blocks = [...fk.back.map((b) => ({ kind: 'back', title: `先月：${b.title}`, paths: [{ label: b.option, chosen: true, outs: [{ label: b.got, w: b.gotW, got: true }, ...(b.split ? [{ label: b.most, w: null, got: false }] : [])] }] })), ...fk.now.map((n) => ({ kind: 'now', title: n.title, paths: n.paths }))];
     let y = 16; const svg = [];
     for (const bl of blocks) {
@@ -498,14 +506,14 @@ ${p.prev ? `<p data-pos-prev>前の周の自分との差：手もとに残るお
       bl.paths.forEach((p2, k) => {
         const py = y + 22 + k * 26, ch = p2.chosen;
         svg.push(`<path d="M16 ${y + 10} C 40 ${y + 10}, 40 ${py}, 70 ${py}" class="f-edge ${ch ? 'on' : ''}"/><circle cx="70" cy="${py}" r="${ch ? 6 : 4}" class="f-node ${ch ? 'on' : ''}"/><text x="80" y="${py + 4}" class="f-lab ${ch ? 'on' : ''}">${esc(p2.label.length > 16 ? p2.label.slice(0, 16) + '…' : p2.label)}</text>`);
-        if (ch && bl.kind === 'back') p2.outs.forEach((o, j) => { const oy = py - 8 + j * 18; svg.push(`<path d="M${200} ${py} C 220 ${py}, 220 ${oy}, 240 ${oy}" class="f-edge ${o.got ? 'on' : ''}"/><text x="246" y="${oy + 4}" class="f-lab sm ${o.got ? 'on' : ''}">${esc((o.got ? '' : 'ふつうは：') + (o.label.length > 12 ? o.label.slice(0, 12) + '…' : o.label))}</text>`); });
-        if (ch && bl.kind === 'now') svg.push(`<text x="246" y="${py + 4}" class="f-lab sm">結果は来月の月報で</text>`);
+        if (ch && bl.kind === 'back') p2.outs.forEach((o, j) => { const oy = py - 8 + j * 18; svg.push(`<path d="M290 ${py} C 305 ${py}, 305 ${oy}, 320 ${oy}" class="f-edge ${o.got ? 'on' : ''}"/><text x="326" y="${oy + 4}" class="f-lab sm ${o.got ? 'on' : ''}">${esc((o.got ? '' : 'ふつうは：') + (o.label.length > 12 ? o.label.slice(0, 12) + '…' : o.label))}</text>`); });
+        if (ch && bl.kind === 'now') svg.push(`<text x="300" y="${py + 4}" class="f-lab sm">結果は来月の月報で</text>`);
       });
       y += 30 + n * 26;
     }
     const H = Math.max(80, y);
     api.frame(`<div class="r-fork" data-screen="fork"><div class="s-card r-card"><div class="r-card-h"><small>${esc(api.month().label)}の分かれ道の図</small><h2>今月の分かれ道</h2></div>
-<svg class="r-forksvg" viewBox="0 0 ${W0 + 120} ${H}" role="img" aria-label="今月の判断の分かれ道。太い線が通った道">${svg.join('')}</svg>
+<svg class="r-forksvg" viewBox="0 0 ${W0 + 60} ${H}" role="img" aria-label="今月の判断の分かれ道。太い線が通った道">${svg.join('')}</svg>
 <p class="r-small">太い線が通った道、細い線が通らなかった道。${fk.changed.length >= 2 ? `作戦の机で ${fk.changed.length}つの手を変えた月。` : ''}</p>
 <label class="r-check"><input type="checkbox" data-fork-off> 分かれ道の図を、これから出さない（「会社」の窓で戻せる）</label>
 <button class="btn wide" data-fork-next>次の月へ</button></div></div>`);

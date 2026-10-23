@@ -47,14 +47,14 @@
   };
   RV.FACTOR_KEYS = Object.keys(RV.FACTORS);
   RV.TEXT = {
-    plan: ['今月の作戦の机', '今月考える手', 'ほかの手（たたんだ）', '時間の予算', 'のこり', '先3か月の暦', '試算（12回まわした幅）', '客数（1日）', '売上（月）', '材料を引いた残り（月）', '口座の増え方（月）', '動きの大きい手', '前月のまま', 'これで決める', '値下げは、3か月で効きが半分になる（客が新しい値段に慣れる）', '目の前の目標', 'ほかの目標にする', '先月のふりかえりで決めた手'],
+    plan: ['今月の作戦の机', '今月考える手', 'ほかの手（たたんだ）', '時間の予算', 'のこり', '先3か月の暦', '試算（12回まわした幅）', '客数（1日）', '売れた額（月）', '材料を引いた残り（月）', '口座の増え方（月）', '動きの大きい手', '前月のまま', 'これで決める', '値下げは、3か月で効きが半分になる（客が新しい値段に慣れる）', '目の前の目標', 'ほかの目標にする', '先月のふりかえりで決めた手'],
     bowl: ['一杯の組み立て', '麺', '麺の出どころ', 'スープ', '具（3つまで）', '材料の値段（1杯）', '材料の割合', '店の型', '客との相性', '一杯の名前', 'この一杯で決める', '飽きの体温計', '常連さんが新しいのを楽しみにしている', '手直し', '新しい一杯', 'やめる（今のまま）'],
     report: ['月報', '週ごとの返り', '予報', '実際', '客数', '売上', '店内', '持ち帰り', 'カード払い', '材料', '人のお金', '家賃・ガス水道電気・その他', '宣伝', '廃棄', '品切れ', '評判', '常連さん', '一杯の魅力', '先月から客数が動いた理由', 'あのときの試算と、実際の差', '手を打たない店（影の線）', '初めての月次黒字', '帳簿の口座と、店の口座のずれ', '一括確定して、帳簿に入れる'],
     debrief: ['ふりかえり', '先月から客数が動いた、いちばん大きな理由は？', 'それを除くと、客数は先月より増えた？へった？', '今月いちばん大きく動いたお金は、どの行に出た？', '来月、いちばん考えたい手は？', '分かれ道の図', '通った道', '通らなかった道', '今の位置', '町の中の位置', '前の周の自分との差', 'ラーメン賞の候補', '分かれ道の図を出さない'],
     band: ['口座のお金', 'うち預かり', '借りたお金', '手もとに残るお金', '目の前', '1年目の目標', '1億まで', '次の期日'],
   };
   // 教わる前の言い方（engine の gw と同じ考え方。会計の語は名前の札のあとだけ）
-  RV.PLAIN = { 借入金: '借りたお金', 仮受消費税: '預かったお金', 買掛金: 'あとで払う材料の代金', 未払金: 'あとで払う約束', クレジット売掛金: 'あとで入るカードの代金', 給料: '人のお金', 仕入: '材料', 売上: '売上', 広告宣伝費: '宣伝のお金' };
+  RV.PLAIN = { 借入金: '借りたお金', 仮受消費税: '預かったお金', 買掛金: 'あとで払う材料の代金', 未払金: 'あとで払う約束', クレジット売掛金: 'あとで入るカードの代金', 給料: '人のお金', 仕入: '材料', 売上: '売れた額', 広告宣伝費: '宣伝のお金' };
   RV.word = (w, knows) => (knows && knows(w) ? w : RV.PLAIN[w] || w);
 
   // ---------- 試算の幅（d.7）：同じ手を、乱数の種を変えて n 回まわした幅（札は引かない）。種は月で固定（手を比べるとき、運は同じ） ----------
@@ -176,12 +176,12 @@
     for (let k = t + 1; k <= Math.min(t + horizon, 13); k++) {
       const m = MON[k % 12], est = k > t + 1;
       const r = res[k - 1] || last;
-      if (k >= 3) items.push({ k, m, d: 1, what: '家賃（大家 青木さん）', amt: -Math.round(rent * (vatOn(k) ? 1.1 : 1)), kind: 'rent' });
-      if (k >= 3) items.push({ k, m, d: 10, what: `公庫の返済（元の分と利息${k === 3 ? '：4か月分' : ''}）`, amt: -(prin + (k === 3 ? intM * 4 : intM)), kind: 'repay' });
-      if (k >= 6) { const card = Math.round((r.sales || 0) * 0.3 * (vatOn(k - 1) ? 1.1 : 1) * (1 - 0.0324)); items.push({ k, m, d: 20, what: 'カードの代金が入る（手数料を引いて）', amt: card, kind: 'cardin', est }); }
-      if (k >= 1) items.push({ k, m, d: 25, what: `給料（${MON[(k - 1) % 12]}月の分）`, amt: -Math.round((r.labor || 0) + (r.famPay || 0)), kind: 'salary', est });
-      if (k >= 1) items.push({ k, m, d: 27, what: `ガス・水道・電気（${MON[(k - 1) % 12]}月の分）`, amt: -Math.round(r.util || 0), kind: 'util', est });
-      if (k >= 3) items.push({ k, m, d: 31, what: `材料の代金（${MON[(k - 1) % 12]}月の分）`, amt: -Math.round(((r.cogs || 0) + (r.wasteCost || 0)) * (vatOn(k - 1) ? 1.08 : 1)), kind: 'ap', est });
+      if (k >= 3) items.push({ k, m, d: 1, what: '家賃', amt: -Math.round(rent * (vatOn(k) ? 1.1 : 1)), kind: 'rent' });
+      if (k >= 3) items.push({ k, m, d: 10, what: `公庫の返済${k === 3 ? '（利息は4か月分）' : ''}`, amt: -(prin + (k === 3 ? intM * 4 : intM)), kind: 'repay' });
+      if (k >= 6) { const card = Math.round((r.sales || 0) * 0.3 * (vatOn(k - 1) ? 1.1 : 1) * (1 - 0.0324)); items.push({ k, m, d: 20, what: 'カードの代金が入る', amt: card, kind: 'cardin', est }); }
+      if (k >= 1) items.push({ k, m, d: 25, what: `給料（${MON[(k - 1) % 12]}月分）`, amt: -Math.round((r.labor || 0) + (r.famPay || 0)), kind: 'salary', est });
+      if (k >= 1) items.push({ k, m, d: 27, what: `ガス水道電気（${MON[(k - 1) % 12]}月分）`, amt: -Math.round(r.util || 0), kind: 'util', est });
+      if (k >= 3) items.push({ k, m, d: 31, what: `材料の代金（${MON[(k - 1) % 12]}月分）`, amt: -Math.round(((r.cogs || 0) + (r.wasteCost || 0)) * (vatOn(k - 1) ? 1.08 : 1)), kind: 'ap', est });
       if (k === 2 && (S.decisions || {})['insurance@2'] && (S.decisions || {})['insurance@2'] !== 'none') items.push({ k, m, d: 1, what: '火災の保険（1年分）', amt: (S.decisions['insurance@2'] === 'full' ? -60000 : -36000), kind: 'ins' });
       const fl = ((S.pols || {})[k - 1] || {}).flyer;
       if (fl) items.push({ k, m, d: 31, what: 'チラシの代金', amt: -fl, kind: 'flyer' });
@@ -333,6 +333,19 @@
     const world = Math.round(r.cash);
     return { book, world, rows, rest: world - (book + explained) };
   };
+  // ---------- 月の並びに画面の出来事を足す（ramen.js の台本と計算は変えない。読み出しの側で足す） ----------
+  //  ・開店の前：社長の案から一杯を選んだあとに、一杯の組み立て（bowl）
+  //  ・店の月：月の順を「作戦の机→書類→札→想起→月報」に（c.7）。想起（recall）を月報の前に
+  RV.arrange = () => {
+    if (!SIM.months || SIM.months.__arranged) return;
+    for (const m of SIM.months) {
+      const i = m.events.findIndex((e) => e.t === 'decision' && e.id === 'bowl');
+      if (i >= 0 && !m.events.some((e) => e.t === 'bowl')) m.events.splice(i + 1, 0, { t: 'bowl', id: 'bowl-build' });
+      if (m.ramenT != null) { const k = m.events.findIndex((e) => e.t === 'rreport'); if (k >= 0 && !m.events.some((e) => e.t === 'recall')) m.events.splice(k, 0, { t: 'recall', id: `recall${m.ramenT}`, ramenT: m.ramenT }); }
+    }
+    SIM.months.__arranged = true;
+  };
+  RV.arrange();
   const man = (n) => `${n >= 0 ? '＋' : '−'}${(Math.abs(n) / 10000).toFixed(1)}万`;
   RV.man = man;
 })(typeof window !== 'undefined' ? window : globalThis);

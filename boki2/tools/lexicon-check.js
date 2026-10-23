@@ -160,6 +160,13 @@ D.months.forEach((m, mi) => {
     }
     if (e.t === 'rreport') { const rows = e.rows(fake); check(w, rows.map((r) => r[0]).join(' ')); for (const x of e.auto({ ...fake, res: { 0: {} } }) || []) check(`${w} 一括確定`, x.label); }
     if (e.t === 'plan') check(w, (e.opens || []).join(' '));
+    // 段5の画面（js/ramen/ui.js）の言葉：作戦の机・一杯の組み立て・月報・ふりかえり・帯（js/sim/ramen-view.js の TEXT・HANDS・FACTORS）。その月までに教えた語で読めること
+    if (RAMEN && D.rview) {
+      const RV = D.rview;
+      if (e.t === 'plan') { check(`${w} 作戦の机の画面`, [...RV.TEXT.plan, ...RV.TEXT.band, ...(e.opens || []).map((k) => (RV.HANDS[k] || {}).label || '')].join(' ')); len(`${w} 作戦の机の画面 値下げの1行`, RV.TEXT.plan[14], 60); }
+      if (e.t === 'rreport') { check(`${w} 月報の画面`, [...RV.TEXT.report, ...RV.TEXT.debrief, ...Object.values(RV.FACTORS).map((f) => `${f.label} ${f.line}`)].join(' ')); }
+      if (e.t === 'bowl') check(`${w} 一杯の組み立ての画面`, RV.TEXT.bowl.join(' '));
+    }
     // 締め切り・開始記入の画面（engine の closingScreen・openingScreen）が教える語
     if (e.t === 'closing') teach(['損益', '繰越利益剰余金', '締め切り', '当期純利益', '決算振替']);
     if (e.t === 'opening') teach(['前期繰越', '開始記入']);

@@ -10,9 +10,7 @@
   // ---------- 世界の状態（S.W）。開店の前の判断（物件・店の形・一杯）から作る ----------
   RM.world = (S) => {
     if (S.W) return S.W;
-    const d = S.decisions || {}, p0 = SIM.bowl.presets.find((x) => x.id === d.bowl) || SIM.bowl.presets[0];
-    // 一杯の組み立て（bowlScreen）で直した一杯があれば、それで開く
-    const p = S.bowlSpec ? { ...p0, spec: S.bowlSpec } : p0;
+    const d = S.decisions || {}, p = SIM.bowl.presets.find((x) => x.id === d.bowl) || SIM.bowl.presets[0];
     S.seed = S.seed == null ? 0 : S.seed;   // 1周目は seed 0（(o) 17）
     S.W = SIM.world.create({ seed: S.seed, area: d.site || 'shotengai', form: d.form || 'part1', bowl: p.spec, bowlName: (S.profile && S.profile.bowlName) || p.name, tier: 0, rivalInfo: (S.rivalInfo || 'A'), ghost: !!S.ghost, ghostChoices: S.ghostChoices || null });
     S.res = {}; S.pols = {}; S.dealt = {}; S.cardOutcomes = []; S.choices = S.choices || [];
@@ -44,8 +42,6 @@
     const r = SIM.world.month(W0, pol, { rng, carry });
     for (const id of dealt) r.W.cardsSeen[id] = (r.W.cardsSeen[id] || 0) + 1;
     S.W = r.W; S.res[t] = r.res; S.pols[t] = pol; S.dealt[t] = dealt;
-    // シェアの表と今の位置のための記録（同じ式で出た客数。ライバルは月の終わりの客数）
-    (S.shareLog = S.shareLog || {})[t] = { me: r.res.N, rivals: r.W.rivals.filter((x) => x.type !== 'ghost' || r.W.flags.ghost).map((x) => ({ id: x.id, name: x.name, type: x.type, N: x.open === false ? 0 : x.lastN || 0, R: x.R, open: x.open !== false })) };
     (r.res.carried || []).forEach((x) => S.cardOutcomes.push(x));
     S.choices.push({ y: 1, m: MON[t], t, card: 'plan', option: JSON.stringify({ price: pol.price, prep: pol.prep, parts: pol.parts, flyer: pol.flyer || 0 }), seed: S.seed });
     return r.res;
@@ -112,10 +108,9 @@
 
   // ---------- 月の一覧（SIMDATA.months） ----------
   const months = [{ m: 0, label: 'プロローグ', title: '{店}の屋台', closeless: true, events: [Y.prologue] }];
-  // 開店の前：看板の一杯を社長の案から選んだあと、一杯の組み立て（bowlScreen：麺・スープ・具・名前）で直す
-  Y.pre.forEach((p) => months.push({ m: 3, label: p.label, title: p.title, closeless: true, pre: true, events: p.events.flatMap((e) => (e.t === 'decision' && e.id === 'bowl' ? [e, { t: 'bowl', id: 'bowl-build' }] : [e])) }));
+  Y.pre.forEach((p) => months.push({ m: 3, label: p.label, title: p.title, closeless: true, pre: true, events: p.events }));
   const TITLES = ['開店！ 看板の一杯を出す', 'もうけたのに、口座がへった？', '問屋さんと掛けで', '家賃と返済が始まる', '夏の限定と、チラシ', 'カードで払うお客さん', '消費税を預かる', '通帳と帳簿が合わない', '年末の売り出し', '寒い月の一杯', '谷の月', '1年のしめくくり'];
-  for (let t = 0; t < 12; t++) months.push({ m: MON[t], label: `${MON[t]}月`, title: TITLES[t], ramenT: t, events: [plan(t), ...Y.months[t], ...cardEvents(t), { t: 'recall', id: `recall${t}`, ramenT: t }, rreport(t), ...endings(t)] });
+  for (let t = 0; t < 12; t++) months.push({ m: MON[t], label: `${MON[t]}月`, title: TITLES[t], ramenT: t, events: [plan(t), ...Y.months[t], ...cardEvents(t), rreport(t), ...endings(t)] });
   Y.kessan.forEach((k) => months.push({ m: k.next4 ? 4 : 3, label: k.label, title: k.title, seg: k.seg, closeless: k.closeless, events: k.events }));
   SIM.months = months;
   RM.monthIndexOfT = (t) => months.findIndex((m) => m.ramenT === t);

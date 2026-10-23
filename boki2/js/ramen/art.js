@@ -168,7 +168,7 @@ ${q > 0 ? `<g transform="translate(${form === 'part2' ? 300 : 296} 134) scale(-1
   const ORDER = ['ekimae', 'shotengai', 'jutaku'];
   const boxes = (mine) => { const o = {}; let x = 8; for (const a of ORDER) { const w = a === mine ? 176 : 80; o[a] = [x, 34, w, 186]; x += w + 8; } return o; };
   // 自分のエリア（幅176）の中の場所：自店は真ん中、ライバルは3つの角、予兆は駅の側（左上）、商店会の掲示板は上の真ん中、空き物件は下
-  const SLOTS = { me: [96, 104], r0: [36, 58], r1: [150, 62], r2: [150, 146], omen: [34, 140], board: [96, 44], l0: [40, 104], l1: [40, 166], lm: [96, 166] };
+  const SLOTS = { me: [96, 104], r0: [36, 58], r1: [150, 62], r2: [150, 146], omen: [24, 150], board: [96, 44], l0: [40, 104], l1: [40, 166], lm: [96, 166] };
   const TINT = { spring: '#f9e9ec', summer: '#eaf5e3', autumn: '#f7eadb', winter: '#eef2f6' };
   A.map = (m, o = {}) => {
     const shopName = o.shopName || '自分の店';
@@ -196,8 +196,8 @@ ${q > 0 ? `<g transform="translate(${form === 'part2' ? 300 : 296} 134) scale(-1
     { const [x, y] = at(m.area, 'me'); parts.push(`<g class="m-me" data-area="${m.area}" role="button" tabindex="0" aria-label="${esc(shopName)}（自分の店）"><circle cx="${x}" cy="${y}" r="21" class="m-meglow"/><circle cx="${x}" cy="${y}" r="16" class="m-medot"/><path d="M${x - 9} ${y - 2} q9 -9 18 0 v9 h-18z" fill="#fff"/><path d="M${x - 9} ${y - 2} h18" stroke="var(--me)" stroke-width="3"/><text x="${x}" y="${y + 33}" class="m-lab xs me halo">${esc(shopName)}</text></g>`); }
     // 予兆の印（工事・求人・回覧）。印は札と同じ言葉で（data-omen に札の id）
     m.omens.forEach((om, i) => {
-      const [x, y] = at(m.area, om.at === 'board' ? 'board' : 'omen');
-      const dx = om.kind === 'kyujin' ? 30 : 0;
+      const [x, y0] = at(m.area, om.at === 'board' ? 'board' : 'omen');
+      const dx = 0, y = y0 + (om.kind === 'kyujin' ? -38 : 0);
       const shape = om.kind === 'kouji' ? `<path d="M${x + dx} ${y - 12} l10 20 h-20z" fill="#ffb02e" class="ol" stroke-width="2"/><path d="M${x + dx - 6} ${y + 2} h12 M${x + dx - 4} ${y - 4} h8" stroke="#fff" stroke-width="2.4"/>` : om.kind === 'kyujin' ? `<rect x="${x + dx - 9}" y="${y - 11}" width="18" height="22" rx="2" fill="#fff" class="ol" stroke-width="2"/><path d="M${x + dx - 5} ${y - 4} h10 M${x + dx - 5} ${y} h10 M${x + dx - 5} ${y + 4} h6" stroke="var(--rv)" stroke-width="1.6"/>` : `<rect x="${x + dx - 11}" y="${y - 10}" width="22" height="18" rx="2" fill="#f7e2b5" class="ol" stroke-width="2"/><path d="M${x + dx - 6} ${y + 8} v6 M${x + dx + 6} ${y + 8} v6" class="ol" stroke-width="2"/><path d="M${x + dx - 6} ${y - 4} h12 M${x + dx - 6} ${y} h12" stroke="#a46a2a" stroke-width="1.6"/>`;
       parts.push(`<g class="m-omen ${om.kind}" data-omen="${om.card}" data-omen-kind="${om.kind}" role="img" aria-label="${esc(om.label)}"><circle cx="${x + dx}" cy="${y}" r="17" class="m-omenring"/>${shape}</g>`);
       void i;
