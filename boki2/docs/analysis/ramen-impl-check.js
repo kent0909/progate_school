@@ -592,7 +592,7 @@ if (EXP === 'hire10') {
   // 雇う判断（オーナーの決定：雇う判断を生かす検査）：雇わない上手（パート1人のまま）vs 規則で雇う上手 vs 2年目から必ず2人。5年目末の口座。見える条件＝1年目の満席の日数（雇わない店で見える）・立地・厚さ
   const N = Math.min(RUNS, 120); setup10(N);
   const run = (label) => {
-    const rows = [];
+    const rows = []; const ps0 = C('potentialScale'); if (Number(arg('--recal', 1))) { calibrate(N); label += `（再較正 ${C('potentialScale')}）`; }
     for (let s = 0; s < N; s++) {
       const st = Math.floor(s / 3) % 3, W0 = Wd.create({ seed: s, area: AREAS[s % 3] });
       const none = play(s, { months: 60, policy: (W) => smartX(W, st, { parts: 1 }) });
@@ -607,11 +607,14 @@ if (EXP === 'hire10') {
     cell(rows.filter((r) => r.pot < u1), '薄い町'); cell(rows.filter((r) => r.pot >= u1 && r.pot < u2), '中の町'); cell(rows.filter((r) => r.pot >= u2), '厚い町');
     cell(rows.filter((r) => r.full1 === 0), '1年目の満席 0日'); cell(rows.filter((r) => r.full1 > 0 && r.full1 <= 20), '満席 1〜20日'); cell(rows.filter((r) => r.full1 > 20), '満席 21日以上');
     for (let st = 0; st < 3; st++) cell(rows.filter((r) => r.st === st), SMART[st]);
+    C.table.potentialScale.v = ps0;
   };
   out(`\n| 条件 | 周 | 最良：雇わない / 規則で雇う / 2年目から2人 / 2年目2人・3年目3人 | 雇う手のどれかが雇わないに勝つ周 | 雇う最良−雇わない 中央値 |\n|---|---|---|---|---|`);
   run('版1.0');
   withCoef({ wagePart: 160000 }, () => run('パートの給料 20万→16万'));
   withCoef({ capBy: [45, 60, 100, 125, 145, 160, 170] }, () => run('パート1人の上限 70→60'));
+  withCoef({ capBy: [45, 65, 100, 125, 145, 160, 170] }, () => run('パート1人の上限 70→65'));
+  withCoef({ wagePart: 180000 }, () => run('パートの給料 20万→18万'));
   withCoef({ repWait: 6 }, () => run('待ちの評判 3→6'));
   withCoef({ wagePart: 160000, capBy: [45, 60, 100, 125, 145, 160, 170] }, () => run('16万＋上限60'));
 }
