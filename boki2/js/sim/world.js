@@ -66,26 +66,31 @@
     return W;
   }
   // 潜在客 P：「平均の店（評判3・品質3・値段が相場・パート1人・宣伝なし）」が育ったとき中央値 44人/日になるように置く（d.2 外の選択 V0・d 結論）。
-  // 新規の客の分は 44×(1−常連の割合の基準)。ライバルが同じ町にいる状態で逆算する
+  // 常連は同じ客の流れの一部（常連が増えると新規の流れは同じ割合で細る）なので、基準の店の客の流れ全体を 44 に置く。ライバルが同じ町にいる状態で逆算する
   function calibrate(W) {
     const a = W.town.areas[W.area];
     const ref = { id: 'ref', price: a.pRef, R: 3, A: 0, L: 0, bowl: SIM.bowl.create(SIM.bowl.presets[0].spec), parts: 1, family: 0, ref: true };
     const share = sharesFor(W, [ref, ...W.rivals.map(rivalStore)], { neutralFit: true })[0];
-    a.P = (C('median') * (1 - C('regShareRef'))) / Math.max(1e-6, share);
+    a.P = C('median') / Math.max(1e-6, share);
+    // 設計の ε は「その店の客数が値段にどれだけ反応するか（弾力性）」。ロジットでは係数 β の店の弾力性は β(1−s)（s はその店の割合）なので、
+    // 基準の店の割合で β＝ε/(1−s) に直す（d.2 の案C の試算は弾力性＝ε で計算している。係数のままだと店の弾力性が1割ほど小さくなり、損得のない点1.64をまたがない）
+    a.epsScale = 1 / Math.max(0.5, 1 - share);
   }
   const rivalStore = (r) => ({ id: r.id, price: r.price, R: r.R, A: r.A, L: r.L, bowl: r.bowl, type: r.type, Q: r.Q, rival: true, open: r.open !== false });
 
   // ---------- 需要の式（d.2） ----------
   // 店の型（入れ子の上の段）：値段と品質で決まる
-  const typeOf = (s) => (s.type === 'cheap' || s.price < 760 ? 'cheap' : s.type === 'kodawari' || s.price >= 1050 || SIM.bowl.Q(s.bowl, s) >= 3.8 ? 'kodawari' : 'normal');
+  // 型は一杯の組み立て（品質）で決まる。ライバルは型を持つ。設計 d.1 は「値段帯と Q」だが、値段で型が飛ぶと値段を上げて客が増える段差が出る（式の端の検査）ので、値段は ε の側だけで効かせる
+  const typeOf = (s) => (s.type && s.type !== 'ghost' ? (s.type === 'shinise' ? 'normal' : s.type) : SIM.bowl.Q(s.bowl, s) >= 3.6 ? 'kodawari' : SIM.bowl.Q(s.bowl, s) < 2.8 ? 'cheap' : 'normal');
   const Fof = (b) => SIM.bowl.F(b);
   // 値段の項 ε·ln(p/p_ref)（1,000円を越える部分は ×1.5）
   const priceTerm = (p, pRef) => Math.log(p / pRef) + (C('epsOver1000') - 1) * Math.max(0, Math.log(p / 1000));
-  function epsMul(s, all) {
+  // 同じ型に「相場より2割以上安い」店がいれば ×1.3（d.2 は自店より2割安い。自店の値段で段差が出て単調でなくなるので相場と比べる）
+  function epsMul(s, all, pRef) {
     let k = 1;
     if (s.R >= 4.5) k *= C('epsHighRep');
     const ty = typeOf(s);
-    if (all.some((o) => o !== s && o.open !== false && typeOf(o) === ty && o.price <= s.price * 0.8)) k *= C('epsCheaperRival');
+    if (all.some((o) => o !== s && o.open !== false && typeOf(o) === ty && o.price <= pRef * 0.8)) k *= C('epsCheaperRival');
     return k;
   }
   // 1つの客層・1つの傾きの客が、各店を選ぶ割合（入れ子のロジット）
@@ -95,9 +100,10 @@
       if (s.open === false) return null;
       const Q = SIM.bowl.Q(s.bowl, s), F = Fof(s.bowl);
       const fit = o.neutralFit ? 0 : SIM.bowl.fit(s.bowl, seg);
-      const eps = (C(EPS[seg]) + tilt) * epsMul(s, list);
-      const pEff = s.coupon ? s.price * 0.9 : s.price;
-      let v = C('bR') * (s.R - 3) + C('bQ') * (Q - 3) + C('bF') * Math.log(F) + fit - eps * priceTerm(pEff, a.pRef) + C('bA') * Math.log(1 + (s.A || 0)) - C('bWait') * (s.wait || 0);
+      // 値段への敏感さの倍率（評判4.5以上 ×0.7・安い同じ型 ×1.3）は「相場より高い分」にだけ掛ける（安い分に掛けると、倍率の切り替わりで値段を上げて客が増える段差が出る）
+      const eps0 = (C(EPS[seg]) + tilt) * (a.epsScale || 1), mul = epsMul(s, list, a.pRef);
+      const pEff = s.coupon ? s.price * 0.9 : s.price, pt = priceTerm(pEff, a.pRef);
+      let v = C('bR') * (s.R - 3) + C('bQ') * (Q - 3) + C('bF') * Math.log(F) + fit - eps0 * (pt > 0 ? mul * pt : pt) + C('bA') * Math.log(1 + (s.A || 0)) - C('bWait') * (s.wait || 0);
       if (s.mapMul) v += Math.log(s.mapMul);
       return v;
     });
@@ -125,7 +131,9 @@
     return stores.map((s, i) => {
       if (s.open === false) return { Nnew: 0, Nreg: 0, N: 0 };
       const ramp = s.id === 'me' ? comp.ramp : 1;
-      const Nnew = a.P * shares[i] * comp.cal * comp.ev * ramp * (s.id === 'me' ? comp.rain : 1);
+      // 常連の割合 ℓ（先月の客のうち常連）だけ、新規の流れは細る。常連は値段に半分・暦に半分しか反応しない（d.2）
+      const ell = Math.min(0.9, (s.L || 0) / Math.max(1, s.Nlast != null ? s.Nlast : (s.L || 0) / 0.4 || 1));
+      const Nnew = a.P * shares[i] * comp.cal * comp.ev * ramp * (s.id === 'me' ? comp.rain : 1) * (1 - ell);
       const Nreg = (s.L || 0) * Math.pow(s.price / a.pRef, -epsAvg * C('epsRegular')) * Math.pow(comp.cal, 0.5);
       return { Nnew, Nreg, N: Nnew + Nreg };
     });
@@ -166,6 +174,8 @@
     let snsGain = 0;
     if (pol.sns) { const x = noise ? rng() : 0.5; snsGain = x < 0.7 ? 0.1 : x < 0.95 ? 0.6 : x < 0.99 ? 3 : -0.5; res.sns = x < 0.7 ? 'none' : x < 0.95 ? 'slow' : x < 0.99 ? 'buzz' : 'flame'; }
     me.A = Math.max(0, keep * me.A + (pol.flyer || 0) / C('adUnit') + snsGain);
+    // 予兆のあった新店が開く（f.3「近くに出店の予兆」：2か月前の工事の看板）
+    if (W.flags.omen && !W.flags.omenOpened && W.t >= W.flags.omen.at) { const r = SIM.rivals.make(W.flags.omen.kind, W.rivals.length); r.id = 'rnew'; r.name = 'ごうりき軒 駅前店'; if (W.flags.omen.weak) r.R = 2.6; if (W.flags.omen.war) r.price = 650; W.rivals.push(r); W.flags.omenOpened = true; res.opened = r.id; }
     // ライバルの手（反応のルール f.3。予兆・遅れつき）
     W.rivals = SIM.rivals.step(W, { prevPrice, price: me.price, limited: !!pol.limited }, rng);
     // 札（出来事）：月の山札から引いて、選んだ手の結果を W に返す（試算では引かない）
@@ -203,37 +213,45 @@
     const sold = Math.max(0, Math.min(servable, prepared));
     const waste = Math.max(0, prepared - sold), lostStock = Math.max(0, Math.min(servable, demand) - sold), lostCap = Math.max(0, overflow);
     // 帳簿の数字（月）
-    const unitCost = SIM.bowl.cost(me.bowl) + (C('items') - 1) * C('price0') * C('cogs');
+    const unitCost = SIM.bowl.cost(me.bowl) * (me.costMul || 1) + (C('items') - 1) * C('price0') * C('cogs');
     const sales = Math.round(sold * me.price * C('items') * (me.coupon ? 0.95 : 1));
     const cogs = Math.round(sold * unitCost), wasteCost = Math.round(waste * SIM.bowl.cost(me.bowl) * C('wasteShare'));
-    const labor = laborOf(me), rent = C('rentPerTsubo')[W.area] * C('tsubo');
+    const labor = Math.round(laborOf(me) * (me.wageUp || 1)), rent = C('rentPerTsubo')[W.area] * C('tsubo');
     const util = Math.round(C('utilFixed') + C('utilVar') * sales), other = W.otherFixed, dep = Math.round(C('fitout') / C('fitoutLife') / 12);
     const ads = (pol.flyer || 0) + (me.line ? 5000 : 0) + (res.limited ? 30000 : 0);
-    const op = sales - cogs - wasteCost - labor - rent - util - other - dep - ads + fx.cash;
-    const interest = Math.round((W.loan * C('loanRate')) / 12), repay = Math.round(C('loan') / C('loanYears') / 12);
+    const op0 = sales - cogs - wasteCost - labor - rent - util - other - dep - ads + fx.cash;
+    // 家族の働き手の無給の1人は「報酬は利益から」（c.8）：利益が出た月は、その半分（パート1人の給料まで）を家族の給料として払う【置き値】
+    const famPay = me.family >= 1 ? Math.round(Math.min(C('wagePart'), Math.max(0, C('familyShare') * op0))) : 0;
+    const op = op0 - famPay;
+    // 短期借入（c.4 の支払不能の手①。枠は1回・置き値）：口座が足りない月の手。金利は年4.5%【置き値 CALIB：4〜5%台】
+    if (pol.borrow && !W.flags.shortUsed) { W.cash += C('shortLimit'); W.short = (W.short || 0) + C('shortLimit'); W.flags.shortUsed = true; res.borrowed = C('shortLimit'); }
+    const interest = Math.round((W.loan * C('loanRate')) / 12 + ((W.short || 0) * C('shortRate')) / 12), repay = Math.round(C('loan') / C('loanYears') / 12);
     const ord = op - interest;
     W.cash += ord + dep - repay;
     W.loan = Math.max(0, W.loan - repay);
     // 評判（体験）・常連・相場の値段・一杯の魅力の月の動き
     const stockRate = (lostStock + lostCap) / Math.max(1, demand), waitRate = lostCap / Math.max(1, demand);
     const Q = SIM.bowl.Q(me.bowl, me), F = Fof(me.bowl);
-    const exp = Q + 2 * Math.log(F) - 2 * stockRate - 1.5 * waitRate + (fx.Rd || 0) * 4 + (waitRate > 0.05 ? 0.25 : 0);
+    // 体験：一杯の品質と魅力、客層との相性、品切れと待ち（行列は長く続くと評判を下げる）、札の結果
+    const fitAvg = SEGS.reduce((t, sg) => t + a.mix[sg] * SIM.bowl.fit(me.bowl, sg), 0);
+    const exp = Q + 2 * Math.log(F) + 2 * fitAvg - C('repStock') * stockRate - C('repWait') * waitRate + (fx.Rd || 0) * 4;
     me.R = Math.max(1, Math.min(5, me.R + C('repAlpha') * (exp - me.R)));
     const hike = Math.max(0, (me.price - prevPrice) / prevPrice);
     const churn = Math.max(0.005, C('churn') + C('churnPerHike') * hike * 10 + (me.churnUp || 0) + (F < 0.9 ? 0.01 : 0) - (me.line ? C('lineBack') * C('churn') * 3 : 0));
-    const newServed = (sold * e0.Nnew) / Math.max(1e-9, e0.N * days) / days; // 1日あたりの新規の客で、実際に食べた人
+    const newServed = (sold * e0.Nnew) / Math.max(1e-9, e0.N * days); // 1日あたりの新規の客で、実際に食べた人
     me.L = Math.max(0, me.L * (1 - churn) + C('retain') * newServed * (1 + 0.3 * (me.R - 3)));
     me.churnUp = 0;
+    me.Nlast = sold / days;
     me.wait = waitRate * 60;
-    a.pRef = (1 - C('pRefStep')) * a.pRef + C('pRefStep') * weightedPrice(list, ex);
+    a.pRef = (1 - C('pRefStep')) * a.pRef + C('pRefStep') * weightedPrice(list);
     me.bowl = SIM.bowl.step(me.bowl, { tier: W.tier, regShare: me.L / Math.max(1, e0.N) });
     // ライバルの月の損益と常連（同じ式で：f.2）
     SIM.rivals.settle(W, ex.slice(1), comp);
     // 要因の分解（d.7）：前の月との差を、要因を1つずつ前の月の値に戻して測る
-    const factors = W.comp ? decompose(W0, W, comp, list, ex[0].N) : { total: 0 };
+    const factors = W.comp && !opts.noFactors ? decompose(W0, W, comp, list, ex[0].N) : { total: 0 };
     res.peakEffect = Math.exp(C('bF') * Math.log(F)) / Math.exp(C('bF') * Math.log(me.bowl.Fbase || 1)) - 1;
     W.comp = { ...comp, price: me.price, pRef: a.pRef, R: me.R, F, A: me.A, rivals: W.rivals.map((r) => ({ id: r.id, price: r.price, open: r.open !== false, R: r.R })), N: ex[0].N, mapMul: me.mapMul };
-    Object.assign(res, { N: sold / days, Nd, demand: demand / days, X: Math.round(sold), waste: Math.round(waste), lost: Math.round(lostStock + lostCap), sales, cogs, wasteCost, labor, rent, util, other, dep, ads, op, interest, ord, repay, cash: W.cash, loan: W.loan, R: me.R, L: me.L, A: me.A, F, Q, cap, weeks, pRef: a.pRef, factors, time: { budget: timeBudget(W0, pol), used: timeUsed(W0, pol) }, fx: fx.cash });
+    Object.assign(res, { famPay, N: sold / days, Nd, demand: demand / days, X: Math.round(sold), waste: Math.round(waste), lost: Math.round(lostStock + lostCap), sales, cogs, wasteCost, labor, rent, util, other, dep, ads, op, interest, ord, repay, cash: W.cash, loan: W.loan, R: me.R, L: me.L, A: me.A, F, Q, cap, weeks, pRef: a.pRef, factors, time: { budget: timeBudget(W0, pol), used: timeUsed(W0, pol) }, fx: fx.cash });
     // 支払不能：口座が足りない月が3か月続くと倒産（c.4。切り身では短期の借入・猶予の手はまだない）
     W.insolvent = W.cash < 0 ? W.insolvent + 1 : 0;
     if (W.insolvent >= 3) W.bankrupt = true;
@@ -242,12 +260,14 @@
     W.t += 1; W.m = (W.m % 12) + 1; if (W.m === 4) W.y += 1;
     return { W, res };
   }
-  const weightedPrice = (list, ex) => { let n = 0, s = 0; list.forEach((x, i) => { if (x.open === false) return; n += ex[i].N; s += ex[i].N * x.price; }); return n ? s / n : 850; };
+  // 相場の値段の寄り先：自店の値段を半分、開いているライバルの値段の平均を半分【置き値 (c)】。d.1 は「自店と競合の加重平均」で重みが書かれていない。
+  // 客数で重みをつけると客の多い安売りチェーンに相場が引かれ続けるので、自店の客の覚えている値段（半分）と町の店の値段（半分）にした
+  const weightedPrice = (list) => { const r = list.slice(1).filter((x) => x.open !== false); const w = SIM.coef('pRefOwn'); return r.length ? w * list[0].price + (1 - w) * (r.reduce((t, x) => t + x.price, 0) / r.length) : list[0].price; };
   // 要因の分解：要因を前の月の値に戻したときの期待の客数との差（1日あたり）
   function decompose(Wprev, W, comp, list, Nnow) {
     const P = W.comp, out = {};
     const mk = (patch) => {
-      const Wx = clone(Wprev);
+      const a0 = Wprev.town.areas[Wprev.area], Wx = { area: Wprev.area, town: { areas: { [Wprev.area]: { ...a0 } } } };
       const meX = { ...list[0], ...(patch.me || {}) };
       const rivalsX = patch.rivals ? list.slice(1).map((s) => { const r = patch.rivals.find((x) => x.id === s.id); return r ? { ...s, price: r.price, open: r.open, R: r.R } : { ...s, open: false }; }) : list.slice(1);
       Wx.town.areas[Wx.area].pRef = patch.pRef != null ? patch.pRef : W.comp ? Wprev.town.areas[Wprev.area].pRef : Wx.town.areas[Wx.area].pRef;
@@ -272,17 +292,23 @@
   // ---------- 試算（d.7）：乱数なし（mc>0 なら乱数の平均）で n か月の経常利益の合計 ----------
   function evalPolicy(W, pol, n, o = {}) {
     const runs = o.mc || 0;
-    if (!runs) { let x = W, s = 0; for (let k = 0; k < n; k++) { const r = month(x, k ? { ...pol, tweak: false, limited: false } : pol, { noise: false, noCards: true }); s += r.res.ord; x = r.W; } return s; }
+    if (!runs) { let x = W, s = 0; for (let k = 0; k < n; k++) { const r = month(x, k ? { ...pol, tweak: false, limited: false } : pol, { noise: false, noCards: true, noFactors: true }); s += r.res.ord; x = r.W; } return s; }
     let tot = 0;
-    for (let j = 0; j < runs; j++) { let x = W, s = 0; for (let k = 0; k < n; k++) { const r = month(x, k ? { ...pol, tweak: false, limited: false } : pol, { noCards: true, rng: SIM.rng(1000 + j * 17 + k) }); s += r.res.ord; x = r.W; } tot += s; }
+    for (let j = 0; j < runs; j++) { let x = W, s = 0; for (let k = 0; k < n; k++) { const r = month(x, k ? { ...pol, tweak: false, limited: false } : pol, { noCards: true, noFactors: true, rng: SIM.rng(1000 + j * 17 + k) }); s += r.res.ord; x = r.W; } tot += s; }
     return tot / runs;
   }
   // 詰み：人を減らし（パート0人）・宣伝をやめ・値段は据え置いても、n か月のうちに口座が尽きる
+  // 「どの手を打っても」：人を減らす手に、値段を据え置く・100円上げる・100円下げるの3つを掛けて、どれも尽きるなら詰み
   function rescueFails(W, n) {
-    let x = W;
-    for (let k = 0; k < n; k++) { const p = policy0(x, null, { neutral: true }); p.parts = 0; p.family = Math.max(1, x.stores[0].family); p.flyer = 0; p.line = false; const r = month(x, p, { noise: false, noCards: true }); x = r.W; if (x.cash < 0) return true; }
-    return false;
+    for (const d of [0, 100, -100]) {
+      let x = W, dead = false;
+      for (let k = 0; k < n; k++) { const p = policy0(x, null, { neutral: true }); p.price = W.stores[0].price + d; p.parts = 0; p.borrow = true; p.family = Math.max(1, x.stores[0].family); p.flyer = 0; p.line = false; const r = month(x, p, { noise: false, noCards: true, noFactors: true }); x = r.W; if (x.cash < 0) { dead = true; break; } }
+      if (!dead) return false;
+    }
+    return true;
   }
 
-  SIM.world = { AREAS, FORMS, CAL, calendar, create, month, policy0, expectN, evalPolicy, rescueFails, timeBudget, timeUsed, fitTime, canTweak, capOf, laborOf, workersOf, typeOf, sharesFor, PRICE_MIN, PRICE_MAX, rampOf, TIME_KEYS };
+  // 手もとに残るお金（ネットキャッシュ）＝口座−借入（ゴールの物差し：b.1）
+  const netCash = (W) => W.cash - W.loan - (W.short || 0);
+  SIM.world = { netCash, AREAS, FORMS, CAL, calendar, create, month, policy0, expectN, evalPolicy, rescueFails, timeBudget, timeUsed, fitTime, canTweak, capOf, laborOf, workersOf, typeOf, sharesFor, PRICE_MIN, PRICE_MAX, rampOf, TIME_KEYS };
 })(typeof window !== 'undefined' ? window : globalThis);

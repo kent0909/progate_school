@@ -62,7 +62,7 @@
       const sold = e.N * C('days'), sales = sold * r.price * C('items');
       const op = sales * (1 - T.cost - C('utilVar')) - T.labor - T.rent - 150000 - C('utilFixed');
       r.cash += op;
-      r.lastN = e.N; r.lastOp = op;
+      r.lastN = e.N; r.Nlast = e.N; r.lastOp = op;
       r.L = Math.max(0, r.L * (1 - C('churn')) + C('retain') * e.Nnew);
       r.R = Math.max(1, Math.min(5, r.R + C('repAlpha') * (r.Q + 2 * Math.log(SIM.bowl.F(r.bowl)) - r.R) * 0.5));
       if (r.cash < -3000000) { r.open = false; r.closedAt = W.t; } // 倒産・撤退（居抜き物件が出る）
@@ -82,5 +82,5 @@
   }
   const RULES = { cheap: '値下げには1か月後に半々で追随。値上げには「安さ」の宣伝', kodawari: '限定には翌月に限定で返す。値段は動かさない', shinise: '動かない。常連が厚く、暦に強い', ghost: '前の周のあなたと同じ月に同じ値段' };
   const ruleOf = (t) => RULES[t] || '';
-  SIM.rivals = { TYPES, create, step, settle, visible, ruleOf };
+  SIM.rivals = { TYPES, make, create, step, settle, visible, ruleOf };
 })(typeof window !== 'undefined' ? window : globalThis);
