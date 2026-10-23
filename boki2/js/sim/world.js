@@ -66,7 +66,7 @@
     return W;
   }
   // 潜在客 P：「平均の店（評判3・品質3・値段が相場・パート1人・宣伝なし）」が育ったとき中央値 44人/日になるように置く（d.2 外の選択 V0・d 結論）。
-  // 常連は同じ客の流れの一部（常連が増えると新規の流れは同じ割合で細る）なので、基準の店の客の流れ全体を 44 に置く。ライバルが同じ町にいる状態で逆算する
+  // 潜在客の従来の較正値。常連はd.2どおり別に加算するため、育った平均店の44±8は別途検査する。
   function calibrate(W) {
     const a = W.town.areas[W.area];
     const ref = { id: 'ref', price: a.pRef, R: 3, A: 0, L: 0, bowl: SIM.bowl.create(SIM.bowl.presets[0].spec), parts: 1, family: 0, ref: true };
@@ -130,10 +130,9 @@
     return stores.map((s, i) => {
       if (s.open === false) return { Nnew: 0, Nreg: 0, N: 0 };
       const ramp = s.id === 'me' ? comp.ramp : 1;
-      // 常連の割合 ℓ（先月の客のうち常連）だけ、新規の流れは細る。常連は値段に半分・暦に半分しか反応しない（d.2）
-      const ell = Math.min(0.9, (s.L || 0) / Math.max(1, s.Nlast != null ? s.Nlast : (s.L || 0) / 0.4 || 1));
+      // d.2：新規の流れと常連は加算する。L/Nlastで新規を相殺すると店の成長が消える。
       // 地図・口コミの整備は新規の来店に ×1.2／未整備 ×0.8（d.4。割合の式の外で掛ける：入れ子の中で掛けると 1/λ 倍に効いてしまう）
-      const Nnew = a.P * shares[i] * comp.cal * comp.ev * ramp * (s.id === 'me' ? comp.rain : 1) * (1 - ell) * (s.mapMul || 1);
+      const Nnew = a.P * shares[i] * comp.cal * comp.ev * ramp * (s.id === 'me' ? comp.rain : 1) * (s.mapMul || 1);
       const Nreg = (s.L || 0) * Math.pow(s.price / a.pRef, -epsAvg * C('epsRegular')) * Math.pow(comp.cal, 0.5);
       return { Nnew, Nreg, N: Nnew + Nreg };
     });
