@@ -159,4 +159,18 @@ for k_ in [0.62, 0.8, 1.0, 1.5]:
     qx = (r_h - 1) / (r_h - k_) if k_ < 1 else None
     p(f'| {k_} | ' + ' | '.join(f'{x:.2f}' for x in vals) + f' | {"%.0f%%" % (qx * 100) if qx and qx <= 1 else "下回らない"} |')
 p('\n式：店の比＝(1−q)×家計の比2.34＋q×k（q は平日の客のうち家計に入らない層の割合）。k＝0.62 は家計調査の「こづかい(使途不明)」の土日÷平日（二人以上の世帯の人の小遣い。単身の世帯・観光客は入らない）。\n')
+
+# ---------- G3b. 形をそろえた格子（calib-v04 の G3 と同じ形）を、銀座の家賃を5つ（23,990〜42,497）に広げて ----------
+p('## G3b. 形をそろえた格子（calib-v04 の G3 と同じ形の範囲）で、銀座の家賃に2025年度下期の1階23,990と飲食店ドットコムの42,497を足す\n')
+shape = dict(tsubo=[10, 12, 15, 18], part=[0, 0.5, 1, 1.5, 2, 3], family=[0, 1], owner=[100000, 150000, 200000, 250000, 300000, 400000],
+             other=[80000, 120000, 150000, 200000, 250000, 300000])
+both = tot = 0
+for t, pa, fa, ow, ot in itertools.product(*shape.values()):
+    for fc in ((True, False) if fa else (True,)):
+        for rg, prg, mk in itertools.product([23990, 30246, 34830, 36250, 42497], [0.845, 0.98, 1.0], [1.0, 1.2]):
+            gl = profit(100, P0 * prg * mk, fixed(t, rg, 1280, pa, fa, fc, ow, ot)) < 0
+            if not gl: tot += 15; continue
+            for rkk, prk in itertools.product([0, 1500, 3000, 5000, 8000], [0.885, 1.0, 1.2]):
+                tot += 1; both += profit(30, P0 * prk, fixed(t, rkk, 1280, pa, fa, fc, ow, ot)) > 0
+p(f'{tot:,} 通りのうち、両方が成り立つのは **{both}（{both / tot * 100:.1f}%）**。値付けの上乗せ（×1.0・1.2）は calib-v04 の G3 と同じく銀座の側だけに掛けた。時給は両側とも東京1,280円。\n')
 print('\n'.join(out))
