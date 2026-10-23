@@ -227,6 +227,18 @@ for d in (4.5, 9.0):
     print(f'  1杯{d}円：得 {g:,.0f}円、課徴金だけ {g/k:.2f}、課徴金＋周知＋客の減り {g/(k+extra):.2f}')
 print('(b) 灰色の型：第3版の定義で a は15件。G18 を b にすれば', 15 - 1, '件。G05 を a に戻せば', 15 + 1, '件')
 print('(c) 新しい群の割合：第3版の報告は 0.448 と書くが、書き手のスクリプトの 11) を走らせると 0.446（16章 X32）')
+print('(d) 第3版の「型の付け直し」の表と、検査役の第1版の割り付け（6) の TYPE）を突き合わせる')
+rep3 = open(REP, encoding='utf-8').read()
+m3 = _re.search(r'^### 型の付け直し.*?$(.*?)(?=^## |^### |\Z)', rep3, _re.M | _re.S)
+t3 = dict(_re.findall(r'^\| (G\d+) \| (未確定|[abcde]) ', m3.group(1) if m3 else '', _re.M))
+t3 = {g: ('未' if v == '未確定' else v) for g, v in t3.items()}
+same3 = [g for g in sorted(t3) if TYPE.get(g) == t3[g]]
+diff3 = [f'{g}({TYPE.get(g)}→{t3[g]})' for g in sorted(t3) if TYPE.get(g) != t3[g]]
+print(f'  表の行 {len(t3)}、検査役と同じ {len(same3)}、違う {len(diff3)}：' + ' '.join(diff3))
+ca = Counter(t3.values())
+print('  第3版の型の数：' + '、'.join(f'{kk} {ca[kk]}' for kk in 'abcde未'))
+up = [g for g in t3 if t3[g] == 'a' and TYPE.get(g) != 'a']; down = [g for g in TYPE if TYPE[g] == 'a' and t3.get(g) != 'a']
+print(f'  a に入った行 {up}、a から出た行 {down} → 差し引き {len(up)-len(down)}（a の数を動かすのはこの2行だけ）')
 if os.path.exists(AUD):
     a = open(AUD, encoding='utf-8').read()
     for pre, col, name in (('X', -2, '第3版の変わった結論'), ('Y', -2, '「検査役の筋から採ったもの」の新しい・直した行'), ('B-', 2, '15.9 への応え')):
