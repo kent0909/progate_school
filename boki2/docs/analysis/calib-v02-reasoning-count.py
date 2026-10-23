@@ -36,6 +36,8 @@ for lab in ('不当', '弱い'):
     print(f'\n{lab}（{c[lab]}）：' + '・'.join(i for i, j, _ in rows if j == lab))
 if resp:
     r = collections.Counter(s for _, _, s in resp)
-    print(f'\n応えの表 {len(resp)}行（版0.2の判定：不当 {sum(1 for _, v, _ in resp if v == "不当")}・弱い {sum(1 for _, v, _ in resp if v == "弱い")}）：応えた {r["応えた"]}・一部 {r["一部"]}・応えていない {r["応えていない"]}')
+    nb = sum(1 for _, v, _ in resp if v == '不当'); nw = sum(1 for _, v, _ in resp if v == '弱い')
+    head = f'（前の判定：不当 {nb}・弱い {nw}）' if nb + nw else ''
+    print(f'\n応えの表 {len(resp)}行{head}：応えた {r["応えた"]}・一部 {r["一部"]}・応えていない {r["応えていない"]}')
     print('一部：' + '・'.join(i for i, _, s in resp if s == '一部'))
     if r['応えていない']: print('応えていない：' + '・'.join(i for i, _, s in resp if s == '応えていない'))
