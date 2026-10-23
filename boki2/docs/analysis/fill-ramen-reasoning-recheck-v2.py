@@ -125,6 +125,17 @@ sec4 = rs.split('## 4. 上位30の外の項目', 1)[1].split('### 判定書か�
 q4 = [len(re.findall(r'q-[a-z0-9-]+', l)) for l in sec4.split('\n') if re.match(r'^\| [MR]\d', l) and '探したが無い' in l]
 print(f'  4章の「埋まらず（探したが無い）」{len(q4)}行が指す検索の数：{dict(sorted(collections.Counter(q4).items()))}')
 
+import glob as _g
+_n = _o = 0
+for f in sorted(_g.glob(os.path.join(RAWR, 'r7-fill-q-js-*'))):
+    t = open(f, encoding='utf8', errors='ignore').read()
+    m = re.search(r'<opensearch:totalResults>(\d+)<', t) or re.search(r'totalResults[^0-9]{0,5}(\d+)', t)
+    k = len(re.findall(r'<entry>', t))
+    if m: _n += 1; _o += int(m.group(1)) > k
+print(f'  J-STAGE の検索の結果の一覧 {_n}本のうち、総数が一覧に載った件数（上位の打ち切り）を超えるもの {_o}本')
+_src = open(os.path.join(ROOT, 'docs', 'analysis', 'fill-ramen-region-v2.py'), encoding='utf8').read()
+print('  2.7 の格子の営業日（スクリプト）：', re.search(r"days=\(([^)]*)\)", _src).group(1), '／本文の2.7の表：', '20/25日' if '20/25日' in rs.split('### 2.7', 1)[1][:800] else '?')
+
 # ---------------------------------------------------------------- G6
 print('\n## G6. 「検査役の筋から採ったもの」の章の語句が原文に出るか')
 sec = rs.split('## 検査役の筋から採ったもの', 1)[1].split('\n## ', 1)[0]
