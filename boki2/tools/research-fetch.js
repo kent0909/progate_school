@@ -73,16 +73,21 @@ const robotsGate = () => {
     const out = rr.stdout || ''; const code = Number(out.slice(out.lastIndexOf('\n') + 1)) || 0;
     fs.writeFileSync(rf, code === 200 ? out.slice(0, out.lastIndexOf('\n')) : '');
   }
+  // 取りに行くのは Claude が動かす道具なので、Anthropic の名を挙げて禁じる組も自分への禁止として守る（2026-10-23。ROBOTS-AUDIT.md で53件見つかった）。空の User-agent の組は合わせない
+  const AI_UA = ['claudebot', 'claude-user', 'claude-searchbot', 'claude-web', 'anthropic-ai', 'anthropic'];
   const lines = fs.readFileSync(rf, 'utf8').split(/\r?\n/).map((l) => l.replace(/#.*/, '').trim());
-  const rules = []; let agents = []; let inRules = false;
+  const star = []; const named = []; let agents = []; let inRules = false;
+  // 名指しの組（自分の名・Anthropic の名）があればその組だけで決める（RFC 9309 のいちばん合う組）。なければ * の組で決める
+  const isNamed = (g) => g && g !== '*' && ('boki2-quest-research'.startsWith(g) || AI_UA.some((n) => n === g || g.startsWith(n)));
   for (const l of lines) {
     const m = l.match(/^([A-Za-z-]+)\s*:\s*(.*)$/); if (!m) continue;
     const k = m[1].toLowerCase(); const v = m[2].trim();
     if (k === 'user-agent') { if (inRules) { agents = []; inRules = false; } agents.push(v.toLowerCase()); continue; }
-    if (k === 'allow' || k === 'disallow') { inRules = true; if (agents.some((g) => g === '*' || 'boki2-quest-research'.startsWith(g)) && v) rules.push({ allow: k === 'allow', p: v }); }
+    if (k === 'allow' || k === 'disallow') { inRules = true; if (!v) continue; const r = { allow: k === 'allow', p: v }; if (agents.some(isNamed)) named.push(r); else if (agents.includes('*')) star.push(r); }
   }
   const target = u.pathname + u.search;
   const re = (p) => new RegExp('^' + p.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\\\$$/, '$'));
+  const rules = named.length ? named : star;
   const hit = rules.filter((r) => re(r.p).test(target)).sort((x, y) => y.p.length - x.p.length || (x.allow ? -1 : 1))[0];
   if (hit && !hit.allow) wanted(`robots.txt が禁じるパス（Disallow: ${hit.p}）。道具が自動で確かめた`);
 };
