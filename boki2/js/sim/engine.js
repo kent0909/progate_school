@@ -15,12 +15,16 @@
   const CONTRA_OF = { 貸倒引当金: '売掛金', 車両運搬具減価償却累計額: '車両運搬具', 備品減価償却累計額: '備品', 建物減価償却累計額: '建物', 減価償却累計額: '機械装置', 機械装置減価償却累計額: '機械装置' };
   const CONTRA = new Set(Object.keys(CONTRA_OF));
   const order = (a) => (CONTRA.has(a) ? 0.5 : CATS.indexOf(cat(a)) < 0 ? 9 : CATS.indexOf(cat(a)));
-  const CAST = { piyo: ['ピヨ', 48], haha: ['お母さん', 330], esha: ['E社の担当者', 100], senpai: ['タカシ先輩', 205], shacho: ['ミライ社長', 24], eigyo: ['ハルカ（営業）', 12], ginko: ['田中さん（銀行）', 222], kansa: ['森さん（会計士）', 150], zeirishi: ['岩田さん（税理士）', 285], kabunushi: ['佐藤さん（株主）', 330], kojo: ['大山さん（工場長）', 60] };
-  const KEY = 'boki2sim.v3';
+  const CAST = { piyo: ['ピヨ', 48], haha: ['お母さん', 330], esha: ['E社の担当者', 100], senpai: ['タカシ先輩', 205], shacho: ['ミライ社長', 24], eigyo: ['ハルカ（営業）', 12], ginko: ['田中さん（銀行）', 222], kansa: ['森さん（会計士）', 150], zeirishi: ['岩田さん（税理士）', 285], kabunushi: ['佐藤さん（株主）', 330], kojo: ['大山さん（工場長）', 60], oyakata: ['屋台の親方', 30] };
+  // ラーメン版（ramen.html。DESIGN-RAMEN l.2）は台本（SIMDATA）が ramen:true を持ち、保存の鍵も別にする。index.html のピヨ商店はそのまま
+  const RAMEN = !!D.ramen;
+  const KEY = D.key || 'boki2sim.v3';
+  // 屋号とプレイヤーの名前（ラーメン版。自由入力で lexicon-check の外。既定は「麺や ピヨ」「あなた」）
+  const PROFILE0 = { shopName: '麺や ピヨ', playerName: 'あなた' };
 
   /* ---------- state ---------- */
   const fresh = () => ({ v: 3, bm: {}, seenEnds: [], ifSeen: [], mi: 0, ei: 0, phase: 'title', L: [], T: [], decisions: {}, rules: {}, kinds: {}, leaves: [], diary: [], trapHit: false, taught: [], silentIntro: false, ruleIntro: false,
-    discDone: {}, docLog: [], fixLog: [], closes: [], examLog: [], reportSeen: false,
+    discDone: {}, docLog: [], fixLog: [], closes: [], examLog: [], reportSeen: false, profile: { ...PROFILE0 },
     metrics: { started: Date.now(), disc: {}, docs: { n: 0, first: 0 }, fixes: 0, hints: 0, hand: 0, autoPosted: 0, quiz: null, forks: {} } });
   let S = fresh();
   // 保存は store.js：端末の中にすぐ、公開ページの保存機能にも少し遅らせて（docs/STORAGE.md）
@@ -95,8 +99,12 @@
   // 表情：銀行・株主・会計士・税理士は、これまでの判断で顔が変わる（year2.js の SIM.moods。1〜5）
   const MOOD_WORD = ['', 'とても心配', '心配', 'ふつう', '少し安心', '安心'];
   const moodOf = (k) => { if (!D.moods || S.mi === 0) return 0; try { return D.moods(S)[k] || 0; } catch (x) { return 0; } };
-  const avatar = (k) => { const [n, h] = CAST[k] || [k, 190]; const md = moodOf(k); const mouth = md ? `<svg class="s-mood" viewBox="0 0 20 20" role="img" aria-label="表情：${MOOD_WORD[md]}"><circle cx="10" cy="10" r="9" fill="#fff" stroke="hsl(${h} 40% 45%)" stroke-width="1.5"/><circle cx="7" cy="8" r="1.3" fill="#334"/><circle cx="13" cy="8" r="1.3" fill="#334"/><path d="M6 ${14 - (md - 3)} Q10 ${14 + (md - 3) * 1.6} 14 ${14 - (md - 3)}" fill="none" stroke="#334" stroke-width="1.4" stroke-linecap="round"/></svg>` : ''; return `<span class="s-ava" style="--h:${h}">${esc(n.slice(0, 1))}${mouth}</span>`; };
-  const talk = (lines) => (lines || []).map(([k, t]) => `<div class="s-line">${avatar(k)}<div><small>${esc((CAST[k] || [k])[0])}</small><p>${esc(t)}</p></div></div>`).join('');
+  const avatar = (k) => { const [n, h] = k === 'me' ? [playerName(), 190] : CAST[k] || [k, 190]; const md = moodOf(k); const mouth = md ? `<svg class="s-mood" viewBox="0 0 20 20" role="img" aria-label="表情：${MOOD_WORD[md]}"><circle cx="10" cy="10" r="9" fill="#fff" stroke="hsl(${h} 40% 45%)" stroke-width="1.5"/><circle cx="7" cy="8" r="1.3" fill="#334"/><circle cx="13" cy="8" r="1.3" fill="#334"/><path d="M6 ${14 - (md - 3)} Q10 ${14 + (md - 3) * 1.6} 14 ${14 - (md - 3)}" fill="none" stroke="#334" stroke-width="1.4" stroke-linecap="round"/></svg>` : ''; return `<span class="s-ava" style="--h:${h}">${esc(n.slice(0, 1))}${mouth}</span>`; };
+  // 台詞の {店}・{名} は、遊ぶ人が決めた屋号と名前（ラーメン版）に置きかえる
+  const shopName = () => ((S.profile || {}).shopName || PROFILE0.shopName);
+  const playerName = () => ((S.profile || {}).playerName || PROFILE0.playerName);
+  const fill = (t) => String(t == null ? '' : t).replace(/\{店\}/g, shopName()).replace(/\{名\}/g, playerName());
+  const talk = (lines) => (lines || []).map(([k, t]) => `<div class="s-line">${avatar(k)}<div><small>${esc(k === 'me' ? playerName() : (CAST[k] || [k])[0])}</small><p>${esc(fill(t))}</p></div></div>`).join('');
   // 書類だけの言葉（摘要など）は、タップすると一言の説明が出る
   const gloss = (text) => {
     let h = esc(text);
@@ -153,7 +161,7 @@
     const kpi = inShop && hideKpi ? '<div class="s-kpi"><small>口座のお金</small><b>予想のあとで</b></div>' : inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>${yearOf(S.mi) > 1 ? `${yearOf(S.mi)}年目のもうけ（4月から）` : 'この1年のもうけ'}</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
     const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button>' + (S.dueBuilt ? '<button data-ov="due">期日</button>' : '') + '<button data-ov="room">練習室</button></nav>' : '';
     // 「本文へ」：キーボードで最初に届く。ナビより先に画面の中身へ（見えるのはフォーカスしたときだけ）
-    return `<header class="s-head"><button class="s-skip" data-skiplink>本文へ</button><div class="s-month"><small>${inShop ? '株式会社ピヨ商店' : 'ピヨの屋台'}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
+    return `<header class="s-head"><button class="s-skip" data-skiplink>本文へ</button><div class="s-month"><small>${esc(RAMEN ? (inShop ? shopName() : `${shopName()}（屋台）`) : inShop ? '株式会社ピヨ商店' : 'ピヨの屋台')}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
   }
   let onFocus = null;
   app.addEventListener('focusin', (e) => { const x = e.target.closest('input[data-s]'); if (x && onFocus) onFocus(x); });
@@ -323,7 +331,7 @@
         if (ok < 2) { S.pro3 = { on: false, gate: res }; save(); app.innerHTML = `<main class="s-main"><div class="s-card"><h3>今回は、ふつうの道がおすすめ</h3><p>3問のうち ${ok} 問が書けた。屋台から始めて、3級の型も手で書いてみよう。思い出すのは早いはず。</p><button class="btn wide" data-go2>屋台から始める</button></div></main>`; app.onclick = (e) => { if (e.target.closest('[data-go2]')) done(); }; return; }
         applyPro3(G.filter((_, k) => res[k]).flatMap((g) => g.kinds), res);
         const rules = Object.keys(S.rules).filter((k) => S.rules[k].preset);
-        app.innerHTML = `<main class="s-main"><div class="s-card"><small>近道</small><h3>3問のうち ${ok} 問が書けた</h3>${D.pro3.card.map((t) => `<p>${esc(t)}</p>`).join('')}<p><b>パソコンが自動で書く書類（3級の型）</b></p><ul>${rules.map((k) => `<li>${esc(D.rules[k].conds.find((c) => c.ok && !c.broad).t)}</li>`).join('')}</ul><p class="muted">自動で書いた分は、成長の記録で「3級の型（見ただけ）」。検定会場の「自動仕訳の棚卸」や練習室で手で書けたら「自分でできた」になる。</p><button class="btn wide" data-go2>会社へ行く（4月から）</button></div></main>`;
+        app.innerHTML = `<main class="s-main"><div class="s-card"><small>近道</small><h3>3問のうち ${ok} 問が書けた</h3>${D.pro3.card.map((t) => `<p>${esc(t)}</p>`).join('')}<p><b>パソコンが自動で書く書類（3級の型）</b></p><ul>${rules.map((k) => `<li>${esc(D.rules[k].conds.find((c) => c.ok && !c.broad).t)}</li>`).join('')}</ul><p class="muted">自動で書いた分は、成長の記録で「3級の型（見ただけ）」。検定会場の「自動仕訳の棚卸」や練習室で手で書けたら「自分でできた」になる。</p><button class="btn wide" data-go2>${RAMEN ? "屋台へ行く" : "会社へ行く（4月から）"}</button></div></main>`;
         app.onclick = (e) => { if (e.target.closest('[data-go2]')) done(); };
         return;
       }
@@ -348,10 +356,12 @@
     for (const k of kinds) if (D.rules[k] && !S.rules[k]) S.rules[k] = { cond: D.rules[k].conds.find((c) => c.ok && !c.broad).t, broad: false, at: 0, preset: true };
     S.introSeen = S.introSeen || {}; D.pro3.intros.forEach((k) => { S.introSeen[k] = true; });
     S.ruleIntro = true;
+    S.pro3 = { on: true, gate: res, at: Date.now() };
+    // ラーメン版は屋台のプロローグを飛ばさず、縮めた段で通す（PEDAGOGY 1.10「原理の発見は飛ばせない」。台本の ev.lite）
+    if (RAMEN) { S.phase = 'monthIntro'; save(); return; }
     S.discDone.prologue = 0;
     if (!S.leaves.some((l) => l.label === '左右に書く（仕訳）')) S.leaves.push({ p: 'P1', label: '左右に書く（仕訳）', mi: 0, lite: true });
     S.decisions.price = S.decisions.price || '100';
-    S.pro3 = { on: true, gate: res, at: Date.now() };
     S.mi = 1; S.ei = 0; S.phase = 'monthIntro';
     save();
   }
@@ -368,6 +378,17 @@
       save();
       const qs = discQuiz(ev);
       if (qs.length) quickQuiz(qs, '本試験の文で確かめる', () => next(), scopesOfDisc(ev)); else next();
+    };
+  }
+  // ラーメン版：屋号とプレイヤーの名前を決める（DESIGN-RAMEN c.6・l.2 段0、オーナー n.9）。自由入力。空なら既定の名前
+  function nameScreen(done) {
+    const p = S.profile || { ...PROFILE0 };
+    app.innerHTML = `<main class="s-main"><div class="s-card"><small>はじめる前に</small><h3>店の名前と、あなたの名前</h3><p>あなたは、ミライ社長の店でお金の記録をまかされる人。店の名前（屋号）と、ゲームの中で呼ばれる名前を決めよう。あとからタイトルで変えられる。</p><label class="s-field">店の名前（屋号）<input data-shop maxlength="12" value="${esc(p.shopName)}" placeholder="${esc(PROFILE0.shopName)}"></label><label class="s-field">あなたの名前<input data-player maxlength="10" value="${esc(p.playerName)}" placeholder="${esc(PROFILE0.playerName)}"></label><button class="btn wide" data-nameok>これで始める</button></div></main>`;
+    app.onclick = (e) => {
+      if (!e.target.closest('[data-nameok]')) return;
+      const clean = (x, d, n) => (String(x || '').replace(/[<>{}]/g, '').trim().slice(0, n) || d);
+      S.profile = { shopName: clean($('[data-shop]', app).value, PROFILE0.shopName, 12), playerName: clean($('[data-player]', app).value, PROFILE0.playerName, 10) };
+      S.profileOk = true; save(); done();
     };
   }
   // はじめる前に1回だけ、受験する年度を確かめる（科目の名前と出る論点が変わるため）
@@ -682,7 +703,7 @@
     applyScale();
     if (S.phase === 'title') return titleScreen();
     const m = month();
-    if (!m) return endScreen();
+    if (!m) return RAMEN && D.months.length <= 1 ? sliceTodo() : endScreen();
     if (S.phase === 'monthIntro') return monthIntro();
     // 月のはじめの「思い出す」は phase 'recall' で持つ（途中で閉じて開き直しても、とばされずに出る）
     if (S.phase === 'recall') return recallScreen(() => { S.phase = 'event'; save(); render(); });
@@ -717,13 +738,15 @@
     const started = S.mi > 0 || S.ei > 0;
     const ps = ST.profiles(), cur = ST.currentProfile();
     const who = ps.length > 1 || (ps[0] && ps[0].name) ? `<div class="s-who"><small>だれが遊ぶ？</small>${ps.map((p, k) => `<button class="${p.id === cur ? 'on' : ''}" data-prof="${p.id}">${esc(p.name || `${k + 1}人目`)}</button>`).join('')}<button data-addprof>＋</button></div>` : '<button class="link" data-addprof>ほかの人もこの端末で遊ぶ</button>';
-    app.innerHTML = `<main class="s-main s-title"><div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p><p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・ふりがな・文字の大きさ・保存と引っ越し</summary><div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div>${S.pro3 && S.pro3.on ? '<div class="s-who"><small>近道（3級の型は自動）</small><button data-p3off>近道を切る（3級の型も手で書く）</button></div>' : ''}<div class="s-who"><small>ふりがな</small><button class="${S.furigana !== 'always' ? 'on' : ''}" data-furi="auto">はじめてと、押したとき</button><button class="${S.furigana === 'always' ? 'on' : ''}" data-furi="always">いつも</button></div><div class="s-who"><small>文字の大きさ（書類と表も同じ割合で大きくなる）</small>${[100, 125, 150].map((z) => `<button class="${(S.textScale || 100) === z ? 'on' : ''}" data-tscale="${z}">${z}%</button>`).join('')}</div><div class="s-who"><small>検定会場の時間（読むのに時間がかかる人のための、はじめからの延長）</small>${[0, 10, 20, 30].map((z) => `<button class="${(S.examExtra || 0) === z ? 'on' : ''}" data-exx="${z}">${z ? `+${z}分` : 'なし'}</button>`).join('')}</div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
+    const logo = RAMEN ? `<div class="s-logo" data-nofuri>${esc(shopName())}<br><b>ラーメン</b></div><p>屋台の一杯から、町いちばんの店へ。<br>一杯を作り、値段を決め、お金の出入りを記録して店を育てよう。</p>` : '<div class="s-logo">ピヨ<br><b>商店</b></div><p>小さな屋台が、工場をもつ会社になるまで。<br>お金の出入りを記録して、会社を育てよう。</p>';
+    app.innerHTML = `<main class="s-main s-title">${logo}<p class="muted" style="font-size:.8rem">受験する年度：${esc(MODE_TXT[modeOf()])}</p>${who}<button class="btn wide" data-start>${started ? 'つづきから' : 'はじめる'}</button>${started ? '<button class="link" data-reset>最初からやり直す</button>' : ''}<details class="s-more"><summary>受験する年度・ふりがな・文字の大きさ・保存と引っ越し</summary>${RAMEN && S.profileOk ? `<div class="s-who"><small>店の名前・あなたの名前（いま：${esc(shopName())}・${esc(playerName())}）</small><button data-rename>名前を変える</button></div>` : ''}<div class="s-who"><small>受験する年度（問題の出し方が変わる）</small><button class="${modeOf() === '2026' ? 'on' : ''}" data-mode="2026">2027年3月まで</button><button class="${modeOf() !== '2026' ? 'on' : ''}" data-mode="2027">2027年4月から</button></div>${S.pro3 && S.pro3.on ? '<div class="s-who"><small>近道（3級の型は自動）</small><button data-p3off>近道を切る（3級の型も手で書く）</button></div>' : ''}<div class="s-who"><small>ふりがな</small><button class="${S.furigana !== 'always' ? 'on' : ''}" data-furi="auto">はじめてと、押したとき</button><button class="${S.furigana === 'always' ? 'on' : ''}" data-furi="always">いつも</button></div><div class="s-who"><small>文字の大きさ（書類と表も同じ割合で大きくなる）</small>${[100, 125, 150].map((z) => `<button class="${(S.textScale || 100) === z ? 'on' : ''}" data-tscale="${z}">${z}%</button>`).join('')}</div><div class="s-who"><small>検定会場の時間（読むのに時間がかかる人のための、はじめからの延長）</small>${[0, 10, 20, 30].map((z) => `<button class="${(S.examExtra || 0) === z ? 'on' : ''}" data-exx="${z}">${z ? `+${z}分` : 'なし'}</button>`).join('')}</div><p class="muted" style="font-size:12px" data-saveword>${esc(saveWord())}</p><button class="btn wide ghost" data-export>保存データをファイルにする</button><label class="btn wide ghost s-file">ファイルから続きを読み込む<input type="file" accept="application/json,.json" data-import hidden></label><button class="btn wide ghost" data-test>確認テスト（協力してくれる人向け）</button></details></main>`;
     app.onclick = (e) => {
-      if (e.target.closest('[data-start]')) { const go = () => { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }; if (!started && !S.modeOk) return modeScreen(() => pro3Ask(go)); go(); }
+      if (e.target.closest('[data-start]')) { const go = () => { if (S.phase === 'title') S.phase = started ? 'event' : 'monthIntro'; save(); render(); }; if (!started && RAMEN && !S.profileOk) return nameScreen(() => (S.modeOk ? pro3Ask(go) : modeScreen(() => pro3Ask(go)))); if (!started && !S.modeOk) return modeScreen(() => pro3Ask(go)); go(); }
       if (e.target.closest('[data-reset]')) { if (!confirm('この人の記録を消して、最初からやり直しますか？')) return; S = fresh(); S.phase = 'monthIntro'; save(); render(); }
       const pb = e.target.closest('[data-prof]');
       if (pb) { ST.switchProfile(pb.dataset.prof); const raw = ST.loadLocal(KEY); S = raw ? Object.assign(fresh(), raw) : fresh(); render(); ST.connect(KEY, (st) => { S = Object.assign(fresh(), st); if (document.querySelector('.s-title')) render(); }); }
       if (e.target.closest('[data-addprof]')) { const name = prompt('遊ぶ人の呼び名（あとで変えられる。本名でなくてよい）', ''); if (name == null) return; ST.addProfile(name); S = fresh(); render(); }
+      if (e.target.closest('[data-rename]')) { nameScreen(() => titleScreen()); return; }
       if (e.target.closest('[data-export]')) { ST.download(`piyo-save-${new Date().toISOString().slice(0, 10)}.json`, ST.exportText(KEY) || JSON.stringify(S)); }
       if (e.target.closest('[data-test]')) testScreen();
       const md = e.target.closest('[data-mode]');
@@ -1020,7 +1043,7 @@
   }
   function monthIntro() {
     const m = month();
-    frame(`<div class="s-card s-intro"><small>${esc(m.label)}</small><h2>${esc(m.title)}</h2><button class="btn wide" data-go>${S.mi === 0 ? '屋台へ行く' : '机に向かう'}</button></div>`);
+    frame(`<div class="s-card s-intro"><small>${esc(m.label)}</small><h2>${esc(fill(m.title))}</h2><button class="btn wide" data-go>${S.mi === 0 ? '屋台へ行く' : '机に向かう'}</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-go]')) { S.phase = 'recall'; S.ei = 0; save(); render(); } };
   }
   // 月のはじめに、先月の書類と同じ種類を、金額を変えて1つ思い出して書く（想起。答えは書いたあとに見せる）
@@ -1105,13 +1128,16 @@
   /* ---- プロローグ：棚に並べる・右の棚に置く・ノートに書く ---- */
   function boardScreen(ev, isReplay) {
     const st = { L: [], R1: [], R0: [] };
-    let i = 0, sub = {}, msg = '', done = false, sale = Number(S.decisions.price === '200' ? 1600 : 2000);
-    const amt = (a) => (a === 'sale' ? sale : a);
+    // 売れた額・使った額は、段の中の判断（choice の sale・cost）で決まる。ラーメン版は台本の sale0・cost0 が既定
+    let i = 0, sub = {}, msg = '', done = false, sale = ev.sale0 != null ? ev.sale0 : Number(S.decisions.price === '200' ? 1600 : 2000), cost = ev.cost0 || 0;
+    const amt = (a) => (a === 'sale' ? sale : a === 'cost' ? cost : a === '-cost' ? -cost : a);
+    // 3級既習の近道（PEDAGOGY 1.10）：発見は飛ばさず、ev.lite に書いた段だけ縮める（ラーメン版）
+    const skipStep = (k) => !isReplay && S.pro3 && S.pro3.on && (ev.lite || []).includes(k);
     const sum = (list) => list.reduce((t, x) => t + x.amt, 0);
     const coin = (d) => { const c = st.L.find((x) => x.id === 'coin'); if (c) c.amt += d; };
     // 戻る・取り消すで棚が二重にならないように、段の始まりと一手ごとの状態を取っておく
-    const snap = () => JSON.stringify({ st, sale, sub });
-    const restore = (j) => { const o = JSON.parse(j); st.L = o.st.L; st.R1 = o.st.R1; st.R0 = o.st.R0; sale = o.sale; sub = o.sub; };
+    const snap = () => JSON.stringify({ st, sale, cost, sub });
+    const restore = (j) => { const o = JSON.parse(j); st.L = o.st.L; st.R1 = o.st.R1; st.R0 = o.st.R0; sale = o.sale; cost = o.cost || 0; sub = o.sub; };
     let stepStart = [snap()], subs = [];
     let hist = [];
     const mark = () => hist.push(snap());
@@ -1121,6 +1147,7 @@
     if (!isReplay && S.drafts[bk]) { const o = S.drafts[bk]; restore(o.snap); i = o.i; stepStart = o.stepStart; subs.push(...o.subs); hist = o.hist; }
     const keepBoard = () => { if (!isReplay) { S.drafts[bk] = { snap: snap(), i, stepStart, subs, hist }; save(); } };
     const shelf = (showR) => `<div class="s-board"><div class="s-shelf"><h4>もっているもの</h4>${st.L.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('') || '<em>（からっぽ）</em>'}<div class="s-sum">${fmt(sum(st.L))}</div></div>${showR ? `<div class="s-shelf r"><h4>どこから来たか</h4><div class="s-row2"><small>返すお金</small>${st.R1.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('')}</div><div class="s-row2"><small>返さないお金（じぶんのお金）</small>${st.R0.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('')}</div><div class="s-sum">${fmt(sum(st.R1) + sum(st.R0))}</div></div>` : ''}</div>`;
+    const ART = { steam: '<svg class="s-art" viewBox="0 0 120 80" role="img" aria-label="湯気の立つラーメンの丼"><path d="M44 14c-6 6 6 10 0 18M60 8c-6 7 6 12 0 22M76 14c-6 6 6 10 0 18" fill="none" stroke="#9aa" stroke-width="3" stroke-linecap="round"><animate attributeName="stroke-opacity" values="0.3;0.9;0.3" dur="2.4s" repeatCount="indefinite"/></path><path d="M18 40h84a42 30 0 0 1-84 0z" fill="#c4442a"/><path d="M18 40h84" stroke="#e8c070" stroke-width="5"/><ellipse cx="46" cy="40" rx="10" ry="3" fill="#f3e3b5"/><ellipse cx="74" cy="40" rx="8" ry="3" fill="#8a5a3a"/><rect x="52" y="68" width="16" height="6" rx="2" fill="#7a2a1a"/></svg>' };
     const draw = () => {
       keepBoard();
       const s = ev.steps[i];
@@ -1149,7 +1176,7 @@
         body = `<div class="s-name"><small>この書き方の名前</small><h2>${rb(s.name)}</h2><p>${rb(s.line)}</p><p class="s-leaf">マップに「${esc(s.leaf.label)}」が加わった</p></div>`;
       }
       const after = ready && s.after ? talk(s.after) : '';
-      frame(`<div class="s-card">${talk(s.say)}${s.q && !(ready && s.k !== 'card') ? `<p class="s-q">${esc(s.q)}</p>` : ''}${body}${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}${after}${ready ? '<button class="btn wide" data-step>つぎへ</button>' : ''}${hist.length ? '<button class="btn ghost sm" data-undo>ひとつ取り消す</button>' : ''}${i > 0 ? '<button class="btn ghost sm" data-back>← もどる</button>' : ''}</div>`);
+      frame(`<div class="s-card">${s.art && ART[s.art] ? ART[s.art] : ''}${talk(s.say)}${s.q && !(ready && s.k !== 'card') ? `<p class="s-q">${esc(fill(s.q))}</p>` : ''}${body}${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}${after}${ready ? '<button class="btn wide" data-step>つぎへ</button>' : ''}${hist.length ? '<button class="btn ghost sm" data-undo>ひとつ取り消す</button>' : ''}${i > 0 ? '<button class="btn ghost sm" data-back>← もどる</button>' : ''}</div>`);
     };
     draw();
     app.onclick = (e) => {
@@ -1162,7 +1189,7 @@
         if (sub[t.id]) return;
         mark(); sub[t.id] = b.dataset.to; st[t.ok].push({ id: t.id, label: t.label, amt: amt(t.amt) }); if (t.coin) coin(amt(t.coin)); msg = ''; draw(); return;
       }
-      if (g('[data-pick]')) { const o = s.opts.find((x) => x.id === g('[data-pick]').dataset.pick); mark(); sub.pick = o.id; sale = o.sale; if (!isReplay) S.decisions.price = o.id; msg = ''; draw(); return; }
+      if (g('[data-pick]')) { const o = s.opts.find((x) => x.id === g('[data-pick]').dataset.pick); mark(); sub.pick = o.id; sale = o.sale; if (o.cost != null) cost = o.cost; if (!isReplay) S.decisions[s.id || 'price'] = o.id; msg = ''; draw(); return; }
       if (g('[data-ask]')) {
         const [li, k] = g('[data-ask]').dataset.ask.split('-').map(Number), o = s.lines[li].ask.opts[k];
         if (!o.ok) { msg = o.react; draw(); return; }
@@ -1175,10 +1202,10 @@
         mark(); sub[b.dataset.note] = c.side; msg = ''; draw(); return;
       }
       // もどる：この段でしたことを取り消してから、前の段を終えたときの状態に戻す
-      if (g('[data-back]')) { restore(stepStart[i]); i--; sub = subs[i] || {}; hist = []; msg = ''; draw(); return; }
+      if (g('[data-back]')) { restore(stepStart[i]); i--; while (i > 0 && skipStep(i)) i--; sub = subs[i] || {}; hist = []; msg = ''; draw(); return; }
       if (g('[data-step]')) {
         if (s.k === 'card' && !isReplay) { teach(s.teaches); if (!S.leaves.some((l) => l.label === s.leaf.label)) S.leaves.push({ p: s.leaf.p, label: s.leaf.label, mi: S.mi }); }
-        if (i + 1 < ev.steps.length) { subs[i] = JSON.parse(JSON.stringify(sub)); i++; sub = {}; hist = []; stepStart[i] = snap(); msg = ''; draw(); return; }
+        if (i + 1 < ev.steps.length) { subs[i] = JSON.parse(JSON.stringify(sub)); i++; while (i + 1 < ev.steps.length && skipStep(i)) { subs[i] = {}; i++; } sub = {}; hist = []; stepStart[i] = snap(); msg = ''; draw(); return; }
         if (isReplay) { render(); return; }
         if (!done && ev.next) { done = true; frame(`<div class="s-card">${talk(ev.next)}<button class="btn wide" data-fin>つぎへ</button></div>`); app.onclick = (x) => { if (x.target.closest('[data-fin]')) { S.discDone[ev.id] = S.mi; next(); } }; return; }
         S.discDone[ev.id] = S.mi; delete S.drafts[bk]; next();
@@ -2151,6 +2178,10 @@
       };
     };
     draw();
+  }
+  // ラーメン版の作りかけ（月の中身は DESIGN-RAMEN l.2 の段4・5で入る）。ここまで遊んだ記録は保存されている
+  function sliceTodo() {
+    frame(`<div class="s-card"><small>${esc(shopName())}</small><h3>この先は準備中</h3>${talk([['shacho', '{名}、店の話は、もう少し待ってくれ。居抜きの店を見に行く準備をしてる！'], ['piyo', '屋台で見つけた「左と右に書く」約束は、店でも使うピヨ。']])}<button class="btn wide ghost" data-ov="map">マップで、見つけた考え方を見る</button></div>`);
   }
   function endScreen(ev) {
     const M = S.metrics;

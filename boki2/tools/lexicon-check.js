@@ -2,11 +2,13 @@
 // 言葉の関所：台本（js/sim/scenario.js）を遊ぶ順に読み、まだ教えていない会計用語が画面に出ていないかを調べる。
 // あわせて、答えの先出し（正解の選択肢だけ補足・説明が長い）と、負荷の約束（1か月の新しい科目2つ・発見2つ・新しい原理1つ・1画面180字）も調べる。
 // 本試験の文言（b4.exam）は例外として、先に出している語を一覧で出すだけにする。
-// Usage: node boki2/tools/lexicon-check.js
+// Usage: node boki2/tools/lexicon-check.js [--ramen]   （--ramen：ラーメン版 ramen.html の台本を読む。DESIGN-RAMEN l.2 段4）
 global.window = global;
 const path = require('path');
 const root = path.join(__dirname, '..');
-['js/core.js', 'js/data/accounts.js', 'js/data/siblings.js', 'js/sim/lexicon.js', 'js/sim/scenario.js', 'js/sim/year2.js'].forEach((f) => require(path.join(root, f)));
+const RAMEN = process.argv.includes('--ramen');
+const STORY = RAMEN ? require('./ramen-files.js').story : ['js/sim/scenario.js', 'js/sim/year2.js'];
+['js/core.js', 'js/data/accounts.js', 'js/data/kubun.js', 'js/data/siblings.js', 'js/sim/lexicon.js', ...STORY].forEach((f) => require(path.join(root, f)));
 const B = window.BOKI, D = window.SIMDATA, LX = B.lex;
 const errors = [], notes = [];
 const taught = new Set();
