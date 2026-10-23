@@ -170,7 +170,7 @@
     // 預かった消費税に線を引いた会社（判断 vat）は、口座のお金のうち預かり分を見せる
     const azu = S.decisions.vat === 'line' && knows('仮受消費税') ? Math.max(0, -(b['仮受消費税'] || 0) - (b['仮払消費税'] || 0)) : 0;
     const kpi = inShop && hideKpi ? '<div class="s-kpi"><small>口座のお金</small><b>予想のあとで</b></div>' : inShop ? `<div class="s-kpi"><small>口座のお金</small><b class="${cashOf(b) < 0 ? 'neg' : ''}">${fmt(cashOf(b))}</b>${azu ? `<small class="s-azu">うち預かり ${fmt(azu)}</small>` : ''}</div>${knows('収益') ? `<div class="s-kpi"><small>${yearOf(S.mi) > 1 ? `${yearOf(S.mi)}年目のもうけ（4月から）` : 'この1年のもうけ'}</small><b class="${p.ni < 0 ? 'neg' : ''}">${fmt(p.ni)}</b></div>` : ''}${Object.keys(S.rules).length ? `<div class="s-kpi"><small>自動で書く書類</small><b>${Object.keys(S.rules).length}種類</b></div>` : ''}` : '';
-    const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button>' + (S.dueBuilt ? '<button data-ov="due">期日</button>' : '') + '<button data-ov="room">練習室</button></nav>' : '';
+    const nav = inShop ? '<nav class="s-nav"><button data-ov="co">会社の棚</button><button data-ov="map">マップ</button><button data-ov="grow">成長</button><button data-ov="log">日誌</button>' + (S.dueBuilt ? '<button data-ov="due">期日</button>' : '') + '<button data-ov="room">練習室</button>' + (RAMEN ? '<button data-ov="title">スロット</button>' : '') + '</nav>' : '';
     // 「本文へ」：キーボードで最初に届く。ナビより先に画面の中身へ（見えるのはフォーカスしたときだけ）
     return `<header class="s-head"><button class="s-skip" data-skiplink>本文へ</button><div class="s-month"><small>${esc(RAMEN ? (inShop ? shopName() : `${shopName()}（屋台）`) : inShop ? '株式会社ピヨ商店' : 'ピヨの屋台')}</small><b>${m ? esc(m.label) : ''}</b></div>${kpi}${nav}</header>`;
   }
@@ -266,6 +266,7 @@
     const b = e.target.closest('[data-ov]');
     if (!b) return;
     const k = b.dataset.ov;
+    if (k === 'title') { document.querySelectorAll('.s-ov').forEach((o) => o.remove()); save(); titleScreen(); return; }
     if (k === 'co') coOverlay();
     if (k === 'map') mapOverlay();
     if (k === 'grow') overlay(B.growth.view(GAPI));
@@ -2271,7 +2272,8 @@
       history.pushState({ piyo: 1 }, '');
     });
   } catch (e) { /* 履歴が使えない環境では何もしない */ }
-  if (/[?&]test\b/.test(location.search)) testScreen(); else render();
+  // ラーメン版はセーブスロットを選ぶため、いつもタイトルから（つづきから で前の場面へ）
+  if (/[?&]test\b/.test(location.search)) testScreen(); else if (RAMEN) titleScreen(); else render();
   // 公開ページとして開かれていれば、ページの保存機能につなぐ。別の端末の新しい続きがあれば読み込む
   const bootAt = Date.now();
   const pulled = (st) => { if (Date.now() - bootAt > 20000 && !document.querySelector('.s-title')) return; S = fromSaved(st); render(); };
