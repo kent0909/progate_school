@@ -84,3 +84,7 @@ docs で資料に触れるときは `[[kentei:kouhyou2:139]]` の形で出典を
 
 ## robots.txt は道具が確かめる（2026-10-22）
 research-fetch は取得のたびに、そのホストの robots.txt（1日だけ research/raw/.robots/ に残す）で、パスが User-agent: * に禁じられていないかを確かめる。禁じられていれば取らずに終了コード3で WANTED.md に回す。人が robots.txt を読んで判断しなくてよい（読み落としで IRDB の /search を取った件。INCIDENTS.md）。
+
+
+## 転載は元の配信元の禁止に従う（2026-10-23、オーナーの決定）
+元の配信元（例：npr.org）が robots.txt で取得を禁じている記事は、転載先（例：地方局のサイト）の robots.txt が許していても使わない。転載か分かったら、取る前に元の配信元の robots.txt を research-fetch で確かめる。
