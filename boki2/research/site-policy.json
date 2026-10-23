@@ -2268,5 +2268,15 @@
   "verdict": "gray",
   "basis": "robots.txt は research-fetch が自動で確かめる（禁止なら取らない）。利用規約に自動取得の明示的な禁止は見当たらない／規約頁は未確認（README の目安により gray）。1頁だけ・間隔を守る（2026-10-23）",
   "checked": "2026-10-23"
+ },
+ "infovore.org": {
+  "verdict": "no-automation",
+  "basis": "infovore.org/robots.txt（2026-10-23 取得 r10-robots-infovore.org）が ClaudeBot・anthropic-ai・claude-web の組で Disallow: / 。Anthropic の名を挙げて禁じるので取らない",
+  "checked": "2026-10-23"
+ },
+ "gameanalytics.com": {
+  "verdict": "gray",
+  "basis": "規約の確認のための取得（判定は取得後に書き直す）",
+  "checked": "2026-10-23"
  }
 }
