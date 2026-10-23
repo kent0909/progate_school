@@ -13,7 +13,7 @@ TOOL = os.path.join(ROOT, 'tools', 'sheet-text.py')
 HOL = {(1, 1), (1, 13), (2, 11), (2, 23), (2, 24), (3, 20), (4, 29), (5, 3), (5, 4), (5, 5), (5, 6), (7, 21), (8, 11), (9, 15), (9, 23), (10, 13), (11, 3), (11, 23), (11, 24)}
 NENMATSU = {(12, 29), (12, 30), (12, 31), (1, 1), (1, 2), (1, 3)}
 OBON = {(8, 13), (8, 14), (8, 15), (8, 16)}
-ITEMS = ['中華そば', '外食', '日本そば・うどん', 'ハンバーガー', '喫茶代', '食料']
+ITEMS = ['中華そば', '外食', '日本そば・うどん', 'ハンバーガー', '喫茶代', '食料', 'こづかい(使途不明)', '世帯主こづかい']
 
 def kind(d):
     md = (d.month, d.day)
@@ -59,3 +59,30 @@ for sheet_prefix, label in (('二人', '二人以上の世帯'), ('勤労', '二
             print(f'| {it} | {k} | {len(x)} | {statistics.mean(x):.2f} | {statistics.pstdev(x):.2f} | {min(x):.2f} | {max(x):.2f} |')
     print()
 # 週の中の山と谷の比（中華そば、二人以上）
+
+# ---- 版2で足した（論証の検査 Z04・Z05、事実の判定 U10） ----
+# 祝日・お盆・年末年始を除いた「土日÷月〜木」を品目ごとに。家計の中華そばの行は家族の外食で、こづかい（使途不明）で払う昼食・単身世帯は入らない。
+def wk(sheet_prefix, it):
+    by = collections.defaultdict(list)
+    for m in range(1, 13):
+        key = [k for k in data[m] if k[0].startswith(sheet_prefix) and k[1] == it]
+        if not key: continue
+        v = data[m][key[0]]
+        ndays = (datetime.date(2025 + (m == 12), m % 12 + 1, 1) - datetime.timedelta(days=1)).day
+        for d in range(1, ndays + 1):
+            if v[d - 1] is None: continue
+            by[kind(datetime.date(2025, m, d))].append(v[d - 1])
+    we = statistics.mean(by['土'] + by['日']); wd = statistics.mean(by['月〜木'])
+    return we / wd
+print('## 版2：土日÷月〜木（祝日・お盆・年末年始を除く、円の平均どうしの比）\n')
+print('| 品目 | 二人以上 | 勤労者 |'); print('|---|---|---|')
+R = {}
+for it in ITEMS:
+    R[it] = (wk('二人', it), wk('勤労', it))
+    print(f'| {it} | {R[it][0]:.2f} | {R[it][1]:.2f} |')
+print('\n## 版2：店の土日÷平日の感度（【推論】の仮定：平日の客のうち、家計の中華そばの行に乗らない層（勤め人の昼・単身）の割合 s。その層の土日÷平日はこづかい（使途不明、二人以上）の比、家計の層の比は中華そば（二人以上）の比とおく。店の比＝(1−s)×中華そば＋s×こづかい）\n')
+f = R['中華そば'][0]; g = R['こづかい(使途不明)'][0]
+print('| s（平日の客のうち家計に乗らない層） | 店の土日÷平日 |'); print('|---|---|')
+for s_ in (0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8):
+    print(f'| {s_:.1f} | {(1 - s_) * f + s_ * g:.2f} |')
+print('\ns の値の資料は無い（家計構造調査の単身世帯の曜日別の表は取っていない）。DESIGN の ×1.5 は s≒0.5〜0.6、×1.3 は s≒0.65 に当たる（この仮定の式の上で）。')
