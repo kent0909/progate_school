@@ -1836,8 +1836,8 @@
  },
  "ndlsearch.ndl.go.jp": {
   "verdict": "gray",
-  "basis": "国立国会図書館サーチのAPI（OpenSearch）は利用規約で非営利の利用を認める。robots.txt は /api を禁止していない（2026-10-22 確認）",
-  "checked": "2026-10-22"
+  "basis": "国立国会図書館サーチ。利用規約は API の非営利の利用を認めるが、robots.txt は User-agent:* に Disallow: /api（2026-10-23 に research-fetch の自動の確かめで取得した robots.txt で確認）。API・/search/history は取らない。2026-10-22 の「robots.txt は /api を禁止していない」は誤り（INCIDENTS.md）",
+  "checked": "2026-10-23"
  },
  "www.jfa-fc.or.jp": {
   "verdict": "gray",
