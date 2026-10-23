@@ -42,3 +42,4 @@
 {"t": "2026-10-23T02:02:54.833289Z", "query": "WebSearch：阪急阪神ホテルズ メニュー表示 2013 延べ 7万9000人 芝エビ 発表", "item": "robots 差し替え：r5-blr-gendai-gisou", "used": ["r10-rr-jcast-hankyu-2013"], "note": "J-CAST の記事（23店・47品・延べ約7万9000人）。元シェフ・食評論家の発言は出ない"}
 {"t": "2026-10-23T02:02:54.865379Z", "query": "WebSearch：ペッパーランチ 一瀬邦夫 原価率 50% ステーキ 立ち食い インタビュー", "item": "robots 差し替え：r5-growth-creator-pepper-gendai57252", "used": [], "note": "プレジデントの記事は原価率6〜7割でも成り立つ（いきなりステーキ）。50%の語は出ない"}
 {"t": "2026-10-23T02:02:54.898469Z", "query": "WebSearch：小本恵照 ほか J-STAGE の論文の別の置き場（6件）", "item": "robots 差し替え：J-STAGE の PDF", "used": ["r10-rr-js-*"], "note": "J-STAGE の記事の頁（_article）を取った。抄録のない4本（fukusuten2014・manzoku2025・ranyo2015・kozo2000）は別の置き場も出ない"}
+{"t": "2026-10-23T02:34:35.279222Z", "query": "WebSearch：ポスティング 配布員 不正 捨てる 未配布 GPS 確認 苦情 投函禁止 注意点", "item": "robots 差し替え：r4-mkt-crowdworks-posting（配布員が捨てる・苦情）", "used": [], "note": "公的な指針は出ない。財経新聞のプレスリリース（GPS ロガー）、みん評の口コミ（配布員の不正）、アシストのガイド（投函禁止の物件に注意）"}

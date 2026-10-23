@@ -2328,5 +2328,10 @@
   "verdict": "gray",
   "basis": "日刊ゲンダイ DIGITAL。robots.txt（2026-10-23 取得 r10-robots-www.nikkan-gendai.com）に User-agent:* の組も Anthropic の名の組もない（制限なし）。規約は取得後に確かめる",
   "checked": "2026-10-23"
+ },
+ "president.jp": {
+  "verdict": "gray",
+  "basis": "PRESIDENT Online。robots.txt（2026-10-23 取得 r10-robots-president.jp）は User-agent:* に /search・/articles/print/ などだけ Disallow、Anthropic の名の組なし。2026-10-22 の他の担当の取得と同じ判定（gray）。記事の単発の閲覧、転載しない",
+  "checked": "2026-10-23"
  }
 }
