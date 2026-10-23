@@ -79,7 +79,7 @@ C077	一部	fill-calib-v2-checks.out.md の E	平時の2年度で3.3㎡売上の
 C078	引き継ぎ	BIZ-FILL-RAMEN 1.1 S1・r7-fc-q-js-office-inshoku-kyujitsu	同 C017（オフィス街は自分で探して無い）
 C079	埋まらず（探した）	r7-fc-q-js-kojinten-genka	個人店とチェーンの原価率の差の研究は見つからない（版1の「一部」は取り消す）
 C080	一部	r6-fc-warp-jfc-202302-08c・r6-fc-warp-jfc-2024-08c	中華の規模別は2021年度を足した。2023年度は規模別の表に中華が無く、喫茶・パンは公表なし
-C081	一部	fill-calib-recount.out.txt	(c) は43/115＝37.4%（版2の数え直し）。30%に9行足りない
+C081	一部	fill-calib-recount.out.md	(c) は43/115＝37.4%（版2の数え直し）。30%に9行足りない
 C082	埋まらず（探した）	r7-fc-q-js-inshoku-tosan・r7-fc-q-js-ramen-tosan	5件目のラーメン店の個別の倒産事例は J-STAGE に無い（TSR の記事は版0.2と版1で取った分のまま）
 C083	一部	fill-calib-debt.out.md	同 C068
 C084	一部	fill-calib-census.out.md・r7-fc-js-chiba-census2024	3回の表は取ったが、76B の増加は飲食店全体の増加（+16.0%）より小さく、2016年の格付不能6,339の振り方で細分類の符号が変わり、センサスの把握漏れ（千葉市で約4割）もある。数の向きは未確定
@@ -98,7 +98,7 @@ C096	埋まった	r6-fill-kouri-toshi-b0011-202607	都市別の中華そばの�
 C097	引き継ぎ	BIZ-FILL-RAMEN 1.1 S1・r7-fc-q-js-tenko-raikyaku・r7-fc-q-js-kion-gaishoku	季節の切り分けは引き継ぎ先。気象と売上の研究は自分でも探し、効果の大きさは無い
 C098	埋まった	accountant-asbj-29-revenue	企業会計基準第29号 第53項
 C099	一部	fill-calib-youbi.out.txt	曜日の倍率は家族の外食の上の端として置けたが、週ごとの振れ（±10%）には触れていない
-C100	一部	fill-calib-recount.out.txt	同 C081
+C100	一部	fill-calib-recount.out.md	同 C081
 C101	一部	r7-fc-js-kakaku-kioku2022・r7-fc-js-fc-haigyo・r6-fc-kourakuen-yuho2020	論証の表の「作り手の負担が減る」2行に2つ目の反対の事実を足した（値引き：値上げの受け入れは層で違う。2号店：幸楽苑の他業態の5年の撤退）。版1の「元の報告の書き手の仕事」は範囲の断りで、探していなかった
 C102	説明	—	HANDOFF の更新（まとめ役の作業）
 C103	計算	—	C012 と同じ式

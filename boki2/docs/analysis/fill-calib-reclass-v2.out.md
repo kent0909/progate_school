@@ -128,4 +128,4 @@
 
 埋まらず（探した）44か所のうち、今回の検索の記録で指せない行：なし
 
-検索の記録 searches/fill-calib.jsonl：55行（J-STAGE 52・国立国会図書館サーチ 2（robots の禁止が分かり根拠に使わない）・Internet Archive 1）
+検索の記録 searches/fill-calib.jsonl：56行（J-STAGE 52・国立国会図書館サーチ 2（robots の禁止が分かり根拠に使わない）・Internet Archive 1）

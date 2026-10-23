@@ -45,10 +45,12 @@ KIND = {
  'r5-blr-econ-cartelgame': 'maker',
  # 反対意見
  'r5-blr-zenshoren-shaho': 'oppo', 'r5-blr-gendai-gisou': 'oppo',
- 'r5-blr-keidanren-kachoukin2014': 'oppo', 'r5-blr-keidanren-fukusuu2014': 'oppo',
+ 'r5-blr-keidanren-kachoukin2014': 'oppo',
+ # 制度への反対（報告の結論への反論ではないので反対意見に数えない。第4版）
+ 'r5-blr-keidanren-fukusuu2014': 'sys',
 }
 LABEL = {'gov': '一次資料・統計（官公庁）', 'prac': '実務者・業界の解説', 'case': '事例（報道・企業の開示）', 'research': '研究',
-         'stat': '統計（民間）', 'maker': '作り手の話', 'oppo': '反対意見'}
+         'stat': '統計（民間）', 'maker': '作り手の話', 'oppo': '反対意見', 'sys': '制度への反対（反対意見に数えない）'}
 
 def notes():
     out = []
@@ -67,7 +69,7 @@ print(f'新しく読んだ資料のノート {len(new)} 本、既にある資料
 if missing: print('分類がないノート:', missing)
 cnt = {}
 for b in new: cnt[KIND.get(b, '?')] = cnt.get(KIND.get(b, '?'), 0) + 1
-for k in ['gov', 'prac', 'case', 'research', 'stat', 'maker', 'oppo']:
+for k in ['gov', 'prac', 'case', 'research', 'stat', 'maker', 'oppo', 'sys']:
     print(f'  {LABEL[k]}: {cnt.get(k, 0)}')
 print(f'  種類の数: {len([k for k in cnt if cnt[k] > 0])}、官公庁の割合: {cnt.get("gov", 0)}/{len(new)} = {cnt.get("gov", 0) / len(new):.3f}')
 print('  節のノート:', ', '.join(sec))
@@ -102,7 +104,7 @@ if os.path.exists(REP):
     gray = re.findall(r'^\| G\d+ ', sect('灰色の判断の一覧').split('### 型の付け直し')[0], re.M)
     cases = re.findall(r'^\| E\d+ ', sect('事例と判例'), re.M)
     fail = re.findall(r'^\| E\d+ \|[^|]*\|[^|]*失敗', sect('事例と判例'), re.M)
-    succ = re.findall(r'^\| E\d+ \|[^|]*\|[^|]*成功', sect('事例と判例'), re.M)
+    succ = re.findall(r'^\| E\d+ \|[^|]*\| 成功', sect('事例と判例'), re.M)
     gaishoku = re.findall(r'^\| E\d+ \|[^|]*外食', sect('事例と判例'), re.M)
     stats = re.findall(r'^\| S\d+ ', sect('起きる確率の根拠'), re.M)
     jrn = re.findall(r'^（J\d+', sect('仕訳の例'), re.M)
