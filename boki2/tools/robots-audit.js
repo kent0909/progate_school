@@ -60,7 +60,7 @@ const parseNamed = (text) => {
     const m = l.match(/^([A-Za-z-]+)\s*:\s*(.*)$/); if (!m) continue;
     const k = m[1].toLowerCase(); const v = m[2].trim();
     if (k === 'user-agent') { if (inRules) { agents = []; inRules = false; } agents.push(v.toLowerCase()); continue; }
-    if (k === 'allow' || k === 'disallow') { inRules = true; if (agents.some((g) => AI.test(g)) && v) rules.push({ allow: k === 'allow', p: v }); }
+    if (k === 'allow' || k === 'disallow') { inRules = true; if (agents.some((g) => AI.test(g)) && v) rules.push({ allow: k === 'allow', p: v, ag: agents.filter((g) => AI.test(g)).join(',') }); }
   }
   return rules;
 };
@@ -123,7 +123,7 @@ const audit = () => {
     const hit = decide(h.rules, target);
     if (hit && !hit.allow) h.hits.push({ e, target, p: hit.p });
     const nh = decide(h.named, target);
-    if (nh && !nh.allow && !(hit && !hit.allow)) h.namedHits.push({ e, target, p: nh.p });
+    if (nh && !nh.allow && !(hit && !hit.allow)) h.namedHits.push({ e, target, p: nh.p, ag: nh.ag });
   }
   return { L, fetches, bad, hosts, H };
 };
@@ -237,8 +237,8 @@ md.push('robotsGate は `*` と `boki2-quest-research` の組しか見ない。�
 const nrows = hosts.filter((h) => H[h].namedHits.length);
 if (!nrows.length) md.push('（なし）');
 else {
-  md.push('| ホスト | 件数 | 禁じるパス | doc の一覧 | その doc を引いている報告（引用の数） |', '|---|---|---|---|---|');
-  for (const h of nrows) { const xs = H[h].namedHits; const keys = docKeys(xs); const by = citeOf(keys); md.push(`| ${h} | ${xs.length} | ${[...new Set(xs.map((x) => '`' + esc(x.p) + '`'))].join(' ')} | ${keys.map((k) => `\`${k}\``).join('<br>')} | ${Object.entries(by).map(([f, n]) => `${f}（${n}）`).join('<br>') || '（引用なし）'} |`); }
+  md.push('| ホスト | 件数 | 禁じるパス（名指しの名前） | doc の一覧 | その doc を引いている報告（引用の数） |', '|---|---|---|---|---|');
+  for (const h of nrows) { const xs = H[h].namedHits; const keys = docKeys(xs); const by = citeOf(keys); md.push(`| ${h} | ${xs.length} | ${[...new Set(xs.map((x) => '`' + esc(x.p) + '`（' + x.ag + '）'))].join(' ')} | ${keys.map((k) => `\`${k}\``).join('<br>')} | ${Object.entries(by).map(([f, n]) => `${f}（${n}）`).join('<br>') || '（引用なし）'} |`); }
 }
 md.push('', '## robots.txt が不確か・取れなかったホスト', '');
 md.push('最後の状態が 0（つながらない）・5xx・429、または research-fetch の自動の確かめが空のファイルだけを残したホスト、取りに行けなかったホスト。依頼どおり「制限なし」として数えたが、本当に制限がないかは分からない。', '');
