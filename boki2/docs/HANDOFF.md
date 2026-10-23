@@ -45,6 +45,7 @@
 - 検査：validate / sim-check / lexicon-check / coverage / law-check / research-check。ブラウザ試験は scratchpad の `sim/play2.js`・`sim/room-test.js`・`sim/hall-test.js`・`exam/exam-test.js`（新セッションでは消える）
 
 ## 5. いまやっていること
+- **オーナーの決定（2026-10-23）**：BIZ-RAMEN の未達3基準（本の本文・店の客の口コミ・系統の1杯の原価）は「未達のまま受け入れる」。設計では資料で言えない所を明記し、原価の【推論】のマスは仮の値として扱う（docs/OWNER-WORDS.md）
 - **合格した報告（2026-10-22 夕）**：BIZ-COFFEEINC2 v4・BIZ-FUNVISUAL 版0.5・BIZ-MKT-RAMEN 版1.3。直し中：BIZ-RAMEN 第5版（差分の再判定中）・BIZ-CALIB 版0.4・BIZ-SIMDESIGN 版0.4・BIZ-REPLAY 版0.4・BIZ-LAW-RAMEN 第3版・BIZ-GROWTH 第2版（再判定中）・BIZ-FILL-RAMEN 版2・BIZ-FILL-CALIB 版2。
 - **実装で見つかったこと（DESIGN-RAMEN の改訂に渡す）**：js/sim/engine.js の条件A（S.examLog）に入るのは本試験の文の問題だけで、月初の想起は誤ったときだけ ok:false で入る（1091行）。月初の想起は条件Aを外す側にしか働かない。正解率100%未満の人が届く作りかは、BIZ-REPLAY 版0.4 で問いとして出す
 - **道具の直し（2026-10-22 夕）**：research-fetch が取得のたびに robots.txt を確かめる（IRDB の件。INCIDENTS.md）。report-check が「検査役の筋から採ったもの」のない報告を警告する（QUALITY 6.3 の追記）
