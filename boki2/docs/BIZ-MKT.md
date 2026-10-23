@@ -405,3 +405,6 @@
 | [[web:bizmkt:r4-mkt-honichi-gourmetsurvey]] | 訪日ラボ 飲食店検索の調査 | 業者の調査（一部読了） |
 
 取得できず理由つきで記録したもの（根拠に使っていない）：国税庁の収益認識の資料（503）、中小企業白書H28（403）、issoh の値引きコラム（403）、アイミツのポスティング相場（503）。
+
+## robots.txt で禁じられた経路の出典
+2026-10-23 のさかのぼり点検（research/ROBOTS-AUDIT.md）で、この報告の次の出典は、robots.txt が禁じるパス（または Anthropic の名を挙げて禁じる組）から取得していたと分かった。オーナーの決定で引用は残し、事実どおりここに記す。今後は research-fetch が自動で止める：r4-mkt-crowdworks-posting

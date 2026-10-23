@@ -1194,3 +1194,6 @@ QUALITY 6.3（commit 7d1c5a7）の決まり。論証の検査書（`docs/audit/B
 **別の担当の原文**：BIZ-FUNVISUAL の7本、BIZ-REPLAY の Hades の開発の聞き取り（r6-rp-gd-hades-devprocess、全文）。
 **利用者の声**：APPLION の6ページ（各作品の1ページ目）。
 **研究（0.4 で足した）**：Vymětal & Ježek 2014、経営シミュレーターの需要関数（r7-sd-mpra-54716、全文）。
+
+## robots.txt で禁じられた経路の出典
+2026-10-23 のさかのぼり点検（research/ROBOTS-AUDIT.md）で、この報告の次の出典は、robots.txt が禁じるパス（または Anthropic の名を挙げて禁じる組）から取得していたと分かった。オーナーの決定で引用は残し、事実どおりここに記す。今後は research-fetch が自動で止める：r4-sim-gd-80days-postmortem、r4-sim-gd-intothebreach、r4-sim-gd-meier2012、r4-sim-gd-pdg、r4-sim-gd-rimworld、r4-sim-gd-thiswarofmine、r6-rp-gd-hades-devprocess、r6-sd-gd-glassbox2012、r6-sd-pecorella-idle1、r7-sd-mpra-54716

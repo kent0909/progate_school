@@ -1013,3 +1013,6 @@ QUALITY 5.1 の7列。作り手の労力が減る向きの結論には、反対�
 **この版で新たに読んだもの**：APPLION の口コミの2ページ目以降（全国編・発展国++・グッドピザ各9ページ、グルメ食堂1ページ）、作品ページ6本（r5-fv-applion-*-app）、Capitalism Lab のトップ（r5-fv-capilab-home）、Hovgaard（r5-fv-hovgaard-startup）、Mohawk（r5-fv-mohawk-offworld）、画面写真（各文書の part shot）。
 **原文を読み直して引いたもの**：Coffee Inc 2 の口コミ7ページと攻略の記事、Big Ambitions の4本、ギフト HD の有報、力の源の決算短信、山岡家・幸楽苑の決算説明、公庫・J-Net21・TDB・TSR・農水・JETRO・冷凍食品協会・福岡市の資料、天下一品のグッズの記事。
 **版0.1 から引き続き引いたもの**：r5-fv-* の44本と、BIZ-SIMDESIGN の r4-sim-* のノート。
+
+## robots.txt で禁じられた経路の出典
+2026-10-23 のさかのぼり点検（research/ROBOTS-AUDIT.md）で、この報告の次の出典は、robots.txt が禁じるパス（または Anthropic の名を挙げて禁じる組）から取得していたと分かった。オーナーの決定で引用は残し、事実どおりここに記す。今後は research-fetch が自動で止める：r4-sim-gd-meier2012、r5-fv-gd-gamedevstory、r5-fv-gd-juice、r5-fv-gd-mgmtdepth

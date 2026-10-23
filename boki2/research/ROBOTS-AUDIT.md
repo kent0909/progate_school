@@ -630,3 +630,7 @@ robotsGate は `*` と `boki2-quest-research` の組しか見ない。取得は 
 | ynu.repo.nii.ac.jp | 2 | 200 | raw/.robots（自動の確かめ） 2026-10-23T01:14 | 17 | 0 |
 | zenn.dev | 2 | 200 | web:simgames:r4-cinc-robots-zenn-dev 2026-10-22T03:13 | 1 | 0 |
 | zensho.or.jp | 12 | 200 | raw/.robots（自動の確かめ） 2026-10-23T01:14 | 2 | 0 |
+
+
+## 扱いの決定（2026-10-23、オーナー）
+選択肢 B：引用は残し、「robots.txt で禁じられた経路で取得した」と事実どおり注記する。各報告の末尾に章「robots.txt で禁じられた経路の出典」を足した。取得の記録（ledger）は書き換えない。今後の取得は research-fetch の自動の確かめ（名指しの組を優先、Anthropic の名の組も守る）で止まる。

@@ -898,3 +898,6 @@ QUALITY 6.3 の決まり（検査役の筋を採るときは1行ずつ書く）�
 - 反対の論評：r6-rp-gpb-hades-stop、r6-rp-superjump-nier-notreplayable
 - 百科事典（二次）：r6-rp-wiki-hades・sts・outerwilds・nierautomata・obradinn・intothebreach・balatro・spelunky・deadcells・ftl
 - 利用者の声：経営シムは BIZ-FUNVISUAL の担当が取得した原文（r5-fv-applion-gamedevstory・-p2〜p10、ramenkan、ramenkan-zenkoku・-p2〜p10、gurume・-p2、goodpizza・-p2〜p10）の643件を、版0.3ですべて全文で読んだ（読了ノート `#rp` 33本）。ローグライト等は r6-rp-applion-sts-p1・s20・s40・s60・s80、balatro-p1・s20・s40、ftl-p1・s20、stardew-p1・s20・s40、gdt-p1
+
+## robots.txt で禁じられた経路の出典
+2026-10-23 のさかのぼり点検（research/ROBOTS-AUDIT.md）で、この報告の次の出典は、robots.txt が禁じるパス（または Anthropic の名を挙げて禁じる組）から取得していたと分かった。オーナーの決定で引用は残し、事実どおりここに記す。今後は research-fetch が自動で止める：r4-sim-gd-intothebreach、r4-sim-gd-pdg、r6-rp-gd-balatro-signposting、r6-rp-gd-hades-devprocess、r6-rp-gd-igf-outerwilds、r6-rp-gd-igf-slaythespire、r6-rp-gpb-hades-stop、r6-rp-latimier2021-full
