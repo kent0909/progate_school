@@ -94,7 +94,7 @@
 - 一番多い種類は作り手の話で 30/77＝39%。
 - **受け入れの基準2（新しい作り手の話8本以上）は9本**【0.3】：Civilization 1・Offworld 2・Factorio 1・Two Point 1・SimCity（GlassBox）1・Big Ambitions 2（Codecks・GameDiscover）・AdVenture Capitalist 1。0.2 の10本から、メールの定型の問答で設計の中身がない gamespark を外した（事実の判定 基準2）。GlassBox の講演の取材は B1 の評価（4.2）で本文に使った。
 - **反対意見**は独立の資料としては0本。反対の記述は資料の中にある（反証と限界）。
-- **取れなかったもの**：Gold & Pray の需要関数の論文（ABSEL の論文誌は保守中、Wayback の保存版はこの環境の中継で接続が切れた。取らない記録あり。【0.4】代わりを WebSearch で探し、経営シミュレーターの需要関数の作業論文1本（Vymětal & Ježek 2014、r7-sd-mpra-54716）を全文読んだ。Gold & Pray 1984 は、多くの需要関数は [[web:simgames:r7-sd-mpra-54716|「not flexible enough」]] と結論した、という紹介の一文だけ（又引きなので本文の結論には使わない）。検索の記録は `research/searches/simgames.jsonl`。そのうち0.3 で行った検索2本は0.4 で後から記録した）、Tynan の『Designing Games』（【0.4】WebSearch で自由に読める抜粋なし、O'Reilly の紹介ページは403。取らない記録 r7-sd-oreilly-designinggames）、Reigns の作者の文字の聞き取り（AppUnwrapper は Cloudflare の確認で403。取らない記録あり）、Cooper & Nakanishi の MCI の本、Huff 1963、Steam のレビュー（規約）。どれも代わりの資料で同じ問いに答えた所と、答えられていない所を「やっていないこと」に分けた。
+- **取れなかったもの**：Gold & Pray の需要関数の論文（ABSEL の論文誌は保守中、Wayback の保存版はこの環境の中継で接続が切れた。取らない記録あり。【0.4】代わりを WebSearch で探し、経営シミュレーターの需要関数の作業論文1本（Vymětal & Ježek 2014、r7-sd-mpra-54716）を全文読んだが、取得元の MPRA は robots.txt が Anthropic の名の組で禁じる経路だったので引用を外した（末尾の章）。【2026-10-23 直した】ABSEL の論文誌が開いていたので、又引きしていた Gold & Pray の系統の原典 Pray & Gold 1982 の要旨を読んだ：8本の経営シミュレーションの需要関数を比べ（[[web:simgames:r10-rr-absel-praygold1982|「eight(8) business」]]）、一部は不安定で現実離れの結果を出した（[[web:simgames:r10-rr-absel-praygold1982|「somewhat unstable」]]）。要旨だけで本文は読んでいない。検索の記録は `research/searches/simgames.jsonl`。そのうち0.3 で行った検索2本は0.4 で後から記録した）、Tynan の『Designing Games』（【0.4】WebSearch で自由に読める抜粋なし、O'Reilly の紹介ページは403。取らない記録 r7-sd-oreilly-designinggames）、Reigns の作者の文字の聞き取り（AppUnwrapper は Cloudflare の確認で403。取らない記録あり）、Cooper & Nakanishi の MCI の本、Huff 1963、Steam のレビュー（規約）。どれも代わりの資料で同じ問いに答えた所と、答えられていない所を「やっていないこと」に分けた。
 
 ---
 
@@ -123,13 +123,13 @@
 
 1. **頼り合う変数の循環が、次の一手を毎回変える**（長く遊ばれる作品の一部が持つ型）。SimCity の住宅の需要は働き口÷住民の比で決まり、商業は町の中の市場×働き手、工業は外の市場×働き手で決まる（[[web:simgames:r6-sd-micropolis-ssim|「ratios are velocity」]]）。住宅だけ増やすと働き口が足りずに移住が止まる→次に伸ばす所が町の状態で入れ替わる【推論】。Capitalism Lab の小売は、流れの多い場所の店ほどチェーン全体の認知を押し上げる（[[web:simgames:r6-sd-capilab-retailsim|「leather goods stores」]]）＝出店の順番が戦略になる。Recettear の循環は評者の見立て（1章）。
 2. **全員の行動で動く1つの市場が、最適を相手しだいにする（人間どうしの例）**。Offworld の対抗の戦略は社内の対戦の観察（[[web:simgames:r6-sd-soren-otc-devjournal|「Geothermal Plants」]]）、SimCity BuildIt の市場は他人どうしの売買（[[web:simgames:r6-sd-applion-simcitybuildit-android|「インフレから一転」]]）、Markstrat は教室の複数の班の対戦で、競合の手で客の理想点が動く（[[web:simgames:r4-sim-markstrat-predictionofidealpoints|「actions of competitors」]]）。ただし同じ段落はその動きを [[web:simgames:r4-sim-markstrat-predictionofidealpoints|「fairly gradual」]] とし、大きな変化は起きないと書く。**1人用の AI のライバルで同じ「相手が適応する」効きが出るかは資料がない**【推論】（K26）。
-3. **層になった深さ：表は簡単、掘ると深い**。Two Point の「近づきやすく、深い」（[[web:simgames:r6-sd-mcv-twopoint|「chunky and accessible」]]）。RimWorld は Dwarf Fortress の層の厚い考えのいくつかを削った（[[web:simgames:r4-sim-gd-rimworld|「pared down」]]）うえで、どの一手にも厚い層を残した（[[web:simgames:r4-sim-gd-rimworld|「thickly-layered」]]）＝深さは足すより選ぶ側の話。Tynan の「髪の毛の複雑さ」は無視したい人は無視できる飾り（[[web:simgames:r4-sim-tynan-simdream|「Hair complexity」]]）。
-4. **組み合わせから出る初めての場面（創発）**。Two Point の性格の反応（[[web:simgames:r6-sd-mcv-twopoint|「flirtatious」]]）、RimWorld の出来事の重なり（[[web:simgames:r4-sim-gd-rimworld|「interact and overlap」]]）、Into the Breach（[[web:simgames:r4-sim-gd-intothebreach|「interact dynamically」]]）、Hades の作り手の「重なる仕組みが絡み合って豊かさが出る」（[[web:simgames:r6-rp-gd-hades-devprocess|「overlapping systems」]]）。Juul：創発の遊びの攻略は経験則になる（[[web:simgames:r6-sd-juul-openclosed|「rules of thumb」]]）。
-5. **最適が読めた後も続く理由**。①最適が時期で入れ替わるように倍率を置く：Pecorella の模型の実験で、全部の生産者の倍率の表を変えると（[[web:simgames:r6-sd-pecorella-idle1|「If we modify」]]）違う生産者が順に主役になる（[[web:simgames:r6-sd-pecorella-idle1|「take priority」]]）（AdVenture Capitalist の実際の作りではない）②最適があっても気づかれなければ板挟みとして楽しめる（[[web:simgames:r4-sim-gd-pdg|「unaware of that」]]）③相手が最適を変え続ける（2、人間どうし）。④Juul：最適の戦略があっても、そこでの遊びが面白ければよい（[[web:simgames:r6-sd-juul-openclosed|「leads to interesting」]]）。RCT の乗り物はその例【推論】。⑤【0.4で足した】最適の組み合わせを見つけたと思ったら、別の道具の組へ押しやられる（Hades の作り手：[[web:simgames:r6-rp-gd-hades-devprocess|「nudged into」]]）＝作り手が最適を時々に入れ替える。
-6. **自分で作る・名づける・眺める**。Meier（[[web:simgames:r4-sim-gd-meier2012|「a name for your city」]]、[[web:simgames:r4-sim-gd-meier2012|「as many choices」]]、[[web:simgames:r4-sim-gd-meier2012|「long-term relation」]]）。口コミ83件でも「作り込み」14件、「眺める」10件（`simdesign-voices-count.py`）。This War of Mine は持ち物の欄の名前を「Our Things」にしただけで遊ぶ人の扱いが変わった（[[web:simgames:r4-sim-gd-thiswarofmine|「Our Things」]]）。原文は、言葉を親しいものに替えたら物の扱いが変わった、まで。それを自分を投影できる言葉の例と読むのは【推論】（Tynan の [[web:simgames:r4-sim-tynan-simdream|「project themselves」]] と同じ向き）。
+3. **層になった深さ：表は簡単、掘ると深い**。Two Point の「近づきやすく、深い」（[[web:simgames:r6-sd-mcv-twopoint|「chunky and accessible」]]）。【2026-10-23 外した】RimWorld が Dwarf Fortress の層の厚い考えを削ったうえで一手ごとの層を残した、という例は robots.txt の禁じる経路で取った記事にしかなく、取り直せなかった（Wikipedia の項は Dwarf Fortress に影響されたと書く [[web:simgames:r10-rr-wiki-rimworld|「inspired by Dwarf」]] までで、削った話はない）。「深さは足すより選ぶ側の話」は Two Point と Tynan の例だけの【推論】に弱まる。Tynan の「髪の毛の複雑さ」は無視したい人は無視できる飾り（[[web:simgames:r4-sim-tynan-simdream|「Hair complexity」]]）。
+4. **組み合わせから出る初めての場面（創発）**。Two Point の性格の反応（[[web:simgames:r6-sd-mcv-twopoint|「flirtatious」]]）、RimWorld の入植者は経歴・性格・人間関係で互いの関わり方が変わる（[[web:simgames:r10-rr-wiki-rimworld|「with other pawns」]]）、Into the Breach の作り手は物語より仕組みとその絡みのゲームだと言う（[[web:simgames:r10-rr-pcgamer-itb-preview|「how they interact」]]）、Hades の作り手は台詞を場面ごとに書いて全部入れ、出会う順の組み合わせで書き手自身も驚くと言う（[[web:simgames:r10-rr-geekdad-kasavin|「sequence together」]]）。【2026-10-23 直した】前の版の「RimWorld の出来事の重なり」「Hades の重なる仕組みが絡み合って豊かさが出る」は取り直せなかった記事の言葉で外した。Juul：創発の遊びの攻略は経験則になる（[[web:simgames:r6-sd-juul-openclosed|「rules of thumb」]]）。
+5. **最適が読めた後も続く理由**。①最適が時期で入れ替わるように倍率を置く【推論】（【2026-10-23 外した】根拠にしていた Pecorella の模型の実験は取り直せなかった。Wikipedia の放置ゲームの項は、上の段の生産者ほど値段が指数で高くなる [[web:simgames:r10-rr-wiki-incremental|「exponentially higher」]] までで、主役が順に入れ替わる話はない）②最適があっても気づかれなければ板挟みとして楽しめる【推論】（【2026-10-23 外した】PDG の論考は取り直せなかった）③相手が最適を変え続ける（2、人間どうし）。④Juul：最適の戦略があっても、そこでの遊びが面白ければよい（[[web:simgames:r6-sd-juul-openclosed|「leads to interesting」]]）。RCT の乗り物はその例【推論】。⑤【0.4で足した】同じ武器に偏る人に、報酬の資源で持ち替えを促す（Hades の作り手：[[web:simgames:r10-rr-pcgamer-hades-ea|「encourage switching」]]、[[web:simgames:r10-rr-pcgamer-hades-ea|「Dark Thirst」]]）＝作り手が最適を時々に入れ替える【推論】。【2026-10-23 直した】前の版の「最適の組から別の道具の組へ押しやられる」は取り直せなかった記事の言葉で、PC Gamer の聞き取りは武器の持ち替えを報酬で促すまで。
+6. **自分で作る・名づける・眺める**。Meier：選択の影響は遊ぶ人の遊び方と人柄で変わるべき（[[web:simgames:r10-rr-4gamer-meier-gdc2012|「プレイスタイルやパーソナリティ」]]）、仕組みの無機質な所をファンタジーで包むのが遊ぶ人との関係を作る（[[web:simgames:r10-rr-4gamer-meier-gdc2012|「友好関係」]]）。【2026-10-23 外した】街に名前をつける例は取り直せず、「名づける」の Meier の根拠は消えた。口コミ83件でも「作り込み」14件、「眺める」10件（`simdesign-voices-count.py`）。This War of Mine は持ち物の欄を Our Things と呼び、遊ぶ人と人物が運命を共にすると意識させる試みとした（[[web:simgames:r10-rr-4gamer-twom-gdc2015|「運命共同体」]]）。【2026-10-23 直した】前の版の「名前を替えただけで扱いが変わった」は取り直せなかった記事の記述で、4Gamer の講演の記事は作り手の狙いまでしか書かない。それを自分を投影できる言葉の例と読むのは【推論】（Tynan の [[web:simgames:r4-sim-tynan-simdream|「project themselves」]] と同じ向き）。
 7. **期限のない成長と、他人との関わり（1作品の声の傾向）**。1年以上遊んだと明示した10人は全員 SimCity BuildIt で、褒めは他人との関わり5（iOS 3・Android 2）・成長3（7章）。因果としてではなく、他人との売買のある1作品の傾向として読む（K31）。
-8. **自分のせいだと思える負け**。Into the Breach（[[web:simgames:r4-sim-gd-intothebreach|「your own fault」]]）、RimWorld（[[web:simgames:r4-sim-gd-rimworld|「hurt but not kill」]]）。
-9. 【0.3で足した】**結果が読み切れない判断は、得の大きい方を選ぶだけにならない**。This War of Mine の作り手：結果がはっきりした選択では遊ぶ人は一番得な方を [[web:simgames:r4-sim-gd-thiswarofmine|「universally chooses」]]、結果があいまいで道徳の結果も絡むと板挟みになる。効きを全部見せるか（3%の線）と、見せすぎて正解当てにするかの両側の注意。【0.4で足した】同じ講演は、遊ぶ人はどの場所にも完璧な答えがあると思い込んでいる（[[web:simgames:r4-sim-gd-thiswarofmine|「are programmed」]]、[[web:simgames:r4-sim-gd-thiswarofmine|「perfect solution」]]）と言う＝正解を探す遊び手に、正解のない判断を見せる工夫が要る（2.1）。
+8. **自分のせいだと思える負け**。Into the Breach：敵は次の攻撃を見せて応じる機会をくれ（[[web:simgames:r10-rr-pcgamer-itb-preview|「intended attack」]]）、AI の出来で勝ち負けが決まらないようにした（[[web:simgames:r10-rr-pcgamer-itb-preview|「regardless of the AI」]]）。負けが「自分のせい」と感じられる、はここからの【推論】。【2026-10-23 外した】RimWorld の「傷つけるが殺さない」と Into the Breach の「自分のせい」の言葉は取り直せなかった。
+9. 【0.3で足した】**結果が読み切れない判断は、得の大きい方を選ぶだけにならない**。This War of Mine の作り手：盗んだ物を半分だけ戻した試遊者を見て、遊ぶ人が自分の行いを自分で裁く作りにした（[[web:simgames:r10-rr-4gamer-twom-gdc2015|「自らの行動を判定する」]]）。薬を求める子どもの話は、裏を読んで自分で決めるしかない（[[web:simgames:r10-rr-4gamer-twom-gdc2015|「自分なりに判断するしかない」]]）。【2026-10-23 外した】「結果がはっきりした選択では一番得な方を選ぶ」の対照は取り直せなかった。効きを全部見せるか（3%の線）と、見せすぎて正解当てにするかの両側の注意。【0.4で足した】同じ講演は、遊ぶ人の思い込み（戦争のゲームなら目の前の人物を敵と見る）をずらすと、初めてじっくり考えると言う（[[web:simgames:r10-rr-4gamer-twom-gdc2015|「偏見をずらしてみる」]]）＝正解を探す遊び手に、正解のない判断を見せる工夫が要る（2.1）【推論】。【2026-10-23 直した】「どの場所にも完璧な答えがあると思い込む」は取り直せなかった記事の記述で外した。
 
 **変数の絡みのまとめ（ラーメンに写すときの芯）【推論】【0.3で直した】**：①客層×品目（品目ごとに効く重みが違う）②**場所の客層**（エリアごとの客層の割合が値段の受け入れを分ける。天気で顔ぶれが変わる効きは見えない大きさ：E4）③自店×ライバル×町の取り合いで値が動く物（小麦・豚骨の相場は町の外から与える：6章#12。何が町の取り合いで動くかは確かめていない：4.2 の確かめる案）④規模×新しい層（店数・客数の蓋が本部・製麺所の判断を開く）⑤評判×値段×信頼（評判で1,000円の壁の位置が動く：F12）⑥席の上限×季節（席の詰まった店で季節が値段を動かす：F2）。
 
@@ -140,12 +140,12 @@
 1. **最適が状況で動かず、競合もない式**。Lemonade Stand の需要の式（行1190〜1300、`simdesign-applesoft-list.py` で取り出した）を総当たりすると、原価3段×天気7段の21条件中20条件で最適の値段は10セント（`simdesign-optimum-check.py`）。原作は他の店の売上が影響しないと書く（[[web:simgames:r4-sim-lemonade-apple1979|「OTHER STANDS」]]）。【0.3で直した】DESIGN-RAMEN d.2 は同じではない：席の上限・常連・ε の規則で、上限の効く店では季節で値段の判断が生まれる（要点2）。Juul の問いは最適が固定かどうかでなく、最適での遊びが退屈か（[[web:simgames:r6-sd-juul-openclosed|「game contract」]]）。
 2. **支配的な戦略と、時間を安く見積もらせる作業**。Civ の都市の大量建設（[[web:simgames:r4-sim-soren-waterfinds|「infinite city sleaze」]]）、危険ゼロの少しずつの得（[[web:simgames:r4-sim-soren-waterfinds|「Undervaluing Time」]]）。口コミの不満で「作業」9件。
 3. **規模が大きくなると維持の作業が判断を押しのける**。Factorio の鉱山（[[web:simgames:r6-sd-factorio-fff129|「6 copper mines」]]）、Big Ambitions の店ごとの値段の変更（[[web:simgames:r6-sd-gamesfuze-bigambitions-pricing|「neighborhood-wide」]]）。同じ攻略の記事は、店が1〜2軒のうちは手で値段を見る方がよい、とも書く（[[web:simgames:r6-sd-gamesfuze-bigambitions-pricing|「one or two businesses」]]）＝段で任せる根拠。
-4. **伸びしろが消える**。Capitalism Lab の研究（[[web:simgames:r6-sd-capilab-balance|「stopped being worth」]]）、RCT Touch の「お金だけあっても」、AdVenture Capitalist の最新の生産者がいつも支配的（[[web:simgames:r6-sd-pecorella-idle1|「nearly always dominant」]]）。
+4. **伸びしろが消える**。Capitalism Lab の研究（[[web:simgames:r6-sd-capilab-balance|「stopped being worth」]]）、RCT Touch の「お金だけあっても」。【2026-10-23 外した】AdVenture Capitalist の最新の生産者がいつも支配的、は取り直せなかった。
 5. **雪だるま**。Offworld の全か無かの買収（[[web:simgames:r4-sim-soren-otc-stockmarket|「all-or-nothing」]]）、Dormans の正のフィードバック（[[web:simgames:r6-sd-dormans-aaai2011|「dynamic engine」]]）、Juul のモノポリー（[[web:simgames:r6-sd-juul-openclosed|「always end with a player」]]）。
 6. **浅すぎる・危険がない**。Pocket City の口コミ2件（[[web:simgames:r6-sd-applion-pocketcity|「破産する危険なんかは」]]、[[web:simgames:r6-sd-applion-pocketcity|「It ended in 2 days」]]）。
 7. **説明されない仕組み**。Recettear（[[web:simgames:designer-recettear-gd2010|「never explained」]]）、口コミの「説明不足」5件。
-8. **公平に見えないライバル・運**。【0.3で直した】99%の勝率で負けるとずるに見える、は Soren Johnson の本文ではなく**読者のコメント**（[[web:simgames:r6-sd-soren-cheatinhearts|「40 vs. 2.5」]]）。本文では、Civ3 で AI が人間か AI かを区別しないようにしても疑いは [[web:simgames:r6-sd-soren-cheatinhearts|「inoculate」]] されなかった、と書く。Meier の「出目が仕組まれていると思う人」（[[web:simgames:r4-sim-gd-meier2012|「paranoid player」]]）。
-9. **足すときに完成に要るかを問わない**【0.3で直した】。Big Ambitions の工場の不評の理由は、設計を固めずに作り進めたこと（[[web:simgames:r6-sd-codecks-hovgaard|「wasn’t in place」]]）。同じ聞き取りの主題は、足すものは完成に要るのか違いを作るだけか（[[web:simgames:r6-sd-codecks-hovgaard|「make the game complete」]]）、新しい物を足すたびに危険がある（[[web:simgames:r6-sd-codecks-hovgaard|「add something new」]]）。Meier も他のゲームの部品を寄せ集めることは [[web:simgames:r4-sim-gd-meier2012|「always work out」]] とは限らないと言う（[[web:simgames:r4-sim-gd-meier2012|「pieces of other games」]]）。0.2 の B2（5つの輸入）と6章の17項目の束への反対の材料（4.3 で答える）。
+8. **公平に見えないライバル・運**。【0.3で直した】99%の勝率で負けるとずるに見える、は Soren Johnson の本文ではなく**読者のコメント**（[[web:simgames:r6-sd-soren-cheatinhearts|「40 vs. 2.5」]]）。本文では、Civ3 で AI が人間か AI かを区別しないようにしても疑いは [[web:simgames:r6-sd-soren-cheatinhearts|「inoculate」]] されなかった、と書く。【2026-10-23 外した】Meier の「出目が仕組まれていると思う人」は取り直せなかった（4Gamer の GDC 2012 の講演の記事にない）。
+9. **足すときに完成に要るかを問わない**【0.3で直した】。Big Ambitions の工場の不評の理由は、設計を固めずに作り進めたこと（[[web:simgames:r6-sd-codecks-hovgaard|「wasn’t in place」]]）。同じ聞き取りの主題は、足すものは完成に要るのか違いを作るだけか（[[web:simgames:r6-sd-codecks-hovgaard|「make the game complete」]]）、新しい物を足すたびに危険がある（[[web:simgames:r6-sd-codecks-hovgaard|「add something new」]]）。【2026-10-23 外した】Meier の「他のゲームの部品の寄せ集めはうまくいくとは限らない」は取り直せなかった。4Gamer の講演の記事の近い言葉は、興味深い選択を並べるだけで良いゲームにはならない、まで（[[web:simgames:r10-rr-4gamer-meier-gdc2012|「興味深い選択を並べていくだけで」]]）。0.2 の B2（5つの輸入）と6章の17項目の束への反対の材料（4.3 で答える）。
 10. 【0.3で足した】**終盤の崩れは少なくとも4つ**：作業（3）・伸びしろ（4）・雪だるま（5）・目標の喪失（口コミの辞めた理由、7章）。GDT の「早く終わる」「不公平」もある。直し方の例：作業を長く使う設備の判断へ移す（Factorio の計画）、任せる役職（Big Ambitions の値付け係）、費用が倍々の終わらない伸びしろ（Factorio の計画）。任せる層の実装された例は、この資料の中では Big Ambitions の値付け係だけ（K09）。
 
 ---
@@ -153,7 +153,7 @@
 ## 2. 判断を「正解が1つ」にしない原則（前の版の2章を残す。直した所に印）
 
 ### 2.1 面白い判断の条件（点検表）
-Meier（[[web:simgames:r4-sim-gd-meier2012|「are situational」]]）、Soren Johnson（[[web:simgames:r4-sim-soren-waterfinds|「water finds a crack」]]）、PDG（[[web:simgames:r4-sim-gd-pdg|「hides that fact」]]）、Into the Breach（[[web:simgames:r4-sim-gd-intothebreach|「single strategy」]]）から、各判断を次の7つで点検する。
+Meier（選択は短期・中期・長期に響く [[web:simgames:r10-rr-4gamer-meier-gdc2012|「短期，中期，長期的な」]]、結果を明示しないと興味深くならない [[web:simgames:r10-rr-4gamer-meier-gdc2012|「明確に提示しなければ」]]）、Soren Johnson（[[web:simgames:r4-sim-soren-waterfinds|「water finds a crack」]]）、Into the Breach（敵1体の増減で難度が跳ねる [[web:simgames:r10-rr-pcgamer-itb-preview|「one additional enemy」]]）から、各判断を次の7つで点検する。【2026-10-23 外した】PDG の「最適を隠して移す」と Into the Breach の「1つの戦法で勝ち続けられない」は取り直せなかった。
 
 | # | 条件 | 欠けたときの症状 |
 |---|---|---|
@@ -161,18 +161,18 @@ Meier（[[web:simgames:r4-sim-gd-meier2012|「are situational」]]）、Soren Jo
 | 2 | 状況で答えが変わる。**【0.3で直した】状況に合わせなかったときの取りこぼしが、置き値の組の半分以上で3%以上か（threshold.txt の線）を検算で確かめる**。動いた・動かないの二択では見ない（K43） | 一度分かると以後ずっと同じ手 |
 | 3 | 遊び方を表せる（慎重派・攻め派・品質派のどれでも勝ち筋） | 正解当てになる |
 | 4 | 選ぶ前に費用と効果がおおよそ分かる | 気をもむだけ |
-| 5 | 結果が1本の物差しで決まらない | 金額の大きい方を選ぶだけ（This War of Mine の「universally chooses」） |
+| 5 | 結果が1本の物差しで決まらない | 金額の大きい方を選ぶだけ（【2026-10-23 外した】例にしていた This War of Mine の記述は取り直せなかった） |
 | 6 | どれを選んでも勝ちは確実でなく、負けも確定しない | 序盤で詰む／決まる |
-| 7 | 判断の直後に小さな返りがある | 何も起きずに先へ進むのが最悪（Meier） |
+| 7 | 判断の直後に小さな返りがある | 何も起きずに先へ進むのが最悪（【2026-10-23 直した】Meier の典拠を 4Gamer の講演の記事に替えた。言えるのは、選んだ結果を明示しないと興味深くならない、まで） |
 
 - 短期・中期・長期を同時に走らせる（Civ の短期の戦車と長期の遺産）。Reigns の作者は GDC の講演で、最初に短い目標と長い目標の組み合わせを話した、と紹介記事は書く（[[web:simgames:r6-sd-toucharcade-reigns-gdc|「He first talks」]]、[[web:simgames:r6-sd-toucharcade-reigns-gdc|「long-game goals」]]、記者の要約）。
-- 削る勇気と足す勇気の両方：Meier は試した要素の3分の1以上を削る（[[web:simgames:r4-sim-gd-meier2012|「Be ruthless」]]）が、できるだけ多くの遊び方を許すことも欠かせない（[[web:simgames:r4-sim-gd-meier2012|「as many choices」]]）。
-- 会計はパズル、経営は板挟み【推論】。【0.3で足した】PDG は、最適の答えのある科学を教えて何度も遊べるゲームは作れないと書き（[[web:simgames:r4-sim-gd-pdg|「players to science」]]）、それが Crawford が業界を去った理由かもしれないとまで言う。学習ゲームへの直接の反論で、ピヨ商店の答えは「仕訳（パズル）は1回ずつ正解を当てる練習、経営（板挟み）は正解のない判断」と役割を分けること。ただしこの分け方で遊び直しが続くかは試遊で確かめる【要確認】（反証と限界の8）。
+- 削る勇気と足す勇気の両方：【2026-10-23 外した】Meier の「試した要素の3分の1以上を削る」は取り直せず、削る側の Meier の根拠は消えた。足す側は、選択の影響が遊び方と人柄で変わるべき（[[web:simgames:r10-rr-4gamer-meier-gdc2012|「プレイスタイルやパーソナリティ」]]）まで。
+- 会計はパズル、経営は板挟み【推論】。【0.3で足した・2026-10-23 外した】学習ゲームへの直接の反論として引いていた PDG の論考（最適の答えのある科学を教えて何度も遊べるゲームは作れない）は、robots.txt の禁じる経路で取った記事で、取り直せなかったので引用を外した。反論は問いとして残す。ピヨ商店の答えは「仕訳（パズル）は1回ずつ正解を当てる練習、経営（板挟み）は正解のない判断」と役割を分けること。ただしこの分け方で遊び直しが続くかは試遊で確かめる【要確認】（反証と限界の8）。
 
 ### 2.2 支配的な戦略の潰し方
 - 逓増する負担（Civ 4 の都市の数に比例する維持費）。
 - 時間を安く見積もらせない。
-- 効く手を入れ替える：【0.3で直した】出典は Pecorella の模型の実験（PDG ではない。K46）。
+- 効く手を入れ替える【推論】：【0.3で直した】出典は Pecorella の模型の実験（PDG ではない。K46）だったが、【2026-10-23 外した】その記事は取り直せず引用を外した（末尾の章）。
 - 式の端を検算する（派生の Lemonade Stand の符号の反転）。**【0.3で直した】折れ目（閾値）に最適が集まるかは、集まることが目的どおりか（1,000円の壁は現実の価格の壁として入れたもの）で判断する**。集めたくないのは、位置が状況で動かない閾値に、状況の判断まで吸い込まれるとき（4.2 の E9）。**探索の上限に当たる組がないか**も必ず確かめる（d.2 の常連の穴、要点4）。
 
 ---
@@ -213,7 +213,7 @@ Meier（[[web:simgames:r4-sim-gd-meier2012|「are situational」]]）、Soren Jo
 | **M1 最小①：d.2 を直す** | 折れ目を外し ε0 を1.75〜2.5、席の上限を効かせる、常連の慣性（Train の [[web:simgames:r6-sd-train-ch03|「habit formation」]]） | d.2 と同じ | 季節・寒い月の値打ちで値段が動く店が d.2 より多い（F1） | 1,000円の壁が消える（正しさ：業界の記事にある壁、BIZ-CALIB M3）。評判4.5 で81組が際限なし |
 | **M1＋壁**【0.4で足した。【0.5】中身は d.2 の式に ε0 1.75〜2.5 を入れたもの（H0）】 | M1 に1,000円の壁（越えた分 ε×1.5）を戻し、壁の位置を評判で動かす（k＝1,000×(1＋0.10(R−3))【仮置き】） | M1＋評判×壁 | 季節・評判・安いライバルのどれでも3%以上が半分を越える。最適が壁に乗るのは評判4で5%（F12） | 壁の位置の係数が仮置き。席の詰まり方で季節の効きが変わる（F2） |
 | **M2 最小②：客層の混合ロジット**（0.2 の推し） | エリアごとに客層の割合、客層ごとに ε・評判の重み・天気の出方 | 客層×立地×天気×値段×評判 | 場所の値段の差（学生街と駅前で最適が233〜258円違う：E4） | 天気の効きは見えない大きさ（最大0.04%）。型の取り合いは作れない（比1.01、F4） |
-| **B1 大胆①：客一人ずつ（RCT 型）** | 客ごとに客層・払える上限・外に出るかを持たせて選ばせる（RCT の閾値のふるい（[[web:simgames:r6-sd-openrct2-guest|「Pick the most exciting」]]）＋Huff の距離）。GlassBox の型＝少数の部品と規則で、動く物は資源を運ぶだけ（[[web:simgames:r6-sd-gd-glassbox2012|「10,000+ agents」]]） | 客層×立地×値段（上限）×評判×ライバル | 来なかった理由を数えて出せる、行列のあふれが式に書かずに起きる | 集計の式と同じ値打ちしか足さない（4.2 の6） |
+| **B1 大胆①：客一人ずつ（RCT 型）** | 客ごとに客層・払える上限・外に出るかを持たせて選ばせる（RCT の閾値のふるい（[[web:simgames:r6-sd-openrct2-guest|「Pick the most exciting」]]）＋Huff の距離）。GlassBox の型＝少数の部品（資源・ユニット・地図・全体）に単純な規則を積み重ね（[[web:simgames:r10-rr-4gamer-glassbox-gdc2012|「シンプルなルールを無数に積み重ねていく」]]）、エージェントが場所から場所へ合図や交通を運ぶ（[[web:simgames:r10-rr-4gamer-glassbox-gdc2012|「シグナルを送ったり」]]。【2026-10-23 直した】「1万以上のエージェント」の数は取り直せず外した） | 客層×立地×値段（上限）×評判×ライバル | 来なかった理由を数えて出せる、行列のあふれが式に書かずに起きる | 集計の式と同じ値打ちしか足さない（4.2 の6） |
 | **B1-RCT：店の品の型** | 汁麺の値打ち v が気温で切り替わり（寒い日1,100・ふつう1,000・暑い日850円【推論】）、値段が v を越えた分を機嫌の段（1・2・4）で割り、乱数より大きければ来ない（OpenRCT2 の店の品の判定の写し） | 気温×値段×評判 | 気温で値段が大きく動く（E7） | v の幅を決め打ちすると効きもそれで決まる |
 | **B2 大胆②：動く町** | ①客層の理想点がライバルの手で動く（Markstrat、ゆっくり）②町の店の取り合いで値が動く物（【0.4】何がそうかは確かめていない：下の「試遊・資料で確かめる案」）③時給の取り合い ④規模の蓋（SimCity）⑤チェーンの認知（Capitalism Lab） | 自店×ライバル×物件×人手 | 最適がライバルの手で入れ替わる【推論】 | 雪だるま・毛玉・輸入の束の危険（Meier・Codecks）。検算していない |
 
@@ -292,7 +292,7 @@ Meier（[[web:simgames:r4-sim-gd-meier2012|「are situational」]]）、Soren Jo
 3. **0.2 の推しの芯（客層の混合が天気で顔ぶれを変える）は、どの線でも届かない**（1%でも0%）。
 4. **推しの側でも、線に届かない項がある**：暦の値段・暦の人手・天気の仕込み。暦の仕込みは届くが、前もって分かるので迷わない手（引き換えがない）。**取りこぼしの大きさは「判断になる」の必要条件で、十分条件ではない**：迷わない手ほど大きく出る（検査書 N166 の筋を F7 で確かめた。章「検査役の筋から採ったもの」）。
 5. **探索の上限に当たる結果は、どの案でも式の構造の問題として扱う**。d.2 の評判4.5 の規則（216組）と M1 の評判4.5（81組）が際限なしを作る。d.2 の式で ε0 1.75〜2.5（0.4 の「M1＋壁」）では0組（壁の上の弾力性が ×1.5 され、ε0 も高いので）。常連の穴は月をまたぐと閉じる（要点4、F11）。
-6. **B1（客一人ずつ）の評価**【0.4で理由を直した】：崖ありでも崖なしでも、雨の取りこぼしは最大0.39%と0.38%で、崖は関係ない（E6）。0.2 が挙げた B1 の値打ち3つを測ると：①来なかった理由（雨・ライバル2・700円・席4,000の例で、外に出ない16%・払える上限を越えた0.8%・ライバルへ20%・ラーメンをやめた45%・席からあふれ3.8%・売れた13%）は、ロジットの各項（外の選択・ライバルのシェア・席のあふれ）から集計でも同じに出せる ②距離での取り合いは B1 なら式に書かずに出る（集計の式に Huff の距離の項を足して同じに出るかは検算していない【0.5】。だから B1 を捨てる理由には入れない）③行列のあふれは d.2 の lost_i（品切れの40〜55%は失い18%は隣へ）で出る。**B1 は来なかった理由とあふれについて集計の式と同じ値打ちしか足さないので、式の芯にしない**（距離は未検算で、B1 が足しうる唯一の値打ちとして残る【要確認】）（面白さ・学習効果：足す効きがない）。0.3 の理由「乱数の種の揺れ2.0%が線3%に近い」は外した：線の根拠の d.2 自身の揺れ（2.8%）の方が大きく、B1 の揺れは客を3万人で1.01%、9万人で0.50%に下がる（F10、検査書 C6 を自分で確かめた）。GlassBox の「単純な部品の規則の連鎖」の考えは、客を1人ずつ動かさなくても、客層の流れの規則として集計で使える（[[web:simgames:r6-sd-gd-glassbox2012|「goToWork」]] のような規則を、月末の集計に）【推論】。
+6. **B1（客一人ずつ）の評価**【0.4で理由を直した】：崖ありでも崖なしでも、雨の取りこぼしは最大0.39%と0.38%で、崖は関係ない（E6）。0.2 が挙げた B1 の値打ち3つを測ると：①来なかった理由（雨・ライバル2・700円・席4,000の例で、外に出ない16%・払える上限を越えた0.8%・ライバルへ20%・ラーメンをやめた45%・席からあふれ3.8%・売れた13%）は、ロジットの各項（外の選択・ライバルのシェア・席のあふれ）から集計でも同じに出せる ②距離での取り合いは B1 なら式に書かずに出る（集計の式に Huff の距離の項を足して同じに出るかは検算していない【0.5】。だから B1 を捨てる理由には入れない）③行列のあふれは d.2 の lost_i（品切れの40〜55%は失い18%は隣へ）で出る。**B1 は来なかった理由とあふれについて集計の式と同じ値打ちしか足さないので、式の芯にしない**（距離は未検算で、B1 が足しうる唯一の値打ちとして残る【要確認】）（面白さ・学習効果：足す効きがない）。0.3 の理由「乱数の種の揺れ2.0%が線3%に近い」は外した：線の根拠の d.2 自身の揺れ（2.8%）の方が大きく、B1 の揺れは客を3万人で1.01%、9万人で0.50%に下がる（F10、検査書 C6 を自分で確かめた）。GlassBox の「単純な部品の規則の連鎖」の考えは、客を1人ずつ動かさなくても、客層の流れの規則として集計で使える（工場の朝にエージェントが住宅へ送られ人々が出勤を始める [[web:simgames:r10-rr-4gamer-glassbox-gdc2012|「出勤を始める」]] のような規則を、月末の集計に）【推論】。
 
 **試遊・資料で確かめる案**（【0.4で本文から下ろした】検査書の【問い】で、私も確かめていないもの）：
 - 町の店の取り合いで値が動くのは「空き物件の家賃・職人の時給・地元の製麺所の枠」のような、町の中で数の限られる物か（検査書 K88 の逆の結論）。小麦が町の買いで動かないことは d.6 で確かめた（政府の売渡価格の年2回の改定）が、代わりに何が動くかの資料はない。
@@ -349,13 +349,13 @@ Meier（[[web:simgames:r4-sim-gd-meier2012|「are situational」]]）、Soren Jo
 | 反対の材料 | 推しへの当たり方 | 答え |
 |---|---|---|
 | U1 Juul：分岐する物語は進行の型の [[web:simgames:r6-sd-juul-openclosed|「purest example」]] で、遊び直しの価値は低い（[[web:simgames:r6-sd-juul-openclosed|「replayability is」]] very low） | オーナーの「分岐ルートの多さ」への反証 | 推しは分岐の数でなく、状況で判断が変わる式に重みを置く。周回は BIZ-REPLAY |
-| U2 RimWorld は層の厚い考えを削った（[[web:simgames:r4-sim-gd-rimworld|「pared down」]]） | 深くするほどよい、への反証 | 推しは足す物を線で選び、M2 の客層×4を削った |
+| U2 【2026-10-23 外した】RimWorld は層の厚い考えを削った（取り直せず引用を外した。反証の根拠は消えた） | 深くするほどよい、への反証 | 推しは足す物を線で選び、M2 の客層×4を削った（この選び方は 4.2 の効きの線で決めていて、U2 がなくても残る【推論】） |
 | U3 Markstrat の好みの動きは [[web:simgames:r4-sim-markstrat-predictionofidealpoints|「fairly gradual」]] | B2①への限定 | B2①は推しに入れない |
 | U4 Capitalism Lab：賃金の高い町ほど [[web:simgames:r5-fv-capilab-beginners|「high income customers」]] が贅沢品に使う | 地域の受け入れを需要で作る型 | 必需度0.9（食べ物）なら都心924円・過疎880円で差は約5%（E10）。⑥のエリアの p_ref に入れる |
 | U5 Tynan：新しい変数は [[web:simgames:r4-sim-tynan-simdream|「undesirable」]] な複雑さ、写らないものは [[web:simgames:r4-sim-tynan-simdream|「is worthless」]] | 推しは変数を足すか | 推しは新しい数を足す：入れ子の型 m（3つ）と λ_m（3つ）、壁の位置の係数 k（1つ）、暦（【0.5】小さな暦にして4型×山か谷の倍率1つ＝4、月の並びは型の定義）、エリアの p_ref_a・ε_a（6エリア×2＝12）。0.4 の67から、暦を小さくして23。状態の変数（持ち越すもの）は増えない。写るかは試遊（F4）【要確認】 |
-| U6 Meier：部品の寄せ集めは [[web:simgames:r4-sim-gd-meier2012|「always work out」]] とは限らない | 推しの①〜⑥の組み合わせ | 各項は1つずつ回しただけ（やっていないこと） |
-| U7 PDG：最適の答えのある科学を教えて遊び直せるゲームは作れない（[[web:simgames:r4-sim-gd-pdg|「players to science」]]） | 学習ゲームの芯への反論 | 役割を分ける（2.1）【要確認】 |
-| U8 Pecorella：効きを [[web:simgames:r6-sd-pecorella-idle1|「the impact」]] として感じられなければ考える価値がない | 推しの全部 | 3%の線の根拠の1つ。推しの側にも当てた |
+| U6 【2026-10-23 外した】Meier：部品の寄せ集めはうまくいくとは限らない（取り直せず引用を外した。近い言葉は、興味深い選択を並べるだけでは良いゲームにならない [[web:simgames:r10-rr-4gamer-meier-gdc2012|「興味深い選択を並べていくだけで」]]） | 推しの①〜⑥の組み合わせ | 各項は1つずつ回しただけ（やっていないこと） |
+| U7 【2026-10-23 外した】PDG：最適の答えのある科学を教えて遊び直せるゲームは作れない（取り直せず引用を外した。問いとして残す） | 学習ゲームの芯への反論 | 役割を分ける（2.1）【要確認】 |
+| U8 【2026-10-23 外した】Pecorella：効きを感じられなければ考える価値がない（取り直せず引用を外した） | 推しの全部 | 3%の線の根拠の1つだった。この根拠は消え、線は他の根拠だけになる（弱まる） |
 | U9 Offworld：[[web:simgames:r6-sd-gamingnexus-offworld|「20-minute real-time」]] の対戦と [[web:simgames:r6-sd-gamingnexus-offworld|「10-hour turn-based」]] | 9章の前提 | 9章の点検に入れた |
 
 ### 4.4 地域で採算が逆になるか（オーナーの例「銀座だと100杯でも赤字、奥多摩なら30杯でも採算」）【0.4で書き直した】
@@ -438,19 +438,19 @@ Meier（[[web:simgames:r4-sim-gd-meier2012|「are situational」]]）、Soren Jo
 前の版の表の型をそのまま使う：状態の値による分岐（質）、進みと困り度の2本、合流と再分岐、二度と合流しない枝は小さく、遅れて返る結果、品質の差としての分岐、状態で重みが変わる出来事の山札（Reigns の確率の山札（[[web:simgames:r4-sim-gamingtrend-reigns|「probabilistic system」]]））、引数つきの小片、際立ちで台詞を選ぶ、1回きりの話の印、持ち越す値を絞った閉じた挿話、台本と乱数の混合（Papers, Please）、失敗も行き先にする、負けを長い下り坂に。
 - Reigns の山札：状態で引ける山が広がり縮み、少数や1枚に絞れることもある（[[web:simgames:r4-sim-gamingtrend-reigns|「expands and shrinks」]]）。
 - 道しるべ（waypoint）の型：書き足すほど物語を元の筋へ戻す道が増える（[[web:simgames:r4-sim-emshort-beyondbranching|「story-healing」]]）。月末の振り返りの会話に向く【推論】。
-- 【0.3で足した】**閉じた挿話の根拠を原文で読み直した**：80 Days は街ごとの話が [[web:simgames:r4-sim-gd-80days-postmortem|「inherently episodic」]] で、街から街へ持ち越すのはお金・体力・時間と3つの性格だけ（[[web:simgames:r4-sim-gd-80days-postmortem|「consistently track」]]）。だから書き手は順番を気にせず書けた。ただし同じ事後検証は、途中で航路を全部閉じて「探索」を足したとき書いた話の多くの筋が壊れた（[[web:simgames:r4-sim-gd-80days-postmortem|「broke the story logic」]]）とも書く＝挿話を閉じても、骨組みを変えると依存は出る。【0.4で直した】欧州が航路の迷路になった（[[web:simgames:r4-sim-gd-80days-postmortem|「spaghetti-maze」]]）のは別の話で、どの都市からも隣へ行けるようにした結果の量の膨張（事後検証の「Scope - The content!」の節）。
+- 【0.3で足した・2026-10-23 外した】**閉じた挿話の根拠**：80 Days の事後検証（街ごとの話が閉じている、持ち越すのはお金・体力・時間と3つの性格だけ、途中で航路を閉じて探索を足したとき話の筋が壊れた、欧州が航路の迷路になった）は robots.txt の禁じる経路で取った記事にしかなく、取り直せなかったので引用を外した。許された経路で言えるのは、作り手が話を一つずつ新しい小片として大量に書いた（[[web:simgames:r4-sim-mcv-ingold-replay|「individual bits」]]）まで。「挿話を閉じても骨組みを変えると依存は出る」は根拠が消え【推論】に弱まる。
 
 ### 5.2 数の感覚
 前の版の「札80枚と台詞の追加だけで済む」は、Papers, Please の作者の経験と合わない（[[web:simgames:designer-papersplease-gd2014|「complicated network」]]）。同じ原文は、乱数で作った入国者を数千人まとめて作る検査（[[web:simgames:designer-papersplease-gd2014|「validation procedures」]]）と、良いとも悪いとも言えない小さな結末を積むと自分だけの道を通った感じになること（[[web:simgames:designer-papersplease-gd2014|「all good or all bad」]]）も書く。【0.3で直した】Detroit の €30 million（[[web:simgames:r4-sim-wiki-detroit|「€ 30 million」]]）はゲーム全体の開発予算で、分岐の費用ではない（事実の判定 E7）。作者は選択の行き先を図と表で追い、話をルービックキューブにたとえた（[[web:simgames:r4-sim-wiki-detroit|「Rubik's Cube」]]）。
 
 ### 5.3 作る量と検査
-前の版のまま：型に名前をつける、書き方の順（Reigns は人物ごとに単発の札→脇の話→つなぐ筋）、無作為の通し試験（[[web:simgames:r4-sim-emshort-beyondbranching|「randomized」]]）、係数は「少し・中・たくさん」の3段から（[[web:simgames:r4-sim-emshort-beyondbranching|「three constants」]]）、全判断の履歴を保存に入れる（80 Days は感想の送信に全部の選択の記録つきの保存を付けて直した：[[web:simgames:r4-sim-gd-80days-postmortem|「attach a save file」]]）、AI の穴は同じ種で並べて見つける。Hades は札・出来事を足すのをデータの側に置き、コードを変えずに足せる作りにした（[[web:simgames:r6-rp-gd-hades-devprocess|「data-driven system」]]）。
+前の版のまま：型に名前をつける、書き方の順（Reigns は人物ごとに単発の札→脇の話→つなぐ筋）、無作為の通し試験（[[web:simgames:r4-sim-emshort-beyondbranching|「randomized」]]）、係数は「少し・中・たくさん」の3段から（[[web:simgames:r4-sim-emshort-beyondbranching|「three constants」]]）、全判断の履歴を保存に入れる（【2026-10-23 外した】80 Days の「感想の送信に選択の記録つきの保存を付けた」例は取り直せなかった）、AI の穴は同じ種で並べて見つける。Hades は台詞を場面ごとに書いて全部入れ、ゲームがその場に合うものを選ぶ作りにした（[[web:simgames:r10-rr-geekdad-kasavin|「the right situation」]]）。【2026-10-23 直した】「札・出来事をデータの側に置き、コードを変えずに足せる」は取り直せなかった記事の記述で、GeekDad の聞き取りは台詞の選び方まで。
 
 ### 5.4 札を足すときの依存の網の測り方【推論】
 sim-check の無作為の通し試験（DESIGN-RAMEN k章の3,000周）に、**札を1枚足した版と足さない版を同じ種で回して差を数える**検査を足す。数えるもの：①他の札の出る回数の変化（±20%を越えた札の数）②結末の分布の変化 ③論点の番人の期限を過ぎた論点の数 ④帳簿が合わない道の数。Papers, Please の作者が「依存を表に書けば機械に並べ替えさせられた」と書いた所（[[web:simgames:designer-papersplease-gd2014|「shuffle some events」]]）の、作り手の側の実装。
 
 ### 5.5 分岐を「見える」ようにする工夫
-もしもの道、流れ図（Detroit。評では Markus の筋が「白か黒か」と批判された（[[web:simgames:r4-sim-wiki-detroit|「black-and-white」]]）。【0.3で足した】流れ図の説明が没入を損なうので消せるようにしてほしい、という評もある（事実の判定 U19、同じ百科の評の節）→流れ図は既定で隠し、振り返りの画面でだけ開く【推論】。【0.4で足した】80 Days は、はじめ地図に航路をほとんど全部見せていたが、遊ぶ人が次の行き先を選ぶ意味を感じなかった（[[web:simgames:r4-sim-gd-80days-postmortem|「pointless as a result」]]）。航路を伏せ、探索で見つける仕組み（[[web:simgames:r4-sim-gd-80days-postmortem|「Explore mechanic」]]）にして、選択に意味が出た＝全部見せると選ぶ意味が消える、という見える化の反対側の材料）、結末の図鑑、前の周との比較（BIZ-REPLAY へ）、選んだ道を主役に、戻って選び直すのは練習としてだけ。
+もしもの道、流れ図（Detroit。評では Markus の筋が「白か黒か」と批判された（[[web:simgames:r4-sim-wiki-detroit|「black-and-white」]]）。【0.3で足した】流れ図の説明が没入を損なうので消せるようにしてほしい、という評もある（事実の判定 U19、同じ百科の評の節）→流れ図は既定で隠し、振り返りの画面でだけ開く【推論】。【0.4で足した・2026-10-23 外した】80 Days の地図（はじめ航路をほとんど見せて選ぶ意味が消え、伏せて探索で見つける形にした）は取り直せず引用を外した。見える化の反対側の材料は消え、「全部見せると選ぶ意味が消える」は【推論】に弱まる）、結末の図鑑、前の周との比較（BIZ-REPLAY へ）、選んだ道を主役に、戻って選び直すのは練習としてだけ。
 
 ---
 
@@ -473,7 +473,7 @@ sim-check の無作為の通し試験（DESIGN-RAMEN k章の3,000周）に、**�
 | 11 | **顔ぶれの配分と、成り立つ条件** | 事業の重点の配分は希望で、条件しだい（[[web:simgames:r6-sd-capilab-script-sample|「Retail Focused」]]）。不動産の会社は元手が高い設定のときだけ現れる（[[web:simgames:r4-sim-capilab-improvedai|「High or Very High」]]） | 【0.3で弱めた】例えば、急拡大型は元手のある周にだけ出す、のような条件を型ごとに置ける（1例からの一般の規則にはしない。10.2 の414行と同じ） |
 | 12 | **相場を町の外から与える**【0.4で見出しを直した】 | Offworld は値段を1つにまとめて他人の売買で全員の値段が動くようにした（BIZ-FUNVISUAL のノート（[[web:simgames:r5-fv-matchstick-offworld|「Age of Empires」]]））。ただし火星の4人の市場 | **小麦は政府の売渡価格の年2回の改定で決まり（d.6）、町のラーメン店の買いでは動かない**ので、豚骨・小麦の相場は町の外から与える。【0.4で下ろした】町の店の取り合いで何が動くか（空き物件・職人・製麺所の枠か）は確かめていない（4.2 の確かめる案） |
 | 13 | **ライバルの手が需要の形を変える（ゆっくり）** | Markstrat（[[web:simgames:r4-sim-markstrat-predictionofidealpoints|「actions of competitors」]]、[[web:simgames:r4-sim-markstrat-predictionofidealpoints|「fairly gradual」]]） | 宣伝型の映えの限定が当たると、学生街の好みが年単位で映えへ動く |
-| 14 | **予告と読み** | Into the Breach（[[web:simgames:r4-sim-gd-intothebreach|「your own fault」]]） | 求人の張り紙・工事の看板・値札の張り替えの予兆（f.3） |
+| 14 | **予告と読み** | Into the Breach（敵が次の攻撃を見せる [[web:simgames:r10-rr-pcgamer-itb-preview|「intended attack」]]） | 求人の張り紙・工事の看板・値札の張り替えの予兆（f.3） |
 | 15 | **見える物件を競りで取る** | Offworld（対戦の作品）は運の始まりを嫌う対戦の遊び手のために地図を全部見せ、最初の順を借金の競りで決めた（[[web:simgames:r4-sim-soren-otc-eapostmortem|「debt auction」]]） | 撤退で出た居抜き物件を、プレイヤーとライバルの入札で取り合う。【0.4】Offworld の理由（対戦の公平さ）は1人用にそのままは写らない。1人用で競りを置く理由は確かめていない（4.2 の確かめる案） |
 | 16 | **寄ってたかって落とせない守り** | Offworld（[[web:simgames:r4-sim-soren-otc-stockmarket|「five shares」]]） | 弱った店への買収の打診は1軒ずつ |
 | 17 | **乱数の不公平感は分布で減らす** | 読者のコメント（[[web:simgames:r4-sim-soren-waterfinds|「calculated insult」]]）と、本文の Puzzle Quest について Soren が書いた提案（作り手は悪い方の外れ値を除くことを [[web:simgames:r6-sd-soren-cheatinhearts|「should have considered」]]。実際の作りではない） | ライバルとの取り合いの週の乱数は下限つきの幅に |
@@ -507,8 +507,8 @@ sim-check の無作為の通し試験（DESIGN-RAMEN k章の3,000周）に、**�
 - 少なすぎる側の注意：関係が1本だけなら退屈で、もっと関係が要る（[[web:simgames:r4-sim-tynan-simdream|「We need more complexity」]]）。ただしこれは、多すぎる側（[[web:simgames:r4-sim-tynan-simdream|「gigantic hairball」]]）の話の前置き。
 - 処方は全部単純寄り：一般には単純寄りに（[[web:simgames:r4-sim-tynan-simdream|「lean on the simple side」]]）、何でも模擬はできない（[[web:simgames:r4-sim-tynan-simdream|「blindly simulate」]]）、物語に要る最小の表現を選ぶ（[[web:simgames:r4-sim-tynan-simdream|「Choose the minimum」]]）。作物の例では、新しい変数（収量）を足す案を [[web:simgames:r4-sim-tynan-simdream|「undesirable」]] な複雑さとして退け、既存の値を使い回した。乾いた交通網・生産ラインの模擬は [[web:simgames:r4-sim-tynan-simdream|「emotionally hollow」]]。目標は複雑さでなく物語の濃さ（[[web:simgames:r4-sim-tynan-simdream|「Story-Richness」]]）。
 - **0.2 の読み（両側を同じ重さに置き、「需要とライバルは深くしてよい側」）は撤回する**（K10・K100・N7）。Tynan は物語に関わる所でも「最小の表現」と言う。深くするなら写る形で：推しの各項は4.3 の「画面で写るか」の列で選び、写らない精度（M2 の天気の0.04%）は捨てた。
-- RimWorld も Dwarf Fortress の層の厚い考えのいくつかを削っている（うまくいく理由の3）。
-- 【0.4で足した】**単純寄りの逆の実例**：This War of Mine の作り手は、人物が単純すぎると遊ぶ人が人物を [[web:simgames:r4-sim-gd-thiswarofmine|「as a resource」]] として扱ったので、経歴・型・技能を足して深くした。ピヨ商店の従業員・常連の描き方では、単純にしすぎると「資源」として扱われる側の注意になる【推論】。
+- 【2026-10-23 外した】RimWorld も Dwarf Fortress の層の厚い考えを削った、は取り直せず引用を外した（うまくいく理由の3）。
+- 【0.4で足した・2026-10-23 外した】**単純寄りの逆の実例**：This War of Mine の作り手が「人物が単純すぎると資源として扱われたので深くした」は取り直せず引用を外した。4Gamer の講演の記事は、人物の気持ちが遊ぶ人に返る作り（強奪の後に良心に苦しむ）までを書く（[[web:simgames:r10-rr-4gamer-twom-gdc2015|「良心の呵責」]]）。従業員・常連を単純にしすぎると資源として扱われる、という注意は【推論】に弱まる。
 - Tynan の本『Designing Games』は読んでいない（やっていないこと）。同じ著者の記事（上）で同じ問いに答えた。
 
 **DESIGN-RAMEN の根拠の見直し**【0.3で直した】：
@@ -517,7 +517,7 @@ sim-check の無作為の通し試験（DESIGN-RAMEN k章の3,000周）に、**�
 |---|---|---|
 | 130行・713行「6エリアの型は固定（頭の中の模型に写るため）」 | Tynan の片側だけ、と退けた | **撤回して、今の書き方と Tynan の引用を残す**。「頭の中の模型に写る」は記事の中心の原則で、型を固定し変種（seed）で数字（潜在客・家賃・客層の割合・暦の倍率）だけを揺らすのは原則に沿う（K101・K119） |
 | 284行「要因の分解を7つ」 | 数は試遊で決める | そのまま。分解の各項は「3%の線を越えて動いた要因だけ表に出し、残りは層の下に」とする【推論】 |
-| 968行「分岐の数の目標（Tynan）」 | 分岐の数は Tynan の論点ではない、物語の濃さで測る | そのまま（Tynan の言葉は Story-Richness）。周回の構造との組は BIZ-REPLAY。Hades の作り手も、繰り返し遊ぶ作りへの転換を、筋の一本道の作品（Pyre まで）から [[web:simgames:r6-rp-gd-hades-devprocess|「linear campaign」]] を離れ、重なる仕組みの絡みで豊かさを出す方へ、と説明する（[[web:simgames:r6-rp-gd-hades-devprocess|「overlapping systems」]]）。これを「分岐の数より仕組みの重なり」と読むのは【推論】（原文に分岐の数の話はなく、Pyre の教訓もこの記事にはない） |
+| 968行「分岐の数の目標（Tynan）」 | 分岐の数は Tynan の論点ではない、物語の濃さで測る | そのまま（Tynan の言葉は Story-Richness）。周回の構造との組は BIZ-REPLAY。Hades の作り手も、前作までの始まり・中・終わりのある作り（[[web:simgames:r10-rr-geekdad-kasavin|「middle and end」]]）から、どの順でも起きる、深く非線形で遊び直せる作り（[[web:simgames:r10-rr-geekdad-kasavin|「deeply nonlinear」]]）へ、と説明する。これを「分岐の数より仕組みの重なり」と読むのは【推論】（原文に分岐の数の話はない。【2026-10-23 直した】典拠を GeekDad の聞き取りに替えた。こちらは Pyre を48時間ほどで遊び終えられたと言う [[web:simgames:r10-rr-geekdad-kasavin|「in 48 hours」]]） |
 
 ---
 
@@ -620,13 +620,13 @@ sim-check の無作為の通し試験（DESIGN-RAMEN k章の3,000周）に、**�
 
 **自分の結論に反する資料**
 1. **「深くすれば長く遊ばれる」への反証**：カイロソフトは細かく模擬しすぎず、わかりやすくデフォルメする（[[web:simgames:r4-sim-denfami-kairosoft|「わかりやすくデフォルメ」]]）。Pocket City の褒めの上位は値段5・時間4。RimWorld も層の厚い考えを削った（うまくいく理由の3）。→推しは足す物を効く大きさで選び、表は層にして簡潔に保つ条件つき。
-2. **「最適が動けば面白い」への反証**：最適があっても気づかれなければ板挟みとして楽しめる（[[web:simgames:r4-sim-gd-pdg|「unaware of that」]]）、ただし上達すると読めて飽きる（[[web:simgames:r4-sim-gd-pdg|「become skillful」]]）。【0.3で足した】同じ PDG は、結果があっても遊ぶ人が気づかなければ判断は意味を持たないと書く（[[web:simgames:r4-sim-gd-pdg|「Choice consequences」]] の節）。これを0.2 の推し（M2 の天気の0.04%）にも当てると、推しの方が退けられた（4.2）。RCT の乗り物は値段の最適が読めても長く遊ばれ、Juul は最適での遊びが面白ければよいとする（うまくいく理由の5）＝「値段の最適が動くこと」は長く遊ばれる条件ではない。推しは値段だけでなく、型の選び・人手・仕込みの判断を作る側に寄せた。
-3. **「目標を自分で立てる砂場性」への反証**：PDG（[[web:simgames:r4-sim-gd-pdg|「meaningful goals」]]）。カイロソフトも目標を必ず置く。
-4. **「辛い現実は入れない」と「辛い現実で評価された」の対立**：カイロソフト（[[web:simgames:r4-sim-denfami-kairosoft|「辛い現実シミュレーター」]]）と、【0.3で原文を読み直した】This War of Mine（作り手は、戦時の市民の苦しみを正確に描いたと言い（[[web:simgames:r4-sim-gd-thiswarofmine|「suffering of civilians」]]）、記事はこのゲームを [[web:simgames:r4-sim-gd-thiswarofmine|「frankly depressing」]] と書いたうえで高く評価された作品として紹介する）。どこまで劇にするかはオーナーの決定（捨てた案の表）。
+2. **「最適が動けば面白い」への反証**：【2026-10-23 外した】PDG の「最適があっても気づかれなければ板挟みとして楽しめる、上達すると読めて飽きる、結果に気づかなければ判断は意味を持たない」は取り直せず引用を外した。「結果に気づかなければ判断は意味を持たない」を0.2 の推し（M2 の天気の0.04%）に当てると推しの方が退けられた（4.2）が、これは PDG の根拠を外した後は【推論】になる。RCT の乗り物は値段の最適が読めても長く遊ばれ、Juul は最適での遊びが面白ければよいとする（うまくいく理由の5）＝「値段の最適が動くこと」は長く遊ばれる条件ではない。推しは値段だけでなく、型の選び・人手・仕込みの判断を作る側に寄せた。
+3. **「目標を自分で立てる砂場性」への反証**：【2026-10-23 外した】PDG の「意味のある目標」は取り直せなかった。カイロソフトも目標を必ず置く。
+4. **「辛い現実は入れない」と「辛い現実で評価された」の対立**：カイロソフト（[[web:simgames:r4-sim-denfami-kairosoft|「辛い現実シミュレーター」]]）と、【0.3で原文を読み直した】This War of Mine（作り手は兵士でなく一般市民の目で戦争を描くとし（[[web:simgames:r10-rr-4gamer-twom-gdc2015|「一般市民の視点」]]）、4Gamer の講演の記事はこのゲームが「鬱になるゲーム」として話題になったと書いたうえで（[[web:simgames:r10-rr-4gamer-twom-gdc2015|「鬱になるゲーム」]]）、発売から2日で開発費を回収した作品として紹介する（[[web:simgames:r10-rr-4gamer-twom-gdc2015|「2日間で開発費を回収」]]））。【2026-10-23 直した】典拠を 4Gamer の講演の記事に替えた。どこまで劇にするかはオーナーの決定（捨てた案の表）。
 5. **振り返りの研究の条件**：進行役が導く集団の形（[[web:learnsci:r4-sim-bbr2018-debriefing|「facilitator」]]）、112人の学生の自己申告（[[web:learnsci:r4-sim-bbr2018-debriefing|「112 undergraduate」]]）、先行の Meij らは個人と協同を比べた（[[web:learnsci:r4-sim-bbr2018-debriefing|「Meij et al. (2013)」]]）。月末の一人の振り返りに効果を写す根拠はない。
 6. **Soren Johnson の「穴を潰せ」への読者の反対**：[[web:simgames:r4-sim-soren-waterfinds|「done so much damage」]]。【0.3で足した】同じ欄のすぐ下に反論もあり（[[web:simgames:r4-sim-soren-waterfinds|「none of what」]]）、反対は孤立した1人の声（事実の判定 R12）。結論（抜け道を全部は潰さない）は Soren 本人の本文（マリオの無限1UP、オン・オフの設定）で支える。
 7. **Reigns の再訪の動機の薄さ**：[[web:simgames:r4-sim-gamingtrend-reigns|「incentive to return」]]。【0.3で足した】作者の GDC 講演は最初に短い目標と長い目標の組み合わせを話した、と紹介記事は書く（[[web:simgames:r6-sd-toucharcade-reigns-gdc|「long-game goals」]]、分岐が仕組みと札の両方に欠かせなかった：[[web:simgames:r6-sd-toucharcade-reigns-gdc|「bifurcation」]]）。講演そのものは読めていない。
-8. 【0.3で足した】**学習ゲームそのものへの反論**：PDG は、最適の答えのある科学を教えて遊び直せるゲームは作れないとする（[[web:simgames:r4-sim-gd-pdg|「players to science」]]）。ピヨ商店は仕訳（パズル）と経営（板挟み）を分けて答えるが、この分け方で遊び直しが続く証拠はまだない【要確認】。
+8. 【0.3で足した・2026-10-23 外した】**学習ゲームそのものへの反論**：PDG の「最適の答えのある科学を教えて遊び直せるゲームは作れない」は取り直せず引用を外した。反論は問いとして残す。ピヨ商店は仕訳（パズル）と経営（板挟み）を分けて答えるが、この分け方で遊び直しが続く証拠はまだない【要確認】。
 9. 【0.3で足した】**入れ子の推しへの反証**：E8 は店2〜5軒・λ 0.3〜1.0 の1つの場面の置き方で、安い店とこだわり店の値段と評判は固定の置き値。型の境があいまいな店（安くてこだわり）では入れ子が強すぎる奪い合いを作る恐れがあり、Train の重なる入れ子（店が2つの型に部分的に入る）が要るかもしれない（事実の判定 U15）。
 
 **限界**
@@ -651,7 +651,7 @@ sim-check の無作為の通し試験（DESIGN-RAMEN k章の3,000周）に、**�
 | 仕入の相場を町の店の買いで動かす（0.2 の6章#12・B2②） | 小麦は政府の売渡価格の年2回の改定で決まり（d.6）、町の店の買いでは動かない | 正しさ |
 | A（方針と人事で任せる子会社）を既定にする | 連結の論点は Offworld 型＋持ち分の段で出せ、A は毎月の見直しの候補を子会社の数×4に増やす（うまくいかない理由3） | 面白さ・学習効果。後半の層として開くかは試遊（BIZ-GROWTH） |
 | 75%以上の子会社の直接操作を開く | 細かい管理の入口になり、作業が判断を押しのける型に戻る | 面白さ |
-| B2（動く町）の5つを束で入れる | 部品の寄せ集めは噛み合わないことがある（Meier）、足すたびに危険（Codecks）。検算していない。②は何が動くかを確かめる案として残す（4.2） | 面白さ（毛玉） |
+| B2（動く町）の5つを束で入れる | 足すたびに危険（Codecks）。【2026-10-23 外した】「部品の寄せ集めは噛み合わないことがある（Meier）」は取り直せなかった。検算していない。②は何が動くかを確かめる案として残す（4.2） | 面白さ（毛玉） |
 | 倒産・離職などの辛い現実をどこまで入れるか | 資料が割れている（反証と限界の4）。決めるのはオーナー | （オーナーの決定に回す） |
 | Steam のレビューを取る | 規約で自動取得が禁止。WANTED.md | 規約 |
 | 【0.5で書き直した】ε0 を1.0〜1.5 のまま使う案（0.4 は「d.2 をそのまま芯にする」と書いた） | **捨てない**。0.4 は「d.2 を撤回」と書いたが、0.4 の推しも d.2 の式で、違いは ε0 の置き方だけだった（H0）。中心の ε0（案A）は正しさ（BIZ-CALIB M1 の中心）の側、上の端（案B）は面白さの側で、決定は BIZ-CALIB とオーナー（4.3） | — |
@@ -785,7 +785,7 @@ sim-check の無作為の通し試験（DESIGN-RAMEN k章の3,000周）に、**�
 | 527 | 論証の表の推しの行 | 反対の事実に効きの大きさと上限・ε の反例を足した | K174 |
 
 ### 0.1 → 0.2（0.2 で直したもの。0.3 でも残す）
-Lemonade を骨組みにしない（[[web:simgames:r4-sim-lemonade-apple1979|「OTHER STANDS」]]）、RimWorld の語り手は人口が減ると（[[web:simgames:r4-sim-gd-rimworld|「population drops」]]）、Lemonade の原価の予告は当日（`simdesign-applesoft-list.py` の行610〜660）、道路工事の分かれ目は `RND(-1)`（行2230。エミュレータで未確認）、Frostpunk の見出しと例の向き（[[web:simgames:r4-sim-inven-frostpunk|「limiting content」]]）、Meier の「できるだけ多くの遊び方」、Tynan の「5つ」は原文にない、Offworld の「管理する時間がない」を書き戻した、Reigns の山札、札80枚、振り返りの効果 d=0.45、storylet を物語の層に。【0.3で取り消した】0.2 が0.1 の「競合は少数のつまみで性格を作る」を誤りとして直した行は、0.1 の方が資料どおりだったので取り消した（K164）。
+Lemonade を骨組みにしない（[[web:simgames:r4-sim-lemonade-apple1979|「OTHER STANDS」]]）、RimWorld の語り手は状況を見て面白い筋になる出来事を選ぶ（[[web:simgames:r10-rr-wiki-rimworld|「most interesting」]]。【2026-10-23 直した】「人口が減ると」の細部は取り直せず外した）、Lemonade の原価の予告は当日（`simdesign-applesoft-list.py` の行610〜660）、道路工事の分かれ目は `RND(-1)`（行2230。エミュレータで未確認）、Frostpunk の見出しと例の向き（[[web:simgames:r4-sim-inven-frostpunk|「limiting content」]]）、Meier の「できるだけ多くの遊び方」、Tynan の「5つ」は原文にない、Offworld の「管理する時間がない」を書き戻した、Reigns の山札、札80枚、振り返りの効果 d=0.45、storylet を物語の層に。【0.3で取り消した】0.2 が0.1 の「競合は少数のつまみで性格を作る」を誤りとして直した行は、0.1 の方が資料どおりだったので取り消した（K164）。
 
 ---
 
@@ -794,7 +794,7 @@ Lemonade を骨組みにしない（[[web:simgames:r4-sim-lemonade-apple1979|「
 | 相手 | 渡すもの |
 |---|---|
 | **BIZ-CALIB 0.2**（数字の分布） | 【0.4で足した】⓪地域の**雇う人数（パートの人数）・店主の報酬の地域差**（オーナーの例が成り立つ一番の前提：4.4）、銀座の坪単価（今は原宿の値の5万円で仮置き）と銀座の店の潜在客（300〜600人/日の段で例が成り立つ）、席に詰まる店の割合（季節の効きを決める：4.2.1）、M1＋壁の ε0 の幅と壁の位置の係数。【0.3で足した】①地域の固定費の構造（店主の報酬・家族経営の割合・建物の自己所有の割合・パートの人数）を地域の型ごとに（4.4。オーナーの例が成り立つ置き値の幅）②暦の倍率 C_{型,月}（4.5 の表は仮置き）③壁の位置の係数（評判・常連でどれだけ動くか）④待ちの係数（行列の許容から）⑤常連の弾力性の下限 ⑥エリアの p_ref・ε・V0。スクリプト `simdesign-v03-effects.py` は係数を差し替えればそのまま回る |
-| **BIZ-REPLAY**（周回） | 【0.4】80 Days の作り手の問い「物語で、遊び直せるか」（[[web:simgames:r4-sim-gd-80days-postmortem|「and replayable」]]）と、当初は大半の人が1回遊ぶと見ていたこと（[[web:simgames:r4-sim-gd-80days-postmortem|「played once」]]）。Offworld のキャンペーンと毎日の挑戦（[[web:simgames:r6-sd-gamingnexus-offworld|「nine CEOs」]]、[[web:simgames:r6-sd-gamingnexus-offworld|「watch replays」]]）、AdVenture Capitalist の転生（[[web:simgames:r6-sd-pecorella-idle1|「Prestige」]]）、SimCity BuildIt のやり直し（[[web:simgames:r6-sd-applion-simcitybuildit-android|「やり直し3回目」]]）、Reigns の再訪の動機（反証の7）と短い目標と長い目標、Juul の進行の型の遊び直しの低さ（U1）、Hades の一本道から仕組みの重なりへ（8章）、DESIGN-RAMEN 968行 |
+| **BIZ-REPLAY**（周回） | 【0.4】80 Days の作り手の問い「2〜3回遊びたくなる冒険ゲームが作れるか」（[[web:simgames:r4-sim-mcv-ingold-replay|「two or three times」]]。【2026-10-23 直した】「当初は大半の人が1回遊ぶと見ていた」は取り直せず外した）。Offworld のキャンペーンと毎日の挑戦（[[web:simgames:r6-sd-gamingnexus-offworld|「nine CEOs」]]、[[web:simgames:r6-sd-gamingnexus-offworld|「watch replays」]]）、放置ゲームの転生（進みが鈍ったら作戦としてやり直す [[web:simgames:r10-rr-wiki-incremental|「strategically reset」]]）、SimCity BuildIt のやり直し（[[web:simgames:r6-sd-applion-simcitybuildit-android|「やり直し3回目」]]）、Reigns の再訪の動機（反証の7）と短い目標と長い目標、Juul の進行の型の遊び直しの低さ（U1）、Hades の一本道から仕組みの重なりへ（8章）、DESIGN-RAMEN 968行 |
 | **BIZ-FUNVISUAL** | 層になった画面、来なかった理由の表示（集計から）、ライバルの一手の欄、流れ図を既定で隠す案（5.5） |
 | **BIZ-MKT-RAMEN** | 宣伝の効き（ln(1+A)）。客層ごとの β_A は入れない（4.3） |
 | **BIZ-GROWTH** | 規模の蓋、子会社の A（方針と人事）を後半の層として開くか（9章）、繁忙期の人手の判断（4.5） |
@@ -828,7 +828,7 @@ Lemonade を骨組みにしない（[[web:simgames:r4-sim-lemonade-apple1979|「
 | 10-2〜10-3 | ライバル・周辺エリアの同業の競合が複数 | 入れ子で型の取り合い（E8）、6章の17項目（強さが要る、を頭に）、10.2 の f章 |
 | 10-4〜10-6 | Coffee Inc 2 を徹底的にパクる | 関係しない（BIZ-COFFEEINC2） |
 | 11-1〜11-2 | 褒められている所の解像度が低い | 1章の因果の鎖、口コミ83件（7章、1ページ目だけと明記）、うまくいく理由9項目 |
-| 11-3〜11-5 | 自由度・変数の多さ・深さがスルメの源では | Tynan の原文の処方は単純寄り（8章）。深さは「写るか」で選ぶ（4.3 の列）。RimWorld も削った |
+| 11-3〜11-5 | 自由度・変数の多さ・深さがスルメの源では | Tynan の原文の処方は単純寄り（8章）。深さは「写るか」で選ぶ（4.3 の列）。【2026-10-23 外した】RimWorld も削った、は取り直せなかった |
 | 12-1〜12-4 | 楽に取り組める打ち手・抜本的な開発を避ける打ち手 | 推しの理由から「d.2 の延長」を外し、効く大きさで決め直した（4.3）。M1・M2・B1・B1-RCT・入れ子・暦を同じ物差しで比べ（4.2）、楽な方（検算の約束を3円で通す）にも重い方（客層×4・B2 の束）にも寄らないようにした |
 | 13-1〜13-3 | 表現のエッセンス・一律禁止はやりすぎ・絵 | 関係しない（BIZ-FUNVISUAL） |
 | 14-1〜14-3 | 調査・分析の浅さ、再点検、アウトなら再調査 | この版がその再調査（両方の判定書に応えた） |
@@ -1150,10 +1150,10 @@ QUALITY 6.3（commit 7d1c5a7）の決まり。論証の検査書（`docs/audit/B
 | 季節は立地の型ごとに書き分ける（オフィス街の8月は d.3 と同じ向き） | BIZ-CALIB 0.4 の T節、BIZ-RAMEN 12章 | 資料の範囲の点検 | 家計の支出は場所を測らない | 家計の8月の山（1.151）ははっきりある | 住宅・郊外の店が多い町なら、全体の倍率で8月を山にしても大きくは外れない | 増える（型ごとの暦） |
 | 常連の穴は月をまたぐと閉じる | F11 | 反実仮想（36か月） | 新規の常連の置き方（一見×0.3×0.1） | 1か月の式の中では穴が開く（E1 の36組） | 離れの置き方しだいで閉じ方が変わる（k=0 でも閉じるのは一見が減るため） | 減る（下限の規則を置かない）→2つ：①d.1 の式を月をまたいで回すこと自体が新しい約束になる ②離れの係数の資料はない |
 | Capitalism Lab のライバルはつまみ、方針はプレイヤーの役員 | 台本の例と方針の頁の原文 | 資料との照合 | 台本の例が AI の作りを表す | 台本の例は設定の全部ではないかもしれない | 方針の頁の設定が AI の役員にも内部で使われている可能性（資料にない） | 減る→2つ：①規則で動く方が遊ぶ人に読める（#10 の写しは【推論】として残した）②Offworld は作者の手で AI を作った |
-| 6エリアの型の固定は Tynan の原則に沿う（130・713行を残す） | [[web:simgames:r4-sim-tynan-simdream|「Player Model Principle」]] | 原文の読み | 型の数が頭の中の模型の単位 | オーナーは自由度を求める（OWNER-WORDS 11-3） | 型を固定しても変種で数字を揺らせば自由度は残る | 減る→2つ：①オーナーの「自由度」②This War of Mine は人物が単純すぎると遊ぶ人が [[web:simgames:r4-sim-gd-thiswarofmine|「as a resource」]] として扱ったので深くした（単純寄りの逆の実例） |
+| 6エリアの型の固定は Tynan の原則に沿う（130・713行を残す） | [[web:simgames:r4-sim-tynan-simdream|「Player Model Principle」]] | 原文の読み | 型の数が頭の中の模型の単位 | オーナーは自由度を求める（OWNER-WORDS 11-3） | 型を固定しても変種で数字を揺らせば自由度は残る | 減る→2つ：①オーナーの「自由度」②This War of Mine は人物ごとの気持ちが行いの後に返る作り（[[web:simgames:r10-rr-4gamer-twom-gdc2015|「良心の呵責」]]）で、型を固定しすぎない側の材料（【2026-10-23 直した】前の版の「単純すぎると資源として扱われた」は取り直せず外し、残った記述に替えた） |
 | 子会社は Offworld 型＋持ち分の段を既定に | 9章の比べ、Capitalism Lab の財務の頁 | 比べ | 連結の論点が2級の範囲 | 方針で動かす子会社の方が判断が多い | 子会社の数が少ない間は A の作業も小さい | 減る→2つ：①A の方が判断が多い ②BIZ-GROWTH の段で A を後から開ける |
 | 長期の褒めは1作品の傾向 | 7章（10人全員 SimCity BuildIt） | 一般化をやめた | 1ページ目の偏りが長期でも同じ | 2ページ目以降を読んでいない | 長く遊ぶ人は多人数の作品に集まるだけ | 減る→2つ：①SimCity BuildIt は1人でも遊べる作り込み・眺めも褒められる ②Offworld は1人用のキャンペーンも作った |
-| 札を足すときは依存の網を測る | Papers, Please（[[web:simgames:designer-papersplease-gd2014|「complicated network」]]）、80 Days（[[web:simgames:r4-sim-gd-80days-postmortem|「broke the story logic」]]） | 類推 | 経済の上の札でも依存が起きる | 80 Days は挿話を閉じて順番を気にせず書けた（[[web:simgames:r4-sim-gd-80days-postmortem|「inherently episodic」]]） | 依存は骨組みを変えたときに出る | 増える |
+| 札を足すときは依存の網を測る | Papers, Please（[[web:simgames:designer-papersplease-gd2014|「complicated network」]]）、80 Days（【2026-10-23 外した】「航路を閉じたら筋が壊れた」は取り直せなかった） | 類推 | 経済の上の札でも依存が起きる | 80 Days は話を新しい小片として大量に書いた（[[web:simgames:r4-sim-mcv-ingold-replay|「individual bits」]]） | 依存は骨組みを変えたときに出る | 増える |
 | 振り返りの研究の効果を一人の振り返りに写さない | BBR の方法 | 範囲の点検 | 進行役つき・集団と画面の一人は違う | Meij らの個人の方が伸びた引用 | 一人の形の効果は未検証なだけ | 減る→2つ（0.2 のまま） |
 
 ---
@@ -1180,6 +1180,8 @@ QUALITY 6.3（commit 7d1c5a7）の決まり。論証の検査書（`docs/audit/B
 - **DESIGN-RAMEN・HANDOFF.md は書き換えていない**（依頼は自分の報告だけ）。10.2 の行番号は2026-10-22 の DESIGN-RAMEN の版のまま（事実の判定は確かめていない）。
 - 検査の結果（2026-10-23、版0.5）：`node boki2/tools/report-check.js boki2/docs/BIZ-SIMDESIGN.md` は ✓（警告0）。`node boki2/tools/research-check.js` はこの報告が引く資料・ノート（r6-sd-*・r7-sd-*）にエラー0（全体のエラー15件は別の担当の分）。
 
+- 【2026-10-23 差し替え】robots.txt の禁じる経路の出典の差し替えでは、資料の内訳の台帳（simdesign-sources.tsv）と本数（77本）を数え直していない。差し替えで本文の主張を弱めた所（末尾の章の「弱まる」「消える」）を、4.2 の検算や10章の直しの決定に戻して検算し直してはいない（決定は外した引用だけには依っていないことを、10章の一覧で目で確かめただけ）。新しく読んだ記事は、どれも元の記事と同じ講演・同じ作り手の別の取材で、元の記事の言葉そのものではない
+
 ---
 
 ## 読んだ資料
@@ -1191,9 +1193,28 @@ QUALITY 6.3（commit 7d1c5a7）の決まり。論証の検査書（`docs/audit/B
 **作り手の話（新規、数える9本）**：Soren Johnson のコラム（r6-sd-soren-cheatinhearts）、Offworld の開発日誌と聞き取り（r6-sd-soren-otc-devjournal・r6-sd-gamingnexus-offworld）、Factorio FFF #129、Two Point の創業者（r6-sd-mcv-twopoint）、GlassBox の講演の取材（r6-sd-gd-glassbox2012）、Big Ambitions の2本（r6-sd-codecks-hovgaard・r6-sd-gamediscover-bigambitions）、Pecorella（r6-sd-pecorella-idle1）。数えない：r6-sd-gamespark-bigambitions（中身なし）・r6-sd-soren-playingtolose・r6-sd-willmott-glassbox・r6-sd-toucharcade-reigns-gdc（記者の要約）。
 **一次資料（公式・ソース）**：Capitalism Lab の9ページ、OpenRCT2 の Guest.cpp（0.3 で店の品の判定を読み足した）、Micropolis の s_sim.c、CorsixTH の world.lua。
 **読み直した原文（0.3）**：80 Days の事後検証（r4-sim-gd-80days-postmortem、全文）、This War of Mine の講演の取材（r4-sim-gd-thiswarofmine、全文）、Tynan（全文）。
+**差し替えで新しく読んだもの（2026-10-23、末尾の章）**：4Gamer の GDC の講演の記事3本（Meier 2012・GlassBox 2012・This War of Mine 2015）、PC Gamer の Into the Breach の事前の記事と Hades の早期アクセスの記事、GeekDad の Kasavin の聞き取り、Wikipedia の RimWorld と放置ゲームの項、ABSEL の Pray & Gold 1982 の要旨。既存の MCV の Ingold の聞き取りも引いた。上の r4-sim-gd-*・r6-rp-gd-*・r6-sd-gd-*・r6-sd-pecorella-idle1・r7-sd-mpra-54716 は本文から引用を外した（資料の内訳の本数は差し替えの前の数のまま。数え直していない）
 **別の担当の原文**：BIZ-FUNVISUAL の7本、BIZ-REPLAY の Hades の開発の聞き取り（r6-rp-gd-hades-devprocess、全文）。
 **利用者の声**：APPLION の6ページ（各作品の1ページ目）。
 **研究（0.4 で足した）**：Vymětal & Ježek 2014、経営シミュレーターの需要関数（r7-sd-mpra-54716、全文）。
 
 ## robots.txt で禁じられた経路の出典
-2026-10-23 のさかのぼり点検（research/ROBOTS-AUDIT.md）で、この報告の次の出典は、robots.txt が禁じるパス（または Anthropic の名を挙げて禁じる組）から取得していたと分かった。オーナーの決定で引用は残し、事実どおりここに記す。今後は research-fetch が自動で止める：r4-sim-gd-80days-postmortem、r4-sim-gd-intothebreach、r4-sim-gd-meier2012、r4-sim-gd-pdg、r4-sim-gd-rimworld、r4-sim-gd-thiswarofmine、r6-rp-gd-hades-devprocess、r6-sd-gd-glassbox2012、r6-sd-pecorella-idle1、r7-sd-mpra-54716
+
+2026-10-23 のさかのぼり点検（research/ROBOTS-AUDIT.md）で、この報告の10本の出典が robots.txt の禁じる経路（gamedeveloper.com と mpra.ub.uni-muenchen.de は Anthropic の名を挙げて全部を禁じる組）から取ったものと分かった。オーナーの決定（A：許された形に取り直して差し替え、できない所は引用を外して結論が変わるかを書く）で、2026-10-23 に差し替えた。本文の直した所には【2026-10-23 外した】【2026-10-23 直した】の印がある。試した経路は `research/searches/robots-replace.jsonl` と取得記録の r10-rr-*・r10-robots-*・r10-tos-*。
+
+### 差し替えの結果
+
+| もとの doc（引用の数） | 新しい doc または「外した」（差し替え／外した） | 試した経路と結果 | 結論への影響 |
+|---|---|---|---|
+| r4-sim-gd-meier2012（10） | r10-rr-4gamer-meier-gdc2012（4Gamer の同じ GDC 2012 の講演の記事）で4、外した6 | 4Gamer の講演の記事：選択の影響は遊び方・人柄で変わる、短期・中期・長期に響く、結果を明示する、ファンタジーで包む、を支える。「街に名前」「3分の1以上を削る」「部品の寄せ集め」「出目が仕組まれていると思う人」は記事になく、WebSearch でも別の公開元は出ない | うまくいく理由6の「名づける」は Meier の根拠が消え、口コミの数と This War of Mine だけに**弱まる**。2章の「削る勇気」は削る側の根拠が消え**弱まる**。うまくいかない理由8・9は Soren Johnson と Big Ambitions の根拠が残り**変わらない** |
+| r4-sim-gd-pdg（9） | 外した9 | 著者（Narek Aghekyan）の別の掲載先を WebSearch で2回探して出ない。論考は gamedeveloper.com のブログ欄にしかない | うまくいく理由5の②、反証と限界の2・3・8、U7 は【推論】と問いとして残し、PDG の根拠は**消える**。2章の7つの点検の「最適を隠す」の根拠も消え**弱まる**。学習ゲームへの反論（科学を教えて遊び直せるゲームは作れない）は、反論の出典が消えたので「仕訳はパズル、経営は板挟み」の分け方を試遊で確かめる【要確認】だけが残る（結論の向きは**変わらない**が、反論の重みが**弱まる**） |
+| r4-sim-gd-intothebreach（4） | r10-rr-pcgamer-itb-preview（PC Gamer の事前の記事、作り手の聞き取り）で3、外した1 | PC Gamer：敵が攻撃を見せる・AI の出来で勝ち負けが決まらない・仕組みの絡み・敵1体で難度が跳ねる。Cliqist の聞き取り（r10-rr-cliqist-itb-ma）は乱数に頼らない話で、ここでは使わない（BIZ-REPLAY で使う）。「1つの戦法で勝ち続けられない」「自分のせい」の言葉は出ない | うまくいく理由8「自分のせいだと思える負け」は、予告と応じる機会までが資料で、「自分のせいと感じる」は【推論】に**弱まる**。2章の点検の「1つの戦法」は**消える**。6章14の予告は**変わらない** |
+| r4-sim-gd-rimworld（6） | r10-rr-wiki-rimworld（Wikipedia の RimWorld の項）で2、外した4 | Wikipedia：入植者の関わり方、語り手が面白い筋になる出来事を選ぶ。「層を削った」「傷つけるが殺さない」は出ない。WebSearch で Tynan の GDC 2017 の告知だけ | うまくいく理由3の「深さは足すより選ぶ」は RimWorld の例が消え**弱まる**。U2（深くするほどよい、への反証）は**消える**（推しの選び方は 4.2 の線で決めていて残る）。理由8の RimWorld は**消える** |
+| r4-sim-gd-thiswarofmine（8） | r10-rr-4gamer-twom-gdc2015（4Gamer の同じ GDC 2015 の講演の記事）で5、外した3 | 4Gamer：Our Things を運命共同体の意識づけにした、自分の行いを自分で裁く、裏を読んで判断する、偏見をずらす、市民の視点、「鬱になるゲーム」。「名前を替えただけで扱いが変わった」「結果がはっきりすると得な方を選ぶ」「単純すぎる人物は資源扱い」は出ない | 理由6の Our Things は「扱いが変わった」から「作り手の狙い」に**弱まる**。理由9は「得な方を選ぶ」の対照が消えるが、判断を自分で裁く・裏を読むで**変わらない**（支えが替わる）。8章の「単純寄りの逆の実例」は【推論】に**弱まる**。論証の表の反対の事実は残った記述に替えて2つのまま |
+| r4-sim-gd-80days-postmortem（11） | r4-sim-mcv-ingold-replay（既存の MCV の Ingold の聞き取り）で3、外した8 | inkle のブログ（判定 ok）は発売前の記事だけ、Macworld は地図の隙間の別の話。事後検証の中身（挿話が閉じている・3つの性格・航路を閉じて筋が壊れた・地図を伏せた・保存を付けた）は別の公開元が出ない | 5章の「挿話を閉じても骨組みを変えると依存は出る」と、見える化の反対側の材料（全部見せると選ぶ意味が消える）は【推論】に**弱まる**。論証の表の「札を足すときは依存の網を測る」は Papers, Please が残り**変わらない**。BIZ-REPLAY への引き継ぎの「2〜3回遊びたくなるか」は**変わらない** |
+| r6-rp-gd-hades-devprocess（5） | r10-rr-geekdad-kasavin（GeekDad の Kasavin の聞き取り）で4、r10-rr-pcgamer-hades-ea（PC Gamer の早期アクセスの記事）で1 | 「重なる仕組み」「データの側に置く」の言葉は出ない。GeekDad は台詞を場面ごとに書いて選ぶ・深く非線形・前作は始まり・中・終わり、PC Gamer は武器の持ち替えを報酬で促す | 理由4・5⑤と5章の Hades は主張を資料の言える範囲に直した（「データの側に置きコードを変えずに足す」→「台詞を場面ごとに書いて選ぶ」）。結論の向きは**変わらない**が、5章の作り方の根拠は**弱まる** |
+| r6-sd-gd-glassbox2012（2） | r10-rr-4gamer-glassbox-gdc2012（4Gamer の同じ GDC 2012 の講演の記事）で2 | 「1万以上のエージェント」の数は出ない | B1 の評価は**変わらない**（GlassBox は型の例で、数は使っていない） |
+| r6-sd-pecorella-idle1（5） | r10-rr-wiki-incremental（Wikipedia の放置ゲームの項）で1、外した4 | Kongregate のブログと GameAnalytics の写しはどちらも規約が robot・spider を禁止（r10-tos-kongregate・r10-tos-gameanalytics、site-policy に no-automation と記録）。Wikipedia は転生と値段の指数の伸びまで | 理由5①（最適が時期で入れ替わるように倍率を置く）は根拠が消え【推論】に**弱まる**。うまくいかない理由4（伸びしろが消える）は Capitalism Lab と RCT Touch が残り**変わらない**。U8 は**消え**、3%の線の根拠が1つ減る（**弱まる**） |
+| r7-sd-mpra-54716（1） | r10-rr-absel-praygold1982（ABSEL の論文誌、Pray & Gold 1982 の要旨）で1 | 又引きしていた Gold & Pray の系統の原典が開いていた。1984 の論文そのものは取っていない | 需要関数の多くが不安定という向きは原典の要旨で**変わらない**（むしろ又引きでなくなった） |
+
+計：引用61のうち、差し替え26・外した35。結論が変わった（消えた・弱まった）所は上の表の「消える」「弱まる」の行。設計の決定（DESIGN-RAMEN への直し）は、この報告では 4.2 の効きの線と検算で決めていて、外した引用だけで決めた決定はない【推論：10章の差し替え一覧を見直して、外した引用だけを根拠にした行がないことを確かめた】。
