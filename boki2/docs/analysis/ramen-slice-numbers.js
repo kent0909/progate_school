@@ -205,7 +205,7 @@ function model(V) {
   const SUP = { cheap: [0.33, 2.7, 0], std: [0.35, 3.0, 0], high: [0.38, V.qHigh, V.qCost] };
   const seeds = []; for (let i = 0; i < 60; i++) seeds.push({ i, pool: 0.8 + 0.4 * ((i * 37) % 60) / 59, other: i % 2 ? 150000 : 200000, rent: 100000 * (0.8 + 0.4 * ((i * 13) % 60) / 59), shock: (i * 7) % 2 === 0, area: ['ekimae', 'shotengai', 'jutaku'][i % 3] });
   const AREA_SIGN = { ekimae: 1.0, shotengai: 0.7, jutaku: 0.4 };
-  function run(S0, seed, pol, years) {
+  function run(S0, seed, pol, years, opts = {}) {
     let R = 3, A = { sign: 0, flyer: 0, sns: 0 }, L = 0, cash = 7000000 - 1500000 - 900000 - 600000, cum = 0, F = 1, pRef = 850, discounted = false, rebound = 0, prevPrice = 850, neg = 0, dead = false, borrowed = false, shortLoan = 0;
     const out = [];
     for (let t = 0; t < 12 * years; t++) {
@@ -229,7 +229,7 @@ function model(V) {
       const op = sales * (1 - UTIL_VAR) - cogs - fixed - INTEREST - shortLoan * 0.045 / 12;
       cash += op + DEP - (t >= 3 ? REPAY : 0); cum += op;
       if (cash < 0 && !borrowed) { cash += 2000000; shortLoan = 2000000; borrowed = true; }
-      neg = cash < 0 ? neg + 1 : 0; if (neg >= 3) dead = true;
+      neg = cash < 0 ? neg + 1 : 0; if (neg >= 3 && !opts.nodeath) dead = true;
       // 安い店の印象：相場の0.9倍から下がるほど、0.7倍で −0.3 まで（なだらか。版0.7 の「2割安で −0.3」の崖をなくした）
       const cheap = V.cheapHit * Math.min(1, Math.max(0, (0.9 * pRef - p.price) / (0.2 * pRef)));
       const exp = Q + 2 * Math.log(F) + 2 * (p.fit || 0) - 3 * waitRate - cheap;
@@ -257,12 +257,12 @@ function model(V) {
   const q = (arr, k) => { const a = arr.slice().sort((x, y) => x - y); return a[Math.floor((a.length - 1) * k)]; };
   const yN = (o, yr) => o.filter((x) => x.y === yr).reduce((t, x) => t + x.N, 0) / 12;
   const NC = (o) => (o[o.length - 1].cash - 7000000 + REPAY * (o.length - 3)) / 1e4;
-  if (V.debug) { console.log(JSON.stringify(run(90, seeds[0], idle('part1'), 1).slice(0, 2))); return; }
-  let S0 = 40; for (let it = 0; it < 30; it++) { const med = q(seeds.map((sd) => yN(run(S0, sd, idle('part1'), 3), 3)), 0.5); S0 *= 44 / med; }
+  if (V.debug) { const o = run(90, seeds[0], idle('part1'), 3); const bad = o.find((x) => Object.values(x).some((v) => typeof v === 'number' && isNaN(v))); console.log('FIRSTNAN', JSON.stringify(bad), JSON.stringify(o[bad ? bad.t - 1 : 35])); return; }
+  let S0 = 40; for (let it = 0; it < 30; it++) { const med = q(seeds.map((sd) => yN(run(S0, sd, idle('part1'), 3, { nodeath: true }), 3)), 0.5); S0 *= 44 / med; }  // 較正は倒産なしで（倒産した店の客数0で中央値が崩れるため）
   console.log(`\n## (10) 案「${V.name}」：w=${V.w}・常連×${V.epsReg}・retain ${V.retain}・retainP ${V.retainP}・印象 −${V.cheapHit}・D=${V.D}・看板 小+${V.signSmall}／大+${V.signLarge}・放置の看板=${V.idleSign || 'none'}。S0＝${S0.toFixed(1)}（放置3年目中央値44に逆算）`);
   const idleN = seeds.map((sd) => yN(run(S0, sd, idle('part1'), 5), 3));
   const base3 = seeds.map((sd) => yN(run(S0, sd, idle('part1', { sign: 'small', line: true, supplier: 'high' }), 5), 3));
-  console.log(`放置3年目：中央値 ${q(idleN, 0.5).toFixed(1)}・上位25% ${q(idleN, 0.75).toFixed(1)}。基礎の手だけ（小の看板・LINE・高い仕入先）：中央値 ${q(base3, 0.5).toFixed(1)}・上位25% ${q(base3, 0.75).toFixed(1)}`);
+  console.log(`放置3年目：中央値 ${q(idleN, 0.5).toFixed(1)}・上位25% ${q(idleN, 0.75).toFixed(1)}・倒産 ${seeds.filter((sd) => run(S0, sd, idle('part1'), 5)[59].dead).length}/60。基礎の手だけ（小の看板・LINE・高い仕入先）：中央値 ${q(base3, 0.5).toFixed(1)}・上位25% ${q(base3, 0.75).toFixed(1)}`);
   for (const nm of ['multi', 'quality', 'ad']) {
     const o5 = seeds.map((sd) => run(S0, sd, sk(nm), 5)), n3 = o5.map((o) => yN(o, 3)), n5 = o5.map((o) => yN(o, 5)), nc = o5.map(NC);
     const over = seeds.filter((sd, i) => n3[i] > base3[i] + 10).length;
@@ -309,7 +309,7 @@ function model(V) {
   }
 }
 const E8 = { name: 'E8（版0.8 の案）', w: 0, epsReg: 0.3, retain: 0.035, churnRep: 0.005, retainP: 1.0, cheapHit: 0.3, D: 6, qHigh: 4.0, qCost: 30000, signSmall: 0.03, signLarge: 0.08, priceScan: true };
-model({ ...E8, debug: true });
+model(E8);
 for (const w of [0.1, 0.2, 0.3]) model({ ...E8, name: `E8・w=${w}（条件4：追随の近似）`, w, priceScan: true });
 model({ ...E8, name: 'E8・放置に小の看板（条件6：較正し直し）', idleSign: 'small', priceScan: false });
 // 条件3：歯止めの切り分け（1つずつ外す）
