@@ -148,7 +148,7 @@ out('\n## 12. 第2版の再検査の判定の数（検査書15章の表）');
     const ans = { 応えた: new Set(), 一部: new Set(), 応えていない: new Set() };
     for (const l of resp) { const c = l.split('|').map((s) => s.trim()); const ids = c[1].split('・').map((x) => x.replace('#', '')); const a = c[4]; if (ans[a]) ids.forEach((i) => ans[a].add(i)); else out(`  読めない応え ${c[1]} → ${a}`); }
     for (const k of Object.keys(ans)) out(`応え ${k} ${ans[k].size}`);
-    const prevIds = fs.readFileSync(auditPath2, 'utf8').split('\n').filter((l) => /^\| [A-Z]{1,2}\d{2} \|/.test(l)).map((l) => l.split('|')[1].trim()).filter((id) => !id.startsWith('N'));
+    const prevIds = fs.readFileSync(auditPath2, 'utf8').split('\n').filter((l) => /^\| [A-Z]{1,2}\d{2} \|/.test(l)).map((l) => l.split('|')[1].trim()).filter((id) => !/^[NM]/.test(id));
     const prevV = {}; fs.readFileSync(auditPath2, 'utf8').split('\n').filter((l) => /^\| [A-Z]{1,2}\d{2} \|/.test(l)).forEach((l) => { const c = l.split('|').map((s) => s.trim()); prevV[c[1]] = c[c.length - 3]; });
     const need = prevIds.filter((id) => prevV[id] !== '妥当');
     const covered = new Set([...ans['応えた'], ...ans['一部'], ...ans['応えていない']]);
@@ -156,10 +156,25 @@ out('\n## 12. 第2版の再検査の判定の数（検査書15章の表）');
   }
 }
 
+out('\n## 13. 第3版の再検査（検査書16章の表）');
+{
+  const all3 = fs.readFileSync(path.join(__dirname, '..', 'audit', 'BIZ-GROWTH-reasoning.md'), 'utf8').split('\n');
+  const mrows = all3.filter((l) => /^\| M[A-Z]\d{2} \|/.test(l));
+  const c3 = { 妥当: [], 弱い: [], 不当: [] };
+  for (const l of mrows) { const c = l.split('|').map((x) => x.trim()); const v = c[c.length - 3]; if (c3[v]) c3[v].push(c[1]); else out(`  読めない行 ${c[1]} → ${v}`); }
+  for (const k of Object.keys(c3)) out(`第3版 ${k} ${c3[k].length}：${c3[k].join('・')}`);
+  out(`第3版の行 ${mrows.length}（${c3['妥当'].length}＋${c3['弱い'].length}＋${c3['不当'].length}）`);
+  // 15.7 の基準と手抜きの予想への応え（行頭「| 基準」「| 予想」、4列目が応え）
+  const crit = all3.filter((l) => /^\| (基準|予想)\d+ \|/.test(l));
+  const a3 = {};
+  for (const l of crit) { const c = l.split('|').map((x) => x.trim()); const k = c[1].startsWith('基準') ? '基準' : '予想'; a3[k] = a3[k] || {}; a3[k][c[3]] = (a3[k][c[3]] || 0) + 1; }
+  for (const [k, v] of Object.entries(a3)) out(`${k}：${Object.entries(v).map(([a, b]) => `${a} ${b}`).join('、')}（計 ${Object.values(v).reduce((x, y) => x + y, 0)}）`);
+}
+
 out('\n## 8. 判定の数（docs/audit/BIZ-GROWTH-reasoning.md の表）');
 const auditPath = path.join(__dirname, '..', 'audit', 'BIZ-GROWTH-reasoning.md');
 if (fs.existsSync(auditPath)) {
-  const lines = fs.readFileSync(auditPath, 'utf8').split('\n').filter((l) => /^\| [A-Z]{1,2}\d{2} \|/.test(l) && !/^\| N[A-Z]\d{2} \|/.test(l));
+  const lines = fs.readFileSync(auditPath, 'utf8').split('\n').filter((l) => /^\| [A-Z]{1,2}\d{2} \|/.test(l) && !/^\| [NM][A-Z]\d{2} \|/.test(l));
   const cnt = { 妥当: [], 弱い: [], 不当: [] };
   for (const l of lines) {
     const cells = l.split('|').map((s) => s.trim());
