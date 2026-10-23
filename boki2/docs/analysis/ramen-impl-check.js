@@ -485,6 +485,18 @@ if (EXP === 'v08' || EXP === 'ceiling') {
   out(`\n## 版0.8 の置き値を差し込んだ実装（再較正）`); out(`較正 potentialScale=${calibrate(N)}（放置の3年目中央値 44）`);
   if (EXP === 'v08') judgments(N, {}); else ceiling(SEEDS);
 }
+if (EXP === 'flip2') {
+  // 版0.9 の置き値（立地倍率 b）の上で、入れ替わりを 50% 超に押し上げる候補：安売りの追随が元に戻る（f.3 の「値下げ週間の後に戻す」）、値上げの離れの係数
+  setX({ ...X09, areaSign: { ekimae: 1.0, shotengai: 0.8, jutaku: 0.6 } }); C.table.decay.v = 0.02; C.table.capBy.v = [45, 70, 100, 125, 145, 160, 170]; C.table.discountChurn.v = 1;
+  out(`較正 potentialScale=${calibrate(Math.min(RUNS, 120))}`);
+  const polX = (W, st, price) => smartX(W, st, { prices: [price, price, price, price, price] });
+  flipStat('版0.9（追随は戻らない）', { polFn: polX });
+  for (const back of [3, 6]) withX({ followBack: back }, () => flipStat(`追随の値下げが${back}か月で元に戻る`, { polFn: polX }));
+  withX({ followBack: 3 }, () => flipStat('追随3か月で戻る・1年目10円刻み', { polFn: polX, cands: [Y10, Y50, Y50] }));
+  withCoef({ churnPerHike: 0.02 }, () => flipStat('値上げの離れ 0.04→0.02', { polFn: polX }));
+  withCoef({ churnPerHike: 0.02 }, () => withX({ followBack: 3 }, () => flipStat('値上げの離れ 0.02＋追随3か月で戻る', { polFn: polX })));
+  withCoef({ epsOver1000: 1.2 }, () => flipStat('1,000円の壁 1.5→1.2', { polFn: polX }));
+}
 if (EXP === 'final' || EXP === 'final-ceiling') {
   setX(X09); C.table.decay.v = 0.02; C.table.capBy.v = [Number(arg('--famCap', 45)), 70, 100, 125, 145, 160, 170]; C.table.discountChurn.v = Number(arg('--discountChurn', 1));
   const N = Math.min(RUNS, 120);
