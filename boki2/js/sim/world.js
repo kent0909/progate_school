@@ -1,4 +1,4 @@
-// ラーメン版の世界の状態 W と需要の式（DESIGN-RAMEN 版0.4 d章・c.2・c.8・c.9・k.3）。純粋関数（DOM なし）。
+// ラーメン版の世界の状態 W と需要の式（DESIGN-RAMEN 版0.5 d章・c.2・c.8・c.9・k.3）。純粋関数（DOM なし）。
 // 月をまたいで持ち越す値は W の中だけ。乱数は seed から作る（同じ seed と同じ手で同じ結果：k.5 再現）。
 // 係数は js/sim/coef.js（範囲と出どころつき）。一杯は bowl.js、ライバルは rivals.js、札は cards.js・decide.js。
 (function (g) {
@@ -30,11 +30,11 @@
   const SEGS = ['office', 'family', 'student', 'tourist'];
   const EPS = { office: 'epsOffice', family: 'epsFamily', student: 'epsStudent', tourist: 'epsTourist' };
 
-  // ---------- 店の形（c.8・n.17）：おすすめの組3つ。人の構成は 0〜6人で自由（家族は上限2人・無給1人まで） ----------
+  // ---------- 店の形（c.8・n.17）：おすすめの組3つ。人の構成は 0〜6人で自由（家族は上限2人・全員に給料） ----------
   const FORMS = { family: { label: '家族で小さく', parts: 0, family: 1 }, part1: { label: 'パート1人', parts: 1, family: 0 }, part2: { label: 'パート2人（昼夜）', parts: 2, family: 0 } };
   const workersOf = (st) => Math.min(C('hireMax'), st.parts + Math.max(0, st.family - 1));
   const capOf = (st) => Math.min(C('capBy')[workersOf(st)], C('capSeat'));
-  const laborOf = (st) => st.parts * C('wagePart') + Math.max(0, st.family - 1) * C('wageFamily2');
+  const laborOf = (st) => st.parts * C('wagePart') + (st.family >= 1 ? C('wageFamily1') : 0) + Math.max(0, st.family - 1) * C('wageFamily2');
   const PRICE_MIN = 600, PRICE_MAX = 1400;
 
   // ---------- 時間の予算（c.9）：店主の手の空き。家族3・パート1人4・パート2人5、人を雇うと +1/人（上限2）、段0は +1 ----------
@@ -224,13 +224,12 @@
     const sales = Math.round(sold * me.price * C('items') * (me.coupon ? 0.95 : 1));
     const cogs = Math.round(sold * unitCost), wasteCost = Math.round(waste * SIM.bowl.cost(me.bowl) * C('wasteShare'));
     // 居抜きの契約で最初の3か月は家賃なし（ramen-y1.js の家賃の書類は7月から）
-    const labor = Math.round(laborOf(me) * (me.wageUp || 1)), rent = W.t < C('freeRent') ? 0 : C('rentPerTsubo')[W.area] * C('tsubo');
+    const labor = Math.round(laborOf(me) + me.parts * C('wagePart') * ((me.wageUp || 1) - 1)), rent = W.t < C('freeRent') ? 0 : C('rentPerTsubo')[W.area] * C('tsubo');
     const util = Math.round(C('utilFixed') + C('utilVar') * sales), other = W.otherFixed, dep = Math.round(C('fitout') / C('fitoutLife') / 12);
     const ads = (pol.flyer || 0) + (me.line ? 5000 : 0) + (res.limited ? 30000 : 0);
     const op0 = sales - cogs - wasteCost - labor - rent - util - other - dep - ads + fx.cash;
-    // 家族の働き手の無給の1人は「報酬は利益から」（c.8）：利益が出た月は、その半分（パート1人の給料まで）を家族の給料として払う【置き値】
-    const famPay = me.family >= 1 ? Math.round(Math.min(C('wagePart'), Math.max(0, C('familyShare') * op0))) : 0;
-    const op = op0 - famPay;
+    // 家族の給料は赤字の月も labor に含む。旧保存・月報との互換のため famPay は0。
+    const famPay = 0, op = op0;
     // 短期借入（c.4 の支払不能の手①。枠は1回・置き値）：口座が足りない月の手。金利は年4.5%【置き値 CALIB：4〜5%台】
     if (pol.borrow && !W.flags.shortUsed) { W.cash += C('shortLimit'); W.short = (W.short || 0) + C('shortLimit'); W.flags.shortUsed = true; res.borrowed = C('shortLimit'); }
     // 公庫の返済は最初の3か月はすえおき（利息はためておき、7月に4か月分をまとめて払う）
@@ -247,9 +246,18 @@
     const exp = Q + 2 * Math.log(F) + 2 * fitAvg - C('repStock') * stockRate - C('repWait') * waitRate + (fx.Rd || 0) * 4;
     me.R = Math.max(1, Math.min(5, me.R + C('repAlpha') * (exp - me.R)));
     const hike = Math.max(0, (me.price - prevPrice) / prevPrice);
-    const churn = Math.max(0.005, C('churn') + C('churnPerHike') * hike * 10 + (me.churnUp || 0) + (F < 0.9 ? 0.01 : 0) - (me.line ? C('lineBack') * C('churn') * 3 : 0));
+    const churnBase = Math.max(0.005, C('churn') + C('churnPerHike') * hike * 10 + (me.churnUp || 0) + (F < 0.9 ? 0.01 : 0) - (me.line ? C('lineBack') * C('churn') * 3 : 0));
+    // 値下げをした後、最初に値上げした月の離れを2倍にする（d.2 版0.5）。
+    const discountRebound = hike > 0 && !!me.discounted;
+    const churn = Math.min(1, churnBase * (discountRebound ? C('discountChurn') : 1));
+    if (me.price < prevPrice) me.discounted = true;
+    else if (hike > 0) me.discounted = false;
+    const regularBefore = me.L;
     const newServed = (sold * e0.Nnew) / Math.max(1e-9, e0.N * days); // 1日あたりの新規の客で、実際に食べた人
-    me.L = Math.max(0, me.L * (1 - churn) + C('retain') * newServed * (1 + 0.3 * (me.R - 3)));
+    const regularAdded = C('retain') * newServed * (1 + 0.3 * (me.R - 3));
+    me.L = Math.max(0, me.L * (1 - churn) + regularAdded);
+    const regularDelta = me.L - regularBefore;
+    const fullDays = (dW >= cap ? 20 : 0) + (k * dW >= cap ? 6 : 0);
     me.churnUp = 0;
     me.Nlast = sold / days;
     me.wait = waitRate * 60;
@@ -261,7 +269,7 @@
     const factors = W.comp && !opts.noFactors ? decompose(W0, W, comp, list, ex[0].N) : { total: 0 };
     res.peakEffect = Math.exp(C('bF') * Math.log(F)) / Math.exp(C('bF') * Math.log(me.bowl.Fbase || 1)) - 1;
     W.comp = { ...comp, price: me.price, pRef: a.pRef, R: me.R, F, A: me.A, rivals: W.rivals.map((r) => ({ id: r.id, price: r.price, open: r.open !== false, R: r.R })), N: ex[0].N, mapMul: me.mapMul };
-    Object.assign(res, { famPay, N: sold / days, Nd, demand: demand / days, X: Math.round(sold), waste: Math.round(waste), lost: Math.round(lostStock + lostCap), sales, cogs, wasteCost, labor, rent, util, other, dep, ads, op, interest, ord, repay, cash: W.cash, loan: W.loan, R: me.R, L: me.L, A: me.A, F, Q, cap, weeks, pRef: a.pRef, factors, time: { budget: timeBudget(W0, pol), used: timeUsed(W0, pol) }, fx: fx.cash });
+    Object.assign(res, { regularAdded, regularDelta, regularLost: regularBefore * churn, fullDays, discountRebound, famPay, N: sold / days, Nd, demand: demand / days, X: Math.round(sold), waste: Math.round(waste), lost: Math.round(lostStock + lostCap), sales, cogs, wasteCost, labor, rent, util, other, dep, ads, op, interest, ord, repay, cash: W.cash, loan: W.loan, R: me.R, L: me.L, A: me.A, F, Q, cap, weeks, pRef: a.pRef, factors, time: { budget: timeBudget(W0, pol), used: timeUsed(W0, pol) }, fx: fx.cash });
     // 支払不能：口座が足りない月が3か月続くと倒産（c.4。切り身では短期の借入・猶予の手はまだない）
     W.insolvent = W.cash < 0 ? W.insolvent + 1 : 0;
     if (W.insolvent >= 3) W.bankrupt = true;
@@ -270,8 +278,7 @@
     W.t += 1; W.m = (W.m % 12) + 1; if (W.m === 4) W.y += 1;
     return { W, res };
   }
-  // 相場の値段の寄り先：自店の値段を半分、開いているライバルの値段の平均を半分【置き値 (c)】。d.1 は「自店と競合の加重平均」で重みが書かれていない。
-  // 客数で重みをつけると客の多い安売りチェーンに相場が引かれ続けるので、自店の客の覚えている値段（半分）と町の店の値段（半分）にした
+  // d.1・k.8 #3：自店0.3、開いている町の店の平均0.7。客数による重みではない。
   const weightedPrice = (list) => { const r = list.slice(1).filter((x) => x.open !== false); const w = SIM.coef('pRefOwn'); return r.length ? w * list[0].price + (1 - w) * (r.reduce((t, x) => t + x.price, 0) / r.length) : list[0].price; };
   // 要因の分解：要因を前の月の値に戻したときの期待の客数との差（1日あたり）
   function decompose(Wprev, W, comp, list, Nnow) {
@@ -307,6 +314,16 @@
     for (let j = 0; j < runs; j++) { let x = W, s = 0; for (let k = 0; k < n; k++) { const r = month(x, k ? { ...pol, tweak: false, limited: false } : pol, { noCards: true, noFactors: true, rng: SIM.rng(1000 + j * 17 + k) }); s += r.res.ord; x = r.W; } tot += s; }
     return tot / runs;
   }
+  // d.2・d.7：画面の担当にも渡せる試算の行。L は1日あたりの杯数なので、
+  // 人数への換算は「月4回来る常連」（k.8 #4 の retain の由来）の置き値を明示。
+  function trial(W, pol) {
+    const res = month(W, pol, { noise: false, noCards: true, noFactors: true, rng: SIM.rng(90001 + W.t) }).res;
+    const regularPeople = res.regularDelta * C('days') / C('regularVisits');
+    return { res, regularPeople, rows: [
+      ['常連の増減（月4回来る人に換算）', `常連 ${regularPeople >= 0 ? '+' : ''}${regularPeople.toFixed(1)}人/月`],
+      ['席が埋まっている日', `${res.fullDays}日/月`],
+    ] };
+  }
   // 詰み：人を減らし（パート0人）・宣伝をやめ・値段は据え置いても、n か月のうちに口座が尽きる
   // 「どの手を打っても」：人を減らす手に、値段を据え置く・100円上げる・100円下げるの3つを掛けて、どれも尽きるなら詰み
   function rescueFails(W, n) {
@@ -320,5 +337,6 @@
 
   // 手もとに残るお金（ネットキャッシュ）＝口座−借入（ゴールの物差し：b.1）
   const netCash = (W) => W.cash - W.loan - (W.short || 0);
-  SIM.world = { netCash, AREAS, FORMS, CAL, calendar, create, month, policy0, expectN, evalPolicy, rescueFails, timeBudget, timeUsed, fitTime, canTweak, capOf, laborOf, workersOf, typeOf, sharesFor, PRICE_MIN, PRICE_MAX, rampOf, TIME_KEYS };
+  SIM.world = { netCash, AREAS, FORMS, CAL, calendar, create, month, policy0, expectN, evalPolicy, trial, rescueFails, timeBudget, timeUsed, fitTime, canTweak, capOf, laborOf, workersOf, typeOf, sharesFor, PRICE_MIN, PRICE_MAX, rampOf, TIME_KEYS };
 })(typeof window !== 'undefined' ? window : globalThis);
+

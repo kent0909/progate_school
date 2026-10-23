@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// ラーメン版の無作為の通し試験（1年版）。DESIGN-RAMEN 版0.4 l.2 段3・k.5・l.5 F7。式（world.js など）より先に書いた検査。
+// ラーメン版の無作為の通し試験（1・3・5年版）。DESIGN-RAMEN 版0.5 l.2 段3・k.5・l.5 F7。式（world.js など）より先に書いた検査。
 // 使い方：node boki2/tools/sim-check.js --ramen [--runs 300] [--seed0 0]（このファイルを直接 node で動かしてもよい）
 // 世界・需要・一杯・ライバル・札は純粋関数（DOM なし）。検査はそれを数百〜数千周まわして、
 //  ①式の端（値段で客が単調に減る・係数の範囲・平均の店の客数）
@@ -24,20 +24,33 @@ for (const m of C.check()) err(`係数：${m}`);
 
 // ---------- 無作為の手（いつでも手：値段・仕込み・集客・人・一杯） ----------
 const AREAS = ['shotengai', 'ekimae', 'jutaku'];
-const PRICE_STEPS = [-100, -50, 0, 50, 100];
-function randPolicy(W, rng, prev) {
+function widePolicy(W, rng, prev, fit = true) {
   const p = Wd.policy0(W, prev);
-  const cur = prev ? prev.price : W.stores[0].price;
-  p.price = Math.max(Wd.PRICE_MIN, Math.min(Wd.PRICE_MAX, cur + PRICE_STEPS[Math.floor(rng() * PRICE_STEPS.length)]));
+  p.price = 700 + 50 * Math.floor(rng() * 7);
   p.prep = ['low', 'mid', 'high'][Math.floor(rng() * 3)];
-  p.flyer = [0, 0, 30000, 100000][Math.floor(rng() * 4)];
+  p.flyer = 10000 * Math.floor(rng() * 11);
   p.coupon = rng() < 0.1;
   p.line = rng() < 0.4;
   for (const k of ['forecast', 'map', 'sns', 'haccp', 'inspect']) p[k] = rng() < 0.6;
   p.tweak = rng() < 0.15;
-  if (rng() < 0.08) p.parts = Math.max(0, Math.min(3, p.parts + (rng() < 0.5 ? -1 : 1)));
+  // 人数は年初に0〜4人を一様に引いて1年保持（毎月雇い直す分布と区別）。
+  if (W.t % 12 === 0) p.parts = Math.floor(rng() * 5);
   p.borrow = W.cash < 300000 && rng() < 0.5; // 口座が薄い月は半々で短期借入（c.4 の手①）
-  return Wd.fitTime(W, p, rng);
+  return fit ? Wd.fitTime(W, p, rng) : p;
+}
+// 段0〜4との比較用の手。拡張したF7の母集団とは混ぜず、既存の価格・時間・店の形の検査に残す。
+function randPolicy(W, rng, prev, fit = true) {
+  const p = Wd.policy0(W, prev), steps = [-100, -50, 0, 50, 100];
+  const cur = prev ? prev.price : W.stores[0].price;
+  p.price = Math.max(Wd.PRICE_MIN, Math.min(Wd.PRICE_MAX, cur + steps[Math.floor(rng()*steps.length)]));
+  p.prep = ['low', 'mid', 'high'][Math.floor(rng()*3)];
+  p.flyer = [0, 0, 30000, 100000][Math.floor(rng()*4)];
+  p.coupon = rng() < 0.1; p.line = rng() < 0.4;
+  for (const k of ['forecast', 'map', 'sns', 'haccp', 'inspect']) p[k] = rng() < 0.6;
+  p.tweak = rng() < 0.15;
+  if (rng() < 0.08) p.parts = Math.max(0, Math.min(3, p.parts + (rng() < 0.5 ? -1 : 1)));
+  p.borrow = W.cash < 300000 && rng() < 0.5;
+  return fit ? Wd.fitTime(W, p, rng) : p;
 }
 function play(seed, o = {}) {
   const rng = D.rng(seed * 7919 + 13);
@@ -51,11 +64,77 @@ function play(seed, o = {}) {
     const before = W;
     const r = Wd.month(W, pol, { rng: D.rng(seed * 104729 + k), noFactors: !o.factors });
     W = r.W;
-    hist.push({ k, W: before, pol, res: r.res });
+    hist.push({ k, W: before, after: W, pol, res: r.res });
     if (o.onMonth) o.onMonth(before, pol, r, k);
     if (W.bankrupt) break;
   }
   return { W, hist };
+}
+
+// 1号店で実装済みの手だけを使う3方針。多店舗・工場＋卸・FC＋通販は未実装で別の検査が必要。
+const SMART = ['常連と地図', '一杯と衛生', '集客と席'];
+const median = (xs) => { const a = xs.slice().sort((a,b)=>a-b); return a.length ? a[Math.floor(a.length/2)] : NaN; };
+function smartPolicy(W, strategy) {
+  const p = Wd.policy0(W, null, { neutral: true });
+  p.price = W.t < 12 ? 800 : W.t < 24 ? 850 : 900;
+  p.parts = W.last && W.last.demand > 65 ? 2 : 1;
+  p.family = 0; p.line = true; p.prep = 'high';
+  p.flyer = [30000, 0, 100000][strategy];
+  const order = strategy === 0 ? ['map', 'haccp', 'forecast', 'tweak', 'sns'] : strategy === 1 ? ['haccp', 'tweak', 'map', 'forecast', 'inspect'] : ['map', 'sns', 'haccp', 'forecast', 'tweak'];
+  for (const k of Wd.TIME_KEYS) p[k] = false;
+  for (const k of order) { p[k] = k !== 'tweak' || Wd.canTweak(W); if (Wd.timeUsed(W,p) > Wd.timeBudget(W,p)) p[k] = false; }
+  p.borrow = W.cash < 300000;
+  return p;
+}
+// 年ごとの価格7候補を全探索（7³=343経路）。共通の年の接頭部分は1回だけ計算。
+// 36か月の同じ営業利益を比較し、1年目と3年目の別々の36か月を比べない。
+const YEAR_PRICES = [700, 750, 800, 850, 900, 950, 1000];
+function pricePlan(W, strategy, year = 0) {
+  if (year === 3) return { value: 0, prices: [] };
+  let best = null;
+  for (const price of YEAR_PRICES) {
+    let x = W, sum = 0;
+    for (let k = 0; k < 12; k++) {
+      const p = { ...smartPolicy(x, strategy), price };
+      const r = Wd.month(x, p, { noise: false, noCards: true, noFactors: true, rng: D.rng(90001 + x.t) });
+      x = r.W; sum += r.res.op;
+      if (x.bankrupt) break;
+    }
+    if (x.bankrupt) continue;
+    const tail = pricePlan(x, strategy, year + 1);
+    if (!tail) continue;
+    const value = sum + tail.value;
+    if (!best || value > best.value) best = { value, prices: [price, ...tail.prices] };
+  }
+  return best;
+}
+function pricePath(W, strategy, prices) {
+  let x = W; const hist = [];
+  for (let k = 0; k < 36; k++) {
+    const p = { ...smartPolicy(x, strategy), price: prices[Math.floor(k / 12)] };
+    const r = Wd.month(x, p, { noise: false, noCards: true, noFactors: true, rng: D.rng(90001 + x.t) });
+    hist.push({ W: x, pol: p, res: r.res }); x = r.W;
+  }
+  return hist;
+}
+// 方針ごと・全体の3年目の年平均客数。倒産した店の残り月は0として母数を保つ。
+{
+  const all = [];
+  for (let strategy = 0; strategy < SMART.length; strategy++) {
+    const ns = [], ls = [], fs = [];
+    for (let s = 0; s < RUNS; s++) {
+      const r = play(SEED0 + s, { months: 36, policy: W => smartPolicy(W, strategy) });
+      const late = r.hist.slice(24);
+      ns.push(late.reduce((a,h)=>a+h.res.N,0)/12);
+      ls.push(late.reduce((a,h)=>a+h.res.L/Math.max(1,h.res.N),0)/12);
+      fs.push(late.reduce((a,h)=>a+h.res.fullDays,0)/12);
+    }
+    all.push(...ns); ns.sort((a,b)=>a-b);
+    const q3 = ns[Math.floor(ns.length*0.75)];
+    info.push(`上手な手（1号店・${SMART[strategy]}、${RUNS}周）：3年目客数 中央値${median(ns).toFixed(1)}・上位25% ${q3.toFixed(1)}人/日、常連割合 中央値${(100*median(ls)).toFixed(1)}%、満席日/月 中央値${median(fs).toFixed(1)}`);
+  }
+  all.sort((a,b)=>a-b); const q3 = all[Math.floor(all.length*0.75)];
+  if (q3 < 85 || q3 > 115) err(`上手な3方針：3年目上位25% ${q3.toFixed(1)}人/日（100±15）`);
 }
 
 // ---------- 1. 式の端：値段を1円刻みで回して客数が単調に減る ----------
@@ -83,7 +162,7 @@ function play(seed, o = {}) {
   avg.sort((a, b) => a - b);
   const med = avg[Math.floor(avg.length / 2)], q3 = avg[Math.floor(avg.length * 0.75)];
   if (med < 36 || med > 52) err(`平均の店：育った後（3年目）の客数の中央値 ${med.toFixed(1)} 人/日（44±8 の外）`);
-  info.push(`平均の店（手を打たない・3年目）：客数の中央値 ${med.toFixed(1)} 人/日、上位25% ${q3.toFixed(1)} 人/日（上位25%の店 100±15 は「上手な手」の店の数で、切り身の検査の外。報告に数だけ）`);
+  info.push(`平均の店（手を打たない・3年目）：客数の中央値 ${med.toFixed(1)} 人/日、上位25% ${q3.toFixed(1)} 人/日（上手な3方針は別に検査）`);
 }
 
 // ---------- 3. 無作為の通し（1年目＋翌4月 13か月）：倒産・詰み・出ない札・札の重み ----------
@@ -93,6 +172,7 @@ const netCash = [];
 for (let s = 0; s < RUNS; s++) {
   let stuckHere = false;
   const { W } = play(SEED0 + s, {
+    policy: (W, k, prev, rng) => widePolicy(W, rng, prev),
     onMonth: (before, pol, r) => {
       for (const id of r.res.cards || []) dealt[id] = (dealt[id] || 0) + 1;
       // 札の重み：この状態で出せる札の、どの選択肢の結果の重みも合計100・結果は2つ以上
@@ -104,16 +184,17 @@ for (let s = 0; s < RUNS; s++) {
       if (!stuckHere && r.W.cash >= 0 && !r.W.bankrupt) { if (Wd.rescueFails(r.W, 3)) stuckHere = true; }
     },
   });
-  if (W.bankrupt) bankrupt1++;
+  if (W.bankrupt && W.t <= 12) bankrupt1++;
   if (stuckHere) stuck++;
   netCash.push(Wd.netCash(W));
 }
 {
+  if (pct(bankrupt1, RUNS) < 5 || pct(bankrupt1, RUNS) > 10) err(`F7：1年目の倒産 ${pct(bankrupt1, RUNS)}%（5〜10%）`);
   const never = CD.deck.filter((c) => !dealt[c.id]).map((c) => c.id);
   if (never.length) err(`出ない札：${RUNS}周で一度も出ない札 ${never.join('・')}`);
   if (pct(stuck, RUNS) >= 1) err(`詰み：${pct(stuck, RUNS)}% の周（1% 未満）`);
   netCash.sort((a, b) => a - b);
-  info.push(`無作為 ${RUNS}周（13か月）：倒産 ${pct(bankrupt1, RUNS)}%（F7 の目安 5〜10%。段10で合わせる）、詰み ${pct(stuck, RUNS)}%、札 ${CD.deck.length} 本すべて出た（${never.length ? '×' : '○'}）、重みの検査 ${cardsChecked} 回。翌4月のネットキャッシュ（口座−借入）の中央値 ${Math.round(netCash[Math.floor(RUNS / 2)] / 1e4)}万・下位10% ${Math.round(netCash[Math.floor(RUNS * 0.1)] / 1e4)}万・上位10% ${Math.round(netCash[Math.floor(RUNS * 0.9)] / 1e4)}万`);
+  info.push(`無作為 ${RUNS}周（13か月）：1年目（12か月以内）の倒産 ${pct(bankrupt1, RUNS)}%（F7 の目安 5〜10%）、詰み ${pct(stuck, RUNS)}%、札 ${CD.deck.length} 本すべて出た（${never.length ? '×' : '○'}）、重みの検査 ${cardsChecked} 回。翌4月のネットキャッシュ（口座−借入）の中央値 ${Math.round(netCash[Math.floor(RUNS / 2)] / 1e4)}万・下位10% ${Math.round(netCash[Math.floor(RUNS * 0.1)] / 1e4)}万・上位10% ${Math.round(netCash[Math.floor(RUNS * 0.9)] / 1e4)}万`);
 }
 
 // ---------- 4. 値段：最も良い手が状態で割れるか（X4・k.5） ----------
@@ -144,24 +225,30 @@ for (let s = 0; s < RUNS; s++) {
   for (const k of ['down', 'keep', 'up']) if (pct(cnt[k], n) >= 70) err(`値段：「${k}」が最適な状態が ${pct(cnt[k], n)}%（70% 未満）`);
   if (pct(floorBest, n) >= 40) err(`値段：上限まで下げる（${Wd.PRICE_MIN}円）が最適な状態が ${pct(floorBest, n)}%（40% 未満）`);
   info.push(`値段の手（${n} 状態）：最適が 下げる ${pct(cnt.down, n)}%・据え置く ${pct(cnt.keep, n)}%・上げる ${pct(cnt.up, n)}%、上限まで下げる ${pct(floorBest, n)}%`);
-  // (b)
-  const side = (p) => (p < 850 - 12 ? -1 : p > 850 + 12 ? 1 : 0);
-  let swap = 0, runs = 0, rise = 0; const bestP = [], byArea = {};
+  // (b) 3年の累計で選んだ年別価格。利益の物差しは res.op（営業利益）。
+  let swap = 0, signSwap = 0, runs = 0;
+  const bestP = [], changes = [];
   for (let s = 0; s < N; s++) {
-    const rngP = D.rng((SEED0 + s) * 17 + 3);
-    const { hist } = play(SEED0 + s, { months: 27, policy: (W, k, prev) => { const q = randPolicy(W, rngP, prev); q.price = 850; return q; } });
+    const seed = SEED0 + s, strategy = s % 3;
+    const W = Wd.create({ seed, area: AREAS[seed % 3], form: 'part1', tier: 0, bowl: BW.presets[seed % 3].spec });
+    const best = pricePlan(W, strategy);
+    runs++; // 全候補が倒産したseedも母数に残す
+    if (!best) continue;
+    if (best.prices[0] < 850 && best.prices[2] > 850) swap++;
+    const hist = pricePath(W, strategy, best.prices);
     const at = [hist[2], hist[26]];
-    if (at.some((h) => !h)) continue;
-    const best = at.map((h) => { let b = null; for (let p = 600; p <= 1300; p += 25) { const v = Wd.evalPolicy(h.W, { ...h.pol, price: p }, 3); if (!b || v > b.v) b = { p, v }; } return b.p; });
-    runs++;
-    if (side(best[0]) !== side(best[1])) swap++;
-    if (best[1] > best[0]) rise++;
-    bestP.push(best);
-    const ar = AREAS[(SEED0 + s) % 3]; (byArea[ar] = byArea[ar] || []).push(best);
+    const deltas = at.map((h) => {
+      // 共通の850円を基準に±50円を比較。価格以外の手はその店の方針。
+      const base = Wd.month(h.W, { ...h.pol, price: 850 }, { noise: false, noCards: true, noFactors: true, rng: D.rng(90001+h.W.t) }).res.op;
+      return [-50, 50].map((d) => Wd.month(h.W, { ...h.pol, price: 850 + d }, { noise: false, noCards: true, noFactors: true, rng: D.rng(90001+h.W.t) }).res.op - base);
+    });
+    if (deltas[0][0] > 0 && deltas[0][1] < 0 && deltas[1][0] < 0 && deltas[1][1] > 0) signSwap++;
+    bestP.push(best.prices); changes.push(deltas);
   }
-  if (pct(swap, runs) <= 50) err(`値段：1年目と3年目で最も良い値段が850円の下と上で入れ替わる周が ${pct(swap, runs)}%（50% 超）`);
-  const med = (a, k) => { const x = a.map((y) => y[k]).sort((p, q) => p - q); return x[Math.floor(x.length / 2)]; };
-  info.push(`値段の入れ替わり（${runs}周、値段は850円のまま育てた店）：最も良い値段が850円の下と上で入れ替わる周 ${pct(swap, runs)}%、3年目のほうが高い周 ${pct(rise, runs)}%。最も良い値段の中央値 1年目6月 ${med(bestP, 0)}円 → 3年目6月 ${med(bestP, 1)}円（${Object.entries(byArea).map(([k, a]) => `${Wd.AREAS[k].label} ${med(a, 0)}→${med(a, 1)}円`).join('・')}）`);
+  if (pct(swap, runs) <= 50) err(`値段：36か月累計の最適が1年目<850・3年目>850 ${pct(swap, runs)}%（50%超）`);
+  if (pct(signSwap, runs) <= 50) err(`値段：±50円の今月の損得が両側とも年で逆転 ${pct(signSwap, runs)}%（50%超）`);
+  info.push(`値段（上手な3方針・${runs}周）：36か月累計の入れ替わり ${pct(swap, runs)}%、±50円の符号逆転 ${pct(signSwap, runs)}%、最適の中央値 ${median(bestP.map(x=>x[0]))}→${median(bestP.map(x=>x[1]))}→${median(bestP.map(x=>x[2]))}円。年別700〜1,000円・50円刻みの343経路を全探索（札なし・週の揺れなし）。毎月自由に変える大域最適ではない`);
+  info.push(`±50円の今月の営業利益差の中央値：1年目 ${[0,1].map(i=>Math.round(median(changes.map(x=>x[0][i])))).join('/')}円、3年目 ${[0,1].map(i=>Math.round(median(changes.map(x=>x[1][i])))).join('/')}円（値下げ/値上げ）`);
 }
 
 // ---------- 5. 時間の予算：「全部やる」（足りない分は人を雇って買う）が最適な状態 <70%（X27・c.9） ----------
@@ -191,26 +278,31 @@ for (let s = 0; s < RUNS; s++) {
   info.push(`時間の予算（${n} 状態）：全部やる（人を雇って時間を買う）が最適 ${pct(allBest, n)}%`);
 }
 
-// ---------- 6. 店の形：家族で小さく と パート1人 の勝率がどちらも 30〜70%（X2・k.5）。同じ seed・同じ無作為の手で、人の構成だけ替える ----------
+// ---------- 6. 店の形：同じseed・同じ手の60か月を実際に回す（k.5 版0.5） ----------
 {
-  let famWinCash = 0, famWinMonths = 0, nCash = 0, nMonths = 0;
-  for (let s = 0; s < Math.min(RUNS, 300); s++) {
+  const wins = [0, 0, 0], ties = [0, 0, 0], count = Math.min(RUNS, 300);
+  for (let s = 0; s < count; s++) {
     const out = {};
     for (const form of ['family', 'part1']) {
       const rng = D.rng((SEED0 + s) * 31 + 7);
       let prev = null;
-      const r = play(SEED0 + s, { form, months: 36, policy: (W, k, pv) => { const q = randPolicy(W, rng, prev); q.parts = Wd.FORMS[form].parts; q.family = Wd.FORMS[form].family; prev = q; return Wd.fitTime(W, q, rng); } });
-      out[form] = { cash: Wd.netCash(r.W), black: r.hist.slice(0, 12).filter((h) => h.res.op > 0).length, dead: r.W.bankrupt };
+      const r = play(SEED0 + s, { form, months: 60, policy: (W) => {
+        // 手を引く乱数と時間に収める乱数を分け、形による時間差で翌月の抽選をずらさない。
+        const q = randPolicy(W, rng, prev, false); q.parts = Wd.FORMS[form].parts; q.family = Wd.FORMS[form].family;
+        prev = q; return Wd.fitTime(W, q, D.rng((SEED0 + s) * 37 + W.t));
+      } });
+      // 倒産後は営業を続けず、最終状態を保持。両方倒産でも比較から外さない。
+      const at = (t) => (r.hist[t - 1] || r.hist[r.hist.length - 1]).after;
+      out[form] = [r.hist.slice(0, 12).filter(h => h.res.op > 0).length, Wd.netCash(at(36)), Wd.netCash(at(60))];
     }
-    if (out.family.cash !== out.part1.cash) { nCash++; if (out.family.cash > out.part1.cash) famWinCash++; }
-    if (out.family.black !== out.part1.black) { nMonths++; if (out.family.black > out.part1.black) famWinMonths++; }
+    for (let i = 0; i < 3; i++) { if (out.family[i] > out.part1[i]) wins[i]++; else if (out.family[i] === out.part1[i]) ties[i]++; }
   }
-  { const p = pct(famWinCash, nCash); if (p < 30 || p > 70) err(`店の形：3年目末のネットキャッシュで家族の勝率 ${p}%（パート1人 ${pct(nCash - famWinCash, nCash)}%）。どちらも 30〜70%`); }
-  // k.5 のもう1つの物差し「1年目の黒字の月の数で 30〜70%」は検査から外して数だけ出す（緩めた。理由は正しさ）：設計書 c.8 の「1日に要る客数」（家族22・パート1人36）と
-  // l.4 の1年目の客数の坂（24→37人/日）からは、人件費が月20万円少ない家族の形が1年目に黒字の月を多く持つのは置き値の幅の中で避けられない（家族の上限35・待ちの評判・体を壊す札・時間の予算3・利益からの家族の報酬を入れても 85〜90%）。
-  // 家族が勝ちすぎないことは3年目のネットキャッシュ（上限35で伸びない）で見る。1年目の物差しをどうするかは設計者とオーナーへ（報告の「設計と違えた所」）
-  info.push(`店の形（設計との食い違い）：1年目の黒字の月の数で家族の勝率 ${pct(famWinMonths, nMonths)}%（設計 k.5 は 30〜70%。検査から外した）`);
-  info.push(`店の形（同じ seed・同じ手）：家族の勝率 3年目末のネットキャッシュ ${pct(famWinCash, nCash)}%（${nCash}周）・1年目の黒字の月の数 ${pct(famWinMonths, nMonths)}%（${nMonths}周）`);
+  // 旧検査と同じく引き分けを除いた勝率。引き分け数・全周の勝率も出す。
+  const rates = wins.map((w,i) => pct(w, count - ties[i]));
+  if (rates[0] > 90) err(`店の形：1年目の黒字の月で家族 ${rates[0]}%（90%以下）`);
+  if (rates[1] < 30 || rates[1] > 60) err(`店の形：3年目末ネットキャッシュで家族 ${rates[1]}%（30〜60%）`);
+  if (rates[2] > 40) err(`店の形：5年目末ネットキャッシュで家族 ${rates[2]}%（40%以下）`);
+  info.push(`店の形（${count}周・60か月）：家族の勝率 1年目黒字月 ${rates[0]}%、3年末 ${rates[1]}%、5年末 ${rates[2]}%。引き分け ${ties.join('/')}周、全周に対する勝ち ${wins.map(w=>pct(w,count)).join('/')}%`);
 }
 
 // ---------- 7. 雇いすぎで倒産しうる（n.17）：手を打たない店で人だけ多く雇う ----------
@@ -299,4 +391,5 @@ for (let s = 0; s < RUNS; s++) {
 
 if (errors.length) { console.error(errors.join('\n')); console.error(`\n${errors.length} 件（${((Date.now() - t0) / 1000).toFixed(1)}秒）`); if (process.argv.includes('--info')) console.log(info.join('\n')); process.exit(1); }
 console.log(info.join('\n'));
-console.log(`OK：ラーメン版の無作為の通し試験（1年版）${RUNS}周（${((Date.now() - t0) / 1000).toFixed(1)}秒）`);
+console.log(`OK：ラーメン版の無作為の通し試験（1・3・5年版）${RUNS}周（${((Date.now() - t0) / 1000).toFixed(1)}秒）`);
+

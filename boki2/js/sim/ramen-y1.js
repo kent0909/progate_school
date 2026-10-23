@@ -164,10 +164,10 @@
         { id: 'ekimae', label: '駅前の店（家賃20万円）', desc: '人通りが多い。安い店が近くにある', result: '駅前の店に決めた。' },
       ] },
     { t: 'decision', id: 'form', q: '店をだれで回す？', talk: [['shacho', 'ぼくが厨房に立つ。あとは、だれに手伝ってもらう？'], ['senpai', '人を増やすと回せる客は増えるけど、給料も増える。ふつうの店はパート1人から始めることが多いよ。']],
-      trial: (S, o) => [['月の給料（パート）', o === 'family' ? 0 : o === 'part2' ? 400000 : 200000], ['1日に回せる客', o === 'family' ? '35人まで' : o === 'part2' ? '100人まで' : '70人まで']],
+      trial: (S, o) => [['月の給料', SIM.world.laborOf(SIM.world.FORMS[o])], ['1日に回せる客', o === 'family' ? '35人まで' : o === 'part2' ? '100人まで' : '70人まで']],
       options: [
         { id: 'part1', label: 'パート1人（おすすめ）', desc: '昼の山はパートさんと2人で', result: 'パート1人を雇うことにした。' },
-        { id: 'family', label: '家族で小さく（社長の家族1人。給料はもうけから）', desc: '人のお金はかからないが、回せる客は少ない', result: '社長の家族と2人で回すことにした。' },
+        { id: 'family', label: '家族で小さく（社長の家族1人。月の給料12万円）', desc: '赤字の月も給料を払う。回せる客は35人まで', result: '社長の家族と2人で回すことにした。' },
         { id: 'part2', label: 'パート2人（昼と夜）', desc: '回せる客は多いが、給料が重い', result: 'パート2人を雇うことにした。' },
       ] },
     { t: 'talk', teaches: ['融資'], lines: [['ginko', 'みらい銀行の田中です。公庫の創業の融資が決まりました。'], ['senpai', 'お金を貸してもらうことを「融資」という。700万円を年2.5%で7年。最初の3か月は利息をためておき、7月から毎月返す約束だ。']] },
@@ -603,3 +603,4 @@
   SIM.y1 = { prologue, pre: [{ label: '開店の前（お金を集める）', title: '株式会社{店}、はじまる', events: pre1 }, { label: '開店の前（借りる）', title: '店を借りる・お金を借りる', events: pre2 }, { label: '開店の前（内装と一杯）', title: '前の店の内装と、看板の一杯', events: pre3 }],
     months: Y1, kessan: KESSAN, MON, CARD_FROM, VAT_FROM, polOf, R, salesNet, calc, disc: { dCapex } };
 })(typeof window !== 'undefined' ? window : globalThis);
+
