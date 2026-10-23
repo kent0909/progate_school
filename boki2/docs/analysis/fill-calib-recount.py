@@ -9,8 +9,8 @@ import re, sys, os, collections, subprocess
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..')
 # 補填で区分が変わる行（行の名 → 新しい区分と理由の短い印）
 OVERRIDE = {
-    'M16': ('b', 'W1：家計調査の日別支出12か月から曜日の倍率'),
-    'R5': ('a', 'FC：丸源ラーメン・幸楽苑の有報の FC 契約の要旨'),
+    # 版2：M16 は (c) に戻した（家計の倍率は家族の外食の上の端で、店の倍率には当てはめ先との偏りがある。論証の検査 Z05）
+    # 版2：R5 は (c) に戻した（大手の法人向けの条件で、1号店の加盟の入口・小さな本部とは対象がずれる。Z07）
     'K28': ('a', 'K28：企業会計基準第29号 第53項（返金負債）'),
 }
 text = open(sys.argv[1], encoding='utf-8').read() if len(sys.argv) > 1 else subprocess.run(['git', 'show', '37b2376:boki2/docs/BIZ-CALIB.md'], cwd=ROOT, capture_output=True, text=True).stdout
