@@ -3,7 +3,7 @@
 // 使い方：node boki2/tools/sim-check.js --ramen [--runs 300] [--seed0 0]（このファイルを直接 node で動かしてもよい）
 // 世界・需要・一杯・ライバル・札は純粋関数（DOM なし）。検査はそれを数百〜数千周まわして、
 //  ①式の端（値段で客が単調に減る・係数の範囲・平均の店の客数）
-//  ②支配的な手がないか（値段：値下げ・据え置き・値上げのどれも最適 <70%、上限まで下げる <40%、1年目と3年目で最適が入れ替わる周 >50%。時間の予算：全部やる <70%。店の形：家族とパート1人の勝率 30〜70%）
+//  ②支配的な手がないか（値段：値下げ・据え置き・値上げのどれも最適 <70%、上限まで下げる <40%、1年目と3年目で最適が入れ替わる周 >50%。時間の予算：全部やる <70%。店の形：家族の勝率は1年目≤90%・3年末30〜60%・5年末≤40%）
 //  ③雇いすぎで倒産しうる・詰み <1%・出ない札 0・札の重みの合計＝100・一杯の魅力の減衰・再現・保存 v4
 // を確かめる。数字の基準は設計書のもの（変えるなら理由を報告に書く）。
 global.window = global;
@@ -21,6 +21,34 @@ const t0 = Date.now();
 
 // ---------- 0. 係数の範囲と出どころ ----------
 for (const m of C.check()) err(`係数：${m}`);
+
+// 給料の損益・口座・教材のつながりと、持ち越す常連の回帰検査。
+{
+  for (const family of [0, 1, 2]) {
+    for (const price of [700, 1000]) {
+      const W = Wd.create({ seed: 0, form: 'family', family });
+      W.stores[0].wageUp = 1.05; // パートの改定で家族の固定月給を増やさない
+      const before = JSON.stringify(W), p = { ...Wd.policy0(W), price };
+      const r = Wd.month(W, p, { noise: false, noCards: true });
+      const want = [0, 120000, 270000][family];
+      if (r.res.labor !== want || r.res.famPay !== 0) err(`給料：家族${family}人で${r.res.labor}+${r.res.famPay}円（${want}円）`);
+      const op = r.res.sales-r.res.cogs-r.res.wasteCost-r.res.labor-r.res.rent-r.res.util-r.res.other-r.res.dep-r.res.ads+r.res.fx;
+      if (r.res.op !== op || r.W.cash !== W.cash+r.res.ord+r.res.dep-r.res.repay) err('給料：損益または口座に二重計上');
+      if (JSON.stringify(W) !== before) err('月の計算が入力の世界を書き換えた');
+    }
+  }
+  const W = Wd.create({ seed: 2 }); W.stores[0].L = 10;
+  const pol = { ...Wd.policy0(W), price: 800 };
+  const cut = Wd.month(W, pol, { noise: false, noCards: true }).W;
+  const saved = JSON.parse(JSON.stringify(cut));
+  const up = Wd.month(saved, { ...pol, price: 850 }, { noise: false, noCards: true }).res;
+  const control = JSON.parse(JSON.stringify(cut)); control.stores[0].discounted = false;
+  const plain = Wd.month(control, { ...pol, price: 850 }, { noise: false, noCards: true }).res;
+  if (!up.discountRebound || Math.abs(up.regularLost - 2*plain.regularLost) > 1e-9) err('常連：値下げの持ち越し後の値上げで離れが2倍でない');
+  const tr = Wd.trial(cut, pol);
+  if (Math.abs(tr.res.L-cut.stores[0].L-tr.res.regularDelta)>1e-9 || !Number.isFinite(tr.regularPeople) || ![0,6,20,26].includes(tr.res.fullDays)) err('試算：常連増減または満席日数の単位が不正');
+  info.push('回帰：家族0/1/2人の固定月給・損益と口座・入力不変・保存後の値上げの離れ×2・常連と満席の試算を検査');
+}
 
 // ---------- 無作為の手（いつでも手：値段・仕込み・集客・人・一杯） ----------
 const AREAS = ['shotengai', 'ekimae', 'jutaku'];
