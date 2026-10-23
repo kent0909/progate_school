@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # BIZ-SIMDESIGN-v02-reasoning.md の表の判定を数える。
+# 使い方: … --sec 16 （16章：版0.4 の再検査。P の行、15.8 の基準への応え）
 # 使い方: python3 -I boki2/docs/analysis/simdesign-reasoning-count.py          （0〜14章：版0.2 の検査。K の行の7列目）
 #         python3 -I boki2/docs/analysis/simdesign-reasoning-count.py --sec 15 （15章：版0.3 の再検査。N の行の「判定」と「中身の判定」、応えの表）
 import re, collections, os, sys
@@ -9,18 +10,24 @@ V = ('妥当', '弱い', '不当')
 def v_of(c):
     c = c.replace('*', '').strip()
     return next((x for x in V if c.startswith(x)), '?')
-if '--sec' in sys.argv and sys.argv[sys.argv.index('--sec') + 1] == '15':
-    body = txt[txt.index('## 15. 版0.3の再検査'):]
+SEC = sys.argv[sys.argv.index('--sec') + 1] if '--sec' in sys.argv else None
+if SEC in ('15', '16'):
+    if SEC == '15':
+        body = txt[txt.index('## 15. 版0.3の再検査'):]
+        if '## 16. 版0.4の再検査' in body: body = body[:body.index('## 16. 版0.4の再検査')]
+    else:
+        body = txt[txt.index('## 16. 版0.4の再検査'):]
+    RID = r'\| (N\d{3}) \|' if SEC == '15' else r'\| (P\d{3}) \|'
     fin = collections.Counter(); con = collections.Counter(); ids = collections.defaultdict(list); seen = set()
     for line in body.splitlines():
-        m = re.match(r'\| (N\d{3}) \|', line)
+        m = re.match(RID, line)
         if not m: continue
         cells = [c.strip() for c in line.strip().strip('|').split('|')]
         if m.group(1) in seen: print('重複', m.group(1))
         seen.add(m.group(1)); f = v_of(cells[6]); c = v_of(cells[7])
         fin[f] += 1; con[c] += 1; ids[f].append(m.group(1))
         if f == '不当' and c != '不当': ids['形の不当'].append(m.group(1))
-    print('版0.3 の結論：行', len(seen), '判定（形を当てた最終）', dict(fin), '／中身の判定', dict(con))
+    print(('版0.3' if SEC == '15' else '版0.4') + ' の結論：行', len(seen), '判定（形を当てた最終）', dict(fin), '／中身の判定', dict(con))
     for k in ('不当', '形の不当'): print(' ', k, '・'.join(ids[k]))
     resp = collections.Counter(); kinds = collections.Counter()
     for line in body.splitlines():
@@ -34,6 +41,11 @@ if '--sec' in sys.argv and sys.argv[sys.argv.index('--sec') + 1] == '15':
         if re.match(r'\| 基準\d+[a-f]? \|', line):
             crit[[c.strip() for c in line.strip().strip('|').split('|')][-1]] += 1
     print('14章の基準への応え：', dict(crit))
+    r16 = collections.Counter()
+    for line in body.splitlines():
+        if re.match(r'\| (依頼|手抜き)\d+ \|', line):
+            r16[[c.strip() for c in line.strip().strip('|').split('|')][-1]] += 1
+    if SEC == '16': print('15.8 の基準14と手抜きの予想6への応え：', dict(r16))
 else:
     body = txt[:txt.index('## 15. 版0.3の再検査')] if '## 15. 版0.3の再検査' in txt else txt
     cnt = collections.Counter(); ids = collections.defaultdict(list); seen = set()
