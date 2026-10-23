@@ -163,7 +163,7 @@ D.months.forEach((m, mi) => {
     // 段5の画面（js/ramen/ui.js）の言葉：作戦の机・一杯の組み立て・月報・ふりかえり・帯（js/sim/ramen-view.js の TEXT・HANDS・FACTORS）。その月までに教えた語で読めること
     if (RAMEN && D.rview) {
       const RV = D.rview;
-      if (e.t === 'plan') { check(`${w} 作戦の机の画面`, [...RV.TEXT.plan, ...RV.TEXT.band, ...(e.opens || []).map((k) => (RV.HANDS[k] || {}).label || '')].join(' ')); len(`${w} 作戦の机の画面 値下げの1行`, RV.TEXT.plan[14], 60); }
+      if (e.t === 'plan') { check(`${w} 作戦の机の画面`, [...RV.TEXT.plan, ...RV.TEXT.band, ...(e.opens || []).map((k) => (RV.HANDS[k] || {}).label || '')].join(' ')); len(`${w} 作戦の机の画面 値下げの1行`, RV.TEXT.plan.find((x) => x.startsWith('値下げは')), 60); }
       if (e.t === 'rreport') { check(`${w} 月報の画面`, [...RV.TEXT.report, ...RV.TEXT.debrief, ...Object.values(RV.FACTORS).map((f) => `${f.label} ${f.line}`)].join(' ')); }
       if (e.t === 'bowl') check(`${w} 一杯の組み立ての画面`, RV.TEXT.bowl.join(' '));
     }
