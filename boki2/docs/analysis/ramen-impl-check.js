@@ -389,82 +389,107 @@ if (EXP === 'f7') {
   for (const k of [3]) out(`D 3か月ごとに引き直し＋赤字${k}か月で減らす：${f7Stats(RUNS, { hold: 3, notice: k })}`);
 }
 
-if (EXP === 'v08' || EXP === 'ceiling') {
-  // 版0.8 の置き値を実装の sim に差し込む：看板・仕入先・歯止め①②③・古び −2%（段0 −1%）・常連3割の半分を外す・家族の上限40・原価の上がる町（偶数 seed）
-  const X08 = { sign: true, supplier: true, retainP: 1.0, cheapHit: 0.3, cheapNest: 0.3, noRegHalf: true, shock: true };
-  setX(X08);
-  C.table.decay.v = 0.02; C.table.capBy.v = [40, 70, 100, 125, 145, 160, 170];
-  const N = Math.min(RUNS, 120);
-  out(`\n## 版0.8 の置き値を差し込んだ実装（再較正）`);
-  out(`較正 potentialScale=${calibrate(N)}（放置の3年目中央値 44）`);
-  if (EXP === 'v08') {
-    const im = idleMedian(N); out(`放置（${N}周）：中央値 ${f1(median(im))}、上位25% ${f1(q(im, 0.75))}`);
-    const bs = []; for (let s = 0; s < N; s++) bs.push(yearN(play(s, { months: 36, policy: basicPolicy }), 3));
-    out(`基礎の手だけの店（小の看板・LINE・高い仕入先・${N}周）：中央値 ${f1(median(bs))}、上位25% ${f1(q(bs, 0.75))}`);
-    const ss = smartStats(N, (W, s) => smartX(W, s));
-    out(`上手（d.9.3 の状況に応じる3方針・${N}周・3年目）：上位25% ${ss.map((x, i) => `${SMART[i]} ${f1(x.q3)}`).join('／')}（まとめ ${f1(q(ss.flatMap((x) => x.ns), 0.75))}）、中央値 ${ss.map((x) => f1(x.med)).join('／')}、倒産 ${ss.map((x) => x.dead).join('/')}`);
-    for (let st = 0; st < 3; st++) { let plus = 0; for (let s = 0; s < N; s++) if (ss[st].ns[s] - bs[s] >= 10) plus++; out(`上手「${SMART[st]}」が基礎の手だけの店より +10人以上の周：${ci(plus, N)}`); }
-    // 口座で見る上手さ：5年目末ネットキャッシュ 上手 vs 基礎
-    { let win = 0; const ncS = [], ncB = []; for (let s = 0; s < N; s++) { const st = Math.floor(s / 3) % 3; const a = Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st) }).W), b = Wd.netCash(play(s, { months: 60, policy: basicPolicy }).W); ncS.push(a); ncB.push(b); if (a > b) win++; } out(`5年目末ネットキャッシュ：上手 中央値 ${man(median(ncS))}／基礎 ${man(median(ncB))}、上手が勝つ周 ${ci(win, N)}`); }
-    // 仕入先の3択：方針ごと・条件内（立地・町の厚さ三分位・原価の上がる町）
-    out(`\n### 仕入先の3択（5年目末ネットキャッシュで最良。引き分けは除く）`);
-    const supRows = [];
-    for (let s = 0; s < N; s++) {
-      const st = Math.floor(s / 3) % 3, W0 = Wd.create({ seed: s, area: AREAS[s % 3] });
-      const nc = {}; for (const sup of ['cheap', 'std', 'high']) nc[sup] = Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: sup }) }).W);
+// ---------- 4つの判断と指標をまとめて測る（版0.8 の置き値、版0.9 の置き値のどちらでも） ----------
+function judgments(N, o = {}) {
+  const im = idleMedian(N); out(`放置（${N}周）：中央値 ${f1(median(im))}、上位25% ${f1(q(im, 0.75))}`);
+  const bs = []; for (let s = 0; s < N; s++) bs.push(yearN(play(s, { months: 36, policy: basicPolicy }), 3));
+  out(`基礎の手だけの店（小の看板・LINE・高い仕入先・${N}周）：中央値 ${f1(median(bs))}、上位25% ${f1(q(bs, 0.75))}`);
+  const ss = smartStats(N, (W, s) => smartX(W, s));
+  out(`上手（d.9.3 の状況に応じる3方針・${N}周・3年目）：上位25% ${ss.map((x, i) => `${SMART[i]} ${f1(x.q3)}`).join('／')}（まとめ ${f1(q(ss.flatMap((x) => x.ns), 0.75))}）、中央値 ${ss.map((x) => f1(x.med)).join('／')}、倒産 ${ss.map((x) => x.dead).join('/')}`);
+  const ss5 = smartStats(N, (W, s) => smartX(W, s), { months: 60 }); { const n5 = []; for (let st = 0; st < 3; st++) n5.push(ss5[st]); out(`上手 5年目（参考）：上位25% ${ss5.map((x) => f1(q(x.ns, 0.75))).join('／')}（3年目の平均で測る関数なので、ここは5年目の値ではなく60か月回した店の3年目。5年目の客数は下の行）`); }
+  { const n5 = [[], [], []]; for (let st = 0; st < 3; st++) for (let s = 0; s < N; s++) n5[st].push(yearN(play(s, { months: 60, policy: (W) => smartX(W, st) }), 5)); out(`上手 5年目の客数 上位25%：${n5.map((x) => f1(q(x, 0.75))).join('／')}、中央値 ${n5.map((x) => f1(median(x))).join('／')}`); }
+  for (let st = 0; st < 3; st++) { let plus = 0; for (let s = 0; s < N; s++) if (ss[st].ns[s] - bs[s] >= 10) plus++; out(`上手「${SMART[st]}」が基礎の手だけの店より +10人以上の周：${ci(plus, N)}`); }
+  { let win = 0; const ncS = [], ncB = []; for (let s = 0; s < N; s++) { const st = Math.floor(s / 3) % 3; const a = Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st) }).W), b = Wd.netCash(play(s, { months: 60, policy: basicPolicy }).W); ncS.push(a); ncB.push(b); if (a > b) win++; } out(`5年目末ネットキャッシュ：上手 中央値 ${man(median(ncS))}／基礎 ${man(median(ncB))}、上手が勝つ周 ${ci(win, N)}`); }
+  const cellTally = (rows, label, order) => { const c = {}; rows.forEach((r) => { c[r.best] = (c[r.best] || 0) + 1; }); const n = rows.length; const top = Object.entries(c).sort((a, b) => b[1] - a[1])[0]; out(`| ${label} | ${n} | ${order.map((k) => `${pct(c[k] || 0, n)}%`).join(' / ')} | ${top ? `${top[0]} ${pct(top[1], n)}%${pct(top[1], n) >= 70 ? ' ✗' : ''}` : '—'} |`); };
+  const tert = (rows) => { const ps = rows.map((r) => r.pot).sort((a, b) => a - b); return [ps[Math.floor(ps.length / 3)], ps[Math.floor((2 * ps.length) / 3)]]; };
+  const byCells = (rows, order, who) => { cellTally(rows, `${who} 全体`, order); for (const a of AREAS) cellTally(rows.filter((r) => r.area === a), `${who}・${a}`, order); const [u1, u2] = tert(rows); cellTally(rows.filter((r) => r.pot < u1), `${who}・薄い町`, order); cellTally(rows.filter((r) => r.pot >= u1 && r.pot < u2), `${who}・中の町`, order); cellTally(rows.filter((r) => r.pot >= u2), `${who}・厚い町`, order); };
+  // 仕入先：開店の3択（固定）と、原価の上がる予兆（2年目）で高い→標準に替える2択
+  out(`\n### 仕入先の3択（5年目末ネットキャッシュで最良。引き分けは除く）\n| 条件 | 周 | 安い / 標準 / 高い | 最多 |\n|---|---|---|---|`);
+  const supRows = []; let swWin = 0, swN = 0; const swGap = [];
+  for (let s = 0; s < N; s++) {
+    const st = Math.floor(s / 3) % 3, W0 = Wd.create({ seed: s, area: AREAS[s % 3] });
+    const nc = {}; for (const sup of ['cheap', 'std', 'high']) nc[sup] = Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: sup }) }).W);
+    if (s % 2 === 0) { const sw = Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: (W) => (W.t >= 10 ? 'std' : 'high') }) }).W); swN++; if (sw > nc.high) swWin++; swGap.push(sw - nc.high); }
+    const best = Object.entries(nc).sort((a, b) => b[1] - a[1]); if (best[0][1] === best[1][1]) continue;
+    supRows.push({ s, st, area: AREAS[s % 3], pot: W0.town.areas[W0.area].potentialMul, shock: s % 2 === 0, other: W0.otherFixed, best: best[0][0] });
+  }
+  const SO = ['cheap', 'std', 'high'];
+  byCells(supRows, SO, '仕入先');
+  for (let st = 0; st < 3; st++) cellTally(supRows.filter((r) => r.st === st), `方針 ${SMART[st]}`, SO);
+  cellTally(supRows.filter((r) => r.shock), '原価の上がる町（偶数 seed）', SO); cellTally(supRows.filter((r) => !r.shock), '原価の上がらない町', SO);
+  cellTally(supRows.filter((r) => r.other > 150000), 'その他固定費20万', SO); cellTally(supRows.filter((r) => r.other <= 150000), 'その他固定費15万', SO);
+  out(`原価の上がる町で「高い→予兆（2年目の2月）で標準に替える」が「高いのまま」に勝つ周：${ci(swWin, swN)}、差の中央値 ${man(median(swGap))}`);
+  // 看板の4択
+  out(`\n### 看板の4択（5年目末ネットキャッシュで最良。引き分けは除く）\n| 条件 | 周 | なし / 小 / 大 / 大をあとで | 最多 |\n|---|---|---|---|`);
+  const signRows = { idle: [], smart0: [], smart2: [] };
+  for (let s = 0; s < N; s++) {
+    const W0 = Wd.create({ seed: s, area: AREAS[s % 3] });
+    const mk = { idle: (sign, at) => (W) => ({ ...idlePolicy(W), line: true, sign, signAt: at }), smart0: (sign, at) => (W) => smartX(W, 0, { sign, signAt: at }), smart2: (sign, at) => (W) => smartX(W, 2, { sign, signAt: at }) };
+    for (const who of Object.keys(signRows)) {
+      const nc = {}; for (const [k, sign, at] of [['none', 'none', 3], ['small', 'small', 3], ['large', 'large', 3], ['later', 'large', 15]]) nc[k] = Wd.netCash(play(s, { months: 60, policy: mk[who](sign, at) }).W);
       const best = Object.entries(nc).sort((a, b) => b[1] - a[1]); if (best[0][1] === best[1][1]) continue;
-      supRows.push({ s, st, area: AREAS[s % 3], pot: W0.town.areas[W0.area].potentialMul, shock: s % 2 === 0, other: W0.otherFixed, best: best[0][0] });
+      signRows[who].push({ area: AREAS[s % 3], pot: W0.town.areas[W0.area].potentialMul, best: best[0][0], gap: best[0][1] - best[1][1] });
     }
-    const tally = (rows, label) => { const c = {}; rows.forEach((r) => { c[r.best] = (c[r.best] || 0) + 1; }); const n = rows.length; out(`| ${label} | ${n} | ${['cheap', 'std', 'high'].map((k) => `${pct(c[k] || 0, n)}%`).join(' / ')} |`); };
-    out(`| 条件 | 周 | 安い / 標準 / 高い |\n|---|---|---|`);
-    tally(supRows, '全体');
-    for (let st = 0; st < 3; st++) tally(supRows.filter((r) => r.st === st), `方針 ${SMART[st]}`);
-    for (const a of AREAS) tally(supRows.filter((r) => r.area === a), `立地 ${a}`);
-    const pots = supRows.map((r) => r.pot).sort((a, b) => a - b), t1 = pots[Math.floor(pots.length / 3)], t2 = pots[Math.floor((2 * pots.length) / 3)];
-    tally(supRows.filter((r) => r.pot < t1), '薄い町（潜在客 下1/3）'); tally(supRows.filter((r) => r.pot >= t1 && r.pot < t2), '中の町'); tally(supRows.filter((r) => r.pot >= t2), '厚い町（上1/3）');
-    tally(supRows.filter((r) => r.shock), '原価の上がる町（偶数 seed）'); tally(supRows.filter((r) => !r.shock), '原価の上がらない町');
-    tally(supRows.filter((r) => r.other > 150000), 'その他固定費20万'); tally(supRows.filter((r) => r.other <= 150000), 'その他固定費15万');
-    // 看板の4択：放置に近い店（放置＋LINE）と上手（多店舗）。5年目末ネットキャッシュ
-    out(`\n### 看板の4択（5年目末ネットキャッシュで最良。引き分けは除く）`);
-    const signRows = [];
-    for (let s = 0; s < N; s++) {
-      const W0 = Wd.create({ seed: s, area: AREAS[s % 3] });
-      for (const [who, mk] of [['放置に近い店', (sign, at) => (W) => ({ ...idlePolicy(W), line: true, sign, signAt: at })], ['上手（常連と地図）', (sign, at) => (W) => smartX(W, 0, { sign, signAt: at })]]) {
-        const nc = {}; for (const [k, sign, at] of [['none', 'none', 3], ['small', 'small', 3], ['large', 'large', 3], ['later', 'large', 15]]) nc[k] = Wd.netCash(play(s, { months: 60, policy: mk(sign, at) }).W);
-        const best = Object.entries(nc).sort((a, b) => b[1] - a[1]); if (best[0][1] === best[1][1]) continue;
-        signRows.push({ who, area: AREAS[s % 3], pot: W0.town.areas[W0.area].potentialMul, best: best[0][0] });
-      }
-    }
-    const tallyS = (rows, label) => { const c = {}; rows.forEach((r) => { c[r.best] = (c[r.best] || 0) + 1; }); const n = rows.length; out(`| ${label} | ${n} | ${['none', 'small', 'large', 'later'].map((k) => `${pct(c[k] || 0, n)}%`).join(' / ')} |`); };
-    out(`| 条件 | 周 | なし / 小 / 大 / 大をあとで |\n|---|---|---|`);
-    for (const who of ['放置に近い店', '上手（常連と地図）']) { const rows = signRows.filter((r) => r.who === who); tallyS(rows, who); for (const a of AREAS) tallyS(rows.filter((r) => r.area === a), `${who}・${a}`); const ps = rows.map((r) => r.pot).sort((a, b) => a - b), u1 = ps[Math.floor(ps.length / 3)], u2 = ps[Math.floor((2 * ps.length) / 3)]; tallyS(rows.filter((r) => r.pot < u1), `${who}・薄い町`); tallyS(rows.filter((r) => r.pot >= u1 && r.pot < u2), `${who}・中の町`); tallyS(rows.filter((r) => r.pot >= u2), `${who}・厚い町`); }
-    // 店の形
-    out(`\n### 店の形（家族1人・パート0 vs パート1人。ネットキャッシュ）`);
-    out(`放置どうし（${N}周）：${familyStats(N, 'idle')}`);
-    out(`基礎の手だけどうし（${N}周）：${familyStats(N, 'basic')}`);
-    out(`上手どうし（${N}周）：${familyStats(N, 'smart')}`);
-    // 値段
-    out(`\n### 値段（上手 smartX の手で年別の値段を全探索）`);
-    const polX = (W, st, price) => smartX(W, st, { prices: [price, price, price, price, price] });
-    flipStat('50円刻み・反応あり', { polFn: polX });
-    flipStat('50円刻み・他店固定', { polFn: polX, fixedRival: true });
-    flipStat('1年目10円刻み・反応あり', { polFn: polX, cands: [Y10, Y50, Y50] });
   }
-  if (EXP === 'ceiling') {
-    // 上手の上限：方針の置き値（人数の上限・看板・仕入先・チラシ・値段の道）を seed ごとに探索し、最良の3年目客数の上位25%を測る
-    out(`\n### 上手の上限（seed ごとに置き値を総当たりし最良を採る。${SEEDS}周）`);
-    const bestN = [], bestNC = [], ruleN = [];
-    for (let s = 0; s < SEEDS; s++) {
-      let bn = -1, bnc = -Infinity;
-      for (const st of [0, 1, 2]) for (const maxParts of [2, 3, 4]) for (const sign of ['small', 'large']) for (const supplier of ['std', 'high']) for (const flyer of [0, 50000, 100000]) for (const prices of [PRICES[st], [750, 850, 950, 1000, 1000], [800, 900, 1000, 1050, 1050], [850, 850, 900, 950, 1000]]) {
-        const r = play(s, { months: 36, policy: (W) => smartX(W, st, { maxParts, sign, supplier, flyer, prices }) });
-        const n3 = yearN(r, 3); if (n3 > bn) bn = n3; const nc = Wd.netCash(r.W); if (nc > bnc) bnc = nc;
-      }
-      bestN.push(bn); bestNC.push(bnc);
-      ruleN.push(Math.max(...[0, 1, 2].map((st) => yearN(play(s, { months: 36, policy: (W) => smartX(W, st) }), 3))));
-    }
-    out(`上限（最良の置き値）3年目客数：中央値 ${f1(median(bestN))}、上位25% ${f1(q(bestN, 0.75))}、上位10% ${f1(q(bestN, 0.9))}。3年目末ネットキャッシュ 中央値 ${man(median(bestNC))}`);
-    out(`規則の上手（d.9.3 の3方針の最良）3年目客数：中央値 ${f1(median(ruleN))}、上位25% ${f1(q(ruleN, 0.75))}`);
+  for (const [who, label] of [['idle', '放置に近い店（放置＋LINE）'], ['smart0', '上手（常連と地図）'], ['smart2', '上手（集客と席）']]) { byCells(signRows[who], ['none', 'small', 'large', 'later'], label); out(`| ${label}：最良と2位の差の中央値 | — | ${man(median(signRows[who].map((r) => r.gap)))} | — |`); }
+  // 店の形
+  out(`\n### 店の形（家族1人・パート0 vs パート1人。ネットキャッシュ。家族が勝つ割合）`);
+  out(`放置どうし（${N}周）：${familyStats(N, 'idle')}`);
+  out(`基礎の手だけどうし（${N}周）：${familyStats(N, 'basic')}`);
+  out(`上手どうし（${N}周）：${familyStats(N, 'smart')}`);
+  {
+    const rows = [];
+    for (let seed = 0; seed < N; seed++) { const W0 = Wd.create({ seed, area: AREAS[seed % 3] }), cash = {}; for (const form of ['family', 'part1']) { const r = play(seed, { form, months: 60, policy: (W) => { const p = idlePolicy(W); p.parts = form === 'family' ? 0 : 1; p.family = form === 'family' ? 1 : 0; return p; } }); cash[form] = [36, 60].map((t) => Wd.netCash(at(r, t))); } rows.push({ area: AREAS[seed % 3], pot: W0.town.areas[W0.area].potentialMul, w3: cash.family[0] > cash.part1[0], w5: cash.family[1] > cash.part1[1] }); }
+    const rate = (rs) => `${pct(rs.filter((r) => r.w3).length, rs.length)}／${pct(rs.filter((r) => r.w5).length, rs.length)}%`; const [u1, u2] = tert(rows);
+    out(`放置どうしの枡（3年末／5年末）：商店街 ${rate(rows.filter((r) => r.area === 'shotengai'))}、駅前 ${rate(rows.filter((r) => r.area === 'ekimae'))}、住宅地 ${rate(rows.filter((r) => r.area === 'jutaku'))}、薄い町 ${rate(rows.filter((r) => r.pot < u1))}、中の町 ${rate(rows.filter((r) => r.pot >= u1 && r.pot < u2))}、厚い町 ${rate(rows.filter((r) => r.pot >= u2))}`);
   }
+  // 値段
+  out(`\n### 値段（上手 smartX の手で年別の値段を全探索。${SEEDS}周）`);
+  const polX = (W, st, price) => smartX(W, st, { prices: [price, price, price, price, price] });
+  flipStat('50円刻み・反応あり（安売り 確率0.5・幅≤50円）', { polFn: polX });
+  flipStat('50円刻み・他店固定', { polFn: polX, fixedRival: true });
+  flipStat('1年目10円刻み・反応あり', { polFn: polX, cands: [Y10, Y50, Y50] });
+  if (o.follow) for (const [P, cap] of [[0.5, 30], [0.25, 50], [1.0, 50], [1.0, 100]]) { const old = RV.TYPES.cheap.follow; RV.TYPES.cheap.follow = P; withX({ followCap: cap }, () => flipStat(`50円刻み・追随 確率${P}・幅≤${cap}円`, { polFn: polX })); RV.TYPES.cheap.follow = old; }
+  // 味を変える
+  if (o.taste) {
+    const PLANS = { never: (W, p) => { p.tweak = false; p.limited = false; }, yearly: (W, p) => { p.tweak = W.m === 5 && Wd.canTweak(W); p.limited = W.m === 8; }, max: (W, p) => { p.tweak = Wd.canTweak(W); p.limited = [5, 8, 11, 2].includes(W.m); }, thermo: (W, p) => { const F = W.stores[0].bowl.Fbase; p.tweak = F < 0.92 && Wd.canTweak(W); p.limited = F < 0.92 && W.m === 8; }, thermoAug: (W, p) => { const F = W.stores[0].bowl.Fbase; p.tweak = F < 0.92 && Wd.canTweak(W); p.limited = W.m === 8; } };
+    const wins = {}, diff = []; let n = 0;
+    for (let s = 0; s < N; s++) { const st = Math.floor(s / 3) % 3, nc = {}; for (const [k, plan] of Object.entries(PLANS)) { const r = play(s, { months: 60, policy: (W) => { const p = smartX(W, st); plan(W, p); if (p.tweak && Wd.timeUsed(W, p) > Wd.timeBudget(W, p)) { for (const x of ['sns', 'forecast', 'haccp', 'map']) { if (p[x]) { p[x] = false; break; } } } return p; } }); nc[k] = Wd.netCash(r.W); } const best = Object.entries(nc).sort((a, b) => b[1] - a[1]); if (best[0][1] === best[1][1]) continue; n++; wins[best[0][0]] = (wins[best[0][0]] || 0) + 1; diff.push(Math.max(nc.yearly, nc.thermo, nc.thermoAug, nc.max) - nc.never); }
+    out(`\n### 味を変える手（${n}周。never 変えない／yearly 毎年5月の手直し＋8月の限定／max 3か月ごと＋限定年4回／thermo 体温計 F<0.92 のときだけ／thermoAug 体温計で手直し＋8月の限定）\n最良の割合：${Object.keys(PLANS).map((k) => `${k} ${pct(wins[k] || 0, n)}%`).join('・')}。変える最良 − 変えない の中央値 ${man(median(diff))}`);
+  }
+  if (o.f7) { out(`\n### F7 と詰み（widePolicy・${RUNS}周・13か月）`); out(`人数を年初に引いて12か月保つ（実装の母集団）：${f7Stats(RUNS)}`); out(`人数を6か月ごとに引き直す（F7 の母集団・版0.9）：${f7Stats(RUNS, { hold: 6 })}`); out(`赤字が3か月続いたら人を1人減らす（詰みの母集団・版0.9）：${f7Stats(RUNS, { notice: 3 })}`); }
+}
+function ceiling(n) {
+  out(`\n### 上手の上限（seed ごとに置き値を総当たりし最良を採る。${n}周）`);
+  const bestN = [], bestNC = [], ruleN = [];
+  for (let s = 0; s < n; s++) {
+    let bn = -1, bnc = -Infinity;
+    for (const st of [0, 1, 2]) for (const maxParts of [2, 3, 4]) for (const sign of ['small', 'large']) for (const supplier of ['std', 'high']) for (const flyer of [0, 50000, 100000]) for (const prices of [PRICES[st], [750, 850, 950, 1000, 1000], [800, 900, 1000, 1050, 1050], [850, 850, 900, 950, 1000]]) {
+      const r = play(s, { months: 36, policy: (W) => smartX(W, st, { maxParts, sign, supplier, flyer, prices }) });
+      const n3 = yearN(r, 3); if (n3 > bn) bn = n3; const nc = Wd.netCash(r.W); if (nc > bnc) bnc = nc;
+    }
+    bestN.push(bn); bestNC.push(bnc);
+    ruleN.push(Math.max(...[0, 1, 2].map((st) => yearN(play(s, { months: 36, policy: (W) => smartX(W, st) }), 3))));
+  }
+  out(`上限（最良の置き値）3年目客数：中央値 ${f1(median(bestN))}、上位25% ${f1(q(bestN, 0.75))}、上位10% ${f1(q(bestN, 0.9))}。3年目末ネットキャッシュ 中央値 ${man(median(bestNC))}`);
+  out(`規則の上手（d.9.3 の3方針の最良）3年目客数：中央値 ${f1(median(ruleN))}、上位25% ${f1(q(ruleN, 0.75))}`);
+}
+// 版0.8 の置き値（模型 E8 をそのまま差し込む）：看板・仕入先・歯止め①②③・古び −2%（段0 −1%）・常連3割の半分を外す・家族の上限40・原価の上がる町（偶数 seed）
+const X08 = { sign: true, supplier: true, retainP: 1.0, cheapHit: 0.3, cheapNest: 0.3, noRegHalf: true, shock: true };
+// 版0.9 の置き値：歯止め①②③を外す、値下げ後の値上げ ×2 を外す、家族の上限45、外れの年、看板の立地倍率（--areaSign で変える）、仕入先と看板の乱数
+const AREA_SIGN = { a: { ekimae: 1.0, shotengai: 0.7, jutaku: 0.4 }, b: { ekimae: 1.0, shotengai: 0.8, jutaku: 0.6 }, c: { ekimae: 0.9, shotengai: 0.8, jutaku: 0.7 } }[arg('--areaSign', 'a')];
+const X09 = { sign: true, supplier: true, noRegHalf: true, shock: true, missPenalty: 0.05, areaSign: AREA_SIGN, signLuck: Number(arg('--luck', 1)), supLuck: Number(arg('--luck', 1)), largeCost: Number(arg('--largeCost', 500000)), signLarge: Number(arg('--signLarge', 0.07)) };
+if (EXP === 'v08' || EXP === 'ceiling') {
+  setX(X08); C.table.decay.v = 0.02; C.table.capBy.v = [40, 70, 100, 125, 145, 160, 170];
+  const N = Math.min(RUNS, 120);
+  out(`\n## 版0.8 の置き値を差し込んだ実装（再較正）`); out(`較正 potentialScale=${calibrate(N)}（放置の3年目中央値 44）`);
+  if (EXP === 'v08') judgments(N, {}); else ceiling(SEEDS);
+}
+if (EXP === 'final' || EXP === 'final-ceiling') {
+  setX(X09); C.table.decay.v = 0.02; C.table.capBy.v = [Number(arg('--famCap', 45)), 70, 100, 125, 145, 160, 170]; C.table.discountChurn.v = Number(arg('--discountChurn', 1));
+  const N = Math.min(RUNS, 120);
+  out(`\n## 版0.9 の置き値を差し込んだ実装（再較正）：歯止めなし・値下げ後の値上げ ×${C('discountChurn')}・家族の上限 ${C('capBy')[0]}・外れの年 −0.05・看板 大${man(X09.largeCost)}+${X09.signLarge}・立地倍率 ${JSON.stringify(AREA_SIGN)}・乱数 ${X09.signLuck ? 'あり' : 'なし'}`);
+  out(`較正 potentialScale=${calibrate(N)}（放置の3年目中央値 44）`);
+  if (EXP === 'final') judgments(N, { follow: true, taste: true, f7: true }); else ceiling(SEEDS);
 }
 out(`\n（${((Date.now() - t0) / 1000).toFixed(0)}秒）`);
