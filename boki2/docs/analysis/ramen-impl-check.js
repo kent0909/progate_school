@@ -15,6 +15,12 @@ const D = window.SIMDATA, Wd = D.world, BW = D.bowl, RV = D.rivals, C = D.coef;
 const RUNS = Number(arg('--runs', 300)), SEEDS = Number(arg('--seeds', 60)), EXP = arg('--exp', 'base');
 // 版1.0：試算の乱数に seed を混ぜる（検査役の指摘：月だけだと追随が決まった月に起きる）。--seedmix 0 で版0.9 までの測り方
 const SEEDMIX = Number(arg('--seedmix', 1));
+// 版1.0：仕入先を替える月（予兆の札は1年目12月 t=8、原価の上昇は2年目4月 t=12 から。替えるのは t=12）
+const SWITCH_AT = Number(arg('--switchAt', 12));
+// --native 1：Codex が coef.js に置き値を実装した後の回し方。__X を置かず coef の値をそのまま使う（道具の置き値の入れ口を二重にしない）
+const NATIVE = Number(arg('--native', 0));
+// --ps <値>：較正を道具の中で繰り返さず、`sim-ramen.js --calibrate --runs 300` で出した potentialScale をそのまま使う（本体と道具の較正をそろえる）
+const PS = arg('--ps', null);
 // ブートストラップの95%区間（分位点・中央値用）
 const boot = (xs, fn, B = 1000) => { const r = D.rng(4242); const vs = []; for (let b = 0; b < B; b++) { const ys = xs.map(() => xs[Math.floor(r() * xs.length)]); vs.push(fn(ys)); } vs.sort((a, b) => a - b); return [vs[Math.floor(B * 0.025)], vs[Math.floor(B * 0.975)]]; };
 const q3ci = (xs) => { const [a, b] = boot(xs, (y) => q(y, 0.75)); return `${f1(q(xs, 0.75))}（${f1(a)}〜${f1(b)}）`; };
@@ -162,6 +168,7 @@ function flipStat(label, o = {}) {
 // 較正：放置の3年目中央値を 44 に（実装の --calibrate と同じ：札・揺れあり、倒産後0人）
 function idleMedian(n, o = {}) { const xs = []; for (let s = 0; s < n; s++) xs.push(yearN(play(s, { months: 36, policy: idlePolicy, ...o }), 3)); return xs; }
 function calibrate(n, o = {}) {
+  if (PS != null) { C.table.potentialScale.v = Number(PS); return C('potentialScale'); }
   let lo = 0.2, hi = 1.2;
   for (let i = 0; i < 12; i++) { const mid = (lo + hi) / 2; C.table.potentialScale.v = mid; if (median(idleMedian(n, o)) < C('median')) lo = mid; else hi = mid; }
   C.table.potentialScale.v = Number(((lo + hi) / 2).toFixed(6));
@@ -418,7 +425,7 @@ function judgments(N, o = {}) {
   for (let s = 0; s < N; s++) {
     const st = Math.floor(s / 3) % 3, W0 = Wd.create({ seed: s, area: AREAS[s % 3] });
     const nc = {}; for (const sup of ['cheap', 'std', 'high']) nc[sup] = Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: sup }) }).W);
-    if (s % 2 === 0) { const sw = Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: (W) => (W.t >= 10 ? 'std' : 'high') }) }).W); swN++; if (sw > nc.high) swWin++; swGap.push(sw - nc.high); }
+    if (s % 2 === 0) { const sw = Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: (W) => (W.t >= SWITCH_AT ? 'std' : 'high') }) }).W); swN++; if (sw > nc.high) swWin++; swGap.push(sw - nc.high); }
     const best = Object.entries(nc).sort((a, b) => b[1] - a[1]); if (best[0][1] === best[1][1]) continue;
     supRows.push({ s, st, area: AREAS[s % 3], pot: W0.town.areas[W0.area].potentialMul, shock: s % 2 === 0, other: W0.otherFixed, best: best[0][0] });
   }
@@ -427,7 +434,7 @@ function judgments(N, o = {}) {
   for (let st = 0; st < 3; st++) cellTally(supRows.filter((r) => r.st === st), `方針 ${SMART[st]}`, SO);
   cellTally(supRows.filter((r) => r.shock), '原価の上がる町（偶数 seed）', SO); cellTally(supRows.filter((r) => !r.shock), '原価の上がらない町', SO);
   cellTally(supRows.filter((r) => r.other > 150000), 'その他固定費20万', SO); cellTally(supRows.filter((r) => r.other <= 150000), 'その他固定費15万', SO);
-  out(`原価の上がる町で「高い→予兆（2年目の2月）で標準に替える」が「高いのまま」に勝つ周：${ci(swWin, swN)}、差の中央値 ${man(median(swGap))}`);
+  out(`原価の上がる町で「高い→標準に替える（t=${SWITCH_AT}：予兆の札は1年目12月、原価の上昇は2年目4月）」が「高いのまま」に勝つ周：${ci(swWin, swN)}、差の中央値 ${man(median(swGap))}`);
   // 看板の4択
   out(`\n### 看板の4択（5年目末ネットキャッシュで最良。引き分けは除く）\n| 条件 | 周 | なし / 小 / 大 / 大をあとで | 最多 |\n|---|---|---|---|`);
   const signRows = { idle: [], smart0: [], smart2: [] };
@@ -441,6 +448,10 @@ function judgments(N, o = {}) {
     }
   }
   for (const [who, label] of [['idle', '放置に近い店（放置＋LINE）'], ['smart0', '上手（常連と地図）'], ['smart2', '上手（集客と席）']]) { byCells(signRows[who], ['none', 'small', 'large', 'later'], label); out(`| ${label}：最良と2位の差の中央値 | — | ${man(median(signRows[who].map((r) => r.gap)))} | — |`); }
+  // 雇う判断（オーナーの決定30）：雇う手のどれか（規則／2年目から2人／2年目2人・3年目3人）が雇わない上手に5年目末の口座で勝つ周。見える条件＝町の厚さ・1年目の満席の日数
+  { const rows = []; for (let s = 0; s < N; s++) { const st = Math.floor(s / 3) % 3, W0 = Wd.create({ seed: s, area: AREAS[s % 3] }); const none = play(s, { months: 60, policy: (W) => smartX(W, st, { parts: 1 }) }); const full1 = none.hist.slice(0, 12).reduce((a, h) => a + h.res.fullDays, 0); const n0 = Wd.netCash(none.W); const hire = Math.max(Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st) }).W), Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { parts: W.t >= 12 ? 2 : 1 }) }).W), Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { parts: W.t >= 24 ? 3 : W.t >= 12 ? 2 : 1 }) }).W)); rows.push({ area: AREAS[s % 3], pot: W0.town.areas[W0.area].potentialMul, full1, win: hire > n0, gap: hire - n0 }); }
+    const r8 = (rs) => `${pct(rs.filter((r) => r.win).length, rs.length)}%（${rs.length}周）`; const [u1, u2] = tert(rows);
+    out(`\n### 雇う判断：雇う手のどれかが雇わない上手に5年目末の口座で勝つ周（合否 30〜70%）\n全体 ${ci(rows.filter((r) => r.win).length, rows.length)}、差の中央値 ${man(median(rows.map((r) => r.gap)))}。立地：商店街 ${r8(rows.filter((r) => r.area === 'shotengai'))}・駅前 ${r8(rows.filter((r) => r.area === 'ekimae'))}・住宅地 ${r8(rows.filter((r) => r.area === 'jutaku'))}。厚さ：薄い ${r8(rows.filter((r) => r.pot < u1))}・中 ${r8(rows.filter((r) => r.pot >= u1 && r.pot < u2))}・厚い ${r8(rows.filter((r) => r.pot >= u2))}。1年目の満席：0日 ${r8(rows.filter((r) => r.full1 === 0))}・1〜20日 ${r8(rows.filter((r) => r.full1 > 0 && r.full1 <= 20))}・21日以上 ${r8(rows.filter((r) => r.full1 > 20))}`); }
   // 店の形
   out(`\n### 店の形（家族1人・パート0 vs パート1人。ネットキャッシュ。家族が勝つ割合）`);
   out(`放置どうし（${N}周）：${familyStats(N, 'idle')}`);
@@ -455,7 +466,7 @@ function judgments(N, o = {}) {
   // 値段
   out(`\n### 値段（上手 smartX の手で年別の値段を全探索。${SEEDS}周）`);
   const polX = (W, st, price) => smartX(W, st, { prices: [price, price, price, price, price] });
-  flipStat('50円刻み・反応あり（安売り 確率0.5・幅≤50円）', { polFn: polX });
+  flipStat(`50円刻み・反応あり（安売り 確率${RV.TYPES.cheap.follow}・幅≤${(global.__X || {}).followCap != null ? global.__X.followCap : 50}円）`, { polFn: polX });
   flipStat('50円刻み・他店固定', { polFn: polX, fixedRival: true });
   flipStat('1年目10円刻み・反応あり', { polFn: polX, cands: [Y10, Y50, Y50] });
   if (o.follow) for (const [P, cap] of [[0.5, 30], [0.25, 50], [1.0, 50], [1.0, 100]]) { const old = RV.TYPES.cheap.follow; RV.TYPES.cheap.follow = P; withX({ followCap: cap }, () => flipStat(`50円刻み・追随 確率${P}・幅≤${cap}円`, { polFn: polX })); RV.TYPES.cheap.follow = old; }
@@ -507,7 +518,7 @@ if (EXP === 'flip2') {
   withCoef({ epsOver1000: 1.2 }, () => flipStat('1,000円の壁 1.5→1.2', { polFn: polX }));
 }
 const X10 = { ...X09, areaSign: { ekimae: 1.0, shotengai: 0.8, jutaku: 0.6 } };
-function setup10(N) { setX(X10); C.table.decay.v = 0.02; C.table.capBy.v = [45, 70, 100, 125, 145, 160, 170]; C.table.discountChurn.v = 1; RV.TYPES.cheap.follow = Number(arg('--follow', 0.25)); out(`\n## 版1.0 の置き値：歯止めなし・値下げ後の値上げ ×1・家族の上限45・外れの年 −0.05・看板 大50万+0.07・立地倍率 1.0/0.8/0.6・乱数あり・追随 確率${RV.TYPES.cheap.follow}・幅≤50円・試算の乱数に seed を${SEEDMIX ? '混ぜる' : '混ぜない'}`); out(`較正 potentialScale=${calibrate(N)}（放置の3年目中央値 44、${N}周）`); }
+function setup10(N) { if (NATIVE) { setX({}); } else { setX(X10); C.table.decay.v = 0.02; C.table.capBy.v = [45, Number(arg('--cap1', 70)), 100, 125, 145, 160, 170]; C.table.discountChurn.v = 1; RV.TYPES.cheap.follow = Number(arg('--follow', 0.25)); C.table.wagePart.v = Number(arg('--wagePart', 200000)); } out(`\n## 版1.0 の置き値：歯止めなし・値下げ後の値上げ ×1・家族の上限45・パート1人の上限 ${C('capBy')[1]}・パートの給料 ${man(C('wagePart'))}・外れの年 −0.05・看板 大50万+0.07・立地倍率 1.0/0.8/0.6・乱数あり・追随 確率${RV.TYPES.cheap.follow}・幅≤50円・試算の乱数に seed を${SEEDMIX ? '混ぜる' : '混ぜない'}`); out(`較正 potentialScale=${calibrate(N)}（放置の3年目中央値 44、${N}周）`); }
 if (EXP === 'final10') { const N = Math.min(RUNS, 120); setup10(N); judgments(N, { follow: true, taste: true, f7: false }); }
 if (EXP === 'flip10') {
   const N = Math.min(RUNS, 120); setup10(N);
@@ -542,7 +553,7 @@ if (EXP === 'ceil10') {
 if (EXP === 'f7grid') {
   const N = Math.min(RUNS, 120); setup10(N);
   out(`\n| 母集団（1つ） | 1年目の倒産 | 詰み | 翌4月NC 中央値 |\n|---|---|---|---|`);
-  for (const [hold, notice] of [[12, 0], [12, 6], [12, 3], [9, 0], [6, 0], [6, 6], [6, 3], [3, 0]]) { const r = f7Stats(RUNS, { hold, notice: notice || undefined }); out(`| 人数を${hold}か月保つ${notice ? `・赤字${notice}か月で1人減らす` : ''} | ${r} |`); }
+  for (const [hold, notice] of [[12, 0], [12, 6], [12, 3], [9, 0], [8, 0], [7, 0], [6, 0], [6, 6], [6, 3], [3, 0]]) { const r = f7Stats(RUNS, { hold, notice: notice || undefined }); out(`| 人数を${hold}か月保つ${notice ? `・赤字${notice}か月で1人減らす` : ''} | ${r} |`); }
 }
 if (EXP === 'taste10') {
   const N = Math.min(RUNS, 120); setup10(N);
@@ -575,6 +586,34 @@ if (EXP === 'causes10') {
   one('札・揺れなし', { noCards: true, noNoise: true }, {});
   one('週末の山なし', {}, { noWeekend: true });
   one('週末の山なし＋札・揺れなし（模型と同じ条件）', { noCards: true, noNoise: true }, { noWeekend: true });
+}
+if (EXP === 'sup10') { const N = Math.min(RUNS, 120); setup10(N); let swWin = 0, swN = 0; const swGap = []; for (let s = 0; s < N; s += 2) { const st = Math.floor(s / 3) % 3; const hi = Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: 'high' }) }).W); const sw = Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: (W) => (W.t >= SWITCH_AT ? 'std' : 'high') }) }).W); swN++; if (sw > hi) swWin++; swGap.push(sw - hi); } out(`原価の上がる町で「高い→標準に替える（t=${SWITCH_AT}）」が「高いのまま」に勝つ周：${ci(swWin, swN)}、差の中央値 ${man(median(swGap))}`); }
+if (EXP === 'hire10') {
+  // 雇う判断（オーナーの決定：雇う判断を生かす検査）：雇わない上手（パート1人のまま）vs 規則で雇う上手 vs 2年目から必ず2人。5年目末の口座。見える条件＝1年目の満席の日数（雇わない店で見える）・立地・厚さ
+  const N = Math.min(RUNS, 120); setup10(N);
+  const run = (label) => {
+    const rows = [];
+    for (let s = 0; s < N; s++) {
+      const st = Math.floor(s / 3) % 3, W0 = Wd.create({ seed: s, area: AREAS[s % 3] });
+      const none = play(s, { months: 60, policy: (W) => smartX(W, st, { parts: 1 }) });
+      const full1 = none.hist.slice(0, 12).reduce((a, h) => a + h.res.fullDays, 0);
+      const nc = { none: Wd.netCash(none.W), rule: Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st) }).W), force2: Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { parts: W.t >= 12 ? 2 : 1 }) }).W), force3: Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { parts: W.t >= 24 ? 3 : W.t >= 12 ? 2 : 1 }) }).W) };
+      const best = Object.entries(nc).sort((a, b) => b[1] - a[1]);
+      rows.push({ st, area: AREAS[s % 3], pot: W0.town.areas[W0.area].potentialMul, full1, best: best[0][1] === best[1][1] ? 'tie' : best[0][0], hireWins: Math.max(nc.rule, nc.force2, nc.force3) > nc.none, gap: Math.max(nc.rule, nc.force2, nc.force3) - nc.none });
+    }
+    const cell = (rs, lab) => { const c = {}; rs.forEach((r) => { c[r.best] = (c[r.best] || 0) + 1; }); const n = rs.length; out(`| ${label}・${lab} | ${n} | ${['none', 'rule', 'force2', 'force3'].map((k) => `${pct(c[k] || 0, n)}%`).join(' / ')} | ${pct(rs.filter((r) => r.hireWins).length, n)}% | ${man(median(rs.map((r) => r.gap)))} |`); };
+    cell(rows, '全体'); for (const a of AREAS) cell(rows.filter((r) => r.area === a), a);
+    const ps = rows.map((r) => r.pot).sort((a, b) => a - b), u1 = ps[Math.floor(ps.length / 3)], u2 = ps[Math.floor((2 * ps.length) / 3)];
+    cell(rows.filter((r) => r.pot < u1), '薄い町'); cell(rows.filter((r) => r.pot >= u1 && r.pot < u2), '中の町'); cell(rows.filter((r) => r.pot >= u2), '厚い町');
+    cell(rows.filter((r) => r.full1 === 0), '1年目の満席 0日'); cell(rows.filter((r) => r.full1 > 0 && r.full1 <= 20), '満席 1〜20日'); cell(rows.filter((r) => r.full1 > 20), '満席 21日以上');
+    for (let st = 0; st < 3; st++) cell(rows.filter((r) => r.st === st), SMART[st]);
+  };
+  out(`\n| 条件 | 周 | 最良：雇わない / 規則で雇う / 2年目から2人 / 2年目2人・3年目3人 | 雇う手のどれかが雇わないに勝つ周 | 雇う最良−雇わない 中央値 |\n|---|---|---|---|---|`);
+  run('版1.0');
+  withCoef({ wagePart: 160000 }, () => run('パートの給料 20万→16万'));
+  withCoef({ capBy: [45, 60, 100, 125, 145, 160, 170] }, () => run('パート1人の上限 70→60'));
+  withCoef({ repWait: 6 }, () => run('待ちの評判 3→6'));
+  withCoef({ wagePart: 160000, capBy: [45, 60, 100, 125, 145, 160, 170] }, () => run('16万＋上限60'));
 }
 if (EXP === 'final' || EXP === 'final-ceiling') {
   setX(X09); C.table.decay.v = 0.02; C.table.capBy.v = [Number(arg('--famCap', 45)), 70, 100, 125, 145, 160, 170]; C.table.discountChurn.v = Number(arg('--discountChurn', 1));
