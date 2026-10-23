@@ -99,7 +99,7 @@ const shop = g('食事メニューの工夫') + g('接客サービスの充実')
 p(`店の中で動く7項目（メニュー・接客・価格・広告・改装・イベント・営業時間）の和 ${r1(shop)}%`);
 const grow = g('経営の多角化') + g('専門店化・高級店化');
 const growHi = grow + g('事業規模の拡大・縮小');
-p(`拡大の意向の幅：下限（多角化＋専門店化・高級店化）${r1(grow)}%＝廃業の ${r2(grow / g('廃業'))}倍、上限（＋事業規模の拡大・縮小）${r1(growHi)}%＝廃業の ${r2(growHi / g('廃業'))}倍。「専門店化・高級店化」は店を大きくする意味とは限らず、「拡大・縮小」は縮小を含むので、向きは決まらない`);
+p(`拡大の意向：広い数え方（多角化＋専門店化・高級店化＋事業規模の拡大・縮小）${r1(growHi)}%＝廃業の ${r2(growHi / g('廃業'))}倍が上限。狭い数え方（多角化＋専門店化・高級店化）${r1(grow)}%＝廃業の ${r2(grow / g('廃業'))}倍も「専門店化・高級店化」が拡大とは限らないので下限ではない。拡大の意向は ${r1(growHi)}% 以下で、廃業との比は ${r2(growHi / g('廃業'))} 倍以下、向きは決まらない`);
 
 p('\n## V7. 魁力屋：新しい県（sakigake-yuho2025 沿革257〜286行）');
 // 沿革の「〜県に進出」の行を写した（年月, 県）。上場は2023年12月（同じ月の鹿児島は沿革で上場の行の前に書かれているので上場前に数える）
@@ -116,6 +116,11 @@ const pk = ratio.indexOf(Math.max(...ratio));
 const back = ratio.findIndex((v, i) => i > pk && v < ratio[0]);
 const backD = debt.findIndex((v, i) => i > debt.indexOf(Math.max(...debt)) && v < debt[0]);
 p(`比率の山 ${yr[pk]}年 ${ratio[pk]}%。出店前（${yr[0]}年 ${ratio[0]}%）を下回った最初の年 ${yr[back]}年 ${ratio[back]}%（山から ${yr[back] - yr[pk]}年）`);
+const after = ratio.slice(back + 1); const mx = Math.max(...after);
+p(`ただし ${yr[back]}年の ${ratio[back]}% は出店前を ${r1(ratio[0] - ratio[back])}ポイント下回っただけで、${yr[back + 2]}年 ${ratio[back + 2]}%・${yr[back + 3]}年 ${ratio[back + 3]}% と出店前の近くに戻った（${yr[back + 1 + after.indexOf(mx)]}年は出店前との差 ${r1(ratio[0] - mx)}ポイント）。出店前を5ポイント以上下回り続けるのは ${yr[ratio.findIndex((v, i) => i > pk && ratio.slice(i).every((x) => x < ratio[0] - 5))]}年から`);
+// 説明資料42頁のグラフの当期純利益（百万円）
+const ni = [204, 115, -178, 3, -88, 114, 259, 129, -15, 32, 277, 141, 386, 413, 1432, 2832, 3688];
+p(`当期純損失の年：${yr.filter((_, i) => ni[i] < 0).map((y, k) => `${y}年 ${ni.filter((v) => v < 0)[k]}百万円`).join('、')}`);
 p(`借入の額の山 ${yr[debt.indexOf(Math.max(...debt))]}年 ${Math.max(...debt)}百万円。出店前（${debt[0]}百万円）を下回った最初の年 ${yr[backD]}年 ${debt[backD]}百万円（山から ${yr[backD] - yr[debt.indexOf(Math.max(...debt))]}年）`);
 
 p('\n## V9. 本部費（全社費用÷売上）を規模の順に並べる（第1版の H1〜H6）');

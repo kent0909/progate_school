@@ -162,6 +162,12 @@ if (a.includes('--plan') || a.includes('--fetch')) {
     }
     console.log(`${p.h}\t${e ? e.status : '記録なし'}\t${(r.stdout + r.stderr).trim().split('\n').slice(-1)[0]}`);
   }
+  // robots.txt は確かめのためだけに取るので、読了ノートの代わりに「読まない」記録を足す（先例：r5-blr-robots-* と同じ文言。通信はしない）
+  const L2 = loadLedger();
+  for (const e of L2.filter((x) => /^r9-robots-/.test(x.doc) && x.status !== 'skipped')) {
+    if (L2.some((x) => x.doc === e.doc && x.src === e.src && x.coll === e.coll && x.status === 'skipped')) continue;
+    spawnSync('node', [path.join(__dirname, 'research-fetch.js'), '--src', e.src, '--coll', e.coll, '--doc', e.doc, '--skip', '利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない'], { encoding: 'utf8' });
+  }
   process.exit(0);
 }
 
