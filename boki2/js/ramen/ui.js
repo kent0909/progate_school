@@ -13,6 +13,7 @@
   const yen = (n) => `${Math.round(n).toLocaleString('ja-JP')}円`;
   const man = (n, sign = true) => `${sign ? (n >= 0 ? '＋' : '−') : n < 0 ? '−' : ''}${(Math.abs(n) / 10000).toLocaleString('ja-JP', { maximumFractionDigits: 1, minimumFractionDigits: Math.abs(n) < 100000 ? 1 : 0 })}万`;
   const pct = (x) => `${Math.round(x * 100)}%`;
+  const atMonth=t=>`${t>=12?Math.floor(t/12)+1+'年目':''}${RV.MON[t%12]}月`;
   const ICON = (k, s) => A.icon(k, { size: s });
   const W = () => S().W;
   const tNow = () => { const m = api.month(); return m && m.ramenT != null ? m.ramenT : null; };
@@ -59,7 +60,7 @@
     const prev = lastBand || { cash: k.cash, net };
     lastBand = { cash: k.cash, net };
     const num = (v, p, cls = '') => `<b class="r-num ${cls} ${v < 0 ? 'neg' : ''}" data-from="${Math.round(p)}" data-to="${Math.round(v)}">${yen(v)}</b>`;
-    const steps = st ? st.list.map((x, i) => `<li class="${x.done ? 'done' : i === st.cur ? 'cur' : ''}" title="${esc(x.label)}"><i></i><span>${esc(x.id === 'fund' ? '2号店の自己資金' : x.label)}${x.done && x.at != null ? `<small>${RV.MON[x.at]}月</small>` : x.id === 'black' && x.shadowAt != null ? `<small>影の線は${RV.MON[x.shadowAt]}月</small>` : x.id === 'fund' ? `<small>${pct(x.prog)}</small>` : ''}</span></li>`).join('') : '<li class="cur"><i></i><span>開店の準備</span></li>';
+    const steps = st ? st.list.map((x, i) => `<li class="${x.done ? 'done' : i === st.cur ? 'cur' : ''}" title="${esc(x.label)}"><i></i><span>${esc(x.id === 'fund' ? '2号店の自己資金' : x.label)}${x.done && x.at != null ? `<small>${atMonth(x.at)}</small>` : x.id === 'black' && x.shadowAt != null ? `<small>影の線は${atMonth(x.shadowAt)}</small>` : x.id === 'fund' ? `<small>${pct(x.prog)}</small>` : ''}</span></li>`).join('') : '<li class="cur"><i></i><span>開店の準備</span></li>';
     const g = Math.max(0, Math.min(1, net / RV.GOAL));
     const due = dueOf();
     const nd = due && due.items.find((x) => x.amt);
@@ -71,7 +72,7 @@
 <div class="r-kpi main"><small>${ICON('coin', 16)}手もとに残るお金</small>${S().__predicting ? '<b>予想のあとで</b>' : num(net, prev.net)}</div></div></div>
 <div class="r-goals">
 <div class="r-goal near" data-band-near><span class="r-gl">目の前</span><span class="r-gt">${headerYear?`${headerYear}年目4〜${m.m}月のもうけ <b data-final-profit>${yen(finalProfit)}</b>`:near ? esc(near.label) : '開店の準備（物件・人・一杯を決める）'}</span>${S().__est && S().__est.t === tt ? `<span class="r-est">見込み ${S().__est.N[0].toFixed(0)}〜${S().__est.N[2].toFixed(0)}人/日 → 月報で答え合わせ</span>` : ''}</div>
-<div class="r-goal year"><span class="r-gl">${headerYear || (tNow() != null && tNow() >= 12 ? Math.floor(tNow() / 12) + 1 : 1)}年目</span><ol class="r-steps">${steps}</ol></div>
+<div class="r-goal year"><span class="r-gl">${headerYear || m?.year || (tNow() != null && tNow() >= 12 ? Math.floor(tNow() / 12) + 1 : 1)}年目</span><ol class="r-steps">${steps}</ol></div>
 <div class="r-goal all"><span class="r-gl">1億まで</span><span class="r-line" role="img" aria-label="手もとに残るお金が1億円までの${pct(g)}"><i style="width:${Math.max(0.6, g * 100)}%"></i></span><small class="r-rank">${g > 0 ? pct(g) : '0%'}・見込みは2年目から</small></div>
 </div>
 ${nd ? `<div class="r-nextdue" data-due-next>${ICON('cal', 15)}次の期日：${nd.m}月${nd.d === 31 ? '末' : `${nd.d}日`} ${esc(nd.what)} <b class="${nd.amt < 0 ? '' : 'plus'}">${man(nd.amt)}</b>${due.low < 0 ? `<span class="r-risk">${ICON('warn', 15)}${RV.MON[due.items.find((x) => x.short).k % 12]}月に口座が足りなくなる</span>` : ''}</div>` : ''}
@@ -375,7 +376,7 @@ ${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}${o.mode === 'tweak' ? `<p 
     const mood = r.R >= 3.8 ? 1 : r.R < 3 ? -1 : 0;
     const back = (s.cardOutcomes || []).filter((x) => x.t === t - 1);
     const fixesNow = (s.fixLog || []).filter((x) => x.mi === s.mi).length;
-    const lead = firstNow ? `<div class="r-celebrate" data-first-black>${ICON('flag', 26)}<div><b>初めての月次黒字！</b><small>手を打たない店（影の線）は${black.shadowAt != null ? `${RV.MON[black.shadowAt]}月` : '1年のうちに来ない'}。${black.shadowAt != null && black.shadowAt > t ? `${black.shadowAt - t}か月早い` : black.shadowAt === t ? '同じ月' : ''}</small></div></div>` : '';
+    const lead = firstNow ? `<div class="r-celebrate" data-first-black>${ICON('flag', 26)}<div><b>初めての月次黒字！</b><small>手を打たない店（影の線）は${black.shadowAt != null ? `${atMonth(black.shadowAt)}` : '1年のうちに来ない'}。${black.shadowAt != null && black.shadowAt > t ? `${black.shadowAt - t}か月早い` : black.shadowAt === t ? '同じ月' : ''}</small></div></div>` : '';
     api.frame(`<div class="r-report" data-screen="report">
 <div class="r-rephead"><div class="r-repart">${A.shop(formOf(), { name: api.shopName(), season: seasonOf(), queue: Math.max(0, r.N - 18) / 3, mix: mixOf() })}</div>
 <div class="r-repnums"><small>${esc(api.month().label)}の月報・${esc(bowlName())}</small>
@@ -442,7 +443,7 @@ ${(() => { const hand = s.L.filter((x) => x.mi === s.mi && !x.auto); const fixed
 <div><small>手もとに残るお金</small><b class="r-num" data-from="${Math.round(before - loanBefore)}" data-to="${Math.round(now.cash - now.loan)}">${yen(now.cash - now.loan)}</b><em class="${now.cash - now.loan - (before - loanBefore) >= 0 ? 'up' : 'dn'}">${man(now.cash - now.loan - (before - loanBefore))}</em></div>
 <div><small>この月のもうけ</small><b>${yen(r.op)}</b><em class="${r.op >= 0 ? 'up' : 'dn'}">${r.op >= 0 ? '黒字' : '赤字'}</em></div>
 ${me ? `<div data-share-line><small>町の客の取り合い</small><b>${pct(me.share)}</b><em class="${me.d >= 0.005 ? 'up' : me.d <= -0.005 ? 'dn' : ''}">${me.d == null ? '' : `${me.d >= 0 ? '▲' : '▼'}${Math.abs(me.d * 100).toFixed(1)}pt`}</em></div>` : ''}
-</div><ol class="r-steps big">${st.list.map((x, i) => `<li class="${x.done ? 'done' : i === st.cur ? 'cur' : ''}"><i></i><span>${esc(x.label)}${x.done && x.at != null ? `<small>${RV.MON[x.at]}月</small>` : ''}</span></li>`).join('')}</ol>
+</div><ol class="r-steps big">${st.list.map((x, i) => `<li class="${x.done ? 'done' : i === st.cur ? 'cur' : ''}"><i></i><span>${esc(x.label)}${x.done && x.at != null ? `<small>${atMonth(x.at)}</small>` : ''}</span></li>`).join('')}</ol>
 <p class="r-small">帳簿の数字は、このあと書類と合っているかを見直す。</p><button class="btn wide" data-band-next>見直しへ</button></div></div>`);
     api.app.onclick = (e) => { if (e.target.closest('[data-band-next]')) api.next(); };
   }
