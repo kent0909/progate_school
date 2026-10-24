@@ -1,9 +1,9 @@
 {
   "pr": 4,
   "branch": "codex/ramen-y1-economy",
-  "status": "waiting_for_review_with_watch",
-  "updated_at": "2026-10-24T16:13:51.502Z",
-  "last_seen_comment_id": 6386494576,
+  "status": "waiting_for_inspection_job5_with_watch",
+  "updated_at": "2026-10-24T17:11:12.590Z",
+  "last_seen_comment_id": 6387118226,
   "last_seen_comment_updated_at": "2026-10-24T16:13:51.502Z",
   "requests": [
     {
@@ -23,6 +23,12 @@
       "status": "reported_with_limits",
       "acceptance": "単独原因9条件各300周60か月、3表示案、月別差、長期、正式合否の共有と未再実行の明示",
       "result_comment_id": 6386494576
+    },
+    {
+      "id": 6386625422,
+      "status": "acknowledged_and_applied",
+      "acknowledgement_comment_id": 6387118226,
+      "acceptance": "受領を1行で返し、全コメントを確認する。新規作業なし、PR #5の仕事5の検査を待つ"
     }
   ],
   "work_done": [
@@ -34,18 +40,68 @@
     "report-check、集計の件数照合"
   ],
   "remaining": [
-    "PR #5の検査役による今回3案の独立検査",
-    "取りまとめ役の採否/試遊の回答に対応"
+    "PR #5の仕事5の検査/事実の問いを待つ",
+    "取りまとめ役の次の指示へ受領返信して対応"
   ],
   "blocked": false,
-  "waiting_reason": "原因単独比較・300周60か月・3表示案・画面根拠・長期/正式合否の共有と限界をPRへ報告済み。検査役への回付を依頼",
-  "resume_condition": "PR #4に検査役の事実の問い、レビュー、採否、追加指示が届く",
-  "next_action": "毎時監視で新返信を確認し、指示の許可範囲で再開",
+  "waiting_reason": "取りまとめ役コメント6386625422により、新規依頼なし。PR #5の検査（仕事5）の完了/事実の問いを待つ",
+  "resume_condition": "PR #4に仕事5の検査結果、事実の問い、次の指示が届く",
+  "next_action": "毎時、PRの全コメント・レビュー・状態を確認。取りまとめ役の未受領コメントへまず受領を1行返信し、許可された指示のみ処理する",
   "watch": {
     "enabled": true,
     "cadence": "hourly",
     "timezone": "Asia/Tokyo"
   },
   "owner_decision": "1年目のお金維持、A〜D不採用。今回も採用しない",
-  "last_report_comment_id": 6386494576
+  "last_report_comment_id": 6386494576,
+  "last_seen_owner_comment_id": 6386625422,
+  "last_seen_owner_comment_updated_at": "2026-10-24T16:25:34Z",
+  "review_count": 0,
+  "comment_review": [
+    {
+      "id": 6384906153,
+      "updated_at": "2026-10-24T13:39:49Z",
+      "handled": "過去の報告・連絡として確認"
+    },
+    {
+      "id": 6384939068,
+      "updated_at": "2026-10-24T13:43:04Z",
+      "handled": "過去の報告・連絡として確認"
+    },
+    {
+      "id": 6385261352,
+      "updated_at": "2026-10-24T14:15:04Z",
+      "handled": "状態記録と既存の結果返信を照合"
+    },
+    {
+      "id": 6385299953,
+      "updated_at": "2026-10-24T14:18:52Z",
+      "handled": "過去の報告・連絡として確認"
+    },
+    {
+      "id": 6385415040,
+      "updated_at": "2026-10-24T14:30:01Z",
+      "handled": "状態記録と既存の結果返信を照合"
+    },
+    {
+      "id": 6386343443,
+      "updated_at": "2026-10-24T15:59:16Z",
+      "handled": "過去の報告・連絡として確認"
+    },
+    {
+      "id": 6386361976,
+      "updated_at": "2026-10-24T16:01:01Z",
+      "handled": "状態記録と既存の結果返信を照合"
+    },
+    {
+      "id": 6386494576,
+      "updated_at": "2026-10-24T16:13:15Z",
+      "handled": "過去の報告・連絡として確認"
+    },
+    {
+      "id": 6386625422,
+      "updated_at": "2026-10-24T16:25:34Z",
+      "handled": "受領6387118226・規則反映"
+    }
+  ]
 }
