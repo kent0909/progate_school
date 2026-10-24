@@ -221,7 +221,7 @@
     onFocus = null; app.oninput = null; app.onkeydown = null;
     const shell = RUI && RUI.on();
     app.classList.toggle('r-shell', !!shell);
-    app.innerHTML = shell ? RUI.shell(body) : header(headerYear) + `<main class="s-main" id="s-main" tabindex="-1">${body}</main>`;
+    app.innerHTML = shell ? RUI.shell(body, headerYear) : header(headerYear) + `<main class="s-main" id="s-main" tabindex="-1">${body}</main>`;
     a11yNames(app);
     if (shell) RUI.afterFrame();
     $$('input[inputmode="numeric"]', app).forEach(amtHint);

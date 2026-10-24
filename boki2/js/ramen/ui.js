@@ -49,8 +49,9 @@
   /* ======================= 口座の帯（3層）と、3段の枠 ======================= */
   const bookNow = () => { const b = api.balances(api.preClose(S().L)); return { b, cash: api.cashOf(b), loan: -(b['借入金'] || 0), vat: api.knows('仮受消費税') ? Math.max(0, -((b['仮受消費税'] || 0) + (b['仮払消費税'] || 0))) : 0 }; };
   let lastBand = null;
-  function band() {
-    const k = bookNow(), m = api.month(), t = tNow();
+  function band(headerYear) {
+    const k = bookNow(), m = api.month() || (headerYear?D.months[D.months.length-1]:null), t = headerYear?D.months[D.months.length-1].ramenT:tNow();
+    const finalProfit=headerYear?api.pl(api.balances(S().L.filter(e=>(e.y||api.yearOf(e.mi))===headerYear&&!e.closing))).ni:null;
     const net = k.cash - k.loan;
     const st = W() ? RV.stages(S()) : null;
     const tt = t != null ? t : null;
@@ -69,15 +70,15 @@
 <div class="r-kpi"><small>${ICON('debt', 16)}${esc(word('借入金'))}</small><b>${yen(k.loan)}</b></div>
 <div class="r-kpi main"><small>${ICON('coin', 16)}手もとに残るお金</small>${S().__predicting ? '<b>予想のあとで</b>' : num(net, prev.net)}</div></div></div>
 <div class="r-goals">
-<div class="r-goal near" data-band-near><span class="r-gl">目の前</span><span class="r-gt">${near ? esc(near.label) : '開店の準備（物件・人・一杯を決める）'}</span>${S().__est && S().__est.t === tt ? `<span class="r-est">見込み ${S().__est.N[0].toFixed(0)}〜${S().__est.N[2].toFixed(0)}人/日 → 月報で答え合わせ</span>` : ''}</div>
-<div class="r-goal year"><span class="r-gl">${tNow() != null && tNow() >= 12 ? Math.floor(tNow() / 12) + 1 : 1}年目</span><ol class="r-steps">${steps}</ol></div>
+<div class="r-goal near" data-band-near><span class="r-gl">目の前</span><span class="r-gt">${headerYear?`${headerYear}年目4〜${m.m}月のもうけ <b data-final-profit>${yen(finalProfit)}</b>`:near ? esc(near.label) : '開店の準備（物件・人・一杯を決める）'}</span>${S().__est && S().__est.t === tt ? `<span class="r-est">見込み ${S().__est.N[0].toFixed(0)}〜${S().__est.N[2].toFixed(0)}人/日 → 月報で答え合わせ</span>` : ''}</div>
+<div class="r-goal year"><span class="r-gl">${headerYear || (tNow() != null && tNow() >= 12 ? Math.floor(tNow() / 12) + 1 : 1)}年目</span><ol class="r-steps">${steps}</ol></div>
 <div class="r-goal all"><span class="r-gl">1億まで</span><span class="r-line" role="img" aria-label="手もとに残るお金が1億円までの${pct(g)}"><i style="width:${Math.max(0.6, g * 100)}%"></i></span><small class="r-rank">${g > 0 ? pct(g) : '0%'}・見込みは2年目から</small></div>
 </div>
 ${nd ? `<div class="r-nextdue" data-due-next>${ICON('cal', 15)}次の期日：${nd.m}月${nd.d === 31 ? '末' : `${nd.d}日`} ${esc(nd.what)} <b class="${nd.amt < 0 ? '' : 'plus'}">${man(nd.amt)}</b>${due.low < 0 ? `<span class="r-risk">${ICON('warn', 15)}${RV.MON[due.items.find((x) => x.short).k % 12]}月に口座が足りなくなる</span>` : ''}</div>` : ''}
 <nav class="r-tabs" aria-label="店の窓">${[['money', 'お金', 'wallet'], ['town', '町', 'pin'], ['shop', '店', 'shop'], ['book', '帳簿', 'paper'], ['log', '日誌', 'clip'], ['co', 'ほか', 'flag']].map(([k2, l, ic]) => `<button data-rpanel="${k2}" class="r-tab-${k2}">${ICON(ic, 16)}${l}</button>`).join('')}</nav>
 </header>`;
   }
-  RUI.shell = (body) => `${band()}<div class="r-grid"><aside class="r-left" aria-label="お金の約束と棚">${leftInner()}</aside><main class="s-main r-main" id="s-main" tabindex="-1">${body}</main><aside class="r-right" aria-label="帳簿・町・店">${rightInner()}</aside></div>`;
+  RUI.shell = (body, headerYear) => `${band(headerYear)}<div class="r-grid"><aside class="r-left" aria-label="お金の約束と棚">${leftInner()}</aside><main class="s-main r-main" id="s-main" tabindex="-1">${body}</main><aside class="r-right" aria-label="帳簿・町・店">${rightInner()}</aside></div>`;
   // 描き直しのあと：数字を前から今へ動かす（0.5秒以内。動きを減らす設定では動かさない）
   RUI.afterFrame = () => {
     const bh = document.querySelector('.r-band'); if (bh) document.documentElement.style.setProperty('--band-h', `${bh.offsetHeight}px`);
