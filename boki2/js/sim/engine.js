@@ -217,6 +217,7 @@
   document.addEventListener('pointerdown', () => { kbUser = false; }, true);
   const focusKey = (el) => (el && el.attributes ? [el.tagName, ...[...el.attributes].filter((a) => a.name.startsWith('data-') || a.name === 'name').map((a) => `${a.name}=${a.value}`)].join('|') : '');
   function frame(body, headerYear) {
+    if(headerYear==null&&RAMEN&&!month())headerYear=D.months[D.months.length-1].year||1;
     const was = document.activeElement, key = kbUser && was && app.contains(was) && was !== app ? focusKey(was) : null, scrolled = window.scrollY;
     onFocus = null; app.oninput = null; app.onkeydown = null;
     const shell = RUI && RUI.on();
