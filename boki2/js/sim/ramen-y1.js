@@ -615,6 +615,21 @@
     card: ['この店では、帳簿の言葉を最初から使う。', '資産＝もっているもの、負債＝返すお金、純資産＝返さないお金。収益は純資産を増やした原因、費用はへらした原因。', '左が借方、右が貸方。月の流れは、書類が届く→帳簿に書く→月末に見直す→1年の終わりに決算。'],
   };
 
+  // PR #3 / 6384464617：0円は仕訳しない。式や世界のお金は変えず、書類と正解を揃える。
+  // 月の手で0円になりうる給料・仕入・在庫・引当・未払なども同じ規則で扱う。
+  const omitZeroDoc = (ev) => {
+    if (ev.t !== 'doc') return;
+    const answer = ev.ans, rows = ev.doc.rows, when = ev.when;
+    const value = (x, S) => typeof x === 'function' ? x(S) : x;
+    ev.ans = (S) => {
+      const a = value(answer, S);
+      return { ...a, dr: a.dr.filter(([, v]) => v !== 0), cr: a.cr.filter(([, v]) => v !== 0) };
+    };
+    ev.doc = { ...ev.doc, rows: (S) => value(rows, S).filter(r => !(r[2] === 'amt' && r[1] === 0)) };
+    ev.when = (S) => (!when || when(S)) && [...ev.ans(S).dr, ...ev.ans(S).cr].some(([, v]) => v !== 0);
+  };
+  [...pre1, ...pre2, ...pre3, ...Object.values(Y1).flat(), ...KESSAN.flatMap(m => m.events)].forEach(omitZeroDoc);
+
   // ---------- 台本の形（ramen.js が月の出来事を組み立てる） ----------
   SIM.y1 = { prologue, pre: [{ label: '開店の前（お金を集める）', title: '株式会社{店}、はじまる', events: pre1 }, { label: '開店の前（借りる）', title: '店を借りる・お金を借りる', events: pre2 }, { label: '開店の前（内装と一杯）', title: '前の店の内装と、看板の一杯', events: pre3 }],
     months: Y1, kessan: KESSAN, MON, CARD_FROM, VAT_FROM, polOf, R, salesNet, calc, disc: { dCapex } };
