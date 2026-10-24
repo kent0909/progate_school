@@ -600,6 +600,14 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "restaurant",
+     "desc": "小さな飲食店（ラーメン店）の開業後の黒字化の時期と費用の内訳（公的統計・公的調査。1年目の釣り合いと固定費の範囲の根拠、オーナーの問い 10/24）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   }
