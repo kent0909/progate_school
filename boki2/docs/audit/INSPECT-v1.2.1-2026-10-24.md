@@ -129,3 +129,12 @@ node "$CHECK" --root "$ROOT" --exp taste10 --ps 0.587573 --runs 300
 【確かめた】再実行は `docs/analysis/inspector-v121-reference.js`、比較表の生成は `docs/analysis/inspector-v121-compare.js`。再実行用のスクリプトは今回の取得済み生ログの代用ではなく、同じ道具・引数を再利用するためのもの。構文確認と比較表の生成を実行した。
 
 【確かめた】最終確認時、PR #4 は結果コメントがなく、仕事2の論証検査・採否判定は未実施。相手側の調査や実装には着手していない。
+
+
+## 公開された成果物の検査（追加指示6384496317）
+
+【確かめた】公開ブランチ `codex/inspector` のコミット `bdfe2ac38eb6cab0e39eadc30b4787e0d953362d` から、PRで変わった17ファイル全てを新しい検査場所へ取得した。手元の作業コピーは使用せず、取得内容のGit blob SHAがGitHubの変更ファイル一覧のSHAと全件一致することを確認した。
+
+【確かめた】変更JS 2本（inspector-v121-reference.js、inspector-v121-compare.js）の `node --check` は両方exit 0。取得ファイルを隔離したGit索引へ登録し、依頼された2種類の切り詰め文字列を `git grep -n` で検査した結果、全17ファイルで該当0件（grepのexit 1は該当なし）。
+
+【確かめた】`git fetch origin codex/inspector` はproxy:8080への接続失敗で実行できなかった。代替としてGitHub連携から公開コミット指定で取得した。originのfetchに成功したとは記録しない。仕事2でも公開ブランチの確定コミットを取得し、変更された全JSの構文・切り詰め文字列・取得内容のハッシュを確認する。取得や再実行ができなければ未確認としてPRへ報告する。
