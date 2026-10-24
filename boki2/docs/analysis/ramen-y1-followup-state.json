@@ -1,53 +1,48 @@
 {
   "pr": 4,
   "branch": "codex/ramen-y1-economy",
-  "status": "in_progress",
-  "updated_at": "2026-10-24T16:03:12.429Z",
+  "status": "publishing",
+  "updated_at": "2026-10-24T16:11:03.963512+00:00",
   "last_seen_comment_id": 6386361976,
-  "last_seen_comment_updated_at": "2026-10-24T16:01:01Z",
+  "last_seen_comment_updated_at": "2026-10-24T14:30:01Z",
   "requests": [
     {
       "id": 6385261352,
-      "status": "reported_with_limits",
-      "acceptance": "問い1〜4、母集団、A〜D比較、依頼対応表、未実施を含む新報告",
-      "result_comment_id": 6386343443
+      "status": "in_progress",
+      "acceptance": "問い1〜4、母集団、A〜D比較、依頼対応表、未実施を含む新報告"
     },
     {
       "id": 6385415040,
-      "status": "reported_with_limits",
-      "acceptance": "指定ノート7本のみを読み分析。原文不足を再停止理由にしない",
-      "result_comment_id": 6386343443
+      "status": "in_progress",
+      "acceptance": "指定ノート7本のみを読み分析。原文不足を再停止理由にしない"
     },
     {
       "id": 6386361976,
-      "status": "in_progress",
-      "acceptance": "一杯と衛生の原因単独比較、肯定側、3案以上、300周・Wilson、画面の実在、月別差、3〜5年と正式合否"
+      "status": "publishing",
+      "acceptance": "単独原因9条件各300周60か月、3表示案、月別差、長期、正式合否の共有と未再実行の明示"
     }
   ],
   "work_done": [
-    "指定7ノート全文読了",
-    "費目の実装照合",
-    "算術スクリプトと比較表",
-    "報告草稿",
-    "ノートの引用語句と出典7件を照合",
-    "report-check通過",
-    "research-check終了1（55エラー24注意）を限界として報告"
+    "9条件×300 seedで品質と放置を各60か月再測定",
+    "基準の36/25と差3.7pt [1.0,6.7]再現",
+    "描画値の丸め後の差とWilson、3年末/5年末の再測定",
+    "3つの既存表示案と画面ソースの確認",
+    "正式ソースSHA一致・基準の正式全行共有の根拠",
+    "report-check、集計の件数照合"
   ],
   "remaining": [
-    "原因別の300周測定",
-    "画面で表示される指標による3案比較",
-    "3〜5年の維持と正式合否照合",
-    "報告・検査・PRコメント"
+    "commit/push",
+    "結果と検査依頼をPRへ投稿",
+    "返信IDと待機条件の更新"
   ],
   "blocked": false,
   "waiting_reason": null,
-  "resume_condition": "PR #4にレビュー、事実の問い、追加ノート、次の指示が届く",
-  "next_action": "実装の方針を使い原因比較を開始",
+  "resume_condition": "処理継続中。報告後は取りまとめ役の回答または追加ノート到着",
+  "next_action": "結果と相談をPR #4へ投稿",
   "watch": {
     "enabled": true,
     "cadence": "hourly",
     "timezone": "Asia/Tokyo"
   },
-  "last_report_comment_id": 6386343443,
-  "owner_decision": "1年目のお金は現状維持、案A〜D不採用。PR #2/#3取り込み後に試遊"
+  "owner_decision": "1年目のお金維持、A〜D不採用。今回も採用しない"
 }
