@@ -241,10 +241,24 @@
   function apply(W, card, optId, outId, fx, res, rng) {
     const o = card.options.find((x) => x.id === optId), oc = o.outcomes.find((x) => x.id === outId), s = W.stores[0];
     const cash = (typeof oc.cash === 'function' ? oc.cash(W) : oc.cash || 0) + (typeof o.cash === 'function' ? o.cash(W) : o.cash || 0);
-    fx.cash += cash;
+    const flow = oc.flow || 'op';
+    if (flow === 'capital' || flow === 'invest') {
+      W.cash += cash;
+      res[flow] = (res[flow] || 0) + cash;
+    } else if (flow === 'op') fx.cash += cash;
+    else throw new Error(`札 ${card.id} のお金の区分が不正：${flow}`);
     if (oc.fx) oc.fx(W, fx, s, rng);
     (res.choices = res.choices || []).push({ card: card.id, option: optId, outcome: outId, cash });
   }
   SIM.cards = { deck, byId, deal, apply };
+  // 年別の札を追加する口。重複は読み込み時に止め、既存の札を上書きしない。
+  SIM.cards.register = (extra) => {
+    const ids = new Set(Object.keys(byId));
+    for (const c of extra) {
+      if (!c.id || ids.has(c.id)) throw new Error(`札のidが重複または空：${c.id}`);
+      ids.add(c.id);
+    }
+    for (const c of extra) { deck.push(c); byId[c.id] = c; }
+  };
 })(typeof window !== 'undefined' ? window : globalThis);
 
