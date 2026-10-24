@@ -1,0 +1,3676 @@
+{
+  "head": "70528428d9e4f3b9d09e6b2a0c03fd0f52eed708",
+  "paths": 131,
+  "targets": 118,
+  "documents": 56162,
+  "coveredYear2DocIds": 374,
+  "reachedTargets": 117,
+  "missingTargets": [
+    {
+      "card": "finance_asset",
+      "option": "loan",
+      "outcome": "borrowed"
+    },
+    {
+      "card": "equipment_purchase",
+      "option": "pay",
+      "outcome": "paid",
+      "decisions": {
+        "ticket_items": "n20",
+        "maintain_y2": "break",
+        "finance_asset": "loan",
+        "maintain_replace": "keep",
+        "close": "format",
+        "site2": "wait"
+      },
+      "forceMap": {
+        "ticket_items": "d6"
+      },
+      "lowCost": true
+    },
+    {
+      "card": "equipment_principal",
+      "option": "pay",
+      "outcome": "paid",
+      "decisions": {
+        "ticket_items": "n20",
+        "maintain_y2": "break",
+        "finance_asset": "loan",
+        "maintain_replace": "keep",
+        "close": "format",
+        "site2": "wait"
+      },
+      "forceMap": {
+        "ticket_items": "d6"
+      },
+      "lowCost": true
+    },
+    {
+      "card": "staff_leave",
+      "option": "leave",
+      "outcome": "left",
+      "decisions": {
+        "ticket_items": "n20",
+        "maintain_y2": "break",
+        "finance_asset": "installment",
+        "maintain_replace": "keep",
+        "close": "format"
+      },
+      "forceMap": {
+        "ticket_items": "d6"
+      }
+    },
+    {
+      "card": "staff_hire",
+      "option": "hire",
+      "outcome": "hired",
+      "decisions": {
+        "ticket_items": "n20",
+        "maintain_y2": "break",
+        "finance_asset": "installment",
+        "maintain_replace": "keep",
+        "close": "format"
+      },
+      "forceMap": {
+        "ticket_items": "d6"
+      }
+    },
+    {
+      "card": "finance_asset",
+      "option": "loan",
+      "outcome": "borrowed",
+      "decisions": {
+        "site2": "wait"
+      },
+      "lowCost": true
+    }
+  ],
+  "cashDiscrepancyPaths": 0,
+  "failures": [],
+  "details": [
+    {
+      "seed": 0,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5503079,
+      "world": 4496496
+    },
+    {
+      "seed": 0,
+      "mode": "2026",
+      "target": null,
+      "alternate": true,
+      "documents": 411,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5224878,
+      "world": 4015281
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": null,
+      "alternate": true,
+      "documents": 404,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5758913,
+      "world": 4522607
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5503079,
+      "world": 4496496
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": null,
+      "alternate": true,
+      "documents": 411,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5224878,
+      "world": 4015281
+    },
+    {
+      "seed": 14,
+      "mode": "2027",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2027",
+      "target": null,
+      "alternate": true,
+      "documents": 404,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5758913,
+      "world": 4522607
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "issue",
+        "option": "s500",
+        "outcome": "paid"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "issue",
+        "option": "s100",
+        "outcome": "paid"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 2319189,
+      "world": 1251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "issue",
+        "option": "s50",
+        "outcome": "paid"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 819189,
+      "world": -248714
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "issue",
+        "option": "s25",
+        "outcome": "paid"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 719189,
+      "world": -348714
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "dividend",
+        "option": "none",
+        "outcome": "paid"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "dividend",
+        "option": "half",
+        "outcome": "paid"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "dividend",
+        "option": "eighty",
+        "outcome": "paid"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "site2",
+        "option": "shotengai:family",
+        "outcome": "start"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "site2",
+        "option": "shotengai:part1",
+        "outcome": "start"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5679189,
+      "world": 4611286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "site2",
+        "option": "shotengai:part2",
+        "outcome": "start"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 4079189,
+      "world": 3011286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "site2",
+        "option": "ekimae:family",
+        "outcome": "start"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7899977,
+      "world": 6683700
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "site2",
+        "option": "ekimae:part1",
+        "outcome": "start"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7330431,
+      "world": 6107783
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "site2",
+        "option": "ekimae:part2",
+        "outcome": "start"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5730431,
+      "world": 4507783
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "site2",
+        "option": "jutaku:family",
+        "outcome": "start"
+      },
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10367696,
+      "world": 8214658
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "site2",
+        "option": "jutaku:part1",
+        "outcome": "start"
+      },
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11607200,
+      "world": 9126905
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "site2",
+        "option": "jutaku:part2",
+        "outcome": "start"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7184245,
+      "world": 5829049
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "site2",
+        "option": "wait",
+        "outcome": "wait"
+      },
+      "alternate": false,
+      "documents": 416,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10339535,
+      "world": 9301404
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "minwage_y2",
+        "option": "min",
+        "outcome": "ok"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "minwage_y2",
+        "option": "min",
+        "outcome": "quit"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6307412,
+      "world": 5240679
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "minwage_y2",
+        "option": "plus",
+        "outcome": "ok"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6282863,
+      "world": 5214014
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "minwage_y2",
+        "option": "plus",
+        "outcome": "same"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6273189,
+      "world": 5205286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "minwage_y3",
+        "option": "min",
+        "outcome": "ok"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6326393,
+      "world": 5257641
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "minwage_y3",
+        "option": "min",
+        "outcome": "quit"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "minwage_y3",
+        "option": "plus",
+        "outcome": "ok"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6308017,
+      "world": 5234433
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "minwage_y3",
+        "option": "plus",
+        "outcome": "same"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6300393,
+      "world": 5227641
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bowl_limited_y2",
+        "option": "season",
+        "outcome": "hit"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6574183,
+      "world": 5479685
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bowl_limited_y2",
+        "option": "season",
+        "outcome": "mid"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6359609,
+      "world": 5286428
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bowl_limited_y2",
+        "option": "season",
+        "outcome": "miss"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6107973,
+      "world": 5060273
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bowl_limited_y2",
+        "option": "cold",
+        "outcome": "hit"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6577778,
+      "world": 5483014
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bowl_limited_y2",
+        "option": "cold",
+        "outcome": "mid"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6363118,
+      "world": 5289677
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bowl_limited_y2",
+        "option": "cold",
+        "outcome": "miss"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6111389,
+      "world": 5063436
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bowl_limited_y2",
+        "option": "collab",
+        "outcome": "hit"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6694045,
+      "world": 5582490
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bowl_limited_y2",
+        "option": "collab",
+        "outcome": "mid"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6474187,
+      "world": 5384456
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bowl_limited_y2",
+        "option": "collab",
+        "outcome": "miss"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6216259,
+      "world": 5152630
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bowl_limited_y2",
+        "option": "no",
+        "outcome": "keep"
+      },
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6036701,
+      "world": 5002230
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ev_summer_y2",
+        "option": "go",
+        "outcome": "good"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6448430,
+      "world": 5370271
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ev_summer_y2",
+        "option": "go",
+        "outcome": "tired"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6203398,
+      "world": 5144695
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ev_summer_y2",
+        "option": "no",
+        "outcome": "ok"
+      },
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6149016,
+      "world": 5087843
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ev_summer_y2",
+        "option": "no",
+        "outcome": "quiet"
+      },
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6134046,
+      "world": 5074193
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "kyoshitsu",
+        "option": "go",
+        "outcome": "held"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "kyoshitsu",
+        "option": "no",
+        "outcome": "keep"
+      },
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6206559,
+      "world": 5145560
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "frozen_noodle",
+        "option": "outside",
+        "outcome": "success"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "frozen_noodle",
+        "option": "outside",
+        "outcome": "failed"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6291241,
+      "world": 5226360
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "frozen_noodle",
+        "option": "own",
+        "outcome": "success"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6349189,
+      "world": 5281286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "frozen_noodle",
+        "option": "own",
+        "outcome": "failed"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6321241,
+      "world": 5256360
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "frozen_noodle",
+        "option": "no",
+        "outcome": "keep"
+      },
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6351241,
+      "world": 5286360
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d6"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d7"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d8"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d9"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d10"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d11"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d12"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d13"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d14"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d15"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d16"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d17"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n10",
+        "outcome": "d18"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d6"
+      },
+      "alternate": false,
+      "documents": 430,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d7"
+      },
+      "alternate": false,
+      "documents": 429,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d8"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d9"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d10"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d11"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d12"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d13"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d14"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d15"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d16"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d17"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "n20",
+        "outcome": "d18"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6327189,
+      "world": 5259286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "ticket_items",
+        "option": "no",
+        "outcome": "keep"
+      },
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6311189,
+      "world": 5243286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bonus",
+        "option": "token",
+        "outcome": "promised"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6359189,
+      "world": 5291286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bonus",
+        "option": "standard",
+        "outcome": "promised"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "bonus",
+        "option": "generous",
+        "outcome": "promised"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6279189,
+      "world": 5211286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "maintain_y2",
+        "option": "plan",
+        "outcome": "planned"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "maintain_y2",
+        "option": "break",
+        "outcome": "wait"
+      },
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6579189,
+      "world": 5511286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "equip",
+        "option": "quality",
+        "outcome": "quoted"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "equip",
+        "option": "capacity",
+        "outcome": "quoted"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6137734,
+      "world": 5092410
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "equip",
+        "option": "used",
+        "outcome": "quoted"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6647313,
+      "world": 5610739
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "finance_asset",
+        "option": "cash",
+        "outcome": "bought"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "finance_asset",
+        "option": "installment",
+        "outcome": "bought"
+      },
+      "alternate": false,
+      "documents": 450,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6859189,
+      "world": 5791286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "finance_asset",
+        "option": "loan",
+        "outcome": "borrowed"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": false,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "maintain_replace",
+        "option": "sell",
+        "outcome": "sold"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "maintain_replace",
+        "option": "keep",
+        "outcome": "kept"
+      },
+      "alternate": false,
+      "documents": 434,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6124189,
+      "world": 5056286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "close",
+        "option": "close",
+        "outcome": "closed"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "close",
+        "option": "renovate",
+        "outcome": "renovated"
+      },
+      "alternate": false,
+      "documents": 430,
+      "reached": true,
+      "issues": [],
+      "finalBank": 2811514,
+      "world": 1286767
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "close",
+        "option": "format",
+        "outcome": "changed"
+      },
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3740791,
+      "world": 2201764
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "close",
+        "option": "stick",
+        "outcome": "stayed"
+      },
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 4115064,
+      "world": 2615505
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "site2_complete",
+        "option": "complete",
+        "outcome": "open",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d6",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 446,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3861850,
+      "world": 2374295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d7",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 444,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d8",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 444,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d9",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 444,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d10",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 444,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d11",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 444,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d12",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 444,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d13",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 444,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d14",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d15",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d16",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d17",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "items_stock_sale",
+        "option": "sell",
+        "outcome": "d18",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "bonus_pay",
+        "option": "pay",
+        "outcome": "paid",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "repair_pay",
+        "option": "pay",
+        "outcome": "paid",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "plan",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 444,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3605850,
+      "world": 2118295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "repair_failure",
+        "option": "check",
+        "outcome": "broken",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 443,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3559240,
+      "world": 2075916
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "repair_failure",
+        "option": "check",
+        "outcome": "ok",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "equipment_purchase",
+        "option": "pay",
+        "outcome": "paid",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "loan",
+          "maintain_replace": "keep",
+          "close": "format",
+          "site2": "wait"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        },
+        "lowCost": true
+      },
+      "alternate": false,
+      "documents": 415,
+      "reached": false,
+      "issues": [],
+      "finalBank": 9402084,
+      "world": 8445077
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "equipment_principal",
+        "option": "pay",
+        "outcome": "paid",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "loan",
+          "maintain_replace": "keep",
+          "close": "format",
+          "site2": "wait"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        },
+        "lowCost": true
+      },
+      "alternate": false,
+      "documents": 415,
+      "reached": false,
+      "issues": [],
+      "finalBank": 9402084,
+      "world": 8445077
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "equipment_interest",
+        "option": "pay",
+        "outcome": "paid",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "staff_leave",
+        "option": "leave",
+        "outcome": "left",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": false,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "staff_hire",
+        "option": "hire",
+        "outcome": "hired",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": false,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "chain_hire",
+        "option": "notice",
+        "outcome": "hiring",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "chain_hire",
+        "option": "notice",
+        "outcome": "quiet",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "spare_storage",
+        "option": "pay",
+        "outcome": "paid",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 442,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3865850,
+      "world": 2378295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "close_equipment",
+        "option": "pay",
+        "outcome": "paid",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "sell",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 443,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3720850,
+      "world": 2233295
+    },
+    {
+      "seed": 0,
+      "mode": "2027",
+      "target": {
+        "card": "close_restore",
+        "option": "pay",
+        "outcome": "paid",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "close"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      "alternate": false,
+      "documents": 450,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6116079,
+      "world": 5109496
+    },
+    {
+      "seed": 0,
+      "mode": "2026",
+      "target": {
+        "card": "finance_asset",
+        "option": "loan",
+        "outcome": "borrowed",
+        "decisions": {
+          "site2": "wait"
+        },
+        "lowCost": true
+      },
+      "alternate": false,
+      "documents": 407,
+      "reached": false,
+      "issues": [],
+      "finalBank": 9329084,
+      "world": 8372077
+    },
+    {
+      "seed": 1,
+      "mode": "2026",
+      "target": {
+        "card": "finance_asset",
+        "option": "loan",
+        "outcome": "borrowed",
+        "decisions": {
+          "site2": "wait"
+        },
+        "lowCost": true
+      },
+      "alternate": false,
+      "documents": 429,
+      "reached": true,
+      "issues": [],
+      "finalBank": 15260752,
+      "world": 14149191
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "maintain",
+        "option": "repair",
+        "outcome": "again"
+      },
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6283641,
+      "world": 5218436
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "maintain",
+        "option": "new",
+        "outcome": "late"
+      },
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5882311,
+      "world": 4820750
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": {
+        "card": "maintain",
+        "option": "wait",
+        "outcome": "stop"
+      },
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6130310,
+      "world": 5073747
+    }
+  ],
+  "seenOutcomes": [
+    "bonus/generous/promised",
+    "bonus/standard/promised",
+    "bonus/token/promised",
+    "bonus_pay/pay/paid",
+    "bowl_limited/go/mid",
+    "bowl_limited/go/miss",
+    "bowl_limited/no/ok",
+    "bowl_limited/no/rival",
+    "bowl_limited_y2/cold/hit",
+    "bowl_limited_y2/cold/mid",
+    "bowl_limited_y2/cold/miss",
+    "bowl_limited_y2/collab/hit",
+    "bowl_limited_y2/collab/mid",
+    "bowl_limited_y2/collab/miss",
+    "bowl_limited_y2/no/keep",
+    "bowl_limited_y2/season/hit",
+    "bowl_limited_y2/season/mid",
+    "bowl_limited_y2/season/miss",
+    "bulk/bulk/cheap",
+    "bulk/bulk/space",
+    "bulk/bulk/spoil",
+    "bulk/small/nochange",
+    "bulk/small/ok",
+    "chain_hire/notice/hiring",
+    "chain_hire/notice/quiet",
+    "close/close/closed",
+    "close/format/changed",
+    "close/renovate/renovated",
+    "close/stick/stayed",
+    "close_equipment/pay/paid",
+    "close_restore/pay/paid",
+    "costOmen/bulk/ok",
+    "costOmen/switch/ok",
+    "coupon_dual/check/ok",
+    "coupon_dual/post/ok",
+    "defect/return/late",
+    "defect/return/ok",
+    "defect/use/complain",
+    "defect/use/ok",
+    "dividend/eighty/paid",
+    "dividend/half/paid",
+    "dividend/none/paid",
+    "due/make/ok",
+    "due/skip/ok",
+    "equip/capacity/quoted",
+    "equip/quality/quoted",
+    "equip/used/quoted",
+    "equipment_interest/pay/paid",
+    "equipment_principal/pay/paid",
+    "equipment_purchase/pay/paid",
+    "ev_spring/none/ok",
+    "ev_spring/none/short",
+    "ev_spring/prep/busy",
+    "ev_spring/prep/rain",
+    "ev_summer/go/good",
+    "ev_summer/go/tired",
+    "ev_summer/no/ok",
+    "ev_summer/no/quiet",
+    "ev_summer_y2/go/good",
+    "ev_summer_y2/go/tired",
+    "ev_summer_y2/no/ok",
+    "ev_summer_y2/no/quiet",
+    "ev_year/join/busy",
+    "ev_year/join/flat",
+    "ev_year/skip/cold",
+    "ev_year/skip/ok",
+    "finance_asset/cash/bought",
+    "finance_asset/installment/bought",
+    "finance_asset/loan/borrowed",
+    "foodup/keep/ok",
+    "foodup/raise/ok",
+    "foodup/raise/small",
+    "freelance/oral/fight",
+    "freelance/oral/ok",
+    "freelance/write/late",
+    "freelance/write/ok",
+    "frozen_noodle/no/keep",
+    "frozen_noodle/outside/failed",
+    "frozen_noodle/outside/success",
+    "frozen_noodle/own/failed",
+    "frozen_noodle/own/success",
+    "good_jouren/limited/good",
+    "good_jouren/limited/miss",
+    "good_jouren/sign/good",
+    "good_jouren/sign/small",
+    "good_kouji/no/none",
+    "good_kouji/no/ok",
+    "good_kouji/take/good",
+    "good_kouji/take/rush",
+    "haccp/keep/ok",
+    "haccp/skip/ok",
+    "heat/cold/fill",
+    "heat/cold/waste",
+    "heat/none/ok",
+    "hours/lunch/ok",
+    "hours/night/even",
+    "hours/night/up",
+    "insurance/full/ok",
+    "insurance/none/ok",
+    "issue/s100/paid",
+    "issue/s25/paid",
+    "issue/s50/paid",
+    "issue/s500/paid",
+    "items_stock_sale/sell/d10",
+    "items_stock_sale/sell/d11",
+    "items_stock_sale/sell/d12",
+    "items_stock_sale/sell/d13",
+    "items_stock_sale/sell/d14",
+    "items_stock_sale/sell/d15",
+    "items_stock_sale/sell/d16",
+    "items_stock_sale/sell/d17",
+    "items_stock_sale/sell/d18",
+    "items_stock_sale/sell/d6",
+    "items_stock_sale/sell/d7",
+    "items_stock_sale/sell/d8",
+    "items_stock_sale/sell/d9",
+    "kyoshitsu/go/held",
+    "kyoshitsu/no/keep",
+    "maintain/new/late",
+    "maintain/repair/again",
+    "maintain/repair/ok",
+    "maintain/wait/stop",
+    "maintain_replace/keep/kept",
+    "maintain_replace/sell/sold",
+    "maintain_y2/break/wait",
+    "maintain_y2/plan/planned",
+    "mayfund/list/ok",
+    "mayfund/none/late",
+    "mayfund/none/ok",
+    "menu/one/boring",
+    "menu/one/ok",
+    "menu/set/mid",
+    "menu/set/up",
+    "menu/set/waste",
+    "minwage/min/ok",
+    "minwage/plus/ok",
+    "minwage_y2/min/ok",
+    "minwage_y2/min/quit",
+    "minwage_y2/plus/ok",
+    "minwage_y2/plus/same",
+    "minwage_y3/min/ok",
+    "minwage_y3/min/quit",
+    "minwage_y3/plus/ok",
+    "minwage_y3/plus/same",
+    "premium/big/warn",
+    "premium/small/ok",
+    "president_cash/pay/ok",
+    "president_cash/pay/tax",
+    "president_cash/stop/ok",
+    "president_cash/stop/sulk",
+    "repair_failure/check/broken",
+    "repair_failure/check/ok",
+    "repair_pay/pay/paid",
+    "rival_open/none/lose",
+    "rival_open/tweak/hold",
+    "rival_open/tweak/lose",
+    "site2/ekimae:family/start",
+    "site2/ekimae:part1/start",
+    "site2/ekimae:part2/start",
+    "site2/jutaku:family/start",
+    "site2/jutaku:part1/start",
+    "site2/jutaku:part2/start",
+    "site2/shotengai:family/start",
+    "site2/shotengai:part1/start",
+    "site2/shotengai:part2/start",
+    "site2/wait/wait",
+    "site2_complete/complete/open",
+    "soup/buy/ok",
+    "soup/own/ok",
+    "spare_storage/pay/paid",
+    "staff_hire/hire/hired",
+    "staff_leave/leave/left",
+    "supplier/cheap/bad",
+    "supplier/cheap/ok",
+    "supplier/stable/ok",
+    "supplier/stable/up",
+    "ticket_items/n10/d10",
+    "ticket_items/n10/d11",
+    "ticket_items/n10/d12",
+    "ticket_items/n10/d13",
+    "ticket_items/n10/d14",
+    "ticket_items/n10/d15",
+    "ticket_items/n10/d16",
+    "ticket_items/n10/d17",
+    "ticket_items/n10/d18",
+    "ticket_items/n10/d6",
+    "ticket_items/n10/d7",
+    "ticket_items/n10/d8",
+    "ticket_items/n10/d9",
+    "ticket_items/n20/d10",
+    "ticket_items/n20/d11",
+    "ticket_items/n20/d12",
+    "ticket_items/n20/d13",
+    "ticket_items/n20/d14",
+    "ticket_items/n20/d15",
+    "ticket_items/n20/d16",
+    "ticket_items/n20/d17",
+    "ticket_items/n20/d18",
+    "ticket_items/n20/d6",
+    "ticket_items/n20/d7",
+    "ticket_items/n20/d8",
+    "ticket_items/n20/d9",
+    "ticket_items/no/keep",
+    "waste/timesale/habit",
+    "waste/timesale/ok",
+    "waste/toss/ok",
+    "waste/toss/think",
+    "wholesale_offer/ask/ok",
+    "wholesale_offer/no/ok"
+  ],
+  "languageWarnings": [],
+  "missingNames": [
+    "貸倒引当金戻入"
+  ],
+  "dividendFixtures": [
+    {
+      "retained": 0,
+      "reserve": 0,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 0,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 0,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 0,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 0,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 0,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 0,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 0,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 1,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 1,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 0,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 0,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 0,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 10,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 10,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 0,
+      "per": 3,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 0,
+      "per": 3,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 0,
+      "per": 3,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 1000,
+      "reserve": 749999,
+      "per": 3,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 749999,
+      "per": 3,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 749999,
+      "per": 3,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 1000,
+      "reserve": 750000,
+      "per": 3,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 750000,
+      "per": 3,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 750000,
+      "per": 3,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 0,
+      "per": 3030,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 0,
+      "per": 3030,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 0,
+      "per": 3030,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 1000000,
+      "reserve": 749999,
+      "per": 3333,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 749999,
+      "per": 3333,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 749999,
+      "per": 3333,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 1000000,
+      "reserve": 750000,
+      "per": 3333,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 750000,
+      "per": 3333,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 750000,
+      "per": 3333,
+      "amount": 300000,
+      "reserveAdded": 0
+    }
+  ],
+  "legacyCards": [
+    {
+      "id": "costOmen",
+      "docs": false,
+      "flows": [
+        {
+          "option": "switch",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "keep",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "bulk",
+          "outcome": "ok",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "mayfund",
+      "docs": false,
+      "flows": [
+        {
+          "option": "list",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "list",
+          "outcome": "tight",
+          "cash": -10000
+        },
+        {
+          "option": "none",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "none",
+          "outcome": "late",
+          "cash": -3000
+        }
+      ]
+    },
+    {
+      "id": "due",
+      "docs": false,
+      "flows": [
+        {
+          "option": "make",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "make",
+          "outcome": "catch",
+          "cash": 0
+        },
+        {
+          "option": "skip",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "skip",
+          "outcome": "miss",
+          "cash": -2000
+        }
+      ]
+    },
+    {
+      "id": "supplier",
+      "docs": false,
+      "flows": [
+        {
+          "option": "cheap",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "cheap",
+          "outcome": "bad",
+          "cash": 0
+        },
+        {
+          "option": "stable",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "stable",
+          "outcome": "up",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "defect",
+      "docs": true,
+      "flows": [
+        {
+          "option": "return",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "return",
+          "outcome": "late",
+          "cash": -10000
+        },
+        {
+          "option": "use",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "use",
+          "outcome": "complain",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "bulk",
+      "docs": true,
+      "flows": [
+        {
+          "option": "bulk",
+          "outcome": "cheap",
+          "cash": 15000
+        },
+        {
+          "option": "bulk",
+          "outcome": "spoil",
+          "cash": -20000
+        },
+        {
+          "option": "bulk",
+          "outcome": "space",
+          "cash": -8000
+        },
+        {
+          "option": "small",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "small",
+          "outcome": "nochange",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "foodup",
+      "docs": false,
+      "flows": [
+        {
+          "option": "raise",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "raise",
+          "outcome": "small",
+          "cash": 0
+        },
+        {
+          "option": "keep",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "keep",
+          "outcome": "small",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "haccp",
+      "docs": false,
+      "flows": [
+        {
+          "option": "keep",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "keep",
+          "outcome": "sick",
+          "cash": -50000
+        },
+        {
+          "option": "skip",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "skip",
+          "outcome": "sick",
+          "cash": -250000
+        }
+      ]
+    },
+    {
+      "id": "maintain",
+      "docs": true,
+      "flows": [
+        {
+          "option": "repair",
+          "outcome": "ok",
+          "cash": -120000
+        },
+        {
+          "option": "repair",
+          "outcome": "again",
+          "cash": -120000
+        },
+        {
+          "option": "new",
+          "outcome": "ok",
+          "cash": -300000
+        },
+        {
+          "option": "new",
+          "outcome": "late",
+          "cash": -300000
+        },
+        {
+          "option": "wait",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "wait",
+          "outcome": "stop",
+          "cash": -150000
+        }
+      ]
+    },
+    {
+      "id": "insurance",
+      "docs": true,
+      "flows": [
+        {
+          "option": "full",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "full",
+          "outcome": "fire",
+          "cash": 0
+        },
+        {
+          "option": "fire",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "fire",
+          "outcome": "fire",
+          "cash": 0
+        },
+        {
+          "option": "none",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "none",
+          "outcome": "fire",
+          "cash": -400000
+        }
+      ]
+    },
+    {
+      "id": "waste",
+      "docs": false,
+      "flows": [
+        {
+          "option": "timesale",
+          "outcome": "ok",
+          "cash": 8000
+        },
+        {
+          "option": "timesale",
+          "outcome": "habit",
+          "cash": 4000
+        },
+        {
+          "option": "toss",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "toss",
+          "outcome": "think",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "soup",
+      "docs": false,
+      "flows": [
+        {
+          "option": "own",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "own",
+          "outcome": "uneven",
+          "cash": 0
+        },
+        {
+          "option": "buy",
+          "outcome": "ok",
+          "cash": 15000
+        },
+        {
+          "option": "buy",
+          "outcome": "noticed",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "hours",
+      "docs": false,
+      "flows": [
+        {
+          "option": "night",
+          "outcome": "up",
+          "cash": -30000
+        },
+        {
+          "option": "night",
+          "outcome": "even",
+          "cash": -30000
+        },
+        {
+          "option": "night",
+          "outcome": "tired",
+          "cash": -30000
+        },
+        {
+          "option": "lunch",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "lunch",
+          "outcome": "lost",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "menu",
+      "docs": false,
+      "flows": [
+        {
+          "option": "set",
+          "outcome": "up",
+          "cash": 30000
+        },
+        {
+          "option": "set",
+          "outcome": "mid",
+          "cash": 10000
+        },
+        {
+          "option": "set",
+          "outcome": "waste",
+          "cash": -15000
+        },
+        {
+          "option": "one",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "one",
+          "outcome": "boring",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "heat",
+      "docs": false,
+      "flows": [
+        {
+          "option": "cold",
+          "outcome": "fill",
+          "cash": -10000
+        },
+        {
+          "option": "cold",
+          "outcome": "waste",
+          "cash": -25000
+        },
+        {
+          "option": "none",
+          "outcome": "down",
+          "cash": 0
+        },
+        {
+          "option": "none",
+          "outcome": "ok",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "coupon_dual",
+      "docs": true,
+      "flows": [
+        {
+          "option": "check",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "check",
+          "outcome": "fine",
+          "cash": 0
+        },
+        {
+          "option": "post",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "post",
+          "outcome": "warn",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "premium",
+      "docs": false,
+      "flows": [
+        {
+          "option": "small",
+          "outcome": "ok",
+          "cash": -10000
+        },
+        {
+          "option": "small",
+          "outcome": "none",
+          "cash": -10000
+        },
+        {
+          "option": "big",
+          "outcome": "ok",
+          "cash": -30000
+        },
+        {
+          "option": "big",
+          "outcome": "warn",
+          "cash": -30000
+        }
+      ]
+    },
+    {
+      "id": "freelance",
+      "docs": true,
+      "flows": [
+        {
+          "option": "write",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "write",
+          "outcome": "late",
+          "cash": 0
+        },
+        {
+          "option": "oral",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "oral",
+          "outcome": "fight",
+          "cash": -10000
+        }
+      ]
+    },
+    {
+      "id": "president_cash",
+      "docs": false,
+      "flows": [
+        {
+          "option": "stop",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "stop",
+          "outcome": "sulk",
+          "cash": 0
+        },
+        {
+          "option": "pay",
+          "outcome": "ok",
+          "cash": -80000
+        },
+        {
+          "option": "pay",
+          "outcome": "tax",
+          "cash": -90000
+        }
+      ]
+    },
+    {
+      "id": "minwage",
+      "docs": true,
+      "flows": [
+        {
+          "option": "min",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "min",
+          "outcome": "quit",
+          "cash": 0
+        },
+        {
+          "option": "plus",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "plus",
+          "outcome": "same",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "rival_open",
+      "docs": false,
+      "flows": [
+        {
+          "option": "tweak",
+          "outcome": "hold",
+          "cash": 0
+        },
+        {
+          "option": "tweak",
+          "outcome": "lose",
+          "cash": 0
+        },
+        {
+          "option": "cut",
+          "outcome": "hold",
+          "cash": 0
+        },
+        {
+          "option": "cut",
+          "outcome": "war",
+          "cash": 0
+        },
+        {
+          "option": "none",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "none",
+          "outcome": "lose",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "torizai",
+      "docs": false,
+      "flows": [
+        {
+          "option": "sign",
+          "outcome": "boom",
+          "cash": -20000
+        },
+        {
+          "option": "sign",
+          "outcome": "small",
+          "cash": 0
+        },
+        {
+          "option": "no",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "no",
+          "outcome": "regret",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "wholesale_offer",
+      "docs": false,
+      "flows": [
+        {
+          "option": "no",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "no",
+          "outcome": "later",
+          "cash": 0
+        },
+        {
+          "option": "ask",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "ask",
+          "outcome": "pushy",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "ev_spring",
+      "docs": false,
+      "flows": [
+        {
+          "option": "prep",
+          "outcome": "busy",
+          "cash": -15000
+        },
+        {
+          "option": "prep",
+          "outcome": "rain",
+          "cash": -15000
+        },
+        {
+          "option": "none",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "none",
+          "outcome": "short",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "ev_summer",
+      "docs": false,
+      "flows": [
+        {
+          "option": "go",
+          "outcome": "good",
+          "cash": 60000
+        },
+        {
+          "option": "go",
+          "outcome": "tired",
+          "cash": 40000
+        },
+        {
+          "option": "no",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "no",
+          "outcome": "quiet",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "ev_year",
+      "docs": false,
+      "flows": [
+        {
+          "option": "join",
+          "outcome": "busy",
+          "cash": -20000
+        },
+        {
+          "option": "join",
+          "outcome": "flat",
+          "cash": -20000
+        },
+        {
+          "option": "skip",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "skip",
+          "outcome": "cold",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "good_kouji",
+      "docs": false,
+      "flows": [
+        {
+          "option": "take",
+          "outcome": "good",
+          "cash": 16000
+        },
+        {
+          "option": "take",
+          "outcome": "rush",
+          "cash": 16000
+        },
+        {
+          "option": "no",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "no",
+          "outcome": "none",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "good_jouren",
+      "docs": false,
+      "flows": [
+        {
+          "option": "sign",
+          "outcome": "good",
+          "cash": 0
+        },
+        {
+          "option": "sign",
+          "outcome": "small",
+          "cash": 0
+        },
+        {
+          "option": "limited",
+          "outcome": "good",
+          "cash": 0
+        },
+        {
+          "option": "limited",
+          "outcome": "miss",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "bowl_limited",
+      "docs": false,
+      "flows": [
+        {
+          "option": "go",
+          "outcome": "hit",
+          "cash": -30000
+        },
+        {
+          "option": "go",
+          "outcome": "mid",
+          "cash": -30000
+        },
+        {
+          "option": "go",
+          "outcome": "miss",
+          "cash": -45000
+        },
+        {
+          "option": "no",
+          "outcome": "ok",
+          "cash": 0
+        },
+        {
+          "option": "no",
+          "outcome": "rival",
+          "cash": 0
+        }
+      ]
+    },
+    {
+      "id": "family_sick",
+      "docs": false,
+      "flows": [
+        {
+          "option": "close",
+          "outcome": "rest",
+          "cash": 0
+        },
+        {
+          "option": "close",
+          "outcome": "long",
+          "cash": 0
+        },
+        {
+          "option": "hire",
+          "outcome": "ok",
+          "cash": -250000
+        },
+        {
+          "option": "hire",
+          "outcome": "none",
+          "cash": -50000
+        }
+      ]
+    }
+  ]
+}
