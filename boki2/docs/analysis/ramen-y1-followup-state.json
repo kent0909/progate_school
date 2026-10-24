@@ -1,10 +1,10 @@
 {
   "pr": 4,
   "branch": "codex/ramen-y1-economy",
-  "status": "waiting_for_review_with_watch",
-  "updated_at": "2026-10-24T15:59:52.051Z",
-  "last_seen_comment_id": 6386343443,
-  "last_seen_comment_updated_at": "2026-10-24T15:59:52.051Z",
+  "status": "in_progress",
+  "updated_at": "2026-10-24T16:03:12.429Z",
+  "last_seen_comment_id": 6386361976,
+  "last_seen_comment_updated_at": "2026-10-24T16:01:01Z",
   "requests": [
     {
       "id": 6385261352,
@@ -17,6 +17,11 @@
       "status": "reported_with_limits",
       "acceptance": "指定ノート7本のみを読み分析。原文不足を再停止理由にしない",
       "result_comment_id": 6386343443
+    },
+    {
+      "id": 6386361976,
+      "status": "in_progress",
+      "acceptance": "一杯と衛生の原因単独比較、肯定側、3案以上、300周・Wilson、画面の実在、月別差、3〜5年と正式合否"
     }
   ],
   "work_done": [
@@ -29,17 +34,20 @@
     "research-check終了1（55エラー24注意）を限界として報告"
   ],
   "remaining": [
-    "取りまとめ役の原文環境でresearch-check・事実/論証の確認",
-    "新資料/レビュー/追加指示への対応"
+    "原因別の300周測定",
+    "画面で表示される指標による3案比較",
+    "3〜5年の維持と正式合否照合",
+    "報告・検査・PRコメント"
   ],
   "blocked": false,
-  "waiting_reason": "承認済み7ノートに基づく分析を報告済み。未確定の実店舗指標は、追加資料または取りまとめ役のレビューが必要",
+  "waiting_reason": null,
   "resume_condition": "PR #4にレビュー、事実の問い、追加ノート、次の指示が届く",
-  "next_action": "毎時監視でPR差分を確認し、条件が満たされたら同じ会話の再開指示を待たず処理する",
+  "next_action": "実装の方針を使い原因比較を開始",
   "watch": {
     "enabled": true,
     "cadence": "hourly",
     "timezone": "Asia/Tokyo"
   },
-  "last_report_comment_id": 6386343443
+  "last_report_comment_id": 6386343443,
+  "owner_decision": "1年目のお金は現状維持、案A〜D不採用。PR #2/#3取り込み後に試遊"
 }
