@@ -147,7 +147,7 @@ async function main(argv) {
     const actionsDir=o.output+'.actions';fs.mkdirSync(actionsDir,{recursive:true});
     if(jobs.length){
       const hosting=await serve(o.game);server=hosting.server;
-      browser=await loadChromium(o.playwright).launch({executablePath:o.chromium,headless:true});
+      browser=await loadChromium(o.playwright).launch({executablePath:o.chromium,headless:true,handleSIGINT:false,handleSIGTERM:false});
       let next=0;
       await Promise.all(Array.from({length:Math.min(o.parallel,jobs.length)},async()=>{
         while(!stop && next<jobs.length){const job=jobs[next++];const {result,timing}=await one(browser,hosting.origin,o,job,configHash,actionsDir);
