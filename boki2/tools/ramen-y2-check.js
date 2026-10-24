@@ -246,7 +246,31 @@ function verifyMaturity(){
   }
   console.log('OK：1年基準の実残高・共通式・資産/負債合計不変・表示で仕訳なし・値引き2択4結果の支払と記帳が一致');
 }
+function verifyClassification(){
+  const fs=require('fs'),vm=require('vm'),source=fs.readFileSync(path.join(root,'js/sim/engine.js'),'utf8');
+  const part=(start,end)=>{const i=source.indexOf(start),j=source.indexOf(end,i);assert.ok(i>=0&&j>i,start);return source.slice(i,j);};
+  const definitions=[source.match(/^  const CONTRA_OF = .+;$/m)[0],'const CONTRA=new Set(Object.keys(CONTRA_OF));',part('  function balances(entries) {','  const cashOf'),part('  function pl(b) {','  function sameEntry'),source.match(/^  const isOther = .+;$/m)[0],part('  function companyView(b) {',"  document.addEventListener('click'"),part('  function bsFrom(b) {','  function advanceMonth'),part('  const KB = B.kubun;\n  const FIXED','  function reportScreen'),part('  const closingEntries =','  function closingScreen')].join('\n');
+  const E=vm.runInNewContext('(()=>{'+definitions+'\nreturn {balances,pl,companyView,bsFrom,kubunView,closingEntries};})()', {B:BOKI,RAMEN:false,S:{L:[]},cat:a=>BOKI.accounts[a]?.cat||'その他',yearOf:()=>1,order:()=>0,knows:()=>true,gw:x=>x,esc:x=>String(x),fmt:x=>Math.round(x).toLocaleString('ja-JP')});
+  for(const [adjustment,expected]of [[-6000,356000],[0,350000],[6000,344000]]){
+    const T=[{dr:[['普通預金',3000000]],cr:[['資本金',3000000]]},{dr:[['普通預金',1000000]],cr:[['売上',1000000]]},{dr:[['給料',500000]],cr:[['普通預金',500000]]},{dr:[['法人税等',150000]],cr:[['未払法人税等',150000]]}];
+    if(adjustment<0)T.push({dr:[['繰延税金資産',-adjustment]],cr:[['法人税等調整額',-adjustment]]});
+    if(adjustment>0)T.push({dr:[['法人税等調整額',adjustment]],cr:[['繰延税金負債',adjustment]]});
+    const before=JSON.stringify(T),b=E.balances(T),p=E.pl(b),html=E.kubunView(b),plain=E.companyView(b),closed=E.closingEntries(T,0),after=E.balances(T.concat(closed)),bs=E.bsFrom(b),sum=rows=>rows.reduce((n,x)=>n+x[1],0);
+    assert.equal(p.ni,expected,'法人税等調整額の符号で純利益が違う');assert.ok(html.includes('当期純利益</td><td class="n">'+expected.toLocaleString('ja-JP')),'区分P/Lが純利益と違う');assert.ok(plain.includes('もうけ</td><td class="n">'+expected.toLocaleString('ja-JP')),'通常の決算書が純利益と違う');
+    if(adjustment<0){assert.ok(plain.includes('＋6,000'),'費用の減額を正しく表示しない');assert.ok(!plain.includes('−-6,000'),'費用の減額にマイナスが二重');}
+    assert.equal(sum(bs.資産),sum(bs.負債)+sum(bs.純資産),'作業台のB/S不一致');
+    for(const row of closed){assert.equal(row.dr.reduce((n,x)=>n+x[1],0),row.cr.reduce((n,x)=>n+x[1],0),'締め切りの貸借不一致');assert.ok([...row.dr,...row.cr].every(([,v])=>v>0),'締め切りに負数/0円の仕訳');}
+    for(const [a,v]of Object.entries(after))if(['収益','費用'].includes(BOKI.accounts[a]?.cat)||a==='損益')assert.equal(v,0,'締め切り後に残高が残る '+a);
+    assert.equal(after['繰越利益剰余金'],-expected);assert.equal(JSON.stringify(T),before,'締め切りで元の仕訳を書き換えた');
+  }
+  const T=[{dr:[['構築物',1000000],['使用権資産',200000]],cr:[['資本金',1200000]]},{dr:[['減価償却費',120000]],cr:[['構築物減価償却累計額',100000],['使用権資産減価償却累計額',20000]]}],b=E.balances(T),bs=E.bsFrom(b);
+  assert.deepEqual(clone(bs.資産),[['構築物',900000],['使用権資産',180000]]);assert.deepEqual(clone(bs.負債),[]);assert.ok(E.kubunView(b).includes('固定資産 計</td><td class="n">1,080,000'));
+  for(const a of ['差入保証金','子会社株式','関連会社株式','繰延税金資産'])assert.equal(BOKI.kubun.bsOf(a),'固定資産',a);
+  console.log('OK：engine実関数で税効果の貸方6000/なし/借方6000→純利益356000/350000/344000、通常/区分P/L・作業台B/S・正の締切仕訳と残高0、構築物/使用権資産の控除');
+}
 if (!process.argv.includes('--world')) {
+  verifyClassification();
+  if(process.argv.includes('--classification-only'))process.exit(0);
   if(!process.argv.includes('--save-only')){
   for(const seed of [0,7]){
     const full=story(seed).S,fast=economicStory(seed).S;

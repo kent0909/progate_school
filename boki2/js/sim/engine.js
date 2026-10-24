@@ -12,7 +12,7 @@
   const CAT_HUE = { 資産: 212, 負債: 2, 純資産: 272, 収益: 142, 費用: 30, その他: 190 };
   const cat = (a) => (B.accounts[a] || {}).cat || 'その他';
   // マイナスの札（評価勘定）は、資産の側にマイナスとして置く
-  const CONTRA_OF = { 貸倒引当金: '売掛金', 車両運搬具減価償却累計額: '車両運搬具', 備品減価償却累計額: '備品', 建物減価償却累計額: '建物', 減価償却累計額: '機械装置', 機械装置減価償却累計額: '機械装置' };
+  const CONTRA_OF = { 貸倒引当金: '売掛金', 車両運搬具減価償却累計額: '車両運搬具', 備品減価償却累計額: '備品', 建物減価償却累計額: '建物', 減価償却累計額: '機械装置', 機械装置減価償却累計額: '機械装置', 構築物減価償却累計額: '構築物', 使用権資産減価償却累計額: '使用権資産' };
   const CONTRA = new Set(Object.keys(CONTRA_OF));
   const order = (a) => (CONTRA.has(a) ? 0.5 : CATS.indexOf(cat(a)) < 0 ? 9 : CATS.indexOf(cat(a)));
   const CAST = { piyo: ['ピヨ', 48], haha: ['お母さん', 330], esha: ['E社の担当者', 100], senpai: ['タカシ先輩', 205], shacho: ['ミライ社長', 24], eigyo: ['ハルカ（営業）', 12], ginko: ['田中さん（銀行）', 222], kansa: ['森さん（会計士）', 150], zeirishi: ['岩田さん（税理士）', 285], kabunushi: ['佐藤さん（株主）', 330], kojo: ['大山さん（工場長）', 60], oyakata: ['屋台の親方', 30] };
@@ -269,7 +269,7 @@
     const ta = assets.reduce((t, [, v]) => t + v, 0);
     if (!ta && !liab.length && !eq.length) return '<p class="muted">まだ、帳簿に何も書いていない。</p>';
     const bsTitle = knows('貸借対照表') ? '貸借対照表（いま）' : '会社の棚（いま）';
-    const plPart = knows('収益') ? `<h3>${knows('損益計算書') ? '損益計算書（この1年）' : 'もうけの中身（この1年）'}</h3><table class="s-tb">${rows((a) => cat(a) === '収益').map(([a, v]) => `<tr><td>${esc(a)}</td><td class="n">${fmt(-v)}</td></tr>`).join('')}${rows((a) => cat(a) === '費用').map(([a, v]) => `<tr><td>${esc(a)}</td><td class="n">−${fmt(v)}</td></tr>`).join('')}<tr class="sum"><td>もうけ</td><td class="n">${fmt(p.ni)}</td></tr></table>` : '';
+    const plPart = knows('収益') ? `<h3>${knows('損益計算書') ? '損益計算書（この1年）' : 'もうけの中身（この1年）'}</h3><table class="s-tb">${rows((a) => cat(a) === '収益').map(([a, v]) => `<tr><td>${esc(a)}</td><td class="n">${fmt(-v)}</td></tr>`).join('')}${rows((a) => cat(a) === '費用').map(([a, v]) => `<tr><td>${esc(a)}</td><td class="n">${v>=0?'−'+fmt(v):'＋'+fmt(-v)}</td></tr>`).join('')}<tr class="sum"><td>もうけ</td><td class="n">${fmt(p.ni)}</td></tr></table>` : '';
     return `<h3>${bsTitle}</h3><div class="s-two"><table class="s-tb"><tr><th colspan="2">${esc(gw('資産'))}</th></tr>${tbl(assets)}<tr class="sum"><td>合計</td><td class="n">${fmt(ta)}</td></tr></table><table class="s-tb"><tr><th colspan="2">${esc(gw('負債'))}・${esc(gw('純資産'))}</th></tr>${tbl(liab)}${tbl(eq)}${knows('収益') ? `<tr><td>この1年のもうけ</td><td class="n">${fmt(p.ni)}</td></tr>` : ''}<tr class="sum"><td>合計</td><td class="n">${fmt(liab.concat(eq).reduce((t, [, v]) => t + v, 0) + p.ni)}</td></tr></table></div>${plPart}`;
   }
   document.addEventListener('click', (e) => {
@@ -1920,7 +1920,7 @@
   // 区分の表は js/data/kubun.js（札の速さ・札で見るとも共有）。ここだけの表示名（工場の累計額など）は SHOW に足す
   const KB = B.kubun;
   const FIXED = { has: (a) => KB.bsOf(a) === '固定資産' };
-  const SHOW = { 長期前払費用: '長期前払費用（投資その他の資産）', 繰越商品: '商品', 前払家賃: '前払費用', 未払賃金: '未払費用', 減価償却累計額: '機械装置減価償却累計額' };
+  const SHOW = { 差入保証金: '差入保証金（投資その他の資産）', 長期前払費用: '長期前払費用（投資その他の資産）', 繰越商品: '商品', 前払家賃: '前払費用', 未払賃金: '未払費用', 減価償却累計額: '機械装置減価償却累計額' };
   function kubunView(b) {
     if(RAMEN&&D.y2?.maturity)b=D.y2.maturity.display(S,b,(month()||{}).bookT??((S.W?.t||1)-1));
     const v = (a) => b[a] || 0, list = (pred) => Object.keys(b).filter((a) => v(a) && pred(a)).sort((x, y) => order(x) - order(y));
@@ -1964,18 +1964,20 @@
   // 来年のノートは収益・費用が0から始まり、もうけは純資産の中に残る（docs/YEAR2.md 2.1-B）
   const closingEntries = (entries, mi) => {
     const b = balances(entries), rev = [], exp = [];
-    for (const [a, v] of Object.entries(b)) { if (!v) continue; if (cat(a) === '収益') rev.push([a, -v]); else if (cat(a) === '費用') exp.push([a, v]); }
-    const R = rev.reduce((t, [, v]) => t + v, 0), X = exp.reduce((t, [, v]) => t + v, 0), ni = R - X, y = yearOf(mi);
+    for (const [a, v] of Object.entries(b)) { if (!v) continue; if (cat(a) === '収益') rev.push([a, v]); else if (cat(a) === '費用') exp.push([a, v]); }
+    const R = -rev.reduce((t, [, v]) => t + v, 0), X = exp.reduce((t, [, v]) => t + v, 0), ni = R - X, y = yearOf(mi);
+    // 貸方に残る費用（法人税等調整額など）は、正の額で借方へ戻す。
+    const transfer = list => { const dr=[],cr=[];for(const [a,v]of list)(v<0?dr:cr).push([a,Math.abs(v)]);const gap=dr.reduce((n,x)=>n+x[1],0)-cr.reduce((n,x)=>n+x[1],0);if(gap>0)cr.push(['損益',gap]);else if(gap<0)dr.push(['損益',-gap]);return {dr,cr}; };
     const out = [];
-    if (rev.length) out.push({ dr: rev, cr: [['損益', R]] });
-    if (exp.length) out.push({ dr: [['損益', X]], cr: exp });
+    if (rev.length) out.push(transfer(rev));
+    if (exp.length) out.push(transfer(exp));
     if (ni > 0) out.push({ dr: [['損益', ni]], cr: [['繰越利益剰余金', ni]] }); else if (ni < 0) out.push({ dr: [['繰越利益剰余金', -ni]], cr: [['損益', -ni]] });
     return out.map((e, k) => Object.assign(e, { id: `closing${k}@${mi}`, mi, y, ev: 'closing', closing: true }));
   };
   function closingScreen(ev) {
     if (S.discDone[ev.id] != null) return next();
     const b = balances(S.L);
-    const cards = Object.entries(b).filter(([a, v]) => v && (cat(a) === '収益' || cat(a) === '費用')).map(([a, v]) => ({ a, v: Math.abs(v), side: cat(a) === '収益' ? 'R' : 'L' })).sort((x, y) => order(x.a) - order(y.a));
+    const cards = Object.entries(b).filter(([a, v]) => v && (cat(a) === '収益' || cat(a) === '費用')).map(([a, v]) => ({ a, v: Math.abs(v), side: v < 0 ? 'R' : 'L', reverse: cat(a)==='費用'?v<0:v>0 })).sort((x, y) => order(x.a) - order(y.a));
     const moved = new Set(); let step = 'move', msg = '', miss = 0;
     const R = cards.filter((c) => c.side === 'R').reduce((t, c) => t + c.v, 0), X = cards.filter((c) => c.side === 'L').reduce((t, c) => t + c.v, 0), ni = R - X;
     const kuri = knows('繰越利益剰余金') ? '繰越利益剰余金' : 'これまでのもうけの貯まり';
@@ -1984,7 +1986,7 @@
       let body;
       const left = cards.filter((c) => !moved.has(c.a));
       if (step === 'move') {
-        body = `${talk([['senpai', moved.size ? '収益の札は箱の右、費用の札は箱の左に入る。' : `1年が終わった。来年のノートを、${gw('収益')}と${gw('費用')}が0の状態から始めたい。今年の札を、1つの箱に集めよう。`]])}${tbox()}${left.length ? `<div class="s-sorti"><span><b>${esc(left[0].a)}</b> ${fmt(left[0].v)}（${gw(cat(left[0].a))}）</span><div><button class="s-pill" data-cl="${esc(left[0].a)}">箱へ運ぶ</button></div></div>${moved.size >= 2 && left.length > 1 ? `<button class="link" data-clall>残りの ${left.length} 枚も同じように運ぶ</button>` : ''}` : ''}<p class="muted" style="font-size:12px">のこり ${left.length} 枚</p>`;
+        body = `${talk([['senpai', moved.size ? (cards.some(c=>c.reverse)?'費用がへる札は右、収益がへる札は左。残っている側も見て箱へ移そう。':'収益の札は箱の右、費用の札は箱の左に入る。') : `1年が終わった。来年のノートを、${gw('収益')}と${gw('費用')}が0の状態から始めたい。今年の札を、1つの箱に集めよう。`]])}${tbox()}${left.length ? `<div class="s-sorti"><span><b>${esc(left[0].a)}</b> ${fmt(left[0].v)}（${gw(cat(left[0].a))}${left[0].reverse?'の減額':''}）</span><div><button class="s-pill" data-cl="${esc(left[0].a)}">箱へ運ぶ</button></div></div>${moved.size >= 2 && left.length > 1 ? `<button class="link" data-clall>残りの ${left.length} 枚も同じように運ぶ</button>` : ''}` : ''}<p class="muted" style="font-size:12px">のこり ${left.length} 枚</p>`;
         if (!left.length) step = 'ask';
       }
       if (step === 'ask') {
