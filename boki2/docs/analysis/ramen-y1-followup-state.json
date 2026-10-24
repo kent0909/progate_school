@@ -1,25 +1,28 @@
 {
   "pr": 4,
   "branch": "codex/ramen-y1-economy",
-  "status": "publishing",
-  "updated_at": "2026-10-24T16:11:03.963512+00:00",
-  "last_seen_comment_id": 6386361976,
-  "last_seen_comment_updated_at": "2026-10-24T14:30:01Z",
+  "status": "waiting_for_review_with_watch",
+  "updated_at": "2026-10-24T16:13:51.502Z",
+  "last_seen_comment_id": 6386494576,
+  "last_seen_comment_updated_at": "2026-10-24T16:13:51.502Z",
   "requests": [
     {
       "id": 6385261352,
-      "status": "in_progress",
-      "acceptance": "問い1〜4、母集団、A〜D比較、依頼対応表、未実施を含む新報告"
+      "status": "reported_with_limits",
+      "acceptance": "問い1〜4、母集団、A〜D比較、依頼対応表、未実施を含む新報告",
+      "result_comment_id": 6386343443
     },
     {
       "id": 6385415040,
-      "status": "in_progress",
-      "acceptance": "指定ノート7本のみを読み分析。原文不足を再停止理由にしない"
+      "status": "reported_with_limits",
+      "acceptance": "指定ノート7本のみを読み分析。原文不足を再停止理由にしない",
+      "result_comment_id": 6386343443
     },
     {
       "id": 6386361976,
-      "status": "publishing",
-      "acceptance": "単独原因9条件各300周60か月、3表示案、月別差、長期、正式合否の共有と未再実行の明示"
+      "status": "reported_with_limits",
+      "acceptance": "単独原因9条件各300周60か月、3表示案、月別差、長期、正式合否の共有と未再実行の明示",
+      "result_comment_id": 6386494576
     }
   ],
   "work_done": [
@@ -31,18 +34,18 @@
     "report-check、集計の件数照合"
   ],
   "remaining": [
-    "commit/push",
-    "結果と検査依頼をPRへ投稿",
-    "返信IDと待機条件の更新"
+    "PR #5の検査役による今回3案の独立検査",
+    "取りまとめ役の採否/試遊の回答に対応"
   ],
   "blocked": false,
-  "waiting_reason": null,
-  "resume_condition": "処理継続中。報告後は取りまとめ役の回答または追加ノート到着",
-  "next_action": "結果と相談をPR #4へ投稿",
+  "waiting_reason": "原因単独比較・300周60か月・3表示案・画面根拠・長期/正式合否の共有と限界をPRへ報告済み。検査役への回付を依頼",
+  "resume_condition": "PR #4に検査役の事実の問い、レビュー、採否、追加指示が届く",
+  "next_action": "毎時監視で新返信を確認し、指示の許可範囲で再開",
   "watch": {
     "enabled": true,
     "cadence": "hourly",
     "timezone": "Asia/Tokyo"
   },
-  "owner_decision": "1年目のお金維持、A〜D不採用。今回も採用しない"
+  "owner_decision": "1年目のお金維持、A〜D不採用。今回も採用しない",
+  "last_report_comment_id": 6386494576
 }
