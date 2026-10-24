@@ -21,7 +21,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { chromium } = require('/opt/node-tools/node_modules/playwright');
+const { loadChromium, browserPath } = require('./bot-runs.js');
 const autoRun = require('./auto.js');
 
 // 検査の回ごとに凍結したゲーム（回の番号は環境変数 PIYO_REVIEW で選ぶ。既定は2回目）
@@ -57,14 +57,14 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
   };
   // スマホ・タブレット（幅が1024未満）は指で押す端末として開く（tap が使える）
   const isTouch = touch == null ? viewport.width < 1024 : !!touch;
-  const ctx = await chromium.launchPersistentContext(path.join(dir, 'profile'), { executablePath: '/opt/pw-browsers/chromium', viewport, colorScheme, hasTouch: isTouch, isMobile: isTouch && viewport.width < 900, deviceScaleFactor: isTouch ? 2 : 1 });
+  const ctx = await loadChromium().launchPersistentContext(path.join(dir, 'profile'), { executablePath: browserPath(), viewport, colorScheme, hasTouch: isTouch, isMobile: isTouch && viewport.width < 900, deviceScaleFactor: isTouch ? 2 : 1 });
   const p = ctx.pages()[0] || (await ctx.newPage());
   const errs = [];
   p.on('pageerror', (e) => errs.push(e.message));
   await p.goto('file://' + GAME);
   if (reset) { await p.evaluate(() => localStorage.clear()); await p.reload(); }
   write({ kind: 'session', touch: isTouch, game_sha: fileSha(GAME), harness_sha: fileSha(__filename), auto_sha: fileSha(path.join(__dirname, 'auto.js')), persona_sha: personaSha, knowledge_sha: knowledgeSha, pretest_sha: preSha, viewport, colorScheme, reset });
-  const state = () => p.evaluate(() => { try { const S = window.__sim.S; const ev = (window.__sim.events() || [])[S.ei]; return { mi: S.mi, ei: S.ei, phase: S.phase, ev: ev ? `${ev.t}:${ev.id || ''}` : null, label: (document.querySelector('.s-month b') || document.querySelector('.s-head b') || {}).textContent || '' }; } catch (e) { return { err: String(e).slice(0, 80) }; } });
+  const state = () => p.evaluate(() => { try { const S = window.__sim.S; const ev = (window.__sim.events() || [])[S.ei]; return { mi: S.mi, ei: S.ei, phase: S.phase, ev: ev ? `${ev.t}:${ev.id || ''}` : null, choices: JSON.parse(JSON.stringify(S.choices || [])), label: (document.querySelector('.s-month b') || document.querySelector('.s-head b') || {}).textContent || '' }; } catch (e) { return { err: String(e).slice(0, 80) }; } });
   let shotN = fs.readdirSync(shots).length;
   // 読んだ文字は、あとで本人が見直せるように seen/ に残す（ファイル名はログの行番号。中身の sha256 はログにある）
   const seen = path.join(dir, 'seen'); fs.mkdirSync(seen, { recursive: true });
@@ -76,12 +76,16 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
   };
   const act = async (kind, sel, why, fn) => {
     if (!why || String(why).trim().length < 4) throw new Error('ねらい（なぜその操作をするか）を4字以上で書くこと');
+    const semanticKind = autoRun.actionKind(sel || '');
+    const detailBefore = semanticKind ? await autoRun.actionState(p) : null;
     const before = await state();
     await fn();
     await p.waitForTimeout(120);
     const after = await state();
     const shot = await shoot(kind);
-    return write({ kind, sel, why, before, after, shot, errs: errs.splice(0) });
+    const id = write({ kind, sel, why, before, after, shot, errs: errs.splice(0) });
+    if (semanticKind) write({ kind: semanticKind, of: id, sel, why, before: detailBefore, after: await autoRun.actionState(p) });
+    return id;
   };
   return {
     // page（ブラウザそのもの）は渡さない。ゲームの中の答えを読めてしまうため。見た目を調べるときは inspect() を使う
@@ -130,12 +134,13 @@ exports.open = async function open(dir, { viewport = { width: 375, height: 760 }
       const start = await state();
       const startMi = start.mi;
       const stopWhen = opts.until ? opts.until : opts.months ? async (pg) => (await pg.evaluate(() => window.__sim.S.mi)) >= startMi + opts.months : null;
-      const id = write({ kind: 'auto-start', why, opts: { months: opts.months || null, choose: opts.choose || {}, broad: !!opts.broad, maxSteps: opts.maxSteps || 400 }, state: start });
+      const id = write({ kind: 'auto-start', why, opts: { months: opts.months || null, choose: opts.choose || {}, broad: !!opts.broad, maxSteps: opts.maxSteps || 400, style: opts.style || null, seed: opts.seed || 0, strategy: opts.strategy, errorRate: opts.errorRate || 0 }, state: start });
       let k = 0;
-      const r = await autoRun(p, { choose: opts.choose || {}, broad: !!opts.broad, maxSteps: opts.maxSteps || 400, stopWhen, onStep: async () => { if (++k % 20 === 0) write({ kind: 'auto-step', of: id, state: await state() }); }, shot: async (nm) => { write({ kind: 'auto-shot', of: id, shot: await shoot(nm) }); } });
-      write({ kind: 'auto-end', of: id, result: { steps: r.steps, stopped: !!r.stopped, end: !!r.end, stuck: r.stuck || null }, state: await state(), shot: await shoot('auto-end') });
+      const r = await autoRun(p, { style: opts.style || null, seed: opts.seed || 0, strategy: opts.strategy, errorRate: opts.errorRate || 0, endMode: opts.endMode || 'y2', onAction: async (action) => write({ ...action, of: id, automatic: true }), choose: opts.choose || {}, broad: !!opts.broad, maxSteps: opts.maxSteps || 400, stopWhen, onStep: async () => { if (++k % 20 === 0) write({ kind: 'auto-step', of: id, state: await state() }); }, shot: async (nm) => { write({ kind: 'auto-shot', of: id, shot: await shoot(nm) }); } });
+      write({ kind: 'auto-end', of: id, result: { steps: r.steps, stopped: !!r.stopped, end: !!r.end, stuck: r.stuck || null, maxed: !!r.maxed, overflow: r.overflow || [] }, state: await state(), shot: await shoot('auto-end') });
       return r;
     },
     async close() { write({ kind: 'close', state: await state(), errs: errs.splice(0) }); await ctx.close(); },
   };
 };
+
