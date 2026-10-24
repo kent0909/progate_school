@@ -1254,7 +1254,7 @@
   // まだ教わっていない科目が答えに出てくるときは、先に小さな問いで見つける
   function namingScreen(acc, cont) {
     const N = D.namings[acc];
-    if (!N) { teach([acc]); return cont(); }
+    if (!N) { (S.missingNamings ||= []).push({acc,mi:S.mi,event:(events()[S.ei]||{}).id}); teach([acc]); return cont(); }
     let msg = '', solved = false;
     const draw = () => frame(`<div class="s-card"><small>新しい札</small><p class="s-q">${esc(N.q)}</p>${solved ? `<div class="s-name"><h2>${rb(acc)}</h2><p>${rb(N.line)}</p></div><button class="btn wide" data-n>帳簿に書く</button>` : `<div class="s-opts">${N.opts.map((o, i) => `<button class="s-opt" data-o="${i}"><b>${esc(o.t)}</b></button>`).join('')}</div>${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`}</div>`);
     draw();

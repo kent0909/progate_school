@@ -9,6 +9,7 @@ global.window = global;
 const root = path.join(__dirname, '..');
 for (const f of ['js/core.js', 'js/data/accounts.js', 'js/data/kubun.js', ...require('./ramen-files.js').story]) require(path.join(root, f));
 const D = global.SIMDATA, wd = D.world;
+const namingAudit={missing:new Map(),maxNewAccounts:0,checked:0};
 const clone = x => JSON.parse(JSON.stringify(x));
 const BASELINE = /* 基準の実測。検査対象から作り直さない */ {
   "0:shotengai": "22519878fb2c72ebaec22b204019ccf24dd021619a01aa3a16220251637821ea",
@@ -109,7 +110,12 @@ console.log('OK：配当の正額・準備金上限到達前後18資料');
 // 台本を実際の順で進める。仕訳はすべて正答を記帳し、決算の締切も行う。
 function story(seed, choices = {}) {
   const S={seed,mode:choices.__mode||'2026',decisions:{},T:[],L:[],discDone:{},cardOutcomes:[],choices:[]};
-  let docs=0,calcs=0; const seen=new Set();
+  let docs=0,calcs=0; const seen=new Set(),taught=new Set();
+  const teach=list=>{const fresh=[...new Set(list||[])].filter(a=>!taught.has(a)&&BOKI.accounts[a]);namingAudit.maxNewAccounts=Math.max(namingAudit.maxNewAccounts,fresh.length);assert.ok(fresh.length<=2,`seed${seed}:1画面の新しい科目が3つ以上 ${fresh}`);for(const a of list||[])taught.add(a);};
+  const name=(acc,e)=>{if(taught.has(acc))return;const n=D.namings[acc];namingAudit.checked++;
+    if(!n){if(!namingAudit.missing.has(acc))namingAudit.missing.set(acc,{seed,mode:S.mode,event:e.id,month:(D.months[S.mi]||{}).label});taught.add(acc);return;}
+    assert.ok(n.q&&n.line&&n.opts.some(o=>o.ok)&&n.teaches.includes(acc),e.id+':名前の段の定義が不完全 '+acc);teach(n.teaches);
+  };
   const post=(a,e,m,mi)=>{finite(a,e.id);for(const side of ['dr','cr'])for(const [acc,v]of a[side])assert.ok(v>=0,`${e.id}: ${acc}が負数`);
     assert.equal(a.dr.reduce((n,x)=>n+x[1],0),a.cr.reduce((n,x)=>n+x[1],0),`${e.id}:貸借不一致`);
     const row={...a,id:`${e.id}@${mi}`,ev:e.id,mi,y:m.year||1};S.T.push(row);S.L.push(clone(row));};
@@ -117,16 +123,20 @@ function story(seed, choices = {}) {
     for(const e of m.events) {
       if(e.when&&!e.when(S))continue;
       if(choices.__onEvent)choices.__onEvent(S,e,m);
+      if(e.t==='board'){teach(e.teaches);for(const step of e.steps||[])if(step.k==='card')teach(step.teaches);}
+      for(const a of e.names||[])name(a,e);
       if(e.t==='decision'){const opts=e.optionsFor?e.optionsFor(S):e.options,available=opts.filter(x=>!x.disabled),requested=choices[e.id]||choices[e.card];assert.ok(available.length,e.id+'に選べる手がない');S.decisions[e.id]=available.some(x=>x.id===requested)?requested:available[0].id;if(e.card)seen.add(e.card);}
       if(e.t==='plan'){D.ramen.plan(S,e.ramenT,D.ramen.policy(S,e.ramenT));finite(S.W,'世界');finite(S.res[e.ramenT],'月報');}
       if(e.t==='doc'){
         const a=typeof e.ans==='function'?e.ans(S):e.ans;
         if(m.year>=2){assert.ok(a.dr.length&&a.cr.length,e.id+':全額0円の書類');for(const [,v]of [...a.dr,...a.cr])assert.ok(v>0,`seed${seed} ${e.id}:正解に0円以下 ${v}`);
           const rows=typeof e.doc.rows==='function'?e.doc.rows(S):e.doc.rows;assert.ok(!rows.some(r=>r[2]==='amt'&&r[1]===0),e.id+':表に0円行');}
+        for(const [acc]of [...a.dr,...a.cr])name(acc,e);
         post(a,e,m,mi);docs++;
       }
       if(e.t==='calc'){const a=typeof e.answer==='function'?e.answer(S):e.answer;assert.ok(Number.isFinite(a),e.id);calcs++;}
       if(e.t==='discover'){
+        teach(e.b4?.teaches);
         const before=m.events.filter(x=>!x.when||x.when(S)),index=before.indexOf(e);S.discDone[e.id]=mi;
         const after=m.events.filter(x=>!x.when||x.when(S));assert.equal(after[index],e,`説明後に一覧が詰まって次を飛ばす：${e.id}`); // 承認6385266883：1年目も対象。
       }
@@ -137,7 +147,10 @@ function story(seed, choices = {}) {
         const due=D.rview.dueList(S,t,D.y2books.cash(S.L));finite(due,'期日');if(t<38)assert.ok(due.items.length,'2年目以降の期日が空');
         const debrief=D.rview.debrief(S,t);if(debrief)assert.equal(debrief.quarter,[2,5,8,11].includes(t%12));
         const bridge=D.y2books.reconcile(S,e.ramenT);assert.equal(bridge.rest,0,`seed${seed} t${e.ramenT}:口座照合`);assert.deepEqual(bridge.unknown,[],`seed${seed}:未知の現金取引`);assert.equal(bridge.modelCash,S.res[e.ramenT].cash);}}
+      if(['talk','decision','calc','report'].includes(e.t))teach(e.teaches);
+      if(e.t==='opening')teach(['前期繰越','開始記入']);
       if(e.t==='closing'){
+        teach(['損益','繰越利益剰余金','締め切り','当期純利益','決算振替']);
         const rev=[],exp=[];for(const [a,meta]of Object.entries(BOKI.accounts)){
           const v=D.y2books.balance(S.T,a);if(meta.cat==='収益'&&v)rev.push([a,-v]);if(meta.cat==='費用'&&v)exp.push([a,v]);}
         const net=rev.reduce((n,x)=>n+x[1],0)-exp.reduce((n,x)=>n+x[1],0);
@@ -239,6 +252,16 @@ if (!process.argv.includes('--world')) {
     if(result.seen.has(card.id))branches++;
   }
   console.log(`OK：札の選択肢を指定した台本 ${branches}経路（出現条件を満たした経路）`);
+  let firstYearNamed=0;
+  for(const card of D.cards.deck.filter(c=>!c.y2&&c.docs))for(const option of card.options){
+    let reached=false;
+    for(const seed of [0,3,7,1,2,4,5,6,8,9,10,11]){
+      const {S}=economicStory(seed,{[card.id]:option.id});
+      if(Object.entries(S.decisions).some(([key,value])=>key.startsWith(card.id+'@')&&+key.slice(card.id.length+1)<12&&value===option.id)){reached=true;break;}
+    }
+    assert.ok(reached,'1年目の書類の選択肢へ未到達 '+card.id+'/'+option.id);firstYearNamed++;
+  }
+  console.log(`OK：1年目の書類つき旧札 ${firstYearNamed}選択肢の動的な名前の検査`);
   { // 既定の受け入れ検査でも全結果を通す
     const missing=[],covered=[];
     for(const card of D.y2.cards.cards)for(const option of card.options)for(const outcome of option.outcomes){
@@ -345,5 +368,13 @@ if (!process.argv.includes('--world')) {
   }
   }
   verifySave();
+  if(!process.argv.includes('--save-only')){
+    const definition=D.namings.貸倒引当金戻入,previous=namingAudit.missing,count=namingAudit.checked;
+    try{namingAudit.missing=new Map();delete D.namings.貸倒引当金戻入;economicStory(0);assert.ok(namingAudit.missing.has('貸倒引当金戻入'),'名前の定義を外した対照検査が欠落を検出しない');assert.throws(()=>assert.equal(namingAudit.missing.size,0));}
+    finally{D.namings.貸倒引当金戻入=definition;namingAudit.missing=previous;namingAudit.checked=count;}
+    console.log('OK：名前の定義を外すと動的な検査が失敗する');
+  }
+  console.log('動的な名前の検査:'+JSON.stringify({checked:namingAudit.checked,maxNewAccountsPerScreen:namingAudit.maxNewAccounts,missing:[...namingAudit.missing.entries()]}));
+  assert.equal(namingAudit.missing.size,0,'定義なしで教えた科目がある');
   console.log(process.argv.includes('--save-only')?'OK：保存の検査のみ（台本の全結果検査とは別）':'OK：2年目以降の台本・全札全結果・口座照合・引当と支払の二重費用なし。損得の釣り合いは別途報告。');
 }
