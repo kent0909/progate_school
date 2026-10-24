@@ -21,6 +21,9 @@ const SWITCH_AT = Number(arg('--switchAt', 9));
 const NATIVE = Number(arg('--native', 0));
 // --ps <値>：較正を道具の中で繰り返さず、`sim-ramen.js --calibrate --runs 300` で出した potentialScale をそのまま使う（本体と道具の較正をそろえる）
 const PS = arg('--ps', null);
+// --set key=value,key2=[1,2]：coef の値を上書き（版1.3 の切り分け用。--native 1 でも効く）
+const SETS = (arg('--set', '') || '').split(',').filter(Boolean).map((kv) => { const i = kv.indexOf('='); return [kv.slice(0, i), JSON.parse(kv.slice(i + 1))]; });
+const applySets = () => { for (const [k, v] of SETS) { if (!C.table[k]) throw new Error('coef に無い: ' + k); C.table[k].v = v; } return SETS.map(([k, v]) => `${k}=${JSON.stringify(v)}`).join(' '); };
 // ブートストラップの95%区間（分位点・中央値用）
 const boot = (xs, fn, B = 1000) => { const r = D.rng(4242); const vs = []; for (let b = 0; b < B; b++) { const ys = xs.map(() => xs[Math.floor(r() * xs.length)]); vs.push(fn(ys)); } vs.sort((a, b) => a - b); return [vs[Math.floor(B * 0.025)], vs[Math.floor(B * 0.975)]]; };
 const q3ci = (xs) => { const [a, b] = boot(xs, (y) => q(y, 0.75)); return `${f1(q(xs, 0.75))}（${f1(a)}〜${f1(b)}）`; };
@@ -518,7 +521,7 @@ if (EXP === 'flip2') {
   withCoef({ epsOver1000: 1.2 }, () => flipStat('1,000円の壁 1.5→1.2', { polFn: polX }));
 }
 const X10 = { ...X09, areaSign: { ekimae: 1.0, shotengai: 0.8, jutaku: 0.6 } };
-function setup10(N) { if (NATIVE) { setX({}); } else { setX({ ...X10, waitChurn: Number(arg('--waitChurn', 0)) || undefined }); C.table.decay.v = 0.02; C.table.capBy.v = [Number(arg('--famCap', 45)), Number(arg('--cap1', 70)), 100, 125, 145, 160, 170]; C.table.discountChurn.v = 1; RV.TYPES.cheap.follow = Number(arg('--follow', 0.25)); C.table.wagePart.v = Number(arg('--wagePart', 200000)); } out(`\n## 版1.0 の置き値：歯止めなし・値下げ後の値上げ ×1・家族の上限${C('capBy')[0]}・パート1人の上限 ${C('capBy')[1]}・パートの給料 ${man(C('wagePart'))}・外れの年 −0.05・看板 大50万+0.07・立地倍率 1.0/0.8/0.6・待ちの離れ ${(global.__X || {}).waitChurn || 0}×待ちの割合・乱数あり・追随 確率${RV.TYPES.cheap.follow}・幅≤50円・試算の乱数に seed を${SEEDMIX ? '混ぜる' : '混ぜない'}`); out(`較正 potentialScale=${calibrate(N)}（放置の3年目中央値 44、${N}周）`); }
+function setup10(N) { const setTxt = applySets(); if (setTxt) out(`（coef の上書き：${setTxt}）`); if (NATIVE) { setX({}); } else { setX({ ...X10, waitChurn: Number(arg('--waitChurn', 0)) || undefined }); C.table.decay.v = 0.02; C.table.capBy.v = [Number(arg('--famCap', 45)), Number(arg('--cap1', 70)), 100, 125, 145, 160, 170]; C.table.discountChurn.v = 1; RV.TYPES.cheap.follow = Number(arg('--follow', 0.25)); C.table.wagePart.v = Number(arg('--wagePart', 200000)); } out(`\n## 版1.0 の置き値：歯止めなし・値下げ後の値上げ ×1・家族の上限${C('capBy')[0]}・パート1人の上限 ${C('capBy')[1]}・パートの給料 ${man(C('wagePart'))}・外れの年 −0.05・看板 大50万+0.07・立地倍率 1.0/0.8/0.6・待ちの離れ ${(global.__X || {}).waitChurn || 0}×待ちの割合・乱数あり・追随 確率${RV.TYPES.cheap.follow}・幅≤50円・試算の乱数に seed を${SEEDMIX ? '混ぜる' : '混ぜない'}`); out(`較正 potentialScale=${calibrate(N)}（放置の3年目中央値 44、${N}周）`); }
 if (EXP === 'final10') { const N = Math.min(RUNS, 120); setup10(N); judgments(N, { follow: true, taste: true, f7: false }); }
 if (EXP === 'flip10') {
   const N = Math.min(RUNS, 120); setup10(N);
@@ -645,6 +648,39 @@ if (EXP === 'omen12') {
     cell(rows.filter((r) => r.pot < u1), '薄い町'); cell(rows.filter((r) => r.pot >= u1 && r.pot < u2), '中の町'); cell(rows.filter((r) => r.pot >= u2), '厚い町');
     for (let st = 0; st < 3; st++) cell(rows.filter((r) => r.st === st), SMART[st]);
   }
+}
+if (EXP === 'y1') {
+  // 版1.3：1年目の手ごたえ。手を打たない店（policy0）と手を打つ店（smartX 常連と地図）の月ごとの客数・営業利益と、初めての月次黒字の月。置き値を1つずつ動かして再較正
+  const N = Math.min(RUNS, 120);
+  const idle0 = (W) => Wd.policy0(W);
+  const act = (W) => smartX(W, 0);
+  const coord = (W) => { const pol = { ...Wd.policy0(W), price: W.t < 12 ? 800 : 900, map: true, line: W.t >= 3, sns: W.t >= 3, sign: 'small', signAt: 3, flyer: W.t < 6 ? 30000 : 0 }; return Wd.fitTime(W, pol, D.rng(W.seed * 37 + W.t)); };
+  const measure = (label, polFn) => {
+    const rows = [];
+    for (let s = 0; s < N; s++) { const r = play(s, { months: 24, policy: polFn }); rows.push({ N: r.hist.map((h) => h.res.N), op: r.hist.map((h) => h.res.op), dead: r.W.bankrupt }); }
+    const fb = rows.map((r) => r.op.findIndex((x) => x > 0));
+    const by = (t) => pct(fb.filter((x) => x >= 0 && x <= t).length, N);
+    const m = (t, k) => median(rows.filter((r) => r[k][t] != null).map((r) => r[k][t]));
+    out(`| ${label} | ${[0, 2, 5, 8, 11, 17, 23].map((t) => `${f1(m(t, 'N'))}／${Math.round(m(t, 'op') / 1e4)}万`).join(' ・ ')} | ${by(5)}%／${by(6)}%／${by(11)}%／${by(23)}% | ${median(fb.filter((x) => x >= 0).concat(fb.filter((x) => x < 0).map(() => 99)))} |`);
+    return { by5: by(5), by6: by(6), by11: by(11) };
+  };
+  const variant = (label, coefs, o = {}) => withCoef(coefs, () => {
+    const ps0 = C('potentialScale'); if (o.recal) calibrate(N); const im = idleMedian(N);
+    out(`\n**${label}**（potentialScale ${C('potentialScale')}、放置3年目 中央値 ${f1(median(im))}）\n| 店 | 客数／営業利益の中央値：4月・6月・9月・12月・3月・2年目9月・2年目3月 | 初黒字が 9月まで／10月まで／1年目内／2年目内 の周 | 初黒字の月の中央値（99＝2年で無し） |\n|---|---|---|---|`);
+    measure('手を打たない（policy0：850円・地図・衛生・パート1人）', idle0);
+    measure('手を打つ（smartX 常連と地図：800円・地図・LINE・看板・チラシ3万・限定）', act);
+    measure('手を打つ（取りまとめ役の形：800円・地図・3月から LINE と SNS・小の看板・4〜9月チラシ3万）', coord);
+    C.table.potentialScale.v = ps0;
+  });
+  setX({}); applySets();
+  variant('V0 いま（版1.2.1 の実装）', {});
+  variant('V1 開業の坂 0.55→0.85 を 0.75→0.95 に（再較正）', { rampStart: 0.75, rampEnd: 0.95 }, { recal: true });
+  variant('V2 開業の坂 0.70→0.90（再較正）', { rampStart: 0.70, rampEnd: 0.90 }, { recal: true });
+  variant('V3 その他固定費 15万→10万（較正そのまま）', { otherFixed: 100000 });
+  variant('V4 潜在客 ×1.15（放置の3年目 ≈ 50。目安を動かす）', { potentialScale: Number((C('potentialScale') * 1.15).toFixed(6)) });
+  variant('V5 常連の定着 0.035→0.05（再較正）', { retain: 0.05 }, { recal: true });
+  variant('V6 家賃なし 3→6か月（居抜きの契約）', { freeRent: 6 });
+  variant('V7 坂 0.75→0.95 ＋ その他固定費 10万（再較正）', { rampStart: 0.75, rampEnd: 0.95, otherFixed: 100000 }, { recal: true });
 }
 if (EXP === 'final' || EXP === 'final-ceiling') {
   setX(X09); C.table.decay.v = 0.02; C.table.capBy.v = [Number(arg('--famCap', 45)), 70, 100, 125, 145, 160, 170]; C.table.discountChurn.v = Number(arg('--discountChurn', 1));
