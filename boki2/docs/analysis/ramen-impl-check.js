@@ -619,6 +619,34 @@ if (EXP === 'hire10') {
   withCoef({ wagePart: 160000, capBy: [45, 60, 100, 125, 145, 160, 170] }, () => run('16万＋上限60'));
   for (const w of [0.5, 1.0]) withX({ waitChurn: w }, () => run(`仕組み案：待たされた月は常連の離れ +${w}×待ちの割合`));
 }
+if (EXP === 'omen12') {
+  // 原価の予兆の札（版1.2）：1年目12月（t=8）に出る。原価の上がる町（偶数 seed）には必ず出る。外れ＝上がらない町（奇数 seed）にも確率 f で出る（予兆を見た町のうち外れの割合 p = f/(1+f)）。
+  // 選択肢：替える（t=9 から標準）／据え置き（高いのまま）／まとめ買い（t=9 に30万、t=12〜17 の上昇を避け月4.5万を戻す）。5年目末の口座で最良を数える。見える条件＝予兆を見た（全体）、立地、厚さ、方針。上がった／外れは後から分かる
+  const N = Math.min(RUNS, 120); setup10(N);
+  for (const pFalse of [0, 0.25, 0.4, 0.5]) {
+    const f = pFalse / (1 - pFalse);
+    const rows = [];
+    for (let s = 0; s < N; s++) {
+      const st = Math.floor(s / 3) % 3, W0 = Wd.create({ seed: s, area: AREAS[s % 3] });
+      const rise = s % 2 === 0, omen = rise || D.rng(s * 4099 + 3)() < f;
+      if (!omen) continue;
+      const nc = {
+        switch: Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: (W) => (W.t >= 9 ? 'std' : 'high') }) }).W),
+        keep: Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: 'high' }) }).W),
+        bulk: Wd.netCash(play(s, { months: 60, policy: (W) => { const p = smartX(W, st, { supplier: 'high' }); if (W.t === 9) p.bulk = true; return p; } }).W),
+      };
+      const best = Object.entries(nc).sort((a, b) => b[1] - a[1]);
+      rows.push({ st, area: AREAS[s % 3], pot: W0.town.areas[W0.area].potentialMul, rise, best: best[0][1] === best[1][1] ? 'tie' : best[0][0], gapSwitch: nc.switch - nc.keep, gapBulk: nc.bulk - nc.keep });
+    }
+    const cell = (rs, lab) => { const c = {}; rs.forEach((r) => { c[r.best] = (c[r.best] || 0) + 1; }); const n = rs.length; const top = Object.entries(c).filter(([k]) => k !== 'tie').sort((a, b) => b[1] - a[1])[0]; out(`| 外れ ${pFalse}・${lab} | ${n} | ${['switch', 'keep', 'bulk'].map((k) => `${pct(c[k] || 0, n)}%`).join(' / ')} | ${top ? `${top[0]} ${pct(top[1], n)}%${pct(top[1], n) >= 70 ? ' ✗' : ''}` : '—'} | ${man(median(rs.map((r) => r.gapSwitch)))}／${man(median(rs.map((r) => r.gapBulk)))} |`); };
+    if (pFalse === 0) out(`\n| 条件（予兆を見た町） | 周 | 替える / 据え置き / まとめ買い | 最多 | 替える−据え置き／まとめ買い−据え置き 中央値 |\n|---|---|---|---|---|`);
+    cell(rows, '全体'); cell(rows.filter((r) => r.rise), '上がった町'); cell(rows.filter((r) => !r.rise), '外れた町');
+    for (const a of AREAS) cell(rows.filter((r) => r.area === a), a);
+    const ps = rows.map((r) => r.pot).sort((a, b) => a - b), u1 = ps[Math.floor(ps.length / 3)], u2 = ps[Math.floor((2 * ps.length) / 3)];
+    cell(rows.filter((r) => r.pot < u1), '薄い町'); cell(rows.filter((r) => r.pot >= u1 && r.pot < u2), '中の町'); cell(rows.filter((r) => r.pot >= u2), '厚い町');
+    for (let st = 0; st < 3; st++) cell(rows.filter((r) => r.st === st), SMART[st]);
+  }
+}
 if (EXP === 'final' || EXP === 'final-ceiling') {
   setX(X09); C.table.decay.v = 0.02; C.table.capBy.v = [Number(arg('--famCap', 45)), 70, 100, 125, 145, 160, 170]; C.table.discountChurn.v = Number(arg('--discountChurn', 1));
   const N = Math.min(RUNS, 120);
