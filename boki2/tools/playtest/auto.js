@@ -45,6 +45,13 @@ module.exports = async function autoRun(p, { choose = {}, broad = false, endMode
     if (await has('[data-nameok]')) { await p.click('[data-nameok]'); continue; }
     if (await has('[data-plan-ok]')) { await shot(`plan-${st.label}`); await p.click(choose.plan === 'same' ? '[data-plan-same]' : '[data-plan-ok]'); continue; }
     if (await has('[data-rep-ok]')) { await shot(`report-${st.label}`); await p.click('[data-rep-ok]'); continue; }
+    // ラーメン版の段5の画面：締めの帯・一杯の組み立て・ふりかえり（四半期は4問と今の位置）・分かれ道の図（正解は台本から読まずに、最初の選択肢を押す）
+    if (await has('[data-band-next]')) { await shot(`band-${st.label}`); await p.click('[data-band-next]'); continue; }
+    if (await has('[data-bowl-ok]')) { await shot('bowl'); await p.click('[data-bowl-ok]'); continue; }
+    if (await has('[data-deb-factor]:not([disabled])')) { await p.click((choose.debrief ? `[data-deb-factor="${choose.debrief}"]` : '[data-deb-factor]:not([disabled])') + ' >> nth=0'); continue; }
+    if (await has('[data-deb-opt]:not([disabled])')) { await p.click('[data-deb-opt]:not([disabled]) >> nth=0'); continue; }
+    if (await has('[data-deb-next]')) { await shot(`debrief-${st.label}`); await p.click('[data-deb-next]'); continue; }
+    if (await has('[data-fork-next]')) { await shot(`fork-${st.label}`); await p.click('[data-fork-next]'); continue; }
     if (await has('[data-calc-next]')) { await p.click('[data-calc-next]'); continue; }
     if (await has('[data-calc-in]')) { const v = await p.evaluate(() => { const S = window.__sim.S; const ev = window.__sim.events()[S.ei]; return Math.round(Number(typeof ev.answer === 'function' ? ev.answer(S) : ev.answer)); }); await p.fill('[data-calc-in]', String(v)); await p.click('[data-calc-ok]'); continue; }
     if (await has('[data-pickmode]')) { await p.click('[data-pickmode] >> nth=0'); continue; }

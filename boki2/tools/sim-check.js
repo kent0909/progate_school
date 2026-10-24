@@ -5,7 +5,7 @@
 // ・判断の返り：同じ判断の別の選択肢を選んで、その後の出来事（書類の金額・会話・結末）がまったく同じになる判断は「返りのない判断」として失敗にする
 // ・11月の資金不足：E社への支払いの直前の預金が、台本の preBank と一致し、手を打たないと足りない（不足額が正）こと
 // Usage: node boki2/tools/sim-check.js   （--ramen [--runs N]：ラーメン版の無作為の通し試験 tools/sim-ramen.js）
-if (process.argv.includes('--ramen')) { require('./sim-ramen.js'); return; }
+if (process.argv.includes('--ramen')) { require('./ramen-view-check.js'); require('./sim-ramen.js'); return; }
 global.window = global;
 const path = require('path');
 const root = path.join(__dirname, '..');
