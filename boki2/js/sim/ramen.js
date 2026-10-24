@@ -81,7 +81,7 @@
       if (c.y2) continue;
       if (c.tFrom != null && t < c.tFrom) continue;
       const key = `${c.id}@${t}`, dealt = (S) => dealtAt(S, t).includes(c.id);
-      if (c.disc && Y.disc[c.disc]) out.push({ ...Y.disc[c.disc], id: `${Y.disc[c.disc].id}`, when: (S) => dealt(S) && !(S.discDone || {})[Y.disc[c.disc].id] });
+      if (c.disc && Y.disc[c.disc]) out.push({ ...Y.disc[c.disc], id: `${Y.disc[c.disc].id}`, when: (S) => dealt(S) && (!(S.discDone || {})[Y.disc[c.disc].id] || ((S.discDone || {})[Y.disc[c.disc].id]===S.mi)) });
       out.push({ t: 'decision', id: key, card: c.id, ramenT: t, when: dealt, q: c.q || c.title, talk: c.talk,
         trial: (S, oid) => { const W = S.W || fakeW(t), tr = SIM.decide.trial(c, oid, W); const o = c.options.find((x) => x.id === oid); return [['うまくいく見込み（いちばん多い結果）', `${Math.round(Math.max(...tr.weights.map((x) => x.w)))}%`], ...(o.time ? [['使う時間', `${o.time}`]] : []), ...(tr.cashMin !== tr.cashMax ? [['すぐ動くお金の幅', `${tr.cashMin.toLocaleString()}〜${tr.cashMax.toLocaleString()}円`]] : [])]; },
         options: c.options.map((o) => ({ id: o.id, label: o.label, desc: o.desc || '', result: `${o.label}。結果は来月の月報で分かる。` })) });

@@ -4,6 +4,15 @@
   const SIM = g.SIMDATA, Y = SIM.y2, BK = SIM.y2books;
   // 置き値（取りまとめ時にcoef.jsへ）。PR #2 / DESIGN-RAMEN e.6。
   const COEF = {
+    itemStockMonths:{v:3,lo:3,hi:3,source:'取りまとめ役回答6385102972・6385248922。仕入月を含め3か月'},
+    itemExpiredPrice:{v:0,lo:0,hi:0,source:'取りまとめ役回答6385102972。3か月後の売れる値段0円'},
+    bonusToken:{v:20000,lo:10000,hi:30000,source:'オーナーの決定10/24・取りまとめ役回答6385119292'},
+    bonusStandard:{v:60000,lo:60000,hi:60000,source:'オーナーの決定10/24・取りまとめ役回答6385119292'},
+    bonusGenerous:{v:100000,lo:80000,hi:120000,source:'オーナーの決定10/24・取りまとめ役回答6385119292'},
+    bonusGenerousLeave:{v:0.0075,lo:0.005,hi:0.01,source:'オーナーの決定10/24・取りまとめ役回答6385119292'},
+    bonusGenerousPressure:{v:0.02,lo:0.02,hi:0.02,source:'オーナーの決定10/24・取りまとめ役回答6385119292'},
+    leavingPay:{v:0.5,lo:0.4,hi:0.6,source:'取りまとめ役回答6385010670。退職月の半月分給与'},
+    leavingTime:{v:1,lo:1,hi:1,source:'取りまとめ役回答6385010670。店主の穴埋めで翌月の時間を減らす'},
     chainHiring:{v:0.5,lo:0.3,hi:0.7,source:'取りまとめ役回答6384880485。春のチェーン求人の確率'},
     staffExperience:{v:0.1,lo:0.05,hi:0.15,source:'取りまとめ役回答6384822252。勤続6か月後の上限増加'},
     staffExperienceMonths:{v:6,lo:6,hi:6,source:'取りまとめ役回答6384822252'},
@@ -41,6 +50,7 @@
   const issue = add({id:'issue',title:'次の店のため、何株を渡す？',scope:['s-stock'],when:schedule(2,4),
     talk:[['kabunushi','店を増やすなら、お金を出すことを考えています。株を少なくするほど1株は高くなりますが、出す総額は小さくなります。']],
     options:COEF.issue.v.map(([n,p])=>({id:`s${n}`,label:`${n}株・1株${money(p)}円`,desc:`集まるお金${money(n*p)}円。既存の株は300株。`,outcomes:[{id:'paid',w:100,label:'約束した額が払い込まれた',flow:'capital',cash:n*p,fx:W=>{W.flags.y2Shares=(W.flags.y2Shares || COEF.initialShares.v)+n;}}]})),
+    optionsFor:S=>issue.options.map(o=>({...o,desc:`集まるお金${money(o.outcomes[0].cash)}円。今ある株は${(S.W&&S.W.flags.y2Shares)||COEF.initialShares.v}株。渡す株が多いほど既存株主の割合は小さくなる。`})),
     calcs:t=>[Y1calc(`issue-amount@${t}`,['s-stock'],'次の店へ使えるお金',S=>{const o=issue.options.find(o=>o.id===choice(S,'issue',t,'s500'));const pair=COEF.issue.v.find(x=>o.id===`s${x[0]}`);return [['渡す株数',pair[0]],['1株の値段',pair[1]]];},'払い込んでもらえる額はいくら？',S=>issue.options.find(o=>o.id===choice(S,'issue',t,'s500')).outcomes[0].cash,'株数と1株の値段を掛ける。株数の多さと、集まるお金は同じ物差しではない。')],
     extra:t=>[{t:'decision',id:`capital@${t}`,q:'受け取る額を、どちらの形で残す？',options:[{id:'all',label:'全額を資本金にする',desc:'出してもらった額を、ひとつの札に残す。',result:'受け取る全額を資本金に残す。'},{id:'half',label:'決まりの範囲で、資本準備金にも分ける',desc:'会社に残るお金の合計は同じ。使えるお金が増えるわけではない。',result:'資本金と資本準備金に分ける。合計のお金は同じ。'}]}],
     docs:t=>[doc('zoushi','新株の払込の通帳',S=>[['摘要','新しい株主からの払込み'],['お預け入れ',amount(S,'issue',t,5000000),'amt']],S=>{const a=amount(S,'issue',t,5000000),half=choice(S,'capital',t-1,'all')==='half';return je([['普通預金',a]],half?[['資本金',a/2],['資本準備金',a/2]]:[['資本金',a]]);},['資本準備金'])]
@@ -64,8 +74,8 @@
     options:[['none','配らない',0],['half','配れる額の半分',0.5],['eighty','配れる額の8割',0.8]].map(([id,label,ratio])=>({id,label,desc:ratio?'口座から出す額と、次の店に残す額を比べる。':'店にお金を残す。株主への説明が要る。',outcomes:[{id:'paid',w:100,label:ratio?'総会で決めた額を支払った':'会社に残した',flow:'capital',cash:W=>-divAmount(W,ratio)}]})),
     calcs:t=>[Y1calc(`div-limit@${t}`,['s-dividend'],'分ける前に、会社に残す額を確かめる',S=>{const q=dividendQuote(S);return [['去年までのもうけの残り',q.retained],['返さなくてよいお金の合計',q.equity],['株の数',q.shares],['1株に配れる上限（先生の計算書）',q.per]];},'1株の上限に株の数を掛けると、総額の上限はいくら？',S=>{const q=dividendQuote(S);return q.per*q.shares;},'利益を全部配るのではなく、会社に残す分を差し引いてから株の数で割り、端数を切り捨てる。')],
     docs:t=>[
-      doc('dividend-dec','株主総会議事録・会社に残す分',S=>{const a=-amount(S,'dividend',t,0),q=(S.W && S.W.flags.y2Dividend) || dividendQuote(S);return [['配当の総額',a,'amt'],['準備金を積める残りの枠',q.need,'amt'],['積む額（資料の条件）',Math.min(Math.floor(a/10),q.need),'amt']];},S=>{const a=-amount(S,'dividend',t,0),q=(S.W && S.W.flags.y2Dividend) || dividendQuote(S),r=Math.min(Math.floor(a/10),q.need);return je([['繰越利益剰余金',a+r]],[['未払配当金',a],['利益準備金',r]]);},['繰越利益剰余金','未払配当金','利益準備金']),
-      doc('dividend-pay','配当の支払の通帳',S=>[['お引出し',-amount(S,'dividend',t,0),'amt']],S=>{const a=-amount(S,'dividend',t,0);return je([['未払配当金',a]],[['普通預金',a]]);},['未払配当金'])
+      {...doc('dividend-dec','株主総会議事録・会社に残す分',S=>{const a=-amount(S,'dividend',t,0),q=(S.W && S.W.flags.y2Dividend) || dividendQuote(S);return [['配当の総額',a,'amt'],['準備金を積める残りの枠',q.need,'amt'],['積む額（資料の条件）',Math.min(Math.floor(a/10),q.need),'amt']];},S=>{const a=-amount(S,'dividend',t,0),q=(S.W && S.W.flags.y2Dividend) || dividendQuote(S),r=Math.min(Math.floor(a/10),q.need);return je([['繰越利益剰余金',a+r]],[['未払配当金',a],['利益準備金',r]]);},['繰越利益剰余金','未払配当金','利益準備金']),when:S=>-amount(S,'dividend',t,0)>0},
+      {...doc('dividend-pay','配当の支払の通帳',S=>[['お引出し',-amount(S,'dividend',t,0),'amt']],S=>{const a=-amount(S,'dividend',t,0);return je([['未払配当金',a]],[['普通預金',a]]);},['未払配当金']),when:S=>-amount(S,'dividend',t,0)>0}
     ]
   });
   const site2 = add({id:'site2',title:'2号店を、どこにどの形で出す？',scope:['s-kensetsu','s-honshiten'],
@@ -100,7 +110,7 @@
       {...doc('honten','2号店の帳簿・本店から受け取る',S=>[['本店からの入金',transfer(S),'amt'],['記帳する帳簿','2号店']],S=>je([['普通預金',transfer(S)]],[['本店',transfer(S)]]),['本店']),id:`site2-doc4@${t}`},
       {...doc('internal-elimination','会社全体を合わせるための消去',S=>[['会社の中で送った額',transfer(S),'amt'],['メモ','本店と支店の両方の帳簿を合わせた表だけで消す。外との取引ではない。']],S=>je([['本店',transfer(S)]],[['支店',transfer(S)]]),['本店','支店']),id:`site2-doc5@${t}`},
     ].map(e=>({...e,card:'site2',scope:site2.scope,ramenT:t,when:done,doc:{...e.doc,date:`${Y.MON[t%12]}月`}}));
-    return [{...discovery,when:S=>done(S)&&!(S.discDone || {})[discovery.id]},...documents];
+    return [{...discovery,when:S=>done(S)&&((S.discDone || {})[discovery.id]==null||(S.discDone || {})[discovery.id]===S.mi)},...documents];
   };
   Object.assign(COEF,{
     prototype:{v:30000,lo:30000,hi:60000,source:'版1.2.1の取りまとめ役承認6383573548・e.8。試作3万/6万'},
@@ -137,7 +147,7 @@
     docs:t=>[expenseDoc('rd','冷凍麺の試作・売れるかはまだ未確定','研究開発費','frozen_noodle',t,30000)]
   });
   const items=add({id:'ticket_items',title:'店の鉢を、おみやげに売る？',scope:['s-taiwitsu'],when:schedule(2,12),talk:[['eigyo','この鉢を買って帰りたいというお客さんがいます。仕入れて並べますか。']],
-    options:[...[10,20].map(n=>({id:`n${n}`,label:`${n}個仕入れて並べる`,desc:'1個600円で仕入、1,000円で販売。需要は6〜18個。売れ残りは商品として残る。',outcomes:Array.from({length:13},(_,i)=>i+6).map(demand=>({id:`d${demand}`,w:100/13,label:`需要${demand}個、${Math.min(n,demand)}個売れた`,cash:Math.min(n,demand)*1000-n*600,fx:W=>{W.flags.y2Items={bought:n,sold:Math.min(n,demand),demand};}}))})),{id:'no',label:'売らない',desc:'在庫を持たず、ラーメンの販売を続ける。',outcomes:[{id:'keep',w:100,label:'鉢は仕入れなかった'}]}],
+    options:[...[10,20].map(n=>({id:`n${n}`,label:`${n}個仕入れて並べる`,desc:'1個600円で仕入、1,000円で販売。需要は6〜18個。売れ残りは商品として残る。',outcomes:Array.from({length:13},(_,i)=>i+6).map(demand=>({id:`d${demand}`,w:100/13,label:`需要${demand}個、${Math.min(n,demand)}個売れた`,cash:Math.min(n,demand)*1000-n*600,fx:W=>{W.flags.y2Items={bought:n,sold:Math.min(n,demand),demand};(W.flags.y2ItemBatches||=[]).push({at:W.t,remaining:n-Math.min(n,demand)});}}))})),{id:'no',label:'売らない',desc:'在庫を持たず、ラーメンの販売を続ける。',outcomes:[{id:'keep',w:100,label:'鉢は仕入れなかった'}]}],
     docs:t=>{const x=S=>{const c=actualChoice(S,'ticket_items',t);return c&&c.option!=='no'?{bought:+c.option.slice(1),sold:Math.min(+c.option.slice(1),+c.outcome.slice(1))}:{bought:10,sold:8};};return [
       doc('items-buy','販売用の鉢の仕入れ',S=>[['仕入数',x(S).bought],['1個の仕入価格',600,'amt']],S=>je([['商品',x(S).bought*600]],[['普通預金',x(S).bought*600]]),['商品']),
       doc('taiwitsu','鉢の販売・売れた値段と仕入れた値段',S=>[['販売数',x(S).sold],['1個の売価',1000,'amt'],['1個の原価',600,'amt']],S=>je([['普通預金',x(S).sold*1000],['売上原価',x(S).sold*600]],[['売上',x(S).sold*1000],['商品',x(S).sold*600]]),['商品','売上原価'])
@@ -168,9 +178,9 @@
       if(c.automatic)continue;
       const dealt=S=>((S.dealt || {})[t] || []).includes(c.id);
       if(c.when(date(t))){
-        if(c.intro) out.push({...c.intro,when:S=>dealt(S)&&!(S.discDone || {})[c.intro.id]});
-        if(c.id==='issue') out.push({...capitalDiscovery,when:S=>dealt(S)&&!(S.discDone || {})[capitalDiscovery.id]});
-        if(c.id==='dividend') out.push({...dividendDiscovery,when:S=>dealt(S)&&!(S.discDone || {})[dividendDiscovery.id]});
+        if(c.intro) out.push({...c.intro,when:S=>dealt(S)&&((S.discDone || {})[c.intro.id]==null||(S.discDone || {})[c.intro.id]===S.mi)});
+        if(c.id==='issue') out.push({...capitalDiscovery,when:S=>dealt(S)&&((S.discDone || {})[capitalDiscovery.id]==null||(S.discDone || {})[capitalDiscovery.id]===S.mi)});
+        if(c.id==='dividend') out.push({...dividendDiscovery,when:S=>dealt(S)&&((S.discDone || {})[dividendDiscovery.id]==null||(S.discDone || {})[dividendDiscovery.id]===S.mi)});
         out.push({t:'decision',id:`${c.id}@${t}`,card:c.id,optionsFor:c.optionsFor?(S=>c.optionsFor(S,t).map(o=>({...o,result:o.result||'結果は翌月の書類と月報で確かめよう。'}))):undefined,ramenT:t,when:dealt,q:c.title,talk:c.talk,options:c.options.map(o=>({id:o.id,label:o.label,desc:o.desc,result:'条件を決めた。結果の書類は、翌月に届く。'}))});
         if(c.calcs) out.push(...c.calcs(t).map(e=>({...e,when:dealt})));
         if(c.extra) out.push(...c.extra(t).map(e=>({...e,when:S=>dealt(S)&&(!e.when || e.when(S))})));

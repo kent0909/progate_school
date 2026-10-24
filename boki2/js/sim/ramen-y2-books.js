@@ -63,7 +63,7 @@
       if(/^sal\d+$/.test(id))return 'salary';if(/^util\d+$/.test(id))return 'util';if(/^rent\d+$/.test(id))return 'rent';
       if(/^repay\d+$/.test(id)||/^borrowed\d+$/.test(id))return 'finance';if(/^other\d+$/.test(id))return 'other';
       if(/^(flyerpay|ads-other)\d+$/.test(id))return 'ads';if(/^tax-pay/.test(id))return 'tax';if(id==='fee-3')return 'fee';
-      if(/-doc\d+@/.test(id)||/^fx\d+$/.test(id)||/^(equipment-pay|spare-storage|close-restore|staff-cost|repair-failure)@/.test(id))return 'cards';
+      if(/-doc\d+@/.test(id)||/^fx\d+$/.test(id)||/^(equipment-pay|items-stock-sale|spare-storage|close-restore|staff-cost|staff-left-pay|repair-failure)@/.test(id))return 'cards';
       return null;
     };
     const entries=(S[side]||[]).filter(e=>monthOf(e)==null||monthOf(e)<=t);

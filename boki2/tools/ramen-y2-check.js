@@ -114,7 +114,10 @@ function story(seed, choices = {}) {
       if(e.t==='plan'){D.ramen.plan(S,e.ramenT,D.ramen.policy(S,e.ramenT));finite(S.W,'世界');finite(S.res[e.ramenT],'月報');}
       if(e.t==='doc'){post(typeof e.ans==='function'?e.ans(S):e.ans,e,m,mi);docs++;}
       if(e.t==='calc'){const a=typeof e.answer==='function'?e.answer(S):e.answer;assert.ok(Number.isFinite(a),e.id);calcs++;}
-      if(e.t==='discover')S.discDone[e.id]=mi;
+      if(e.t==='discover'){
+        const before=m.events.filter(x=>!x.when||x.when(S)),index=before.indexOf(e);S.discDone[e.id]=mi;
+        const after=m.events.filter(x=>!x.when||x.when(S));assert.equal(after[index],e,`説明後に一覧が詰まって次を飛ばす：${e.id}`); // 承認6385266883：1年目も対象。
+      }
       if(e.t==='rreport'){for(const a of e.auto(S))post(a,a,m,mi);if(e.ramenT>=12){
         const t=e.ramenT,r=S.res[t],W=S.W;
         (S.shareLog ||= {})[t]={me:r.stores?r.stores[0].N:r.N,rivals:W.rivals.filter(x=>(x.area||W.area)===W.area).map(x=>({id:x.id,name:x.name,type:x.type,N:x.lastN||0,R:x.R,open:x.open!==false}))};
@@ -134,16 +137,25 @@ function story(seed, choices = {}) {
   const book=D.y2books,entries=S.T.filter(e=>!e.closing);
   const expenseFor=re=>entries.filter(e=>re.test(e.ev||'')).reduce((n,e)=>n+book.income([e]).expense,0);
   if(S.W.flags.y2RepairPaid)assert.equal(expenseFor(/^(maintain_y2-doc0@35|maintain_y2-doc1@36)$/),260000,'修理の見積りと支払で費用を二重計上');
-  if(S.W.flags.staffBonus&&S.W.flags.staffBonus.kind==='promise')assert.equal(expenseFor(/^bonus-doc[12]@/),60000*(S.W.flags.bonusCount||0),'賞与の引当と支払で費用を二重計上');
+  if(S.W.flags.staffBonus&&S.W.flags.staffBonus.kind==='promise')assert.equal(expenseFor(/^bonus-doc[12]@/),D.y2.assets.unitBonus(S)*(S.W.flags.bonusCount||0),'賞与の引当と支払で費用を二重計上');
   return {S,docs,calcs,seen};
+}
+function extendWorld(S,endT=44){
+  for(let t=S.W.t;t<=endT;t++){
+    const pol=D.ramen.policy(S,t);S.W.flags.y2CurrentDealt=[];D.y2.beforePlan(S,t,pol);
+    const r=wd.month(S.W,pol,{carry:D.y2.carry(S,t),noCards:true,noFactors:true,rng:D.rng((S.seed+1)*7919+t*104729)});
+    S.W=r.W;S.res[t]=r.res;S.pols[t]={...pol,parts:r.W.stores[0].parts,family:r.W.stores[0].family};D.y2.afterPlan(S,t,r);finite(r,'本編後の世界だけの延長');
+  }
+  return S;
 }
 function forcedStory(seed,choices,target,outcome){
   const original=D.decide.resolve;
   D.decide.resolve=(card,opt,W,rng)=>{
-    if(card.id!==target)return original(card,opt,W,rng);
-    const result=card.options.find(x=>x.id===opt).outcomes.find(x=>x.id===outcome);
+    const selected=(choices.__outcomes||{})[card.id]||(card.id===target?outcome:null);
+    if(!selected)return original(card,opt,W,rng);
+    const result=card.options.find(x=>x.id===opt).outcomes.find(x=>x.id===selected);
     if(!result)return original(card,opt,W,rng); // 審査で対象の選択肢が選べなかったケースは、到達の集計で失敗として扱う。
-    return {id:outcome,outcome:result,weights:D.decide.weights(card,opt,W)};
+    return {id:selected,outcome:result,weights:D.decide.weights(card,opt,W)};
   };
   try{return story(seed,choices);}finally{D.decide.resolve=original;}
 }
@@ -171,7 +183,8 @@ if (!process.argv.includes('--world')) {
     for(const card of D.y2.cards.cards)for(const option of card.options)for(const outcome of option.outcomes){
       let found=false;
       for(const seed of [3,0,7]){
-        const prerequisites={finance_asset:'installment',maintain_y2:'break',maintain_replace:'keep',bonus:'promise',[card.id]:option.id};
+        const prerequisites={finance_asset:'installment',maintain_y2:'break',maintain_replace:'keep',bonus:'standard',[card.id]:option.id};
+        if(card.id==='items_stock_sale')prerequisites.ticket_items='n20';
         if(card.id==='equipment_purchase')prerequisites.finance_asset='loan';
         if(card.id==='repair_pay')prerequisites.maintain_y2='plan';
         if(card.id==='close_restore')prerequisites.close='close';
@@ -203,25 +216,32 @@ if (!process.argv.includes('--world')) {
     }
     require('fs').writeFileSync(process.env.Y2_COMPARE_OUT||require('path').join(require('os').tmpdir(),'ramen-y2-choices.json'),JSON.stringify(summary,null,2));
   }
+  {
+    const {S}=forcedStory(0,{ticket_items:'n20',__outcomes:{ticket_items:'d6',items_stock_sale:'d6'}},'ticket_items','d6');
+    for(const y of [2,3]){const entry=S.T.find(e=>e.ev===`items-stock-value${y}`);assert.ok(entry,'売れ残り評価の経路がない');assert.equal(D.y2books.balance([entry],'商品評価損'),1200);}
+    assert.equal(D.y2books.balance(S.T,'商品'),0,'3か月の販売と評価後に商品の残高が残る');
+    const itemEntries=S.T.filter(e=>/^(ticket_items-doc|items-stock-sale@|items-stock-value)/.test(e.ev||''));assert.equal(D.y2books.income(itemEntries).net,12000);
+    console.log('OK：物販は先月の残りから販売・3月末の売れ残り評価・費用の二重計上なし');
+  }
   // 制度の24か月比較は、本編での導入時期と分けた反実仮想。
   if(process.argv.includes('--bonus-model')){
     const rows=[];
-    for(let seed=0;seed<24;seed++)for(const enabled of [false,true]){
+    for(let seed=0;seed<24;seed++)for(const tier of ['token','standard','generous']){
       const S={seed,decisions:{},T:[],res:{},W:wd.create({seed}),cardOutcomes:[]};S.W.t=12;S.W.y=2;S.W.m=4;
-      S.W.flags.staffBonus={kind:enabled?'promise':'none'};
+      S.W.flags.staffBonus={kind:'promise',tier,amount:D.y2.cards.coef[{token:'bonusToken',standard:'bonusStandard',generous:'bonusGenerous'}[tier]].v};
       for(let t=12;t<36;t++){
         S.W.flags.y2CurrentDealt=t===18?['minwage_y2']:t===30?['minwage_y3']:[];const pol=wd.policy0(S.W);pol.parts+=(S.W.flags.y2PendingHires || []).filter(x=>x.store===0).length;D.y2.beforePlan(S,t,pol);
         const carry=[...((S.W.flags.y2Recruiting||[]).length?[{id:'staff_hire',option:'hire',t:t-1}]:[]),...((S.W.flags.y2Departures||[]).length?[{id:'staff_leave',option:'leave',t:t-1}]:[])];
-        if(enabled&&t%12===2){S.W.flags.bonusCount=S.W.stores.filter(x=>x.open!==false).reduce((n,x)=>n+x.parts,0);carry.push({id:'bonus_pay',option:'pay',t:t-1});}
+        if(t%12===2){S.W.flags.bonusCount=S.W.stores.filter(x=>x.open!==false).reduce((n,x)=>n+x.parts,0);carry.push({id:'bonus_pay',option:'pay',t:t-1});}
         const r=wd.month(S.W,pol,{carry,noCards:true,noFactors:true});S.W=r.W;S.res[t]=r.res;D.y2.afterPlan(S,t,r);finite(r,'賞与モデル');
       }
-      rows.push({seed,enabled,y2:S.res[23].cash,y3:S.res[35].cash,busy:Object.values(S.res).filter(r=>r.fullDays>0).length/24});
+      rows.push({seed,tier,y2:S.res[23].cash,y3:S.res[35].cash,busy:Object.values(S.res).filter(r=>r.fullDays>0).length/24});
     }
     console.log('賞与制度・検査専用24か月：'+JSON.stringify(rows));
   }
   // 比較の条件を固定し、勝率を合格条件にしない。金額の釣り合いは報告対象。
   if(process.argv.includes('--bonus-story')){
-    const rows=[];for(let seed=0;seed<24;seed++)for(const bonus of ['promise','none']){const {S}=story(seed,{bonus});rows.push({seed,bonus,y2:S.res[23].cash,y3:S.res[35].cash,y4June:S.res[38].cash,chainHiring:!!S.W.flags.y2ChainHiring,busy:Object.values(S.res).filter(r=>r.t>=32&&r.fullDays>0).length/7});}
+    const rows=[];for(let seed=0;seed<24;seed++)for(const bonus of ['token','standard','generous']){const {S}=story(seed,{bonus});extendWorld(S);rows.push({seed,bonus,y2:S.res[23].cash,y3:S.res[35].cash,y4June:S.res[38].cash,y4Nov:S.res[44].cash,chainHiring:!!S.W.flags.y2ChainHiring,busy:Object.values(S.res).filter(r=>r.t>=32&&r.fullDays>0).length/13});}
     console.log('賞与制度・本編の時期：'+JSON.stringify(rows));
   }
   if(process.argv.includes('--compare')){

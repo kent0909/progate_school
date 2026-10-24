@@ -269,6 +269,7 @@
     const prevPrice = me.price;
     me.price = Math.max(PRICE_MIN, Math.min(PRICE_MAX, Math.round(pol.price)));
     me.parts = Math.max(0, Math.min(C('hireMax'), pol.parts));
+    if(W.t>=12&&me.partTenure&&SIM.y2&&SIM.y2.people)SIM.y2.people.updateCapacity(me);
     me.family = Math.max(0, Math.min(C('familyMax'), pol.family));
     me.coupon = !!pol.coupon;
     me.mapMul = pol.map ? C('mapBoost') : me.mapDone ? 1 : C('mapNone');
