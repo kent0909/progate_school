@@ -40,11 +40,13 @@ for(const v of variants){
   add('家族/'+mode,v,'3年末 '+fmt(a)+'<br>5年末 '+fmt(b),mode==='放置どうし'?a.pct>=60&&a.pct<=80:a.pct<=40,mode==='放置どうし'?'3年末60〜80%':'3年末≤40%');
   raw.push({variant:v,row:'家族/'+mode+'/3年末',...a},{variant:v,row:'家族/'+mode+'/5年末',...b});
  }
- const errors=s.split('\n').filter(l=>/^係数：|^上手.*：基礎|^基礎が放置に勝つ周|^仕入先：高い|^看板：|^原価の予兆：|^F7：|^詰み：|^値段：.*（|^値段：1年目|^店の形：|^平均の店：|^雇いすぎ：|^出ない札：/.test(l));
+ const lines=s.split('\n'), end=lines.findIndex(l=>/^\d+ 件（[\d.]+秒）$/.test(l));
+ const errors=end<0?[]:lines.slice(0,end).filter(l=>l.trim()&&!/^#|^影の線|^予兆：|^OK：画面|^参考探索だけ除外/.test(l));
+ if(end>=0&&errors.length!==Number(lines[end].match(/^\d+/)[0]))throw Error(v+': 不合格行を全件抽出できない');
  add('正式検査の終了コード',v,fs.readFileSync(path.join(dir,`formal-${v}.exit`),'utf8').trim(),fs.readFileSync(path.join(dir,`formal-${v}.exit`),'utf8').trim()==='0','0');
  add('正式検査の失敗行',v,errors.join('<br>')||'なし',!errors.length,'基準変更なし');
 }
-const out=['# (b) 版1.2.1の正式検査行','','実行: `RAMEN_Y1_VARIANT=<ID> node -r ./boki2/docs/analysis/ramen-y1-economy-load.js boki2/tools/sim-check.js --ramen --runs 300 --info`。本体と検査のコードは無変更。価格の長期入れ替わりは正式検査の内蔵上限で150周、他の主行は300周（予兆は対象の町のみ）。各率に分子/分母とWilson95%を併記。合否は元の検査と同じ点推定の線で判定する。区間は母集団推定の幅であり、合否の線の変更には使わない。','','|正式行|基準|'+variants.map(v=>configs[v].label).join('|')+'|','|---|---|'+variants.map(()=>'---').join('|')+'|'];
+const out=['# (b) 版1.2.1の正式検査行','','実行: `RAMEN_Y1_VARIANT=<ID> node -r ./boki2/docs/analysis/ramen-y1-economy-formal-hook.js -r ./boki2/docs/analysis/ramen-y1-economy-load.js boki2/tools/sim-check.js --ramen --runs 300 --info`。本体と検査のファイルは無変更。読み込み時に合否に使わない2つの参考探索だけを除く（差分8行を添付）。全ての合否の計算と閾値は残す。価格の長期入れ替わりは正式検査の内蔵上限で150周、他の主行は300周（予兆は対象の町のみ）。各率に分子/分母とWilson95%を併記。合否は元の検査と同じ点推定の線で判定する。区間は母集団推定の幅であり、合否の線の変更には使わない。','','|正式行|基準|'+variants.map(v=>configs[v].label).join('|')+'|','|---|---|'+variants.map(()=>'---').join('|')+'|'];
 for(const [id,row]of Object.entries(entries))out.push(`|${id}|${row.criterion}|${variants.map(v=>{const c=row.cells[v];return `${c.pass?'○':'✗'} ${c.value}`;}).join('|')}|`);
 fs.writeFileSync(path.join(dir,'proposals-b.md'),out.join('\n')+'\n');
 fs.writeFileSync(path.join(dir,'formal-counts.json'),JSON.stringify(raw,null,2)+'\n');

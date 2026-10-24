@@ -1,0 +1,24 @@
+--- a/boki2/tools/sim-ramen.js
++++ b/boki2/tools/sim-ramen.js
+@@ -519,11 +519,6 @@
+     const seed = SEED0 + s, strategy = Math.floor(seed / 3) % 3;
+     const W = Wd.create({ seed, area: AREAS[seed % 3], form: 'part1', tier: 0, bowl: BW.presets[seed % 3].spec });
+     const fixedPrices=Object.fromEntries(W.rivals.map(r=>[r.id,r.price]));
+-    const fine = pricePlan(W,strategy,0,null,Array.from({length:41},(_,i)=>600+10*i));
+-    if(fine){fineP.push(fine.prices[0]);if(fine.prices[0]<850&&fine.prices[2]>850)fineSwap++;if(Math.abs(fine.prices[0]-765)<=10)corner++;}
+-    const fixed = pricePlan(W,strategy,0,fixedPrices);
+-    if(fixed && fixed.prices[0]<850 && fixed.prices[2]>850) fixedSwap++;
+-    if(fixed && fixed.prices[0]===YEAR_PRICES[0]) fixedFloor++;
+     const best = pricePlan(W, strategy);
+     runs++; // 全候補が倒産したseedも母数に残す
+     if (!best) continue;
+@@ -547,9 +542,6 @@
+   if(mode&&pct(mode[1],runs)>=70)err('値段：1年目最頻値が70%以上');
+   info.push(`値段：長期逆転Wilson95% ${wilson(swap,runs)}、1年目最頻値${mode?.[0]}円 ${pct(mode?.[1]||0,runs)}%、下端${pct(firstFloor,runs)}%`);
+   info.push(`値段（上手な3方針・${runs}周）：36か月累計の入れ替わり ${pct(swap, runs)}%、±50円の符号逆転 ${pct(signSwap, runs)}%、最適の中央値 ${median(bestP.map(x=>x[0]))}→${median(bestP.map(x=>x[1]))}→${median(bestP.map(x=>x[2]))}円。年別700〜1,000円・50円刻みの343経路を全探索（札なし・週の揺れなし）。毎月自由に変える大域最適ではない`);
+-  info.push(`診断（合否なし・${runs}周）：ライバル反応ありの長期逆転${pct(swap,runs)}%／他店価格固定${pct(fixedSwap,runs)}%、1年目最適が下端700円${pct(firstFloor,runs)}%／固定${pct(fixedFloor,runs)}%`);
+-  const ff={};fineP.forEach(p=>ff[p]=(ff[p]||0)+1);const fm=Object.entries(ff).sort((a,b)=>b[1]-a[1])[0];
+-  info.push(`1年目10円刻み（参考・${runs}周）：長期逆転${pct(fineSwap,runs)}%、最頻値${fm?.[0]}円 ${pct(fm?.[1]||0,runs)}%、角765±10円 ${pct(corner,runs)}%`);
+   info.push(`±50円の今月の営業利益差の中央値：1年目 ${[0,1].map(i=>Math.round(median(changes.map(x=>x[0][i])))).join('/')}円、3年目 ${[0,1].map(i=>Math.round(median(changes.map(x=>x[1][i])))).join('/')}円（値下げ/値上げ）`);
+ }
+ 
