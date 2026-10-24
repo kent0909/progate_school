@@ -31,6 +31,7 @@
   const cardPart = (S, t) => salesNet(S, t) - cashPart(S, t);
   const vat10 = (n) => Math.floor(n * 0.1), vat8 = (n) => Math.floor(n * 0.08);
   const split = (n) => { const out = Math.round(n * 0.05); return { inn: n - out, out }; };
+  const bulkPaidAmt = (S) => (S && S.res && S.res[9] && S.res[9].bulkPaid) || C('bulkPay');
   const buyAmt = (S, t) => Math.round(R(S, t).cogs + R(S, t).wasteCost);
   const rentAmt = (S, t) => Math.round(R(S, t).rent);
   const RENT_A = (S) => window.BOKI.kubun.Y(S).rent;
@@ -164,10 +165,10 @@
         { id: 'ekimae', label: '駅前の店（家賃20万円）', desc: '人通りが多い。安い店が近くにある', result: '駅前の店に決めた。' },
       ] },
     { t: 'decision', id: 'form', q: '店をだれで回す？', talk: [['shacho', 'ぼくが厨房に立つ。あとは、だれに手伝ってもらう？'], ['senpai', '人を増やすと回せる客は増えるけど、給料も増える。ふつうの店はパート1人から始めることが多いよ。']],
-      trial: (S, o) => [['月の給料（パート）', o === 'family' ? 0 : o === 'part2' ? 400000 : 200000], ['1日に回せる客', o === 'family' ? '35人まで' : o === 'part2' ? '100人まで' : '70人まで']],
+      trial: (S, o) => [['月の給料', SIM.world.laborOf(SIM.world.FORMS[o])], ['1日に回せる客', o === 'family' ? '45人まで' : o === 'part2' ? '100人まで' : '70人まで']],
       options: [
         { id: 'part1', label: 'パート1人（おすすめ）', desc: '昼の山はパートさんと2人で', result: 'パート1人を雇うことにした。' },
-        { id: 'family', label: '家族で小さく（社長の家族1人。給料はもうけから）', desc: '人のお金はかからないが、回せる客は少ない', result: '社長の家族と2人で回すことにした。' },
+        { id: 'family', label: '家族で小さく（社長の家族1人。月の給料12万円）', desc: '赤字の月も給料を払う。回せる客は45人まで', result: '社長の家族と2人で回すことにした。' },
         { id: 'part2', label: 'パート2人（昼と夜）', desc: '回せる客は多いが、給料が重い', result: 'パート2人を雇うことにした。' },
       ] },
     { t: 'talk', teaches: ['融資'], lines: [['ginko', 'みらい銀行の田中です。公庫の創業の融資が決まりました。'], ['senpai', 'お金を貸してもらうことを「融資」という。700万円を年2.5%で7年。最初の3か月は利息をためておき、7月から毎月返す約束だ。']] },
@@ -181,6 +182,18 @@
   ];
   // ---------- 開店の前③：前の店の内装と器材（取得原価・付随費用）、一杯を決める ----------
   const pre3 = [
+    // 版1.2 (s.2)：開店時に選ぶ。描画は既存decisionと同じ形。
+    { t: 'decision', id: 'sign', q: '店の看板はどうする？', options: [
+      { id: 'none', label: '付けない', desc: '看板のお金を使わず始める', result: '看板を付けずに始める。' },
+      { id: 'small', label: '小さな看板', desc: '7月に10万円。店を知ってもらう', result: '7月に小さな看板を付ける。' },
+      { id: 'large', label: '大きな看板', desc: '7月から。50万円と月2,500円。許可は0〜2か月遅れることがある', result: '大きな看板の許可を申し込む。' },
+      { id: 'later', label: '大きな看板をあとで', desc: '2年目7月から。お金を残して始める', result: '大きな看板は2年目に回す。' },
+    ] },
+    { t: 'decision', id: 'supplier', q: '材料をどの問屋から買う？', options: [
+      { id: 'cheap', label: '安い問屋', desc: '材料代は安い。味の質が少し落ち、ときどき不良がある', result: '安い問屋から買う。月ごとに替えられる。' },
+      { id: 'std', label: '標準の問屋', desc: 'いつもの材料と値段', result: '標準の問屋から買う。月ごとに替えられる。' },
+      { id: 'high', label: '高い問屋', desc: '味の質が上がる。材料代が高く、ほかに月3万円', result: '高い問屋から買う。月ごとに替えられる。' },
+    ] },
     { t: 'discover', id: 'd-cost', moves: ['資産+', '資産-'], p: 'P4', title: '内装と器材は、いくら？',
       b1: { talk: [['shacho', '前の店の内装と厨房を140万円で買って、名義を移す手続きに10万円。寸胴や券売機は55万円で、運んで取り付けるのに5万円だって。'], ['piyo', '手続きや取り付けのお金も、内装や器材の値段ピヨ？']],
         doc: { type: '請求書', title: '請求書（業務用の器材）', from: '山中厨房', to: SHOP, date: '3月20日', rows: [['寸胴・券売機ほか', 550000, 'amt'], ['運送・取り付け', 50000, 'amt'], ['合計', 600000, 'amt']] } },
@@ -387,13 +400,15 @@
     calc('bankrec', { scope: ['s-bankrec'], title: '通帳と帳簿のずれをそろえる', talk: [['kansa', '11月30日、通帳は1,215,000円、帳簿の普通預金は1,240,000円。ずれの理由は2つありました。']],
       rows: [['帳簿に書き忘れた振込の手数料', 660], ['夜間に預けた売上で、通帳にまだ出ていない分（12月1日に入る）', 24340]], q: '帳簿を直したあとの普通預金の残りは、いくら？', answer: () => 1240000 - 660, unit: '円', why: '書き忘れの手数料660円だけ帳簿を直して1,239,340円。通帳の1,215,000円に、まだ出ていない入金24,340円を足しても1,239,340円。両方がそろったので、帳簿の数が正しいと言える。' })];
   Y1[8] = [salesDoc(8), cardDoc(8), cardIn(8), buyDoc(8), payAP(8), salaryDoc(8), utilDoc(8), rentDoc(8), repayDoc(8), flyerPay(8), flyerDoc(8), couponDoc(8)];
-  Y1[9] = [salesDoc(9), cardDoc(9), cardIn(9), buyDoc(9), payAP(9), salaryDoc(9), utilDoc(9), rentDoc(9), repayDoc(9), flyerPay(9), flyerDoc(9), couponDoc(9)];
+  Y1[9] = [salesDoc(9), cardDoc(9), cardIn(9), buyDoc(9), { t: 'doc', kind: 'buy_bulk', id: 'buy-bulk9', scope: ['s-sanbunpo'], when: (S) => !!(S.res && S.res[9] && S.res[9].bulkPaid), doc: { type: '領収書', title: 'まとめ買いの小麦（1月）', from: '杉田食品', to: SHOP, date: '1月末', rows: (S) => [['小麦（2年目4〜9月に使う分）', bulkPaidAmt(S), 'amt'], ['支払い', '普通預金から支払った']] }, ans: (S) => je([['仕入', bulkPaidAmt(S)]], [['普通預金', bulkPaidAmt(S)]]), opts: opts() }, payAP(9), salaryDoc(9), utilDoc(9), rentDoc(9), repayDoc(9), flyerPay(9), flyerDoc(9), couponDoc(9)];
   Y1[10] = [salesDoc(10), cardDoc(10), cardIn(10), buyDoc(10), payAP(10), salaryDoc(10), utilDoc(10), rentDoc(10), repayDoc(10), flyerPay(10), flyerDoc(10), couponDoc(10)];
   Y1[11] = [salesDoc(11), cardDoc(11), cardIn(11), buyDoc(11), payAP(11), salaryDoc(11), utilDoc(11), rentDoc(11), repayDoc(11), flyerPay(11), flyerDoc(11), couponDoc(11)];
 
   // ---------- 決算（3月31日）と翌4月 ----------
-  const stockAmt = (S) => Math.round(buyAmt(S, 11) * 0.15 / 100) * 100;
-  const genmoAmt = (S) => Math.round(stockAmt(S) * 0.05 / 10) * 10;
+  const stockBaseAmt = (S) => Math.round(buyAmt(S, 11) * 0.15 / 100) * 100;
+  // PR #1 / 6381276347：まとめ買いは翌年まで未使用。通常の材料だけに減耗を掛ける。
+  const stockAmt = (S) => stockBaseAmt(S) + ((S.res && S.res[9] && S.res[9].bulkPaid) || 0);
+  const genmoAmt = (S) => Math.round(stockBaseAmt(S) * 0.05 / 10) * 10;
   const bulkSpoil = (S) => ((S && S.cardOutcomes) || []).some((x) => x.card === 'bulk' && x.outcome === 'spoil');
   const newEquip = (S) => ((S && S.cardOutcomes) || []).find((x) => x.card === 'maintain' && x.option === 'new');
   const depEquip = (S) => { const n = newEquip(S); return 120000 + (n ? Math.round((300000 / 5) * (12 - n.t) / 12) : 0); };
@@ -555,6 +570,7 @@
   const ex = (f) => (t) => f(t.dr, t.cr);
   SIM.examText = {
     cash_sale: ex((dr) => `商品￥${yen(dr[0][1])}を売り上げ、代金は普通預金に入金された。`),
+    buy_bulk: ex((dr) => `商品￥${yen(dr[0][1])}をまとめて仕入れ、代金は普通預金から支払った。`),
     buy_cash: ex((dr) => `商品￥${yen(dr[0][1])}を仕入れ、代金は普通預金から支払った。`),
     buy_credit: ex((dr) => `商品￥${yen(dr[0][1])}を仕入れ、代金は掛けとした。`),
     pay_ap: ex((dr) => `買掛金￥${yen(dr[0][1])}を普通預金から支払った。`),
@@ -603,3 +619,4 @@
   SIM.y1 = { prologue, pre: [{ label: '開店の前（お金を集める）', title: '株式会社{店}、はじまる', events: pre1 }, { label: '開店の前（借りる）', title: '店を借りる・お金を借りる', events: pre2 }, { label: '開店の前（内装と一杯）', title: '前の店の内装と、看板の一杯', events: pre3 }],
     months: Y1, kessan: KESSAN, MON, CARD_FROM, VAT_FROM, polOf, R, salesNet, calc, disc: { dCapex } };
 })(typeof window !== 'undefined' ? window : globalThis);
+

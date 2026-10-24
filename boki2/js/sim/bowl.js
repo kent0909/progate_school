@@ -52,7 +52,7 @@
     b.lastPeak = { kind, h: x < w1 ? 'hit' : x < w1 + w2 ? 'mid' : 'miss' };
     return b;
   }
-  // 1か月：山は差の1/4ずつ元へ。基準は13か月目から −1.5%/月（段0は半分、常連が3割以上の店も半分）、下限0.6
+  // 1か月：山は差の1/4ずつ元へ。基準は13か月目から −2%/月（段0は半分。版1.2 (s)）、下限0.6
   function step(b0, o = {}) {
     const b = JSON.parse(JSON.stringify(b0));
     b.age = (b.age || 0) + 1;
@@ -60,7 +60,6 @@
     if (b.age >= C('decayStart')) {
       let r = C('decay');
       if (o.tier === 0) r *= C('decayTier0');
-      if ((o.regShare || 0) >= 0.3) r *= 0.5;
       b.Fbase = Math.max(C('decayFloor'), b.Fbase * (1 - r));
     }
     return b;
@@ -68,3 +67,4 @@
   const label = (spec) => `${SOUP[spec.soup].label}・${NOODLE[spec.noodle].label}（${SRC[spec.src || 'ready'].label}）・${(spec.top || []).map((k) => TOP[k].label).join('・') || '具なし'}`;
   SIM.bowl = { NOODLE, SRC, SOUP, TOP, presets, create, cost, Q, Qb, fit, fitMark, fitScore, F, apply, step, label };
 })(typeof window !== 'undefined' ? window : globalThis);
+
