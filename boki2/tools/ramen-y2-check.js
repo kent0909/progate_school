@@ -118,7 +118,12 @@ function story(seed, choices = {}) {
       if(e.when&&!e.when(S))continue;
       if(e.t==='decision'){const opts=e.optionsFor?e.optionsFor(S):e.options,available=opts.filter(x=>!x.disabled),requested=choices[e.id]||choices[e.card];assert.ok(available.length,e.id+'に選べる手がない');S.decisions[e.id]=available.some(x=>x.id===requested)?requested:available[0].id;if(e.card)seen.add(e.card);}
       if(e.t==='plan'){D.ramen.plan(S,e.ramenT,D.ramen.policy(S,e.ramenT));finite(S.W,'世界');finite(S.res[e.ramenT],'月報');}
-      if(e.t==='doc'){post(typeof e.ans==='function'?e.ans(S):e.ans,e,m,mi);docs++;}
+      if(e.t==='doc'){
+        const a=typeof e.ans==='function'?e.ans(S):e.ans;
+        if(m.year>=2){assert.ok(a.dr.length&&a.cr.length,e.id+':全額0円の書類');for(const [,v]of [...a.dr,...a.cr])assert.ok(v>0,`seed${seed} ${e.id}:正解に0円以下 ${v}`);
+          const rows=typeof e.doc.rows==='function'?e.doc.rows(S):e.doc.rows;assert.ok(!rows.some(r=>r[2]==='amt'&&r[1]===0),e.id+':表に0円行');}
+        post(a,e,m,mi);docs++;
+      }
       if(e.t==='calc'){const a=typeof e.answer==='function'?e.answer(S):e.answer;assert.ok(Number.isFinite(a),e.id);calcs++;}
       if(e.t==='discover'){
         const before=m.events.filter(x=>!x.when||x.when(S)),index=before.indexOf(e);S.discDone[e.id]=mi;
