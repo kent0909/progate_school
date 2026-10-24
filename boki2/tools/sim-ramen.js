@@ -239,6 +239,34 @@ function smartPolicy(W, strategy, price) { return smartX(W,strategy,price == nul
   info.push('版1.2回帰：予兆fixed・sim/engineのt=9・保存後の単回支払い・在庫t=12〜17・方針の入力不変・常連の減衰半減なし');
 }
 
+// PR #1 / 6381276347：まとめ買いの記帳・棚卸・翌期戻しとdata-bridgeの差分。
+{
+  const docs=D.months.flatMap(m=>m.events),doc=docs.find(e=>e.kind==='buy_bulk');
+  const stock=docs.find(e=>e.id==='stock'),back=docs.find(e=>e.id==='stock-back'),genmo=docs.find(e=>e.id==='genmo');
+  let checked=0;
+  for(const seed of [0,2,4,6]){
+    const run=choice=>{
+      const S={seed,decisions:{supplier:'high'},profile:{}};
+      for(let t=0;t<12;t++){
+        D.ramen.plan(S,t,D.ramen.policy(S,t));
+        for(const id of S.dealt[t])S.decisions[`${id}@${t}`]=id==='costOmen'?choice:CD.byId[id].options[0].id;
+      }
+      return S;
+    };
+    const bulk=run('bulk'),keep=run('keep'),entry=doc.ans(bulk);
+    if(!doc.when(bulk)||doc.when(keep)||entry.dr[0][0]!=='仕入'||entry.cr[0][0]!=='普通預金'||entry.dr[0][1]!==300000||entry.cr[0][1]!==bulk.res[9].bulkPaid)err('まとめ買い：1月の仕訳と世界の支払いが一致しない');
+    for(const t of [9,10,11]){
+      // 同じ月の既存仕訳を共通の残高とし、追加した仕訳と世界の支払いの差だけを比較する。
+      const brBulk=D.rview.bridge(bulk,t,{'普通預金':-entry.cr[0][1]}),brKeep=D.rview.bridge(keep,t,{});
+      if(brBulk.rest!==brKeep.rest)err(`まとめ買い：seed${seed} t${t}でdata-bridgeの説明できない差が増えた`);
+    }
+    const noBulk=JSON.parse(JSON.stringify(bulk));delete noBulk.res[9].bulkPaid;
+    if(stock.ans(bulk).dr[0][1]-stock.ans(noBulk).dr[0][1]!==300000||back.ans(bulk).dr[0][1]-back.ans(noBulk).dr[0][1]!==300000||genmo.ans(bulk).dr[0][1]!==genmo.ans(noBulk).dr[0][1])err('まとめ買い：棚卸/翌期戻し30万または通常の材料だけの減耗が不正');
+    checked++;
+  }
+  info.push(`まとめ買いの帳簿：${checked} seedで1月仕訳・3月棚卸・4月戻し・通常在庫だけの減耗・data-bridge追加差0を検査`);
+}
+
 // 年ごとの価格7候補を全探索（7³=343経路）。共通の年の接頭部分は1回だけ計算。
 // 36か月の同じ営業利益を比較し、1年目と3年目の別々の36か月を比べない。
 const YEAR_PRICES = [700, 750, 800, 850, 900, 950, 1000];

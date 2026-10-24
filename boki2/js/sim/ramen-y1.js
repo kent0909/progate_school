@@ -31,6 +31,7 @@
   const cardPart = (S, t) => salesNet(S, t) - cashPart(S, t);
   const vat10 = (n) => Math.floor(n * 0.1), vat8 = (n) => Math.floor(n * 0.08);
   const split = (n) => { const out = Math.round(n * 0.05); return { inn: n - out, out }; };
+  const bulkPaidAmt = (S) => (S && S.res && S.res[9] && S.res[9].bulkPaid) || C('bulkPay');
   const buyAmt = (S, t) => Math.round(R(S, t).cogs + R(S, t).wasteCost);
   const rentAmt = (S, t) => Math.round(R(S, t).rent);
   const RENT_A = (S) => window.BOKI.kubun.Y(S).rent;
@@ -399,13 +400,15 @@
     calc('bankrec', { scope: ['s-bankrec'], title: '通帳と帳簿のずれをそろえる', talk: [['kansa', '11月30日、通帳は1,215,000円、帳簿の普通預金は1,240,000円。ずれの理由は2つありました。']],
       rows: [['帳簿に書き忘れた振込の手数料', 660], ['夜間に預けた売上で、通帳にまだ出ていない分（12月1日に入る）', 24340]], q: '帳簿を直したあとの普通預金の残りは、いくら？', answer: () => 1240000 - 660, unit: '円', why: '書き忘れの手数料660円だけ帳簿を直して1,239,340円。通帳の1,215,000円に、まだ出ていない入金24,340円を足しても1,239,340円。両方がそろったので、帳簿の数が正しいと言える。' })];
   Y1[8] = [salesDoc(8), cardDoc(8), cardIn(8), buyDoc(8), payAP(8), salaryDoc(8), utilDoc(8), rentDoc(8), repayDoc(8), flyerPay(8), flyerDoc(8), couponDoc(8)];
-  Y1[9] = [salesDoc(9), cardDoc(9), cardIn(9), buyDoc(9), payAP(9), salaryDoc(9), utilDoc(9), rentDoc(9), repayDoc(9), flyerPay(9), flyerDoc(9), couponDoc(9)];
+  Y1[9] = [salesDoc(9), cardDoc(9), cardIn(9), buyDoc(9), { t: 'doc', kind: 'buy_bulk', id: 'buy-bulk9', scope: ['s-sanbunpo'], when: (S) => !!(S.res && S.res[9] && S.res[9].bulkPaid), doc: { type: '領収書', title: 'まとめ買いの小麦（1月）', from: '杉田食品', to: SHOP, date: '1月末', rows: (S) => [['小麦（2年目4〜9月に使う分）', bulkPaidAmt(S), 'amt'], ['支払い', '普通預金から支払った']] }, ans: (S) => je([['仕入', bulkPaidAmt(S)]], [['普通預金', bulkPaidAmt(S)]]), opts: opts() }, payAP(9), salaryDoc(9), utilDoc(9), rentDoc(9), repayDoc(9), flyerPay(9), flyerDoc(9), couponDoc(9)];
   Y1[10] = [salesDoc(10), cardDoc(10), cardIn(10), buyDoc(10), payAP(10), salaryDoc(10), utilDoc(10), rentDoc(10), repayDoc(10), flyerPay(10), flyerDoc(10), couponDoc(10)];
   Y1[11] = [salesDoc(11), cardDoc(11), cardIn(11), buyDoc(11), payAP(11), salaryDoc(11), utilDoc(11), rentDoc(11), repayDoc(11), flyerPay(11), flyerDoc(11), couponDoc(11)];
 
   // ---------- 決算（3月31日）と翌4月 ----------
-  const stockAmt = (S) => Math.round(buyAmt(S, 11) * 0.15 / 100) * 100;
-  const genmoAmt = (S) => Math.round(stockAmt(S) * 0.05 / 10) * 10;
+  const stockBaseAmt = (S) => Math.round(buyAmt(S, 11) * 0.15 / 100) * 100;
+  // PR #1 / 6381276347：まとめ買いは翌年まで未使用。通常の材料だけに減耗を掛ける。
+  const stockAmt = (S) => stockBaseAmt(S) + ((S.res && S.res[9] && S.res[9].bulkPaid) || 0);
+  const genmoAmt = (S) => Math.round(stockBaseAmt(S) * 0.05 / 10) * 10;
   const bulkSpoil = (S) => ((S && S.cardOutcomes) || []).some((x) => x.card === 'bulk' && x.outcome === 'spoil');
   const newEquip = (S) => ((S && S.cardOutcomes) || []).find((x) => x.card === 'maintain' && x.option === 'new');
   const depEquip = (S) => { const n = newEquip(S); return 120000 + (n ? Math.round((300000 / 5) * (12 - n.t) / 12) : 0); };
@@ -567,6 +570,7 @@
   const ex = (f) => (t) => f(t.dr, t.cr);
   SIM.examText = {
     cash_sale: ex((dr) => `商品￥${yen(dr[0][1])}を売り上げ、代金は普通預金に入金された。`),
+    buy_bulk: ex((dr) => `商品￥${yen(dr[0][1])}をまとめて仕入れ、代金は普通預金から支払った。`),
     buy_cash: ex((dr) => `商品￥${yen(dr[0][1])}を仕入れ、代金は普通預金から支払った。`),
     buy_credit: ex((dr) => `商品￥${yen(dr[0][1])}を仕入れ、代金は掛けとした。`),
     pay_ap: ex((dr) => `買掛金￥${yen(dr[0][1])}を普通預金から支払った。`),
