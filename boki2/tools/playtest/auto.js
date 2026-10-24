@@ -1,5 +1,5 @@
 // 遊びの検査（プレイテスト）の自動で進める部分。回帰テストの通しプレイ（scratchpad の play2.js）と同じ進め方。
-// playtest-harness.js の auto() からだけ呼ぶ（ログに残すため）。正解を台本から読んで進める
+// harness.js の auto() または bot-runs.js から呼ぶ。正解を台本から読んで進める。
 module.exports = async function autoRun(page, { choose = {}, broad = false, endMode = 'y2', maxSteps = 400, stopWhen = null, onStep = null, onAction = null, style = null, seed = 0, strategy = Math.floor(seed / 3) % 3, errorRate = 0, shot: shotFn = null } = {}) {
   if (style != null && !['idle', 'random', 'skilled'].includes(style)) throw new Error('打ち方が不正');
   if (!(errorRate >= 0 && errorRate <= 1) || !Number.isInteger(seed) || ![0, 1, 2].includes(strategy)) throw new Error('seed・strategy・誤答率が不正');
@@ -67,13 +67,12 @@ module.exports = async function autoRun(page, { choose = {}, broad = false, endM
   };
   let stKey = '';
 
-  const errs = [];
   const shot = async (name) => { if (shotFn) await shotFn('auto-' + name); };
   const has = async (s) => {
     if (!presence) presence = await p.evaluate(sels => Object.fromEntries(sels.map(s => [s, !!document.querySelector(s)])), SELECTORS);
     return s in presence ? presence[s] : p.evaluate(s => !!document.querySelector(s), s);
   };
-  let steps = 0, shotN = 0, endMode2 = false; const over = new Set(), seen = new Set(), wrong = { doc: false, disc: false, board: false };
+  let steps = 0, endMode2 = false; const over = new Set(), wrong = { doc: false, disc: false, board: false };
   while (steps++ < maxSteps) {
     presence = null;
     if (stopWhen && (await stopWhen(p))) return { steps, stopped: true, overflow: [...over] };
@@ -95,6 +94,15 @@ module.exports = async function autoRun(page, { choose = {}, broad = false, endM
     if (await has('[data-afix]')) { await shot('audit-res'); await p.click('[data-afix]'); continue; }
     if (await has('[data-dkc]')) { const ids = await p.evaluate(() => { const ev = window.__sim.events()[window.__sim.S.ei]; return ev.items.filter((x) => x.need).map((x) => x.id); }); for (const id of ids) await p.click(`[data-dk="${id}"]`); await shot('desk'); await p.click('[data-dkc]'); await shot('desk-ok'); continue; }
     if (await has('[data-qq]')) { await p.click('[data-qq]'); continue; }
+    if (style && await has('[data-rc]')) {
+      const truth=await p.evaluate(()=>window.__sim.recall.truth);
+      if(miss(`recall:${stKey}`)) truth.dr[0][1]+=1;
+      for(const side of ['dr','cr']) for(let i=0;i<truth[side].length;i++) {
+        await p.locator(`select[data-s="${side}"]`).nth(i).selectOption(truth[side][i][0]);
+        await p.locator(`input[data-s="${side}"]`).nth(i).fill(String(truth[side][i][1]));
+      }
+      await p.click('[data-rc]'); continue;
+    }
     if (await has('[data-rskip]')) { await p.click('[data-rskip]'); continue; }
     if (await has('[data-pc]')) { await p.click('[data-pc="up"]'); continue; }
     if (await has('[data-shall]')) { await shot('sheet'); await p.click('[data-shall]'); continue; }
@@ -173,9 +181,13 @@ module.exports = async function autoRun(page, { choose = {}, broad = false, endM
         if (id==='sign') { const C=D.coef, cash=C('ownCash')+C('loan')-C('fitout')-C('deposit')-C('equipOpen'); return cash>2000000?'large':cash>1000000?'small':'none'; }
         if(id==='supplier') return strategy===1?'high':'std';
         const opening={site:'shotengai',form:'part1',openloan:'read'};
-        return opening[id] || null;
+        if(opening[id]) return opening[id];
+        const ev=window.__sim.events()[S.ei], card=D.cards.byId[ev.card];
+        if(!card || !ev.trial) return null;
+        const W=JSON.parse(JSON.stringify(S.W));
+        return card.options.map((o,i)=>{const t=D.decide.trial(card,o.id,W);return {id:o.id,i,mid:(t.cashMin+t.cashMax)/2};}).sort((a,b)=>b.mid-a.mid||a.i-b.i)[0].id;
       }, {id:st.ev.id,strategy});
-      // smartX が札の選び方を定めていない所は既存の先頭選択を保ち、ログに残す。
+      // 札は画面の試算の幅の中点で比較。試算なし・同点は先頭（PR #3 承認）。
       await p.click(`[data-opt="${id || opts[0]}"]`); continue;
     }
     // 結末・もしも

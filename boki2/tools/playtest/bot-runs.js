@@ -68,11 +68,17 @@ async function serve(game) {
 async function one(browser,origin,o,job,configHash,actionsDir) {
   const started=performance.now(), {seed,style}=job, strategy=o.strategy==null?Math.floor(seed/3)%3:o.strategy;
   const runKey=`${configHash}:${style}:${seed}:${strategy}`;
-  const ctx=await browser.newContext({viewport:{width:o.width,height:o.height},hasTouch:o.width<1024,isMobile:o.width<900,deviceScaleFactor:1,reducedMotion:'reduce',serviceWorkers:'block'});
+  let ctx;
+  const contextOptions={viewport:{width:o.width,height:o.height},hasTouch:o.width<1024,isMobile:o.width<900,deviceScaleFactor:1,reducedMotion:'reduce',serviceWorkers:'block'};
   const errors=[], warnings=[], actions=[], overflow=new Set(); let outcome={}, observed=null, init=false, progressStuck=false, page, diagnostic=null, steps=0, everDeadEnd=false;
   try {
+    ctx=await browser.newContext(contextOptions);
     await ctx.route('**/*',route=>route.request().url().startsWith(origin+'/')?route.continue():route.abort());
-    await ctx.addInitScript(({save})=>{localStorage.setItem('boki2sim.v4',JSON.stringify(save));},{save:initialSave(seed)});
+    await ctx.addInitScript(({save,seed})=>{
+      localStorage.setItem('boki2sim.v4',JSON.stringify(save));
+      // 金額の表示順などに使われる標準乱数も固定する。進行状態には触れない。
+      let n=seed>>>0;Math.random=()=>{n=(Math.imul(n,1664525)+1013904223)>>>0;return n/4294967296;};
+    },{save:initialSave(seed),seed});
     const p=await ctx.newPage(); page=p; p.setDefaultTimeout(o.timeout);
     p.on('pageerror',e=>errors.push(e.message));
     p.on('console',m=>{if(m.type()==='warning')warnings.push(m.text());});
@@ -81,7 +87,7 @@ async function one(browser,origin,o,job,configHash,actionsDir) {
     if(!init)throw new Error('seedだけのv4初期化検査に失敗');
     let last='',same=0;
     outcome=await autoRun(p,{style,seed,strategy,errorRate:o.errorRate,maxSteps:o.maxSteps,endMode:'slice',onAction:async a=>{actions.push(a); if(a.sel==='[data-plan-ok]'||a.sel==='[data-plan-same]') everDeadEnd ||= await p.evaluate(()=>window.SIMDATA.world.rescueFails(JSON.parse(JSON.stringify(window.__sim.S.W)),3));},onStep:async n=>{
-      steps=n;
+      steps=n; if(n%100===0)console.error(`[進行] ${style}/${seed} ${n}手`);
       const ov=await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1?`${window.__sim.S.mi}:${window.__sim.S.ei}`:null);if(ov)overflow.add(ov);
       const sig=await p.evaluate(()=>`${window.__sim.S.mi}:${window.__sim.S.ei}:`+document.querySelector('#sim').innerText);
       same=sig===last?same+1:0;last=sig;
@@ -102,13 +108,14 @@ async function one(browser,origin,o,job,configHash,actionsDir) {
         finalWorldAccount:W?.cash ?? null,choices:S.choices||[],decisions:S.decisions||{},reached:{mi:S.mi,ei:S.ei,label:lastMonth?.label},f4:S.f4||[]};
     });
     } } catch(e) { errors.push('最終状態の取得失敗：'+e.message.split('\n')[0]); }
-    await ctx.close();
+    if(ctx)await ctx.close();
   }
 
   // 時刻入りの保存情報はゲーム結果ではない。choicesの t が暦/月ならそのまま保持する。
   const result={schema:1,runKey,configHash,seed,style,strategy,width:o.width,height:o.height,errorRate:o.errorRate,initialSaveValid:init,warnings,
+    gameSeed:null,bankrupt:false,monthly:Array.from({length:12},(_,t)=>({t,month:(t+3)%12+1,operatingProfit:null})),firstBlackMonth:null,nextAprilAccount:null,finalWorldAccount:null,choices:[],decisions:{},reached:null,f4:[],
     ...observed,deadEnd:everDeadEnd || observed?.deadEnd || false,stuck:!!(outcome.stuck||outcome.maxed),ended:!!outcome.end,steps:outcome.steps??steps,errors,overflow:[...new Set([...overflow,...(outcome.overflow||[])])],
-    selectedHands:actions.filter(a=>['plan','bowl','decision'].includes(a.kind) && !/data-yes|data-plan-ok|data-plan-same|data-bowl-ok|data-bowl-tweak/.test(a.sel)).length,
+    selectedHands:actions.filter(a=>/button\[data-plan=|button\[data-bowl=|^\[data-opt=/.test(a.sel)).length,
     actionCounts:Object.fromEntries(['plan','bowl','decision','report','debrief','fork'].map(k=>[k,actions.filter(a=>a.kind===k).length]))};
   fs.writeFileSync(path.join(actionsDir,`${style}-${seed}-${strategy}.jsonl`),actions.map(x=>JSON.stringify(x)).join('\n')+'\n');
   return {result,timing:{runKey,diagnostic,seconds:(performance.now()-started)/1000,at:new Date().toISOString(),chromium:o.chromium,parallel:o.parallel}};
