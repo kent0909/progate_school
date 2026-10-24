@@ -40,14 +40,18 @@
   RM.plan = (S, t, pol) => {
     const W0 = RM.world(S);
     if (S.res[t]) return S.res[t];
+    if (t >= 12 && SIM.y2.beforePlan) SIM.y2.beforePlan(S, t, pol);
     const carry = Object.entries(S.decisions || {}).filter(([k]) => k.endsWith(`@${t - 1}`) && SIM.cards.byId[k.split('@')[0]]).map(([k, v]) => ({ id: k.split('@')[0], option: v, t: t - 1 }));
+    if (t >= 12 && SIM.y2.carry) carry.push(...SIM.y2.carry(S, t));
     const rng = SIM.rng((S.seed + 1) * 7919 + t * 104729);
     const dealt = SIM.cards.deal(RM.guarded(W0), rng);
     const r = SIM.world.month(W0, pol, { rng, carry });
     for (const id of dealt) r.W.cardsSeen[id] = (r.W.cardsSeen[id] || 0) + 1;
-    S.W = r.W; S.res[t] = r.res; S.pols[t] = pol; S.dealt[t] = dealt;
+    S.W = r.W; S.res[t] = r.res; S.pols[t] = t >= 12 ? { ...pol, parts: r.W.stores[0].parts, family: r.W.stores[0].family } : pol; S.dealt[t] = dealt;
+    if (t >= 12) r.res.staffParts = r.W.stores.filter(st => st.open !== false).reduce((n, st) => n + st.parts, 0);
+    if (t >= 12 && SIM.y2.afterPlan) SIM.y2.afterPlan(S, t, r);
     (r.res.carried || []).forEach((x) => S.cardOutcomes.push(x));
-    S.choices.push({ y: 1, m: MON[t], t, card: 'plan', option: JSON.stringify({ price: pol.price, prep: pol.prep, parts: pol.parts, flyer: pol.flyer || 0, sign: pol.sign, signAt: pol.signAt, supplier: pol.supplier }), seed: S.seed });
+    S.choices.push({ y: Math.floor(t / 12) + 1, m: MON[t % 12], t, card: 'plan', option: JSON.stringify({ price: pol.price, prep: pol.prep, parts: pol.parts, flyer: pol.flyer || 0, sign: pol.sign, signAt: pol.signAt, supplier: pol.supplier }), seed: S.seed });
     return r.res;
   };
   // 番人（g.3）の骨：まだ出会っていない項目で期限（年）が近いものは、その項目を生む札の重みを上げる（scope-map の deadline）
@@ -67,10 +71,11 @@
   const resAt = (S, t) => (S.res || {})[t];
 
   // ---------- 札を月の出来事に（判断の画面と、選んだ手の書類） ----------
-  const fakeW = (t) => { try { const W = SIM.world.create({ seed: 0 }); W.t = t; W.m = MON[t]; return W; } catch (e) { return null; } };
+  const fakeW = (t) => { try { const W = SIM.world.create({ seed: 0 }); W.t = t; W.m = MON[t % 12]; W.y = Math.floor(t / 12) + 1; return W; } catch (e) { return null; } };
   function cardEvents(t) {
     const out = [];
     for (const c of SIM.cards.deck) {
+      if (c.y2) continue;
       if (c.tFrom != null && t < c.tFrom) continue;
       const key = `${c.id}@${t}`, dealt = (S) => dealtAt(S, t).includes(c.id);
       if (c.disc && Y.disc[c.disc]) out.push({ ...Y.disc[c.disc], id: `${Y.disc[c.disc].id}`, when: (S) => dealt(S) && !(S.discDone || {})[Y.disc[c.disc].id] });
@@ -87,7 +92,7 @@
       }
       if (c.calc && RM.calcs[c.calc]) out.push({ ...RM.calcs[c.calc](t), when: (S) => dealt(S) && !!(S.decisions || {})[key] });
     }
-    return out;
+    return t >= 12 ? out.concat(SIM.y2.cardEvents(t)) : out;
   }
   // 札につく計算（b-accrual：もうけと口座のずれを、自分の帳簿の数で数える）
   RM.calcs = {
@@ -103,7 +108,14 @@
   const rreport = (t) => ({ t: 'rreport', id: `rep${t}`, ramenT: t,
     rows: (S) => { const r = resAt(S, t) || Y.R(S, t); return [['1日のお客さん', `${(r.N || 0).toFixed(1)}人`], ['売上', Math.round(r.sales)], ['材料', -Math.round(r.cogs + (r.wasteCost || 0))], ['人のお金', -Math.round(r.labor + (r.famPay || 0))], ['家賃・ガス水道電気・その他', -Math.round(r.rent + r.util + r.other)], ['この月のもうけ（およそ）', Math.round(r.op)]]; },
     // 一括確定で帳簿に入れる行（月報の行のうち、手で書かない行）。その他の店のお金（通信・掃除・会計の先生など）は消耗品費の札でまとめる【簡略：段5で行を分ける】
-    auto: (S) => { const r = resAt(S, t); if (!r) return []; const rows = [{ id: `other${t}`, label: 'その他の店のお金（電話・掃除・小物）', dr: [['消耗品費', Math.round(r.other)]], cr: [['普通預金', Math.round(r.other)]] }]; if (r.fx && r.fx !== 0) rows.push({ id: `fx${t}`, label: r.fx > 0 ? '札で入ったお金（出店・弁当など）' : '札で出ていったお金', dr: r.fx > 0 ? [['普通預金', Math.round(r.fx)]] : [['消耗品費', Math.round(-r.fx)]], cr: r.fx > 0 ? [['売上', Math.round(r.fx)]] : [['普通預金', Math.round(-r.fx)]] }); return rows; } });
+    auto: (S) => { const r = resAt(S, t); if (!r) return []; const rows = [{ id: `other${t}`, label: 'その他の店のお金（電話・掃除・小物）', dr: [['消耗品費', Math.round(r.other)]], cr: [['普通預金', Math.round(r.other)]] }]; let fx = r.fx;
+      if (t >= 12) {
+        // 年2の札は、実際にお金が動いた月に手書き済み。月報で二重に書かない。
+        fx -= (r.choices || []).reduce((n, x) => { const c = SIM.cards.byId[x.card]; if (!c || !c.y2) return n; const o = c.options.find(o => o.id === x.option).outcomes.find(o => o.id === x.outcome); return n + ((o.flow || 'op') === 'op' ? x.cash : 0); }, 0);
+        const extraAds = Math.round(r.ads - ((S.pols[t] || {}).flyer || 0));
+        if (extraAds) rows.push({ id: `ads-other${t}`, label: '配信などの宣伝の支払', dr: [['広告宣伝費', extraAds]], cr: [['普通預金', extraAds]] });
+      }
+      if (fx && fx !== 0) rows.push({ id: `fx${t}`, label: fx > 0 ? '札で入ったお金（出店・弁当など）' : '札で出ていったお金', dr: fx > 0 ? [['普通預金', Math.round(fx)]] : [['消耗品費', Math.round(-fx)]], cr: fx > 0 ? [['売上', Math.round(fx)]] : [['普通預金', Math.round(-fx)]] }); return rows; } });
   const plan = (t) => ({ t: 'plan', id: `plan${t}`, ramenT: t, opens: RM.opens(t) });
   const endings = (t) => [
     { t: 'ending', id: 'r-warn', ramenT: t, when: (S) => !!(S.W && S.W.insolvent >= 1 && !S.W.bankrupt && !(S.seenEnds || []).includes('r-warn')) },
@@ -116,6 +128,13 @@
   const TITLES = ['開店！ 看板の一杯を出す', 'もうけたのに、口座がへった？', '問屋さんと掛けで', '家賃と返済が始まる', '夏の限定と、チラシ', 'カードで払うお客さん', '消費税を預かる', '通帳と帳簿が合わない', '年末の売り出し', '寒い月の一杯', '谷の月', '1年のしめくくり'];
   for (let t = 0; t < 12; t++) months.push({ m: MON[t], label: `${MON[t]}月`, title: TITLES[t], ramenT: t, events: [plan(t), ...Y.months[t], ...cardEvents(t), rreport(t), ...endings(t)] });
   Y.kessan.forEach((k) => months.push({ m: k.next4 ? 4 : 3, label: k.label, title: k.title, seg: k.seg, closeless: k.closeless, events: k.events }));
+  for (const year of [2, 3]) {
+    for (let t = (year - 1) * 12; t < year * 12; t++) months.push({ year, m: MON[t % 12], label: `${year}年目 ${MON[t % 12]}月`, title: SIM.y2.monthTitle(t), ramenT: t,
+      events: [plan(t), ...SIM.y2.routine(t), ...cardEvents(t), { t: 'recall', id: `recall${t}` }, rreport(t), ...endings(t)] });
+    months.push(...SIM.y2.kessan(year));
+  }
+  for (let t = 36; t < 39; t++) months.push({ year: 4, m: MON[t % 12], label: `4年目 ${MON[t % 12]}月`, title: '前の年の約束を払う', ramenT: t,
+    events: [plan(t), ...SIM.y2.routine(t), ...SIM.y2.cardEvents(t), { t: 'recall', id: `recall${t}` }, rreport(t), ...endings(t)] });
   SIM.months = months;
   RM.monthIndexOfT = (t) => months.findIndex((m) => m.ramenT === t);
   // 既存の events() と同じ形：いまの月（S.mi）の出来事のうち、その状態で出るもの

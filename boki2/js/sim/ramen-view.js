@@ -115,7 +115,7 @@
     let W = SIM.world.create({ seed: S.seed || 0, area: d.site || 'shotengai', form: d.form || 'part1', bowl: spec, tier: 0 });
     const out = [];
     let prev = null;
-    for (let t = 0; t < 12; t++) {
+    for (let t = 0; t < 39; t++) {
       const p = SIM.world.policy0(W, prev);
       const open = SIM.ramen.opens(t);
       for (const k of ['flyer', 'coupon', 'sns', 'line', 'forecast', 'inspect', 'tweak', 'limited']) p[k] = k === 'flyer' ? 0 : false;
@@ -125,7 +125,7 @@
       out.push({ t, op: r.res.op, N: r.res.N, cash: r.W.cash, net: SIM.world.netCash(r.W) });
       W = r.W; prev = p;
     }
-    const first = out.find((x) => x.op > 0);
+    const first = out.slice(0, 12).find((x) => x.op > 0);
     return (shadowCache[key] = { months: out, firstBlack: first ? first.t : null });
   };
 
@@ -183,10 +183,10 @@
     const res = S.res || {}, last = res[t] || res[t - 1] || { labor: 200000, famPay: 0, util: 70000, cogs: 250000, wasteCost: 0, sales: 700000 };
     const made = (S.decisions || {})[Object.keys(S.decisions || {}).find((k) => k.startsWith('due@')) || ''] === 'make';
     const horizon = made ? 6 : 2, items = [];
-    const W = S.W, rent = W ? C('rentPerTsubo')[W.area] * C('tsubo') : 120000;
+    const W = S.W, rent = t>=12&&last.rent!=null?last.rent:W ? C('rentPerTsubo')[W.area] * C('tsubo') : 120000;
     const prin = Math.round(C('loan') / C('loanYears') / 12), intM = Math.round((C('loan') * C('loanRate')) / 12);
     const vatOn = (k) => k >= 7;
-    for (let k = t + 1; k <= Math.min(t + horizon, 13); k++) {
+    for (let k = t + 1; k <= Math.min(t + horizon, t>=12?38:13); k++) {
       const m = MON[k % 12], est = k > t + 1;
       const r = res[k - 1] || last;
       if (k >= 3) items.push({ k, m, d: 1, what: '家賃', amt: -Math.round(rent * (vatOn(k) ? 1.1 : 1)), kind: 'rent' });
@@ -198,7 +198,8 @@
       if (k === 2 && (S.decisions || {})['insurance@2'] && (S.decisions || {})['insurance@2'] !== 'none') items.push({ k, m, d: 1, what: '火災の保険（1年分）', amt: (S.decisions['insurance@2'] === 'full' ? -60000 : -36000), kind: 'ins' });
       const fl = ((S.pols || {})[k - 1] || {}).flyer;
       if (fl) items.push({ k, m, d: 31, what: 'チラシの代金', amt: -fl, kind: 'flyer' });
-      if (k === 13) items.push({ k, m, d: 31, what: knows && knows('法人税等') ? '法人税等と消費税の納付（決算で決まる）' : '1年のもうけの税金と、預かったお金の納付（決算で決まる）', amt: 0, kind: 'tax', est: true });
+      if(t>=12&&k%12===0){const amount=-(SIM.y2books.balance(S.T||[],'未払法人税等'));items.push({k,m,d:30,what:'前の年の法人税等の納付',amt:-Math.max(0,amount),kind:'tax',est:amount<=0});}
+      if (t<12&&k === 13) items.push({ k, m, d: 31, what: knows && knows('法人税等') ? '法人税等と消費税の納付（決算で決まる）' : '1年のもうけの税金と、預かったお金の納付（決算で決まる）', amt: 0, kind: 'tax', est: true });
     }
     items.sort((a, b) => a.k - b.k || a.d - b.d);
     let bal = bookCash;
@@ -284,7 +285,7 @@
     if (!r || !p) return null;
     const f = r.factors || {}, top = RV.topFactor(f);
     if (!top) return null;
-    const quarter = RV.QUARTER.includes(t);
+    const quarter = RV.QUARTER.includes(t % 12);
     const qs = [{ id: 1, kind: 'factor', q: RV.TEXT.debrief[1], opts: RV.FACTOR_KEYS.map((k) => ({ id: k, label: RV.FACTORS[k].label, icon: RV.FACTORS[k].icon })), ans: top, f }];
     if (quarter) {
       const rest = (f.total || 0) - f[top];
@@ -329,6 +330,7 @@
   // 店の口座の計算は「使った月」にお金を動かす（給料・ガス代・材料は使った月、カードの売上は売れた月、消費税は数えない、札の結果は翌月）。
   // 帳簿は「払った・入った日」に書く。差は次の項目で説明でき、残り（説明できない差）は 0 になるように検査する（sim-check と画面の試験）
   RV.bridge = (S, t, b, cardBook = 0) => {
+    if(t>=12)return SIM.y2books.reconcile(S,t,'L');
     const r = (S.res || {})[t]; if (!r) return null;
     const book = (b['現金'] || 0) + (b['普通預金'] || 0);
     const rows = [];
