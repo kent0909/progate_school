@@ -118,5 +118,7 @@
     // 送金時の消去仕訳を戻した、合併前の作業用資料。会社全体の帳簿自体は変更しない。
     return {internal,assets,before:assets+internal};
   };
-  SIM.y2 = {consolidation, routine: routineAt, monthTitle, kessan, books: BK, je, opts, pb, R, MON, yearIncome};
+  // 抽選の種類ごとに独立。同じseed・月・種類なら、ほかの判断の有無で乱数をずらさない。
+  const stream=(W,kind)=>{let h=0;for(const c of kind)h=(h*31+c.charCodeAt(0))>>>0;return SIM.rng((W.seed*1000003+W.t*10007+h)>>>0);};
+  SIM.y2 = {stream, consolidation, routine: routineAt, monthTitle, kessan, books: BK, je, opts, pb, R, MON, yearIncome};
 })(typeof window !== 'undefined' ? window : globalThis);

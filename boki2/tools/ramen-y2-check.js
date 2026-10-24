@@ -122,7 +122,22 @@ function story(seed, choices = {}) {
       }
     }
   }
-  assert.equal(S.W.t,39);return {S,docs,calcs,seen};
+  assert.equal(S.W.t,39);
+  const book=D.y2books,entries=S.T.filter(e=>!e.closing);
+  const expenseFor=re=>entries.filter(e=>re.test(e.ev||'')).reduce((n,e)=>n+book.income([e]).expense,0);
+  if(S.W.flags.y2RepairPaid)assert.equal(expenseFor(/^(maintain_y2-doc0@35|maintain_y2-doc1@36)$/),260000,'修理の見積りと支払で費用を二重計上');
+  if(S.W.flags.staffBonus&&S.W.flags.staffBonus.kind==='promise')assert.equal(expenseFor(/^bonus-doc[12]@/),60000*(S.W.flags.bonusCount||0),'賞与の引当と支払で費用を二重計上');
+  return {S,docs,calcs,seen};
+}
+function forcedStory(seed,choices,target,outcome){
+  const original=D.decide.resolve;
+  D.decide.resolve=(card,opt,W,rng)=>{
+    if(card.id!==target)return original(card,opt,W,rng);
+    const result=card.options.find(x=>x.id===opt).outcomes.find(x=>x.id===outcome);
+    assert.ok(result,`強制分岐 ${target}/${opt}/${outcome}`);
+    return {id:outcome,outcome:result,weights:D.decide.weights(card,opt,W)};
+  };
+  try{return story(seed,choices);}finally{D.decide.resolve=original;}
 }
 if (!process.argv.includes('--world')) {
   const seen=new Set();let docs=0,calcs=0;
@@ -136,7 +151,43 @@ if (!process.argv.includes('--world')) {
     if(result.seen.has(card.id))branches++;
   }
   console.log(`OK：札の選択肢を指定した台本 ${branches}経路（出現条件を満たした経路）`);
+  { // 既定の受け入れ検査でも全結果を通す
+    const missing=[],covered=[];
+    for(const card of D.y2.cards.cards)for(const option of card.options)for(const outcome of option.outcomes){
+      let found=false;
+      for(const seed of [3,0,7]){
+        const prerequisites={finance_asset:'installment',maintain_y2:'break',maintain_replace:'keep',bonus:'promise',[card.id]:option.id};
+        if(card.id==='equipment_purchase')prerequisites.finance_asset='loan';
+        if(card.id==='repair_pay')prerequisites.maintain_y2='plan';
+        if(card.id==='close_restore')prerequisites.close='close';
+        const {S}=forcedStory(seed,prerequisites,card.id,outcome.id);
+        if(S.cardOutcomes.some(x=>x.card===card.id&&x.option===option.id&&x.outcome===outcome.id)){found=true;break;}
+      }
+      (found?covered:missing).push(`${card.id}/${option.id}/${outcome.id}`);
+    }
+    console.log('全結果分岐：'+JSON.stringify({covered:covered.length,missing}));assert.deepEqual(missing,[],'未到達の札の結果');
+  }
+  // 制度の24か月比較は、本編での導入時期と分けた反実仮想。
+  if(process.argv.includes('--bonus-model')){
+    const rows=[];
+    for(let seed=0;seed<24;seed++)for(const enabled of [false,true]){
+      const S={seed,decisions:{},T:[],res:{},W:wd.create({seed}),cardOutcomes:[]};S.W.t=12;S.W.y=2;S.W.m=4;
+      S.W.flags.staffBonus={kind:enabled?'promise':'none'};
+      for(let t=12;t<36;t++){
+        const pol=wd.policy0(S.W);D.y2.beforePlan(S,t,pol);
+        const carry=(S.W.flags.y2Departures||[]).length?[{id:'staff_leave',option:'leave',t:t-1}]:[];
+        if(enabled&&t%12===2){S.W.flags.bonusCount=S.W.stores.filter(x=>x.open!==false).reduce((n,x)=>n+x.parts,0);carry.push({id:'bonus_pay',option:'pay',t:t-1});}
+        const r=wd.month(S.W,pol,{carry,noCards:true,noFactors:true});S.W=r.W;S.res[t]=r.res;finite(r,'賞与モデル');
+      }
+      rows.push({seed,enabled,y2:S.res[23].cash,y3:S.res[35].cash});
+    }
+    console.log('賞与制度・検査専用24か月：'+JSON.stringify(rows));
+  }
   // 比較の条件を固定し、勝率を合格条件にしない。金額の釣り合いは報告対象。
+  if(process.argv.includes('--bonus-story')){
+    const rows=[];for(let seed=0;seed<24;seed++)for(const bonus of ['promise','none']){const {S}=story(seed,{bonus});rows.push({seed,bonus,y2:S.res[23].cash,y3:S.res[35].cash,y4June:S.res[38].cash});}
+    console.log('賞与制度・本編の時期：'+JSON.stringify(rows));
+  }
   if(process.argv.includes('--compare')){
     const wins={sell_plan:0,sell_break:0,keep_plan:0,keep_break:0}, ends={};let ties=0;
     for(let seed=0;seed<24;seed++){
@@ -149,6 +200,5 @@ if (!process.argv.includes('--world')) {
     }
     console.log('売却×修理・同じseed24組：'+JSON.stringify({wins,ties,ends}));
   }
-  console.error('未完：全札の出現と全結果分岐・面白さ比較の検査はまだ完了していない。上の成功は部分検査。');
-  process.exitCode = 1;
+  console.log('OK：2年目以降の台本・全札全結果・口座照合・引当と支払の二重費用なし。損得の釣り合いは別途報告。');
 }

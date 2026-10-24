@@ -174,7 +174,7 @@
     pol = { ...pol };
     if (W.t === 9 && W.flags.supplierNext) pol.supplier = W.flags.supplierNext;
     if (W.flags.bulkPay && W.t === 9) { W.flags.bulkPay = false; W.cash -= C('bulkPay'); res.bulkPaid = C('bulkPay'); }
-    const mainPrep = prepareStore(W, me, pol, res, rng, noise), { prevPrice } = mainPrep;
+    const mainPrep = prepareStore(W, me, pol, res, W.t>=12&&SIM.y2.stream?SIM.y2.stream(W,'prepare:me'):rng, noise), { prevPrice } = mainPrep;
     // 予兆のあった新店が開く（f.3「近くに出店の予兆」：2か月前の工事の看板）
     if (W.flags.omen && !W.flags.omenOpened && W.t >= W.flags.omen.at) { const r = SIM.rivals.make(W.flags.omen.kind, W.rivals.length); r.id = 'rnew'; r.name = 'ごうりき軒 駅前店'; if (W.flags.omen.weak) r.R = 2.6; if (W.flags.omen.war) r.price = 650; W.rivals.push(r); W.flags.omenOpened = true; res.opened = r.id; }
     // ライバルの手（反応のルール f.3。予兆・遅れつき）
@@ -189,8 +189,9 @@
     // 前の月に選んだ札の結果（engine の流れ：札は月の途中で選び、結果は翌月の作戦の机のあとに返る。ramen.js）
     for (const c of (opts.carry || []).filter(c => c.id !== 'costOmen')) {
       const card = SIM.cards.byId[c.id]; if (!card) continue;
-      const out = SIM.decide.resolve(card, c.option, W, rng);
-      SIM.cards.apply(W, card, c.option, out.id, fx, res, rng);
+      const cardRng=W.t>=12&&SIM.y2.stream?SIM.y2.stream(W,`card:${c.id}`):rng;
+      const out = SIM.decide.resolve(card, c.option, W, cardRng);
+      SIM.cards.apply(W, card, c.option, out.id, fx, res, cardRng);
       (res.carried = res.carried || []).push({ card: c.id, option: c.option, outcome: out.id, t: c.t });
     }
     if (!opts.noCards && !opts.carry && SIM.cards) {
@@ -214,7 +215,7 @@
       if (i === 0) continue;
       const v = view(st), p = policy0(v);
       const sr = { t: W.t, y: W.y, m: W.m, cards: [], docs: [] };
-      const previous = prepareStore(v, st, p, sr, rng, noise);
+      const previous = prepareStore(v, st, p, sr, W.t>=12&&SIM.y2.stream?SIM.y2.stream(W,`prepare:${st.id}`):rng, noise);
       st.pol = { ...p };
       prepared.set(i, { pol: p, ...previous, res: sr });
     }
@@ -237,7 +238,7 @@
       const peers = demandStores.filter((x, j) => j !== i && x.open !== false && (x.area || W.area) === area).map(x => ({ ...x, id: `peer:${x.id}` }));
       // 先に計算した店の評判・相場・ライバル決算で、次の店の今月を変えない。
       if (W.stores.length > 1) { v.town = clone(demandTown); v.rivals = demandRivals.filter(r => (r.area || W0.area) === area).map(r => clone(r)); }
-      const sr = operateStore(v, st, p.pol, i === 0 ? fx : { demandMul: 1, cash: 0, Rd: 0 }, p.res, rng, noise, i === 0 ? opts : { ...opts, noFactors: true }, p, peers, i === 0, !settled.has(area), W0);
+      const sr = operateStore(v, st, p.pol, i === 0 ? fx : { demandMul: 1, cash: 0, Rd: 0 }, p.res, W.t>=12&&SIM.y2.stream?SIM.y2.stream(W,`demand:${st.id}`):rng, noise, i === 0 ? opts : { ...opts, noFactors: true }, p, peers, i === 0, !settled.has(area), W0);
       W.cash = v.cash; W.loan = v.loan; W.short = v.short;
       if (i === 0) W.comp = v.comp; else st.comp = v.comp;
       if (!settled.has(area) && W.stores.length > 1) {
