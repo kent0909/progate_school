@@ -141,4 +141,4 @@ const legacyCards=D.cards.deck.filter(c=>!c.y2).map(c=>({id:c.id,hasDocs:!!c.doc
 const result={paths:paths.length,targets:targets.length+automatic.length,documents:paths.reduce((n,p)=>n+p.documents,0),coveredYear2DocIds:seenDocs.size,reachedTargets:paths.filter(p=>p.target&&p.reached).length,missingTargets:paths.filter(p=>p.target&&!p.reached).map(p=>p.target),cashDiscrepancyPaths:paths.filter(p=>p.issues.length).length,failures,details:paths,seenOutcomes:[...seenOutcomes].sort(),docCoverage:Object.fromEntries(seenDocs),docExamples:examples,languageWarnings:[...languageWarnings.values()],missingNames:[...missingNames],dividendFixtures,legacyCards};
 fs.writeFileSync(process.argv[3],JSON.stringify(result,null,2)+'\n');
 console.log(JSON.stringify({...result,details:undefined,docExamples:undefined,seenOutcomes:undefined},null,2));
-if(failures.length)process.exitCode=1;
+if(failures.length||result.cashDiscrepancyPaths)process.exitCode=1;

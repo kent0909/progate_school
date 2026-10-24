@@ -1,0 +1,15 @@
+{
+  "publicCommit": "08f54470c638f13fa648ee104c6aa30bba91896a",
+  "acquisition": "GitHub連携。git fetchはproxy接続失敗",
+  "verifiedPublicFiles": 486,
+  "blobMismatches": 0,
+  "summaryBytesEqual": true,
+  "summarySha256": "7d268d241bcc297fe9a6fb1b751061d003e9cbe9d0b62ca32bd8a44092ef8a56",
+  "reproductionExit": 0,
+  "independentAggregationExit": 0,
+  "tablesAllThreeEqual": true,
+  "newJsSyntaxExit": 0,
+  "gitGrepTruncationMatches": 0,
+  "gitGrepExit": 1,
+  "runtimeChangesFrom6ff66e6": 0
+}
