@@ -16,7 +16,7 @@ const RUNS = Number(arg('--runs', 300)), SEEDS = Number(arg('--seeds', 60)), EXP
 // 版1.0：試算の乱数に seed を混ぜる（検査役の指摘：月だけだと追随が決まった月に起きる）。--seedmix 0 で版0.9 までの測り方
 const SEEDMIX = Number(arg('--seedmix', 1));
 // 版1.0：仕入先を替える月（予兆の札は1年目12月 t=8、原価の上昇は2年目4月 t=12 から。替えるのは t=12）
-const SWITCH_AT = Number(arg('--switchAt', 12));
+const SWITCH_AT = Number(arg('--switchAt', 9));
 // --native 1：Codex が coef.js に置き値を実装した後の回し方。__X を置かず coef の値をそのまま使う（道具の置き値の入れ口を二重にしない）
 const NATIVE = Number(arg('--native', 0));
 // --ps <値>：較正を道具の中で繰り返さず、`sim-ramen.js --calibrate --runs 300` で出した potentialScale をそのまま使う（本体と道具の較正をそろえる）
@@ -623,24 +623,23 @@ if (EXP === 'omen12') {
   // 原価の予兆の札（版1.2）：1年目12月（t=8）に出る。原価の上がる町（偶数 seed）には必ず出る。外れ＝上がらない町（奇数 seed）にも確率 f で出る（予兆を見た町のうち外れの割合 p = f/(1+f)）。
   // 選択肢：替える（t=9 から標準）／据え置き（高いのまま）／まとめ買い（t=9 に30万、t=12〜17 の上昇を避け月4.5万を戻す）。5年目末の口座で最良を数える。見える条件＝予兆を見た（全体）、立地、厚さ、方針。上がった／外れは後から分かる
   const N = Math.min(RUNS, 120); setup10(N);
-  for (const pFalse of [0, 0.25, 0.4, 0.5]) {
+  for (const pFalse of (arg('--pFalse', null) != null ? [Number(arg('--pFalse'))] : [0, 0.25, 0.4, 0.5])) {
     const f = pFalse / (1 - pFalse);
+    if (pFalse !== 0.25) out(`（外れ ${pFalse} は参考：差し込みの外れの割合は 1/3（0.25）で固定。他の値は道具の側で予兆の有無だけを変えて数える）`);
     const rows = [];
     for (let s = 0; s < N; s++) {
       const st = Math.floor(s / 3) % 3, W0 = Wd.create({ seed: s, area: AREAS[s % 3] });
       const rise = s % 2 === 0, omen = rise || D.rng(s * 4099 + 3)() < f;
       if (!omen) continue;
-      const nc = {
-        switch: Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: (W) => (W.t >= 9 ? 'std' : 'high') }) }).W),
-        keep: Wd.netCash(play(s, { months: 60, policy: (W) => smartX(W, st, { supplier: 'high' }) }).W),
-        bulk: Wd.netCash(play(s, { months: 60, policy: (W) => { const p = smartX(W, st, { supplier: 'high' }); if (W.t === 9) p.bulk = true; return p; } }).W),
-      };
+      // 札の選択肢は pol.cards.costOmen で渡す（t=8）。切り替えは W.flags.supplierNext（t=9 から）。実装後（--native 1）は cards.js の fixed の札が同じ flags を置くので、同じ道で測れる
+      const polFor = (opt) => (W) => { const p = smartX(W, st, { supplier: (W) => (W.t >= 9 && W.flags.supplierNext) ? W.flags.supplierNext : 'high' }); if (W.t === 8) p.cards = { costOmen: opt }; return p; };
+      const nc = { switch: Wd.netCash(play(s, { months: 60, policy: polFor('switch') }).W), keep: Wd.netCash(play(s, { months: 60, policy: polFor('keep') }).W), bulk: Wd.netCash(play(s, { months: 60, policy: polFor('bulk') }).W) };
       const best = Object.entries(nc).sort((a, b) => b[1] - a[1]);
       rows.push({ st, area: AREAS[s % 3], pot: W0.town.areas[W0.area].potentialMul, rise, best: best[0][1] === best[1][1] ? 'tie' : best[0][0], gapSwitch: nc.switch - nc.keep, gapBulk: nc.bulk - nc.keep });
     }
     const cell = (rs, lab) => { const c = {}; rs.forEach((r) => { c[r.best] = (c[r.best] || 0) + 1; }); const n = rs.length; const top = Object.entries(c).filter(([k]) => k !== 'tie').sort((a, b) => b[1] - a[1])[0]; out(`| 外れ ${pFalse}・${lab} | ${n} | ${['switch', 'keep', 'bulk'].map((k) => `${pct(c[k] || 0, n)}%`).join(' / ')} | ${top ? `${top[0]} ${pct(top[1], n)}%${pct(top[1], n) >= 70 ? ' ✗' : ''}` : '—'} | ${man(median(rs.map((r) => r.gapSwitch)))}／${man(median(rs.map((r) => r.gapBulk)))} |`); };
     if (pFalse === 0) out(`\n| 条件（予兆を見た町） | 周 | 替える / 据え置き / まとめ買い | 最多 | 替える−据え置き／まとめ買い−据え置き 中央値 |\n|---|---|---|---|---|`);
-    cell(rows, '全体'); cell(rows.filter((r) => r.rise), '上がった町'); cell(rows.filter((r) => !r.rise), '外れた町');
+    cell(rows, '全体'); cell(rows.filter((r) => r.rise), '上がった町'); cell(rows.filter((r) => !r.rise), '外れた町'); out(`| 外れ ${pFalse}・実際に外れた町の割合 | ${rows.length} | ${rows.filter((r) => !r.rise).length}/${rows.length}＝${pct(rows.filter((r) => !r.rise).length, rows.length)}% | — | — |`);
     for (const a of AREAS) cell(rows.filter((r) => r.area === a), a);
     const ps = rows.map((r) => r.pot).sort((a, b) => a - b), u1 = ps[Math.floor(ps.length / 3)], u2 = ps[Math.floor((2 * ps.length) / 3)];
     cell(rows.filter((r) => r.pot < u1), '薄い町'); cell(rows.filter((r) => r.pot >= u1 && r.pot < u2), '中の町'); cell(rows.filter((r) => r.pot >= u2), '厚い町');

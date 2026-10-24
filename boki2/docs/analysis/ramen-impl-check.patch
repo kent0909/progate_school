@@ -28,7 +28,7 @@ index d39713d..3a4170d 100644
        if (me.limited && r.type === 'kodawari') r.pending.push({ kind: 'limited', at: W.t + 1 });
        // こだわりは毎年一杯を手直しする（F の減衰はプレイヤーと同じ：f.2 ⑥）
 diff --git a/boki2/js/sim/world.js b/boki2/js/sim/world.js
-index d708bc9..1545825 100644
+index d708bc9..8c64461 100644
 --- a/boki2/js/sim/world.js
 +++ b/boki2/js/sim/world.js
 @@ -36,6 +36,7 @@
@@ -55,7 +55,7 @@ index d708bc9..1545825 100644
        return v;
      });
      const nests = {};
-@@ -172,11 +174,22 @@
+@@ -172,11 +174,24 @@
      // 一杯の手直し・限定（話題の山：d.8）
      if (pol.tweak && canTweak(W)) { me.bowl = SIM.bowl.apply(me.bowl, 'tweak', rng, W.t); }
      if (pol.limited) { me.bowl = SIM.bowl.apply(me.bowl, 'limited', rng, W.t); res.limited = true; }
@@ -71,14 +71,16 @@ index d708bc9..1545825 100644
 +    if (XS.sign) { const SG = { none: [0, 0], small: [100000, XS.signSmall || 0.03], large: [XS.largeCost || 500000, XS.signLarge || 0.07] }, AS = XS.areaSign || { ekimae: 1.0, shotengai: 0.7, jutaku: 0.4 }; const kind = pol.sign || 'none', luck = XS.signLuck ? 0.7 + 0.6 * SIM.rng(W.seed * 977 + 5)() : 1, delay = XS.signLuck && kind === 'large' ? Math.floor(3 * SIM.rng(W.seed * 977 + 9)()) : 0, at = (pol.signAt != null ? pol.signAt : 3) + delay, on = kind !== 'none' && W.t >= at; const faded = kind === 'large' && W.t >= at + 30 && W.t < at + 36 ? 0.5 : 1; me.signA = 0.9 * (me.signA || 0) + (on ? SG[kind][1] * AS[W.area] * faded * luck : 0); if (on && (W.t === at || (kind === 'large' && W.t === at + 36))) signCost = SG[kind][0]; if (on && kind === 'large') permit = 2500; }
 +    if (XS.supplier) { const sl = XS.supLuck ? SIM.rng(W.seed * 1301 + 7) : null, qH = (XS.qHigh || 3.8) + (sl ? -0.2 + 0.4 * sl() : 0), per = sl ? 4 + Math.floor(5 * sl()) : 6; const SP = { cheap: [0.31 / 0.35, -0.2, 0], std: [1, 0, 0], high: [(XS.highCogs || 0.41) / 0.35, qH - 3, XS.qCost != null ? XS.qCost : 30000] }[pol.supplier || 'std']; me.supMul = SP[0]; me.qAdj = SP[1]; me.supFixed = SP[2]; me.defect = (pol.supplier === 'cheap' && W.t % per === 0) ? 1 : 0; }
 +    // 実験：原価の上がる町（偶数 seed）は t=12 から +5pt（高いは +7pt）。まとめ買い（pol.bulk を t=9 に出す）：t=9 に30万を払い、t=12〜17 の上昇を避け、月4.5万を原価から戻す（在庫を使う）
-+    if (pol.bulk && W.t === 9 && !W.flags.bulkDone) { W.flags.bulkDone = true; W.flags.bulkLeft = 6; W.cash -= 300000; res.bulkPaid = 300000; }
++    // 札 costOmen の代わり（実装前の差し込み）：t=8 に pol.cards.costOmen（switch/keep/bulk）を読む。実装後は cards.js の fixed の札が同じ flags を置く
++    if (XS.shock && W.t === 8 && pol.cards && pol.cards.costOmen && !W.flags.costOmenDone) { W.flags.costOmenDone = true; W.flags.costOmen = W.seed % 2 === 0 || SIM.rng(W.seed * 4099 + 3)() < 1 / 3; if (W.flags.costOmen) { if (pol.cards.costOmen === 'switch') W.flags.supplierNext = 'std'; if (pol.cards.costOmen === 'bulk') { W.flags.bulkDone = true; W.flags.bulkPay = true; } } }
++    if (W.flags.bulkPay && W.t === 9) { W.flags.bulkPay = false; W.cash -= 300000; res.bulkPaid = 300000; }
 +    const bulkOn = XS.shock && W.flags.bulkDone && W.t >= 12 && W.t < 18;
 +    if (XS.shock && W.seed % 2 === 0 && W.t >= 12 && !bulkOn) { me.supMul = (me.supMul || 1) + 0.05 / 0.35 + (pol.supplier === 'high' ? 0.02 / 0.35 : 0); }
 +    me.bulkBack = bulkOn ? 45000 : 0;
      // 予兆のあった新店が開く（f.3「近くに出店の予兆」：2か月前の工事の看板）
      if (W.flags.omen && !W.flags.omenOpened && W.t >= W.flags.omen.at) { const r = SIM.rivals.make(W.flags.omen.kind, W.rivals.length); r.id = 'rnew'; r.name = 'ごうりき軒 駅前店'; if (W.flags.omen.weak) r.R = 2.6; if (W.flags.omen.war) r.price = 650; W.rivals.push(r); W.flags.omenOpened = true; res.opened = r.id; }
      // ライバルの手（反応のルール f.3。予兆・遅れつき）
-@@ -214,7 +227,7 @@
+@@ -214,7 +229,7 @@
      const e0 = ex[0];
      const Nd = Math.max(0, (e0.N * noiseMul + (e0.Nnew * (fx.demandMul - 1))));
      // 回せる客数（店の形）と週末の山：平日20日・週末6日。週末の倍率は客層の混ざり（d.3）
@@ -87,7 +89,7 @@ index d708bc9..1545825 100644
      const days = C('days'), dW = (Nd * days) / (20 + 6 * k);
      const servable = 20 * Math.min(dW, cap) + 6 * Math.min(k * dW, cap);
      const demand = Nd * days, overflow = demand - servable;
-@@ -225,12 +238,12 @@
+@@ -225,12 +240,12 @@
      const sold = Math.max(0, Math.min(servable, prepared));
      const waste = Math.max(0, prepared - sold), lostStock = Math.max(0, Math.min(servable, demand) - sold), lostCap = Math.max(0, overflow);
      // 帳簿の数字（月）
@@ -103,7 +105,7 @@ index d708bc9..1545825 100644
      const ads = (pol.flyer || 0) + (me.line ? 5000 : 0) + (res.limited ? 30000 : 0);
      const op0 = sales - cogs - wasteCost - labor - rent - util - other - dep - ads + fx.cash;
      // 家族の給料は赤字の月も labor に含む。旧保存・月報との互換のため famPay は0。
-@@ -239,19 +252,23 @@
+@@ -239,19 +254,23 @@
      if (pol.borrow && !W.flags.shortUsed) { W.cash += C('shortLimit'); W.short = (W.short || 0) + C('shortLimit'); W.flags.shortUsed = true; res.borrowed = C('shortLimit'); }
      // 公庫の返済は最初の3か月はすえおき（利息はためておき、7月に4か月分をまとめて払う）
      const g0 = C('loanGrace'), intMonth = (W.loan * C('loanRate')) / 12;
@@ -131,7 +133,7 @@ index d708bc9..1545825 100644
      // 値下げをした後、最初に値上げした月の離れを2倍にする（d.2 版0.5）。
      const discountRebound = hike > 0 && !!me.discounted;
      const churn = Math.min(1, churnBase * (discountRebound ? C('discountChurn') : 1));
-@@ -259,7 +276,7 @@
+@@ -259,7 +278,7 @@
      else if (hike > 0) me.discounted = false;
      const regularBefore = me.L;
      const newServed = (sold * e0.Nnew) / Math.max(1e-9, e0.N * days); // 1日あたりの新規の客で、実際に食べた人
