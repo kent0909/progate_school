@@ -21,6 +21,11 @@ const BASELINE = /* 基準の実測。検査対象から作り直さない */ {
   "2:ekimae": "a82384652d8e54b95fbd00202b572b5fea7e25b916ed11a466078e235bed1cfc",
   "2:jutaku": "30f70c857add2e37041a9dc6d918c770592ae88caaec58a2b94c0973090f6081"
 };
+// 承認6385820182の新品コンロ支払だけは旧版との差分として別検査する。
+// 古い世界全文の検査中だけ、この既知の支払漏れを旧版へ戻す。
+const newStoveOutcomes=D.cards.byId.maintain.options.find(o=>o.id==='new').outcomes;
+const newStoveCash=newStoveOutcomes.map(o=>o.cash);
+newStoveOutcomes.forEach(o=>{delete o.cash;});
 let baselineMonths = 0;
 for (const [key, want] of Object.entries(BASELINE)) {
   const [seed0, area] = key.split(':'), seed = +seed0;
@@ -32,6 +37,7 @@ for (const [key, want] of Object.entries(BASELINE)) {
   }
   assert.equal(h.digest('hex'), want, `1年目の基準と不一致：${key}`);
 }
+newStoveOutcomes.forEach((o,i)=>{o.cash=newStoveCash[i];assert.equal(o.cash,-300000,'承認したコンロ代の支払がない');});
 const finite = (x, at) => {
   if (typeof x === 'number') assert.ok(Number.isFinite(x), `${at}が有限でない`);
   else if (x && typeof x === 'object') for (const [k,v] of Object.entries(x)) finite(v, `${at}.${k}`);
@@ -140,6 +146,11 @@ function story(seed, choices = {}) {
   if(S.W.flags.staffBonus&&S.W.flags.staffBonus.kind==='promise')assert.equal(expenseFor(/^bonus-doc[12]@/),D.y2.assets.unitBonus(S)*(S.W.flags.bonusCount||0),'賞与の引当と支払で費用を二重計上');
   return {S,docs,calcs,seen};
 }
+function economicStory(seed,choices={}){
+  // 比較表だけは表示用の要因分解を省く。既定の全結果検査は省かない。
+  const month=wd.month;wd.month=(W,p,opts={})=>month(W,p,{...opts,noFactors:true});
+  try{return story(seed,choices);}finally{wd.month=month;}
+}
 function extendWorld(S,endT=44){
   for(let t=S.W.t;t<=endT;t++){
     const pol=D.ramen.policy(S,t);S.W.flags.y2CurrentDealt=[];D.y2.beforePlan(S,t,pol);
@@ -160,18 +171,30 @@ function forcedStory(seed,choices,target,outcome){
   try{return story(seed,choices);}finally{D.decide.resolve=original;}
 }
 if (!process.argv.includes('--world')) {
+  for(const seed of [0,7]){
+    const full=story(seed).S,fast=economicStory(seed).S;
+    const plain=x=>JSON.stringify(x,(k,v)=>k==='factors'?undefined:v);
+    assert.equal(plain(full),plain(fast),'表示の要因分解を省いて経営・帳簿の結果が変わった');
+  }
+  console.log('OK：比較表の高速経路と通常経路で世界・帳簿・判断が一致（要因分解の表示値だけ除外）');
   const seen=new Set();let docs=0,calcs=0;const metrics=[];
   for(let seed=0;seed<12;seed++){
     const run=story(seed);metrics.push({seed,y2Cash:run.S.res[23].cash,y3Cash:run.S.res[35].cash,y4JuneCash:run.S.res[38].cash,bankrupt:!!run.S.W.bankrupt});docs+=run.docs;calcs+=run.calcs;for(const id of run.seen)seen.add(id);
   }
   console.log(`OK：39か月の台本12周・仕訳 ${docs}件・計算 ${calcs}件・有限数と貸借一致`);
   for(const mode of ['2026','2027']){
-    const {S}=story(0,{__mode:mode,finance_asset:'loan'});
+    const {S}=story(7,{__mode:mode,finance_asset:'loan'});assert.equal(S.decisions['finance_asset@25'],'loan','審査を通った借入購入を検査していない');
     assert.ok(S.T.some(e=>(e.y||1)>=2&&e.dr.some(([a])=>a===BOKI.kubun.yearly[mode].rent)));
     for(const e of S.T)for(const side of ['dr','cr'])for(const[a]of e[side])assert.ok(!BOKI.kubun.yearly[mode].forbid.test(a),`年度外の科目 ${mode}/${a}`);
   }
   console.log('OK：2026・2027年度の科目と借入購入の経路');
   if(process.argv.includes('--metrics'))console.log('新台本・既定選択12seedの指標：'+JSON.stringify(metrics));
+  for(const costOmen of ['switch','keep','bulk'])story(0,{supplier:'high',costOmen});
+  {
+    const {S}=story(0);const wrong=clone(S);const entry=wrong.L.find(e=>e.ev==='found');entry.dr[0][1]+=1000;entry.cr[0][1]+=1000;
+    assert.equal(D.y2books.reconcile(wrong,38,'L').rest,-1000,'記帳の間違いを説明行に吸収した');
+    console.log('OK：高い仕入先の3枝・まとめ買いの支払・誤記1000円を未説明差として検出');
+  }
   let branches=0;
   for(const card of D.y2.cards.cards.filter(c=>!c.automatic))for(const option of card.options){
     const result=story(3,{[card.id]:option.id});
@@ -202,7 +225,7 @@ if (!process.argv.includes('--world')) {
       for(let seed=0;seed<24;seed++){
         const rows=[];
         for(const option of card.options){
-          const {S}=story(seed,{[card.id]:option.id});
+          const {S}=economicStory(seed,{[card.id]:option.id});
           const chosen=Object.entries(S.decisions).some(([id,value])=>id.startsWith(card.id+'@')&&value===option.id);
           if(!chosen)continue;
           const equity=Object.entries(BOKI.accounts).filter(([,a])=>a.cat==='純資産').reduce((n,[a])=>n-D.y2books.balance(S.T,a),0)+D.y2books.income(S.T.filter(e=>e.y===4&&!e.closing)).net;
@@ -223,6 +246,15 @@ if (!process.argv.includes('--world')) {
     const itemEntries=S.T.filter(e=>/^(ticket_items-doc|items-stock-sale@|items-stock-value)/.test(e.ev||''));assert.equal(D.y2books.income(itemEntries).net,12000);
     console.log('OK：物販は先月の残りから販売・3月末の売れ残り評価・費用の二重計上なし');
   }
+  for(const [option,outcome,cost]of [['repair','ok',120000],['repair','again',120000],['new','ok',300000],['new','late',300000],['wait','ok',0],['wait','stop',150000]]){
+    const {S}=forcedStory(0,{maintain:option},'maintain',outcome);
+    const invoice=S.T.filter(e=>e.ev===`maintain-doc${option==='new'?1:0}@8`),payment=S.T.filter(e=>e.ev==='fx-book-maintain@9');
+    if(option!=='wait')assert.equal(D.y2books.balance(invoice.concat(payment),'未払金'),0,'12月の修理の未払金が翌月に残る');
+    assert.equal(D.y2books.income(invoice.concat(payment)).expense,option==='new'?0:cost,'修理の費用を2回計上した');
+    assert.equal(D.y2books.cash(payment),cost?-cost:0,'修理の支払額が世界と違う');
+    assert.equal((S.res[9].choices.find(x=>x.card==='maintain')||{cash:0}).cash,cost?-cost:0);
+  }
+  console.log('OK：1年目の修理・買替・故障の6結果・修理の未払金取崩・費用1回・支払一致');
   // 制度の24か月比較は、本編での導入時期と分けた反実仮想。
   if(process.argv.includes('--bonus-model')){
     const rows=[];
@@ -241,7 +273,7 @@ if (!process.argv.includes('--world')) {
   }
   // 比較の条件を固定し、勝率を合格条件にしない。金額の釣り合いは報告対象。
   if(process.argv.includes('--bonus-story')){
-    const rows=[];for(let seed=0;seed<24;seed++)for(const bonus of ['token','standard','generous']){const {S}=story(seed,{bonus});extendWorld(S);rows.push({seed,bonus,y2:S.res[23].cash,y3:S.res[35].cash,y4June:S.res[38].cash,y4Nov:S.res[44].cash,chainHiring:!!S.W.flags.y2ChainHiring,busy:Object.values(S.res).filter(r=>r.t>=32&&r.fullDays>0).length/13});}
+    const rows=[];for(let seed=0;seed<24;seed++)for(const bonus of ['token','standard','generous']){const {S}=economicStory(seed,{bonus});extendWorld(S);rows.push({seed,bonus,y2:S.res[23].cash,y3:S.res[35].cash,y4June:S.res[38].cash,y4Nov:S.res[44].cash,chainHiring:!!S.W.flags.y2ChainHiring,busy:Object.values(S.res).filter(r=>r.t>=32&&r.fullDays>0).length/13});}
     console.log('賞与制度・本編の時期：'+JSON.stringify(rows));
   }
   if(process.argv.includes('--compare')){
@@ -250,7 +282,7 @@ if (!process.argv.includes('--world')) {
     for(let seed=0;seed<24;seed++){
       const rows=[];
       for(const sale of ['sell','keep'])for(const repair of ['plan','break']){
-        const id=`${sale}_${repair}`,{S}=story(seed,{maintain_replace:sale,maintain_y2:repair});
+        const id=`${sale}_${repair}`,{S}=economicStory(seed,{maintain_replace:sale,maintain_y2:repair});
         const row={seed,id,y3:S.res[35].cash,y4June:S.res[38].cash};rows.push(row);(ends[id] ||= []).push(row);
       }
       const best=Math.max(...rows.map(x=>x.y4June)), top=rows.filter(x=>x.y4June===best);if(top.length===1)wins[top[0].id]++;else ties++;

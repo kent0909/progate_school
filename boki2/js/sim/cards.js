@@ -75,7 +75,7 @@
       talk: [['piyo', 'コンロの火が弱くなったピヨ。業者さんの見積りが来た。']], q: 'どうする？',
       options: [
         { id: 'repair', label: '修理する（12万円）', outcomes: [{ id: 'ok', w: 80, label: '直った', cash: -120000 }, { id: 'again', w: 20, label: '直ったが、また弱くなりそう', cash: -120000 }] },
-        { id: 'new', label: '新しいコンロに買い替える（30万円）', outcomes: [{ id: 'ok', w: 90, label: '火が強くなり、炊く時間が短くなった' }, { id: 'late', w: 10, label: '届くまで3日休んだ', fx: (W, fx) => { fx.demandMul *= 0.9; } }] },
+        { id: 'new', label: '新しいコンロに買い替える（30万円）', outcomes: [{ id: 'ok', w: 90, label: '火が強くなり、炊く時間が短くなった', cash: -300000 }, { id: 'late', w: 10, label: '届くまで3日休んだ', cash: -300000, fx: (W, fx) => { fx.demandMul *= 0.9; } }] },
         { id: 'wait', label: 'まだ使う', outcomes: [{ id: 'ok', w: 60, label: 'しばらくは使えた' }, { id: 'stop', w: 40, label: '営業中に止まった。2日休んだ', cash: -150000, fx: (W, fx) => { fx.demandMul *= 0.93; fx.Rd -= 0.05; } }] },
       ],
       docs: (W) => [doc('repair', `r-rep-${W.t}`, { type: '請求書', title: '請求書（コンロの修理）', from: '山中厨房', to: SHOP, date: `${W.m}月20日`, rows: [['内容', 'コンロの部品の交換（もとの性能に戻す修理）'], ['金額', 120000, 'amt'], ['お支払期日', '翌月末']] }, je([['修繕費', 120000]], [['未払金', 120000]]), ['修繕費', '備品', '未払金', '買掛金'], ['s-capex', 'b-mibarai']),

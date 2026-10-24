@@ -51,6 +51,20 @@
   // 現金の各出所を独立して照合する。未知の取引は残差に残し、調整行には入れない。
   const reconcile = (S,t,side='T') => {
     const labels={opening:'開業のお金',sales:'売上の入金・カードの翌月入金',materials:'材料の購入と翌月の支払',salary:'給料の翌月払い',util:'光熱費の翌月払い',rent:'家賃と消費税',finance:'借入・元本・利息',other:'通信・掃除・小物',ads:'宣伝の後払いと配信費',cards:'札の入出金',tax:'法人税の納付',fee:'銀行手数料'};
+    const reasons={
+      opening:'開業資金と、内装・器材・保証金の支払を資料どおりに比べる。',
+      sales:'店は売上を当月入金する仮定。帳簿はカードの翌月入金、消費税、カード手数料を反映する。',
+      materials:'店は使った材料を当月払う仮定。帳簿は掛け代金の翌月払い、消費税、まとめ買いの実支払を反映する。',
+      salary:'通常の給料は、店の試算では働いた月、通帳では翌月に動く。退職時の精算は札の支払に含める。',
+      util:'ガス・水道・電気を使った月と、代金を払う月が違う。',
+      rent:'店の試算は税抜。通帳は、支払った消費税も含む。',
+      finance:'元本・利息・追加借入を比べる。1年目から引き継いだ簡略計算と資料の差も含む。',
+      other:'電話などの支出。月報でまとめて記帳する前は差が出る。',
+      ads:'チラシは翌月払い、配信などは当月払いで記帳する。',
+      cards:'札の入出金。結果が返る月の違いと、1年目の店の簡略計算に含めていない支払も分けて比べる。',
+      tax:'帳簿は実際の法人税の支払を引く。店の営業を比べる試算には、この支払を含めていない。',
+      fee:'銀行の振込手数料。店の営業の試算には含めていない。'
+    };
     const model={},book={},sources={};for(const k of Object.keys(labels)){model[k]=0;book[k]=0;sources[k]=[];}
     const C=SIM.coef;model.opening=C('ownCash')+C('loan')-C('fitout')-C('deposit')-C('equipOpen');
     for(let k=0;k<=t;k++){const r=(S.res||{})[k];if(!r)continue;
@@ -59,16 +73,18 @@
     const classify=id=>{
       if(['found','loan','deposit','fitout','equip'].includes(id))return 'opening';
       if(/^(sale|cardin|coupon)\d+$/.test(id))return 'sales';
-      if(/^(buy|pap)\d+$/.test(id)||id==='bulk-paid')return 'materials';
+      if(/^(buy|pap)\d+$/.test(id)||id==='buy-bulk9')return 'materials';
       if(/^sal\d+$/.test(id))return 'salary';if(/^util\d+$/.test(id))return 'util';if(/^rent\d+$/.test(id))return 'rent';
       if(/^repay\d+$/.test(id)||/^borrowed\d+$/.test(id))return 'finance';if(/^other\d+$/.test(id))return 'other';
       if(/^(flyerpay|ads-other)\d+$/.test(id))return 'ads';if(/^tax-pay/.test(id))return 'tax';if(id==='fee-3')return 'fee';
-      if(/-doc\d+@/.test(id)||/^fx\d+$/.test(id)||/^(equipment-pay|items-stock-sale|spare-storage|close-restore|staff-cost|staff-left-pay|repair-failure)@/.test(id))return 'cards';
+      if(/^fx-book-/.test(id)||/-doc\d+@/.test(id)||/^fx\d+$/.test(id)||/^(equipment-pay|items-stock-sale|spare-storage|close-restore|staff-cost|staff-left-pay|repair-failure)@/.test(id))return 'cards';
       return null;
     };
     const entries=(S[side]||[]).filter(e=>monthOf(e)==null||monthOf(e)<=t);
-    const unknown=[];for(const e of entries){const v=cash([e]);if(!v)continue;const id=e.ev||e.id||'',k=classify(id);if(k){book[k]+=v;sources[k].push(id);}else unknown.push({id,cash:v});}
-    const rows=Object.keys(labels).map(id=>({id,label:labels[id],amount:model[id]-book[id],v:model[id]-book[id],why:'店の月別入出金と、同じ種類の仕訳の入出金を比較。売掛・買掛・未払、消費税、札の記帳月の違いを含む。',source:sources[id].join(', ')||'月報の入出金',model:model[id],book:book[id]}));
+    // 説明の基準は正しい記帳T。遊ぶ人のLの誤りまで差額の説明に吸収しない。
+    const truth=(S.T||[]).filter(e=>monthOf(e)==null||monthOf(e)<=t);
+    const unknown=[];for(const e of truth){const v=cash([e]);if(!v)continue;const id=e.ev||e.id||'',k=classify(id);if(k){book[k]+=v;sources[k].push(id);}else unknown.push({id,cash:v});}
+    const rows=Object.keys(labels).map(id=>({id,label:labels[id],amount:model[id]-book[id],v:model[id]-book[id],why:reasons[id],source:sources[id].join(', ')||'月報の入出金',model:model[id],book:book[id]}));
     rows.push({id:'noncash',label:'減価償却・引当金・棚卸の振替',amount:0,v:0,why:'損益や資産・負債は変わるが、この仕訳では口座は動かない。支払時の入出金は上の各行で照合。',source:'固定資産台帳・決算の振替仕訳'});
     const result=bridge(cash(entries),(S.res[t]||{}).cash,rows);return {...result,unknown,modelCash:Object.values(model).reduce((a,b)=>a+b,0)};
   };

@@ -108,13 +108,22 @@
   };
 
   // ---------- 月報（rreport）：月の結果。「その他の店のお金」と札のお金は一括確定で帳簿へ（h.1） ----------
+  // 札の金額を汎用fxへ重ねないための口。PR #3のbulkもidごとに追加できる。
+  RM.fxBookers = {
+    maintain:(S,t,x)=>{
+      if(!(x.cash<0)||!['repair','new','wait'].includes(x.option))return null;
+      return {cash:x.cash,entries:[{id:`fx-book-maintain@${t}`,label:x.option!=='wait'?'前月の器材代・修理代の支払':'故障した器材の修理代',dr:[[x.option!=='wait'?'未払金':'修繕費',-x.cash]],cr:[['普通預金',-x.cash]]}]};
+    }
+  };
   const rreport = (t) => ({ t: 'rreport', id: `rep${t}`, ramenT: t,
     rows: (S) => { const r = resAt(S, t) || Y.R(S, t); return [['1日のお客さん', `${(r.N || 0).toFixed(1)}人`], ['売上', Math.round(r.sales)], ['材料', -Math.round(r.cogs + (r.wasteCost || 0))], ['人のお金', -Math.round(r.labor + (r.famPay || 0))], ['家賃・ガス水道電気・その他', -Math.round(r.rent + r.util + r.other)], ['この月のもうけ（およそ）', Math.round(r.op)]]; },
     // 一括確定で帳簿に入れる行（月報の行のうち、手で書かない行）。その他の店のお金（通信・掃除・会計の先生など）は消耗品費の札でまとめる【簡略：段5で行を分ける】
     auto: (S) => { const r = resAt(S, t); if (!r) return []; const rows = [{ id: `other${t}`, label: 'その他の店のお金（電話・掃除・小物）', dr: [['消耗品費', Math.round(r.other)]], cr: [['普通預金', Math.round(r.other)]] }]; let fx = r.fx;
+      for(const x of r.choices || []){const handler=RM.fxBookers[x.card];if(!handler)continue;const booked=handler(S,t,x);if(booked){rows.push(...booked.entries);fx-=booked.cash;}}
       if (t >= 12) {
         // 年2の札は、実際にお金が動いた月に手書き済み。月報で二重に書かない。
         fx -= (r.choices || []).reduce((n, x) => { const c = SIM.cards.byId[x.card]; if (!c || !c.y2) return n; const o = c.options.find(o => o.id === x.option).outcomes.find(o => o.id === x.outcome); return n + ((o.flow || 'op') === 'op' ? x.cash : 0); }, 0);
+        if(r.borrowed)rows.push({id:`borrowed${t}`,label:'追加借入の入金',dr:[['普通預金',r.borrowed]],cr:[['借入金',r.borrowed]]});
         const extraAds = Math.round(r.ads - ((S.pols[t] || {}).flyer || 0));
         if (extraAds) rows.push({ id: `ads-other${t}`, label: '配信などの宣伝の支払', dr: [['広告宣伝費', extraAds]], cr: [['普通預金', extraAds]] });
       }

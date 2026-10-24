@@ -31,6 +31,6 @@
   Y.extraEvents.push(t=>t<30?[]:[{...doc('spare-storage','予備器材の保管・点検の支払',()=>[['今月の支払',COEF.storage.v,'amt']],()=>Y.je([['支払手数料',COEF.storage.v]],[['普通預金',COEF.storage.v]]),['支払手数料']),id:`spare-storage@${t}`,when:S=>(((S.res || {})[t] || {}).carried || []).some(x=>x.card==='spare_storage')}]);
   // 開業器材と1年目の追加コンロの定額法を翌年にも継続する。
   const annual=S=>(soldAt(S)==null?originalCost(S)/5:0)+(((S.cardOutcomes || []).some(x=>x.card==='maintain'&&x.option==='new'))?300000/5:0);
-  Y.adjustments.push(y=>y<2?[]:[{...doc('old-equipment-dep','引き続き使っている器材の、今年使った分',S=>[['開業器材と1年目の追加コンロ・今年の分',annual(S),'amt'],['条件','取得時の5年定額法を継続。売却した開業器材は売却月に精算済み。']],S=>Y.je([['減価償却費',annual(S)]],[['備品減価償却累計額',annual(S)]]),['減価償却費','備品減価償却累計額']),id:`old-equipment-dep${y}`}]);
+  Y.adjustments.push(y=>y<2?[]:[{...doc('old-equipment-dep','引き続き使っている器材の、今年使った分',S=>[['開業器材と1年目の追加コンロ・今年の分',annual(S),'amt'],['条件','取得時の5年定額法を継続。売却した開業器材は売却月に精算済み。']],S=>Y.je([['減価償却費',annual(S)]],[['備品減価償却累計額',annual(S)]]),['減価償却費','備品減価償却累計額']),id:`old-equipment-dep${y}`,when:S=>annual(S)>0}]);
   Y.sale={coef:COEF,ledger,value,currentDep};
 })(typeof window!=='undefined'?window:globalThis);

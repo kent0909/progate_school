@@ -24,6 +24,7 @@
     frozenOwn:{v:0.6,lo:0.45,hi:0.75,source:'取りまとめ役 6384653772への回答6384658872'},
     frozenPeak:{v:1.3,lo:1.15,hi:1.5,source:'取りまとめ役 6384653772への回答6384658872'},
     frozenMonths:{v:3,lo:3,hi:3,source:'取りまとめ役 6384653772への回答6384658872'},
+    itemBuy:{v:[10,20],lo:10,hi:20,source:'取りまとめ役回答6383573548。仕入数の選択肢'},
     itemDemand:{v:[6,18],lo:6,hi:18,source:'取りまとめ役 6384653772への回答6384658872。仮の需要・一様'},
     initialShares: {v:300,lo:300,hi:300,source:'PR #2 6383425858：開業300万円・1株1万円'},
     issue: {v:[[500,10000],[100,30000],[50,45000],[25,88000]],lo:25,hi:500,source:'DESIGN-RAMEN e.6 issue。各組は株数・払込単価'},
@@ -82,6 +83,7 @@
     when:W=>schedule(2,9)(W)&&!(W.stores && W.stores.length>1)&&!(W.flags && W.flags.y2Build),
     talk:[['shacho','店を増やすなら、場所と人の数を決めよう。今の店から人を回せるかな。']],
     options:[...Object.entries(SIM.world.AREAS).flatMap(([area,a])=>Object.entries(SIM.world.FORMS).map(([form,f])=>({id:`${area}:${form}`,label:`${a.label}・${f.label}`,desc:`内装${money(SIM.coef('fitout'))}円、保証金${money(SIM.coef('deposit'))}円。家賃は場所で変わる。`,outcomes:[{id:'start',w:100,label:'工事に着手した',flow:'invest',cash:-(SIM.coef('deposit')+SIM.coef('fitout')/2),fx:W=>{W.flags.y2Build={area,form,at:W.t+1,staff:W.flags.y2Staff || 'hire'};}}]}))),{id:'wait',label:'今年は1号店に集中する',desc:'出店のお金を残し、店を増やす機会を見送る。',outcomes:[{id:'wait',w:100,label:'今の店で続けた'}]}],
+    trial:(S,id)=>{if(id==='wait')return [['出店の支払',0]];const [area,form]=id.split(':'),f=SIM.world.FORMS[form],W=S.W||SIM.world.create({seed:S.seed||0});return [['着手時の内装半額と保証金',SIM.coef('fitout')/2+SIM.coef('deposit')],['完成時に払う残り',SIM.coef('fitout')/2],['新しい店の月の家賃',Math.round(SIM.coef('rentPerTsubo')[area]*SIM.coef('tsubo')*(W.rentMul||1))],['新しい店の月の給料（見積り）',SIM.world.laborOf(f)]];},
     extra:t=>[{t:'decision',id:`site2_staff@${t}`,when:S=>S.W && S.W.stores[0].parts>0 && choice(S,'site2',t,'wait')!=='wait',q:'新しい店の人は、どう用意する？',options:[{id:'hire',label:'新しい店で雇う',desc:'1号店の人を残す。2号店の人のお金が増える。',result:'選んだ形の人数を、新しい店で雇う。'},{id:'transfer',label:'1号店から1人回す',desc:'1号店のパートがいる場合。いなければ新しい店で雇う。',result:'1号店のパートがいれば1人を2号店へ。1号店の回せる客数も変わる。'}]}],
     docs:t=>[doc('kensetsu-in','内装工事の着手金',()=>[['内装工事の総額',SIM.coef('fitout'),'amt'],['今回の支払',SIM.coef('fitout')/2,'amt'],['残り','翌月の完成時に支払う']],()=>je([['建設仮勘定',SIM.coef('fitout')/2]],[['普通預金',SIM.coef('fitout')/2]]),['建設仮勘定']),
       doc('site2-deposit','2号店の大家さんへの預け金',()=>[['退去時に精算して返る額',SIM.coef('deposit'),'amt']],()=>je([['差入保証金',SIM.coef('deposit')]],[['普通預金',SIM.coef('deposit')]]),['差入保証金'])]
@@ -147,12 +149,12 @@
     docs:t=>[expenseDoc('rd','冷凍麺の試作・売れるかはまだ未確定','研究開発費','frozen_noodle',t,30000)]
   });
   const items=add({id:'ticket_items',title:'店の鉢を、おみやげに売る？',scope:['s-taiwitsu'],when:schedule(2,12),talk:[['eigyo','この鉢を買って帰りたいというお客さんがいます。仕入れて並べますか。']],
-    options:[...[10,20].map(n=>({id:`n${n}`,label:`${n}個仕入れて並べる`,desc:'1個600円で仕入、1,000円で販売。需要は6〜18個。売れ残りは商品として残る。',outcomes:Array.from({length:13},(_,i)=>i+6).map(demand=>({id:`d${demand}`,w:100/13,label:`需要${demand}個、${Math.min(n,demand)}個売れた`,cash:Math.min(n,demand)*1000-n*600,fx:W=>{W.flags.y2Items={bought:n,sold:Math.min(n,demand),demand};(W.flags.y2ItemBatches||=[]).push({at:W.t,remaining:n-Math.min(n,demand)});}}))})),{id:'no',label:'売らない',desc:'在庫を持たず、ラーメンの販売を続ける。',outcomes:[{id:'keep',w:100,label:'鉢は仕入れなかった'}]}],
+    options:[...V('itemBuy').map(n=>({id:`n${n}`,label:`${n}個仕入れて並べる`,desc:'1個600円で仕入、1,000円で販売。需要は6〜18個。売れ残りは商品として残る。',outcomes:Array.from({length:V('itemDemand')[1]-V('itemDemand')[0]+1},(_,i)=>i+V('itemDemand')[0]).map(demand=>({id:`d${demand}`,w:100/(V('itemDemand')[1]-V('itemDemand')[0]+1),label:`需要${demand}個、${Math.min(n,demand)}個売れた`,cash:Math.min(n,demand)*V('itemPrice')-n*V('itemCost'),fx:W=>{W.flags.y2Items={bought:n,sold:Math.min(n,demand),demand};(W.flags.y2ItemBatches||=[]).push({at:W.t,remaining:n-Math.min(n,demand)});}}))})),{id:'no',label:'売らない',desc:'在庫を持たず、ラーメンの販売を続ける。',outcomes:[{id:'keep',w:100,label:'鉢は仕入れなかった'}]}],
     docs:t=>{const x=S=>{const c=actualChoice(S,'ticket_items',t);return c&&c.option!=='no'?{bought:+c.option.slice(1),sold:Math.min(+c.option.slice(1),+c.outcome.slice(1))}:{bought:10,sold:8};};return [
-      doc('items-buy','販売用の鉢の仕入れ',S=>[['仕入数',x(S).bought],['1個の仕入価格',600,'amt']],S=>je([['商品',x(S).bought*600]],[['普通預金',x(S).bought*600]]),['商品']),
-      doc('taiwitsu','鉢の販売・売れた値段と仕入れた値段',S=>[['販売数',x(S).sold],['1個の売価',1000,'amt'],['1個の原価',600,'amt']],S=>je([['普通預金',x(S).sold*1000],['売上原価',x(S).sold*600]],[['売上',x(S).sold*1000],['商品',x(S).sold*600]]),['商品','売上原価'])
+      doc('items-buy','販売用の鉢の仕入れ',S=>[['仕入数',x(S).bought],['1個の仕入価格',600,'amt']],S=>je([['商品',x(S).bought*V('itemCost')]],[['普通預金',x(S).bought*V('itemCost')]]),['商品']),
+      doc('taiwitsu','鉢の販売・売れた値段と仕入れた値段',S=>[['販売数',x(S).sold],['1個の売価',1000,'amt'],['1個の原価',600,'amt']],S=>je([['普通預金',x(S).sold*V('itemPrice')],['売上原価',x(S).sold*V('itemCost')]],[['売上',x(S).sold*V('itemPrice')],['商品',x(S).sold*V('itemCost')]]),['商品','売上原価'])
     ];},
-    resultCalcs:t=>[Y1calc(`taiwitsu-vs@${t}`,['s-taiwitsu'],'書き方を替えても、鉢のもうけは同じ？',S=>{const c=actualChoice(S,'ticket_items',t),n=c&&c.option!=='no'?+c.option.slice(1):10,sold=c&&c.option!=='no'?Math.min(n,+c.outcome.slice(1)):8;return [['仕入総額',n*600],['売上',sold*1000],['月末に残った鉢の原価',(n-sold)*600]];},'三分法なら仕入から残った分を戻す。売上から、使った原価を引くといくら？',S=>{const c=actualChoice(S,'ticket_items',t);return c&&c.option!=='no'?Math.min(+c.option.slice(1),+c.outcome.slice(1))*400:3200;},'売れるたびに原価を書く方法でも、残りを数えて原価を出す三分法でも、同じ鉢のもうけは一致する。')]
+    resultCalcs:t=>[Y1calc(`taiwitsu-vs@${t}`,['s-taiwitsu'],'書き方を替えても、鉢のもうけは同じ？',S=>{const c=actualChoice(S,'ticket_items',t),n=c&&c.option!=='no'?+c.option.slice(1):10,sold=c&&c.option!=='no'?Math.min(n,+c.outcome.slice(1)):8;return [['仕入総額',n*V('itemCost')],['売上',sold*V('itemPrice')],['月末に残った鉢の原価',(n-sold)*V('itemCost')]];},'三分法なら仕入から残った分を戻す。売上から、使った原価を引くといくら？',S=>{const c=actualChoice(S,'ticket_items',t);return c&&c.option!=='no'?Math.min(+c.option.slice(1),+c.outcome.slice(1))*(V('itemPrice')-V('itemCost')):3200;},'売れるたびに原価を書く方法でも、残りを数えて原価を出す三分法でも、同じ鉢のもうけは一致する。')]
   });
   function Y1calc(id,scope,title,rows,q,answer,why){return SIM.y1.calc(id,{scope,title,rows,q,answer,unit:'円',why});}
   // 名前の札は、初めて手書きする直前にengineが出す。会社の純資産の区分を混同させない。
@@ -181,7 +183,7 @@
         if(c.intro) out.push({...c.intro,when:S=>dealt(S)&&((S.discDone || {})[c.intro.id]==null||(S.discDone || {})[c.intro.id]===S.mi)});
         if(c.id==='issue') out.push({...capitalDiscovery,when:S=>dealt(S)&&((S.discDone || {})[capitalDiscovery.id]==null||(S.discDone || {})[capitalDiscovery.id]===S.mi)});
         if(c.id==='dividend') out.push({...dividendDiscovery,when:S=>dealt(S)&&((S.discDone || {})[dividendDiscovery.id]==null||(S.discDone || {})[dividendDiscovery.id]===S.mi)});
-        out.push({t:'decision',id:`${c.id}@${t}`,card:c.id,optionsFor:c.optionsFor?(S=>c.optionsFor(S,t).map(o=>({...o,result:o.result||'結果は翌月の書類と月報で確かめよう。'}))):undefined,ramenT:t,when:dealt,q:c.title,talk:c.talk,options:c.options.map(o=>({id:o.id,label:o.label,desc:o.desc,result:'条件を決めた。結果の書類は、翌月に届く。'}))});
+        out.push({t:'decision',id:`${c.id}@${t}`,card:c.id,optionsFor:c.optionsFor?(S=>c.optionsFor(S,t).map(o=>({...o,result:o.result||'結果は翌月の書類と月報で確かめよう。'}))):undefined,ramenT:t,trial:c.trial||((S,oid)=>{const tr=SIM.decide.trial(c,oid,S.W||SIM.world.create({seed:S.seed||0}));return [['この札の入出金',tr.cashMin===tr.cashMax?tr.cashMin:money(tr.cashMin)+'〜'+money(tr.cashMax)+'円'],['結果の見込み',tr.weights.length>4?'各結果は同じ見込み（'+tr.weights.length+'通り）':tr.weights.map(w=>c.options.find(o=>o.id===oid).outcomes.find(o=>o.id===w.id).label+' '+Math.round(w.w)+'%').join('／')],['準備に使う時間',tr.time+'（翌月の作戦の予算から引く）']];}),when:dealt,q:c.title,talk:c.talk,options:c.options.map(o=>({id:o.id,label:o.label,desc:o.desc,result:'条件を決めた。結果の書類は、翌月に届く。'}))});
         if(c.calcs) out.push(...c.calcs(t).map(e=>({...e,when:dealt})));
         if(c.extra) out.push(...c.extra(t).map(e=>({...e,when:S=>dealt(S)&&(!e.when || e.when(S))})));
       }

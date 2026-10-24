@@ -34,17 +34,17 @@
     }
     const notice=(S.W.flags.y2CurrentDealt||[]).some(id=>id.startsWith('minwage')||id.startsWith('rival_open'));
     if(notice||(S.W.flags.omen&&!S.W.flags.omenOpened&&S.W.flags.omen.at===t))S.W.flags.y2HiringUntil=t+V('hiringPressureMonths');
-    if(t===36){const card=SIM.cards.byId.chain_hire,out=SIM.decide.resolve(card,'notice',S.W,Y.stream(S.W,'card:chain_hire'));S.W.flags.y2ChainHiring=out.id==='hiring';if(S.W.flags.y2ChainHiring)S.W.flags.y2HiringUntil=39;}
+    if(t===36){const card=SIM.cards.byId.chain_hire,out=SIM.decide.resolve(card,'notice',S.W,Y.stream(S.W,'card:chain_hire'));S.W.flags.y2ChainHiring=out.id==='hiring';if(S.W.flags.y2ChainHiring)S.W.flags.y2HiringUntil=t+V('hiringPressureMonths');}
     S.W.flags.y2Departures=departures(S.W,t,pol);
   };
-  Y.cards.add({id:'chain_hire',title:'近くのチェーン店の求人',scope:[],automatic:true,when:()=>false,options:[{id:'notice',label:'春の求人状況を確かめる',outcomes:[{id:'hiring',w:100*V('chainHiring'),label:'近くに大きなチェーン店が開き、人を集めている（4〜6月）',fx:W=>{W.flags.y2ChainHiring=true;W.flags.y2HiringUntil=39;}},{id:'quiet',w:100*(1-V('chainHiring')),label:'うわさの出店は今春にはなかった',fx:W=>{W.flags.y2ChainHiring=false;}}]}]});
+  Y.cards.add({id:'chain_hire',title:'近くのチェーン店の求人',scope:[],automatic:true,when:()=>false,options:[{id:'notice',label:'春の求人状況を確かめる',outcomes:[{id:'hiring',w:100*V('chainHiring'),label:'近くに大きなチェーン店が開き、人を集めている（4〜6月）',fx:W=>{W.flags.y2ChainHiring=true;W.flags.y2HiringUntil=W.t+V('hiringPressureMonths');}},{id:'quiet',w:100*(1-V('chainHiring')),label:'うわさの出店は今春にはなかった',fx:W=>{W.flags.y2ChainHiring=false;}}]}]});
   Y.extraCarry.push((S,t)=>[
     ...(t===36?[{id:'chain_hire',option:'notice',t:t-1}]:[]),
     ...((S.W.flags.y2Recruiting || []).length?[{id:'staff_hire',option:'hire',t:t-1}]:[]),
     ...((S.W.flags.y2Departures || []).length?[{id:'staff_leave',option:'leave',t:t-1}]:[])
   ]);
   const prior=Y.afterPlan;
-  Y.afterPlan=(S,t,r)=>{if(prior)prior(S,t,r);r.res.departures=(S.W.flags.y2Departures || []).map(x=>({...x}));r.res.hires=(S.W.flags.y2Recruiting || []).map(x=>({...x}));r.res.leavingPay=-((r.res.choices||[]).find(x=>x.card==='staff_leave')||{cash:0}).cash;r.res.hiringPressure=S.W.flags.y2HiringUntil>t;r.res.chainHiring=!!S.W.flags.y2ChainHiring;for(const st of S.W.stores)if(st.open!==false){st.partTenure||=[];while(st.partTenure.length<st.parts)st.partTenure.push(0);st.partTenure=st.partTenure.map(n=>n+1);}};
+  Y.afterPlan=(S,t,r)=>{if(prior)prior(S,t,r);r.res.departures=(S.W.flags.y2Departures || []).map(x=>({...x}));r.res.hires=(S.W.flags.y2Recruiting || []).map(x=>({...x}));r.res.leavingPay=-((r.res.choices||[]).find(x=>x.card==='staff_leave')||{cash:0}).cash;r.res.staffExperienced=S.W.stores.filter(st=>st.open!==false).reduce((n,st)=>n+(st.partTenure||[]).slice(0,st.parts).filter(m=>m>=V('staffExperienceMonths')).length,0);r.res.hiringPressure=S.W.flags.y2HiringUntil>t;r.res.chainHiring=!!S.W.flags.y2ChainHiring;for(const st of S.W.stores)if(st.open!==false){st.partTenure||=[];while(st.partTenure.length<st.parts)st.partTenure.push(0);st.partTenure=st.partTenure.map(n=>n+1);}};
   Y.extraEvents.push(t=>t<12?[]:[{t:'doc',id:`staff-left-pay@${t}`,kind:'leaving_salary',when:S=>(((S.res||{})[t]||{}).departures||[]).length>0,doc:{type:'退職時の精算書',title:'月の途中まで働いた人の給料',from:'経理',to:'経理',date:`${Y.MON[t%12]}月`,rows:S=>[['半月分の給与精算',-((((S.res||{})[t]||{}).choices||[]).find(x=>x.card==='staff_leave')||{cash:0}).cash,'amt'],['メモ','残りの期間は店主が穴を埋め、来月の作戦の時間が1つ減る。']]},ans:S=>{const a=-((((S.res||{})[t]||{}).choices||[]).find(x=>x.card==='staff_leave')||{cash:0}).cash;return Y.je([['給料',a]],[['普通預金',a]]);},opts:Y.opts('給料')},{t:'doc',id:`staff-cost@${t}`,kind:'staff_cost',when:S=>(((S.res || {})[t] || {}).hires || []).length>0,
     doc:{type:'請求書・支払控え',title:'欠員を補う求人と教育の委託',from:'まちの人材サービス',to:'経理',date:`${Y.MON[t%12]}月`,rows:S=>[['補充した人数',(((S.res || {})[t] || {}).hires || []).length],['1人につき求人・教育の手配',COEF.recruit.v,'amt'],['メモ','先月の欠員を補い、同じ人数に戻す']]},
     ans:S=>{const n=(((S.res || {})[t] || {}).hires || []).length*COEF.recruit.v;return Y.je([['支払手数料',n]],[['普通預金',n]]);},opts:Y.opts('支払手数料')}]);
