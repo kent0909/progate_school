@@ -661,12 +661,13 @@ if (EXP === 'y1') {
     const fb = rows.map((r) => r.op.findIndex((x) => x > 0));
     const by = (t) => pct(fb.filter((x) => x >= 0 && x <= t).length, N);
     const m = (t, k) => median(rows.filter((r) => r[k][t] != null).map((r) => r[k][t]));
-    out(`| ${label} | ${[0, 2, 5, 8, 11, 17, 23].map((t) => `${f1(m(t, 'N'))}／${Math.round(m(t, 'op') / 1e4)}万`).join(' ・ ')} | ${by(5)}%／${by(6)}%／${by(11)}%／${by(23)}% | ${median(fb.filter((x) => x >= 0).concat(fb.filter((x) => x < 0).map(() => 99)))} |`);
+    const ratio = median(rows.map((r) => r.N.slice(0, 12).reduce((a, b) => a + b, 0) / Math.max(1, r.N.slice(12, 24).reduce((a, b) => a + b, 0))));
+    out(`| ${label} | ${[0, 2, 5, 8, 11, 17, 23].map((t) => `${f1(m(t, 'N'))}／${Math.round(m(t, 'op') / 1e4)}万`).join(' ・ ')} | ${by(5)}%／${by(6)}%／${by(11)}%／${by(23)}% | ${median(fb.filter((x) => x >= 0).concat(fb.filter((x) => x < 0).map(() => 99)))} | ${ratio.toFixed(2)} |`);
     return { by5: by(5), by6: by(6), by11: by(11) };
   };
   const variant = (label, coefs, o = {}) => withCoef(coefs, () => {
     const ps0 = C('potentialScale'); if (o.recal) calibrate(N); const im = idleMedian(N);
-    out(`\n**${label}**（potentialScale ${C('potentialScale')}、放置3年目 中央値 ${f1(median(im))}）\n| 店 | 客数／営業利益の中央値：4月・6月・9月・12月・3月・2年目9月・2年目3月 | 初黒字が 9月まで／10月まで／1年目内／2年目内 の周 | 初黒字の月の中央値（99＝2年で無し） |\n|---|---|---|---|`);
+    out(`\n**${label}**（potentialScale ${C('potentialScale')}、放置3年目 中央値 ${f1(median(im))}）\n| 店 | 客数／営業利益の中央値：4月・6月・9月・12月・3月・2年目9月・2年目3月 | 初黒字が 9月まで／10月まで／1年目内／2年目内 の周 | 初黒字の月の中央値（99＝2年で無し） | 1年目の客数÷2年目の客数（中央値。CALIB M22 は売上で 0.67） |\n|---|---|---|---|---|`);
     measure('手を打たない（policy0：850円・地図・衛生・パート1人）', idle0);
     measure('手を打つ（smartX 常連と地図：800円・地図・LINE・看板・チラシ3万・限定）', act);
     measure('手を打つ（取りまとめ役の形：800円・地図・3月から LINE と SNS・小の看板・4〜9月チラシ3万）', coord);
@@ -681,6 +682,8 @@ if (EXP === 'y1') {
   variant('V5 常連の定着 0.035→0.05（再較正）', { retain: 0.05 }, { recal: true });
   variant('V6 家賃なし 3→6か月（居抜きの契約）', { freeRent: 6 });
   variant('V7 坂 0.75→0.95 ＋ その他固定費 10万（再較正）', { rampStart: 0.75, rampEnd: 0.95, otherFixed: 100000 }, { recal: true });
+  variant('V8 開業の坂 0.72→0.92（再較正）', { rampStart: 0.72, rampEnd: 0.92 }, { recal: true });
+  variant('V9 開業の坂 0.65→0.95（始まりは低く、12か月で定常へ。再較正）', { rampStart: 0.65, rampEnd: 0.95 }, { recal: true });
 }
 if (EXP === 'final' || EXP === 'final-ceiling') {
   setX(X09); C.table.decay.v = 0.02; C.table.capBy.v = [Number(arg('--famCap', 45)), 70, 100, 125, 145, 160, 170]; C.table.discountChurn.v = Number(arg('--discountChurn', 1));
