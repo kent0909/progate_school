@@ -134,7 +134,7 @@
     bookmarkTrimmed+=n;
     if(!g.document?.body)return;
     let el=g.document.getElementById('boki-bookmark-note');
-    if(!el){el=g.document.createElement('div');el.id='boki-bookmark-note';el.setAttribute('role','status');el.style.cssText='padding:10px;background:#edf5fa;color:#183c50;text-align:center';g.document.body.prepend(el);}
+    if(!el){el=g.document.createElement('div');el.id='boki-bookmark-note';el.setAttribute('role','status');el.style.cssText='position:sticky;top:0;z-index:9998;padding:10px;background:#edf5fa;color:#183c50;text-align:center';g.document.body.prepend(el);}
     el.textContent='保存の容量を空けるため、古い栞を減らしました。必要な戻り先は残っています。';
   };
   V4.compactDoc = d => {
