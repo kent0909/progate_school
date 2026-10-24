@@ -33,12 +33,12 @@
   // ---------- 店の形（c.8・n.17）：おすすめの組3つ。人の構成は 0〜6人で自由（家族は上限2人・全員に給料） ----------
   const FORMS = { family: { label: '家族で小さく', parts: 0, family: 1 }, part1: { label: 'パート1人', parts: 1, family: 0 }, part2: { label: 'パート2人（昼夜）', parts: 2, family: 0 } };
   const workersOf = (st) => Math.min(C('hireMax'), st.parts + Math.max(0, st.family - 1));
-  const capOf = (st) => Math.min(C('capBy')[workersOf(st)], C('capSeat'));
+  const capOf = (st) => Math.min(C('capBy')[workersOf(st)], C('capSeat')) + (st.equipmentCapacity || 0);
   const laborOf = (st) => st.parts * C('wagePart') + (st.family >= 1 ? C('wageFamily1') : 0) + Math.max(0, st.family - 1) * C('wageFamily2');
   const PRICE_MIN = 600, PRICE_MAX = 1400;
 
   // ---------- 時間の予算（c.9）：店主の手の空き。家族3・パート1人4・パート2人5、人を雇うと +1/人（上限2）、段0は +1 ----------
-  const timeBudget = (W, p) => { const st = { parts: p.parts != null ? p.parts : W.stores[0].parts, family: p.family != null ? p.family : W.stores[0].family }; return 3 + Math.min(C('timeHireMax'), workersOf(st)) + (W.tier === 0 ? C('timeTier0') : 0); };
+  const timeBudget = (W, p) => { const st = { parts: p.parts != null ? p.parts : W.stores[0].parts, family: p.family != null ? p.family : W.stores[0].family }; return Math.max(0, 3 + Math.min(C('timeHireMax'), workersOf(st)) + (W.tier === 0 ? C('timeTier0') : 0) - ((W.last && W.last.cardTime) || 0)); };
   const canTweak = (W) => W.t - (W.stores[0].bowl.tweakAt == null ? -99 : W.stores[0].bowl.tweakAt) >= 3;
   const timeUsed = (W, p) => { const T = C('timeCost'), me = W.stores[0]; let u = 0; if (p.forecast) u += T.forecast; if (p.inspect) u += T.inspect; if (p.map) u += me.mapDone ? T.map : T.mapFirst; if (p.sns) u += T.sns; if (p.haccp) u += T.haccp; if (p.tweak && canTweak(W)) u += T.tweak; if (p.rivalRead) u += T.rivalRead; return u; };
   const TIME_KEYS = ['forecast', 'inspect', 'map', 'sns', 'haccp', 'tweak', 'rivalRead'];
@@ -333,7 +333,7 @@
     // 帳簿の数字（月）
     const unitCost = SIM.bowl.cost(me.bowl) * (me.costMul || 1) * (me.supMul || 1) + (C('items') - 1) * C('price0') * C('cogs');
     const sales = Math.round(sold * me.price * C('items') * (me.coupon ? 0.95 : 1));
-    const cogs = Math.round(sold * unitCost) - (me.bulkBack || 0), wasteCost = Math.round(waste * SIM.bowl.cost(me.bowl) * C('wasteShare'));
+    const cogs = Math.round(sold * unitCost) - (me.bulkBack || 0), wasteCost = Math.round(waste * SIM.bowl.cost(me.bowl) * C('wasteShare') * (fx.wasteMul == null ? 1 : fx.wasteMul));
     // 居抜きの契約で最初の3か月は家賃なし（ramen-y1.js の家賃の書類は7月から）
     const labor = Math.round(laborOf(me) + me.parts * C('wagePart') * ((me.wageUp || 1) - 1)), rent = W.t < C('freeRent') ? 0 : Math.round(C('rentPerTsubo')[W.area] * C('tsubo') * (W.rentMul || 1));
     const util = Math.round(C('utilFixed') + C('utilVar') * sales), other = W.otherFixed + me.supFixed + signCost + permit, dep = Math.round(C('fitout') / C('fitoutLife') / 12);

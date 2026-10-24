@@ -115,7 +115,7 @@
     let W = SIM.world.create({ seed: S.seed || 0, area: d.site || 'shotengai', form: d.form || 'part1', bowl: spec, tier: 0 });
     const out = [];
     let prev = null;
-    for (let t = 0; t < 12; t++) {
+    for (let t = 0; t < 39; t++) {
       const p = SIM.world.policy0(W, prev);
       const open = SIM.ramen.opens(t);
       for (const k of ['flyer', 'coupon', 'sns', 'line', 'forecast', 'inspect', 'tweak', 'limited']) p[k] = k === 'flyer' ? 0 : false;
@@ -125,7 +125,7 @@
       out.push({ t, op: r.res.op, N: r.res.N, cash: r.W.cash, net: SIM.world.netCash(r.W) });
       W = r.W; prev = p;
     }
-    const first = out.find((x) => x.op > 0);
+    const first = out.slice(0, 12).find((x) => x.op > 0);
     return (shadowCache[key] = { months: out, firstBlack: first ? first.t : null });
   };
 
@@ -284,7 +284,7 @@
     if (!r || !p) return null;
     const f = r.factors || {}, top = RV.topFactor(f);
     if (!top) return null;
-    const quarter = RV.QUARTER.includes(t);
+    const quarter = RV.QUARTER.includes(t % 12);
     const qs = [{ id: 1, kind: 'factor', q: RV.TEXT.debrief[1], opts: RV.FACTOR_KEYS.map((k) => ({ id: k, label: RV.FACTORS[k].label, icon: RV.FACTORS[k].icon })), ans: top, f }];
     if (quarter) {
       const rest = (f.total || 0) - f[top];
