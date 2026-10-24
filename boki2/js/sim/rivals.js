@@ -7,7 +7,7 @@
   const C = (k) => SIM.coef(k);
   // 型ごとの中身【置き値。f.1 の性格を数にした】。cost は原価率、labor は月の人件費
   const TYPES = {
-    cheap: { name: 'ごうりき軒', label: '安売りチェーン', price: 690, R: 3.0, Q: 2.6, A: 1.0, L: 6, cost: 0.32, labor: 380000, rent: 180000, cash: 8000000, bowl: { noodle: 'mid', src: 'ready', soup: 'tonkotsu', top: ['nori'] }, weak: '値段では勝てない', follow: 0.5 },
+    cheap: { name: 'ごうりき軒', label: '安売りチェーン', price: 690, R: 3.0, Q: 2.6, A: 1.0, L: 6, cost: 0.32, labor: 380000, rent: 180000, cash: 8000000, bowl: { noodle: 'mid', src: 'ready', soup: 'tonkotsu', top: ['nori'] }, weak: '値段では勝てない', follow: SIM.coef('cheapFollow') },
     kodawari: { name: '麺処 ふじしろ', label: 'こだわりの個人店', price: 1200, R: 4.5, Q: 4.2, A: 0.3, L: 10, cost: 0.38, labor: 200000, rent: 120000, cash: 3000000, bowl: { noodle: 'thin', src: 'custom', soup: 'shio', top: ['chashu', 'ajitama'] }, weak: '評判では勝てない', follow: 0 },
     shinise: { name: '中華そば 小松', label: '老舗', price: 850, R: 3.8, Q: 3.2, A: 0, L: 18, cost: 0.36, labor: 0, rent: 0, cash: 2000000, bowl: { noodle: 'mid', src: 'ready', soup: 'shoyu', top: ['chashu', 'nori'] }, weak: '常連では勝てない', follow: 0 },
   };
@@ -43,7 +43,7 @@
       if (r.type === 'ghost') { const c = (r.choices || [])[W.t]; if (c && c.price) r.price = c.price; r.bowl = SIM.bowl.step(r.bowl, { tier: W.tier }); continue; }
       // 予定の反応を実行
       r.pending = (r.pending || []).filter((p) => { if (p.at > W.t) return true; if (p.kind === 'cut') r.price = Math.max(SIM.world.PRICE_MIN, r.price - p.amt); if (p.kind === 'limited') r.bowl = SIM.bowl.apply(r.bowl, 'limited', rng, W.t); return false; });
-      // 値下げの追随：安売りは確率50で1か月後（f.3）
+      // 値下げの追随：安売りは確率25で1か月後（f.3）
       if (me.price < me.prevPrice && TYPES[r.type].follow && rng() < TYPES[r.type].follow) r.pending.push({ kind: 'cut', amt: Math.min(50, me.prevPrice - me.price), at: W.t + 1 });
       // 限定で返す：こだわりは翌月に限定
       if (me.limited && r.type === 'kodawari') r.pending.push({ kind: 'limited', at: W.t + 1 });
@@ -84,3 +84,4 @@
   const ruleOf = (t) => RULES[t] || '';
   SIM.rivals = { TYPES, make, create, step, settle, visible, ruleOf };
 })(typeof window !== 'undefined' ? window : globalThis);
+

@@ -13,11 +13,15 @@
     const d = S.decisions || {}, p = SIM.bowl.presets.find((x) => x.id === d.bowl) || SIM.bowl.presets[0];
     S.seed = S.seed == null ? 0 : S.seed;   // 1周目は seed 0（(o) 17）
     S.W = SIM.world.create({ seed: S.seed, area: d.site || 'shotengai', form: d.form || 'part1', bowl: p.spec, bowlName: (S.profile && S.profile.bowlName) || p.name, tier: 0, rivalInfo: (S.rivalInfo || 'A'), ghost: !!S.ghost, ghostChoices: S.ghostChoices || null });
+    const sign = { none: ['none', 3], small: ['small', 3], large: ['large', 3], later: ['large', 15] }[d.sign] || ['none', 3];
+    S.W.stores[0].sign = sign[0]; S.W.stores[0].signAt = sign[1];
+    S.W.stores[0].supplier = ['cheap', 'std', 'high'].includes(d.supplier) ? d.supplier : 'std';
     S.res = {}; S.pols = {}; S.dealt = {}; S.cardOutcomes = []; S.choices = S.choices || [];
     return S.W;
   };
   // 作戦の机の手は月ごとに開く（X28：4月 値段・仕込み、5月 ＋地図、6月 ＋人、7月 ＋SNS・LINE、8月 ＋チラシ・クーポン・一杯の手直し・限定）
-  RM.opens = (t) => ['price', 'prep', ...(t >= 1 ? ['map', 'forecast'] : []), ...(t >= 2 ? ['staff', 'haccp', 'inspect'] : []), ...(t >= 3 ? ['sns', 'line'] : []), ...(t >= 4 ? ['flyer', 'coupon', 'tweak'] : [])];
+  RM.supplierOptions = [{ id: 'cheap', label: '安い問屋' }, { id: 'std', label: '標準の問屋' }, { id: 'high', label: '高い問屋' }];
+  RM.opens = (t) => ['price', 'prep', 'supplier', ...(t >= 1 ? ['map', 'forecast'] : []), ...(t >= 2 ? ['staff', 'haccp', 'inspect'] : []), ...(t >= 3 ? ['sns', 'line'] : []), ...(t >= 4 ? ['flyer', 'coupon', 'tweak'] : [])];
   RM.policy = (S, t) => {
     const W = RM.world(S), prev = S.pols[t - 1];
     const p = SIM.world.policy0(W, prev || null);
@@ -43,7 +47,7 @@
     for (const id of dealt) r.W.cardsSeen[id] = (r.W.cardsSeen[id] || 0) + 1;
     S.W = r.W; S.res[t] = r.res; S.pols[t] = pol; S.dealt[t] = dealt;
     (r.res.carried || []).forEach((x) => S.cardOutcomes.push(x));
-    S.choices.push({ y: 1, m: MON[t], t, card: 'plan', option: JSON.stringify({ price: pol.price, prep: pol.prep, parts: pol.parts, flyer: pol.flyer || 0 }), seed: S.seed });
+    S.choices.push({ y: 1, m: MON[t], t, card: 'plan', option: JSON.stringify({ price: pol.price, prep: pol.prep, parts: pol.parts, flyer: pol.flyer || 0, sign: pol.sign, signAt: pol.signAt, supplier: pol.supplier }), seed: S.seed });
     return r.res;
   };
   // 番人（g.3）の骨：まだ出会っていない項目で期限（年）が近いものは、その項目を生む札の重みを上げる（scope-map の deadline）
@@ -117,3 +121,4 @@
   // 既存の events() と同じ形：いまの月（S.mi）の出来事のうち、その状態で出るもの
   RM.month = (S, W) => { void W; const m = months[S.mi]; return m ? m.events.filter((e) => !e.when || e.when(S)) : []; };
 })(typeof window !== 'undefined' ? window : globalThis);
+

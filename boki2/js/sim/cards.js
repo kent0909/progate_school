@@ -20,6 +20,8 @@
   const doc = (kind, id, d, ans, opts, scope) => ({ t: 'doc', kind, id, doc: d, ans, opts, scope });
 
   const deck = [
+    // DESIGN-RAMEN 版1.2.1 (s.1)：指定されたfixedの予兆。
+    { id: 'costOmen', title: '問屋からの値上げの知らせ', shelf: 'cost', kind: 'shock', scope: ['s-sanbunpo'], once: true, fixed: true, tFrom: 8, when: (W) => W.t === 8 && W.flags.costOmen, weight: () => 100, options: [ { id: 'switch', label: '標準の問屋に替える（翌月から）', desc: '材料の値段 41%→35%・味の質 3.8→3.0・月3万が消える', outcomes: [{ id: 'ok', w: 100, label: '翌月から標準', cash: 0, fx: (W) => { W.flags.supplierNext = 'std'; } }] }, { id: 'keep', label: '高いのまま', desc: '上がれば材料の値段 +7pt', outcomes: [{ id: 'ok', w: 100, label: '据え置き', cash: 0 }] }, { id: 'bulk', label: 'まとめ買い（6か月分）', desc: '翌月に30万を払う。上がれば2年目4〜9月の値上がりを避け、毎月4.5万ずつ材料の値段から戻る。上がらなくても在庫は使う（27万は戻る。3万は捨てる）', outcomes: [{ id: 'ok', w: 100, label: '倉庫に積む', cash: 0, fx: (W) => { W.flags.bulkDone = true; W.flags.bulkPay = true; } }] } ] },
     // ---------- 資金の棚 ----------
     // 開業資金の借入（openloan）は台本の開店の前（ramen-y1.js）の決まった判断にした（書類の順の都合：借入金は開店の前に教える）
     { id: 'mayfund', title: '5月の支払いが重なる', shelf: 'money', kind: 'decision', scope: ['b-accrual'], tFrom: 1, calc: 'mayfund', fixed: true, once: true, when: (W) => W.m === 5,
@@ -245,3 +247,4 @@
   }
   SIM.cards = { deck, byId, deal, apply };
 })(typeof window !== 'undefined' ? window : globalThis);
+
