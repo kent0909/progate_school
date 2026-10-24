@@ -7,7 +7,7 @@
   const ST = (B.store = {});
   const PKEY = 'boki2sim.profiles';
   const CHUNK = 180000; // db の1文書は 256KiB まで。保存データは文字列にして分けて置く
-  let db = null, uid = null, mode = 'local', lastErr = '';
+  let db = null, uid = null, mode = 'local', lastErr = '', localError = '', bookmarkTrimmed = 0;
   let profiles = { list: [{ id: 'p1', name: '' }], current: 'p1' };
   const listeners = [];
   const local = {
@@ -19,7 +19,7 @@
   const emit = () => listeners.forEach((f) => { try { f(ST.status()); } catch (e) { /* ignore */ } });
 
   ST.onStatus = (f) => listeners.push(f);
-  ST.status = () => ({ mode, error: lastErr, profile: profiles.list.find((p) => p.id === profiles.current) || profiles.list[0], profiles: profiles.list });
+  ST.status = () => ({ mode, error: lastErr, localError, bookmarkTrimmed, profile: profiles.list.find((p) => p.id === profiles.current) || profiles.list[0], profiles: profiles.list });
 
   // ---------- プロフィール（同じ端末・同じアカウントで、何人かが遊ぶとき） ----------
   ST.profiles = () => profiles.list.slice();
@@ -38,14 +38,22 @@
   // ---------- 遊びの保存 ----------
   ST.loadLocal = (base) => { const raw = local.get(keyOf(base)); if (!raw) return null; try { return JSON.parse(raw); } catch (e) { return null; } };
   let pending = null, timer = null, lastSent = '';
+  const localSaveNotice = failed => {
+    if(!g.document || !g.document.body)return;
+    let el=g.document.getElementById('boki-save-error');
+    if(failed&&!el){el=g.document.createElement('div');el.id='boki-save-error';el.setAttribute('role','alert');el.style.cssText='position:sticky;top:0;z-index:10000;padding:12px;background:#fff1bd;color:#6b1a00;font-weight:bold;text-align:center';g.document.body.prepend(el);}
+    if(el){el.textContent=failed?'保存できませんでした（容量がいっぱいです）':'';el.hidden=!failed;}
+  };
   ST.save = (base, state) => {
     state.savedAt = Date.now();
     const json = JSON.stringify(state);
-    local.set(keyOf(base), json);
-    if (mode !== 'cloud') return;
+    const ok=local.set(keyOf(base), json);
+    localError=ok?'':'保存できませんでした（容量がいっぱいです）';localSaveNotice(!ok);emit();
+    if (mode !== 'cloud') return ok;
     pending = { base, json, slot: profiles.current };
     clearTimeout(timer);
     timer = setTimeout(flush, 4000);
+    return ok;
   };
   async function flush() {
     if (!pending || !db || !uid) return;
@@ -112,6 +120,32 @@
   V4.SLOTS = 3;
   V4.META = ['examLog', 'growth', 'speedLog', 'speedRuns', 'plan', 'hall', 'profile', 'profileOk', 'mode', 'modeOk', 'furigana', 'textScale', 'examExtra', 'examDate', 'scopeMet', 'runs'];
   const clone = (x) => (x == null ? x : JSON.parse(JSON.stringify(x)));
+  // 6386215737：ラーメンv4だけ、直近3件と結末が必要とする戻り先を保持する。
+  V4.bookmarkLimit=3;
+  V4.pruneBookmarks = bm => {
+    const entries=Object.entries(bm||{}).filter(([,v])=>v&&typeof v==='object');
+    const pinned=new Set(Object.values(g.SIMDATA?.endings||{}).map(e=>e.back).filter(Boolean));
+    const recent=entries.filter(([id])=>!pinned.has(id)).sort((a,b)=>(a[1].mi||0)-(b[1].mi||0)||(a[1].ei||0)-(b[1].ei||0)).slice(-V4.bookmarkLimit);
+    return Object.fromEntries(entries.filter(([id])=>pinned.has(id)).concat(recent).map(([id,v])=>{const {drafts,...snapshot}=v;return [id,snapshot];}));
+  };
+  V4.SAVE_BUDGET=2*1024*1024;
+  V4.encodedBytes=x=>JSON.stringify(x).length*2; // localStorage向けの保守的なUTF-16換算
+  const bookmarkNotice=n=>{
+    bookmarkTrimmed+=n;
+    if(!g.document?.body)return;
+    let el=g.document.getElementById('boki-bookmark-note');
+    if(!el){el=g.document.createElement('div');el.id='boki-bookmark-note';el.setAttribute('role','status');el.style.cssText='padding:10px;background:#edf5fa;color:#183c50;text-align:center';g.document.body.prepend(el);}
+    el.textContent='保存の容量を空けるため、古い栞を減らしました。必要な戻り先は残っています。';
+  };
+  V4.compactDoc = d => {
+    for(const slot of d.slots||[])if(slot.run)slot.run={...slot.run,bm:V4.pruneBookmarks(slot.run.bm)};
+    const pinned=new Set(Object.values(g.SIMDATA?.endings||{}).map(e=>e.back).filter(Boolean));
+    const optional=(d.slots||[]).flatMap(slot=>Object.entries(slot.run?.bm||{}).filter(([id])=>!pinned.has(id)).map(([id,snap])=>({slot,id,snap}))).sort((a,b)=>(a.snap.mi||0)-(b.snap.mi||0)||(a.snap.ei||0)-(b.snap.ei||0));
+    let removed=0;
+    while(V4.encodedBytes(d)>V4.SAVE_BUDGET&&optional.length){const x=optional.shift();delete x.slot.run.bm[x.id];removed++;}
+    if(removed)bookmarkNotice(removed);
+    return d;
+  };
   V4.empty = () => ({ v: 4, meta: { examLog: [], growth: [], runs: [], scopeMet: {}, examDate: null }, slots: [...Array(V4.SLOTS).keys()].map((i) => ({ id: `s${i + 1}`, label: '', savedAt: 0, run: null })), cur: 's1' });
   // v3 の保存から学びの記録（成長・検定会場・examLog・予定表・設定）だけを meta に。レモネードの会社（run）は写さない（n.9：レモネードを開く入口は作らない）
   V4.fromV3 = (v3) => {
@@ -126,11 +160,12 @@
   // 読む：v4 があればそれ、なければ v3 から作る（v3 は消さない）
   V4.load = (base, v3base) => {
     const raw = ST.loadLocal(base);
-    if (V4.isV4(raw)) { while (raw.slots.length < V4.SLOTS) raw.slots.push({ id: `s${raw.slots.length + 1}`, label: '', savedAt: 0, run: null }); return raw; }
+    if (V4.isV4(raw)) { while (raw.slots.length < V4.SLOTS) raw.slots.push({ id: `s${raw.slots.length + 1}`, label: '', savedAt: 0, run: null }); return V4.compactDoc(raw); }
     return V4.fromV3(v3base ? ST.loadLocal(v3base) : null);
   };
   // 1枚の S（engine の形）に合わせる。slot が空なら run は {}
   V4.compose = (d, slotId) => {
+    V4.compactDoc(d);
     const sl = d.slots.find((x) => x.id === (slotId || d.cur)) || d.slots[0];
     return Object.assign({}, clone(sl.run) || {}, clone(d.meta), { __slot: sl.id });
   };
@@ -141,9 +176,10 @@
     for (const [k, v] of Object.entries(S)) { if (k === '__slot' || k === 'savedAt') continue; if (V4.META.includes(k)) meta[k] = v; else run[k] = v; }
     out.meta = Object.assign(out.meta || {}, clone(meta));
     const id = S.__slot || out.cur, sl = out.slots.find((x) => x.id === id) || out.slots[0];
+    run.bm=V4.pruneBookmarks(run.bm);
     sl.run = clone(run); sl.savedAt = Date.now(); if (label != null) sl.label = label;
     out.cur = sl.id;
-    return out;
+    return V4.compactDoc(out);
   };
   V4.clearSlot = (d, id) => { const out = clone(d); const sl = out.slots.find((x) => x.id === id); if (sl) { sl.run = null; sl.label = ''; sl.savedAt = 0; } return out; };
   // 判断の履歴（S.run.choices）。前の周の自分（f.1）と周のふりかえりに使う

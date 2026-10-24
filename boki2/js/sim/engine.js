@@ -43,7 +43,7 @@
   S = loadS();
   // 保存の文書（端末・クラウド・ファイル）から S を作る。ラーメン版は v4 の文書（v3 のファイルなら学びの記録だけ写す）
   const fromSaved = (st) => { if (!RAMEN) return Object.assign(fresh(), st); DOC = V4.isV4(st) ? st : V4.fromV3(st); return fromDoc(DOC); };
-  const save = () => { if (RAMEN) { DOC = V4.split(DOC, S, slotLabel()); ST.save(KEY, DOC); } else ST.save(KEY, S); };
+  const save = () => { if (RAMEN) { DOC = V4.split(DOC, S, slotLabel()); S.bm=DOC.slots.find(sl=>sl.id===DOC.cur).run.bm; ST.save(KEY, DOC); } else ST.save(KEY, S); };
   const knows = (w) => S.taught.includes(w);
   const teach = (list) => { (list || []).forEach((w) => { if (!knows(w)) S.taught.push(w); }); save(); };
   // 5つのグループの呼び方。名前を教わる前は、プロローグの棚の言葉で言う
@@ -753,6 +753,7 @@
   }
   function saveWord() {
     const st = ST.status();
+    if(st.localError)return st.localError;
     return st.mode === 'cloud' ? 'この端末と、claude.ai のこのページに保存（別の端末でも続きから遊べる）' : st.mode === 'cloud-error' ? 'この端末に保存（claude.ai への保存はいま失敗している）' : 'この端末に保存';
   }
   function titleScreen() {
@@ -1648,7 +1649,7 @@
   // 判断の画面に来たら、会社の状態を栞にはさむ（バッドエンドから、ここへ戻れる）
   // 栞で戻っても残すもの。ラーメン版は学びの記録（meta：examLog・成長・条件A）とスロットも戻さない（X12）
   const KEEP = ['leaves', 'taught', 'diary', 'seenEnds', 'ifSeen', 'metrics', 'bm', ...(RAMEN ? [...V4.META, '__slot'] : [])];
-  function snapshot() { const o = {}; for (const [k, v] of Object.entries(S)) if (!KEEP.includes(k)) o[k] = v; return JSON.parse(JSON.stringify(o)); }
+  function snapshot() { const o = {}; for (const [k, v] of Object.entries(S)) if (!KEEP.includes(k)&&(!RAMEN||k!=='drafts')) o[k] = v; return JSON.parse(JSON.stringify(o)); }
   function restore(id) {
     const snap = S.bm[id];
     if (!snap) return false;
@@ -1662,7 +1663,7 @@
   function decisionScreen(ev) {
     teach(ev.teaches);
     const options = ev.optionsFor ? ev.optionsFor(S) : ev.options;
-    if (!S.bm[ev.id] || S.bm[ev.id].mi !== S.mi) { S.bm[ev.id] = snapshot(); save(); }
+    if (!S.bm[ev.id] || S.bm[ev.id].mi !== S.mi) { S.bm[ev.id] = snapshot(); if(RAMEN)S.bm=V4.pruneBookmarks(S.bm); save(); }
     let pick = null;
     const draw = () => {
       const o = options.find((x) => x.id === pick);

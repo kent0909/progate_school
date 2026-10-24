@@ -116,6 +116,7 @@ function story(seed, choices = {}) {
   for(let mi=0;mi<D.months.length;mi++) {const m=D.months[mi];S.mi=mi;
     for(const e of m.events) {
       if(e.when&&!e.when(S))continue;
+      if(choices.__onEvent)choices.__onEvent(S,e,m);
       if(e.t==='decision'){const opts=e.optionsFor?e.optionsFor(S):e.options,available=opts.filter(x=>!x.disabled),requested=choices[e.id]||choices[e.card];assert.ok(available.length,e.id+'に選べる手がない');S.decisions[e.id]=available.some(x=>x.id===requested)?requested:available[0].id;if(e.card)seen.add(e.card);}
       if(e.t==='plan'){D.ramen.plan(S,e.ramenT,D.ramen.policy(S,e.ramenT));finite(S.W,'世界');finite(S.res[e.ramenT],'月報');}
       if(e.t==='doc'){
@@ -175,7 +176,39 @@ function forcedStory(seed,choices,target,outcome){
   };
   try{return story(seed,choices);}finally{D.decide.resolve=original;}
 }
+function verifySave(){
+  const oldStorage=global.localStorage,oldDocument=global.document,values=new Map(),elements=new Map();let fail=false;
+  global.localStorage={getItem:k=>values.get(k)||null,setItem:(k,v)=>{if(fail)throw new Error('QuotaExceededError');values.set(k,v);}};
+  global.document={body:{prepend:el=>elements.set(el.id,el)},getElementById:id=>elements.get(id),createElement:()=>({style:{},setAttribute(){}})};
+  require('../js/sim/store.js');const ST=BOKI.store,V=ST.v4;let doc=V.empty();const sizes=[];
+  const record=(S,label)=>{doc=V.split(doc,S,label);S.bm=doc.slots.find(x=>x.id===doc.cur).run.bm;sizes.push({label,bytes:V.encodedBytes(doc),bookmarks:Object.keys(S.bm).length});assert.ok(V.encodedBytes(doc)<=V.SAVE_BUDGET,label+':保存が2MiBを超える');};
+  try{
+    const {S}=economicStory(0,{__onEvent:(S,e,m)=>{
+      if(e.t==='decision'){
+        const keep=new Set(['bm',...V.META]);const snapshot={};for(const [k,v]of Object.entries(S))if(!keep.has(k)&&k!=='drafts')snapshot[k]=v;
+        (S.bm ||= {})[e.id]=clone(snapshot);S.bm=V.pruneBookmarks(S.bm);doc=V.split(doc,S);S.bm=doc.slots.find(x=>x.id===doc.cur).run.bm;
+      }
+      if(e.t==='plan'&&[0,12,24].includes(m.ramenT))record(S,{0:'1年目の始め',12:'1年目の終わり',24:'2年目の終わり'}[m.ramenT]);
+    }});record(S,'4年目6月');
+    assert.ok(S.bm.form,'必須の戻り先formが消えた');assert.ok(Object.keys(S.bm).length<=4);
+    const three=V.empty();for(const sl of three.slots)sl.run=clone(S);V.compactDoc(three);assert.ok(V.encodedBytes(three)<5*1024*1024,'3スロットの保存が5MiBを超える');assert.ok(three.slots.every(sl=>sl.run.mi===S.mi&&sl.run.W.cash===S.W.cash&&sl.run.bm.form),'複数スロットの進行や必須栞を失った');
+    const legacy=V.empty();legacy.slots[0].run={...clone(S),bm:{form:clone(S.bm.form)}};
+    for(let i=0;i<60;i++)legacy.slots[0].run.bm['old'+i]={...clone(S),bm:undefined,mi:i,drafts:{old:'途中の画面'}};
+    values.set('legacy.v4',JSON.stringify(legacy));const loaded=V.load('legacy.v4'),run=V.compose(loaded);
+    assert.equal(run.mi,S.mi);assert.equal(run.W.cash,S.W.cash);assert.deepEqual(run.T,S.T);assert.deepEqual(run.L,S.L);assert.deepEqual(run.decisions,S.decisions);assert.ok(run.bm.form);assert.ok(Object.keys(run.bm).length<=4);
+    assert.ok(Object.values(run.bm).every(x=>x.drafts===undefined),'栞に途中の画面を残した');
+    const large=V.empty();large.slots[0].run={mi:57,bm:{form:{mi:3},a:{mi:10,payload:'x'.repeat(600000)},b:{mi:20,payload:'y'.repeat(600000)},c:{mi:30,payload:'z'.repeat(600000)}}};
+    V.compactDoc(large);assert.ok(V.encodedBytes(large)<=V.SAVE_BUDGET);assert.ok(large.slots[0].run.bm.form);assert.ok(elements.get('boki-bookmark-note').textContent.includes('古い栞'));
+    const v3={v:3,mi:7,L:[{dr:[['普通預金',123]],cr:[['借入金',123]]}],bm:{old:{mi:1}}};ST.save('legacy.v3',clone(v3));const reread=ST.loadLocal('legacy.v3');delete reread.savedAt;assert.deepEqual(reread,v3,'v3の形を変更した');
+    const migrated=V.fromV3({...v3,examLog:[{key:'kept'}]});assert.equal(migrated.meta.examLog[0].key,'kept');assert.ok(migrated.slots.every(x=>x.run===null));
+    fail=true;assert.equal(ST.save('failed',{}),false);assert.ok(ST.status().localError);assert.equal(elements.get('boki-save-error').textContent,'保存できませんでした（容量がいっぱいです）');
+    fail=false;assert.equal(ST.save('failed',{}),true);assert.equal(ST.status().localError,'');assert.equal(elements.get('boki-save-error').hidden,true);
+    console.log('保存容量（UTF-16換算・通し台本）:'+JSON.stringify(sizes));
+    console.log('OK：古いv4の60栞を移行・進行と帳簿を保持・v3互換・保存失敗表示と回復・容量削減の通知');
+  }finally{if(oldStorage===undefined)delete global.localStorage;else global.localStorage=oldStorage;if(oldDocument===undefined)delete global.document;else global.document=oldDocument;}
+}
 if (!process.argv.includes('--world')) {
+  if(!process.argv.includes('--save-only')){
   for(const seed of [0,7]){
     const full=story(seed).S,fast=economicStory(seed).S;
     const plain=x=>JSON.stringify(x,(k,v)=>k==='factors'?undefined:v);
@@ -310,5 +343,7 @@ if (!process.argv.includes('--world')) {
     }
     console.log('売却×修理・同じseed24組：'+JSON.stringify({wins,ties,ends}));
   }
-  console.log('OK：2年目以降の台本・全札全結果・口座照合・引当と支払の二重費用なし。損得の釣り合いは別途報告。');
+  }
+  verifySave();
+  console.log(process.argv.includes('--save-only')?'OK：保存の検査のみ（台本の全結果検査とは別）':'OK：2年目以降の台本・全札全結果・口座照合・引当と支払の二重費用なし。損得の釣り合いは別途報告。');
 }
