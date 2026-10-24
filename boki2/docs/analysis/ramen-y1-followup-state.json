@@ -1,0 +1,43 @@
+{
+  "pr": 4,
+  "branch": "codex/ramen-y1-economy",
+  "status": "publishing",
+  "updated_at": "2026-10-24T15:57:37.709396+00:00",
+  "last_seen_comment_id": 6385415040,
+  "last_seen_comment_updated_at": "2026-10-24T14:30:01Z",
+  "requests": [
+    {
+      "id": 6385261352,
+      "status": "in_progress",
+      "acceptance": "問い1〜4、母集団、A〜D比較、依頼対応表、未実施を含む新報告"
+    },
+    {
+      "id": 6385415040,
+      "status": "in_progress",
+      "acceptance": "指定ノート7本のみを読み分析。原文不足を再停止理由にしない"
+    }
+  ],
+  "work_done": [
+    "指定7ノート全文読了",
+    "費目の実装照合",
+    "算術スクリプトと比較表",
+    "報告草稿",
+    "ノートの引用語句と出典7件を照合",
+    "report-check通過",
+    "research-check終了1（55エラー24注意）を限界として報告"
+  ],
+  "remaining": [
+    "commit/push",
+    "PR結果コメント投稿",
+    "返信IDをstateへ反映"
+  ],
+  "blocked": false,
+  "waiting_reason": null,
+  "resume_condition": "処理継続中。報告後は取りまとめ役の回答または追加ノート到着",
+  "next_action": "PRへ分析結果と追加資料の依頼、再発防止策を投稿",
+  "watch": {
+    "enabled": true,
+    "cadence": "hourly",
+    "timezone": "Asia/Tokyo"
+  }
+}
