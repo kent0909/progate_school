@@ -216,6 +216,7 @@ if (!process.argv.includes('--world')) {
         if(card.id==='equipment_purchase')prerequisites.finance_asset='loan';
         if(card.id==='repair_pay')prerequisites.maintain_y2='plan';
         if(card.id==='close_restore')prerequisites.close='close';
+        if(card.id==='close_equipment')prerequisites.close='format';
         const {S}=forcedStory(seed,prerequisites,card.id,outcome.id);
         if(S.cardOutcomes.some(x=>x.card===card.id&&x.option===option.id&&x.outcome===outcome.id)){found=true;break;}
       }
@@ -260,6 +261,21 @@ if (!process.argv.includes('--world')) {
     assert.equal((S.res[9].choices.find(x=>x.card==='maintain')||{cash:0}).cash,cost?-cost:0);
   }
   console.log('OK：1年目の修理・買替・故障の6結果・修理の未払金取崩・費用1回・支払一致');
+  for(const action of ['renovate','format'])for(const sale of ['sell','keep']){
+    const {S}=story(0,{maintain_replace:sale,close:'stick','close@30':action});
+    assert.equal(S.decisions['close@30'],action,'予備を使う10月の判断へ未到達');
+    const used=sale==='keep',result=S.W.flags.y2CloseResult;
+    assert.equal(result.usedSpare,used);assert.equal(!!S.W.flags.y2Spare,false);
+    const equipment=S.T.filter(e=>e.ev===(action==='renovate'?'close-doc3@31':'close-doc5@31'));
+    assert.equal(D.y2books.balance(equipment,'備品'),used?0:300000,'予備の使用で新しい備品を二重取得');
+    if(action==='renovate')assert.equal(D.y2books.balance(equipment,'建物'),450000);
+    assert.equal(D.y2books.cash(equipment),action==='renovate'?(used?-450000:-750000):(used?0:-300000));
+    const acquisitions=S.W.flags.y2BranchEquipment||[];assert.equal(acquisitions.filter(a=>a.at===31).length,used?0:1);
+    assert.equal(D.y2.close.equipmentDep(S,3),used?0:25000,'新器材の5年定額・11月から5か月');
+    for(let t=31;t<=38;t++)assert.ok(!(S.res[t].choices||[]).some(x=>x.card==='spare_storage'),'使用後に保管費が残る');
+    assert.equal(S.W.flags.y2SpareUsedAt,used?31:undefined);
+  }
+  console.log('OK：改装・業態変更×予備ありなし4経路・一度だけ使用・保管費終了・備品取得と5年定額');
   // 制度の24か月比較は、本編での導入時期と分けた反実仮想。
   if(process.argv.includes('--bonus-model')){
     const rows=[];

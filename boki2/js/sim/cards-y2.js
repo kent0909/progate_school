@@ -69,14 +69,16 @@
     const available=lo;
     return {shares,cap,reserves,retained,need,equity,per:Math.floor(available/shares)};
   };
+  // coverage専用の正額資料：総会で30万円の配当、準備金の残枠75万円。
+  const dividendFixture=t=>()=>({decisions:{[`dividend@${t-1}`]:'half'},T:[],L:[],W:{flags:{y2Dividend:{need:750000}}},res:{[t]:{choices:[{card:'dividend',option:'half',outcome:'paid',cash:-300000}],carried:[{card:'dividend',option:'half',outcome:'paid',cash:-300000}]}}});
   const divAmount = (W,ratio) => {const q=W.flags.y2Dividend || {per:0,shares:COEF.initialShares.v};return Math.floor(q.per*ratio)*q.shares;};
   const dividend = add({id:'dividend',title:'今年、株主にいくら分ける？',scope:['s-dividend'],when:schedule(2,5),
     talk:[['shacho','分けたら株主は喜ぶ。でも、次の店のお金も残したい。']],
     options:[['none','配らない',0],['half','配れる額の半分',0.5],['eighty','配れる額の8割',0.8]].map(([id,label,ratio])=>({id,label,desc:ratio?'口座から出す額と、次の店に残す額を比べる。':'店にお金を残す。株主への説明が要る。',outcomes:[{id:'paid',w:100,label:ratio?'総会で決めた額を支払った':'会社に残した',flow:'capital',cash:W=>-divAmount(W,ratio)}]})),
     calcs:t=>[Y1calc(`div-limit@${t}`,['s-dividend'],'分ける前に、会社に残す額を確かめる',S=>{const q=dividendQuote(S);return [['去年までのもうけの残り',q.retained],['返さなくてよいお金の合計',q.equity],['株の数',q.shares],['1株に配れる上限（先生の計算書）',q.per]];},'1株の上限に株の数を掛けると、総額の上限はいくら？',S=>{const q=dividendQuote(S);return q.per*q.shares;},'利益を全部配るのではなく、会社に残す分を差し引いてから株の数で割り、端数を切り捨てる。')],
     docs:t=>[
-      {...doc('dividend-dec','株主総会議事録・会社に残す分',S=>{const a=-amount(S,'dividend',t,0),q=(S.W && S.W.flags.y2Dividend) || dividendQuote(S);return [['配当の総額',a,'amt'],['準備金を積める残りの枠',q.need,'amt'],['積む額（資料の条件）',Math.min(Math.floor(a/10),q.need),'amt']];},S=>{const a=-amount(S,'dividend',t,0),q=(S.W && S.W.flags.y2Dividend) || dividendQuote(S),r=Math.min(Math.floor(a/10),q.need);return je([['繰越利益剰余金',a+r]],[['未払配当金',a],['利益準備金',r]]);},['繰越利益剰余金','未払配当金','利益準備金']),when:S=>-amount(S,'dividend',t,0)>0},
-      {...doc('dividend-pay','配当の支払の通帳',S=>[['お引出し',-amount(S,'dividend',t,0),'amt']],S=>{const a=-amount(S,'dividend',t,0);return je([['未払配当金',a]],[['普通預金',a]]);},['未払配当金']),when:S=>-amount(S,'dividend',t,0)>0}
+      {...doc('dividend-dec','株主総会議事録・会社に残す分',S=>{const a=-amount(S,'dividend',t,0),q=(S.W && S.W.flags.y2Dividend) || dividendQuote(S);return [['配当の総額',a,'amt'],['準備金を積める残りの枠',q.need,'amt'],['積む額（資料の条件）',Math.min(Math.floor(a/10),q.need),'amt']];},S=>{const a=-amount(S,'dividend',t,0),q=(S.W && S.W.flags.y2Dividend) || dividendQuote(S),r=Math.min(Math.floor(a/10),q.need);return je([['繰越利益剰余金',a+r]],[['未払配当金',a],['利益準備金',r]]);},['繰越利益剰余金','未払配当金','利益準備金']),fixture:dividendFixture(t),when:S=>-amount(S,'dividend',t,0)>0},
+      {...doc('dividend-pay','配当の支払の通帳',S=>[['お引出し',-amount(S,'dividend',t,0),'amt']],S=>{const a=-amount(S,'dividend',t,0);return je([['未払配当金',a]],[['普通預金',a]]);},['未払配当金']),fixture:dividendFixture(t),when:S=>-amount(S,'dividend',t,0)>0}
     ]
   });
   const site2 = add({id:'site2',title:'2号店を、どこにどの形で出す？',scope:['s-kensetsu','s-honshiten'],
@@ -168,7 +170,7 @@
     支店:{q:'本店から2号店へお金を送った。本店の帳簿で、代わりに残す札は？',opts:[{t:'2号店とのやり取りを残す札',ok:true},{t:'外のお客さんに売った札',react:'同じ会社の中で送ったお金だね。'}],line:'本店の帳簿で2号店とのやり取りを残す札を「支店」という。会社全体では外への支払ではない。',teaches:['支店']},
     本店:{q:'2号店が会社の中心の店からお金を受け取った。2号店の帳簿では？',opts:[{t:'会社の中心の店とのやり取りを残す',ok:true},{t:'売上に入れる',react:'ラーメンを売った代金ではないね。'}],line:'支店の帳簿で会社の中心の店とのやり取りを残す札を「本店」という。合わせるときは、支店の札と消し合う。',teaches:['本店']},
     資本準備金:{q:'株主から受け取ったお金の一部を、会社に残す別の札へ分けた。店で売ってかせいだお金？',opts:[{t:'出してもらったお金',ok:true},{t:'店がかせいだ売上',react:'ラーメンを売った代金ではないね。'}],line:'株主からの払込みのうち、資本金にせず会社に残す分は、純資産の「資本準備金」。',teaches:['資本準備金']},
-    利益準備金:{q:'利益を株主に分けるとき、会社に残して積む分。だれかに返す約束？',opts:[{t:'会社に残す、もうけの一部',ok:true},{t:'株主へ払う約束',react:'払う分とは別に、会社に残す分だね。'}],line:'利益の配当のとき会社に残して積む分は、純資産の「利益準備金」。',teaches:['利益準備金']},
+    利益準備金:{q:'利益を株主に分けるとき、会社に残して積む分。だれかに返す約束？',opts:[{t:'会社に残す、もうけの一部',ok:true},{t:'株主へ払う約束',react:'払う分とは別に、会社に残す分だね。'}],line:'配当のとき、会社に残して積む分を「利益準備金」という。',teaches:['利益準備金']},
     未払配当金:{q:'株主に分ける額が決まったが、振込はまだ。いま何が残る？',opts:[{t:'株主へ払う約束',ok:true},{t:'店の新しい費用',react:'もうけを株主へ分けることは、ラーメンを作る費用ではない。'}],line:'配当が決まってから、まだ払っていない分は、負債の「未払配当金」。',teaches:['未払配当金']}
   });
   Y.afterPlan=(S,t,r)=>{r.res.frozenTrialActive=!!(S.W.flags.y2FrozenTrial&&S.W.flags.y2FrozenTrial.activeUntil>t);};

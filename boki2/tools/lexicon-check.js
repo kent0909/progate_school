@@ -116,6 +116,14 @@ D.months.forEach((m, mi) => {
       }
       if (!taught.has(e.p)) principles.add(e.p);
     }
+    // 計算の直前でも、まだ教わっていない札を名前の段で教える（6386014725）。
+    for(const acc of e.names || [])if(!taught.has(acc)){
+      const nm=D.namings[acc];
+      if(!nm){errors.push(`${w}：名前の札 ${acc} がない`);continue;}
+      check(`${w} 名前の札 ${acc}`,[nm.q,...nm.opts.map(o=>`${o.t} ${o.react || ''}`)].join(' '));
+      check(`${w} 名前の札 ${acc}`,nm.line,nm.teaches);
+      shown(`${w} 名前の札`,nm.teaches,nm.line);teach(nm.teaches);
+    }
     if (e.t === 'decision') {
       check(w, [e.q, talkText(e.talk), ...e.options.map((o) => `${o.label} ${o.desc} ${o.result || ''}`)].join(' '), e.teaches);
       // 試算は「すぐ動く数字」だけ。外の反応（表情・結末）を判断の前に見せない

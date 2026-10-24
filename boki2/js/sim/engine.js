@@ -2258,6 +2258,8 @@
   }
   // 計算の作業台（calc）：数を1つ、手で計算して入れる
   function calcScreen(ev) {
+    const need=(ev.names || []).find(acc=>!knows(acc));
+    if(need)return namingScreen(need,()=>calcScreen(ev));
     const rows = typeof ev.rows === 'function' ? ev.rows(S) : ev.rows || [];
     const ans = Math.round(Number(typeof ev.answer === 'function' ? ev.answer(S) : ev.answer));
     let tries = 0;

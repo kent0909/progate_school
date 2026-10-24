@@ -97,9 +97,10 @@
     }
     if(t>=9&&t<=12){
       const payment=S=>(resAt(S,t)?.choices||[]).find(x=>x.card==='maintain'&&x.cash<0);
+      const paymentView=S=>payment(S)||{option:'repair',cash:0};
       out.push({t:'doc',id:`fx-book-maintain@${t}`,scope:['b-mibarai'],
-        when:S=>!!payment(S),doc:{type:'通帳',title:'普通預金 通帳（器材・修理代の振込）',from:'みらい銀行',to:'{店}',date:`${MON[t%12]}月末`,rows:S=>[['摘要',payment(S).option==='wait'?'故障した器材の修理代':'前月の器材・修理代の支払'],['お引出し',-payment(S).cash,'amt']]},
-        ans:S=>{const a=RM.fxBookers.maintain(S,t,payment(S)).entries[0];return {dr:a.dr,cr:a.cr};},opts:['未払金','修繕費','備品','普通預金']});
+        when:S=>!!payment(S),doc:{type:'通帳',title:'普通預金 通帳（器材・修理代の振込）',from:'みらい銀行',to:'{店}',date:`${MON[t%12]}月末`,rows:S=>[['摘要',paymentView(S).option==='wait'?'故障した器材の修理代':'前月の器材・修理代の支払'],['お引出し',-paymentView(S).cash,'amt']]},
+        ans:S=>{const a=RM.fxBookers.maintain(S,t,payment(S))?.entries[0];return a?{dr:a.dr,cr:a.cr}:{dr:[],cr:[]};},opts:['未払金','修繕費','備品','普通預金']});
     }
     return t >= 12 ? out.concat(SIM.y2.cardEvents(t)) : out;
   }
@@ -117,7 +118,7 @@
   // 札の金額を汎用fxへ重ねないための口。PR #3のbulkもidごとに追加できる。
   RM.fxBookers = {
     maintain:(S,t,x)=>{
-      if(!(x.cash<0)||!['repair','new','wait'].includes(x.option))return null;
+      if(!x||!(x.cash<0)||!['repair','new','wait'].includes(x.option))return null;
       return {cash:x.cash,manual:true,entries:[{id:`fx-book-maintain@${t}`,label:x.option!=='wait'?'前月の器材代・修理代の支払':'故障した器材の修理代',dr:[[x.option!=='wait'?'未払金':'修繕費',-x.cash]],cr:[['普通預金',-x.cash]]}]};
     }
   };
