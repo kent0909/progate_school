@@ -183,10 +183,10 @@
     const res = S.res || {}, last = res[t] || res[t - 1] || { labor: 200000, famPay: 0, util: 70000, cogs: 250000, wasteCost: 0, sales: 700000 };
     const made = (S.decisions || {})[Object.keys(S.decisions || {}).find((k) => k.startsWith('due@')) || ''] === 'make';
     const horizon = made ? 6 : 2, items = [];
-    const W = S.W, rent = W ? C('rentPerTsubo')[W.area] * C('tsubo') : 120000;
+    const W = S.W, rent = t>=12&&last.rent!=null?last.rent:W ? C('rentPerTsubo')[W.area] * C('tsubo') : 120000;
     const prin = Math.round(C('loan') / C('loanYears') / 12), intM = Math.round((C('loan') * C('loanRate')) / 12);
     const vatOn = (k) => k >= 7;
-    for (let k = t + 1; k <= Math.min(t + horizon, 13); k++) {
+    for (let k = t + 1; k <= Math.min(t + horizon, t>=12?38:13); k++) {
       const m = MON[k % 12], est = k > t + 1;
       const r = res[k - 1] || last;
       if (k >= 3) items.push({ k, m, d: 1, what: '家賃', amt: -Math.round(rent * (vatOn(k) ? 1.1 : 1)), kind: 'rent' });
@@ -198,7 +198,8 @@
       if (k === 2 && (S.decisions || {})['insurance@2'] && (S.decisions || {})['insurance@2'] !== 'none') items.push({ k, m, d: 1, what: '火災の保険（1年分）', amt: (S.decisions['insurance@2'] === 'full' ? -60000 : -36000), kind: 'ins' });
       const fl = ((S.pols || {})[k - 1] || {}).flyer;
       if (fl) items.push({ k, m, d: 31, what: 'チラシの代金', amt: -fl, kind: 'flyer' });
-      if (k === 13) items.push({ k, m, d: 31, what: knows && knows('法人税等') ? '法人税等と消費税の納付（決算で決まる）' : '1年のもうけの税金と、預かったお金の納付（決算で決まる）', amt: 0, kind: 'tax', est: true });
+      if(t>=12&&k%12===0){const amount=-(SIM.y2books.balance(S.T||[],'未払法人税等'));items.push({k,m,d:30,what:'前の年の法人税等の納付',amt:-Math.max(0,amount),kind:'tax',est:amount<=0});}
+      if (t<12&&k === 13) items.push({ k, m, d: 31, what: knows && knows('法人税等') ? '法人税等と消費税の納付（決算で決まる）' : '1年のもうけの税金と、預かったお金の納付（決算で決まる）', amt: 0, kind: 'tax', est: true });
     }
     items.sort((a, b) => a.k - b.k || a.d - b.d);
     let bal = bookCash;

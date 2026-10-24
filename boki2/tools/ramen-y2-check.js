@@ -107,7 +107,13 @@ function story(seed, choices = {}) {
       if(e.t==='doc'){post(typeof e.ans==='function'?e.ans(S):e.ans,e,m,mi);docs++;}
       if(e.t==='calc'){const a=typeof e.answer==='function'?e.answer(S):e.answer;assert.ok(Number.isFinite(a),e.id);calcs++;}
       if(e.t==='discover')S.discDone[e.id]=mi;
-      if(e.t==='rreport'){for(const a of e.auto(S))post(a,a,m,mi);if(e.ramenT>=12){const bridge=D.y2books.reconcile(S,e.ramenT);assert.equal(bridge.rest,0,`seed${seed} t${e.ramenT}:口座照合`);assert.deepEqual(bridge.unknown,[],`seed${seed}:未知の現金取引`);assert.equal(bridge.modelCash,S.res[e.ramenT].cash);}}
+      if(e.t==='rreport'){for(const a of e.auto(S))post(a,a,m,mi);if(e.ramenT>=12){
+        const t=e.ramenT,r=S.res[t],W=S.W;
+        (S.shareLog ||= {})[t]={me:r.stores?r.stores[0].N:r.N,rivals:W.rivals.filter(x=>(x.area||W.area)===W.area).map(x=>({id:x.id,name:x.name,type:x.type,N:x.lastN||0,R:x.R,open:x.open!==false}))};
+        for(const key of ['shares','position','debrief','forkTree'])finite(D.rview[key](S,t),`画面${key} t${t}`);
+        const due=D.rview.dueList(S,t,D.y2books.cash(S.L));finite(due,'期日');if(t<38)assert.ok(due.items.length,'2年目以降の期日が空');
+        const debrief=D.rview.debrief(S,t);if(debrief)assert.equal(debrief.quarter,[2,5,8,11].includes(t%12));
+        const bridge=D.y2books.reconcile(S,e.ramenT);assert.equal(bridge.rest,0,`seed${seed} t${e.ramenT}:口座照合`);assert.deepEqual(bridge.unknown,[],`seed${seed}:未知の現金取引`);assert.equal(bridge.modelCash,S.res[e.ramenT].cash);}}
       if(e.t==='closing'){
         const rev=[],exp=[];for(const [a,meta]of Object.entries(BOKI.accounts)){
           const v=D.y2books.balance(S.T,a);if(meta.cat==='収益'&&v)rev.push([a,-v]);if(meta.cat==='費用'&&v)exp.push([a,v]);}

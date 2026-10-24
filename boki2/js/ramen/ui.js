@@ -281,6 +281,12 @@ ${rest.length ? `<details class="r-more" ${PLAN.open ? 'open' : ''} data-plan-mo
         RM.plan(s, t, PLAN.pol);
         // シェアの表と今の位置のための記録（同じ式で出た客数。ライバルは月の終わりの客数）
         (s.shareLog = s.shareLog || {})[t] = { me: s.res[t].N, rivals: s.W.rivals.filter((x) => x.type !== 'ghost' || s.W.flags.ghost).map((x) => ({ id: x.id, name: x.name, type: x.type, N: x.open === false ? 0 : x.lastN || 0, R: x.R, open: x.open !== false })) };
+        if(t>=12){
+          const log=s.shareLog[t];log.me=s.res[t].stores?s.res[t].stores[0].N:s.res[t].N;
+          const local=new Set(s.W.rivals.filter(r=>(r.area||s.W.area)===s.W.area).map(r=>r.id));log.rivals=log.rivals.filter(r=>local.has(r.id));
+          s.W.stores.forEach((st,i)=>{if(i&&st.open!==false&&(st.area||s.W.area)===s.W.area)log.rivals.push({id:st.id,name:`${i+1}号店`,type:'own',N:s.res[t].stores[i].N,R:st.R,open:true});});
+        }
+
         const pp = PLAN.pol;
         s.diary.push({ m: api.month().label, t: `作戦の机：値段 ${yen(pp.price)}・仕込み ${{ low: '少なめ', mid: 'ふつう', high: '多め' }[pp.prep]}・パート ${pp.parts}人${pp.flyer ? `・チラシ ${(pp.flyer / 10000).toFixed(0)}万円` : ''}${pp.sns ? '・SNS' : ''}${pp.line ? '・LINE' : ''}${pp.coupon ? '・クーポン' : ''}${pp.tweak ? '・一杯の手直し' : ''}（見込み ${tr.N[0].toFixed(0)}〜${tr.N[2].toFixed(0)}人/日）` });
         PLAN = null; api.save(); api.next();
