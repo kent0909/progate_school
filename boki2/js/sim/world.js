@@ -336,7 +336,7 @@
     const cogs = Math.round(sold * unitCost) - (me.bulkBack || 0), wasteCost = Math.round(waste * SIM.bowl.cost(me.bowl) * C('wasteShare') * (fx.wasteMul == null ? 1 : fx.wasteMul));
     // 居抜きの契約で最初の3か月は家賃なし（ramen-y1.js の家賃の書類は7月から）
     const labor = Math.round(laborOf(me) + me.parts * C('wagePart') * ((me.wageUp || 1) - 1)), rent = W.t < C('freeRent') ? 0 : Math.round(C('rentPerTsubo')[W.area] * C('tsubo') * (W.rentMul || 1));
-    const util = Math.round(C('utilFixed') + C('utilVar') * sales), other = W.otherFixed + me.supFixed + signCost + permit, dep = Math.round(C('fitout') / C('fitoutLife') / 12);
+    const util = Math.round(C('utilFixed') + C('utilVar') * sales), other = W.otherFixed + me.supFixed + signCost + permit, dep = Math.round((me.fitoutCost == null ? C('fitout') : me.fitoutCost) / C('fitoutLife') / 12);
     const ads = (pol.flyer || 0) + (me.line ? 5000 : 0) + (res.limited ? 30000 : 0);
     const op0 = sales - cogs - wasteCost - labor - rent - util - other - dep - ads + fx.cash;
     // 家族の給料は赤字の月も labor に含む。旧保存・月報との互換のため famPay は0。

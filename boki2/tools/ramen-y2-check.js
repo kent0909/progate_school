@@ -92,7 +92,57 @@ for (const flow of ['op', 'capital', 'invest']) for (const cash of [-50000, 3000
   flowCases++;
 }
 console.log(`OK：世界の境界（1年目の基準全文 ${baselineMonths}か月・2店 ${multiMonths}か月・資金区分 ${flowCases}枝・同じ町/別の町/閉店）`);
+// 台本を実際の順で進める。仕訳はすべて正答を記帳し、決算の締切も行う。
+function story(seed, choices = {}) {
+  const S={seed,decisions:{},T:[],L:[],discDone:{},cardOutcomes:[],choices:[]};
+  let docs=0,calcs=0; const seen=new Set();
+  const post=(a,e,m,mi)=>{finite(a,e.id);for(const side of ['dr','cr'])for(const [acc,v]of a[side])assert.ok(v>=0,`${e.id}: ${acc}が負数`);
+    assert.equal(a.dr.reduce((n,x)=>n+x[1],0),a.cr.reduce((n,x)=>n+x[1],0),`${e.id}:貸借不一致`);
+    const row={...a,id:`${e.id}@${mi}`,ev:e.id,mi,y:m.year||1};S.T.push(row);S.L.push(clone(row));};
+  for(let mi=0;mi<D.months.length;mi++) {const m=D.months[mi];S.mi=mi;
+    for(const e of m.events) {
+      if(e.when&&!e.when(S))continue;
+      if(e.t==='decision'){S.decisions[e.id]=choices[e.id]||choices[e.card]||e.options[0].id;if(e.card)seen.add(e.card);}
+      if(e.t==='plan'){D.ramen.plan(S,e.ramenT,D.ramen.policy(S,e.ramenT));finite(S.W,'世界');finite(S.res[e.ramenT],'月報');}
+      if(e.t==='doc'){post(typeof e.ans==='function'?e.ans(S):e.ans,e,m,mi);docs++;}
+      if(e.t==='calc'){const a=typeof e.answer==='function'?e.answer(S):e.answer;assert.ok(Number.isFinite(a),e.id);calcs++;}
+      if(e.t==='discover')S.discDone[e.id]=mi;
+      if(e.t==='rreport'){for(const a of e.auto(S))post(a,a,m,mi);if(e.ramenT>=12){const bridge=D.y2books.reconcile(S,e.ramenT);assert.equal(bridge.rest,0,`seed${seed} t${e.ramenT}:口座照合`);assert.deepEqual(bridge.unknown,[],`seed${seed}:未知の現金取引`);assert.equal(bridge.modelCash,S.res[e.ramenT].cash);}}
+      if(e.t==='closing'){
+        const rev=[],exp=[];for(const [a,meta]of Object.entries(BOKI.accounts)){
+          const v=D.y2books.balance(S.T,a);if(meta.cat==='収益'&&v)rev.push([a,-v]);if(meta.cat==='費用'&&v)exp.push([a,v]);}
+        const net=rev.reduce((n,x)=>n+x[1],0)-exp.reduce((n,x)=>n+x[1],0);
+        post({dr:rev.concat(net<0?[['繰越利益剰余金',-net]]:[]),cr:exp.concat(net>=0?[['繰越利益剰余金',net]]:[]),closing:true},e,m,mi);
+      }
+    }
+  }
+  assert.equal(S.W.t,39);return {S,docs,calcs,seen};
+}
 if (!process.argv.includes('--world')) {
-  console.error('未完：2・3年目の台本と全札・口座照合はまだ接続していない。--worldの成功は全体の合格ではない。');
+  const seen=new Set();let docs=0,calcs=0;
+  for(let seed=0;seed<12;seed++){
+    const run=story(seed);docs+=run.docs;calcs+=run.calcs;for(const id of run.seen)seen.add(id);
+  }
+  console.log(`OK：39か月の台本12周・仕訳 ${docs}件・計算 ${calcs}件・有限数と貸借一致`);
+  let branches=0;
+  for(const card of D.y2.cards.cards.filter(c=>!c.automatic))for(const option of card.options){
+    const result=story(3,{[card.id]:option.id});
+    if(result.seen.has(card.id))branches++;
+  }
+  console.log(`OK：札の選択肢を指定した台本 ${branches}経路（出現条件を満たした経路）`);
+  // 比較の条件を固定し、勝率を合格条件にしない。金額の釣り合いは報告対象。
+  if(process.argv.includes('--compare')){
+    const wins={sell_plan:0,sell_break:0,keep_plan:0,keep_break:0}, ends={};let ties=0;
+    for(let seed=0;seed<24;seed++){
+      const rows=[];
+      for(const sale of ['sell','keep'])for(const repair of ['plan','break']){
+        const id=`${sale}_${repair}`,{S}=story(seed,{maintain_replace:sale,maintain_y2:repair});
+        const row={seed,id,y3:S.res[35].cash,y4June:S.res[38].cash};rows.push(row);(ends[id] ||= []).push(row);
+      }
+      const best=Math.max(...rows.map(x=>x.y4June)), top=rows.filter(x=>x.y4June===best);if(top.length===1)wins[top[0].id]++;else ties++;
+    }
+    console.log('売却×修理・同じseed24組：'+JSON.stringify({wins,ties,ends}));
+  }
+  console.error('未完：全札の出現と全結果分岐・面白さ比較の検査はまだ完了していない。上の成功は部分検査。');
   process.exitCode = 1;
 }

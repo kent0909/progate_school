@@ -53,9 +53,11 @@
   const rentDoc = (t) => ({ t: 'doc', kind: t < VAT_FROM ? 'rent' : 'rent_vat', id: `rent${t}`, doc: { ...pb(`${MON[t % 12]}月1日`, '', 'お引出し', 0), rows: (S) => (t < VAT_FROM ? [['摘要', `家賃 ${MON[t % 12]}月分（大家 青木さん）`], ['お引出し', rentAmt(S, t), 'amt']] : [['摘要', `家賃 ${MON[t % 12]}月分（税抜 ${yen(rentAmt(S, t))}円・消費税10％）`], ['家賃（税抜）', rentAmt(S, t), 'amt'], ['消費税（10％）', vat10(rentAmt(S, t)), 'amt'], ['お引出し', rentAmt(S, t) + vat10(rentAmt(S, t)), 'amt']]) },
     ans: (S) => (t < VAT_FROM ? je([[RENT_A(S), rentAmt(S, t)]], [['普通預金', rentAmt(S, t)]]) : je([[RENT_A(S), rentAmt(S, t)], ['仮払消費税', vat10(rentAmt(S, t))]], [['普通預金', rentAmt(S, t) + vat10(rentAmt(S, t))]])), opts: opts(...RENTS, '仮払消費税') });
   // 返済：7月から毎月。7月は4〜7月の利息をまとめて
-  const repayDoc = (t) => { const ints = (S) => Math.round(((S && S.res && S.res[t] && S.res[t].interest) || (t === 3 ? DEF.interest * 4 : DEF.interest))), prin = Math.round(C('loan') / C('loanYears') / 12);
-    return { t: 'doc', kind: 'repay', id: `repay${t}`, doc: { ...pb(`${MON[t % 12]}月10日`, '', 'お引出し', 0), rows: (S) => [['摘要', `公庫 返済（元の分 ${yen(prin)}円・利息 ${yen(ints(S))}円${t === 3 ? '：4〜7月の利息' : ''}）`], ['元の分', prin, 'amt'], ['利息', ints(S), 'amt'], ['お引出し', prin + ints(S), 'amt']] },
-      ans: (S) => je([['借入金', prin], ['支払利息', ints(S)]], [['普通預金', prin + ints(S)]]), opts: opts('支払利息') }; };
+  const repayDoc = t => {
+    const value = (S,k,fallback) => Math.round(S && S.res && S.res[t] ? S.res[t][k] : fallback);
+    const ints = S => value(S,'interest',DEF.interest), prin = S => value(S,'repay',Math.round(C('loan') / C('loanYears') / 12));
+    return {t:'doc',kind:'repay',id:`repay${t}`,doc:{...pb(`${MON[t%12]}月10日`,'公庫の返済','お引出し',0),rows:S=>[['元の分',prin(S),'amt'],['利息',ints(S),'amt'],['お引出し',prin(S)+ints(S),'amt']]},ans:S=>je([['借入金',prin(S)],['支払利息',ints(S)]],[['普通預金',prin(S)+ints(S)]]),opts:opts('支払利息')};
+  };
   // チラシ（8月から作戦の机で選べる）：後払い（未払金）、翌月に払う
   const flyerDoc = (t) => ({ t: 'doc', kind: 'ad_credit', id: `flyer${t}`, when: (S) => (polOf(S, t).flyer || 0) > 0, doc: { type: '請求書', title: `請求書（${MON[t % 12]}月のチラシの印刷と配布）`, from: '町の印刷屋 さくら', to: SHOP, date: `${MON[t % 12]}月25日`, rows: (S) => [['内容', 'チラシの印刷と配布'], ['金額', polOf(S, t).flyer || 30000, 'amt'], ['お支払期日', '翌月末']] },
     ans: (S) => je([['広告宣伝費', polOf(S, t).flyer || 30000]], [['未払金', polOf(S, t).flyer || 30000]]), opts: opts('広告宣伝費', '未払金'), scope: ['b-mibarai'] });
@@ -80,7 +82,7 @@
     const t = y*12-1;
     const stock = S => Math.round(buyAmt(S,t)*0.15/100)*100;
     const accrued = S => Math.round(R(S,t).labor+R(S,t).util);
-    const dep = S => Array.from({length:12},(_,i)=>Math.round(R(S,t-11+i).dep || 0)).reduce((a,b)=>a+b,0);
+    const dep = S => SIM.y2.fitoutAnnual ? SIM.y2.fitoutAnnual(S,y) : Array.from({length:12},(_,i)=>Math.round(R(S,t-11+i).dep || 0)).reduce((a,b)=>a+b,0);
     const allowance = S => Math.round(positive(bal(S,'クレジット売掛金'))*0.01);
     const taxEntry = S => (S.T || []).find(e => e.ev === `tax${y}`);
     const taxDue = S => taxEntry(S) ? taxEntry(S).cr.reduce((n,[a,v])=>n+(a==='未払法人税等'?v:0),0) : tax(S,y);
@@ -97,15 +99,24 @@
     const statement = {year:y,m:3,bookT:t,seg:`y${y}-statements`,label:`${y}年目の決算書`,title:'株主から来たお金と、店で残したお金',closeless:true,events:[
       {t:'report',id:`report${y}`},
       Y1.calc(`ss${y}`,{scope:['s-ssce'],title:'返さなくてよいお金の、3月末の合計',rows:S=>[['資本金',-bal(S,'資本金')],['資本準備金',-bal(S,'資本準備金')],['利益準備金',-bal(S,'利益準備金')],['これまでのもうけの貯まり',-bal(S,'繰越利益剰余金')],['今年のもうけ',yearIncome(S,y).net]],q:'資料の5つを合わせると、今年末はいくら？',answer:equity,unit:'円',why:'株主から集めた分と、店でかせいで残した分を分けたまま、合計を確かめる。'}),
+      ...(y===3?[{...Y1.calc('gappei-fs',{scope:['s-honshiten'],title:'本店と2号店の表を、会社全体の表へ',
+        rows:S=>{const q=SIM.y2.consolidation(S);return [['両店の資産の合計（社内の分を消す前）',q.before],['その中の支店の札',q.internal],['支店側にある同額の本店の札',q.internal]];},
+        q:'会社の中のやり取りを消すと、会社全体の資産はいくら？',answer:S=>SIM.y2.consolidation(S).assets,unit:'円',why:'支店の札は外への債権ではない。本店の札と消し合い、会社の外に対して持つ資産だけを残す。'}),when:S=>(S.T||[]).some(e=>/^site2-doc3@/.test(e.ev||''))}]:[]),
       {t:'ss',id:`ss-table${y}`,talk:[['senpai','増えた原因と、減った原因を、1年分の表に並べよう。']]},
       {t:'closing',id:`closing${y}`},
     ]};
     const next = {year:y+1,m:4,bookT:t+1,seg:`y${y}-next`,label:`${y+1}年目のはじめ`,title:'去年の約束を引き継ぐ',closeless:true,events:[
-      {t:'opening',id:`opening${y+1}`},
+      {t:'opening',id:`opening${y+1}`,year:y+1},
       {...doc(`tax-pay${y}`,'tax_pay','去年の税金の振込',S=>[['お引出し',taxDue(S),'amt']],S=>je([['未払法人税等',taxDue(S)]],[['普通預金',taxDue(S)]]),['未払法人税等']),doc:{...pb('4月30日','去年の税金','お引出し',0),rows:S=>[['お引出し',taxDue(S),'amt']]}},
       doc(`stock-back${y}`,'stock_back','今年へ持ち越した材料',S=>[['前3月末の材料',stock(S),'amt']],S=>je([['仕入',stock(S)]],[['繰越商品',stock(S)]]),['繰越商品']),
     ]};
     return [settle,statement,next];
   };
-  SIM.y2 = {routine: routineAt, monthTitle, kessan, books: BK, je, opts, pb, R, MON, yearIncome};
+  const consolidation=S=>{
+    const T=S.T||[], internal=T.filter(e=>/^site2-doc3@/.test(e.ev||'')).reduce((n,e)=>n+BK.balance([e],'支店'),0);
+    const assets=Object.entries(g.BOKI.accounts).filter(([a,v])=>v.cat==='資産'||a==='貸倒引当金'||a.endsWith('減価償却累計額')).reduce((n,[a])=>n+BK.balance(T,a),0);
+    // 送金時の消去仕訳を戻した、合併前の作業用資料。会社全体の帳簿自体は変更しない。
+    return {internal,assets,before:assets+internal};
+  };
+  SIM.y2 = {consolidation, routine: routineAt, monthTitle, kessan, books: BK, je, opts, pb, R, MON, yearIncome};
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -329,6 +329,7 @@
   // 店の口座の計算は「使った月」にお金を動かす（給料・ガス代・材料は使った月、カードの売上は売れた月、消費税は数えない、札の結果は翌月）。
   // 帳簿は「払った・入った日」に書く。差は次の項目で説明でき、残り（説明できない差）は 0 になるように検査する（sim-check と画面の試験）
   RV.bridge = (S, t, b, cardBook = 0) => {
+    if(t>=12)return SIM.y2books.reconcile(S,t,'L');
     const r = (S.res || {})[t]; if (!r) return null;
     const book = (b['現金'] || 0) + (b['普通預金'] || 0);
     const rows = [];

@@ -4,6 +4,8 @@
   const SIM=g.SIMDATA,Y=SIM.y2,BK=SIM.y2books,C=SIM.coef;
   const {doc,amount,choice,Y1calc}=Y.cards.helpers,add=Y.cards.add,je=Y.je;
   const COEF={
+    failure:{v:30,lo:20,hi:40,source:'取りまとめ役の仮の置き値（PR #2 6383831532）。故障確率%'},
+    closedDays:{v:3,lo:2,hi:5,source:'取りまとめ役の仮の置き値（PR #2 6383831532）。休業日数、月26営業日'},
     bonus:{v:60000,lo:60000,hi:60000,source:'版1.2.1の取りまとめ役承認6383573548・e.5。1人・12月〜5月・6月払い'},
     repairReserve:{v:240000,lo:240000,hi:240000,source:'版1.2.1の取りまとめ役承認6383425858・e.3。当期負担分24万円'},
     repairActual:{v:260000,lo:260000,hi:260000,source:'版1.2.1の取りまとめ役承認6383425858・e.3。実施時26万円'},
@@ -28,8 +30,10 @@
   });
   add({id:'bonus_pay',title:'約束した夏のお礼の支払',scope:[],automatic:true,when:()=>false,options:[{id:'pay',label:'支払う',outcomes:[{id:'paid',w:100,label:'約束した額を支払った',cash:W=>-60000*(W.flags.bonusCount || 0),fx:W=>{W.flags.staffBonus.paid=W.t;}}]}]});
   add({id:'repair_pay',title:'予定していた修理の実施',scope:[],automatic:true,when:()=>false,options:[{id:'pay',label:'修理を実施する',outcomes:[{id:'paid',w:100,label:'修理が終わった',cash:-260000,fx:W=>{W.flags.y2RepairPaid=true;}}]}]});
+  add({id:'repair_failure',title:'春の器材の故障の確認',scope:[],automatic:true,when:()=>false,options:[{id:'check',label:'故障したら修理する',outcomes:[{id:'broken',w:30,label:'器材が故障して修理した',cash:-260000,fx:(W,fx)=>{W.flags.y2RepairBroken=true;const days=COEF.closedDays.v*(W.flags.y2Spare?SIM.y2.sale.coef.spareLoss.v:1);fx.demandMul*=1-days/26;}},{id:'ok',w:70,label:'今春は故障しなかった'}]}]});
   Y.extraCarry.push((S,t)=>{
     const out=[];
+    if(t===36&&S.W.flags.y2Repair==='break')out.push({id:'repair_failure',option:'check',t:t-1});
     if(t===36&&S.W.flags.y2Repair==='plan')out.push({id:'repair_pay',option:'pay',t:t-1});
     if(t===38&&S.W.flags.staffBonus && S.W.flags.staffBonus.kind==='promise')out.push({id:'bonus_pay',option:'pay',t:t-1});
     return out;
@@ -43,6 +47,7 @@
   Y.extraEvents.push(t=>{
     const out=[];
     if(t===36)out.push(named('maintain_y2',1,t,doc('shuzen-pay','修理が終わった日の請求書',()=>[['実際の修理代',260000,'amt'],['去年に見積もった分',240000,'amt'],['見積りを超えた分',20000,'amt']],()=>je([['修繕引当金',240000],['修繕費',20000]],[['普通預金',260000]]),['修繕引当金','修繕費']),S=>S.W&&S.W.flags.y2RepairPaid));
+    if(t===36)out.push({...doc('repair-failure','急な故障の修理・支払の控え',()=>[['修理代',260000,'amt'],['休業','3日。予備器材があれば1.5日。']],()=>je([['修繕費',260000]],[['普通預金',260000]]),['修繕費']),id:'repair-failure@36',when:S=>!!(S.W&&S.W.flags.y2RepairBroken)});
     if(t===38)out.push(named('bonus',2,t,doc('bonus-pay','夏のお礼の支給明細',S=>[['3月末のパートの人数',n(S)],['1人の支給額',60000,'amt'],['去年の勤務分','4か月'],['今年の勤務分','2か月']],S=>je([['賞与引当金',40000*n(S)],['賞与',20000*n(S)]],[['普通預金',60000*n(S)]]),['賞与引当金','賞与']),promised));
     return out;
   });
