@@ -232,7 +232,7 @@ ${W() ? `<h4>ほかのラーメン屋</h4><div class="r-rivals">${W().rivals.fil
     const q = Math.max(0, trialNow.N[1] - 18) / 3;
     const hand = (k) => {
       const H = RV.HANDS[k], cur = RV.current(k, p, PLAN.base), opts = RV.optsOf(k, PLAN.base);
-      const curTxt = k === 'price' ? yen(p.price) : k === 'staff' ? `${p.parts}人` : k === 'flyer' ? (p.flyer ? `${(p.flyer / 10000).toFixed(0)}万円` : 'なし') : k === 'prep' ? { low: '少なめ', mid: 'ふつう', high: '多め' }[p.prep] : p[k] ? 'する' : 'しない';
+      const curTxt = k === 'price' ? yen(p.price) : k === 'staff' ? `${p.parts}人` : k === 'flyer' ? (p.flyer ? `${(p.flyer / 10000).toFixed(0)}万円` : 'なし') : k === 'prep' ? { low: '少なめ', mid: 'ふつう', high: '多め' }[p.prep] : k === 'supplier' ? { cheap: '安い問屋', std: '標準の問屋', high: '高い問屋' }[p.supplier || 'std'] : p[k] ? 'する' : 'しない';
       const isOn = (v) => String(v) === String(cur);
       const baseCash = trialNow.cash[1];
       const btns = opts.map(([v, l]) => {
@@ -261,7 +261,7 @@ ${rest.length ? `<details class="r-more" ${PLAN.open ? 'open' : ''} data-plan-mo
     api.app.onclick = (e) => {
       const b = e.target.closest('[data-plan]');
       if (b && !b.disabled) {
-        const k = b.dataset.plan, v0 = b.dataset.opt, v = k === 'prep' ? v0 : v0 === 'true' ? true : v0 === 'false' ? false : Number(v0);
+        const k = b.dataset.plan, v0 = b.dataset.opt, v = k === 'prep' || k === 'supplier' ? v0 : v0 === 'true' ? true : v0 === 'false' ? false : Number(v0);
         PLAN.pol = RV.withHand(PLAN.base, k, v);
         // ほかの手の今の選び方は残す（1つずつ変える）
         for (const kk of open) if (kk !== k) { const cv = RV.current(kk, p, PLAN.base); PLAN.pol = RV.withHand(PLAN.pol, kk, cv); }

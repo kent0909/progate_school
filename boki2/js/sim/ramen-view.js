@@ -16,6 +16,7 @@
   RV.HANDS = {
     price: { label: '1杯の値段', icon: 'price', shelf: '値段' },
     prep: { label: '仕込みの量', icon: 'pot', shelf: '仕込み' },
+    supplier: { label: '材料の問屋', icon: 'pot', shelf: '仕込み' },
     map: { label: '地図と口コミの整備', icon: 'pin', shelf: '集客', time: true },
     forecast: { label: '天気の予報を見る', icon: 'cloud', shelf: '仕込み', time: true },
     staff: { label: 'パートさんの人数', icon: 'person', shelf: '人' },
@@ -30,6 +31,7 @@
   RV.OPTS = {
     price: [[-100, '−100円'], [-50, '−50円'], [0, '据え置き'], [50, '＋50円'], [100, '＋100円']],
     prep: [['low', '少なめ'], ['mid', 'ふつう'], ['high', '多め']],
+    supplier: [['cheap', '安い問屋'], ['std', '標準の問屋'], ['high', '高い問屋']],
     staff: [[-1, '1人へらす'], [0, 'そのまま'], [1, '1人ふやす']],
     flyer: [[0, 'なし'], [30000, '3,000枚（3万円）'], [100000, '1万枚（10万円）']],
     onoff: [[true, 'する'], [false, 'しない']],
@@ -84,6 +86,7 @@
     else if (k === 'staff') p.parts = Math.max(0, Math.min(C('hireMax'), pol.parts + Number(v)));
     else if (k === 'flyer') p.flyer = Number(v);
     else if (k === 'prep') p.prep = v;
+    else if (k === 'supplier') p.supplier = v;
     else p[k] = v === true || v === 'true';
     return p;
   };
@@ -95,7 +98,7 @@
   };
   RV.optsOf = (k, pol) => (RV.OPTS[k] || RV.OPTS.onoff).filter(([v]) => !(k === 'price' && (pol.price + v < SIM.world.PRICE_MIN || pol.price + v > SIM.world.PRICE_MAX)) && !(k === 'staff' && (pol.parts + v < 0 || pol.parts + v > C('hireMax'))));
   // 今の設定の値（選択肢のどれに当たるか）
-  RV.current = (k, pol, base) => (k === 'price' ? pol.price - base.price : k === 'staff' ? pol.parts - base.parts : k === 'flyer' ? pol.flyer || 0 : k === 'prep' ? pol.prep : !!pol[k]);
+  RV.current = (k, pol, base) => (k === 'price' ? pol.price - base.price : k === 'staff' ? pol.parts - base.parts : k === 'flyer' ? pol.flyer || 0 : k === 'prep' ? pol.prep : k === 'supplier' ? pol.supplier || 'std' : !!pol[k]);
 
   // ---------- 先3か月の暦（◎○△）。町の行事は印つき ----------
   RV.calendar3 = (W) => [0, 1, 2].map((k) => {
