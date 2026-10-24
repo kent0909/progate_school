@@ -65,11 +65,18 @@
   };
   const dealtAt = (S, t) => ((S.dealt || {})[t] || []);
   const resAt = (S, t) => (S.res || {})[t];
+  // PR #3 / 6384829024・6384886194：通常bulkの結果は翌月に確定する。
+  const bulkAt = (S, t) => (resAt(S, t)?.carried || []).find(x => x.card === 'bulk' && x.option === 'bulk');
+  const bulkCashAt = (S, t) => { const x=bulkAt(S,t); return x ? (SIM.cards.byId.bulk.options.find(o=>o.id==='bulk').outcomes.find(o=>o.id===x.outcome)?.cash || 0) : 0; };
 
   // ---------- 札を月の出来事に（判断の画面と、選んだ手の書類） ----------
   const fakeW = (t) => { try { const W = SIM.world.create({ seed: 0 }); W.t = t; W.m = MON[t]; return W; } catch (e) { return null; } };
   function cardEvents(t) {
     const out = [];
+    if (t >= 6) SIM.cards.byId.bulk.docs(fakeW(t)).forEach((d,k) => out.push({
+      ...d, id: `bulk-doc${k}@${t}`, card: 'bulk', ramenT: t,
+      when: S => bulkAt(S,t)?.outcome === ['cheap','spoil','space'][k]
+    }));
     for (const c of SIM.cards.deck) {
       if (c.tFrom != null && t < c.tFrom) continue;
       const key = `${c.id}@${t}`, dealt = (S) => dealtAt(S, t).includes(c.id);
@@ -77,7 +84,7 @@
       out.push({ t: 'decision', id: key, card: c.id, ramenT: t, when: dealt, q: c.q || c.title, talk: c.talk,
         trial: (S, oid) => { const W = S.W || fakeW(t), tr = SIM.decide.trial(c, oid, W); const o = c.options.find((x) => x.id === oid); return [['うまくいく見込み（いちばん多い結果）', `${Math.round(Math.max(...tr.weights.map((x) => x.w)))}%`], ...(o.time ? [['使う時間', `${o.time}`]] : []), ...(tr.cashMin !== tr.cashMax ? [['すぐ動くお金の幅', `${tr.cashMin.toLocaleString()}〜${tr.cashMax.toLocaleString()}円`]] : [])]; },
         options: c.options.map((o) => ({ id: o.id, label: o.label, desc: o.desc || '', result: `${o.label}。結果は来月の月報で分かる。` })) });
-      if (c.docs) {
+      if (c.docs && c.id !== 'bulk') {
         const W0 = fakeW(t), docs = W0 ? c.docs(W0) : [];
         docs.forEach((d, k) => {
           const forOpts = c.docFor ? Object.entries(c.docFor).filter(([, v]) => v.includes(k)).map(([o]) => o) : c.options.map((o) => o.id);
@@ -103,7 +110,7 @@
   const rreport = (t) => ({ t: 'rreport', id: `rep${t}`, ramenT: t,
     rows: (S) => { const r = resAt(S, t) || Y.R(S, t); return [['1日のお客さん', `${(r.N || 0).toFixed(1)}人`], ['売上', Math.round(r.sales)], ['材料', -Math.round(r.cogs + (r.wasteCost || 0))], ['人のお金', -Math.round(r.labor + (r.famPay || 0))], ['家賃・ガス水道電気・その他', -Math.round(r.rent + r.util + r.other)], ['この月のもうけ（およそ）', Math.round(r.op)]]; },
     // 一括確定で帳簿に入れる行（月報の行のうち、手で書かない行）。その他の店のお金（通信・掃除・会計の先生など）は消耗品費の札でまとめる【簡略：段5で行を分ける】
-    auto: (S) => { const r = resAt(S, t); if (!r) return []; const rows = [{ id: `other${t}`, label: 'その他の店のお金（電話・掃除・小物）', dr: [['消耗品費', Math.round(r.other)]], cr: [['普通預金', Math.round(r.other)]] }]; if (r.fx && r.fx !== 0) rows.push({ id: `fx${t}`, label: r.fx > 0 ? '札で入ったお金（出店・弁当など）' : '札で出ていったお金', dr: r.fx > 0 ? [['普通預金', Math.round(r.fx)]] : [['消耗品費', Math.round(-r.fx)]], cr: r.fx > 0 ? [['売上', Math.round(r.fx)]] : [['普通預金', Math.round(-r.fx)]] }); return rows; } });
+    auto: (S) => { const r = resAt(S, t); if (!r) return []; const rows = [{ id: `other${t}`, label: 'その他の店のお金（電話・掃除・小物）', dr: [['消耗品費', Math.round(r.other)]], cr: [['普通預金', Math.round(r.other)]] }]; const fx = (r.fx || 0) - bulkCashAt(S,t); if (fx !== 0) rows.push({ id: `fx${t}`, label: fx > 0 ? '札で入ったお金（出店・弁当など）' : '札で出ていったお金', dr: fx > 0 ? [['普通預金', Math.round(fx)]] : [['消耗品費', Math.round(-fx)]], cr: fx > 0 ? [['売上', Math.round(fx)]] : [['普通預金', Math.round(-fx)]] }); return rows; } });
   const plan = (t) => ({ t: 'plan', id: `plan${t}`, ramenT: t, opens: RM.opens(t) });
   const endings = (t) => [
     { t: 'ending', id: 'r-warn', ramenT: t, when: (S) => !!(S.W && S.W.insolvent >= 1 && !S.W.bankrupt && !(S.seenEnds || []).includes('r-warn')) },

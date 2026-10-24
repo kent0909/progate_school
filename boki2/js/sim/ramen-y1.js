@@ -409,7 +409,11 @@
   // PR #1 / 6381276347：まとめ買いは翌年まで未使用。通常の材料だけに減耗を掛ける。
   const stockAmt = (S) => stockBaseAmt(S) + ((S.res && S.res[9] && S.res[9].bulkPaid) || 0);
   const genmoAmt = (S) => Math.round(stockBaseAmt(S) * 0.05 / 10) * 10;
-  const bulkSpoil = (S) => ((S && S.cardOutcomes) || []).some((x) => x.card === 'bulk' && x.outcome === 'spoil');
+  // PR #3 / 6384794588【置き値】：1月に買い、期末に残る小麦の一部が湿気る。
+  const BULK_DAMP = { v: 0.3, lo: 0.2, hi: 0.4, src: '取りまとめ役の承認6384794588' };
+  const bulkSpoil = (S) => !!(S && S.res && S.res[9] && S.res[9].bulkPaid > 0) && SIM.rng(((S.seed ?? S.W?.seed) || 0) * 7919 + 31)() < BULK_DAMP.v;
+  // PR #2から、評価損後に持ち越すcostOmen小麦をSだけで読み出せる。
+  const bulkInventory = (S) => { const purchased = (S?.res?.[9]?.bulkPaid || 0), loss = bulkSpoil(S) ? 12000 : 0; return { purchased, loss, carrying: purchased - loss }; };
   const newEquip = (S) => ((S && S.cardOutcomes) || []).find((x) => x.card === 'maintain' && x.option === 'new');
   const depEquip = (S) => { const n = newEquip(S); return 120000 + (n ? Math.round((300000 / 5) * (12 - n.t) / 12) : 0); };
   const cardBal = (S) => cardPart(S, 11) + vat10(cardPart(S, 11));
@@ -505,7 +509,7 @@
     { label: '決算（器材とまとめ買い）', title: '器材と、湿気た小麦', events: [
       { t: 'doc', kind: 'dep', id: 'dep-equip', scope: ['s-dep', 's-indirect'], doc: { type: '固定資産台帳', title: '減価償却の計算（器材・3月31日）', from: '経理', to: '経理', date: '3月31日', rows: (S) => { const n = newEquip(S); return [['寸胴・券売機ほか（取得原価）', 600000, 'amt'], ['耐用年数', '5年（定額法・残存価額ゼロ）'], ...(n ? [['途中で買ったコンロ（取得原価 300,000・月割）', `${12 - n.t}か月分`]] : []), ['今年の減価償却費', depEquip(S), 'amt']]; } },
         ans: (S) => je([['減価償却費', depEquip(S)]], [['備品減価償却累計額', depEquip(S)]]), opts: opts('減価償却費', '備品', '建物減価償却累計額', '備品減価償却累計額') },
-      { t: 'doc', kind: 'hyoka', id: 'hyoka-bulk', when: (S) => bulkSpoil(S), scope: ['s-genmo'], doc: { type: '計算表', title: '湿気た小麦の値下がり（3月31日）', from: '経理', to: '経理', date: '3月31日', rows: [['まとめ買いの小麦（仕入れた値段）', 30000, 'amt'], ['使える値段（正味売却価額）', 18000, 'amt'], ['下がった分', 12000, 'amt']] },
+      { t: 'doc', kind: 'hyoka', id: 'hyoka-bulk', when: (S) => bulkSpoil(S), scope: ['s-genmo'], doc: { type: '計算表', title: 'まとめ買いの小麦のうち、湿気た分（3月31日）', from: '経理', to: '経理', date: '3月31日', rows: [['まとめ買いの小麦のうち、湿気た分（仕入れた値段）', 30000, 'amt'], ['使える値段（正味売却価額）', 18000, 'amt'], ['下がった分', 12000, 'amt']] },
         ans: je([['商品評価損', 12000]], [['繰越商品', 12000]]), opts: opts('繰越商品', '棚卸減耗損', '商品評価損') },
     ] },
     { label: '決算（カードの入金）', title: 'もらえないかもしれない分', events: [
@@ -632,6 +636,6 @@
 
   // ---------- 台本の形（ramen.js が月の出来事を組み立てる） ----------
   SIM.y1 = { prologue, pre: [{ label: '開店の前（お金を集める）', title: '株式会社{店}、はじまる', events: pre1 }, { label: '開店の前（借りる）', title: '店を借りる・お金を借りる', events: pre2 }, { label: '開店の前（内装と一杯）', title: '前の店の内装と、看板の一杯', events: pre3 }],
-    months: Y1, kessan: KESSAN, MON, CARD_FROM, VAT_FROM, polOf, R, salesNet, calc, disc: { dCapex } };
+    months: Y1, kessan: KESSAN, MON, CARD_FROM, VAT_FROM, polOf, R, salesNet, calc, bulkInventory, disc: { dCapex } };
 })(typeof window !== 'undefined' ? window : globalThis);
 
