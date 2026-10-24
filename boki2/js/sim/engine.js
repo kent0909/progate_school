@@ -1920,8 +1920,9 @@
   // 区分の表は js/data/kubun.js（札の速さ・札で見るとも共有）。ここだけの表示名（工場の累計額など）は SHOW に足す
   const KB = B.kubun;
   const FIXED = { has: (a) => KB.bsOf(a) === '固定資産' };
-  const SHOW = { 繰越商品: '商品', 前払家賃: '前払費用', 未払賃金: '未払費用', 減価償却累計額: '機械装置減価償却累計額' };
+  const SHOW = { 長期前払費用: '長期前払費用（投資その他の資産）', 繰越商品: '商品', 前払家賃: '前払費用', 未払賃金: '未払費用', 減価償却累計額: '機械装置減価償却累計額' };
   function kubunView(b) {
+    if(RAMEN&&D.y2?.maturity)b=D.y2.maturity.display(S,b,(month()||{}).bookT??((S.W?.t||1)-1));
     const v = (a) => b[a] || 0, list = (pred) => Object.keys(b).filter((a) => v(a) && pred(a)).sort((x, y) => order(x) - order(y));
     const sec = (bin) => list((a) => ['収益', '費用'].includes(cat(a)) && KB.plOf(a) === bin);
     const rev = sec('売上高'), cogs = sec('売上原価'), sga = sec('販売費及び一般管理費'), nrev = sec('営業外収益'), nonop = sec('営業外費用'), sp = sec('特別利益'), sl = sec('特別損失'), tax = sec('法人税等');
@@ -1932,7 +1933,8 @@
     const plT = `<h3>損益計算書（区分）</h3><table class="s-tb">${rows(rev)}${rows(cogs, 1)}${tot('売上総利益', G)}${rows(sga, 1)}${tot('営業利益', O)}${rows(nrev, 1)}${rows(nonop, 1)}${tot('経常利益', K)}${sp.length || sl.length ? `${rows(sp, 1)}${rows(sl, 1)}` : ''}${tot('税引前当期純利益', P)}${rows(tax, 1)}${tot('当期純利益', NI)}</table>`;
     const asset = (a) => cat(a) === '資産' || CONTRA.has(a) || (isOther(a) && v(a) > 0);
     const ca = list((a) => asset(a) && !FIXED.has(a)), fa = list((a) => asset(a) && FIXED.has(a));
-    const cl = list((a) => cat(a) === '負債' || (isOther(a) && v(a) < 0));
+    const liabilities = list((a) => cat(a) === '負債' || (isOther(a) && v(a) < 0));
+    const cl=liabilities.filter(a=>KB.bsOf(a)!=='固定負債'),fl=liabilities.filter(a=>KB.bsOf(a)==='固定負債');
     // 純資産は 資本金→資本剰余金→利益剰余金 の順。繰越利益剰余金は当期純利益を足した額で1行（締め切りのあとの姿）
     const EQ_ORD = ['資本金', '新株式申込証拠金', '資本準備金', 'その他資本剰余金', '利益準備金', '別途積立金', '繰越利益剰余金'];
     const eqO = (a) => (EQ_ORD.indexOf(a) < 0 ? 50 : EQ_ORD.indexOf(a));
@@ -1940,7 +1942,7 @@
     const eqVal = (a) => (a === '繰越利益剰余金' ? -v(a) + NI : -v(a));
     // マイナスの札（貸倒引当金・減価償却累計額）は、相手の資産のすぐ下に置く
     const withContra = (l) => { const base = l.filter((a) => !CONTRA.has(a)), out = []; for (const a of base) { out.push(a); for (const c of l) if (CONTRA.has(c) && CONTRA_OF[c] === a) out.push(c); } for (const c of l) if (!out.includes(c)) out.push(c); return out; };
-    const bsT = `<h3>貸借対照表（区分）</h3><div class="s-two"><table class="s-tb"><tr><th colspan="2">流動資産</th></tr>${withContra(ca).map((a) => row(a, v(a), CONTRA.has(a))).join('')}${tot('流動資産 計', sum(ca, 1))}<tr><th colspan="2">固定資産</th></tr>${withContra(fa).map((a) => row(a, v(a), CONTRA.has(a))).join('')}${tot('固定資産 計', sum(fa, 1))}${tot('資産 合計', sum(ca, 1) + sum(fa, 1))}</table><table class="s-tb"><tr><th colspan="2">流動負債</th></tr>${cl.map((a) => row(a, -v(a))).join('')}${tot('流動負債 計', sum(cl, -1))}<tr><th colspan="2">純資産</th></tr>${eq.map((a) => row(a, eqVal(a))).join('')}${tot('純資産 計', eq.reduce((t, a) => t + eqVal(a), 0))}${tot('負債・純資産 合計', sum(cl, -1) + eq.reduce((t, a) => t + eqVal(a), 0))}</table></div>`;
+    const bsT = `<h3>貸借対照表（区分）</h3><div class="s-two"><table class="s-tb"><tr><th colspan="2">流動資産</th></tr>${withContra(ca).map((a) => row(a, v(a), CONTRA.has(a))).join('')}${tot('流動資産 計', sum(ca, 1))}<tr><th colspan="2">固定資産</th></tr>${withContra(fa).map((a) => row(a, v(a), CONTRA.has(a))).join('')}${tot('固定資産 計', sum(fa, 1))}${tot('資産 合計', sum(ca, 1) + sum(fa, 1))}</table><table class="s-tb"><tr><th colspan="2">流動負債</th></tr>${cl.map((a) => row(a, -v(a))).join('')}${tot('流動負債 計', sum(cl, -1))}${fl.length?`<tr><th colspan="2">固定負債</th></tr>${fl.map(a=>row(a,-v(a))).join('')}${tot('固定負債 計',sum(fl,-1))}`:''}<tr><th colspan="2">純資産</th></tr>${eq.map((a) => row(a, eqVal(a))).join('')}${tot('純資産 計', eq.reduce((t, a) => t + eqVal(a), 0))}${tot('負債・純資産 合計', sum(cl, -1) + sum(fl,-1) + eq.reduce((t, a) => t + eqVal(a), 0))}</table></div>`;
     return bsT + plT;
   }
   function reportScreen(ev) {

@@ -49,9 +49,9 @@
   };
   RV.FACTOR_KEYS = Object.keys(RV.FACTORS);
   RV.TEXT = {
-    plan: ['今月の作戦の机', '今月考える手', 'ほかの手（たたんだ）', '時間の予算', 'のこり', '先3か月の暦', '試算（12回まわした幅）', '客数（1日）', '売れた額（月）', '材料を引いた残り（月）', '口座の増え方（月）', '常連さんの増え方（月）', '席が埋まっている日（月）', '動きの大きい手', '前月のまま', 'これで決める', '値下げは、3か月で効きが半分になる（客が新しい値段に慣れる）', '目の前の目標', 'ほかの目標にする', '先月のふりかえりで決めた手'],
+    plan: ['今月の作戦の机', '今月考える手', 'ほかの手（たたんだ）', '時間の予算', 'のこり', '先3か月の暦', '試算（12回まわした幅）', '客数（1日）', '売れた額（月）', '材料を引いた残り（月）', '口座の増え方（月）', '常連の増減（営業日数・来店回数で人数換算）', '席が埋まっている日（月）', '動きの大きい手', '前月のまま', 'これで決める', '値下げは、3か月で効きが半分になる（客が新しい値段に慣れる）', '目の前の目標', 'ほかの目標にする', '先月のふりかえりで決めた手'],
     bowl: ['一杯の組み立て', '麺', '麺の出どころ', 'スープ', '具（3つまで）', '材料の値段（1杯）', '材料の割合', '店の型', '客との相性', '一杯の名前', 'この一杯で決める', '飽きの体温計', '常連さんが新しいのを楽しみにしている', '手直し', '新しい一杯', 'やめる（今のまま）'],
-    report: ['月報', '週ごとの返り', '予報', '実際', '客数', '売上', '店内', '持ち帰り', 'カード払い', '材料', '人のお金', '家賃・ガス水道電気・その他', '宣伝', '廃棄', '品切れ', '評判', '常連さん', '一杯の魅力', '先月から客数が動いた理由', 'あのときの試算と、実際の差', '手を打たない店（影の線）', '初めての月次黒字', '帳簿の口座と、店の口座のずれ', '一括確定して、帳簿に入れる'],
+    report: ['月報', '週ごとの返り', '予報', '実際', '客数', '売上', '店内', '持ち帰り', 'カード払い', '材料', '人のお金', '家賃・ガス水道電気・その他', '宣伝', '廃棄', '品切れ', '評判', '常連が1日に食べに来る数（杯）', '一杯の魅力', '先月から客数が動いた理由', 'あのときの試算と、実際の差', '手を打たない店（影の線）', '初めての月次黒字', '帳簿の口座と、店の口座のずれ', '一括確定して、帳簿に入れる'],
     debrief: ['ふりかえり', '先月から客数が動いた、いちばん大きな理由は？', 'それを除くと、客数は先月より増えた？へった？', '今月いちばん大きく動いたお金は、どの行に出た？', '来月、いちばん考えたい手は？', '分かれ道の図', '通った道', '通らなかった道', '今の位置', '町の中の位置', '前の周の自分との差', 'ラーメン賞の候補', '分かれ道の図を出さない'],
     band: ['口座のお金', 'うち預かり', '借りたお金', '手もとに残るお金', '目の前', '1年目の目標', '1億まで', '次の期日'],
   };
@@ -77,7 +77,7 @@
   RV.extraRows = (W, pol) => {
     if (!SIM.world || typeof SIM.world.trial !== 'function') return [];
     let rows; try { rows = (SIM.world.trial(W, pol) || {}).rows || []; } catch (e) { return []; }
-    return rows.map((r) => (Array.isArray(r) ? { label: r[0], value: r[1] } : { label: r.label || r.k || '', value: r.value != null ? r.value : r.v })).filter((r) => /常連|席/.test(String(r.label)));
+    return rows.map((r) => (Array.isArray(r) ? { label: r[0], value: r[1] } : { label: r.label || r.k || '', value: r.value != null ? r.value : r.v })).map(r=>/常連/.test(r.label)?{...r,label:`常連の増減（月${C('days')}日・1人が月${C('regularVisits')}回来店と仮定）`}:r).filter((r) => /常連|席/.test(String(r.label)));
   };
   // 1つの手だけを変えた方針
   RV.withHand = (pol, k, v) => {
@@ -156,9 +156,9 @@
     if (!st.list[0].done) out.push({ id: 'black', label: sh ? `今月のもうけを、手を打たない店（${man(sh.op)}）より上に` : '今月のもうけを黒字に', check: (r) => (sh ? r.op > sh.op : r.op > 0) });
     if (last && last.waste > 0.06 * Math.max(1, last.X)) out.push({ id: 'waste', label: `今月の廃棄を、先月（${Math.round(last.waste)}杯）の半分に`, check: (r) => r.waste <= last.waste / 2 });
     if (last && last.lost > 0.04 * Math.max(1, last.X)) out.push({ id: 'lost', label: `品切れ・待ちで帰った客（先月${Math.round(last.lost)}人）をへらす`, check: (r) => r.lost < last.lost });
-    if (last) out.push({ id: 'reg', label: `常連さんを、先月（${last.L.toFixed(1)}人/日）より1人ふやす`, check: (r) => r.L >= last.L + 1 });
+    if (last) out.push({ id: 'reg', label: `常連が1日に食べに来る数を、先月（${last.L.toFixed(1)}杯）より1杯ふやす`, check: (r) => r.L >= last.L + 1 });
     if (W && (W.events || []).some((e) => e.m === W.m)) out.push({ id: 'event', label: '行事の週に、品切れを出さない', check: (r) => r.lost < 0.02 * Math.max(1, r.X) });
-    if (W && W.flags && W.flags.omen && !W.flags.omenOpened) out.push({ id: 'omen', label: '新しい店が開く前に、常連さんを2人ふやす', check: (r) => last ? r.L >= last.L + 2 : r.L >= 2 });
+    if (W && W.flags && W.flags.omen && !W.flags.omenOpened) out.push({ id: 'omen', label: '新しい店が開く前に、常連が1日に食べに来る数を2杯ふやす', check: (r) => last ? r.L >= last.L + 2 : r.L >= 2 });
     if (!out.length) out.push({ id: 'cash', label: '口座のお金を、先月より減らさない', check: (r) => r.ord + r.dep - r.repay >= 0 });
     return out.slice(0, 3);
   };

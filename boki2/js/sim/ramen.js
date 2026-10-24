@@ -85,7 +85,7 @@
       out.push({ t: 'decision', id: key, card: c.id, ramenT: t, when: dealt, q: c.q || c.title, talk: c.talk,
         trial: (S, oid) => { const W = S.W || fakeW(t), tr = SIM.decide.trial(c, oid, W); const o = c.options.find((x) => x.id === oid); return [['うまくいく見込み（いちばん多い結果）', `${Math.round(Math.max(...tr.weights.map((x) => x.w)))}%`], ...(o.time ? [['使う時間', `${o.time}`]] : []), ...(tr.cashMin !== tr.cashMax ? [['すぐ動くお金の幅', `${tr.cashMin.toLocaleString()}〜${tr.cashMax.toLocaleString()}円`]] : [])]; },
         options: c.options.map((o) => ({ id: o.id, label: o.label, desc: o.desc || '', result: `${o.label}。結果は来月の月報で分かる。` })) });
-      if (c.docs) {
+      if (c.docs && c.id!=='coupon_dual') {
         const W0 = fakeW(t), docs = W0 ? c.docs(W0) : [];
         docs.forEach((d, k) => {
           const forOpts = c.docFor ? Object.entries(c.docFor).filter(([, v]) => v.includes(k)).map(([o]) => o) : c.options.map((o) => o.id);
@@ -94,6 +94,13 @@
         });
       }
       if (c.calc && RM.calcs[c.calc]) out.push({ ...RM.calcs[c.calc](t), when: (S) => dealt(S) && !!(S.decisions || {})[key] });
+    }
+    // 値引きは結果月に支払・記帳をそろえる。金額はworldで確定した同じ支払額。
+    if(t>=3){const payment=S=>(resAt(S,t)?.choices||[]).find(x=>x.card==='coupon_dual');
+      out.push({t:'doc',kind:'discount',id:`coupon_dual-doc0@${t}`,card:'coupon_dual',ramenT:t,scope:['s-revenue'],when:S=>!!payment(S),
+        fixture:()=>({res:{[t]:{choices:[{card:'coupon_dual',option:'check',outcome:'ok',cash:SIM.cards.byId.coupon_dual.options[0].outcomes[0].cash(fakeW(t))}]}}}),
+        doc:{type:'値引きの記録',title:'前月に決めた値引きの記録',from:'券売機',to:'経理',date:`${MON[t%12]}月末`,rows:S=>[['値引きした額',-(payment(S)?.cash||0),'amt'],['メモ','前月の売上の3%（千円丸め）。結果が返る今月に、売上と口座から引いた']]},
+        ans:S=>({dr:[['売上',-(payment(S)?.cash||0)]],cr:[['普通預金',-(payment(S)?.cash||0)]]}),opts:['売上','普通預金','広告宣伝費','支払手数料']});
     }
     if(t>=9&&t<=12){
       const payment=S=>(resAt(S,t)?.choices||[]).find(x=>x.card==='maintain'&&x.cash<0);
@@ -117,6 +124,7 @@
   // ---------- 月報（rreport）：月の結果。「その他の店のお金」と札のお金は一括確定で帳簿へ（h.1） ----------
   // 札の金額を汎用fxへ重ねないための口。PR #3のbulkもidごとに追加できる。
   RM.fxBookers = {
+    coupon_dual:(S,t,x)=>({cash:x.cash,manual:true,entries:[]}),
     maintain:(S,t,x)=>{
       if(!x||!(x.cash<0)||!['repair','new','wait'].includes(x.option))return null;
       return {cash:x.cash,manual:true,entries:[{id:`fx-book-maintain@${t}`,label:x.option!=='wait'?'前月の器材代・修理代の支払':'故障した器材の修理代',dr:[[x.option!=='wait'?'未払金':'修繕費',-x.cash]],cr:[['普通預金',-x.cash]]}]};
@@ -153,7 +161,7 @@
     months.push(...SIM.y2.kessan(year));
   }
   for (let t = 36; t < 39; t++) months.push({ year: 4, m: MON[t % 12], label: `4年目 ${MON[t % 12]}月`, title: '前の年の約束を払う', ramenT: t,
-    events: [plan(t), ...SIM.y2.routine(t), ...SIM.y2.cardEvents(t), { t: 'recall', id: `recall${t}` }, rreport(t), ...endings(t)] });
+    events: [plan(t), ...SIM.y2.routine(t), ...SIM.y2.cardEvents(t), ...cardEvents(t).filter(e=>e.id===`coupon_dual-doc0@${t}`), { t: 'recall', id: `recall${t}` }, rreport(t), ...endings(t)] });
   // 承認6385898424：PR #3と同じ0円書類の規則。統合時には関数を共通化する。
   const omitZeroDoc = ev => {
     if(ev.t!=='doc')return;

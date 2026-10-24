@@ -97,7 +97,8 @@
       doc(`tax${y}`,'tax','今年の税金の計算書',S=>[['今年の税金',tax(S,y),'amt'],['支払','翌4月']],S=>je([['法人税等',tax(S,y)]],[['未払法人税等',tax(S,y)]]),['法人税等','未払法人税等']),
     ]};
     const statement = {year:y,m:3,bookT:t,seg:`y${y}-statements`,label:`${y}年目の決算書`,title:'株主から来たお金と、店で残したお金',closeless:true,events:[
-      {t:'report',id:`report${y}`},
+      ...SIM.y2.maturityCalcs(y),
+      {t:'report',id:`report${y}`,kubun:true},
       Y1.calc(`ss${y}`,{names:['利益準備金'],scope:['s-ssce'],title:'返さなくてよいお金の、3月末の合計',rows:S=>[['資本金',-bal(S,'資本金')],['資本準備金',-bal(S,'資本準備金')],['利益準備金',-bal(S,'利益準備金')],['これまでのもうけの貯まり',-bal(S,'繰越利益剰余金')],['今年のもうけ',yearIncome(S,y).net]],q:'資料の5つを合わせると、今年末はいくら？',answer:equity,unit:'円',why:'株主から集めた分と、店でかせいで残した分を分けたまま、合計を確かめる。'}),
       ...(y===3?[{...Y1.calc('gappei-fs',{scope:['s-honshiten'],title:'本店と2号店の表を、会社全体の表へ',
         rows:S=>{const q=SIM.y2.consolidation(S);return [['両店の資産の合計（社内の分を消す前）',q.before],['その中の支店の札',q.internal],['支店側にある同額の本店の札',q.internal]];},

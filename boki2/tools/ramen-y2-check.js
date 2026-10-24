@@ -220,6 +220,32 @@ function verifySave(){
     console.log('OK：古いv4の60栞を移行・進行と帳簿を保持・v3互換・保存失敗表示と回復・容量削減の通知');
   }finally{if(oldStorage===undefined)delete global.localStorage;else global.localStorage=oldStorage;if(oldDocument===undefined)delete global.document;else global.document=oldDocument;}
 }
+function verifyMaturity(){
+  for(const [seed,finance_asset,currentLoan,longLoan]of [[0,'installment',999996,3250015],[7,'loan',1599996,3400015]]){
+    let sample;economicStory(seed,{finance_asset,__onEvent:(S,e)=>{if(e.id==='report3')sample=clone(S);}});
+    assert.equal(sample.W.flags.y2Equipment.method,finance_asset,'実際に選んだ購入方法が違う');
+    const b=Object.fromEntries(Object.keys(BOKI.accounts).map(a=>[a,D.y2books.balance(sample.T,a)])),before=JSON.stringify(sample),source=JSON.stringify(b);
+    const q=D.y2.maturity.quote(sample,b,35),shown=D.y2.maturity.display(sample,b,35);
+    assert.equal(q.currentLoan,currentLoan);assert.equal(q.longLoan,longLoan);
+    assert.equal(shown['短期借入金'],-currentLoan);assert.equal(shown['長期借入金'],-longLoan);
+    for(const cat of ['資産','負債']){const total=x=>Object.entries(x).filter(([a])=>BOKI.accounts[a]?.cat===cat).reduce((n,[,v])=>n+v,0);assert.equal(total(shown),total(b),'表示で'+cat+'合計が変わった');}
+    for(const e of D.y2.maturityCalcs(3).filter(e=>!e.when||e.when(sample))){const answer=e.answer(sample),expected=e.id.startsWith('loan-')?q.currentLoan:e.id.startsWith('kappu-current')?q.currentUnpaid:q.currentInterest;assert.equal(answer,expected,e.id+'が表示と違う');}
+    if(finance_asset==='installment'){
+      assert.deepEqual([q.unpaid,q.currentUnpaid,q.longUnpaid,q.interest,q.currentInterest,q.longInterest],[825000,660000,165000,75000,60000,15000]);
+      assert.equal(shown['未払金']-b['未払金'],-660000);assert.equal(shown['長期未払金'],-165000);assert.equal(shown['前払費用'],60000);assert.equal(shown['長期前払費用'],15000);assert.equal(shown['前払利息'],0);
+    }
+    assert.equal(JSON.stringify(sample),before,'表示で世界・仕訳を書き換えた');assert.equal(JSON.stringify(b),source,'表示で元の残高を書き換えた');
+    console.log('1年基準の実測:'+JSON.stringify({seed,finance_asset,...q}));
+  }
+  const card=D.cards.byId.coupon_dual;
+  for(const option of card.options)for(const outcome of option.outcomes){
+    const W=wd.create({seed:4});W.t=23;W.y=2;W.m=3;W.last={sales:1266666};
+    const fx={cash:0,demandMul:1,Rd:0},res={};D.cards.apply(W,card,option.id,outcome.id,fx,res,D.rng(4));
+    assert.equal(fx.cash,-38000);const sample={res:{23:{choices:res.choices}}};
+    const ev=D.months.flatMap(m=>m.events).find(e=>e.id==='coupon_dual-doc0@23');assert.ok(ev.when(sample));const a=ev.ans(sample);assert.deepEqual(a,{dr:[['売上',38000]],cr:[['普通預金',38000]]});assert.equal(D.ramen.fxBookers.coupon_dual(sample,23,res.choices[0]).cash,-38000);
+  }
+  console.log('OK：1年基準の実残高・共通式・資産/負債合計不変・表示で仕訳なし・値引き2択4結果の支払と記帳が一致');
+}
 if (!process.argv.includes('--world')) {
   if(!process.argv.includes('--save-only')){
   for(const seed of [0,7]){
@@ -367,6 +393,7 @@ if (!process.argv.includes('--world')) {
     console.log('売却×修理・同じseed24組：'+JSON.stringify({wins,ties,ends}));
   }
   }
+  if(!process.argv.includes('--save-only'))verifyMaturity();
   verifySave();
   if(!process.argv.includes('--save-only')){
     const definition=D.namings.貸倒引当金戻入,previous=namingAudit.missing,count=namingAudit.checked;

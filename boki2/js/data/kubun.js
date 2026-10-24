@@ -74,5 +74,7 @@
     }
     return out;
   };
-  B.kubun = { PL_BINS, BS_BINS, pl, bs, show, byContext, plOf, bsOf, yearly, yearOf, Y, examForm, altsOf };
+  // 帳簿は変えず、決算書の表示だけを組み替える（PR #2 6386994295）。
+  const reclassifyBS=(balances,transfers)=>{const out={...balances};for(const {from,to,amount}of transfers){out[from]=(out[from]||0)-amount;out[to]=(out[to]||0)+amount;}return out;};
+  B.kubun = { reclassifyBS, PL_BINS, BS_BINS, pl, bs, show, byContext, plOf, bsOf, yearly, yearOf, Y, examForm, altsOf };
 })();

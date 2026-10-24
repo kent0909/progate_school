@@ -123,8 +123,8 @@
     { id: 'coupon_dual', title: '「通常950円→今だけ850円」の張り紙（社長）', shelf: 'law', kind: 'decision', scope: ['s-revenue'], once: true, tFrom: 2, when: (W) => W.t >= 2, weight: () => 1.5,
       talk: [['shacho', '「通常950円」と書いて安く見せよう！ 1週間だけ950円で売ったから大丈夫！']], q: '張り紙は？',
       options: [
-        { id: 'check', label: '帳簿で8週間の値段を確かめてから書く', outcomes: [{ id: 'ok', w: 80, label: '書けない形と分かった。普通の値引きにした' }, { id: 'fine', w: 20, label: '書ける形にそろえた' }] },
-        { id: 'post', label: 'そのまま張る', pres: true, outcomes: [{ id: 'ok', w: 70, label: '客が少し増えた', fx: (W, fx) => { fx.demandMul *= 1.03; } }, { id: 'warn', w: 30, label: '「本当に通常価格？」と指摘され、評判が下がった', fx: (W, fx) => { fx.Rd -= 0.1; } }] },
+        { id: 'check', label: '帳簿で8週間の値段を確かめてから書く', outcomes: [{ id: 'ok', w: 80, label: '書けない形と分かった。普通の値引きにした', cash: W => -man(salesOf(W)*0.03) }, { id: 'fine', w: 20, label: '書ける形にそろえた', cash: W => -man(salesOf(W)*0.03) }] },
+        { id: 'post', label: 'そのまま張る', pres: true, outcomes: [{ id: 'ok', w: 70, label: '客が少し増えた', cash: W => -man(salesOf(W)*0.03), fx: (W, fx) => { fx.demandMul *= 1.03; } }, { id: 'warn', w: 30, label: '「本当に通常価格？」と指摘され、評判が下がった', cash: W => -man(salesOf(W)*0.03), fx: (W, fx) => { fx.Rd -= 0.1; } }] },
       ],
       docs: (W) => { const a = man(salesOf(W) * 0.03); return [doc('discount', `r-disc-${W.t}`, { type: '値引きの記録', title: `${W.m}月の値引き（クーポン）`, from: '券売機', to: '経理', date: `${W.m}月末`, rows: [['値引きした額', a, 'amt'], ['メモ', '値引きした分は、売れた額から引く（ポイントのような後の約束ではない）']] }, je([['売上', a]], [['普通預金', a]]), ['売上', '普通預金', '広告宣伝費', '支払手数料'], ['s-revenue'])]; } },
     { id: 'premium', title: '商品券の抽選（社長）', shelf: 'law', kind: 'decision', scope: [], once: true, tFrom: 4, when: (W) => W.t >= 4, weight: () => 1.2,
