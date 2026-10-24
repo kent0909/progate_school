@@ -29,7 +29,7 @@
     ],
     extra:t=>[
       {t:'decision',id:`close-improve@${t}`,when:S=>choice(S,'close',t,'')==='renovate',q:'改装では何を優先する？',options:[{id:'quality',label:'品質を安定させる',desc:'品質を0.2高める。',result:'品質を優先する。'},{id:'capacity',label:'多くの杯数を回す',desc:'1日10杯分の処理量を増やす。',result:'処理量を優先する。'}]},
-      {t:'decision',id:`close-bowl@${t}`,when:S=>choice(S,'close',t,'')==='format',q:'2号店の新しい一杯は？',options:SIM.bowl.presets.map(p=>({id:p.id,label:p.name,desc:p.say,result:p.name+'へ替える。'}))},
+      {t:'decision',id:`close-bowl@${t}`,optionsFor:S=>SIM.bowl.presets.filter(p=>JSON.stringify(p.spec)!==JSON.stringify(S.W.stores[1].bowl.spec)).map(p=>({id:p.id,label:p.name,desc:p.say,result:p.name+'へ替える。'})),when:S=>choice(S,'close',t,'')==='format',q:'2号店の新しい一杯は？',options:SIM.bowl.presets.map(p=>({id:p.id,label:p.name,desc:p.say,result:p.name+'へ替える。'}))},
       {t:'decision',id:`close-sign@${t}`,when:S=>choice(S,'close',t,'')==='format',q:'2号店の看板は？',options:[['none','付けない'],['small','小さな看板'],['large','大きな看板'],['later','大きな看板を1年後に']].map(([id,label])=>({id,label,desc:id==='small'?'10万円':id==='none'?'看板の支出なし':'50万円と月2,500円。許可が遅れる場合もある。',result:label+'を選んだ。'}))}
     ],
     docs:t=>[

@@ -1661,21 +1661,22 @@
   const trialHTML = (rows) => `<table class="s-tb s-trial">${rows.map(([k, v]) => `<tr><td>${esc(k)}</td><td class="n ${typeof v === 'number' && v < 0 ? 'neg' : ''}">${typeof v === 'number' ? fmt(v) + '円' : esc(v)}</td></tr>`).join('')}</table>`;
   function decisionScreen(ev) {
     teach(ev.teaches);
+    const options = ev.optionsFor ? ev.optionsFor(S) : ev.options;
     if (!S.bm[ev.id] || S.bm[ev.id].mi !== S.mi) { S.bm[ev.id] = snapshot(); save(); }
     let pick = null;
     const draw = () => {
-      const o = ev.options.find((x) => x.id === pick);
+      const o = options.find((x) => x.id === pick);
       const trial = o && ev.trial ? `<p class="s-q small">試算（すぐ動く数字）</p>${trialHTML(ev.trial(S, o.id))}` : '';
-      frame(`<div class="s-card"><h3>${esc(ev.q)}</h3>${talk(ev.talk)}${o ? `<div class="s-check"><p><b>${esc(o.label)}</b></p>${trial}<p>${esc(o.result)}</p><button class="btn wide" data-yes>これで決める</button><button class="btn wide ghost" data-no>えらび直す</button></div>` : `<div class="s-opts">${ev.options.map((x) => `<button class="s-opt" data-opt="${x.id}"><b>${esc(x.label)}</b><small>${esc(x.desc)}</small>${(S.seenEnds || []).some((id) => D.endings[id] && D.endings[id].back === ev.id) && !x.ending ? '<i class="s-seen">この先の結末を見た</i>' : ''}</button>`).join('')}</div>`}</div>`);
+      frame(`<div class="s-card"><h3>${esc(ev.q)}</h3>${talk(ev.talk)}${o ? `<div class="s-check"><p><b>${esc(o.label)}</b></p>${trial}<p>${esc(o.result)}</p><button class="btn wide" data-yes>これで決める</button><button class="btn wide ghost" data-no>えらび直す</button></div>` : `<div class="s-opts">${options.map((x) => `<button class="s-opt" data-opt="${x.id}" ${x.disabled ? 'disabled aria-disabled="true"' : ''}><b>${esc(x.label)}</b><small>${esc(x.desc)}</small>${(S.seenEnds || []).some((id) => D.endings[id] && D.endings[id].back === ev.id) && !x.ending ? '<i class="s-seen">この先の結末を見た</i>' : ''}</button>`).join('')}</div>`}</div>`);
     };
     draw();
     app.onclick = (e) => {
       const b = e.target.closest('[data-opt]');
-      if (b) { pick = b.dataset.opt; draw(); return; }
+      if (b) { if(options.find(x=>x.id===b.dataset.opt).disabled)return; pick = b.dataset.opt; draw(); return; }
       if (e.target.closest('[data-no]')) { pick = null; draw(); return; }
       if (e.target.closest('[data-yes]')) {
         S.decisions[ev.id] = pick;
-        S.diary.push({ m: month().label, t: `${ev.q} → ${ev.options.find((x) => x.id === pick).label}` });
+        S.diary.push({ m: month().label, t: `${ev.q} → ${options.find((x) => x.id === pick).label}` });
         next();
       }
     };

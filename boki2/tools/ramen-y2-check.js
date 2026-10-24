@@ -92,9 +92,17 @@ for (const flow of ['op', 'capital', 'invest']) for (const cash of [-50000, 3000
   flowCases++;
 }
 console.log(`OK：世界の境界（1年目の基準全文 ${baselineMonths}か月・2店 ${multiMonths}か月・資金区分 ${flowCases}枝・同じ町/別の町/閉店）`);
+// 配当の正の額も検査する。赤字の既定プレイだけでは0円の枝に偏るため、独立した帳簿資料で上限を確認。
+for(const retained of [0,10,20,100,10000,10000000])for(const reserve of [0,749999,750000]){
+  const T=[{dr:[['普通預金',3000000+reserve+retained]],cr:[['資本金',3000000],['資本準備金',reserve],['繰越利益剰余金',retained]]}];
+  const q=D.y2.cards.dividendQuote({T,W:{flags:{y2Shares:1}}}),d=q.per,required=Math.min(Math.floor(d/10),Math.max(0,750000-reserve));
+  assert.ok(d+required<=retained);assert.ok(d<=q.equity-3000000);
+  if(d<q.equity-3000000)assert.ok(d+1+Math.min(Math.floor((d+1)/10),Math.max(0,750000-reserve))>retained,'配当上限が過少');
+}
+console.log('OK：配当の正額・準備金上限到達前後18資料');
 // 台本を実際の順で進める。仕訳はすべて正答を記帳し、決算の締切も行う。
 function story(seed, choices = {}) {
-  const S={seed,decisions:{},T:[],L:[],discDone:{},cardOutcomes:[],choices:[]};
+  const S={seed,mode:choices.__mode||'2026',decisions:{},T:[],L:[],discDone:{},cardOutcomes:[],choices:[]};
   let docs=0,calcs=0; const seen=new Set();
   const post=(a,e,m,mi)=>{finite(a,e.id);for(const side of ['dr','cr'])for(const [acc,v]of a[side])assert.ok(v>=0,`${e.id}: ${acc}が負数`);
     assert.equal(a.dr.reduce((n,x)=>n+x[1],0),a.cr.reduce((n,x)=>n+x[1],0),`${e.id}:貸借不一致`);
@@ -102,7 +110,7 @@ function story(seed, choices = {}) {
   for(let mi=0;mi<D.months.length;mi++) {const m=D.months[mi];S.mi=mi;
     for(const e of m.events) {
       if(e.when&&!e.when(S))continue;
-      if(e.t==='decision'){S.decisions[e.id]=choices[e.id]||choices[e.card]||e.options[0].id;if(e.card)seen.add(e.card);}
+      if(e.t==='decision'){const opts=e.optionsFor?e.optionsFor(S):e.options,available=opts.filter(x=>!x.disabled),requested=choices[e.id]||choices[e.card];assert.ok(available.length,e.id+'に選べる手がない');S.decisions[e.id]=available.some(x=>x.id===requested)?requested:available[0].id;if(e.card)seen.add(e.card);}
       if(e.t==='plan'){D.ramen.plan(S,e.ramenT,D.ramen.policy(S,e.ramenT));finite(S.W,'世界');finite(S.res[e.ramenT],'月報');}
       if(e.t==='doc'){post(typeof e.ans==='function'?e.ans(S):e.ans,e,m,mi);docs++;}
       if(e.t==='calc'){const a=typeof e.answer==='function'?e.answer(S):e.answer;assert.ok(Number.isFinite(a),e.id);calcs++;}
@@ -134,17 +142,24 @@ function forcedStory(seed,choices,target,outcome){
   D.decide.resolve=(card,opt,W,rng)=>{
     if(card.id!==target)return original(card,opt,W,rng);
     const result=card.options.find(x=>x.id===opt).outcomes.find(x=>x.id===outcome);
-    assert.ok(result,`強制分岐 ${target}/${opt}/${outcome}`);
+    if(!result)return original(card,opt,W,rng); // 審査で対象の選択肢が選べなかったケースは、到達の集計で失敗として扱う。
     return {id:outcome,outcome:result,weights:D.decide.weights(card,opt,W)};
   };
   try{return story(seed,choices);}finally{D.decide.resolve=original;}
 }
 if (!process.argv.includes('--world')) {
-  const seen=new Set();let docs=0,calcs=0;
+  const seen=new Set();let docs=0,calcs=0;const metrics=[];
   for(let seed=0;seed<12;seed++){
-    const run=story(seed);docs+=run.docs;calcs+=run.calcs;for(const id of run.seen)seen.add(id);
+    const run=story(seed);metrics.push({seed,y2Cash:run.S.res[23].cash,y3Cash:run.S.res[35].cash,y4JuneCash:run.S.res[38].cash,bankrupt:!!run.S.W.bankrupt});docs+=run.docs;calcs+=run.calcs;for(const id of run.seen)seen.add(id);
   }
   console.log(`OK：39か月の台本12周・仕訳 ${docs}件・計算 ${calcs}件・有限数と貸借一致`);
+  for(const mode of ['2026','2027']){
+    const {S}=story(0,{__mode:mode,finance_asset:'loan'});
+    assert.ok(S.T.some(e=>(e.y||1)>=2&&e.dr.some(([a])=>a===BOKI.kubun.yearly[mode].rent)));
+    for(const e of S.T)for(const side of ['dr','cr'])for(const[a]of e[side])assert.ok(!BOKI.kubun.yearly[mode].forbid.test(a),`年度外の科目 ${mode}/${a}`);
+  }
+  console.log('OK：2026・2027年度の科目と借入購入の経路');
+  if(process.argv.includes('--metrics'))console.log('新台本・既定選択12seedの指標：'+JSON.stringify(metrics));
   let branches=0;
   for(const card of D.y2.cards.cards.filter(c=>!c.automatic))for(const option of card.options){
     const result=story(3,{[card.id]:option.id});
@@ -174,8 +189,8 @@ if (!process.argv.includes('--world')) {
       const S={seed,decisions:{},T:[],res:{},W:wd.create({seed}),cardOutcomes:[]};S.W.t=12;S.W.y=2;S.W.m=4;
       S.W.flags.staffBonus={kind:enabled?'promise':'none'};
       for(let t=12;t<36;t++){
-        const pol=wd.policy0(S.W);D.y2.beforePlan(S,t,pol);
-        const carry=(S.W.flags.y2Departures||[]).length?[{id:'staff_leave',option:'leave',t:t-1}]:[];
+        const pol=wd.policy0(S.W);pol.parts+=(S.W.flags.y2PendingHires || []).filter(x=>x.store===0).length;D.y2.beforePlan(S,t,pol);
+        const carry=[...((S.W.flags.y2Recruiting||[]).length?[{id:'staff_hire',option:'hire',t:t-1}]:[]),...((S.W.flags.y2Departures||[]).length?[{id:'staff_leave',option:'leave',t:t-1}]:[])];
         if(enabled&&t%12===2){S.W.flags.bonusCount=S.W.stores.filter(x=>x.open!==false).reduce((n,x)=>n+x.parts,0);carry.push({id:'bonus_pay',option:'pay',t:t-1});}
         const r=wd.month(S.W,pol,{carry,noCards:true,noFactors:true});S.W=r.W;S.res[t]=r.res;finite(r,'賞与モデル');
       }
@@ -189,6 +204,7 @@ if (!process.argv.includes('--world')) {
     console.log('賞与制度・本編の時期：'+JSON.stringify(rows));
   }
   if(process.argv.includes('--compare')){
+    if(process.argv.includes('--resale-low')){D.y2.sale.coef.resale.v=80000;D.cards.byId.maintain_replace.options.find(o=>o.id==='sell').outcomes[0].cash=80000;}
     const wins={sell_plan:0,sell_break:0,keep_plan:0,keep_break:0}, ends={};let ties=0;
     for(let seed=0;seed<24;seed++){
       const rows=[];

@@ -4,6 +4,12 @@
   const SIM = g.SIMDATA, Y = SIM.y2, BK = SIM.y2books;
   // 置き値（取りまとめ時にcoef.jsへ）。PR #2 / DESIGN-RAMEN e.6。
   const COEF = {
+    bankMonths:{v:3,lo:3,hi:3,source:'取りまとめ役 6384653772への回答6384658872。直近3か月の営業利益合計が正'},
+    frozenOutside:{v:0.8,lo:0.7,hi:0.9,source:'取りまとめ役 6384653772への回答6384658872'},
+    frozenOwn:{v:0.6,lo:0.45,hi:0.75,source:'取りまとめ役 6384653772への回答6384658872'},
+    frozenPeak:{v:1.3,lo:1.15,hi:1.5,source:'取りまとめ役 6384653772への回答6384658872'},
+    frozenMonths:{v:3,lo:3,hi:3,source:'取りまとめ役 6384653772への回答6384658872'},
+    itemDemand:{v:[6,18],lo:6,hi:18,source:'取りまとめ役 6384653772への回答6384658872。仮の需要・一様'},
     initialShares: {v:300,lo:300,hi:300,source:'PR #2 6383425858：開業300万円・1株1万円'},
     issue: {v:[[500,10000],[100,30000],[50,45000],[25,88000]],lo:25,hi:500,source:'DESIGN-RAMEN e.6 issue。各組は株数・払込単価'},
   };
@@ -39,7 +45,11 @@
     const cap=Math.max(0,-bal('資本金')), reserves=Math.max(0,-bal('資本準備金')-bal('利益準備金'));
     const retained=Math.max(0,-bal('繰越利益剰余金')), need=Math.max(0,Math.floor(cap/4)-reserves);
     const equity=Object.entries(g.BOKI.accounts).filter(([,a])=>a.cat==='純資産').reduce((n,[a])=>n-bal(a),0);
-    const room=Math.max(0,equity-3000000), available=Math.max(0,Math.min(room,need>0?Math.floor(retained*10/11):retained));
+    const room=Math.max(0,equity-3000000);
+    // 配当と積立の合計が利益の残りを超えない、最大の整数額。上限到達後まで一律1/10を引かない。
+    let lo=0,hi=Math.floor(Math.min(room,retained));
+    while(lo<hi){const mid=Math.ceil((lo+hi)/2);if(mid+Math.min(Math.floor(mid/10),need)<=retained)lo=mid;else hi=mid-1;}
+    const available=lo;
     return {shares,cap,reserves,retained,need,equity,per:Math.floor(available/shares)};
   };
   const divAmount = (W,ratio) => {const q=W.flags.y2Dividend || {per:0,shares:COEF.initialShares.v};return Math.floor(q.per*ratio)*q.shares;};
@@ -100,7 +110,7 @@
   const expenseDoc=(kind,label,acc,id,t,defaultCost)=>doc(kind,label,S=>[['支払った額',-amount(S,id,t,-defaultCost),'amt'],['使った目的',label]],S=>je([[acc,-amount(S,id,t,-defaultCost)]],[['普通預金',-amount(S,id,t,-defaultCost)]]),[acc]);
   const limited=add({id:'bowl_limited_y2',title:'今年の夏の限定を、どう作る？',scope:['s-rd'],when:schedule(2,8),talk:[['shacho','季節の素材も、冷たい麺も、ほかの店との共同作も気になる。試すお金と手間を比べよう。']],
     options:[...['season','cold','collab'].map((id,i)=>({id,label:['季節の素材を試す','冷たい麺を試す','ほかの店と共同で試す'][i],desc:`試作${money(i===2?60000:30000)}円。${i===1?'準備の手間1。夏の廃棄を抑える。':i===2?'準備の手間2。話題になりやすいが出費は大きい。':'いつもの店で試作する。'}`,time:i,
-      outcomes:[['hit',20,0.1],['mid',50,0.4],['miss',30,0.9]].map(([out,w,luck])=>({id:out,w,label:{hit:'限定が評判になった',mid:'ふつうに売れた',miss:'試したが定番には届かなかった'}[out],cash:-(i===2?60000:30000),fx:(W,fx,st)=>{st.bowl=SIM.bowl.apply(st.bowl,'limited',()=>luck,W.t);if(id==='cold'&&[7,8,9].includes(W.m))fx.wasteMul=V('coldWaste');if(id==='collab')st.A+=V('awareness');}}))})),{id:'no',label:'限定を出さない',desc:'試作費を残し、いつもの一杯に集中する。',outcomes:[{id:'keep',w:100,label:'看板の一杯を続けた'}]}],
+      outcomes:[['hit',20,0.1],['mid',50,0.4],['miss',30,0.9]].map(([out,w,luck])=>({id:out,w,label:{hit:'限定が評判になった',mid:'ふつうに売れた',miss:'試したが定番には届かなかった'}[out],cash:-(i===2?60000:30000),fx:(W,fx,st)=>{st.bowl=SIM.bowl.apply(st.bowl,'limited',()=>luck,W.t);if(W.flags.y2FrozenTrial&&W.flags.y2FrozenTrial.ready){st.bowl.peak*=V('frozenPeak');st.bowl.peak0*=V('frozenPeak');st.bowl.y2TrialUntil=W.t+V('frozenMonths');W.flags.y2FrozenTrial.ready=false;W.flags.y2FrozenTrial.activeUntil=st.bowl.y2TrialUntil;}if(id==='cold'&&[7,8,9].includes(W.m))fx.wasteMul=V('coldWaste');if(id==='collab')st.A+=V('awareness');}}))})),{id:'no',label:'限定を出さない',desc:'試作費を残し、いつもの一杯に集中する。',outcomes:[{id:'keep',w:100,label:'看板の一杯を続けた'}]}],
     docs:t=>[expenseDoc('rd','新しい味の試作・将来の売上は未確定','研究開発費','bowl_limited_y2',t,V('prototype'))]
   });
   const summer=add({id:'ev_summer_y2',title:'夏祭りの屋台を引き受ける？',scope:['s-service'],when:schedule(2,7),talk:[['eigyo','夏祭りの屋台を運営してほしいそうです。引き受けると、人と材料の手配も必要です。']],
@@ -115,16 +125,16 @@
     doc('service-cost','屋台・教室の人と材料の支払',S=>[['その仕事のための人・材料',cost(S),'amt']],S=>je([['役務原価',cost(S)]],[['普通預金',cost(S)]]),['役務原価'])
   ];}
   add({id:'frozen_noodle',title:'持ち帰り用の冷凍麺を試作する？',scope:['s-rd'],when:W=>W.y===3&&W.m===7,talk:[['shacho','持ち帰ってもおいしい麺にしたい。試しても、売れるとは限らないけどね。']],
-    options:[{id:'outside',label:'外の専門店と試作する',desc:'試作6万円、打合せの時間1。',time:1,outcomes:[{id:'tested',w:100,label:'外の知恵を借りて試した',cash:-60000}]},{id:'own',label:'自分たちで試作する',desc:'試作3万円、作業の時間3。',time:3,outcomes:[{id:'tested',w:100,label:'店の時間を使って試した',cash:-30000}]},{id:'no',label:'今回は見送る',desc:'お金と時間を残す。新しい商品はまだ作らない。',outcomes:[{id:'keep',w:100,label:'今の品ぞろえを続けた'}]}],
+    options:[...['outside','own'].map((id,i)=>({id,label:i?'自分たちで試作する':'外の専門店と試作する',desc:`試作${i?'3':'6'}万円・時間${i?3:1}。成功すると次の限定の話題を3か月高める。`,time:i?3:1,outcomes:[['success',100*V(i?'frozenOwn':'frozenOutside')],['failed',100*(1-V(i?'frozenOwn':'frozenOutside'))]].map(([out,w])=>({id:out,w,label:out==='success'?'試作が成功。次の限定の話題が3か月高まる':'試作は実った商品につながらなかった。試作費は今年の費用',cash:i?-30000:-60000,fx:W=>{W.flags.y2FrozenTrial={ready:out==='success',at:W.t};}}))})),{id:'no',label:'今回は見送る',desc:'お金と時間を残す。新しい商品はまだ作らない。',outcomes:[{id:'keep',w:100,label:'今の品ぞろえを続けた'}]}],
     docs:t=>[expenseDoc('rd','冷凍麺の試作・売れるかはまだ未確定','研究開発費','frozen_noodle',t,30000)]
   });
   const items=add({id:'ticket_items',title:'店の鉢を、おみやげに売る？',scope:['s-taiwitsu'],when:schedule(2,12),talk:[['eigyo','この鉢を買って帰りたいというお客さんがいます。仕入れて並べますか。']],
-    options:[...[10,20].map(n=>({id:`n${n}`,label:`${n}個仕入れて並べる`,desc:`1個600円で仕入、1,000円で販売。売れ残りもある。`,outcomes:[[6,30],[8,50],[10,20]].map(([sold,w])=>({id:`sold${sold}`,w,label:`${sold*n/10}個売れた`,cash:sold*n/10*1000-n*600,fx:W=>{W.flags.y2Items={bought:n,sold:sold*n/10};}}))})),{id:'no',label:'売らない',desc:'在庫を持たず、ラーメンの販売を続ける。',outcomes:[{id:'keep',w:100,label:'鉢は仕入れなかった'}]}],
-    docs:t=>{const x=S=>{const c=actualChoice(S,'ticket_items',t);return c&&c.option!=='no'?{bought:+c.option.slice(1),sold:+c.outcome.slice(4)*(+c.option.slice(1))/10}:{bought:10,sold:8};};return [
+    options:[...[10,20].map(n=>({id:`n${n}`,label:`${n}個仕入れて並べる`,desc:'1個600円で仕入、1,000円で販売。需要は6〜18個。売れ残りは商品として残る。',outcomes:Array.from({length:13},(_,i)=>i+6).map(demand=>({id:`d${demand}`,w:100/13,label:`需要${demand}個、${Math.min(n,demand)}個売れた`,cash:Math.min(n,demand)*1000-n*600,fx:W=>{W.flags.y2Items={bought:n,sold:Math.min(n,demand),demand};}}))})),{id:'no',label:'売らない',desc:'在庫を持たず、ラーメンの販売を続ける。',outcomes:[{id:'keep',w:100,label:'鉢は仕入れなかった'}]}],
+    docs:t=>{const x=S=>{const c=actualChoice(S,'ticket_items',t);return c&&c.option!=='no'?{bought:+c.option.slice(1),sold:Math.min(+c.option.slice(1),+c.outcome.slice(1))}:{bought:10,sold:8};};return [
       doc('items-buy','販売用の鉢の仕入れ',S=>[['仕入数',x(S).bought],['1個の仕入価格',600,'amt']],S=>je([['商品',x(S).bought*600]],[['普通預金',x(S).bought*600]]),['商品']),
       doc('taiwitsu','鉢の販売・売れた値段と仕入れた値段',S=>[['販売数',x(S).sold],['1個の売価',1000,'amt'],['1個の原価',600,'amt']],S=>je([['普通預金',x(S).sold*1000],['売上原価',x(S).sold*600]],[['売上',x(S).sold*1000],['商品',x(S).sold*600]]),['商品','売上原価'])
     ];},
-    resultCalcs:t=>[Y1calc(`taiwitsu-vs@${t}`,['s-taiwitsu'],'書き方を替えても、鉢のもうけは同じ？',S=>{const c=actualChoice(S,'ticket_items',t),n=c&&c.option!=='no'?+c.option.slice(1):10,sold=c&&c.option!=='no'?+c.outcome.slice(4)*n/10:8;return [['仕入総額',n*600],['売上',sold*1000],['月末に残った鉢の原価',(n-sold)*600]];},'三分法なら仕入から残った分を戻す。売上から、使った原価を引くといくら？',S=>{const c=actualChoice(S,'ticket_items',t);return c&&c.option!=='no'?+c.outcome.slice(4)*(+c.option.slice(1))/10*400:3200;},'売れるたびに原価を書く方法でも、残りを数えて原価を出す三分法でも、同じ鉢のもうけは一致する。')]
+    resultCalcs:t=>[Y1calc(`taiwitsu-vs@${t}`,['s-taiwitsu'],'書き方を替えても、鉢のもうけは同じ？',S=>{const c=actualChoice(S,'ticket_items',t),n=c&&c.option!=='no'?+c.option.slice(1):10,sold=c&&c.option!=='no'?Math.min(n,+c.outcome.slice(1)):8;return [['仕入総額',n*600],['売上',sold*1000],['月末に残った鉢の原価',(n-sold)*600]];},'三分法なら仕入から残った分を戻す。売上から、使った原価を引くといくら？',S=>{const c=actualChoice(S,'ticket_items',t);return c&&c.option!=='no'?Math.min(+c.option.slice(1),+c.outcome.slice(1))*400:3200;},'売れるたびに原価を書く方法でも、残りを数えて原価を出す三分法でも、同じ鉢のもうけは一致する。')]
   });
   function Y1calc(id,scope,title,rows,q,answer,why){return SIM.y1.calc(id,{scope,title,rows,q,answer,unit:'円',why});}
   // 名前の札は、初めて手書きする直前にengineが出す。会社の純資産の区分を混同させない。
@@ -141,7 +151,8 @@
     利益準備金:{q:'利益を株主に分けるとき、会社に残して積む分。だれかに返す約束？',opts:[{t:'会社に残す、もうけの一部',ok:true},{t:'株主へ払う約束',react:'払う分とは別に、会社に残す分だね。'}],line:'利益の配当のとき会社に残して積む分は、純資産の「利益準備金」。',teaches:['利益準備金']},
     未払配当金:{q:'株主に分ける額が決まったが、振込はまだ。いま何が残る？',opts:[{t:'株主へ払う約束',ok:true},{t:'店の新しい費用',react:'もうけを株主へ分けることは、ラーメンを作る費用ではない。'}],line:'配当が決まってから、まだ払っていない分は、負債の「未払配当金」。',teaches:['未払配当金']}
   });
-  Y.beforePlan = (S,t) => { if(t>=12) {S.W.flags.y2Dividend=dividendQuote(S);S.W.flags.y2Staff=choice(S,'site2_staff',t-1,'hire');} };
+  Y.afterPlan=(S,t,r)=>{r.res.frozenTrialActive=!!(S.W.flags.y2FrozenTrial&&S.W.flags.y2FrozenTrial.activeUntil>t);};
+  Y.beforePlan = (S,t) => { if(t>=12) {const b=S.W.stores[0].bowl;if(b.y2TrialUntil!=null&&t>=b.y2TrialUntil){b.peak/=V('frozenPeak');b.peak0/=V('frozenPeak');delete b.y2TrialUntil;}S.W.flags.y2Dividend=dividendQuote(S);S.W.flags.y2Staff=choice(S,'site2_staff',t-1,'hire');} };
   Y.carry = (S,t) => [...(S.W.flags.y2Build && S.W.flags.y2Build.at === t ? [{id:'site2_complete',option:'complete',t:t-1}] : []),...Y.extraCarry.flatMap(fn=>fn(S,t))];
   Y.cardEvents = t => {
     const out=[];
@@ -152,7 +163,7 @@
         if(c.intro) out.push({...c.intro,when:S=>dealt(S)&&!(S.discDone || {})[c.intro.id]});
         if(c.id==='issue') out.push({...capitalDiscovery,when:S=>dealt(S)&&!(S.discDone || {})[capitalDiscovery.id]});
         if(c.id==='dividend') out.push({...dividendDiscovery,when:S=>dealt(S)&&!(S.discDone || {})[dividendDiscovery.id]});
-        out.push({t:'decision',id:`${c.id}@${t}`,card:c.id,ramenT:t,when:dealt,q:c.title,talk:c.talk,options:c.options.map(o=>({id:o.id,label:o.label,desc:o.desc,result:'条件を決めた。結果の書類は、翌月に届く。'}))});
+        out.push({t:'decision',id:`${c.id}@${t}`,card:c.id,optionsFor:c.optionsFor?(S=>c.optionsFor(S,t).map(o=>({...o,result:o.result||'結果は翌月の書類と月報で確かめよう。'}))):undefined,ramenT:t,when:dealt,q:c.title,talk:c.talk,options:c.options.map(o=>({id:o.id,label:o.label,desc:o.desc,result:'条件を決めた。結果の書類は、翌月に届く。'}))});
         if(c.calcs) out.push(...c.calcs(t).map(e=>({...e,when:dealt})));
         if(c.extra) out.push(...c.extra(t).map(e=>({...e,when:S=>dealt(S)&&(!e.when || e.when(S))})));
       }

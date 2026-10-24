@@ -77,7 +77,7 @@ BOKI.exam({
 BOKI.exam({
   id: 'x2e', part: 2,
   title: '固定資産とリース',
-  scope: ['s-dep', 's-indirect', 's-sale', 's-lease'],
+  scope: ['s-dep', 's-dep-rate', 's-indirect', 's-sale', 's-lease'],
   draft: [
     { t: '解答欄から読む', h: '9行は備品A・備品B・車両・リースの4資産に分かれ、最後が減価償却費の合計。資産ごとに区切って計算すると決める。' },
     { t: 'タイムテーブル', h: '当期×3/4〜×4/3を1本の線に。備品Bは10/1取得で6か月、車両は12/31売却で9か月、リースは4/1開始で12か月と書き込む。' },

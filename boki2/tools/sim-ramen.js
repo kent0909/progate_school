@@ -18,6 +18,18 @@ const errors = [], info = [];
 const err = (m) => errors.push(m);
 const pct = (a, n) => (n ? Math.round((1000 * a) / n) / 10 : 0);
 const t0 = Date.now();
+// PR #2 / 承認6384644992：既存の13か月・3/5年の母集団は保つ。
+// 新台本は別プロセスの39か月検査で全札・全結果・帳簿を検査し、指標も出す。
+const y2Report = require('child_process').execFileSync(process.execPath,[path.join(__dirname,'ramen-y2-check.js'),'--metrics'],{encoding:'utf8',timeout:600000});
+info.push('新台本込み（既存の閾値とは分けた39か月の検査）：\n'+y2Report.trim());
+const legacyDeck=CD.deck.filter(c=>!c.y2);
+CD.deck.splice(0,CD.deck.length,...legacyDeck);
+// 2年目以降に同じ札を別idへ分けた3札について、旧経営比較の出現条件だけを復元。
+for(const id of ['maintain','ev_summer','bowl_limited']){const card=CD.byId[id],current=card.when;card.when=W=>current({...W,t:Math.min(W.t,11)});}
+// 旧比較は1本の乱数列を使用。新台本の独立した乱数列は上の別プロセスで検査する。
+D.y2.stream=null;
+info.push('旧比較：新札を停止、maintain/夏祭り/限定の旧条件と共有乱数を検査用に復元。従来の閾値は変更なし');
+
 const wilson=(k,n)=>{const z=1.96,p=k/n,d=1+z*z/n,c=(p+z*z/(2*n))/d,h=z/d*Math.sqrt(p*(1-p)/n+z*z/(4*n*n));return `${(100*(c-h)).toFixed(1)}〜${(100*(c+h)).toFixed(1)}%`;};
 
 

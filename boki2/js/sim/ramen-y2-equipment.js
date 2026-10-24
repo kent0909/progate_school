@@ -19,9 +19,11 @@
     talk:[['eigyo','味を安定させる器材か、たくさん回せる器材か。中古なら安く買えます。']],
     options:[['quality','品質を優先する新品',1200000],['capacity','処理量を優先する新品',1200000],['used','中古を選ぶ',600000]].map(([id,label,cost])=>({id,label,desc:`現金で買う価格${cost.toLocaleString()}円。支払方法は次に比べる。`,outcomes:[{id:'quoted',w:100,label:'この種類の見積りを受け取った',fx:W=>{W.flags.y2EquipmentQuote={kind:id,cost};}}]}))});
   const acquire=(W,method)=>{const q=quote(W);W.flags.y2Equipment={...q,method,at:W.t,remaining:method==='cash'?0:q.cost,paid:0};improve(W.stores[0],q.kind);};
+  const canBorrow=(S,t)=>Array.from({length:3},(_,i)=>((S.res||{})[t-i]||{}).op||0).reduce((a,b)=>a+b,0)>0;
   const finance=add({id:'finance_asset',title:'器材の代金を、どう用意する？',scope:['s-kappu'],when:W=>W.y===3&&W.m===5,
     talk:[['shacho','一度に払うと口座が薄くなる。分けると、総額が増えるんだね。']],
     options:[{id:'cash',label:'口座から一括で払う',desc:'利息はない。使える現金が一度にへる。',outcomes:[{id:'bought',w:100,label:'一括で買った',flow:'invest',cash:W=>-quote(W).cost,fx:W=>acquire(W,'cash')}]},{id:'installment',label:'24回に分けて払う',desc:'新品は月55,000円。現金価格との差を24回に分ける。',outcomes:[{id:'bought',w:100,label:'翌月から分けて払う約束で買った',flow:'invest',cash:0,fx:W=>acquire(W,'installment')}]},{id:'loan',label:'同じ借入先から借りて、一括で買う',desc:'元本は24回で返す。借入の残りに利息がかかる。',outcomes:[{id:'borrowed',w:100,label:'借りたお金で買った',flow:'capital',cash:W=>quote(W).cost,fx:W=>{W.loan+=quote(W).cost;acquire(W,'loan');}}]}],
+    optionsFor:(S,t)=>finance.options.map(o=>({...o,disabled:o.id==='loan'&&!canBorrow(S,t),desc:o.id==='loan'&&!canBorrow(S,t)?'銀行：最近の利益が足りない':o.desc})),
     calcs:t=>[Y1calc(`kappu-interest@${t}`,['s-kappu'],'分けて払うと、総額はいくら増える？',S=>{const q=S.W?quote(S.W):{cost:1200000};return [['現金価格',q.cost],['1回の支払（見積書）',q.cost/1200000*55000],['回数',24]];},'分割の支払総額から現金価格を引くと、利息の総額はいくら？',S=>(S.W?quote(S.W).cost:1200000)/10,'利息の総額を支払回数に均等に分けて、その月の費用にする。')],
     docs:t=>[
       doc('kappu','器材の納品書・支払方法の契約書',S=>{const a=asset(S);return [['現金価格',a.cost,'amt'],['支払方法',a.method==='installment'?'24回の後払い':a.method==='loan'?'借入後に一括':'一括'],['分割の場合の支払総額',a.cost*1.1,'amt']];},S=>{const a=asset(S);return a.method==='installment'?je([['備品',a.cost],['前払利息',a.cost/10]],[['長期未払金',a.cost*1.1]]):je([['備品',a.cost]],[['普通預金',a.cost]]);},['備品','前払利息','長期未払金']),
@@ -51,5 +53,5 @@
     前払利息:{q:'分割の契約に含まれる利息。全部を買った月の費用にする？',opts:[{t:'支払う期間に分けて費用にする',ok:true},{t:'全部を買った月の費用にする',react:'支払を待ってもらう期間は、来月以降にも続くね。'}],line:'あとで期間に分けて費用にする利息を「前払利息」の札に置く。',teaches:['前払利息']},
     長期未払金:{q:'器材を受け取り、代金を2年かけて払う約束。どの棚？',opts:[{t:'返す約束の棚',ok:true},{t:'株主から集めたお金の棚',react:'売った会社に代金を払う約束だね。'}],line:'設備などの代金で、支払期限が1年を超える約束は「長期未払金」。',teaches:['長期未払金']}
   });
-  Y.equipment={coef:COEF,quote,asset,improve,dep};
+  Y.equipment={coef:COEF,quote,asset,improve,dep,canBorrow};
 })(typeof window!=='undefined'?window:globalThis);

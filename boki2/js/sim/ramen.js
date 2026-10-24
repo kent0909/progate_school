@@ -25,6 +25,7 @@
   RM.policy = (S, t) => {
     const W = RM.world(S), prev = S.pols[t - 1];
     const p = SIM.world.policy0(W, prev || null);
+    if(t>=12)p.parts+=(W.flags.y2PendingHires || []).filter(x=>x.store===0).length;
     const open = RM.opens(t), base = SIM.world.policy0(W, null), before = t ? RM.opens(t - 1) : [];
     // 今月はじめて開いた手は、ふつうの既定から（前月の「まだ開いていない」のまま引き継がない）
     for (const k of open) if (!before.includes(k) && k in base) p[k] = base[k];
