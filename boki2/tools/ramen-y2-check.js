@@ -182,6 +182,27 @@ if (!process.argv.includes('--world')) {
     }
     console.log('全結果分岐：'+JSON.stringify({covered:covered.length,missing}));assert.deepEqual(missing,[],'未到達の札の結果');
   }
+  if(process.argv.includes('--choices')){
+    const summary=[];
+    for(const card of D.y2.cards.cards.filter(c=>!c.automatic)){
+      const results=[],wins=Object.fromEntries(card.options.map(o=>[o.id,0]));let ties=0;
+      for(let seed=0;seed<24;seed++){
+        const rows=[];
+        for(const option of card.options){
+          const {S}=story(seed,{[card.id]:option.id});
+          const chosen=Object.entries(S.decisions).some(([id,value])=>id.startsWith(card.id+'@')&&value===option.id);
+          if(!chosen)continue;
+          const equity=Object.entries(BOKI.accounts).filter(([,a])=>a.cat==='純資産').reduce((n,[a])=>n-D.y2books.balance(S.T,a),0)+D.y2books.income(S.T.filter(e=>e.y===4&&!e.closing)).net;
+          const row={seed,option:option.id,y3:S.res[35].cash,y4June:S.res[38].cash,founderEquity:equity*300/(S.W.flags.y2Shares||300)};
+          rows.push(row);results.push(row);
+        }
+        if(!rows.length)continue;const best=Math.max(...rows.map(r=>r.y4June)),top=rows.filter(r=>r.y4June===best);if(top.length===1)wins[top[0].option]++;else ties++;
+      }
+      summary.push({card:card.id,wins,ties,available:Object.fromEntries(card.options.map(o=>[o.id,results.filter(r=>r.option===o.id).length])),results});
+      console.log('札の24seed比較：'+JSON.stringify({card:card.id,wins,ties,available:summary[summary.length-1].available}));
+    }
+    require('fs').writeFileSync(process.env.Y2_COMPARE_OUT||require('path').join(require('os').tmpdir(),'ramen-y2-choices.json'),JSON.stringify(summary,null,2));
+  }
   // 制度の24か月比較は、本編での導入時期と分けた反実仮想。
   if(process.argv.includes('--bonus-model')){
     const rows=[];
@@ -189,18 +210,18 @@ if (!process.argv.includes('--world')) {
       const S={seed,decisions:{},T:[],res:{},W:wd.create({seed}),cardOutcomes:[]};S.W.t=12;S.W.y=2;S.W.m=4;
       S.W.flags.staffBonus={kind:enabled?'promise':'none'};
       for(let t=12;t<36;t++){
-        const pol=wd.policy0(S.W);pol.parts+=(S.W.flags.y2PendingHires || []).filter(x=>x.store===0).length;D.y2.beforePlan(S,t,pol);
+        S.W.flags.y2CurrentDealt=t===18?['minwage_y2']:t===30?['minwage_y3']:[];const pol=wd.policy0(S.W);pol.parts+=(S.W.flags.y2PendingHires || []).filter(x=>x.store===0).length;D.y2.beforePlan(S,t,pol);
         const carry=[...((S.W.flags.y2Recruiting||[]).length?[{id:'staff_hire',option:'hire',t:t-1}]:[]),...((S.W.flags.y2Departures||[]).length?[{id:'staff_leave',option:'leave',t:t-1}]:[])];
         if(enabled&&t%12===2){S.W.flags.bonusCount=S.W.stores.filter(x=>x.open!==false).reduce((n,x)=>n+x.parts,0);carry.push({id:'bonus_pay',option:'pay',t:t-1});}
-        const r=wd.month(S.W,pol,{carry,noCards:true,noFactors:true});S.W=r.W;S.res[t]=r.res;finite(r,'賞与モデル');
+        const r=wd.month(S.W,pol,{carry,noCards:true,noFactors:true});S.W=r.W;S.res[t]=r.res;D.y2.afterPlan(S,t,r);finite(r,'賞与モデル');
       }
-      rows.push({seed,enabled,y2:S.res[23].cash,y3:S.res[35].cash});
+      rows.push({seed,enabled,y2:S.res[23].cash,y3:S.res[35].cash,busy:Object.values(S.res).filter(r=>r.fullDays>0).length/24});
     }
     console.log('賞与制度・検査専用24か月：'+JSON.stringify(rows));
   }
   // 比較の条件を固定し、勝率を合格条件にしない。金額の釣り合いは報告対象。
   if(process.argv.includes('--bonus-story')){
-    const rows=[];for(let seed=0;seed<24;seed++)for(const bonus of ['promise','none']){const {S}=story(seed,{bonus});rows.push({seed,bonus,y2:S.res[23].cash,y3:S.res[35].cash,y4June:S.res[38].cash});}
+    const rows=[];for(let seed=0;seed<24;seed++)for(const bonus of ['promise','none']){const {S}=story(seed,{bonus});rows.push({seed,bonus,y2:S.res[23].cash,y3:S.res[35].cash,y4June:S.res[38].cash,chainHiring:!!S.W.flags.y2ChainHiring,busy:Object.values(S.res).filter(r=>r.t>=32&&r.fullDays>0).length/7});}
     console.log('賞与制度・本編の時期：'+JSON.stringify(rows));
   }
   if(process.argv.includes('--compare')){

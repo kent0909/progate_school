@@ -41,11 +41,13 @@
   RM.plan = (S, t, pol) => {
     const W0 = RM.world(S);
     if (S.res[t]) return S.res[t];
+    const rng = SIM.rng((S.seed + 1) * 7919 + t * 104729);
+    let dealt;
+    if(t>=12){dealt=SIM.cards.deal(RM.guarded(W0),SIM.y2.stream(W0,'deal'));W0.flags.y2CurrentDealt=dealt;}
     if (t >= 12 && SIM.y2.beforePlan) SIM.y2.beforePlan(S, t, pol);
     const carry = Object.entries(S.decisions || {}).filter(([k]) => k.endsWith(`@${t - 1}`) && SIM.cards.byId[k.split('@')[0]]).map(([k, v]) => ({ id: k.split('@')[0], option: v, t: t - 1 }));
     if (t >= 12 && SIM.y2.carry) carry.push(...SIM.y2.carry(S, t));
-    const rng = SIM.rng((S.seed + 1) * 7919 + t * 104729);
-    const dealt = SIM.cards.deal(RM.guarded(W0), t>=12?SIM.y2.stream(W0,'deal'):rng);
+    if(t<12)dealt=SIM.cards.deal(RM.guarded(W0),rng);
     const r = SIM.world.month(W0, pol, { rng, carry });
     for (const id of dealt) r.W.cardsSeen[id] = (r.W.cardsSeen[id] || 0) + 1;
     S.W = r.W; S.res[t] = r.res; S.pols[t] = t >= 12 ? { ...pol, parts: r.W.stores[0].parts, family: r.W.stores[0].family } : pol; S.dealt[t] = dealt;

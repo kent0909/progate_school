@@ -19,7 +19,7 @@
   const named=(card,k,t,e,when)=>({...e,id:`${card}-doc${k}@${t}`,card,ramenT:t,scope:Y.cards.byId[card].scope,when,doc:{...e.doc,date:`${Y.MON[t%12]}月`}});
   add({id:'bonus',title:'パートさんの夏のお礼を、約束しておく？',scope:['s-hikiate'],when:W=>W.y===3&&W.m===12,
     intro:reserveIntro('y2-bonus-name','夏に払う分も、今年の働き？','夏に払うお礼なら、今年の費用には関係ないよね。',['賞与引当金繰入','賞与引当金'],'今年の勤務分の費用を「賞与引当金繰入」、翌年の支払へ残す見積りの札を「賞与引当金」という。'),
-    talk:[['shacho','夏のお礼を先に約束するか、そのときに払うか。店に残せるお金も見て決めよう。']],
+    talk:[['shacho','来年の春、駅前に大きなチェーン店ができるかもしれない。人を集めるらしい。うわさを信じて人を守るか、店に残すお金を優先するか。']],
     options:[{id:'promise',label:'夏のお礼を約束する',desc:'12月から5月の勤務を対象に、1人6万円を6月に払う。',outcomes:[{id:'promised',w:100,label:'働く人に支給の約束を伝えた',fx:W=>{W.flags.staffBonus={kind:'promise',started:W.t};}}]},{id:'now',label:'今、1人6万円を払う',desc:'今の口座から払い、夏の支給の約束は作らない。',outcomes:[{id:'paid',w:100,label:'今までのお礼を支払った',cash:W=>-60000*parts(W),fx:W=>{W.flags.staffBonus={kind:'now',paid:W.t};}}]},{id:'none',label:'支給の約束はしない',desc:'お金を店に残し、理由を働く人に説明する。',outcomes:[{id:'none',w:100,label:'支給の約束はしなかった',fx:W=>{W.flags.staffBonus={kind:'none'};}}]}],
     docs:t=>[{...doc('bonus-now','今まで働いてもらったお礼の支払',S=>[['お引出し',-amount(S,'bonus',t,0),'amt']],S=>je([['賞与',-amount(S,'bonus',t,0)]],[['普通預金',-amount(S,'bonus',t,0)]]),['賞与']),when:S=>choice(S,'bonus',t-1,'promise')==='now'}]
   });

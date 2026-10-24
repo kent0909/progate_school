@@ -33,7 +33,7 @@
   // ---------- 店の形（c.8・n.17）：おすすめの組3つ。人の構成は 0〜6人で自由（家族は上限2人・全員に給料） ----------
   const FORMS = { family: { label: '家族で小さく', parts: 0, family: 1 }, part1: { label: 'パート1人', parts: 1, family: 0 }, part2: { label: 'パート2人（昼夜）', parts: 2, family: 0 } };
   const workersOf = (st) => Math.min(C('hireMax'), st.parts + Math.max(0, st.family - 1));
-  const capOf = (st) => Math.min(C('capBy')[workersOf(st)], C('capSeat')) + (st.equipmentCapacity || 0);
+  const capOf = (st) => (Math.min(C('capBy')[workersOf(st)], C('capSeat')) + (st.equipmentCapacity || 0)) * (st.staffExperienceMul || 1);
   const laborOf = (st) => st.parts * C('wagePart') + (st.family >= 1 ? C('wageFamily1') : 0) + Math.max(0, st.family - 1) * C('wageFamily2');
   const PRICE_MIN = 600, PRICE_MAX = 1400;
 

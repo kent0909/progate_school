@@ -4,6 +4,12 @@
   const SIM = g.SIMDATA, Y = SIM.y2, BK = SIM.y2books;
   // 置き値（取りまとめ時にcoef.jsへ）。PR #2 / DESIGN-RAMEN e.6。
   const COEF = {
+    chainHiring:{v:0.5,lo:0.3,hi:0.7,source:'取りまとめ役回答6384880485。春のチェーン求人の確率'},
+    staffExperience:{v:0.1,lo:0.05,hi:0.15,source:'取りまとめ役回答6384822252。勤続6か月後の上限増加'},
+    staffExperienceMonths:{v:6,lo:6,hi:6,source:'取りまとめ役回答6384822252'},
+    hiringPressure:{v:0.08,lo:0.06,hi:0.1,source:'取りまとめ役回答6384822252。求人競争時の離職率'},
+    hiringPressureMonths:{v:3,lo:3,hi:3,source:'取りまとめ役回答6384822252'},
+    hiringBonusRatio:{v:0.5,lo:0.5,hi:0.5,source:'取りまとめ役回答6384822252。賞与制度による半減'},
     bankMonths:{v:3,lo:3,hi:3,source:'取りまとめ役 6384653772への回答6384658872。直近3か月の営業利益合計が正'},
     frozenOutside:{v:0.8,lo:0.7,hi:0.9,source:'取りまとめ役 6384653772への回答6384658872'},
     frozenOwn:{v:0.6,lo:0.45,hi:0.75,source:'取りまとめ役 6384653772への回答6384658872'},
@@ -106,6 +112,8 @@
     itemPrice:{v:1000,lo:1000,hi:1000,source:'版1.2.1の取りまとめ役承認6383573548・e.4、鉢の物販'},
   });
   const V=k=>COEF[k].v;
+  for(const [id,t]of [['minwage_y2',18],['minwage_y3',30]]){const old=SIM.cards.byId.minwage;add({id,title:old.title,scope:old.scope,when:W=>W.t===t,talk:old.talk,options:old.options});}
+
   const actualChoice=(S,id,t)=>(((S.res || {})[t] || {}).choices || []).find(x=>x.card===id);
   const expenseDoc=(kind,label,acc,id,t,defaultCost)=>doc(kind,label,S=>[['支払った額',-amount(S,id,t,-defaultCost),'amt'],['使った目的',label]],S=>je([[acc,-amount(S,id,t,-defaultCost)]],[['普通預金',-amount(S,id,t,-defaultCost)]]),[acc]);
   const limited=add({id:'bowl_limited_y2',title:'今年の夏の限定を、どう作る？',scope:['s-rd'],when:schedule(2,8),talk:[['shacho','季節の素材も、冷たい麺も、ほかの店との共同作も気になる。試すお金と手間を比べよう。']],

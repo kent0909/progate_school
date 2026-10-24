@@ -89,7 +89,7 @@
     const equity = S => Object.entries(g.BOKI.accounts).filter(([,a])=>a.cat==='純資産').reduce((n,[a])=>n-bal(S,a),0)+yearIncome(S,y).net;
     const settle = {year:y,m:3,bookT:t,seg:`y${y}-adjust`,label:`${y}年目の決算`,title:'残った材料と、まだ払っていない分',closeless:true,events:[
       ...(SIM.y2.adjustments || []).flatMap(fn=>fn(y)),
-      doc(`stock${y}`,'stock','残った材料の棚卸表',S=>[['3月末の材料（実地で数えた分）',stock(S),'amt']],S=>je([['繰越商品',stock(S)]],[['仕入',stock(S)]]),['繰越商品']),
+      doc(`stock${y}`,'stock','残った材料の棚卸表',S=>[['3月末の材料（実地で数えた分）',stock(S),'amt'],['販売用の鉢・商品の帳簿残高',positive(bal(S,'商品')),'amt'],['鉢の扱い','販売時に売上原価へ移しているため、残っている商品は資産のまま。ここで原価を二重に戻さない。']],S=>je([['繰越商品',stock(S)]],[['仕入',stock(S)]]),['繰越商品']),
       doc(`accrued${y}`,'accrued','3月に働いてもらった分・使った分',S=>[['給料',Math.round(R(S,t).labor),'amt'],['ガス・水道・電気',Math.round(R(S,t).util),'amt'],['支払','4月25日・27日']],S=>je([['給料',Math.round(R(S,t).labor)],['水道光熱費',Math.round(R(S,t).util)]],[['未払費用',accrued(S)]]),['未払費用','水道光熱費']),
       doc(`dep-fitout${y}`,'dep','内装の、今年使った分',S=>[['月ごとの費用の合計',dep(S),'amt']],S=>je([['減価償却費',dep(S)]],[['建物減価償却累計額',dep(S)]]),['減価償却費','建物減価償却累計額']),
       doc(`allow${y}`,'allow','カード会社から入る分の見積り',S=>[['3月末の請求残高',positive(bal(S,'クレジット売掛金')),'amt'],['見積率','資料の条件：1%'],['必要な3月末残高',allowance(S),'amt']],S=>{const old=-bal(S,'貸倒引当金'),d=allowance(S)-old;return d>=0?je([['貸倒引当金繰入',d]],[['貸倒引当金',d]]):je([['貸倒引当金',-d]],[['貸倒引当金戻入',-d]]);},['貸倒引当金繰入','貸倒引当金戻入','貸倒引当金']),
