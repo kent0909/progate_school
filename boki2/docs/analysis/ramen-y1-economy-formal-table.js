@@ -4,7 +4,7 @@
 // 率を推測しない。一意でない／行がない場合は停止する。
 const fs=require('fs'),path=require('path');
 const dir=path.resolve(process.argv[2]||path.join(__dirname,'ramen-y1-economy-results'));
-const variants=['base','potential','ramp','fixed','combined'];
+const variants=(process.argv[3]||'base,potential,ramp,fixed,combined').split(',');
 const configs=require('./ramen-y1-economy-config.js');
 const entries={};
 function rate(p,n){
@@ -46,7 +46,7 @@ for(const v of variants){
  add('正式検査の終了コード',v,fs.readFileSync(path.join(dir,`formal-${v}.exit`),'utf8').trim(),fs.readFileSync(path.join(dir,`formal-${v}.exit`),'utf8').trim()==='0','0');
  add('正式検査の失敗行',v,errors.join('<br>')||'なし',!errors.length,'基準変更なし');
 }
-const out=['# (b) 版1.2.1の正式検査行','','実行: `RAMEN_Y1_VARIANT=<ID> node -r ./boki2/docs/analysis/ramen-y1-economy-formal-hook.js -r ./boki2/docs/analysis/ramen-y1-economy-load.js boki2/tools/sim-check.js --ramen --runs 300 --info`。本体と検査のファイルは無変更。読み込み時に合否に使わない2つの参考探索だけを除く（差分8行を添付）。全ての合否の計算と閾値は残す。価格の長期入れ替わりは正式検査の内蔵上限で150周、他の主行は300周（予兆は対象の町のみ）。各率に分子/分母とWilson95%を併記。合否は元の検査と同じ点推定の線で判定する。区間は母集団推定の幅であり、合否の線の変更には使わない。','','|正式行|基準|'+variants.map(v=>configs[v].label).join('|')+'|','|---|---|'+variants.map(()=>'---').join('|')+'|'];
+const out=['# (b) 版1.2.1の正式検査行','','実行: `RAMEN_Y1_VARIANT=<ID> node -r ./boki2/docs/analysis/ramen-y1-economy-formal-hook.js -r ./boki2/docs/analysis/ramen-y1-economy-load.js boki2/tools/sim-check.js --ramen --runs 300 --info`。本体と検査のファイルは無変更。読み込み時に合否に使わない2つの参考探索だけを除く（差分8行を添付）。全ての合否の計算と閾値は残す。価格の長期入れ替わりは正式検査の内蔵上限で150周、他の主行は300周（予兆は対象の町のみ）。家族店の合否は元の検査どおり3年末で判定し、5年末は参考値。各率に分子/分母とWilson95%を併記。合否は元の検査と同じ点推定の線で判定する。区間は母集団推定の幅であり、合否の線の変更には使わない。','','|正式行|基準|'+variants.map(v=>configs[v].label).join('|')+'|','|---|---|'+variants.map(()=>'---').join('|')+'|'];
 for(const [id,row]of Object.entries(entries))out.push(`|${id}|${row.criterion}|${variants.map(v=>{const c=row.cells[v];return `${c.pass?'○':'✗'} ${c.value}`;}).join('|')}|`);
 fs.writeFileSync(path.join(dir,'proposals-b.md'),out.join('\n')+'\n');
 fs.writeFileSync(path.join(dir,'formal-counts.json'),JSON.stringify(raw,null,2)+'\n');
