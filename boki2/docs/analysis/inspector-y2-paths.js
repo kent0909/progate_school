@@ -2,6 +2,7 @@
 'use strict';
 const fs=require('fs'),path=require('path'),assert=require('assert');
 const root=path.resolve(process.argv[2]);global.window=global;
+const lateOnly=process.argv.includes('--legacy-late');
 for(const f of ['js/core.js','js/data/accounts.js','js/data/kubun.js','js/sim/store.js',...require(root+'/tools/ramen-files.js').story])require(path.join(root,f));
 const D=SIMDATA,B=BOKI,originalMonth=D.world.month,originalResolve=D.decide.resolve;
 require(path.join(root,'js/sim/lexicon.js'));
@@ -23,13 +24,14 @@ function run(seed,mode,forced,alternate=false){
  target=forced;const S={seed,mode,decisions:{},T:[],L:[],discDone:{},choices:[],cardOutcomes:[],profile:{},taught:[...(D.pro3?.words||[])]};
  const teach=xs=>{for(const x of xs||[])if(!S.taught.includes(x))S.taught.push(x);};
  const name=acc=>{if(S.taught.includes(acc))return;if(!D.namings[acc])missingNames.add(acc);teach(D.namings[acc]?.teaches||[acc]);};
- const checkWords=(e,m,text,doc=false)=>{if((m.year||1)<2)return;const bad=B.lex.unknown(text,new Set([...S.taught,...(e.teaches||[])] )).filter(w=>!doc||!(w in B.lex.docWords));if(bad.length){const k=e.id+'/'+bad.join('/');languageWarnings.set(k,{id:e.id,words:bad,text:text.slice(0,160),seed,mode});}};
- const cashByT={},routineByT={},issues=[];let n=0;
+ const checkWords=(e,m,text,doc=false)=>{if(lateOnly||(m.year||1)<2)return;const bad=B.lex.unknown(text,new Set([...S.taught,...(e.teaches||[])] )).filter(w=>!doc||!(w in B.lex.docWords));if(bad.length){const k=e.id+'/'+bad.join('/');languageWarnings.set(k,{id:e.id,words:bad,text:text.slice(0,160),seed,mode});}};
+ const cashByT={},cardEntriesByT={},routineByT={},issues=[];let n=0;
  function record(a,id,m,mi,isCard){
   assert(a&&a.dr&&a.cr,id);assert.equal(sum(a,'dr'),sum(a,'cr'),id+' 貸借不一致');
   for(const[k,v]of [...a.dr,...a.cr])assert(Number.isFinite(v)&&v>=0,id+' 負数/非有限 '+k+' '+v);
   const t=m.ramenT??m.bookT;
   if(isCard&&t!=null)cashByT[t]=(cashByT[t]||0)+bank(a);
+  if(isCard&&t!=null&&bank(a))(cardEntriesByT[t]||=[]).push({id,cash:bank(a)});
   if(routine.test(id)&&t!=null)routineByT[t]=(routineByT[t]||0)+bank(a);
   const row={...a,id:id+'@mi'+mi,ev:id,mi,y:m.year||1};S.T.push(row);S.L.push(JSON.parse(JSON.stringify(row)));
  }
@@ -83,7 +85,7 @@ function run(seed,mode,forced,alternate=false){
  }
  for(let t=12;t<39;t++){
   const r=S.res[t],world=(r.choices||[]).reduce((n,x)=>n+x.cash,0),book=cashByT[t]||0;
-  if(book!==world)issues.push({t,worldCardCash:world,bookCardCash:book,difference:book-world,choices:r.choices});
+  if(book!==world)issues.push({t,worldCardCash:world,bookCardCash:book,difference:book-world,choices:r.choices,entries:cardEntriesByT[t]||[]});
   // 対象の照合関数を使わず、通帳の決済条件から通常営業の現金を別計算する。
   const prev=S.res[t-1],cashSales=Math.round(r.sales*.7),takeout=Math.round(cashSales*.05),eat=cashSales-takeout;
   const prevCredit=prev.sales-Math.round(prev.sales*.7),creditGross=prevCredit+Math.floor(prevCredit*.1);
@@ -101,12 +103,13 @@ function run(seed,mode,forced,alternate=false){
  return{seed,mode,target:forced,alternate,documents:n,reached:hit,issues,finalBank:bal(S,'普通預金'),world:S.W.cash};
 }
 const targets=D.y2.cards.cards.flatMap(c=>c.automatic?[]:c.options.flatMap(o=>o.outcomes.map(x=>({card:c.id,option:o.id,outcome:x.id}))));
+const automatic=D.y2.cards.cards.filter(c=>c.automatic).flatMap(c=>c.options.flatMap(o=>o.outcomes.map(x=>({card:c.id,option:o.id,outcome:x.id}))));
+if(!lateOnly){
 for(const mode of ['2026','2027'])for(const seed of [0,14])for(const alt of [false,true]){
  try{paths.push(run(seed,mode,null,alt));}catch(e){failures.push({seed,mode,alt,error:e.stack});}
 }
 for(const x of targets){try{paths.push(run(14,'2026',x));}catch(e){failures.push({target:x,error:e.stack});}}
 // 自動札にも、実際の前提となる判断から到達する。残高や資格の条件は偽造しない。
-const automatic=D.y2.cards.cards.filter(c=>c.automatic).flatMap(c=>c.options.flatMap(o=>o.outcomes.map(x=>({card:c.id,option:o.id,outcome:x.id}))));
 for(const x of automatic){
  const extra={decisions:{ticket_items:'n20',maintain_y2:'break',finance_asset:'installment',maintain_replace:'keep',close:'format'},forceMap:{ticket_items:'d6'}};
  if(x.card==='repair_pay')extra.decisions.maintain_y2='plan';
@@ -121,6 +124,10 @@ for(let seed=0;seed<12;seed++){
 }
 for(const[option,outcome]of [['repair','again'],['new','late'],['wait','stop']]){
  const x={card:'maintain',option,outcome};try{paths.push(run(14,'2026',x));}catch(e){failures.push({target:x,error:e.stack});}
+}
+}else{
+ const ix=process.argv.indexOf('--seed'),seeds=ix>=0?[Number(process.argv[ix+1])]:Array.from({length:300},(_,i)=>i);
+ for(const seed of seeds){try{paths.push(run(seed,'2026',null));}catch(e){failures.push({seed,error:e.stack});}}
 }
 // 黒字経路だけに依存しない、独立した配当の正額・準備金上限の資料。
 const dividendFixtures=[];
