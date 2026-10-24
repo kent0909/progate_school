@@ -23,7 +23,7 @@ function seedList(s) {
   return [...new Set(out)];
 }
 function args(argv) {
-  const o={styles:STYLES,seeds:seedList('0-29'),width:1280,height:900,parallel:4,maxSteps:2400,errorRate:0,timeout:10000,output:null,chromium:browserPath(),playwright:process.env.PIYO_PLAYWRIGHT || '/opt/node-tools/node_modules/playwright',game:path.join(ROOT,'ramen.html'),strategy:null};
+  const o={styles:STYLES,seeds:seedList('0-29'),width:1280,height:900,parallel:4,maxSteps:2400,errorRate:0,timeout:30000,output:null,chromium:browserPath(),playwright:process.env.PIYO_PLAYWRIGHT || '/opt/node-tools/node_modules/playwright',game:path.join(ROOT,'ramen.html'),strategy:null};
   const names={'--style':'styles','--seeds':'seeds','--width':'width','--height':'height','--parallel':'parallel','--max-steps':'maxSteps','--error-rate':'errorRate','--timeout':'timeout','--output':'output','--chromium':'chromium','--playwright':'playwright','--game':'game','--strategy':'strategy'};
   for(let i=0;i<argv.length;i++) {
     if(argv[i]==='--help') return {help:true};
@@ -70,7 +70,7 @@ async function one(browser,origin,o,job,configHash,actionsDir) {
   const runKey=`${configHash}:${style}:${seed}:${strategy}`;
   let ctx;
   const contextOptions={viewport:{width:o.width,height:o.height},hasTouch:o.width<1024,isMobile:o.width<900,deviceScaleFactor:1,reducedMotion:'reduce',serviceWorkers:'block'};
-  const errors=[], warnings=[], actions=[], overflow=new Set(); let outcome={}, observed=null, init=false, progressStuck=false, page, diagnostic=null, steps=0, everDeadEnd=false;
+  const errors=[], warnings=[], actions=[], clickTimings=[], overflow=new Set(); let outcome={}, observed=null, init=false, progressStuck=false, page, diagnostic=null, steps=0, everDeadEnd=false;
   try {
     ctx=await browser.newContext(contextOptions);
     await ctx.route('**/*',route=>route.request().url().startsWith(origin+'/')?route.continue():route.abort());
@@ -86,7 +86,7 @@ async function one(browser,origin,o,job,configHash,actionsDir) {
     init=await p.evaluate(seed=>{const s=window.__sim.S,st=window.BOKI.store;return s.seed===seed && st.v4.isV4(window.__sim.doc) && st.status().error==='' && s.mi===0 && s.ei===0 && !s.W && !s.L.length && !s.T.length && Object.keys(s.decisions).length===0;},seed);
     if(!init)throw new Error('seedだけのv4初期化検査に失敗');
     let last='',same=0;
-    outcome=await autoRun(p,{style,seed,strategy,errorRate:o.errorRate,maxSteps:o.maxSteps,endMode:'slice',onAction:async a=>{actions.push(a); if(a.sel==='[data-plan-ok]'||a.sel==='[data-plan-same]') everDeadEnd ||= await p.evaluate(()=>window.SIMDATA.world.rescueFails(JSON.parse(JSON.stringify(window.__sim.S.W)),3));},onStep:async n=>{
+    outcome=await autoRun(p,{style,seed,strategy,errorRate:o.errorRate,maxSteps:o.maxSteps,endMode:'slice',onClickTiming:async t=>{clickTimings.push(t);},onAction:async a=>{actions.push(a); if(a.sel==='[data-plan-ok]'||a.sel==='[data-plan-same]') everDeadEnd ||= await p.evaluate(()=>window.SIMDATA.world.rescueFails(JSON.parse(JSON.stringify(window.__sim.S.W)),3));},onStep:async n=>{
       steps=n; if(n%100===0)console.error(`[進行] ${style}/${seed} ${n}手`);
       const ov=await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1?`${window.__sim.S.mi}:${window.__sim.S.ei}`:null);if(ov)overflow.add(ov);
       const sig=await p.evaluate(()=>`${window.__sim.S.mi}:${window.__sim.S.ei}:`+document.querySelector('#sim').innerText);
@@ -118,7 +118,15 @@ async function one(browser,origin,o,job,configHash,actionsDir) {
     selectedHands:actions.filter(a=>/button\[data-plan=|button\[data-bowl=|^\[data-opt=/.test(a.sel)).length,
     actionCounts:Object.fromEntries(['plan','bowl','decision','report','debrief','fork'].map(k=>[k,actions.filter(a=>a.kind===k).length]))};
   fs.writeFileSync(path.join(actionsDir,`${style}-${seed}-${strategy}.jsonl`),actions.map(x=>JSON.stringify(x)).join('\n')+'\n');
-  return {result,timing:{runKey,diagnostic,seconds:(performance.now()-started)/1000,at:new Date().toISOString(),chromium:o.chromium,parallel:o.parallel}};
+  return {result,timing:{runKey,diagnostic,seconds:(performance.now()-started)/1000,at:new Date().toISOString(),chromium:o.chromium,parallel:o.parallel,clickTimings}};
+}
+// クリック本体だけを測る。台本の読み出し・ログの保存は含めない。
+function clickSummary(clicks) {
+  const stats=xs=>{const a=xs.map(x=>x.milliseconds).sort((a,b)=>a-b),n=a.length;return {count:n,failed:xs.filter(x=>!x.ok).length,medianMs:n?(a[Math.floor((n-1)/2)]+a[Math.ceil((n-1)/2)])/2:null,p95Ms:n?a[Math.ceil(n*.95)-1]:null,maxMs:n?a[n-1]:null};};
+  const groups=new Map();
+  for(const c of clicks){const key=JSON.stringify([c.screen?.type || 'unknown',c.selector]);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(c);}
+  const top5=[...groups].map(([key,xs])=>{const [screenType,selector]=JSON.parse(key);return {screenType,selector,...stats(xs)};}).sort((a,b)=>b.maxMs-a.maxMs || a.selector.localeCompare(b.selector)).slice(0,5);
+  return {...stats(clicks),top5};
 }
 function summary(rows,times,parallel) {
   const median=xs=>{const a=xs.filter(x=>x!=null).sort((a,b)=>a-b);return a.length?a[Math.floor(a.length/2)]:null;};
@@ -128,7 +136,9 @@ function summary(rows,times,parallel) {
     return {style,runs:a.length,bankrupt:a.filter(r=>r.bankrupt).length,deadEnd:a.filter(r=>r.deadEnd).length,stuck:a.filter(r=>r.stuck).length,errorRuns:a.filter(r=>r.errors.length).length,overflowRuns:a.filter(r=>r.overflow.length).length,firstBlackMonth:distribution,nextAprilAccountMedian:median(a.map(r=>r.nextAprilAccount))};
   }).filter(Boolean);
   const keys=new Set(rows.map(r=>r.runKey)), measured=[...new Map(times.filter(t=>keys.has(t.runKey)).map(t=>[t.runKey,t])).values()],avg=measured.length?measured.reduce((s,t)=>s+t.seconds,0)/measured.length:null;
-  return {groups,meanSeconds:avg,estimated3000Seconds:avg==null?null:avg*3000/parallel};
+  const byParallel={};for(const t of measured){const k=String(t.parallel);(byParallel[k] ||= []).push(...(t.clickTimings || []));}
+  return {groups,meanSeconds:avg,estimated3000Seconds:avg==null?null:avg*3000/parallel,
+    clicks:{...clickSummary(measured.flatMap(t=>t.clickTimings || [])),byParallel:Object.fromEntries(Object.entries(byParallel).map(([k,xs])=>[k,clickSummary(xs)]))}};
 }
 async function main(argv) {
   const o=args(argv);if(o.help){console.log('node bot-runs.js --style idle,random,skilled --seeds 0-29 --width 1280 [--parallel 4 --output work/bots.jsonl --error-rate 0 --strategy 0 --chromium PATH --playwright MODULE]');return;}
@@ -164,5 +174,5 @@ async function main(argv) {
     else if(requested.some(r=>r.stuck||r.errors.length||!r.ended||!r.initialSaveValid))process.exitCode=1;
   }finally{if(browser)await browser.close();if(server)await new Promise(r=>server.close(r));fs.closeSync(fd);fs.unlinkSync(lock);process.off('SIGINT',signal);process.off('SIGTERM',signal);}
 }
-module.exports={loadChromium,browserPath,seedList,initialSave,readRows,summary,sourceHash,main};
+module.exports={loadChromium,browserPath,seedList,initialSave,readRows,summary,clickSummary,sourceHash,main};
 if(require.main===module)main(process.argv.slice(2)).catch(e=>{console.error(e.stack);process.exitCode=1;});

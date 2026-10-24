@@ -1,6 +1,6 @@
 // 遊びの検査（プレイテスト）の自動で進める部分。回帰テストの通しプレイ（scratchpad の play2.js）と同じ進め方。
 // harness.js の auto() または bot-runs.js から呼ぶ。正解を台本から読んで進める。
-module.exports = async function autoRun(page, { choose = {}, broad = false, endMode = 'y2', maxSteps = 400, stopWhen = null, onStep = null, onAction = null, style = null, seed = 0, strategy = Math.floor(seed / 3) % 3, errorRate = 0, shot: shotFn = null } = {}) {
+module.exports = async function autoRun(page, { choose = {}, broad = false, endMode = 'y2', maxSteps = 400, stopWhen = null, onStep = null, onAction = null, onClickTiming = null, style = null, seed = 0, strategy = Math.floor(seed / 3) % 3, errorRate = 0, shot: shotFn = null } = {}) {
   if (style != null && !['idle', 'random', 'skilled'].includes(style)) throw new Error('打ち方が不正');
   if (!(errorRate >= 0 && errorRate <= 1) || !Number.isInteger(seed) || ![0, 1, 2].includes(strategy)) throw new Error('seed・strategy・誤答率が不正');
   const rng = seeded(seed), errorsRng = seeded(seed ^ 0x5f3759df), attempted = new Set();
@@ -10,7 +10,13 @@ module.exports = async function autoRun(page, { choose = {}, broad = false, endM
   const p = new Proxy(page, { get(target, key) {
     if (key === 'click') return async (sel, ...args) => {
       const kind = actionKind(sel), before = kind && onAction ? await actionState(target) : null;
-      const r = await target.click(sel, ...args);
+      const screen = onClickTiming ? await target.evaluate(() => {
+        const S=window.__sim.S, ev=window.__sim.events()[S.ei];
+        return {mi:S.mi,ei:S.ei,type:ev?.t || null,id:ev?.id || null,label:window.SIMDATA.months[S.mi]?.label || null};
+      }) : null;
+      const started = performance.now(); let r, ok=false;
+      try { r = await target.click(sel, ...args); ok=true; }
+      finally { if(onClickTiming) await onClickTiming({screen,selector:sel,kind,milliseconds:performance.now()-started,ok}); }
       presence = null;
       if (kind && onAction) await onAction({ kind, sel, before, after: await actionState(target) });
       return r;
