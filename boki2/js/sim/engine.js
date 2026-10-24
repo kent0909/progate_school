@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 64521)
-Total output lines: 2357
-
 // ピヨ商店 — 1か月ずつ経営・記帳するシミュレーション（縦切りの試作）。docs/PEDAGOGY.md の段階1。
 // 画面の言葉は、プレイヤーがすでに教わった言葉（S.taught）に合わせて変わる。教わる前は、やさしい言葉で言う。
 (function () {
@@ -1087,7 +1084,176 @@ Total output lines: 2357
     if (!kind) return;
     S.plan = S.plan || {};
     const p = (S.plan[kind] = S.plan[kind] || { n: 0 }), now = Date.now();
-    if (ok) { p.lastOk = now; p.n = (p.n || 0) + 1; p.due = now + PLAN_GAP[Math.min(P…4521 tokens truncated…o="${i}"><b>${esc(o.t)}</b></button>`).join('')}</div>${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`}</div>`);
+    if (ok) { p.lastOk = now; p.n = (p.n || 0) + 1; p.due = now + PLAN_GAP[Math.min(PLAN_GAP.length - 1, p.n - 1)]; }
+    else { p.lastMiss = now; p.n = 0; p.due = now; }
+    p.from = from || p.from;
+  }
+  function planPick(cands) {
+    // cands：[{ kind, ... }]（新しい順でなくてよい）。選ぶ順に並べて先頭を返す
+    S.plan = S.plan || {};
+    const now = Date.now(), lastKinds = (S.recall || []).filter((r) => r.kind).slice(-1).map((r) => r.kind);
+    const rank = (o) => { const p = S.plan[o.kind] || {}; if (p.lastMiss && (!p.lastOk || p.lastMiss > p.lastOk)) return 0; if (p.due && p.due <= now) return 1; if (S.rules[o.kind]) return 2; return 3; };
+    const pool = cands.filter((o) => !PLAN_OUT.has(o.kind));
+    const fresh = pool.filter((o) => !lastKinds.includes(o.kind));
+    const list = (fresh.length ? fresh : pool).map((o) => ({ o, r: rank(o) }));
+    // 同じ順位の中では、古い月の書類から（間隔をあける）
+    list.sort((x, y) => x.r - y.r || x.o.mi - y.o.mi);
+    return list.length ? list[0].o : null;
+  }
+  function recallScreen(done) {
+    S.recall = S.recall || [];
+    if (S.recall.some((r) => r.mi === S.mi && !r.due)) return done();
+    // 7日前後たった、間違えた論点の別の問題があれば、先にそれを1問
+    const due = dueReview();
+    if (due && !S.recall.some((r) => r.mi === S.mi && r.due)) {
+      S.recall.push({ mi: S.mi, due: due._key }); save();
+      if (due._key.startsWith('exam:')) {
+        // 検定会場の大問：同じ型の別の大問を、自分で（時間なし）解き直すかを聞く
+        frame(`<div class="s-card"><small>日をあけて確かめる</small>${talk([['senpai', `前に検定会場で間違えた大問と同じ型の「${due.title}」がある。日をあけて解けたら、本当に身についている。`]])}<button class="btn wide" data-dueplay>検定会場で解き直す</button><button class="link" data-duelater>今はやめて、今月へ</button></div>`);
+        app.onclick = (e) => { if (e.target.closest('[data-dueplay]')) hallScreen({ play: { part: due.part, mode: 'self', key: due._key } }); else if (e.target.closest('[data-duelater]')) recallScreen(done); };
+        return;
+      }
+      return quickQuiz([due], '日をあけて確かめる', () => recallScreen(done));
+    }
+    // 候補：これまでの月に手で書いた書類（型ごとに、いちばん新しい1枚）。選ぶ順は planPick
+    const prev = S.L.filter((x) => x.mi < S.mi && x.kind && !x.auto).map((x) => ({ x, ev: (allEvents.find(({ e }) => e.id === x.ev) || {}).e })).filter((o) => o.ev && o.ev.doc && o.ev.opts && !(o.ev.noRecallIf && o.ev.noRecallIf(S))); // 社長の言うとおりにした誤った書き方（例：点検の分まで今年の売上）は、思い出す練習の手本にしない（オーナーの決定1）
+    const byKind = {};
+    prev.filter((o) => { const t = S.T.find((y) => y.id === o.x.id); return t && [...t.dr, ...t.cr].every(([a]) => knows(a)); }).forEach((o) => { byKind[o.x.kind] = o; });
+    const chosen = planPick(Object.values(byKind).map((o) => ({ kind: o.x.kind, mi: o.x.mi, o })));
+    const pick = chosen && chosen.o;
+    if (!pick) return done();
+    const t = S.T.find((y) => y.id === pick.x.id), k = S.mi % 2 ? 3 : 2;
+    // 同じ名前の書類が先月に何枚あっても1つに決まるように、日付と相手をつけて指す
+    const pd = val(pick.ev.doc, S) || {}, who = pd.from && !/ピヨ/.test(pd.from) ? pd.from : (pd.to && !/ピヨ/.test(pd.to) ? pd.to : ''), docName = `${pd.date ? pd.date + 'の' : ''}${who ? who + 'の' : ''}「${pd.title}」`;
+    const truth = { dr: t.dr.map(([a, v]) => [a, v * k]), cr: t.cr.map(([a, v]) => [a, v * k]) };
+    const opts = [...new Set([...(pick.ev.opts || []), ...truth.dr.map((x) => x[0]), ...truth.cr.map((x) => x[0])])].filter(knows).sort((a, b) => order(a) - order(b));
+    RECALL = { kind: pick.x.kind, truth }; // 検査の道具（tools・scratchpad の通し試験）が想起の答えを読むため
+    const opt = `<option value="">札をえらぶ</option>${opts.map((a) => `<option>${esc(a)}</option>`).join('')}`;
+    const side = (sd) => [...Array(Math.max(2, truth[sd].length)).keys()].map((i) => `<div class="s-row"><select data-s="${sd}" aria-label="${sd === 'dr' ? '借方' : '貸方'}の札">${opt}</select><input data-s="${sd}" inputmode="numeric" placeholder="金額" aria-label="${sd === 'dr' ? '借方' : '貸方'}の金額"></div>`).join('');
+    frame(`<div class="s-card"><small>${esc(month().label)}のはじめに 思い出す</small>${talk([['senpai', `${pick.x.mi === S.mi - 1 ? '先月' : ((D.months[pick.x.mi] || {}).label || '前') + '（' + (S.mi - pick.x.mi) + 'か月前）'}の${docName}を思い出して。同じ種類の書類で、金額が下の数だったら、どう書く？ 書類は見ないで。`]])}${D.examText && D.examText[pick.x.kind] ? `<p class="s-q">本試験の文の形で：${esc(D.examText[pick.x.kind](truth))}</p>` : ''}<p class="s-recall-amt">使う金額（順不同）：${[...new Set([...truth.dr, ...truth.cr].map(([, v]) => v))].sort(() => Math.random() - 0.5).map((v) => `<b>${fmt(v)}</b>円`).join('・')}</p>${''}<div class="s-entry"><div class="s-cols"><div class="s-side dr"><h4>借方（左）</h4>${side('dr')}</div><div class="s-side cr"><h4>貸方（右）</h4>${side('cr')}</div></div></div><div data-res></div><button class="btn wide" data-rc>書いた</button><button class="link" data-rskip>思い出せないので、今月へ進む</button></div>`);
+    app.onclick = (e) => {
+      if (e.target.closest('[data-rnext]')) { done(); return; }
+      const skip = e.target.closest('[data-rskip]');
+      if (!skip && !e.target.closest('[data-rc]')) return;
+      const entry = { dr: [], cr: [] };
+      for (const sd of ['dr', 'cr']) { const sel = $$(`select[data-s="${sd}"]`, app), ins = $$(`input[data-s="${sd}"]`, app); sel.forEach((x, i) => { const v = Number((ins[i].value || '').normalize('NFKC').replace(/[^\d]/g, '')); if (x.value && v) entry[sd].push([x.value, v]); }); }
+      const ok = !skip && entry.dr.length && entry.cr.length && sameEntry(entry, truth);
+      S.recall.push({ mi: S.mi, kind: pick.x.kind, ok: !!ok, skipped: !!skip }); planMark(pick.x.kind, !!ok, 'recall');
+      // 月はじめの想起は、正解も誤りも examLog に入れる（DESIGN-RAMEN i.4・X10、オーナーの決定 n.20：条件A「日をあけても書けた」の入口）。思い出せないで飛ばしたのは誤り
+      if (pick.x.kind) S.examLog.push({ key: 'auto:' + pick.x.kind, ok: !!ok, t: Date.now(), from: 'recall', ...(skip ? { skipped: true } : {}) });
+      save();
+      $('[data-res]', app).innerHTML = `${ok ? `<p class="s-react">思い出せた。書き方はこれで合っている（金額は${k}倍）。</p>${jeTable(truth)}` : skip ? `<p class="s-react ng">前の書き方は、こうだった（金額は${k}倍）。</p>${jeTable(truth)}` : missHTML(entry, truth, `前の書き方（金額は${k}倍）`)}<button class="btn wide" data-rnext>今月へ</button>`;
+      $$('[data-rc], [data-rskip]', app).forEach((x) => x.remove());
+    };
+  }
+  function talkScreen(ev) {
+    teach(ev.teaches);
+    // 判断の結果が返ってきた場面は、経営日誌に「判断→返った結果」として残す
+    if (ev.diary && !S.diary.some((d) => d.t === ev.diary)) { S.diary.push({ m: month().label, t: ev.diary, ret: true }); save(); }
+    frame(`<div class="s-card">${talk(val(ev.lines, S))}<button class="btn wide" data-n>つぎへ</button></div>`);
+    app.onclick = (e) => { if (e.target.closest('[data-n]')) next(); };
+  }
+
+  /* ---- プロローグ：棚に並べる・右の棚に置く・ノートに書く ---- */
+  function boardScreen(ev, isReplay) {
+    const st = { L: [], R1: [], R0: [] };
+    // 売れた額・使った額は、段の中の判断（choice の sale・cost）で決まる。ラーメン版は台本の sale0・cost0 が既定
+    let i = 0, sub = {}, msg = '', done = false, sale = ev.sale0 != null ? ev.sale0 : Number(S.decisions.price === '200' ? 1600 : 2000), cost = ev.cost0 || 0;
+    const amt = (a) => (a === 'sale' ? sale : a === 'cost' ? cost : a === '-cost' ? -cost : a);
+    // 3級既習の近道（PEDAGOGY 1.10）：発見は飛ばさず、ev.lite に書いた段だけ縮める（ラーメン版）
+    const skipStep = (k) => !isReplay && S.pro3 && S.pro3.on && (ev.lite || []).includes(k);
+    const sum = (list) => list.reduce((t, x) => t + x.amt, 0);
+    const coin = (d) => { const c = st.L.find((x) => x.id === 'coin'); if (c) c.amt += d; };
+    // 戻る・取り消すで棚が二重にならないように、段の始まりと一手ごとの状態を取っておく
+    const snap = () => JSON.stringify({ st, sale, cost, sub });
+    const restore = (j) => { const o = JSON.parse(j); st.L = o.st.L; st.R1 = o.st.R1; st.R0 = o.st.R0; sale = o.sale; cost = o.cost || 0; sub = o.sub; };
+    let stepStart = [snap()], subs = [];
+    let hist = [];
+    const mark = () => hist.push(snap());
+    // プロローグの途中（どの段まで進み、棚に何を並べたか）は S.drafts に残す。途中で閉じても、同じ段の同じ棚から
+    S.drafts = S.drafts || {};
+    const bk = `board:${ev.id}`;
+    if (!isReplay && S.drafts[bk]) { const o = S.drafts[bk]; restore(o.snap); i = o.i; stepStart = o.stepStart; subs.push(...o.subs); hist = o.hist; }
+    const keepBoard = () => { if (!isReplay) { S.drafts[bk] = { snap: snap(), i, stepStart, subs, hist }; save(); } };
+    const shelf = (showR) => `<div class="s-board"><div class="s-shelf"><h4>もっているもの</h4>${st.L.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('') || '<em>（からっぽ）</em>'}<div class="s-sum">${fmt(sum(st.L))}</div></div>${showR ? `<div class="s-shelf r"><h4>どこから来たか</h4><div class="s-row2"><small>返すお金</small>${st.R1.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('')}</div><div class="s-row2"><small>返さないお金（じぶんのお金）</small>${st.R0.map((x) => `<div class="s-item">${esc(x.label)}<b>${fmt(x.amt)}</b></div>`).join('')}</div><div class="s-sum">${fmt(sum(st.R1) + sum(st.R0))}</div></div>` : ''}</div>`;
+    const ART = { steam: '<svg class="s-art" viewBox="0 0 120 80" role="img" aria-label="湯気の立つラーメンの丼"><path d="M44 14c-6 6 6 10 0 18M60 8c-6 7 6 12 0 22M76 14c-6 6 6 10 0 18" fill="none" stroke="#9aa" stroke-width="3" stroke-linecap="round"><animate attributeName="stroke-opacity" values="0.3;0.9;0.3" dur="2.4s" repeatCount="indefinite"/></path><path d="M18 40h84a42 30 0 0 1-84 0z" fill="#c4442a"/><path d="M18 40h84" stroke="#e8c070" stroke-width="5"/><ellipse cx="46" cy="40" rx="10" ry="3" fill="#f3e3b5"/><ellipse cx="74" cy="40" rx="8" ry="3" fill="#8a5a3a"/><rect x="52" y="68" width="16" height="6" rx="2" fill="#7a2a1a"/></svg>' };
+    const draw = () => {
+      keepBoard();
+      const s = ev.steps[i];
+      let body = '', ready = false;
+      if (s.k === 'tap') {
+        const left = s.tokens.filter((t) => !st.L.some((x) => x.id === t.id));
+        ready = !left.length;
+        body = `<div class="s-tokens">${left.map((t) => `<button class="s-token" data-tok="${t.id}">${esc(t.label)} ${fmt(t.amt)}</button>`).join('')}</div>${shelf(false)}`;
+      } else if (s.k === 'sort') {
+        const left = s.tokens.filter((t) => !sub[t.id]);
+        ready = !left.length;
+        body = `${left.map((t) => `<div class="s-sorti"><span>${esc(t.label)} ${fmt(amt(t.amt))}</span><div>${s.dests.map((d) => `<button class="s-pill" data-put="${t.id}" data-to="${d.id}">${esc(d.label)}</button>`).join('')}</div></div>`).join('')}${shelf(true)}`;
+      } else if (s.k === 'choice') {
+        ready = !!sub.pick;
+        const o = s.opts.find((x) => x.id === sub.pick);
+        body = o ? `<p class="s-react">${esc(o.result)}</p>` : `<div class="s-opts">${s.opts.map((x) => `<button class="s-opt" data-pick="${x.id}"><b>${esc(x.t)}</b></button>`).join('')}</div>`;
+      } else if (s.k === 'note') {
+        const all = s.lines.flatMap((l, li) => l.cards.map((c, ci) => ({ ...c, key: `${li}-${ci}`, li })));
+        ready = all.every((c) => sub[c.key]);
+        // その行で新しい困りごとがあるときは、先に問う（マイナスは書かない→へったら反対の列）
+        const curLi = (all.find((c) => !sub[c.key]) || {}).li;
+        const ask = curLi != null && s.lines[curLi].ask && !sub['ask' + curLi] ? s.lines[curLi].ask : null;
+        body = `<table class="s-note"><tr><th></th><th>左の列</th><th>右の列</th></tr>${s.lines.map((l, li) => { const cs = all.filter((c) => c.li === li); const put = (side) => cs.filter((c) => sub[c.key] === side).map((c) => `${esc(c.label)} ${fmt(amt(c.amt))}`).join('<br>'); return `<tr><td>${esc(l.title)}</td><td>${put('L')}</td><td>${put('R')}</td></tr>`; }).join('')}</table>${sub.askOk ? `<p class="s-react">${esc(sub.askOk)}</p>` : ''}${ask ? `${talk(ask.say)}<div class="s-opts">${ask.opts.map((o, k) => `<button class="s-opt" data-ask="${curLi}-${k}"><b>${esc(o.t)}</b></button>`).join('')}</div>` : all.filter((c) => !sub[c.key]).slice(0, 2).map((c) => `<div class="s-sorti"><span>${esc(s.lines[c.li].title)}：${esc(c.label)} ${fmt(amt(c.amt))}</span><div><button class="s-pill" data-note="${c.key}" data-side="L">左の列</button><button class="s-pill" data-note="${c.key}" data-side="R">右の列</button></div></div>`).join('')}${ready && s.showShelf ? shelf(true) : ''}`;
+      } else if (s.k === 'card') {
+        ready = true;
+        body = `<div class="s-name"><small>この書き方の名前</small><h2>${rb(s.name)}</h2><p>${rb(s.line)}</p><p class="s-leaf">マップに「${esc(s.leaf.label)}」が加わった</p></div>`;
+      }
+      const after = ready && s.after ? talk(s.after) : '';
+      frame(`<div class="s-card">${s.art && ART[s.art] ? ART[s.art] : ''}${talk(s.say)}${s.q && !(ready && s.k !== 'card') ? `<p class="s-q">${esc(fill(s.q))}</p>` : ''}${body}${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}${after}${ready ? '<button class="btn wide" data-step>つぎへ</button>' : ''}${hist.length ? '<button class="btn ghost sm" data-undo>ひとつ取り消す</button>' : ''}${i > 0 ? '<button class="btn ghost sm" data-back>← もどる</button>' : ''}</div>`);
+    };
+    draw();
+    app.onclick = (e) => {
+      const s = ev.steps[i], g = (q) => e.target.closest(q);
+      if (g('[data-undo]')) { if (hist.length) restore(hist.pop()); msg = ''; draw(); return; }
+      if (g('[data-tok]')) { const t = s.tokens.find((x) => x.id === g('[data-tok]').dataset.tok); if (st.L.some((x) => x.id === t.id)) return; mark(); st.L.push({ id: t.id, label: t.label, amt: t.amt }); msg = ''; draw(); return; }
+      if (g('[data-put]')) {
+        const b = g('[data-put]'), t = s.tokens.find((x) => x.id === b.dataset.put);
+        if (b.dataset.to !== t.ok) { msg = t.react; draw(); return; }
+        if (sub[t.id]) return;
+        mark(); sub[t.id] = b.dataset.to; st[t.ok].push({ id: t.id, label: t.label, amt: amt(t.amt) }); if (t.coin) coin(amt(t.coin)); msg = ''; draw(); return;
+      }
+      if (g('[data-pick]')) { const o = s.opts.find((x) => x.id === g('[data-pick]').dataset.pick); mark(); sub.pick = o.id; sale = o.sale; if (o.cost != null) cost = o.cost; if (!isReplay) S.decisions[s.id || 'price'] = o.id; msg = ''; draw(); return; }
+      if (g('[data-ask]')) {
+        const [li, k] = g('[data-ask]').dataset.ask.split('-').map(Number), o = s.lines[li].ask.opts[k];
+        if (!o.ok) { msg = o.react; draw(); return; }
+        sub['ask' + li] = true; sub.askOk = o.react; msg = ''; draw(); return;
+      }
+      if (g('[data-note]')) {
+        const b = g('[data-note]'), [li, ci] = b.dataset.note.split('-').map(Number), c = s.lines[li].cards[ci];
+        if (b.dataset.side !== c.side) { msg = s.react[c.kind]; draw(); return; }
+        if (sub[b.dataset.note]) return;
+        mark(); sub[b.dataset.note] = c.side; msg = ''; draw(); return;
+      }
+      // もどる：この段でしたことを取り消してから、前の段を終えたときの状態に戻す
+      if (g('[data-back]')) { restore(stepStart[i]); i--; while (i > 0 && skipStep(i)) i--; sub = subs[i] || {}; hist = []; msg = ''; draw(); return; }
+      if (g('[data-step]')) {
+        if (s.k === 'card' && !isReplay) { teach(s.teaches); if (!S.leaves.some((l) => l.label === s.leaf.label)) S.leaves.push({ p: s.leaf.p, label: s.leaf.label, mi: S.mi }); }
+        if (i + 1 < ev.steps.length) { subs[i] = JSON.parse(JSON.stringify(sub)); i++; while (i + 1 < ev.steps.length && skipStep(i)) { subs[i] = {}; i++; } sub = {}; hist = []; stepStart[i] = snap(); msg = ''; draw(); return; }
+        if (isReplay) { render(); return; }
+        if (!done && ev.next) { done = true; frame(`<div class="s-card">${talk(ev.next)}<button class="btn wide" data-fin>つぎへ</button></div>`); app.onclick = (x) => { if (x.target.closest('[data-fin]')) { S.discDone[ev.id] = S.mi; next(); } }; return; }
+        S.discDone[ev.id] = S.mi; delete S.drafts[bk]; next();
+      }
+    };
+  }
+
+  /* ---- 書類を帳簿に書く ---- */
+  function autoRule(ev) {
+    if (ev.trapFor && S.rules[ev.trapFor] && S.rules[ev.trapFor].broad) return { trap: true, cond: S.rules[ev.trapFor].cond };
+    // 大口の注文など、manual の書類は自動にしない
+    return S.rules[ev.kind] && !ev.manual ? { cond: S.rules[ev.kind].cond } : null;
+  }
+  // まだ教わっていない科目が答えに出てくるときは、先に小さな問いで見つける
+  function namingScreen(acc, cont) {
+    const N = D.namings[acc];
+    if (!N) { teach([acc]); return cont(); }
+    let msg = '', solved = false;
+    const draw = () => frame(`<div class="s-card"><small>新しい札</small><p class="s-q">${esc(N.q)}</p>${solved ? `<div class="s-name"><h2>${rb(acc)}</h2><p>${rb(N.line)}</p></div><button class="btn wide" data-n>帳簿に書く</button>` : `<div class="s-opts">${N.opts.map((o, i) => `<button class="s-opt" data-o="${i}"><b>${esc(o.t)}</b></button>`).join('')}</div>${msg ? `<p class="s-react ng">${esc(msg)}</p>` : ''}`}</div>`);
     draw();
     app.onclick = (e) => {
       const b = e.target.closest('[data-o]');
