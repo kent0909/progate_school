@@ -96,7 +96,7 @@ const PRICES = [[800, 850, 950, 1000, 1000], [850, 900, 1000, 1000, 1050], [750,
 function smartX(W, strategy, o = {}) {
   const y = Math.min(4, Math.floor(W.t / 12));
   const price = o.prices ? o.prices[Math.min(o.prices.length - 1, y)] : PRICES[strategy][y];
-  const p = smartPolicy(W, strategy, price, { maxParts: 1, sign: o.sign || 'cash', supplier: o.supplier || (strategy === 1 ? 'high' : strategy === 0 ? (W.t >= 12 ? 'high' : 'std') : 'std'), limited: true });
+  const p = smartPolicy(W, strategy, price, { maxParts: 1, sign: o.sign || 'cash', signAt: o.signAt, supplier: o.supplier || (strategy === 1 ? 'high' : strategy === 0 ? (W.t >= 12 ? 'high' : 'std') : 'std'), limited: true });
   const me = W.stores[0];
   let parts = o.parts != null ? o.parts : me.parts;
   if (o.parts == null && W.t >= 12 && me.Nlast > 0.9 * Wd.capOf(me) && W.cash > 1500000 && parts < (o.maxParts || 3)) parts += 1;
