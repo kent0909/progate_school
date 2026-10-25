@@ -986,8 +986,8 @@
  },
  "gamingtrend.com": {
   "verdict": "gray",
-  "basis": "gamingtrend.com/robots.txt は User-agent:* に /ghost/ /email/ 等のみ Disallow。取材記事1件の単発閲覧なので gray",
-  "checked": "2026-10-22"
+  "basis": "Gaming Trend（ゲーム紹介サイト）。規約に自動取得の明示の禁止を確認できず。robots.txt は research-fetch が確かめる。記事の単発閲覧、転載しない",
+  "checked": "2026-10-25"
  },
  "disclosure2dl.edinet-fsa.go.jp": {
   "verdict": "ok",
@@ -2372,6 +2372,26 @@
  "www.open.ac.uk": {
   "verdict": "gray",
   "basis": "Open University の教員ブログ。規約に自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "www.fastcompany.com": {
+  "verdict": "gray",
+  "basis": "Fast Company。利用規約に自動取得の明示の禁止を確認できず。robots.txt は research-fetch が確かめる。記事の単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "builtin.com": {
+  "verdict": "gray",
+  "basis": "Built In。利用規約に自動取得の明示の禁止を確認できず。robots.txt は research-fetch が確かめる。記事の単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "core.ac.uk": {
+  "verdict": "gray",
+  "basis": "CORE（オープンアクセス論文の集約）。規約は研究目的の閲覧を許可。robots.txt は research-fetch が確かめる。単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "boots.bc.edu": {
+  "verdict": "gray",
+  "basis": "Boston College の機関リポジトリ eScholarship。規約に自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。単発閲覧、転載しない",
   "checked": "2026-10-25"
  }
 }

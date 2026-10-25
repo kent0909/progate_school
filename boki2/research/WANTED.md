@@ -38,3 +38,4 @@
 | 2026-10-23 | web/bizgrowth/r5-growth-jftc-fc2011-ndl | https://dl.ndl.go.jp/pid/3525239 （公正取引委員会が2011年7月7日に公表したコンビニの加盟店への実態調査の報告書の本体、PDF 54頁。公取委のサイトの元の置き場は https://www.jftc.go.jp/houdou/pressrelease/h23/jul/110707honbun.pdf ） | 国会図書館の保存版の本体の置き場が401・403、公取委の元の置き場も403で、この環境から取れない（加盟店の実態の公的な調査。BIZ-GROWTH 9章の加盟店の声の材料） | 未 |
 | 2026-10-25 | web/learnsci/r11-ju-ponce2021-dragdrop-reading | https://largescaleassessmentsineducation.springeropen.com/articles/10.1186/s40536-021-00095-4 | robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた | 未 |
 | 2026-10-25 | web/learnsci/r11-ju-noor2016-swipe-errors | https://eprints.gla.ac.uk/114779/ | robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた | 未 |
+| 2026-10-25 | web/learnsci/r11-ju-ploetzner2021-anim-static | https://link.springer.com/article/10.1007/s11251-021-09541-w | robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた | 未 |
