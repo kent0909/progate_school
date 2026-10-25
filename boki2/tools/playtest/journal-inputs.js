@@ -34,7 +34,7 @@ async function complete(p, input) {
   for (let step = 0; step < 30; step++) {
     if (await exists(p, '[data-step]')) return;
     if (await exists(p, '[data-ask]')) { await p.click('[data-ask="2-0"]'); continue; }
-    if (await exists(p, '[data-note-reason]')) { const li = (await p.getAttribute('[data-note-reason]', 'data-note-reason')).split('-')[0]; await p.click(`[data-note-reason="${li}-0"]`); continue; }
+    if (await exists(p, '[data-note-reason]')) { const li = (await p.getAttribute('[data-note-reason]', 'data-note-reason')).split('-')[0]; const sel = `[data-note-reason="${li}-0"]`; await p.click(sel); await p.waitForSelector(sel, { state: 'detached' }); continue; }
     const id = await p.getAttribute('[data-card]', 'data-card'); assert(id, '次の札がある');
     const side = await p.evaluate(id => { const [li, ci] = id.split('-').map(Number); return window.__sim.events()[window.__sim.S.ei].steps.find(s => s.k === 'note').lines[li].cards[ci].side; }, id);
     await move(p, id, side, input);
