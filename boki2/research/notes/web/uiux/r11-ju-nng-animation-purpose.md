@@ -7,7 +7,7 @@ sha256: 55765eea49ab25a58aa68c8160520699be618826f5715baf66e9aa96c0853f0b
 read: full
 anchors: ["Animation in UX must be unobtrusive, brief, and subtle", "responsible for detecting motion", "it’s these down-time animations that often frustrate participants in usability testing", "a short animation can ensure that users see the feedback", "people may not notice the shopping-cart–badge update", "previewing the new location of an item when using drag-and-drop to reorder a list", "the number of simultaneous animations is overwhelming", "A short bounce animation is a signifier that"]
 ---
-Nielsen Norman Group, Page Laubheimer「The Role of Animation and Motion in UX」（2020-01-12）。全文を読んだ。
+Nielsen Norman Group, Page Laubheimerの記事（UX における動きの役割、2020-01-12）。全文を読んだ。
 
 要点：
 - 動きは周辺視野の桿体細胞が拾うので、意味があってもなくても注意を奪う。だから短く・控えめに・手ごたえのために使う

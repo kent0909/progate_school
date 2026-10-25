@@ -5,7 +5,7 @@ doc: r11-ju-hig-dragdrop
 file: r11-ju-hig-dragdrop_json.json
 sha256: 58e6bc8e7043ec76fa0264046712c5bb385cd1ff6b67222a7c3ad68b2671cf6c
 read: full
-anchors: ["Offer alternative ways to accomplish drag-and-drop actions", "Prefer letting people undo a drag-and-drop operation", "Display a drag image as soon as people drag a selection about three points", "Show people whether a destination can accept dragged content", "scale up and fade out to give the impression of the item evaporating", "Scroll the contents of a destination when necessary", "Consider displaying a badge during multi-item drag operations", "let people select and drag content with a single motion"]
+anchors: ["Offer alternative ways to accomplish drag-and-drop actions", "Prefer letting people undo a drag-and-drop operation", "Display a drag image as soon as people drag a selection about three points", "Show people whether a destination can accept dragged content", "scale up and fade out to give the impression of the item evaporating", "Scroll the contents of a destination when necessary", "Consider displaying a badge during multi-item drag operations", "let people select and drag content with a single motion", "Support the direct manipulation of your app’s content using drag and drop"]
 ---
 Apple Human Interface Guidelines「Drag and drop」（developer.apple.com の設計指針。画面は JS で描くので、本文の JSON を取った）。全文を読んだ。
 

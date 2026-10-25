@@ -5,7 +5,7 @@ doc: r11-ju-hig-motion
 file: r11-ju-hig-motion_json.json
 sha256: 957268c323af4617dabb6c0449d0920248c995159d54f76c691aa180ceb72a61
 read: full
-anchors: ["Add motion purposefully, supporting the experience without overshadowing it", "Make motion optional.", "Aim for brevity and precision in feedback animations", "generally avoid adding motion to UI interactions that occur frequently", "Let people cancel motion.", "maintaining a consistent frame rate of 30 to 60 fps", "avoid showing an oscillation that has a frequency of around 0.2 Hz", "Consider giving people a stationary frame of reference"]
+anchors: ["Add motion purposefully, supporting the experience without overshadowing it", "Make motion optional.", "Aim for brevity and precision in feedback animations", "generally avoid adding motion to UI interactions that occur frequently", "Let people cancel motion.", "maintaining a consistent frame rate of 30 to 60 fps", "avoid showing an oscillation that has a frequency of around 0.2 Hz", "Consider giving people a stationary frame of reference", "Explore how to adopt the zoom transition in navigation and presentations", "All layout- and appearance-based animations automatically include built-in easing"]
 ---
 Apple HIG「Motion」。全文を読んだ（visionOS 向けの節も含む）。
 

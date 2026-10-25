@@ -5,9 +5,9 @@ doc: r11-ju-wcag-dragging
 file: r11-ju-wcag-dragging_html.html
 sha256: c3905630a35b6e8246aba32c1769f3ff82b217d464d41e4b1b2a34b9df5771c6
 read: full
-anchors: ["Don’t rely on dragging for user actions.", "can be achieved by a single pointer without dragging", "tap or click to establish a start-point", "providing a text input can be an acceptable single-pointer alternative", "can't exclusively rely on a path-based gesture", "A sortable list of elements may, after tapping or clicking on a list element", "A kanban widget with several vertical columns", "G219: Ensuring that an alternative is available for dragging movements"]
+anchors: ["Don’t rely on dragging for user actions.", "can be achieved by a single pointer without dragging", "tap or click to establish a start-point", "providing a text input can be an acceptable single-pointer alternative", "can't exclusively rely on a path-based gesture", "A sortable list of elements may, after tapping or clicking on a list element", "A kanban widget with several vertical columns", "G219: Ensuring that an alternative is available for dragging movements", "any software that retrieves and presents web content for users", "Changing the example provided to avoid potential confusion"]
 ---
-WCAG 2.2 Understanding SC 2.5.7 Dragging Movements（AA）。W3C の一次資料。全文を読んだ（用語の定義まで）。
+WCAG 2.2 の 2.5.7（ドラッグ操作、AA）の解説ページ。W3C の一次資料。全文を読んだ（用語の定義まで）。
 
 要点：
 - ドラッグで操作できる機能は、すべてドラッグなしの単一ポインタ（タップ・クリック）でも達成できること。例外は「ドラッグが本質的」な場合とブラウザ側の機能

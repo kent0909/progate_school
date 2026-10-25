@@ -7,7 +7,7 @@ sha256: 14af35e29c3c990a8de49207a26b260c1812eb09b2c70b25f3750a9f114c12f2
 read: full
 anchors: ["Users are not harmed or distracted by motion.", "Motion animation triggered by interaction can be disabled", "Some users experience distraction or nausea from animated content", "Parallax scrolling occurs when backgrounds move at a different rate", "Take advantage of the reduce motion feature in the user agent or operating system", "Stop that extra movement! You are making me so dizzy I cannot concentrate", "C39: Using the CSS prefers-reduced-motion query to prevent motion", "Motion animation does not include changes of color, blurring, or opacity"]
 ---
-WCAG 2.2 Understanding SC 2.3.3 Animation from Interactions（AAA）。全文を読んだ。
+WCAG 2.2 の 2.3.3（操作で起きる動き、AAA）の解説ページ。全文を読んだ。
 
 要点：
 - 操作に応じて起きる動き（本質的でないもの）は、利用者が止められること。前庭（内耳）の障害がある人は、めまい・吐き気・頭痛を起こし、寝込むこともある

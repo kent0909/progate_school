@@ -7,7 +7,7 @@ sha256: 1bf4e4e5b7d07df079738a4b36b132e718edf4b40e4e1904c25ffe0601d17028
 read: full
 anchors: ["61 primary studies (N = 7036)", "Hedges's g effect size of 0.226", "there is still no solid empirical evidence", "the pacing control of the display produced a significant effect", "iconic representations subgroup is statistically different from the abstract representation subgroup", "can be considered of small magnitude", "animations that were system-paced", "Ploetzner, R., & Lowe, R. K. (2012)"]
 ---
-Berney, S. & Bétrancourt, M.「Does animation enhance learning? A meta-analysis.」（ジュネーブ大学 TECFA。EARLI 2016 向けの短い原稿。Computers & Education 2016 の論文の要約版）。全文（5ページ）を読んだ。
+Berney, S. & Bétrancourt, M.（題は「動画は学びを高めるか」のメタ分析）（ジュネーブ大学 TECFA。EARLI 2016 向けの短い原稿。Computers & Education 2016 の論文の要約版）。全文（5ページ）を読んだ。
 
 要点：
 - 61 の実験（N=7,036）、140 の対比較。アニメーション vs 静止画の学習効果は全体で g=0.226（小さい正の効果。95%CI 0.12〜0.33）。Höffler & Leutner 2007 の d=0.37 より小さい（静止画が勝つ比較が10%に増えた）

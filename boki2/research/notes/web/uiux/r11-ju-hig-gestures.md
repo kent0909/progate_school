@@ -5,7 +5,7 @@ doc: r11-ju-hig-gestures
 file: r11-ju-hig-gestures_json.json
 sha256: b00a8249b271de1259554903322347ffbb10c75402c5a47c7b1ab1bf8598b8dc
 read: full
-anchors: ["Give people more than one way to interact with your app", "Handle gestures as responsively as possible", "Indicate when a gesture isn’t available", "Add custom gestures only when necessary", "Use shortcut gestures to supplement standard gestures, not replace them", "Avoid requiring specific body movements or positions for input", "Move a UI element.", "Reveal actions and controls; dismiss views; scroll."]
+anchors: ["Give people more than one way to interact with your app", "Handle gestures as responsively as possible", "Indicate when a gesture isn’t available", "Add custom gestures only when necessary", "Use shortcut gestures to supplement standard gestures, not replace them", "Avoid requiring specific body movements or positions for input", "Move a UI element.", "Reveal actions and controls; dismiss views; scroll.", "Reserve the area around a person’s hand for system overlays", "Changed page title from Touchscreen gestures", "Define interactions from taps, clicks, and swipes to fine-grained gestures", "An icon of a pointing hand swiping in a curved motion toward the right"]
 ---
 Apple HIG「Gestures」。全文を読んだ（visionOS・watchOS の固有の節も含む）。
 

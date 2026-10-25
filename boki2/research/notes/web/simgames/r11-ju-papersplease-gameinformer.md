@@ -5,7 +5,7 @@ doc: r11-ju-papersplease-gameinformer
 file: r11-ju-papersplease-gameinformer_html.html
 sha256: 544009a3544f40c00211e154b9235387a33f8aa61cd801df3d166e6b5764c842
 read: full
-anchors: ["the indie game sold over five million copies across all platforms", "Just moving the papers around was fun for me personally", "What kinds of things would a resource-limited border inspector see", "Those bureaucracy-driven elements were convenient for the design too", "the dehumanizing aspect of bureaucracy", "I only caught one person based on just documents"]
+anchors: ["the indie game sold over five million copies across all platforms", "Just moving the papers around was fun for me personally", "What kinds of things would a resource-limited border inspector see", "Those bureaucracy-driven elements were convenient for the design too", "the dehumanizing aspect of bureaucracy", "I only caught one person based on just documents", "August 8, 2013 (PC)", "Bad signal or dead zones? Download your issues before you leave"]
 ---
 Game Informer「Papers, Please: 10 Years Later」（2024-01-02、作者 Lucas Pope と元外交官 Josef Burton への聞き取りを含む特集）。全文を読んだ。
 

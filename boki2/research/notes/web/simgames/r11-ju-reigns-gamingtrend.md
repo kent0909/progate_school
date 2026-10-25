@@ -5,9 +5,9 @@ doc: r11-ju-reigns-gamingtrend
 file: r11-ju-reigns-gamingtrend_html.html
 sha256: af0ffbb36c23b4b350b370576ae8f474db6089eb8f67c926c483ccfc40f8a6b6
 read: full
-anchors: ["Initially, this was an idea from Mieko, the artist", "wondered what would happen if you apply it to a more serious subject", "The characters and the tone of the game derived from that initial mechanic", "The game uses what I called a probabilistic system", "Two days after Reigns’ release, the best player has managed to make a 201 year run"]
+anchors: ["Initially, this was an idea from Mieko, the artist", "wondered what would happen if you apply it to a more serious subject", "The characters and the tone of the game derived from that initial mechanic", "The game uses what I called a probabilistic system", "Two days after Reigns’ release, the best player has managed to make a 201 year run", "The longest running independent gaming news, reviews and culture site on the web", "More from Elisha Deogracias"]
 ---
-Gaming Trend「One night with the king: Reigns developer interviewed on game's success」（2016-08-18、作者 François Alliot への聞き取り）。全文を読んだ。
+Gaming Trend の Reigns 作者への聞き取り記事（2016-08-18、作者 François Alliot への聞き取り）。全文を読んだ。
 
 要点：
 - Tinder 風の操作は、Tinder をよく使っていた美術担当（Mieko Murakami）の「もっと真面目な題材に当てはめたら」という発想から。王の決断に当てはめたら面白いと分かった

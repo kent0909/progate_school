@@ -5,7 +5,7 @@ doc: r11-ju-applion-reigns
 file: r11-ju-applion-reigns_html.html
 sha256: 6800a420b37673a1e95a5de1eb834b92c20e4681c1bbbad893ef5d879487e15d
 read: full
-anchors: ["Devolverが配信するiPhoneアプリ「Reigns」の評価や口コミやランキング推移情報です", "左右に揺れる指先ひとつで重要な決断を下していきます", "直感的な操作で誰でも簡単に始められる", "バランスを取る難しさがやりごたえを感じさせる", "AppStoreのスタッフおすすめアプリに選ばれています"]
+anchors: ["Devolverが配信するiPhoneアプリ「Reigns」の評価や口コミやランキング推移情報です", "左右に揺れる指先ひとつで重要な決断を下していきます", "直感的な操作で誰でも簡単に始められる", "バランスを取る難しさがやりごたえを感じさせる", "AppStoreのスタッフおすすめアプリに選ばれています", "二者択一で国の運営を上手く表現している", "iPhoneで遊べるファイナルファンタジーシリーズまとめ", "魔女の火あぶり"]
 ---
 APPLION「Reigns」の概要ページ（App Store の評価 4.5、評価数の表示あり）。全文を読んだ。編集部の紹介文と代表の口コミ。口コミの一覧は別ページ（r11-ju-applion-reigns-reviews）。
 

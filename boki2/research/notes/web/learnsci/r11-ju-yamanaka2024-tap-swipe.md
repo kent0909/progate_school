@@ -7,7 +7,7 @@ sha256: b4910c9d2401321db85f857726f5044805784a211964ac025d06fba31b00b462
 read: full
 anchors: ["Behavioral Differences between Tap and Swipe", "Shota Yamanaka , Hiroki Usuba, Junichi Sato", "We explored user-performance differences between tap and swipe in two crowdsourced experiments", "Results indicated longer operation times, higher error rates, and significantly shifted touch points for swipe compared to tap", "current target-size guidelines may not apply to swipe-operated targets"]
 ---
-Yamanaka, Usuba, Sato (LY Corporation), CHI 2024「Behavioral Differences between Tap and Swipe」。LY Corporation の研究公開ページ（要旨のみ。本文 PDF は ACM で、ここでは取っていない）。要旨を全部読んだ。
+Yamanaka, Usuba, Sato (LY Corporation), CHI 2024 のタップとスワイプの振る舞いの違いの論文。LY Corporation の研究公開ページ（要旨のみ。本文 PDF は ACM で、ここでは取っていない）。要旨を全部読んだ。
 
 要点（要旨から）：
 - クラウドソーシングの2つの実験（棒と正方形の標的）で、タップとスワイプの操作を比べた
