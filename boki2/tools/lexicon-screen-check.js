@@ -31,3 +31,11 @@ console.log('OK：前の画面の表示／teach、長い語の優先、読み取
  projectEvent(audit,{}, {accounts},state,e,m);assert.equal(audit.result().failures.length,1);
 }
 console.log('OK：名前と試験文は同一画面、無効な選択肢も表示として数える');
+// 近道の1画面へ困りごと・名前・試験文を集めたときも同じ規則を適用する。
+{
+ const audit=new AccountScreens(scan);audit.pro3=true;
+ const m={m:4,label:'4月',events:[]},e={id:'lite',t:'discover',title:'表示しないタイトル',b1:{talk:[['piyo','現金']]},b4:{name:'売掛金',line:'',exam:'借入金',teaches:['売掛金']}};
+ projectEvent(audit,{pro3:{lite:['lite']}},{accounts},state,e,m);assert.equal(audit.result().failures[0].newCount,3);
+ const known=new AccountScreens(scan);known.pro3=true;known.learn(['現金']);projectEvent(known,{pro3:{lite:['lite']}},{accounts},state,e,m);assert.equal(known.result().failures.length,0);assert.equal(known.rows[0].newCount,2);
+}
+console.log('OK：近道の同一画面で3科目は失敗、applyPro3の既習を引くと2科目');

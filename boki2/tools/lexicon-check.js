@@ -222,7 +222,7 @@ if (RAMEN) {
   printReport(report);
   const reportAt = process.argv.indexOf('--account-report');
   if (reportAt >= 0) fs.writeFileSync(process.argv[reportAt + 1], JSON.stringify(report, null, 2) + '\n');
-  for (const row of report.screenErrors) errors.push(`${row.month} ${row.id}：1画面に新しい科目${row.newCount}（${row.newNames.join('・')}）`);
+  for (const row of [...report.screenErrors, ...report.shortcut.screenErrors.map(row => ({...row, id:'近道/'+row.id}))]) errors.push(`${row.month} ${row.id}：1画面に新しい科目${row.newCount}（${row.newNames.join('・')}）`);
   errors.push(...report.failures);
 }
 if (notes.length) console.log(notes.join('\n'));
