@@ -266,10 +266,15 @@ function smartPolicy(W, strategy, price) { return smartX(W,strategy,price == nul
     };
     const bulk=run('bulk'),keep=run('keep'),entry=doc.ans(bulk);
     if(!doc.when(bulk)||doc.when(keep)||entry.dr[0][0]!=='仕入'||entry.cr[0][0]!=='普通預金'||entry.dr[0][1]!==300000||entry.cr[0][1]!==bulk.res[9].bulkPaid)err('まとめ買い：1月の仕訳と世界の支払いが一致しない');
+    // 6393637001：表示の残高だけでなく、共通の照合が読むT/Lを持つ資料にする。
+    const bulkEntry={...entry,ev:'buy-bulk9',mi:D.ramen.monthIndexOfT(9)};
+    bulk.T=[bulkEntry];bulk.L=[JSON.parse(JSON.stringify(bulkEntry))];keep.T=[];keep.L=[];
     for(const t of [9,10,11]){
       // 同じ月の既存仕訳を共通の残高とし、追加した仕訳と世界の支払いの差だけを比較する。
       const brBulk=D.rview.bridge(bulk,t,{'普通預金':-entry.cr[0][1]}),brKeep=D.rview.bridge(keep,t,{});
       if(brBulk.rest!==brKeep.rest)err(`まとめ買い：seed${seed} t${t}でdata-bridgeの説明できない差が増えた`);
+      const wrong=JSON.parse(JSON.stringify(bulk));wrong.L=[];
+      if(D.rview.bridge(wrong,t,{},0).rest===brBulk.rest)err(`まとめ買い：seed${seed} t${t}でLから消した支払を検出しない`);
     }
     const noBulk=JSON.parse(JSON.stringify(bulk));delete noBulk.res[9].bulkPaid;
     if(stock.ans(bulk).dr[0][1]-stock.ans(noBulk).dr[0][1]!==300000||back.ans(bulk).dr[0][1]-back.ans(noBulk).dr[0][1]!==300000||genmo.ans(bulk).dr[0][1]!==genmo.ans(noBulk).dr[0][1])err('まとめ買い：棚卸/翌期戻し30万または通常の材料だけの減耗が不正');

@@ -322,8 +322,55 @@ function verifyYear1Integration(){
   console.log('OK：年1統合・3月bulk→4月3結果・翌4月3件の年2記帳・税額据置・在庫評価損あり/なし・三分法の原価：'+JSON.stringify(measures));
 }
 
+// 6393637001：検査役 --legacy-late と同じ既定判断で、年1の月報を全300seedで照合。
+function verifyFirstYearBridge(){
+  const defaults={site:'shotengai',form:'part1',supplier:'std',maintain:'repair',bonus:'standard',capital:'half'};
+  const totals=Array.from({length:12},(_,t)=>({t,before:0,after:0,maxAbs:0,unknown:0}));let checked=0;
+  for(let seed=0;seed<300;seed++){
+    const S={seed,mode:'2026',decisions:{},T:[],L:[],discDone:{},choices:[],cardOutcomes:[],profile:{},taught:[...(D.pro3?.words||[])]};
+    const teach=xs=>{for(const a of xs||[])if(!S.taught.includes(a))S.taught.push(a);};
+    const name=a=>{if(!S.taught.includes(a))teach(D.namings[a]?.teaches||[a]);};
+    let reports=0;
+    for(let mi=0;mi<D.months.length;mi++){
+      const m=D.months[mi];if(m.ramenT>=12||mi>D.ramen.monthIndexOfT(11))break;S.mi=mi;
+      for(const e of m.events){
+        if(e.when&&!e.when(S))continue;
+        for(const a of e.names||[])name(a);
+        if(e.t==='board')for(const st of e.steps||[])teach(st.teaches);
+        if(e.t==='decision'){const opts=(e.optionsFor?e.optionsFor(S):e.options).filter(o=>!o.disabled),wanted=defaults[e.card||e.id.split('@')[0]];S.decisions[e.id]=(opts.find(o=>o.id===wanted)||opts[0]).id;}
+        if(e.t==='plan'){
+          const original=wd.month;wd.month=(w,p,o)=>original(w,p,{...o,noFactors:true});
+          try{D.ramen.plan(S,e.ramenT,D.ramen.policy(S,e.ramenT));}finally{wd.month=original;}
+        }
+        if(e.t==='discover'){S.discDone[e.id]=mi;teach(e.b4?.teaches);}
+        const post=(a,id)=>{finite(a,id);assert.equal(a.dr.reduce((n,x)=>n+x[1],0),a.cr.reduce((n,x)=>n+x[1],0));const row={...a,id:id+'@mi'+mi,ev:id,mi,y:m.year||1};S.T.push(row);S.L.push(clone(row));};
+        if(e.t==='doc'){const a=typeof e.ans==='function'?e.ans(S):e.ans;for(const [acc]of [...a.dr,...a.cr])name(acc);post(a,e.id);}
+        if(e.t==='rreport'){
+          const t=e.ramenT,check=stage=>{
+            const b=Object.fromEntries(Object.keys(BOKI.accounts).map(a=>[a,D.y2books.balance(S.L,a)])),cash=D.y2books.cash;
+            const cardBook=cash(S.L.filter(x=>x.mi===mi&&/-doc\d+@/.test(x.ev||'')));
+            const result=D.rview.bridge(S,t,b,cardBook);
+            assert.equal(result.rest,0,`年1の画面 seed${seed} t${t} ${stage}`);assert.deepEqual(result.unknown,[],`年1の未知の現金取引 seed${seed} t${t}`);assert.equal(result.world,S.res[t].cash);assert.equal(result.modelCash,S.res[t].cash);
+            totals[t][stage]++;totals[t].maxAbs=Math.max(totals[t].maxAbs,Math.abs(result.rest));totals[t].unknown+=result.unknown.length;checked++;
+            if(seed===0&&t===11&&stage==='after'){
+              const wrong=clone(S);wrong.L.push({ev:'sale11',mi,dr:[['普通預金',1000]],cr:[['売上',1000]]});assert.equal(D.rview.bridge(wrong,t,{},0).rest,-1000,'誤記を説明の行へ吸収した');
+              const unknown=clone(S),entry={ev:'unregistered-cash',mi,dr:[['普通預金',1000]],cr:[['雑益',1000]]};unknown.T.push(entry);unknown.L.push(clone(entry));const bad=D.rview.bridge(unknown,t,{},0);assert.equal(bad.unknown.length,1);assert.notEqual(bad.rest,0,'未知の現金をその他へ吸収した');
+            }
+          };
+          check('before');for(const a of e.auto(S))post(a,a.id);check('after');reports++;
+        }
+        teach(e.teaches);
+      }
+    }
+    assert.equal(reports,12,`年1の全12か月を検査していない seed${seed}`);
+  }
+  assert.equal(checked,7200);console.log('OK：年1の画面と同じ橋・300経路×12月×一括確定の前後、rest0/unknown0・誤記/未知の対照検査：'+JSON.stringify(totals));
+}
+
 if (!process.argv.includes('--world')) {
+  if(process.argv.includes('--bridge-only')){verifyFirstYearBridge();process.exit(0);}
   verifyClassification();
+  if(!process.argv.includes('--save-only')&&!process.argv.includes('--classification-only'))verifyFirstYearBridge();
   if(process.argv.includes('--classification-only'))process.exit(0);
   if(!process.argv.includes('--save-only'))verifyYear1Integration();
   if(process.argv.includes('--integration-only'))process.exit(0);
