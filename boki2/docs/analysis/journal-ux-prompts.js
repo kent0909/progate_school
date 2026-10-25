@@ -24,11 +24,12 @@ const D = window.SIMDATA;
 const S0 = { decisions: {}, W: null, res: {}, pols: {}, L: [], taught: [], mode: '2026' };
 const rows = [];
 const add = (screen, where, kind, id, text, extra = {}) => { if (text == null || text === '') return; rows.push({ screen, where, kind, id, text: String(text), ...extra }); };
-const CUE = /何があるか|どこから来たか|増え|ふえ|へっ|減っ|もっているもの|左の棚|右の棚|左の列|右の列|借方|貸方/;
+// 手がかりの語。「左の棚・右の棚・左の列・右の列」は置く先の名前で、決める手がかりではないので入れない（論証の検査 C14 で直した）。「手がかり：」の形も手がかりに数える
+const CUE = /何があるか|どこから来たか|増え|ふえ|へっ|減っ|もっているもの|借方|貸方|手がかり：|返す約束|だれのもの/;
 const SIDEQ = /左|右|列|棚|どちら|どっち/;
 const flags = (r) => {
   const f = [];
-  if (/：/.test(r.text) && !/^[^：]{1,8}：/.test(r.text)) f.push('A：B'); // 先頭の短い見出し（「摘要：」など）は除く
+  if (/：/.test(r.text) && !/^(摘要|メモ|手がかり|日付|注意)：/.test(r.text)) f.push('A：B'); // 「摘要：」「手がかり：」のような決まった見出しだけ除く（8字以内の除外は、8字の出来事の見出しを取りこぼした。論証の検査 C14）
   if (r.kind === 'q' && SIDEQ.test(r.text) && !CUE.test(r.text)) f.push('手がかりなし');
   if (r.kind === 'token' && /[\d,]{3,}$/.test(r.text) && !/増|減|へ|ふ|＋|−|-/.test(r.text)) f.push('何の数か不明');
   if (r.text.replace(/\s/g, '').length > 60) f.push('60字超');

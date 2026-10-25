@@ -1,5 +1,5 @@
 screen	where	kind	id	flags	text
-board	prologue.steps[0]	q	prologue:0:tap		屋台の箱の中身をタップして、左の棚に並べよう。
+board	prologue.steps[0]	q	prologue:0:tap	手がかりなし	屋台の箱の中身をタップして、左の棚に並べよう。
 board	prologue.steps[0].tokens	token	coin	何の数か不明	小銭 10,000
 board	prologue.steps[0].tokens	token	pot	何の数か不明	寸胴なべ 5,000
 board	prologue.steps[1]	q	prologue:1:sort		どこから来たか。2枚の札を、右の棚のどちらかに置こう。
@@ -8,15 +8,15 @@ board	prologue.steps[1].tokens	token	own	何の数か不明	貯金 5,000
 board	prologue.steps[1].dests	target	R1		返すお金
 board	prologue.steps[1].dests	target	R0		返さないお金（じぶんのお金）
 board	prologue.steps[2]	q	prologue:2:choice		仕込みの量を決めよう（材料は1杯200円）。
-board	prologue.steps[3]	q	prologue:3:sort		「かせいだ」の札を、右の棚のどちらかに置こう。
+board	prologue.steps[3]	q	prologue:3:sort	手がかりなし	「かせいだ」の札を、右の棚のどちらかに置こう。
 board	prologue.steps[3].tokens	token	earn		かせいだ sale
 board	prologue.steps[3].dests	target	R1		返すお金
 board	prologue.steps[3].dests	target	R0		返さないお金（じぶんのお金）
-board	prologue.steps[4]	q	prologue:4:sort		「つかった」の札を、右の棚のどちらかに置こう。
+board	prologue.steps[4]	q	prologue:4:sort	手がかりなし	「つかった」の札を、右の棚のどちらかに置こう。
 board	prologue.steps[4].tokens	token	use		つかった -cost
 board	prologue.steps[4].dests	target	R1		返すお金
 board	prologue.steps[4].dests	target	R0		返さないお金（じぶんのお金）
-board	prologue.steps[5]	q	prologue:5:note		それぞれの札を、ノートの左の列・右の列のどちらに書く？
+board	prologue.steps[5]	q	prologue:5:note	手がかりなし	それぞれの札を、ノートの左の列・右の列のどちらに書く？
 board	prologue.steps[5].lines[0]	title	0		親方に1万円借りた
 board	prologue.steps[5].lines[0].cards[0]	token	0-0		小銭が増えた 10,000
 board	engine.boardScreen note	shown	0-0	A：B	親方に1万円借りた：小銭が増えた 10,000
@@ -24,16 +24,16 @@ board	prologue.steps[5].lines[0].cards[1]	token	0-1		返すお金が増えた 10
 board	engine.boardScreen note	shown	0-1	A：B	親方に1万円借りた：返すお金が増えた 10,000
 board	prologue.steps[5].lines[1]	title	1		ラーメンが売れた
 board	prologue.steps[5].lines[1].cards[0]	token	1-0		小銭が増えた sale
-board	engine.boardScreen note	shown	1-0		ラーメンが売れた：小銭が増えた sale
+board	engine.boardScreen note	shown	1-0	A：B	ラーメンが売れた：小銭が増えた sale
 board	prologue.steps[5].lines[1].cards[1]	token	1-1		かせいだ（じぶんのお金が増えた） sale
-board	engine.boardScreen note	shown	1-1		ラーメンが売れた：かせいだ（じぶんのお金が増えた） sale
+board	engine.boardScreen note	shown	1-1	A：B	ラーメンが売れた：かせいだ（じぶんのお金が増えた） sale
 board	prologue.steps[5].lines[2]	title	2		材料を買って使った
 board	prologue.steps[5].lines[2].cards[0]	token	2-0		小銭がへった cost
 board	engine.boardScreen note	shown	2-0	A：B	材料を買って使った：小銭がへった cost
 board	prologue.steps[5].lines[2].cards[1]	token	2-1		つかった（じぶんのお金がへった） cost
 board	engine.boardScreen note	shown	2-1	A：B	材料を買って使った：つかった（じぶんのお金がへった） cost
 board	prologue.steps[5].lines[2].ask	q	2:ask		あれ？ ノートには、マイナスの数は書かない約束ピヨ。小銭がへったことは、どう書けばいい？
-discover	months[1] d-capital	q	d-capital:b2		300万円の札は、右の棚のどちら？
+discover	months[1] d-capital	q	d-capital:b2	手がかりなし	300万円の札は、右の棚のどちら？
 discover	months[1] d-capital	q	d-capital:predict		300万円を受け取ると、棚の左（もっているもの）と右（どこから来たか）の合計はどうなると思う？
 discover	months[1] d-capital	token	d-capital:token	何の数か不明	出してもらった 3,000,000
 discover	months[1] d-capital	target	d-capital:R1		返すお金
@@ -73,7 +73,7 @@ discover	months[9] d-card	q	d-card:predict		カードで売れた分を、入金
 discover	months[9] d-card	token	d-card:token		カード払いの売上
 discover	months[9] d-card	target	d-card:now		売上と、カードの会社から「もらえる権利」
 discover	months[9] d-card	target	d-card:later		入金の日に売上だけ
-discover	months[11] d-tax	q	d-tax:b2		お客さんから預かった税金。右の棚のどっち？
+discover	months[11] d-tax	q	d-tax:b2	手がかりなし	お客さんから預かった税金。右の棚のどっち？
 discover	months[11] d-tax	q	d-tax:predict		預かった税金まで売上に入れると、店のもうけはどう見えると思う？
 discover	months[11] d-tax	token	d-tax:token		預かった税金
 discover	months[11] d-tax	target	d-tax:R1		返すお金（国に納める）
@@ -138,7 +138,7 @@ discover	months[49] y2-repair-name	token	y2-repair-name:token		今年が原因�
 discover	months[49] y2-repair-name	target	y2-repair-name:now		今年の分を、今年に見積もる
 discover	months[49] y2-repair-name	target	y2-repair-name:paid		払う年に全部入れる
 naming	namings.普通預金	q	普通預金	手がかりなし	通帳に入った300万円。棚のどこ？
-naming	namings.借入金	q	借入金		公庫から借りた700万円。右の棚のどっち？
+naming	namings.借入金	q	借入金	手がかりなし	公庫から借りた700万円。右の棚のどっち？
 naming	namings.差入保証金	q	差入保証金		店を借りるときに大家さんに預けた90万円。出ていくときに返ってくる。これは？
 naming	namings.給料	q	給料		パートさんに払う給料。じぶんのお金はどうなる？
 naming	namings.水道光熱費	q	水道光熱費		スープを炊くガスと、水と電気のお金。これは？
@@ -147,11 +147,11 @@ naming	namings.支払家賃	q	支払家賃		店を借りているお礼の家賃
 naming	namings.支払リース料	q	支払リース料		店を借りているお礼の家賃。これは？
 naming	namings.支払利息	q	支払利息		借りたお金と一緒に払う、お礼のお金。これは何のお金？
 naming	namings.広告宣伝費	q	広告宣伝費		チラシの印刷と配るお金。チラシは配ったらなくなる。これは？
-naming	namings.未払金	q	未払金		チラシの代金は来月末に払う。いま、右の棚のどっち？
+naming	namings.未払金	q	未払金	手がかりなし	チラシの代金は来月末に払う。いま、右の棚のどっち？
 naming	namings.支払手数料	q	支払手数料		カードの会社が、入金のときに引いたお金。これは？
 naming	namings.修繕費	q	修繕費		こわれたコンロを、もとどおりに直したお金。これは？
 naming	namings.未払消費税	q	未払消費税		1年で預かった消費税から、払った消費税を引いた残り。まだ国に納めていない。これは？
-naming	namings.未払費用	q	未払費用		3月に働いてもらった分の給料を、4月に払う。いま、右の棚のどっち？
+naming	namings.未払費用	q	未払費用	手がかりなし	3月に働いてもらった分の給料を、4月に払う。いま、右の棚のどっち？
 naming	namings.前払保険料	q	前払保険料		6月に1年分払った保険料のうち、来年の4・5月の分。今年の費用？
 naming	namings.法人税等	q	法人税等		1年のもうけに対して、国などに納める税金。これは何の札？
 naming	namings.未払法人税等	q	未払法人税等		税金は、決算のあと2か月以内に納める。いま、まだ納めていない税金は？
