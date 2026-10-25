@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // 言葉の関所：台本（js/sim/scenario.js）を遊ぶ順に読み、まだ教えていない会計用語が画面に出ていないかを調べる。
-// あわせて、答えの先出し（正解の選択肢だけ補足・説明が長い）と、負荷の約束（1か月の新しい科目2つ・発見2つ・新しい原理1つ・1画面180字）も調べる。
+// あわせて、答えの先出し（正解の選択肢だけ補足・説明が長い）と、負荷の約束（ラーメン版は1画面の新しい科目2つ／月2つは注意・発見2つ・新しい原理1つ・1画面180字）も調べる。
 // 本試験の文言（b4.exam）は例外として、先に出している語を一覧で出すだけにする。
 // Usage: node boki2/tools/lexicon-check.js [--ramen]   （--ramen：ラーメン版 ramen.html の台本を読む。DESIGN-RAMEN l.2 段4）
 global.window = global;
@@ -195,7 +195,7 @@ D.months.forEach((m, mi) => {
   if (taught.has('自動仕訳')) Object.entries(D.rules).forEach(([k, r]) => { if (r._checked || (r.y ? !evs.some((e) => e.kind === k) : m.label !== '8月')) return; r._checked = true; check(`ルール ${k}`, [r.label, ...r.conds.map((c) => `${c.t} ${c.why || ''}`), ...r.entry.flat()].join(' ')); });
   // 新しく記帳に使う勘定科目（説明の中で触れるだけの科目名は数えない）
   const newAcc = [...used].filter(isAccount);
-  if (newAcc.length > 2) errors.push(`${m.label}：記帳に使う新しい勘定科目が${newAcc.length}つ（${newAcc.join('・')}）。1か月2つまで`);
+  if (!RAMEN && newAcc.length > 2) errors.push(`${m.label}：記帳に使う新しい勘定科目が${newAcc.length}つ（${newAcc.join('・')}）。1か月2つまで`);
   if (discs > 2) errors.push(`${m.label}：発見が${discs}つ。1か月2つまで`);
   // 前の判断の返り（SIM.returns）は、その月のはじめに出る。その月の前までに教えた語で読めること
   for (const r of D.returns || []) if ((m.year || 1) === r.y && m.m === r.m && (r.seg || null) === (m.seg || null) && !String(m.label).includes('後半')) { check(`${m.label} 返り ${r.id}`, talkText(r.lines)); len(`${m.label} 返り ${r.id}`, talkText(r.lines)); }
@@ -215,6 +215,15 @@ for (const [id, E] of Object.entries(D.endings)) if (E.ifOnly) { const S0 = { ..
   D.months.forEach((m) => m.events.filter((e) => e.t === 'doc').forEach((e) => { try { yearMoves.push(moves(typeof e.ans === 'function' ? e.ans({ decisions: {} }) : e.ans)); } catch (x) { /* 判断しだいの書類は飛ばす */ } }));
   if (!yearMoves.some((mv) => mv.includes('資産+') && !mv.includes('収益+'))) errors.push('反例がない：資産が増えて収益ではない書類（借入・出資など）が1年に1つもない');
   if (!yearMoves.some((mv) => mv.includes('資産-') && !mv.includes('費用+'))) errors.push('反例がない：お金が出て費用ではない書類（買掛金の支払い・返済など）が1年に1つもない');
+}
+if (RAMEN) {
+  const fs = require('fs'), { auditStory, printReport } = require('./lexicon-screen-accounts');
+  const report = auditStory();
+  printReport(report);
+  const reportAt = process.argv.indexOf('--account-report');
+  if (reportAt >= 0) fs.writeFileSync(process.argv[reportAt + 1], JSON.stringify(report, null, 2) + '\n');
+  for (const row of report.screenErrors) errors.push(`${row.month} ${row.id}：1画面に新しい科目${row.newCount}（${row.newNames.join('・')}）`);
+  errors.push(...report.failures);
 }
 if (notes.length) console.log(notes.join('\n'));
 if (errors.length) { console.error('\n' + errors.join('\n')); console.error(`\n${errors.length} 件`); process.exit(1); }
