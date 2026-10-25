@@ -11,7 +11,7 @@ for (const f of ['js/core.js', 'js/data/accounts.js', 'js/data/kubun.js', ...req
 const D = global.SIMDATA, wd = D.world;
 const namingAudit={missing:new Map(),maxNewAccounts:0,checked:0};
 const clone = x => JSON.parse(JSON.stringify(x));
-const BASELINE = /* 基準の実測。検査対象から作り直さない */ {
+const BASELINE_RAW = /* Node v24.19.0で採った生の全文。環境差の診断用 */ {
   "0:shotengai": "22519878fb2c72ebaec22b204019ccf24dd021619a01aa3a16220251637821ea",
   "0:ekimae": "52e033c02a49d37a14e821e6bdbbbf5555b82e61b1c7798bd2d5aca1f8172146",
   "0:jutaku": "9bd5abff1568dd6bc2f25e661f580f2a74ffffb42e002533c6cafe7414ef0694",
@@ -22,6 +22,23 @@ const BASELINE = /* 基準の実測。検査対象から作り直さない */ {
   "2:ekimae": "a82384652d8e54b95fbd00202b572b5fea7e25b916ed11a466078e235bed1cfc",
   "2:jutaku": "30f70c857add2e37041a9dc6d918c770592ae88caaec58a2b94c0973090f6081"
 };
+// 6393856520：23d31d7の世界/札を隔離計算し、Git blob SHAを照合して採った期待値。
+// world 38c913c250fa548b65709cc68718c7901a8d5cf2、cards dc474dc656ea3b885baa6d0d8c393636face18a1。
+// その隔離した生の9本はBASELINE_RAWにも一致。検査対象の結果から再生成しない。
+const BASELINE = {
+  "0:shotengai": "41e266b6ecb4cdb03352f8b623f5d27a135e20c52aba55b249ebd72ed80814ba",
+  "0:ekimae": "9c73c7ca4789648bb8cca9cc5f5c9676b65d3d9705b26a54735375adc5df9a5c",
+  "0:jutaku": "290792cc549e1f01c39cd616256e793bc6bac38216f260fbf9da312307347d03",
+  "1:shotengai": "05c5583420c51894efcfb645a5a81e9e0723ab7fe5f6f7c5dcc278a52ac732c2",
+  "1:ekimae": "3f1a73ae516d1a20c75bff0ec0fc1d69acbf704d451256671d0c3c5bc0fd1cd1",
+  "1:jutaku": "7c92f39eef255b7ad8f6fed79b3f485f8eeca11acbbc03cede590ede62e702c0",
+  "2:shotengai": "185833b1ed6d899ea19b47397c2f9a3c77b531ce82a4694a73c2b4975377a9e1",
+  "2:ekimae": "5bf64b864ab2aaad4b29b270ef365fe7b5332fac6a7c9ae073073dc263b451e2",
+  "2:jutaku": "647d2bc8cb895ceee7f68c38f3b9588672291edc77f2bfdf1ed811d8deeb806a"
+};
+// Mathの実装の末尾差だけを除く12桁の有効数字。金額/人数1の変更は残る。
+const baselineJSON=x=>JSON.stringify(x,(k,v)=>{if(typeof v!=='number')return v;assert.ok(Number.isFinite(v),'基準の世界に非有限数 '+k);return Number(v.toPrecision(12));});
+const baselineMonthly={},baselineRawDiagnostics={},baselineNormalizedDiagnostics={};let baselineSample;
 // 承認6385820182の新品コンロ支払だけは旧版との差分として別検査する。
 // 古い世界全文の検査中だけ、この既知の支払漏れを旧版へ戻す。
 const newStoveOutcomes=D.cards.byId.maintain.options.find(o=>o.id==='new').outcomes;
@@ -31,14 +48,25 @@ let baselineMonths = 0;
 for (const [key, want] of Object.entries(BASELINE)) {
   const [seed0, area] = key.split(':'), seed = +seed0;
   let W = wd.create({ seed, area });
-  const h = crypto.createHash('sha256');
+  const h = crypto.createHash('sha256'),raw=crypto.createHash('sha256');baselineMonthly[key]=[];
   for (let t = 0; t < 12; t++) {
     const r = wd.month(W, wd.policy0(W), { rng: D.rng(seed * 100 + t) });
-    h.update(JSON.stringify(r)); W = r.W; baselineMonths++;
+    const unrounded=JSON.stringify(r),normalized=baselineJSON(r);raw.update(unrounded);h.update(normalized);
+    baselineMonthly[key].push({t,raw:crypto.createHash('sha256').update(unrounded).digest('hex'),normalized:crypto.createHash('sha256').update(normalized).digest('hex')});
+    if(!baselineSample)baselineSample=JSON.parse(unrounded);
+    W = r.W; baselineMonths++;
   }
-  assert.equal(h.digest('hex'), want, `1年目の基準と不一致：${key}`);
+  baselineRawDiagnostics[key]={expected:BASELINE_RAW[key],actual:raw.digest('hex')};
+  const actual=h.digest('hex');baselineNormalizedDiagnostics[key]={expected:want,actual};
+  if(!process.argv.includes('--baseline-report'))assert.equal(actual, want, `1年目の基準と不一致：${key}`);
 }
 newStoveOutcomes.forEach((o,i)=>{o.cash=newStoveCash[i];assert.equal(o.cash,-300000,'承認したコンロ代の支払がない');});
+// 許すのは浮動小数の末尾差。1円/1人、入れ子の実質差は正規化後も消えない。
+assert.equal(baselineJSON({x:1}),baselineJSON({x:1+Number.EPSILON}));
+for(const key of ['cash','N']){const wrong=JSON.parse(JSON.stringify(baselineSample));wrong.res[key]+=1;assert.notEqual(baselineJSON(wrong),baselineJSON(baselineSample),'1円/1人を隠した '+key);}
+{const wrong=JSON.parse(JSON.stringify(baselineSample));wrong.W.stores[0].bowl.Fbase+=0.000001;assert.notEqual(baselineJSON(wrong),baselineJSON(baselineSample),'一杯の品質の実質差を隠した');}
+if(process.argv.includes('--baseline-report')){console.log(JSON.stringify({node:process.version,source:'23d31d722f43f65406747a14e0f124c2afaaa87d',precision:12,expected:BASELINE,normalized:baselineNormalizedDiagnostics,raw:baselineRawDiagnostics,monthly:baselineMonthly},null,2));process.exit(Object.values(baselineNormalizedDiagnostics).some(x=>x.actual!==x.expected)?1:0);}
+
 const finite = (x, at) => {
   if (typeof x === 'number') assert.ok(Number.isFinite(x), `${at}が有限でない`);
   else if (x && typeof x === 'object') for (const [k,v] of Object.entries(x)) finite(v, `${at}.${k}`);
