@@ -72,11 +72,11 @@
   };
   const dealtAt = (S, t) => ((S.dealt || {})[t] || []);
   const resAt = (S, t) => (S.res || {})[t];
-
   // ---------- 札を月の出来事に（判断の画面と、選んだ手の書類） ----------
   const fakeW = (t) => { try { const W = SIM.world.create({ seed: 0 }); W.t = t; W.m = MON[t % 12]; W.y = Math.floor(t / 12) + 1; return W; } catch (e) { return null; } };
   function cardEvents(t) {
     const out = [];
+    for(const handler of Object.values(RM.fxBookers))out.push(...handler.docs(t));
     for (const c of SIM.cards.deck) {
       if (c.y2) continue;
       if (c.tFrom != null && t < c.tFrom) continue;
@@ -85,7 +85,7 @@
       out.push({ t: 'decision', id: key, card: c.id, ramenT: t, when: dealt, q: c.q || c.title, talk: c.talk,
         trial: (S, oid) => { const W = S.W || fakeW(t), tr = SIM.decide.trial(c, oid, W); const o = c.options.find((x) => x.id === oid); return [['うまくいく見込み（いちばん多い結果）', `${Math.round(Math.max(...tr.weights.map((x) => x.w)))}%`], ...(o.time ? [['使う時間', `${o.time}`]] : []), ...(tr.cashMin !== tr.cashMax ? [['すぐ動くお金の幅', `${tr.cashMin.toLocaleString()}〜${tr.cashMax.toLocaleString()}円`]] : [])]; },
         options: c.options.map((o) => ({ id: o.id, label: o.label, desc: o.desc || '', result: `${o.label}。結果は来月の月報で分かる。` })) });
-      if (c.docs && c.id!=='coupon_dual') {
+      if (c.docs && !RM.fxBookers[c.id]?.deferDocs) {
         const W0 = fakeW(t), docs = W0 ? c.docs(W0) : [];
         docs.forEach((d, k) => {
           const forOpts = c.docFor ? Object.entries(c.docFor).filter(([, v]) => v.includes(k)).map(([o]) => o) : c.options.map((o) => o.id);
@@ -94,20 +94,6 @@
         });
       }
       if (c.calc && RM.calcs[c.calc]) out.push({ ...RM.calcs[c.calc](t), when: (S) => dealt(S) && !!(S.decisions || {})[key] });
-    }
-    // 値引きは結果月に支払・記帳をそろえる。金額はworldで確定した同じ支払額。
-    if(t>=3){const payment=S=>(resAt(S,t)?.choices||[]).find(x=>x.card==='coupon_dual');
-      out.push({t:'doc',kind:'discount',id:`coupon_dual-doc0@${t}`,card:'coupon_dual',ramenT:t,scope:['s-revenue'],when:S=>!!payment(S),
-        fixture:()=>({res:{[t]:{choices:[{card:'coupon_dual',option:'check',outcome:'ok',cash:SIM.cards.byId.coupon_dual.options[0].outcomes[0].cash(fakeW(t))}]}}}),
-        doc:{type:'値引きの記録',title:'前月に決めた値引きの記録',from:'券売機',to:'経理',date:`${MON[t%12]}月末`,rows:S=>[['値引きした額',-(payment(S)?.cash||0),'amt'],['メモ','前月の売上の3%（千円丸め）。結果が返る今月に、売上と口座から引いた']]},
-        ans:S=>({dr:[['売上',-(payment(S)?.cash||0)]],cr:[['普通預金',-(payment(S)?.cash||0)]]}),opts:['売上','普通預金','広告宣伝費','支払手数料']});
-    }
-    if(t>=9&&t<=12){
-      const payment=S=>(resAt(S,t)?.choices||[]).find(x=>x.card==='maintain'&&x.cash<0);
-      const paymentView=S=>payment(S)||{option:'repair',cash:0};
-      out.push({t:'doc',id:`fx-book-maintain@${t}`,scope:['b-mibarai'],
-        when:S=>!!payment(S),doc:{type:'通帳',title:'普通預金 通帳（器材・修理代の振込）',from:'みらい銀行',to:'{店}',date:`${MON[t%12]}月末`,rows:S=>[['摘要',paymentView(S).option==='wait'?'故障した器材の修理代':'前月の器材・修理代の支払'],['お引出し',-paymentView(S).cash,'amt']]},
-        ans:S=>{const a=RM.fxBookers.maintain(S,t,payment(S))?.entries[0];return a?{dr:a.dr,cr:a.cr}:{dr:[],cr:[]};},opts:['未払金','修繕費','備品','普通預金']});
     }
     return t >= 12 ? out.concat(SIM.y2.cardEvents(t)) : out;
   }
@@ -123,12 +109,35 @@
 
   // ---------- 月報（rreport）：月の結果。「その他の店のお金」と札のお金は一括確定で帳簿へ（h.1） ----------
   // 札の金額を汎用fxへ重ねないための口。PR #3のbulkもidごとに追加できる。
+  const resultAt=(S,t,id)=>(resAt(S,t)?.choices||[]).find(x=>x.card===id);
+  const manualFx=(book,docs,deferDocs=false)=>Object.assign(book,{docs,deferDocs});
   RM.fxBookers = {
-    coupon_dual:(S,t,x)=>({cash:x.cash,manual:true,entries:[]}),
-    maintain:(S,t,x)=>{
+    bulk:manualFx((S,t,x)=>x.option==='bulk'?{cash:x.cash,manual:true,entries:[]}:null,t=>{const out=[];
+    if (t >= 6) SIM.cards.byId.bulk.docs(fakeW(t)).forEach((d,k) => out.push({
+      ...d, id: `bulk-doc${k}@${t}`, card: 'bulk', ramenT: t,
+      when: S => resultAt(S,t,'bulk')?.option==='bulk' && resultAt(S,t,'bulk')?.outcome === ['cheap','spoil','space'][k]
+    }));
+      return out;},true),
+    coupon_dual:manualFx((S,t,x)=>({cash:x.cash,manual:true,entries:[]}),t=>{const out=[];
+    if(t>=3){const payment=S=>(resAt(S,t)?.choices||[]).find(x=>x.card==='coupon_dual');
+      out.push({t:'doc',kind:'discount',id:`coupon_dual-doc0@${t}`,card:'coupon_dual',ramenT:t,scope:['s-revenue'],when:S=>!!payment(S),
+        fixture:()=>({res:{[t]:{choices:[{card:'coupon_dual',option:'check',outcome:'ok',cash:SIM.cards.byId.coupon_dual.options[0].outcomes[0].cash(fakeW(t))}]}}}),
+        doc:{type:'値引きの記録',title:'前月に決めた値引きの記録',from:'券売機',to:'経理',date:`${MON[t%12]}月末`,rows:S=>[['値引きした額',-(payment(S)?.cash||0),'amt'],['メモ','前月の売上の3%（千円丸め）。結果が返る今月に、売上と口座から引いた']]},
+        ans:S=>({dr:[['売上',-(payment(S)?.cash||0)]],cr:[['普通預金',-(payment(S)?.cash||0)]]}),opts:['売上','普通預金','広告宣伝費','支払手数料']});
+    }
+      return out;},true),
+    maintain:manualFx((S,t,x)=>{
       if(!x||!(x.cash<0)||!['repair','new','wait'].includes(x.option))return null;
       return {cash:x.cash,manual:true,entries:[{id:`fx-book-maintain@${t}`,label:x.option!=='wait'?'前月の器材代・修理代の支払':'故障した器材の修理代',dr:[[x.option!=='wait'?'未払金':'修繕費',-x.cash]],cr:[['普通預金',-x.cash]]}]};
+    },t=>{const out=[];
+    if(t>=9&&t<=12){
+      const payment=S=>(resAt(S,t)?.choices||[]).find(x=>x.card==='maintain'&&x.cash<0);
+      const paymentView=S=>payment(S)||{option:'repair',cash:0};
+      out.push({t:'doc',id:`fx-book-maintain@${t}`,scope:['b-mibarai'],
+        when:S=>!!payment(S),doc:{type:'通帳',title:'普通預金 通帳（器材・修理代の振込）',from:'みらい銀行',to:'{店}',date:`${MON[t%12]}月末`,rows:S=>[['摘要',paymentView(S).option==='wait'?'故障した器材の修理代':'前月の器材・修理代の支払'],['お引出し',-paymentView(S).cash,'amt']]},
+        ans:S=>{const a=RM.fxBookers.maintain(S,t,payment(S))?.entries[0];return a?{dr:a.dr,cr:a.cr}:{dr:[],cr:[]};},opts:['未払金','修繕費','備品','普通預金']});
     }
+      return out;})
   };
   const rreport = (t) => ({ t: 'rreport', id: `rep${t}`, ramenT: t,
     rows: (S) => { const r = resAt(S, t) || Y.R(S, t); return [['1日のお客さん', `${(r.N || 0).toFixed(1)}人`], ['売上', Math.round(r.sales)], ['材料', -Math.round(r.cogs + (r.wasteCost || 0))], ['人のお金', -Math.round(r.labor + (r.famPay || 0))], ['家賃・ガス水道電気・その他', -Math.round(r.rent + r.util + r.other)], ['この月のもうけ（およそ）', Math.round(r.op)]]; },
@@ -161,17 +170,9 @@
     months.push(...SIM.y2.kessan(year));
   }
   for (let t = 36; t < 39; t++) months.push({ year: 4, m: MON[t % 12], label: `4年目 ${MON[t % 12]}月`, title: '前の年の約束を払う', ramenT: t,
-    events: [plan(t), ...SIM.y2.routine(t), ...SIM.y2.cardEvents(t), ...cardEvents(t).filter(e=>e.id===`coupon_dual-doc0@${t}`), { t: 'recall', id: `recall${t}` }, rreport(t), ...endings(t)] });
+    events: [plan(t), ...SIM.y2.routine(t), ...SIM.y2.cardEvents(t), ...cardEvents(t).filter(e=>RM.fxBookers[e.card]?.deferDocs), { t: 'recall', id: `recall${t}` }, rreport(t), ...endings(t)] });
   // 承認6385898424：PR #3と同じ0円書類の規則。統合時には関数を共通化する。
-  const omitZeroDoc = ev => {
-    if(ev.t!=='doc')return;
-    const answer=ev.ans,rows=ev.doc.rows,when=ev.when;
-    const value=(x,S)=>typeof x==='function'?x(S):x;
-    ev.ans=S=>{const a=value(answer,S);return {...a,dr:a.dr.filter(([,v])=>v!==0),cr:a.cr.filter(([,v])=>v!==0)};};
-    ev.doc={...ev.doc,rows:S=>value(rows,S).filter(r=>!(r[2]==='amt'&&r[1]===0))};
-    ev.when=S=>(!when||when(S))&&[...ev.ans(S).dr,...ev.ans(S).cr].some(([,v])=>v!==0);
-  };
-  months.filter(m=>m.year>=2).flatMap(m=>m.events).forEach(omitZeroDoc);
+  months.flatMap(m=>m.events).forEach(Y.omitZeroDoc);
   SIM.months = months;
   RM.monthIndexOfT = (t) => months.findIndex((m) => m.ramenT === t);
   // 既存の events() と同じ形：いまの月（S.mi）の出来事のうち、その状態で出るもの

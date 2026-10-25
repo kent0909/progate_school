@@ -2,21 +2,21 @@
 
 `node boki2/tools/research-check.js --write` が生成。手で編集しない。
 
-取得記録 1650 行・読了ノート 809 本（うち docs から出典として引かれていない 136 本）
+取得記録 4989 行・読了ノート 2278 本（うち docs から出典として引かれていない 906 本）
 
 ## 利用規約
 - 商工会議所の検定試験（日本商工会議所）（kentei）：規約 確認済み・問題なし（2026-10-20）。robots.txt は /wp/wp-admin/ のみ禁止。自動取得を禁じる規約ページは見当たらない。ただしサンプル問題のページに「著作権は日本商工会議所に帰属、無断転載・無断の営利利用を厳禁」と明記されている。原文はリポジトリに入れず、転載しない（分析・数字と設定を変えたオリジナル問題のみ）
 - 業務の教科書（biznavi.jp）（biznavi）：規約 確認済み・グレー（判断を記録）（2026-10-20）。https://www.biznavi.jp/terms は個人情報保護方針（第一〜六条）のみで、転載・自動取得・著作権の条項なし。robots.txt は 404。著作物なので原文はリポジトリに入れず転載しない
 - 簿記ペディア（株式会社CPA）（bokipedia）：規約 確認済み・グレー（判断を記録）（2026-10-20）。robots.txt なし（404）。規約に自動取得の明文の禁止はない。ただし6条(6)「本来のサービス提供の目的とは異なる目的で利用する行為」、7条「提供目的を超えて利用」の禁止がある。オーナー判断（2026-10-20）：個人の学習設計の分析に限り、原文の転載はせず、数字・設定を変えたオリジナル問題にする。会員ログインはしない。運営会社は cpa-learning.com と同じで、そちらの規約は自動取得を明示的に禁止している点に注意
 - CPAラーニング（cpa-learning）：規約 規約上は制限ありだがオーナーが条件付きで許可（判断を記録）（2026-10-20）。利用規約 第4条18号は自動的なダウンロード・複製・保存を禁止、第5条は複製を禁止している。オーナー判断（2026-10-20）：個人利用・非商用で、サイトを見て本人が勉強するのと実態が変わらないため、取得と分析を許可。条件：速さは問わない（5秒以上の間隔）、さぼり・斜め読みは禁止（全文の読了ノート必須）、ログインはしない、原文はリポジトリに入れない・転載しない
-- 法令・官公庁・業界団体の一次資料（e-Gov法令、国税庁、法務省、裁判所、厚労省、全銀協、でんさいネット、JPX、金融庁など）（law）：規約 確認済み・問題なし（2026-10-20）。官公庁サイトの多くは公共データ利用規約（PDL1.0）や政府標準利用規約で出典を示せば複製・加工を認める。法令の条文は著作権の対象外（著作権法13条）。業界団体（全銀協・でんさいネット・JPX）は規則類の閲覧のみ・原文はリポジトリに入れない
+- 法令・官公庁・業界団体の一次資料（e-Gov法令、国税庁、法務省、裁判所、厚労省、全銀協、でんさいネット、JPX、金融庁など）（law）：規約 確認済み・問題なし（2026-10-20）。官公庁サイトの多くは公共データ利用規約（PDL1.0）や政府標準利用規約で出典を示せば複製・加工を認める。法令の条文は著作権の対象外（著作権法13条）。業界団体（全銀協・でんさいネット・JPX）は規則類の閲覧のみ・原文はリポジトリに入れない 文部科学省（www.mext.go.jp）は、同省のウェブサイト利用規約（平成26年7月31日、令和8年8月17日最終改正。https://www.mext.go.jp/b_menu/1351168.htm）で、出典を書けば複製・翻案を含めて自由に利用できる（2026-10-20 にまとめ役が確認。読了ノート law:primary:mext-terms-1351168）。
 - 学習科学・会計教育・簿記教材の調査（論文・公的資料・出版社・学習者の声など、サイトを横断）（web）：規約 サイトごとに確認して取得記録に残す。サイトごとに取得前に利用規約・robots.txt を確認し、取得記録の tos 欄（checked・verdict・basis）に残す。verdict が no-automation のサイトは取得しない（オーナーの個別許可がない限り）。論文はオープンアクセス（J-STAGE、ERIC、PMC、arXiv、機関リポジトリ等）のみ。有料・ログインが必要なものは取らない
 
 ## 集合ごとの状況
 | 集合 | 内容 | 一覧上 | 対象 | 対象外(理由あり) | 取得済 | 読了ノート | 原文で照合済 | 一部読了 | 照合不能 |
 |---|---|---|---|---|---|---|---|---|---|
 | kentei:kouhyou2 | 2級 出題の意図・講評（PDF） | 30 | 18 | 17 | 18 | 18 | 18 | 0 | 0 |
-| kentei:kubun2027 | 2027年4月施行の出題区分表・改定趣旨・勘定科目表。工業簿記・原価計算の区分表は2022年度版（2022_kogen）が2027年度にもそのまま適用される（区分表ページの記載） | 11 | 5 | 7 | 5 | 5 | 5 | 0 | 0 |
+| kentei:kubun2027 | 2027年4月施行の出題区分表・改定趣旨・勘定科目表。工業簿記・原価計算の区分表は2022年度版（2022_kogen）が2027年度にもそのまま適用される（区分表ページの記載） | 11 | 5 | 7 | 5 | 5 | 5 | 1 | 0 |
 | kentei:renketsukaikei | 連結会計の学習連載 | 15 | 15 | 0 | 15 | 15 | 15 | 0 | 0 |
 | kentei:genkakeisan | 原価計算の学習連載 | 20 | 20 | 0 | 20 | 20 | 20 | 0 | 0 |
 | kentei:sample2 | 2級サンプル問題 | — | 30 | 0 | 30 | 30 | 30 | 0 | 0 |
@@ -27,17 +27,31 @@
 | cpa-learning:texts2 | 2級講座の教材PDF（教科書・問題集・模擬試験） | — | 14 | 0 | 14 | 14 | 9 | 2 | 0 |
 | cpa-learning:column | 簿記・経理のコラム（post-sitemap.xml の全記事：boki 95・keiri 135・technique 9・career 13） | 252 | 252 | 0 | 252 | 252 | 252 | 0 | 0 |
 | cpa-learning:videos | 講義動画 | — | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
-| law:primary | EPISODES.md・scenario.js の法令・制度の記述を照合した一次資料 | — | 81 | 0 | 81 | 81 | 81 | 59 | 0 |
-| web:learnsci | 理解されやすい教え方・伝え方の研究（学習科学・認知心理・教育工学・ゲーム学習、〜2026年10月） | — | 37 | 0 | 37 | 37 | 37 | 0 | 0 |
-| web:acctedu | 簿記・会計教育の研究と実践報告（国内外） | — | 49 | 0 | 49 | 49 | 49 | 0 | 0 |
-| web:boki2content | 簿記2級の教材・講座・アプリ・動画の教え方と見せ方、学習者の声 | — | 33 | 0 | 33 | 33 | 33 | 0 | 0 |
-| web:simgames | 既存の会計・財務・経営シミュレーションゲーム（ボードゲーム・研修ゲーム・デジタルゲーム・教育用シミュレーション） | — | 57 | 0 | 57 | 57 | 57 | 0 | 0 |
+| law:primary | EPISODES.md・scenario.js の法令・制度の記述を照合した一次資料 | — | 349 | 0 | 344 | 328 | 327 | 141 | 0 |
+| web:learnsci | 理解されやすい教え方・伝え方の研究（学習科学・認知心理・教育工学・ゲーム学習、〜2026年10月） | — | 162 | 0 | 152 | 105 | 105 | 28 | 0 |
+| web:acctedu | 簿記・会計教育の研究と実践報告（国内外） | — | 107 | 0 | 107 | 81 | 81 | 18 | 0 |
+| web:boki2content | 簿記2級の教材・講座・アプリ・動画の教え方と見せ方、学習者の声 | — | 53 | 0 | 53 | 36 | 36 | 1 | 0 |
+| web:simgames | 既存の会計・財務・経営シミュレーションゲーム（ボードゲーム・研修ゲーム・デジタルゲーム・教育用シミュレーション） | — | 519 | 0 | 493 | 345 | 343 | 200 | 0 |
+| web:uiux | UI・UX デザインのセオリー（ヒューリスティック・アクセシビリティ・ガイドライン）と、学習アプリ・ゲーム・業務ソフトの UI・UX の成功事例 | — | 80 | 0 | 80 | 63 | 63 | 27 | 0 |
+| web:bizmkt | マーケティングの打ち手（チラシ・SNS・インフルエンサー・値付け・販促・口コミ）の効果と費用の事例・調査・数字 | — | 105 | 0 | 105 | 70 | 70 | 41 | 0 |
+| web:bizmgmt | 小さな店・中小企業の経営の定石と数字（損益分岐・粗利・在庫・人・設備投資・需要の変動・競合） | — | 289 | 0 | 283 | 184 | 183 | 82 | 0 |
+| web:ramen | ラーメン（歴史・文化・業界・店の経営・製麺とスープの製造・多店舗化とFC・物販やアパレル・通販）の資料 | — | 367 | 0 | 358 | 258 | 254 | 154 | 0 |
+| web:bizgrowth | 外食・ラーメン会社の成長の分かれ道（多店舗・本部・工場・FC・M&A・上場・不動産・多角化・海外）の判断と結果。有価証券報告書・決算説明資料・統計・研究・加盟店の声 | — | 163 | 0 | 160 | 114 | 113 | 92 | 0 |
+| web:bizlaw | ラーメン屋・外食の経営の打ち手にかかる法律と会計（物件・FC・労務・許認可・資金・上場・M&A・ライバル・倒産・消費税）の実務者の解説・事例・判例・統計・反対意見 | — | 93 | 0 | 82 | 39 | 39 | 32 | 0 |
+| web:restaurant | 小さな飲食店（ラーメン店）の開業後の黒字化の時期と費用の内訳（公的統計・公的調査。1年目の釣り合いと固定費の範囲の根拠、オーナーの問い 10/24） | — | 8 | 0 | 8 | 3 | 3 | 3 | 0 |
 
 ## 検索の記録
 - searches/acctedu.jsonl：検索 21 回、採用したURL 49 件（うち取得済み 49）
+- searches/bizlaw-ramen.jsonl：検索 12 回、採用したURL 5 件（うち取得済み 5）
+- searches/bizmkt-ramen.jsonl：検索 24 回、採用したURL 0 件（うち取得済み 0）
 - searches/boki2content.jsonl：検索 31 回、採用したURL 33 件（うち取得済み 33）
+- searches/calib.jsonl：検索 28 回、採用したURL 14 件（うち取得済み 0）
+- searches/fill-calib.jsonl：検索 56 回、採用したURL 34 件（うち取得済み 0）
+- searches/fill-ramen.jsonl：検索 96 回、採用したURL 28 件（うち取得済み 0）
 - searches/learnsci.jsonl：検索 31 回、採用したURL 40 件（うち取得済み 37）
-- searches/simgames.jsonl：検索 20 回、採用したURL 36 件（うち取得済み 34）
+- searches/ramen.jsonl：検索 31 回、採用したURL 54 件（うち取得済み 52）
+- searches/robots-replace.jsonl：検索 46 回、採用したURL 15 件（うち取得済み 15）
+- searches/simgames.jsonl：検索 57 回、採用したURL 91 件（うち取得済み 89）
 
 ## 外部資料にもとづく文書と出典の引用
 | 文書 | 引いている読了ノート | 説明 |
@@ -60,9 +74,164 @@
 | docs/analysis/sim-games.md | web 52本 | 既存の会計・財務シミュレーションゲームの分析と取り入れる要素 |
 | docs/DESIGN-REVISION.md | web 62本・kentei 14本・cpa-learning 16本 | 全分析を統合した設計改訂案（Fable、2026-10-20） |
 
-## 検査結果：エラー 0・注意 65
+## 検査結果：エラー 0・注意 1790
+- △ kentei:kubun2027: 2027kubunhyo_fixed は一部だけ読了（第二 諸取引の4（その他の債権と債務）・8（顧客への移転）・10〜21（固定資産・リース・税金・税効果）の2級と1級の列・1〜4頁のうち商業簿記・会計学の欄（固定資産・リース・外貨建取引・税効果・会計上の変更・決算・株式会社会計・本支店会計・連結会計）。工業簿記の欄は BIZ-GROWTH の会計の列に使う範囲（工業簿記の全体が2級）だけ見た）
+- △ cpa-learning:texts2: r9-robots-cpa-learning-content-prod.s3.ap-northeast-1.amazonaws.com は取得に失敗した（403・skipped）。読んでいないので根拠にしない
 - △ cpa-learning:texts2: 480123 は一部だけ読了（150110との差分箇所（PDF 4・9・11・187・270・329・330ページ）。全330ページを150110とページごとに比べ（文字は pdftotext の全ページ比較、図や枠は40dpiの画像の画素比較）、差分が出た7ページだけを読んだ。それ以外の323ページは150110と同一と判定し、中身は 150110 の章ノートで読んでいる）
 - △ cpa-learning:texts2: 600037 は一部だけ読了（全302ページを 180063 とページ単位で機械比較（pdftotext を NFKC・空白除去で正規化）し、差分のあった p.4, 8, 11, 13〜17, 20, 74, 77, 193, 301, 302 を読んだ。さらに全302ページを30dpiの画像で画素比較し、文字の差分がないページに図や枠の差分がないことも確かめた（画素差が出たのは p.8・11・13〜17・193・301・302 で、すべて上の差分ページに含まれる）。その他の288ページは 180063 と文字列が完全に一致したため 180063 の読了ノート（180063#ch01〜ch14, q4, q5）で代える。p.301（奥付）は文字が抽出できず画像でも空白に見えるため読めなかった）
+- △ law:primary: accountant-chusho-kaikeiyouryou は取得に失敗した（403）。読んでいないので根拠にしない
+- △ law:primary: learner-sample-q1-s3 は取得に失敗した（404）。読んでいないので根拠にしない
+- △ law:primary: learner-sample-q1-s4 は取得に失敗した（404）。読んでいないので根拠にしない
+- △ law:primary: mext-terms-copy は取得に失敗した（404）。読んでいないので根拠にしない
+- △ law:primary: mext-terms-riyou は取得に失敗した（404）。読んでいないので根拠にしない
+- △ law:primary: mext-robots は取得に失敗した（404）。読んでいないので根拠にしない
+- △ law:primary: retaker-kentei-2q3-s3-q は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ law:primary: r2-access-mext-survey2022 は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ law:primary: r2-teen15-kaisetsu-index は取得に失敗した（404）。読んでいないので根拠にしない
+- △ law:primary: r2-learner-tsushin は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-keihyo-5 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-caa-kachoukin は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-mgmt-chusho-kakaku は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-freelance-pamph は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-toriteki は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-mkt-nta-shuekinintei は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-mkt-chusho-shokibo-h28 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-nta-2792 は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-nta-2795 は取得に失敗した（503・skipped・503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-nta-5403 は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-nta-5408 は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-nta-6625 は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-keihyo-4 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-nta-5403b は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-shohou-526 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-nta-2795b は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-law-shotoku-204 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-calib-egov-shotoku204 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-calib-nta-2795 は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-calib-elaws-shohou は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r4-calib-nta-5403 は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r5-blr-jftc-fcgl は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r5-blr-nta-hikisage-qa は取得に失敗した（503・503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r5-blr-nta-invoice-qa113 は取得に失敗した（503・503・skipped）。読んでいないので根拠にしない
+- △ law:primary: r5-growth-jftc-fc2011-page は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r5-growth-hakusyo2025-shokibo-html は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r5-growth-jpx-iji-outline は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ law:primary: r6-fc-mhlw-seiei-h26-chuka-list は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ law:primary: r6-fc-mhlw-seiei-r1-chuka-list は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ law:primary: r5-growth-jftc-fc2011-h23 は取得に失敗した（403）。読んでいないので根拠にしない
+- △ law:primary: r5-growth-hakusyo2025-shokibo-pdf は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r5-growth-hakusyo2021-kaihaigyo は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r9-robots-www.densai.net は取得に失敗した（502・skipped）。読んでいないので根拠にしない
+- △ law:primary: r9-robots-www.jftc.go.jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ law:primary: r9-robots-www.mof.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ law:primary: accountant-fsa-1a923 は一部だけ読了（冒頭の新聞発表・改訂案のポイントの表・本文の「一 経緯」の冒頭まで）
+- △ law:primary: hs-nissho-sample-two は一部だけ読了（一部（本文参照））
+- △ law:primary: hs-nissho-class2 は一部だけ読了（一部（本文参照））
+- △ law:primary: hs-nissho-kouhyou-157 は一部だけ読了（一部（本文参照））
+- △ law:primary: child2-soumu-jitaku-2018 は一部だけ読了（26）
+- △ law:primary: soumu-terms は一部だけ読了（soumu-terms）
+- △ law:primary: retaker-kentei-2q2-s1-q は一部だけ読了（1）
+- △ law:primary: retaker-kentei-2q2-s2-q は一部だけ読了（1）
+- △ law:primary: retaker-kentei-2q3-s1-q は一部だけ読了（1）
+- △ law:primary: retaker-kentei-2q3-s2-q は一部だけ読了（1）
+- △ law:primary: learner-sample-a-q1-s1 は取得したが読まない（取得したが中身は解答欄だけの答案用紙で、正解は載っていないので読まない）。根拠にしない
+- △ law:primary: learner-sample-a-q1-s5 は取得したが読まない（取得したが中身は解答欄だけの答案用紙で、正解は載っていないので読まない）。根拠にしない
+- △ law:primary: r2-teen15-mext-index は一部だけ読了（ページ全体（短い一覧ページ））
+- △ law:primary: r2-accountant-zeisenmon は一部だけ読了（1-16,43-52（単純集計の要約と回答者属性、インタビュー結果、総括。性・年齢別の詳細表17-42と調査票53-66は読んでいない））
+- △ law:primary: r2-accountant-genkaqa は一部だけ読了（1-11（改正の概要、Q1〜Q10）と32（償却率等の表）。資本的支出・除却・届出・別表十六の記載例（12-31）は読んでいない）
+- △ law:primary: r2-teen15-chu-shakai は一部だけ読了（表紙の目次、公民的分野の経済の項目、家庭分野の消費生活の項目）
+- △ law:primary: r2-lowvision-mhlw-seikatsu-h28 は一部だけ読了（印刷ページ1〜12・28・143（PDFの7〜18・34・151。概要、手帳所持者の推計の表、情報入手手段の表、調査票の最終問））
+- △ law:primary: r2-hs-mext-youryo は一部だけ読了（商業の「簿記」「財務会計Ⅰ」「財務会計Ⅱ」（冊子の323〜327ページ付近））
+- △ law:primary: r2-access-mext-survey2022b は一部だけ読了（1-5, 17-20, 31-36）
+- △ law:primary: r2-teen15-chu-gakushu は一部だけ読了（公民的分野 B私たちと経済（約2850〜3050行）、数学の内容（約3200〜3500行）、家庭分野 C消費生活・環境（約6830行付近））
+- △ law:primary: r2-teen15-chu-kaisetsu-index は一部だけ読了（ページ全体（解説書へのリンク一覧））
+- △ law:primary: r2-teen15-kaisetsu-shakai は一部だけ読了（公民的分野の「私たちと経済」の中項目の解説（本文の約143〜146ページ付近））
+- △ law:primary: r2-designer-soumu-tsushin2024 は一部だけ読了（1-8,16）
+- △ law:primary: r2-teen15-kaisetsu-sugaku は一部だけ読了（第1章 総説の改訂要点と内容一覧（冒頭〜約30ページ付近）（内容一覧の表と、数と式の趣旨の説明を拾い読みした））
+- △ law:primary: r2-teen15-kaisetsu-gijutsukatei は一部だけ読了（家庭分野 C消費生活・環境の解説（約5250〜5400行付近、金銭の管理と購入））
+- △ law:primary: r2-lowvision-mhlw-toukyu は一部だけ読了（1〜3（3ページ全部を開いたが、読んだのは視覚障害の列と表の下の注だけ。聴覚・肢体・内部障害の列は読んでいない））
+- △ law:primary: r2-retaker-curl-1 は取得できず、理由つきで飛ばした（2026-10-21 に決めの道具を通さず curl でリンク先を探すために開いた。中身は読んでいない・根拠にしない）。根拠には使っていないこと
+- △ law:primary: r2-retaker-curl-2 は取得できず、理由つきで飛ばした（2026-10-21 に決めの道具を通さず curl でリンク先を探すために開いた。中身は読んでいない・根拠にしない）。根拠には使っていないこと
+- △ law:primary: r2-retaker-curl-3 は取得できず、理由つきで飛ばした（2026-10-21 に決めの道具を通さず curl でリンク先を探すために開いた。中身は読んでいない・根拠にしない）。根拠には使っていないこと
+- △ law:primary: r2-retaker-curl-4 は取得できず、理由つきで飛ばした（2026-10-21 に決めの道具を通さず curl でリンク先を探すために開いた。中身は読んでいない・根拠にしない）。根拠には使っていないこと
+- △ law:primary: r2-retaker-curl-5 は取得できず、理由つきで飛ばした（2026-10-21 に決めの道具を通さず curl でリンク先を探すために開いた。中身は読んでいない・根拠にしない）。根拠には使っていないこと
+- △ law:primary: r4-law-caa-stema は一部だけ読了（本文（サイト共通のメニュー・フッターを除く））
+- △ law:primary: r4-law-caa-keihin は一部だけ読了（本文（サイト共通のメニュー・フッターを除く））
+- △ law:primary: r4-law-caa-hyouji は一部だけ読了（本文（サイト共通のメニュー・フッターを除く））
+- △ law:primary: r4-law-stema-kijun は一部だけ読了（第2の1(1)（役員・管理職の投稿）・(2)ア(ｴ)（競合への低評価の依頼）・第2の2(1)カ・キ・(2)（取材記事）、追記：第2の2(1)オ注（誤記の修正の依頼）・ク（試供品）・第3の2(2)キ（自社のウェブサイトの一部）・観光大使の例）
+- △ law:primary: r4-law-caa-yuuri は一部だけ読了（本文（サイト共通のメニュー・フッターを除く））
+- △ law:primary: r4-law-caa-yuuryou は一部だけ読了（本文（サイト共通のメニュー・フッターを除く））
+- △ law:primary: r4-law-caa-violation は一部だけ読了（本文（サイト共通のメニュー・フッターを除く））
+- △ law:primary: r4-law-caa-nijuu は一部だけ読了（本文（サイト共通のメニュー・フッターを除く））
+- △ law:primary: r4-law-kakaku-gl は一部だけ読了（第1の2(3)（おとり広告との関係）・第4の5（他の顧客向けの価格との比較）・第6（安さの強調）、追記：第3の2イ・ウ（関連の代金を別に取る・条件の明示）・第4の2(1)イ（将来の価格との比較）・第5の2（割引率・ポイント還元率）・はじめに・第4の2（過去の販売価格等）・第6（安さの強調）。第1〜3・第4の1・第5は未読）
+- △ law:primary: r4-mgmt-mhlw-kissaten は一部だけ読了（1〜2（表1〜5：事業所数・市場規模・喫茶代・飲用場所別のコーヒー杯数）、12（表12 FC加入状況）、14（図2・表15 後継者）、15（図3 土地・建物の所有）、29（図34・表21・表22 今後の経営方針）、31（振興指針 第一の一：営業許可と廃止の件数）。判定書2.6節の4・5・17・18・19を確かめるために読み直した頁だけ・1-24（動向・実態調査の結果）、37-41（経営改善のポイント）。25-36の振興指針の全文は流し読み）
+- △ law:primary: r4-mgmt-caa-foodloss は一部だけ読了（お知らせの本文と添付資料の一覧（ナビゲーションは読まない）。添付の報道発表PDFも取得し同じ内容を確認。経済損失のPDFは取得が403で読めていない）
+- △ law:primary: r4-law-stema-yuushinkai は一部だけ読了（措置命令の本文（違反の事実・命令の内容・周知の方法の承認・教示）と別表、追記：参考1（7条・29条・33条の抄）と教示の取消訴訟の期限・報道発表本文（1〜2ページ）・別表の構成・参考1（条文抜粋）。別紙（投稿画像）と別添の命令書本文は流し読み）
+- △ law:primary: r4-law-keihyo-kaisei2024 は一部だけ読了（改正の全体像（1頁）・確約手続の流れ・返金措置（電子マネー等）・売上額の推計の背景、追記：確約手続の60日・自主返金の利用件数・適格消費者団体の開示要請・1〜3・14〜18・20〜21枚目（確約手続の詳細の4〜13枚目は流し読み））
+- △ law:primary: r4-law-kachoukin-8jou は一部だけ読了（第3（課徴金対象行為）・第4（算定方法）の冒頭と第4の5（加算）・第5（相当の注意）の冒頭・末尾の関係条文）
+- △ law:primary: r4-mgmt-mhlw-koyou は一部だけ読了（「産業別の入職と離職」の本文と表4-1・4-2（図3の棒グラフは表と同じ数字として流し読み））
+- △ law:primary: r4-law-freelance-setsumei は一部だけ読了（背景（実態調査）・対象（定義・副業・従業員の線）・3条の明示・14条のハラスメント体制の頁、追記：3条の未定事項・5条の禁止行為（経済上の利益の提供）・12条（募集情報の的確表示）・16条（30日前の予告）・トラブル110番の年表・1〜6・10〜11・16〜18ページを精読、その他は流し読み）
+- △ law:primary: r4-law-mhlw-haccp-kangae は一部だけ読了（本文（サイト共通のメニュー・フッターを除く））
+- △ law:primary: r4-law-shokuhyo-qa-kakou は一部だけ読了（第2章の加工-1〜加工-36（13〜32ページ））
+- △ law:primary: r4-law-moj-saiken-leaflet は一部だけ読了（消費貸借の見直し（事例3・事例4）、保証の見直し（極度額・公証人の保証意思確認）、定型約款の冒頭、追記：定型約款の変更・敷金の経過措置）
+- △ law:primary: r4-law-hojokin-tekiseika は一部だけ読了（第7条（交付の条件、2項の収益納付）・第10条・第19〜23条・第30〜32条、追記：第9条（申請の取下げ）・第11条2項・第12〜16条（遂行等の章））
+- △ law:primary: r4-mgmt-mhlw-chuka は一部だけ読了（調査の概要（366施設）、図5（従業者規模別施設数）、図6、図7（従業者規模別・営業形態別の構成割合）、表1（1日の客数の階級）・11（図7 従業者規模別・営業形態別）、12（図8 立地条件別の施設数）、13（図10〜12 経営者の年齢・後継者）、14（表1 営業形態別の1日の客数）、15（図14 立地別の1日の客数）、28（図42 今後の経営方針）、58（表8 今後の経営方針）。BIZ-MGMT の判定書2.6節の1・4・5を確かめるために読み直した頁だけ。ほかの頁は無印のノート（BIZ-MGMT 側）が読んでいる・14〜15（表1 営業形態別の1日の客数の階級、図14 立地別の1日の客数）、25（表3 提供しているサービスの内容）、30〜31（振興計画の前の外食の動向。日本政策金融公庫の調査の引用）。BIZ-MKT-RAMEN 版1.1の集客の数字のために読み足した頁だけ。ほかの頁は無印のノートと #growth・#calib のノートが読んでいる・1-24（動向・実態調査の結果）、50-58（課題と改善策）。中国料理の紹介と振興指針は流し読み）
+- △ law:primary: r4-calib-mhlw-shokuchu-idx は取得したが読まない（食中毒統計の一覧の頁（表ファイルへの入口）。表は別に取ったので、これは資料として読まない）。根拠にしない
+- △ law:primary: r4-calib-egov-hojinrei133-2 は一部だけ読了（1項（後半の組織再編成の引き継ぎの項は読んでいない））
+- △ law:primary: r4-calib-egov-fukkou28 は一部だけ読了（1項・2項（後半の上場株式の配当の調整は読んでいない））
+- △ law:primary: r4-calib-egov-hojin42 は一部だけ読了（1項〜4項（適格分割などの後半は読んでいない））
+- △ law:primary: r5-blr-egov-keihyo-rei は一部だけ読了（第1〜19条を読んだ（1・2条の売上額の算定、3〜5条の返金措置の購入額、6〜13条の合併・分割の読み替え、14〜19条の権限の委任）。20条以降の附則は読んでいない）
+- △ law:primary: r5-blr-mhlw-chojikan-r6 は一部だけ読了（1〜6ページ（ポイント・表1〜7・前年度との比較・事例1）。7ページ以降の事例と助成金の案内は流し読み）
+- △ law:primary: r5-blr-mhlw-fubarai-r6 は一部だけ読了（本文の1・2（件数・労働者数・金額、解決の割合）。別紙PDFは別ノート）
+- △ law:primary: r5-blr-mhlw-shokuchu-inshoku は一部だけ読了（1〜14ページ（推移・大規模事例・原因施設別）と32ページ（厚労省の対応）。病因物質別・月別の図は流し読み）
+- △ law:primary: r5-blr-caa-unyou-r7 は一部だけ読了（1〜5ページ（北海道地区の令和7年度の運用状況と主要事件）と参考1の冒頭）
+- △ law:primary: r5-blr-mhlw-fubarai-r6-pdf は一部だけ読了（別紙の1（監督指導状況）・2（業種別）・3の事例1・2。事例3以降と送検事例は読んでいない）
+- △ law:primary: r5-blr-egov-shakuchi は一部だけ読了（第26・27・28・30・31・32・33・37・38・39条（建物の賃貸借））
+- △ law:primary: r5-blr-egov-roukihou は一部だけ読了（第32・36・37・39・41・114・115・119条と附則第143条（時効の経過措置）、追記：第89条（就業規則の作成と届出））
+- △ law:primary: r5-blr-egov-fueihou は一部だけ読了（第1・2条（定義、とくに13項4号の酒類提供飲食店営業）・第3条・第32条・第33条）
+- △ law:primary: r5-blr-egov-shoshinkou は一部だけ読了（第2条（定義）・第4条5項（連鎖化事業の定義）・第11条・第12条）
+- △ law:primary: r5-blr-egov-dokkinhou は一部だけ読了（第2条9項（不公正な取引方法の定義、とくに2・3・5・6号）・第19条・第20条の4、追記：第18条の2（違反行為期間・調査開始日）・第20条の6（優越的地位の濫用の課徴金）を全文で読んだ）
+- △ law:primary: r5-blr-egov-fukyouhou は一部だけ読了（第2条1項1〜3号・4項〜6項（営業秘密の定義）・第3〜5条・第19条（適用除外、とくに普通名称と先使用））
+- △ law:primary: r5-blr-egov-takken は一部だけ読了（第2条（定義）・第3条（免許））
+- △ law:primary: r5-blr-egov-kenpo は一部だけ読了（第3条（定義：1項の被保険者と短時間労働者の除外、3項の適用事業所、5・6項の報酬と賞与））
+- △ law:primary: r5-blr-egov-tousan-kyosai は一部だけ読了（第2条（中小企業者の定義）・第4条（掛金月額）・第5条・第9条（共済金の貸付け））
+- △ law:primary: r5-blr-egov-shokuei-full は一部だけ読了（第51・54・55・56・57・59・60・61条）
+- △ law:primary: r5-blr-egov-minpo-full は一部だけ読了（第606・608・612・621・622条の2（賃貸借）、追記：第465条の6・第465条の9（事業の貸金の保証と公正証書）・第548条の4（定型約款の変更）・第587条の2・第591条（書面の消費貸借と返還の時期）。他の条は読んでいない）
+- △ law:primary: r5-blr-egov-kaisha-full は一部だけ読了（第21・22・199・201・445・467条、追記：第440条（計算書類の公告））
+- △ law:primary: r5-blr-egov-shohi-full は一部だけ読了（第9条（免税）・第29条（税率）・第37条（簡易課税）と、e-Gov の現行版に載る平成28年法律第15号の附則（第34条の軽減税率・飲食料品の定義、第51条の2の2割特例、第51条の3の3割特例、第52条・第53条の免税事業者等からの仕入れの経過措置）、追記：第12条の2（新設法人の特例））
+- △ law:primary: r5-blr-egov-nyukan は一部だけ読了（第19条（在留資格の活動の範囲と資格外活動の許可）・第73条の2（不法就労助長罪））
+- △ law:primary: r5-blr-egov-kenzou は一部だけ読了（第28条（定義）・第29条（喫煙禁止場所）・第33条（喫煙専用室）と、平成30年改正法の附則第2条（既存特定飲食提供施設の特例））
+- △ law:primary: r5-blr-egov-hojin-full は一部だけ読了（第34条1項（役員給与の損金不算入。定期同額給与・事前確定届出給与）、追記：第55条4項（延滞税・加算税・地方税の延滞金の損金不算入）・第55条5項（罰金・科料・過料と、独禁法・金商法・景表法などの課徴金と延滞金の損金不算入。景表法は6号））
+- △ law:primary: r5-blr-egov-shoshinkou-kisoku は一部だけ読了（第10条・第11条（特定連鎖化事業の開示事項））
+- △ law:primary: r5-blr-egov-shokuhyo-kijun は一部だけ読了（第1条（適用範囲）・第2条（定義）・第3条の表（アレルゲン・原料原産地名・栄養成分の省略）・別表第十四（特定原材料））
+- △ law:primary: r5-blr-egov-kounen は一部だけ読了（第6条（適用事業所。1項1号の業種の列挙、2号の法人、3・4項の任意の適用））
+- △ law:primary: r5-blr-egov-sotoku-full は一部だけ読了（第42条の12の4（中小企業経営強化税制）・第42条の12の5（賃上げ税制、とくに2項の中小企業者等）・第70条の7（非上場株式の贈与税の納税猶予）の冒頭・第28条と第66条の11（特定の基金への掛金の必要経費・損金算入）・第61条の4第6〜8項（交際費等の定義・接待飲食費・書類の保存の条件）・第94条（延滞税の割合の特例）・第61条の4第7項（定額控除の明細書））
+- △ law:primary: nta-tsutatsu-7-8 は一部だけ読了（7-8-6の2・7-8-7・7-8-9・7-8-10、追記：7-8-6（災害の特例））
+- △ law:primary: egov-shokuhin-eisei は一部だけ読了（第55条・第58条（sha256は第58条））
+- △ law:primary: egov-sotoku-ho は一部だけ読了（第61条の4・第94条（sha256は第61条の4））
+- △ law:primary: r5-blr-egov-shokuei-rei は一部だけ読了（第35条（許可の要る営業の指定。とくに1号の飲食店営業、24号の麺類製造業、25〜28号のそうざい・冷凍食品、30号の密封包装食品））
+- △ law:primary: r5-blr-courts-035482 は取得したが読まない（裁判所のサイトがメンテナンス中（200 でメンテナンスの案内の HTML が返った）。判例は判例批評・研究・実務者の解説で代える）。根拠にしない
+- △ law:primary: r5-blr-courts-084048 は取得したが読まない（裁判所のサイトがメンテナンス中（200 でメンテナンスの案内の HTML が返った）。判例は判例批評・研究・実務者の解説で代える）。根拠にしない
+- △ law:primary: r5-blr-courts-090999 は取得したが読まない（裁判所のサイトがメンテナンス中（200 でメンテナンスの案内の HTML が返った）。判例は判例批評・研究・実務者の解説で代える）。根拠にしない
+- △ law:primary: r5-growth-jpx-iji-growth は一部だけ読了（本文（グロース市場の時価総額の上場維持基準・算定方法・改善期間）。サイトの共通の案内部分は読んでいない）
+- △ law:primary: r5-growth-jpx-shinki-kijun は一部だけ読了（本文（プライム市場の形式要件と上場審査の内容）。サイトの共通の案内部分は読んでいない）
+- △ law:primary: r5-growth-jpx-shinki-standard は一部だけ読了（本文（スタンダード市場の形式要件と上場審査の内容）。サイトの共通の案内部分は読んでいない）
+- △ law:primary: r5-growth-jpx-shinki-growth は一部だけ読了（本文（グロース市場の形式要件）。サイトの共通の案内部分は読んでいない）
+- △ law:primary: r5-blr-jpx-kairikiya-1s は一部だけ読了（第一部第2の2【事業等のリスク】の全項目（(1)事業環境・(2)事業運営・(3)法的規制・(4)その他）、追記（第4版）：株式公開情報の特別利害関係者等の株式等の移動状況の注1（「上場を予定しておりますが」の語句がある所。上場を予定して出した書類であることの根拠））
+- △ law:primary: r5-blr-egov-toriteki は一部だけ読了（第1条・第2条（定義）・第5条（委託事業者の遵守事項））
+- △ law:primary: egov-hasanho は一部だけ読了（第2・15・22・30・31・149・253条（sha256は第15条））
+- △ law:primary: egov-minji-saisei は一部だけ読了（第172条の3）
+- △ law:primary: egov-kinsho-ho は一部だけ読了（第21条の2・24条の2・24条の4の4・172条の4・193条の2・197条・207条（sha256は第172条の4））
+- △ law:primary: r6-fc-mhlw-seiei-h16-chuka-list は取得したが読まない（平成16年度の結果表の題名の一覧だけで、表の中身（第26表 定員数・第24表 建物の所有名義人）の置き場が頁にない。題名を見るためだけ）。根拠にしない
+- △ law:primary: r9-robots-elaws.e-gov.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ law:primary: r9-robots-laws.e-gov.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ law:primary: r9-robots-www.caa.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ law:primary: r9-robots-www.jpx.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ law:primary: r9-robots-www.mhlw.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ law:primary: r9-robots-www.moj.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ law:primary: r9-robots-www.nta.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ law:primary: r9-robots-www.soumu.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ law:primary: r9-robots-www.zenginkyo.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
 - △ law:primary: nta-sozei-taino-r7 は一部だけ読了（1〜3ページ、7ページ（主要税目別の表））
 - △ law:primary: nta-release-index は一部だけ読了（報道発表資料の一覧から滞納状況のリンクのみ）
 - △ law:primary: courts-tokyo-min20 は一部だけ読了（「事件の受付」「申立ての費用」の項とリンク）
@@ -100,29 +269,1599 @@
 - △ law:primary: egov-kaishaho-sekou-kisoku は一部だけ読了（第100条）
 - △ law:primary: egov-chinkaku-ho は一部だけ読了（第7条）
 - △ law:primary: egov-chinkaku-rei は一部だけ読了（第2条・第3条・第4条（sha256は第4条））
-- △ law:primary: egov-hasanho は一部だけ読了（第2・15・22・30・31・149・253条（sha256は第15条））
-- △ law:primary: egov-minji-saisei は一部だけ読了（第172条の3）
 - △ law:primary: egov-minji-shikko は一部だけ読了（第143条・第180条（sha256は第180条））
 - △ law:primary: egov-kokuzei-tsusoku は一部だけ読了（第37・46・60・65・66・68・70・74条の9・74条の11・75・77条（sha256は第68条））
 - △ law:primary: egov-kokuzei-choshu は一部だけ読了（第39・47・62・68・151・151条の2（sha256は第47条））
 - △ law:primary: egov-hojinzei は一部だけ読了（第31・52・57・61条の8・61条の9・74・127・159条（sha256は第127条））
 - △ law:primary: egov-hojinzei-rei は一部だけ読了（第122条の4・122条の5・122条の7（sha256は第122条の7））
 - △ law:primary: egov-keiho は一部だけ読了（第60条・第62条・第246条（sha256は第246条））
-- △ law:primary: egov-kinsho-ho は一部だけ読了（第21条の2・24条の2・24条の4の4・172条の4・193条の2・197条・207条（sha256は第172条の4））
 - △ law:primary: egov-koueki-tsuho は一部だけ読了（第11条・第21条・第22条（現行版。sha256は第11条））
-- △ law:primary: egov-shokuhin-eisei は一部だけ読了（第55条・第58条（sha256は第58条））
 - △ law:primary: egov-torikitekiho は一部だけ読了（第1・2・4・5・6条（sha256は第5条））
 - △ law:primary: egov-gaitame-ho は一部だけ読了（第55条）
 - △ law:primary: egov-gaitame-rei は一部だけ読了（第18条の4）
 - △ law:primary: egov-gaitame-hokoku-shorei は一部だけ読了（第1条）
-- △ law:primary: egov-sotoku-ho は一部だけ読了（第61条の4・第94条（sha256は第61条の4））
 - △ law:primary: egov-shohizei-ho は一部だけ読了（第42条・第45条（sha256は第45条））
 - △ law:primary: egov-zeirishi-ho は一部だけ読了（第36条・第45条（sha256は第45条））
 - △ law:primary: egov-tegata-ho は一部だけ読了（第43条・第77条（sha256は第77条））
 - △ law:primary: egov-roudou-keiyaku は一部だけ読了（第16条）
 - △ law:primary: egov-kashikingyo-ho は一部だけ読了（第21条）
 - △ law:primary: egov-servicer-ho は一部だけ読了（第18条）
+- △ web:learnsci: theory-gee2004-learningbydesign は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: child-mext-gakushu-kokugo は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:learnsci: child-mext-gakushu-shakai は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:learnsci: child-mext-gakushu-sansu は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:learnsci: r2-theory-dunlosky2013 は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r2-theory-dunlosky2013b は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r6-rp-higham-relearning は取得に失敗した（401・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r6-rp-reisslein2006-expertise-reversal は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-documents1.worldbank.org は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-learninglab.psych.purdue.edu は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-mud.co.uk は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-myweb.fsu.edu は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-ndownloader.figshare.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-ocw.metu.edu.tr は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-raco.cat は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-users.cs.northwestern.edu は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-www.davidlewisphd.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-www.jenovachen.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-www.pref.miyagi.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r9-robots-www.rehab.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r10-robots-api.crossref.org は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: clark2016-digital-games-meta は一部だけ読了（本文をすべて（要旨・序論・方法・結果・考察・限界・注・著者紹介）。参考文献の一覧と表の脚注の一部は読んでいない）
+- △ web:learnsci: theory-mext-fte2023 は一部だけ読了（1〜2ページ（教員用調査票の前半、質問1〜16の手前まで））
+- △ web:learnsci: child-mext-kanji-haitou は一部だけ読了（表の本体のうち、簿記・会計・お店・会社の言葉に出る漢字約250字の行（学年と、小・中・高の読み方の段階つき）を、位置情報つきの文字抽出で一つずつ引いた。1〜2ページの備考と最後の付表も読んだ）
+- △ web:learnsci: theory-mext-fte2023-summary は一部だけ読了（本文の文字は1〜16ページすべて。図表5〜30（画像のグラフ）は見ていない）
+- △ web:learnsci: theory-gamification-sailer2020 は取得できず、理由つきで飛ばした（Augsburgリポジトリが接続を切る、Springerはrobotsで禁止。代わりにLi ほか2023のメタ分析を読む）。根拠には使っていないこと
+- △ web:learnsci: designer-klopfer-mlgf2009 は一部だけ読了（1-5, 16-17, 25-33）
+- △ web:learnsci: notes/web/learnsci/theory-koster-fun10-2012.md は文字のない PDF（138ページ）。語句では照合できない（画像として見たと申告：1-138）
+- △ web:learnsci: theory-clark2016-games-meta は取得したが読まない（PMC は自動取得の利用者名だと reCAPTCHA の画面しか返さず、PDF も HTML も中身のない殻だった。読んでいない。代わりに同じ研究の SRI の要約（theory-clark2014-sri-summary）を読む）。根拠にしない
+- △ web:learnsci: designer-bruckman-gdc1999 は取得できず、理由つきで飛ばした（faculty.cc.gatech.edu と www.cc.gatech.edu のどちらも TLS 証明書の検証に失敗し（unable to get local issuer）、検証を外さずには取得できない。他のオープンな置き場所も見つからなかった。代わりに Klopfer ほか 2009（MIT Education Arcade）を読む）。根拠には使っていないこと
+- △ web:learnsci: child-mext-shidouyouryou-shou は一部だけ読了（国語の第5・6学年（34ページ付近）、社会の第3学年の内容⑵、算数の第4・5学年の「変化と関係」（85ページ付近））
+- △ web:learnsci: access-wood2018-tts は一部だけ読了（抄録・序論・方法・結果・考察・結論・注（本文すべて）。表1の各研究の行と文献リストは読んでいない）
+- △ web:learnsci: access-japanese-dyslexia-two-scripts は一部だけ読了（抄録・序論・方法・結果・考察・結論（本文すべて）。文献リストと補足資料は読んでいない）
+- △ web:learnsci: access-mext-2022-survey は一部だけ読了（1-2, 7, 12, 15, 18, 22-26, 29, 31-36）
+- △ web:learnsci: access-mext-onkun-warifuri は一部だけ読了（1（備考）、表は字を引くために全ページを機械で読み取り、目で確かめたのは 1-2・50-51 と、簿記の語に使われる字の行）
+- △ web:learnsci: r2-theory-clark2016 は取得したが読まない（PMC が reCAPTCHA の確認画面しか返さず本文が取れなかった（2回））。根拠にしない
+- △ web:learnsci: r2-theory-weinstein2018 は一部だけ読了（本文（要旨〜結論）を全部。参考文献一覧とページの飾り部分は読んでいない）
+- △ web:learnsci: r2-theory-wisniewski2020 は一部だけ読了（本文（要旨・序論・方法・結果・考察・結論）と調整変数の表。参考文献と付録は読んでいない）
+- △ web:learnsci: r2-theory-murre2015 は取得したが読まない（PMC が reCAPTCHA の確認画面しか返さず本文が取れなかった）。根拠にしない
+- △ web:learnsci: r2-theory-panadero2017 は一部だけ読了（本文（要旨〜結論・注）を全部。表の細部、参考文献一覧は読んでいない）
+- △ web:learnsci: r2-theory-sailer2020 は一部だけ読了（本文（要旨〜結論）を全部。表、参考文献一覧、関連記事欄は読んでいない）
+- △ web:learnsci: r2-theory-sweller2019 は一部だけ読了（本文（要旨〜結論）を全部。表1の細部、参考文献一覧は読んでいない）
+- △ web:learnsci: r2-theory-pan2023 は一部だけ読了（本文（要旨〜結論と今後の方向）を全部。表、参考文献一覧、関連記事欄は読んでいない）
+- △ web:learnsci: r2-theory-latimier2021 は一部だけ読了（要旨だけ（本文は購読制で取れなかった））
+- △ web:learnsci: r2-theory-agarwal2021 は一部だけ読了（要旨だけ（本文は購読制で取れなかった））
+- △ web:learnsci: r2-theory-pashler2007 は一部だけ読了（1-33（概要・推奨1〜7・結論）を全部、35-42（付録の技術情報）は拾い読み。参考文献（43以降）は読んでいない）
+- △ web:learnsci: r2-access-jasso-ld は一部だけ読了（限局性学習症の章の本文（ページ後半のサイトのメニューは読んでいない））
+- △ web:learnsci: r2-theory-clark2016b は一部だけ読了（本文（要旨〜考察・限界・結論）を全部。図表の数値の一部と参考文献一覧は読んでいない（PMC は確認画面しか返さなかったので Europe PMC の全文XMLで読んだ））
+- △ web:learnsci: r2-theory-murre2015b は一部だけ読了（本文（序論・方法・結果・考察・結び）を全部。表の数値と参考文献一覧は読んでいない（PMC は確認画面しか返さなかったので Europe PMC の全文XMLで読んだ））
+- △ web:learnsci: r2-designer-stat-shakai2021 は一部だけ読了（1,17,27-29,42）
+- △ web:learnsci: r4-sim-bbr2018-debriefing は一部だけ読了（英語の要旨・序論・理論・方法・結果と考察・結論・限界（参考文献の一覧は冒頭だけ）。図表は本文の記述で代えた）
+- △ web:learnsci: r6-rp-cepeda2006-meta は一部だけ読了（本文（序論・方法・結果と考察・総合考察・教育への含み・限界・まとめ）と表1〜10の見出しと数。参考文献の一覧と付録の図は読んでいない）
+- △ web:learnsci: r6-rp-kent-rawsonlab-pubs は取得したが読まない（研究室の論文一覧のページで、目当ての論文（Rawson & Dunlosky 2011・2013）の PDF の公開がなかった。探索のためだけに開いた）。根拠にしない
+- △ web:learnsci: r6-rp-dunlosky-itow-relearning は取得できず、理由つきで飛ばした（UNH のページへの接続が TLS の確認で失敗し取得できなかった（status 0）。逐次再学習の数字は Higham ら（エセックス大学の機関リポジトリ）の原文で代える）。根拠には使っていないこと
+- △ web:learnsci: r6-rp-latimier2021-full は一部だけ読了（要旨と参考文献の一覧だけ（本文は購読制で表示されない。出版社のページを取り直したが、全文は取れなかった））
+- △ web:learnsci: r6-rp-higham2021-relearning は一部だけ読了（本文（序論・方法・結果・考察・限界・結論）と表1はすべて。参考文献は全部、表2以降と図は本文の説明で読んだ）
+- △ web:learnsci: r6-rp-obrien2019-enjoyagain は一部だけ読了（本文をすべて（要旨・序論・研究1〜7の方法と結果・総合考察・今後の課題）。参考文献の一覧は読んでいない・本文（序論・研究1〜7・総合考察・今後の課題）はすべて。参考文献の一覧は最初と最後だけ）
+- △ web:learnsci: r9-robots-arxiv.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-blogs.ubc.ca は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-documents.worldbank.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-education.mit.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-eprints.soton.ac.uk は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-faculty.engineering.asu.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-ies.ed.gov は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-journals.plos.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-jumonji-u.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-khoury.northeastern.edu は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:learnsci: r9-robots-link.springer.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-lostgarden.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-magic.wizards.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-ntnu.no は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-opus.bibliothek.uni-augsburg.de は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:learnsci: r9-robots-pdf.poojaagarwal.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-peer.asee.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-pmc.ncbi.nlm.nih.gov は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-psychnet.wustl.edu は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:learnsci: r9-robots-public.websites.umich.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-remix.berklee.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-repositorio.iscte-iul.pt は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-repository.essex.ac.uk は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-research.ou.nl は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-selfdeterminationtheory.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-shura.shu.ac.uk は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-summit.sfu.ca は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-takushoku-u.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.aft.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.ebi.ac.uk は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.edu.hokudai.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.evullab.org は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:learnsci: r9-robots-www.frontiersin.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.gwern.net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.irrodl.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.jasso.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.jesperjuul.net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.kent.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.nature.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.psychologie.uni-wuerzburg.de は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.raphkoster.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.scielo.br は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.sri.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r9-robots-www.unh.edu は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:learnsci: r9-robots-www.utupub.fi は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r10-robots-ifp.nyu.edu は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:learnsci: r10-robots-api.openalex.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:learnsci: r10-rr-crossref-latimier2021 は取得したが読まない（書誌の API の応答を開いたが、要旨（abstract）の欄がなく、主張を支える中身がない。根拠に使わない（Latimier 2021 の要旨の別の置き場を探した記録））。根拠にしない
+- △ web:learnsci: r10-rr-openalex-latimier2021 は取得したが読まない（書誌の API の応答を開いたが、要旨（abstract）の欄がなく、主張を支える中身がない。根拠に使わない（Latimier 2021 の要旨の別の置き場を探した記録））。根拠にしない
+- △ web:learnsci: r10-robots-educationalneuroscience.org.uk は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:acctedu: accountant-genka-higenka は取得に失敗した（429）。読んでいないので根拠にしない
+- △ web:acctedu: r2-teen15-miyazaki-koumin は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:acctedu: r2-teen15-gifu-koumin は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:acctedu: r9-robots-files.eric.ed.gov は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:acctedu: r9-robots-www.city.tomakomai.hokkaido.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:acctedu: accountant-asbj-29-revenue は一部だけ読了（5-18（会計基準本文の第1項〜第80-4項。結論の背景・注記の詳細・経過措置は未読））
+- △ web:acctedu: accountant-asbj-9-inventory は一部だけ読了（3-8（会計基準本文の第1項〜第22-2項。結論の背景と計算例は未読））
+- △ web:acctedu: accountant-asbj-22-consolidation は一部だけ読了（5-13（会計基準本文の第1項〜第44項。結論の背景は未読））
+- △ web:acctedu: hs-zensho-guideline-r8 は一部だけ読了（一部（本文参照））
+- △ web:acctedu: hs-zensho-pastexams は一部だけ読了（一部（本文参照））
+- △ web:acctedu: accountant-genka-kijun は一部だけ読了（本文（原価計算基準の設定についての前文と、第一章〜第五章の項目一覧）。サイトのメニュー等は対象外）
+- △ web:acctedu: accountant-genka-honshitsu は一部だけ読了（本文（原価計算基準 三 原価の本質の条文）。サイトのメニュー等は対象外）
+- △ web:acctedu: accountant-genka-shison は一部だけ読了（本文（原価計算基準 二七 仕損および減損の処理の条文）。サイトのメニュー等は対象外）
+- △ web:acctedu: accountant-genka-haifu は一部だけ読了（本文（原価計算基準 三三 間接費の配賦の条文）。サイトのメニュー等は対象外）
+- △ web:acctedu: accountant-genka-sai-hyojun は一部だけ読了（本文（原価計算基準 四六 標準原価計算制度における原価差異の条文）。サイトのメニュー等は対象外）
+- △ web:acctedu: accountant-genka-sai-shori は一部だけ読了（本文（原価計算基準 四七 原価差異の会計処理の条文）。サイトのメニュー等は対象外）
+- △ web:acctedu: hs-zensho-102-acc は一部だけ読了（一部（本文参照））
+- △ web:acctedu: hs-zensho-102-cos は一部だけ読了（一部（本文参照））
+- △ web:acctedu: hs-zensho-102-ans は一部だけ読了（一部（本文参照））
+- △ web:acctedu: hs-zensho-101-acc は一部だけ読了（一部（本文参照））
+- △ web:acctedu: accountant-asbj-34-lease は一部だけ読了（5-11（会計基準本文の第1項〜第53項。注記の詳細・適用時期・結論の背景は未読））
+- △ web:acctedu: r2-teen15-wikibooks-kigyo は一部だけ読了（ページ全体のうち株式会社・資本金・配当・中小企業の節を中心に読んだ）
+- △ web:acctedu: r2-teen15-wikibooks-boeki は一部だけ読了（ページ全体の前半（予備知識、円高と円安、貿易摩擦の初めまで））
+- △ web:acctedu: r9-robots-aichiu.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-cuc.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-doshisha.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-hakodate-u.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-hrmars.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-hue.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-ipu.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-ja.wikibooks.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-k-kentan.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-keiho.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-komazawa-u.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-kurume.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-kwansei.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-matsumoto-u.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-ngu.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-our.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-pesaagora.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-saijo.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-sakushin-u.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-seinan-gu.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-www.asb-j.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-www.pref.gifu.lg.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-www.pref.miyazaki.lg.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-yamanashi.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-ynu.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:acctedu: r9-robots-zensho.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
 - △ web:boki2content: lec-topic33066 は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:boki2content: r2-learner-shakai2021 は一部だけ読了（9, 18-20）
+- △ web:boki2content: r9-robots-amamatsusae.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-arte-life.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-comchama.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-conyblog.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-dokuboki.hateblo.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-igcn.hateblo.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-keiri.hatenablog.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-maitake-blog.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-maruoka88.hateblo.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-pboki.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-play.google.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-sasanopan.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-wakabame.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-www.crear-ac.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-www.lec-jp.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-www.net-school.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:boki2content: r9-robots-www.sendaicci.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
 - △ web:simgames: panasonic-smg-202405 は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:simgames: accountant-wiki-managementgame は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:simgames: r3-fable-wiki-ftl は取得に失敗した（429・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r4-sim-gamespark-bigambitions は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r4-cinc-robots-www-sidelabs-com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r4-cinc-robots-toucharcade-com は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r4-cinc-robots-minnano-rakuraku-com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r4-cinc-robots-apps-appfollow-io は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r4-cinc-tos-note は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r4-cinc-4gamer-news は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:simgames: r5-cinc-robots-apps-appfollow-io は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r5-cinc-tos-appfollow は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r5-cinc-tos-note は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r5-cinc-robots-corp-cfy-jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r5-cinc-robots-fahadanjum611-exblog-jp は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r5-fv-wikiwiki-ramenkan は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r5-fv-toucharcade-csforever は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r6-rp-rpgamer-nier は取得に失敗した（403）。読んでいないので根拠にしない
+- △ web:simgames: r6-rp-applion-deadcells-p1 は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:simgames: r6-sd-appunwrapper-alliot は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r6-fc-gdt-modapi-helpers-utils-js は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r6-fc-gdt-modapi-api-notifications-js は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r7-sd-oreilly-designinggames は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-1.bp.blogspot.com は取得に失敗した（400・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-2.bp.blogspot.com は取得に失敗した（400・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-cdn.aaai.org は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-fenix.tecnico.ulisboa.pt は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-hovgaardgames.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-is1-ssl.mzstatic.com は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-kkawano.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-mkremins.github.io は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-panasonic.co.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-raw.githubusercontent.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-search.r-project.org は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-www.andrewwillmott.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-www.bugin-eri.co.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-www.cuc.ac.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-www.failbettergames.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-www.greenheartgames.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-www.insource.co.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r9-robots-www.mgtco.co.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r10-robots-gamebanshee.com は取得に失敗した（301・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r10-tos-tpr は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r10-robots-toucharcade.com は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r3-fable-wiki-slay-the-spire は一部だけ読了（Gameplay・Development の節（Reception・References は読んでいない））
+- △ web:simgames: r3-fable-wiki-hades は一部だけ読了（Gameplay・Plot の節（Development・Reception は読んでいない））
+- △ web:simgames: r3-fable-wiki-roguelike は一部だけ読了（本文をすべて（冒頭・Origin・Gameplay and design の4節・History の全節・Community）。参考文献の一覧は読んでいない・「Roguelites and procedural death labyrinths」「Subgenres within roguelikes」の節だけ）
+- △ web:simgames: r4-sim-gdt-modapi-readme は取得したが読まない（README は wiki への案内だけ（487バイト）で中身がない。wiki は github.com 側で取得できない（403）。根拠に使わない）。根拠にしない
+- △ web:simgames: r4-sim-gdt-modapi-events は取得したが読まない（327バイトで中身がほぼない（イベントの追加口の雛形だけ）。根拠に使わない）。根拠にしない
+- △ web:simgames: r4-sim-emshort-storylets は一部だけ読了（本文の全部（定義・分岐の型・ゲームの型・資料）。コメント欄は冒頭の数件だけ）
+- △ web:simgames: r4-sim-emshort-beyondbranching は一部だけ読了（本文の全部と、コメント欄のうち著者が数値の決め方に答えた返事（2016-04-28）まで。後半のピンバックは読んでいない）
+- △ web:simgames: r4-sim-soren-waterfinds は一部だけ読了（コラムの本文の全部と、コメント欄の前半（2019年の長いコメントの途中まで））
+- △ web:simgames: r4-sim-lemonade-ts2068 は一部だけ読了（ページの解説（Program Analysis の全節）と、ソースの一覧の冒頭（行10〜530）。ソースの後半は解説で代えた）
+- △ web:simgames: r4-sim-lemonade-apple1979 は一部だけ読了（ディスクイメージから取り出した BASIC の一覧（384行）のうち、計算・判断・事件・遊び方の説明の行。画面の絵と音楽の行は読んでいない）
+- △ web:simgames: r4-sim-absel-goldpray-redux は取得できず、理由つきで飛ばした（ABSEL の論文誌サイト（absel-ojs-ttu.tdl.org）が保守中で、全ページが tdl.org の保守の案内に転送される（2026-10-22 確認）。Gold/Pray の需要モデルの論文は読めず、根拠に使わない）。根拠には使っていないこと
+- △ web:simgames: r4-sim-openrct2-ride は一部だけ読了（点検の間隔の表、「Breakdown and inspection functions」の節（点検・年数の罰・故障の判定・故障の種類の選び方）、修理の関数 RideFixBreakdown。ほかの部分（乗り物の運行・客・評価）は読んでいない）
+- △ web:simgames: r4-sim-gamingtrend-reigns は一部だけ読了（聞き取りの本文の全部。ページの下の関連記事の一覧は読んでいない）
+- △ web:simgames: r4-sim-denfami-kairosoft は一部だけ読了（2ページ目（社名の由来・開発体制・「現実を完璧にシミュレートしない」・家庭用ゲーム機への参入の節）。1ページ目（生い立ち・投稿時代・未完作）は取得して冒頭を読んだが、根拠には使わない）
+- △ web:simgames: r4-sim-wiki-detroit は一部だけ読了（本文をすべて（冒頭・Gameplay・Plot・Development・Release・Reception・Sales・Accolades の見出しと本文・Legacy）。受賞の表と参考文献は読んでいない・冒頭の要約、Gameplay の節、Reception の評価の段落（2つ）。開発・物語・売上の節は読んでいない）
+- △ web:simgames: r4-cinc-robots-apps-apple-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-sidelabsblog-substack-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-note-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-zenn-dev は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-game-watch-impress-co-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-www-4gamer-net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-rawg-io は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-sim-soren-otc-eapostmortem は一部だけ読了（本文の全部と、コメント欄の最初の2件（読者の批判と著者の返事））
+- △ web:simgames: r4-cinc-tos-substack は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-tos-zenn は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-tos-apple は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-www-levelwinner-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-gamingroute-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-games-appmatch-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-www-macstories-net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-iphonesoft-fr は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-sidelabs-home は取得したが読まない（取得後に開発元の利用規約（Terms of Use 2. Acceptable Use）が bots・scraping 等の自動手段での閲覧を禁じていると判明。読まない・根拠に使わない。以後 sidelabs.com は取らない）。根拠にしない
+- △ web:simgames: r4-cinc-zenn-messos は一部だけ読了（記事本文の全部（概要・豆・出店・広告・宣伝・人事・オフィス・商品開発・技術部・安定後・感想）。サイトの見出し・フッターは除く）
+- △ web:simgames: r4-cinc-levelwinner-guide は一部だけ読了（記事本文の全部（初期設定・立地と都市別の表・競合・内外装と機材・ブレンド・店長・オフィス・広告・株・拡張・資金調達・新聞と法律）。コメント欄・関連記事は除く）
+- △ web:simgames: r4-cinc-gamingroute-guide は一部だけ読了（記事本文（始め方・資金・出店・オフィス・投資・人材・仕組みの一覧・競合への対応・店の運営・指標・変化への対応）。広告・関連記事欄は除く）
+- △ web:simgames: r4-cinc-appmatch は一部だけ読了（攻略記事の本文（初心者向け・無課金・課金・攻略のポイント・規模の上げ方・まとめ・編集部レビュー・ゲーム紹介）。サイト下部の他記事の口コミ欄は除く）
+- △ web:simgames: r4-cinc-denfami-news は一部だけ読了（ニュース記事の本文（見出し・導入・特徴・SNSの反応・価格と対応機種）。サイドの記事一覧・広告は除く）
+- △ web:simgames: r4-cinc-gamewatch は一部だけ読了（記事本文の全部（導入・経営のゲームシステム・店長から経営者へ・上場と株・財務諸表・拡張パック・まとめ）。サイトのランキング・広告欄は除く）
+- △ web:simgames: r4-cinc-4gamer は一部だけ読了（ゲームの基礎情報の欄と「ゲーム紹介」（配信元の紹介文をそのまま載せた欄）と最新記事の見出し。サイトのナビ・読者スコア欄（0件）は除く）
+- △ web:simgames: r4-cinc-tos-sidelabs は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-apple-appstore は取得できず、理由つきで飛ばした（apps.apple.com は Apple の Website Terms of Use が robot・spider・page-scrape 等の自動取得を禁じるため取らない）。根拠には使っていないこと
+- △ web:simgames: r4-cinc-substack-blog は取得できず、理由つきで飛ばした（開発者ブログ（sidelabsblog.substack.com）は Substack 利用規約が crawl・scrape・spider を禁じるため取らない）。根拠には使っていないこと
+- △ web:simgames: r4-cinc-note-posts は取得できず、理由つきで飛ばした（note.com は利用規約ページが本ツールに 403 を返し規約を確認できないため、開発者・攻略者の note 記事は取らない）。根拠には使っていないこと
+- △ web:simgames: r4-cinc-robots-dime-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-appget-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-applion-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-appreview-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-dime-interview は一部だけ読了（記事の1ページ目（経営シミュレーションの紹介と Coffee Inc 2 の開発者の談話、作品紹介）。2ページ目以降（ほかのゲームの紹介）は取得していない）
+- △ web:simgames: r4-cinc-appget-review は一部だけ読了（レビュー記事の本文（どんなゲームか・魅力・序盤の遊び方・攻略のコツ・良い点と悪い点）。サイトのナビ・基本データ欄・広告は除く）
+- △ web:simgames: r4-cinc-applion-reviews は一部だけ読了（口コミ一覧のうち、このページに載っていた評価つきの口コミ（2021年12月〜2026年8月、およそ15件）。サイトのナビ・ほかのアプリの紹介は除く）
+- △ web:simgames: r4-cinc-appreview は一部だけ読了（口コミの一覧（このページに載っていた約25件。APPLION と重なる口コミが数件ある）。途中の商品広告・サイトのナビは除く）
+- △ web:simgames: r4-cinc-minnano は一部だけ読了（記事本文（概要・特徴1〜3・対応機種・料金・まとめ）。途中に挟まるほかの記事の紹介と広告は除く）
+- △ web:simgames: r4-cinc-macstories-arcade は一部だけ読了（記事のうち Apple Arcade の節（2026年6月の新作4本の紹介）。Apple TV の番組・映画の節は読んだが根拠に使わない）
+- △ web:simgames: r4-cinc-robots-applizm-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-robots-chi-tara-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r4-cinc-applizm-office は一部だけ読了（攻略記事の本文のみ（サイトのナビ・攻略記事の目次・おすすめゲーム欄・関連記事は除く））
+- △ web:simgames: r4-cinc-chitara-early は一部だけ読了（序盤攻略の記事本文（店舗選定・テナント・設備・店長・融資・豆・まとめ）。関連記事の一覧とサイドの目次は除く）
+- △ web:simgames: r4-cinc-applizm-inc2-kabusiki は一部だけ読了（攻略記事の本文のみ（サイトのナビ・攻略記事の目次・おすすめゲーム欄・関連記事は除く））
+- △ web:simgames: r4-cinc-applizm-keiribu は一部だけ読了（攻略記事の本文のみ（サイトのナビ・攻略記事の目次・おすすめゲーム欄・関連記事は除く））
+- △ web:simgames: r4-cinc-applizm-shouhinkaihatsu は一部だけ読了（攻略記事の本文のみ（サイトのナビ・攻略記事の目次・おすすめゲーム欄・関連記事は除く））
+- △ web:simgames: r4-cinc-applizm-inc2-bukken は一部だけ読了（攻略記事の本文のみ（サイトのナビ・攻略記事の目次・おすすめゲーム欄・関連記事は除く））
+- △ web:simgames: r4-cinc-applizm-inc2-tentyou は一部だけ読了（攻略記事の本文のみ（サイトのナビ・攻略記事の目次・おすすめゲーム欄・関連記事は除く））
+- △ web:simgames: r4-cinc-applizm-kojinsisan は一部だけ読了（攻略記事の本文のみ（サイトのナビ・攻略記事の目次・おすすめゲーム欄・関連記事は除く））
+- △ web:simgames: r4-cinc-applizm-sendenbu は一部だけ読了（攻略記事の本文のみ（サイトのナビ・攻略記事の目次・おすすめゲーム欄・関連記事は除く））
+- △ web:simgames: t-test は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（test））。根拠には使っていないこと
+- △ web:simgames: r5-cinc-robots-store-steampowered-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-robots-steamcommunity-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-robots-toyokeizai-net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-robots-www-taptap-io は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-robots-rawg-io は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-robots-www-reddit-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-robots-appgoblin-info は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-tos-steam-ssa は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-tos-rawg は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-tos-appgoblin は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-tos-reddit は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-tos-toyokeizai は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-tos-appgoblin-privacy は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-steam-search は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（Steam Subscriber Agreement 4.C Automation が scripts・bots 等による Steam の Content and Services との一切のやり取りを禁止（ledger r5-cinc-tos-steam-ssa）。Coffee Inc 2 の Steam 版の有無の確認だけを依頼））。根拠には使っていないこと
+- △ web:simgames: r5-cinc-steamcommunity は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（Steam Subscriber Agreement 4.C Automation（steamcommunity.com も Steam の Services。ledger r5-cinc-tos-steam-ssa）））。根拠には使っていないこと
+- △ web:simgames: r5-cinc-reddit は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（Reddit User Agreement が書面の同意のないスクレイピングを禁止し、robots.txt は User-agent * に Disallow /（ledger r5-cinc-tos-reddit・r5-cinc-robots-www-reddit-com）。攻略スレッド（競合・買収・上場・株価の観察）を数本））。根拠には使っていないこと
+- △ web:simgames: r5-cinc-rawg は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（RAWG Terms of Use が robot・spider・scraper 等による自動アクセスを明示的な許可なしに禁止（ledger r5-cinc-tos-rawg）））。根拠には使っていないこと
+- △ web:simgames: r5-cinc-taptap は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（taptap.io の robots.txt が User-agent ClaudeBot に Disallow /（本ツールは Claude が動かすため従う。ledger r5-cinc-robots-www-taptap-io）。説明文とプレイヤーの評価））。根拠には使っていないこと
+- △ web:simgames: r5-cinc-toyokeizai は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（東洋経済オンライン利用規約 第3条(5) がロボット・クローラー等の自動化された手段による収集・抽出を禁止、(6)(7) が AI による要約等を禁止（ledger r5-cinc-tos-toyokeizai）。開発者（日本人1人の開発）を扱った記事））。根拠には使っていないこと
+- △ web:simgames: r5-cinc-robots-coffeelovers101-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-robots-mugazine-info は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-appgoblin-ci2 は一部だけ読了（アプリの概要の欄（推定のインストール数・評価数・公開日・最終更新日）と、App Store の説明文の写し（見出しと箇条書き18項目）。サイトのナビ・SDK の欄は除く）
+- △ web:simgames: r5-cinc-appgoblin-ci2plus は一部だけ読了（概要の欄と、App Store の説明文の写し（見出し・導入・箇条書き17項目）。ナビ・SDK の欄は除く）
+- △ web:simgames: r5-cinc-coffeelovers101 は一部だけ読了（記事本文（導入・初期設定・立地・豆・宣伝・人・勝ち方・全レベル・利益・よくある質問・まとめ）。サイトのナビ・広告・関連記事は除く）
+- △ web:simgames: r5-cinc-note-umpo は一部だけ読了（記事本文（目標・順番・店の展開・重役の入れ替え・ベンチャー投資の選び方・上場と売却・おまけ）。note のナビ・おすすめ欄は除く）
+- △ web:simgames: r5-cinc-note-araki は一部だけ読了（記事本文（上場の条件・最初にすること・地域・ローン・豆・店の展開・店長・注意点・商品開発・株で一発・まとめ）。note のナビ・おすすめ欄は除く）
+- △ web:simgames: r5-cinc-applizm-guide は一部だけ読了（記事本文（序盤の流れ8項目と攻略のコツ4項目）。サイトのナビ・ほかの記事の一覧は除く）
+- △ web:simgames: r5-cinc-mugazine は一部だけ読了（記事本文（導入・ブランド・店長・部署・つまずき3つ・課金と感想）。サイトのナビ・ほかの記事・書籍の広告は除く）
+- △ web:simgames: r5-cinc-applizm-ceo は一部だけ読了（記事本文（取締役室でできること：取締役会、COO・CFO・CPO・CMO・CTO の雇用と委任の範囲、雇い方）。ナビ・ほかの記事は除く）
+- △ web:simgames: r5-cinc-applizm-gijutubu は一部だけ読了（記事本文（技術部でできること：会員・モバイル決済・配達・自社アプリ・版の更新・CTO）。ナビ・ほかの記事は除く）
+- △ web:simgames: r5-cinc-applizm-tousibu は一部だけ読了（記事本文（投資部でできること：ポートフォリオ、ベンチャーのリサーチ、CFO への委任）。ナビ・ほかの記事は除く）
+- △ web:simgames: r5-cinc-applizm-jinjibu は一部だけ読了（記事本文（人事部でできること：各国の店の一括管理、福利厚生、COO への委任）。ナビ・ほかの記事は除く）
+- △ web:simgames: r5-cinc-applizm-bentya-kakutyou は一部だけ読了（記事本文（ベンチャー企業拡張パックでできること：ベンチャーへの投資、テックショー）。ナビ・ほかの記事は除く）
+- △ web:simgames: r5-cinc-applizm-hudousan-business は一部だけ読了（記事本文（不動産ビジネス拡張パックでできること：物件の購入、別荘）。ナビ・ほかの記事は除く）
+- △ web:simgames: r5-cinc-tos-appfollow-terms は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r5-cinc-appfollow-us は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（AppFollow Terms（https://appfollow.io/terms）4.4 がサービスからのスクレイピング・収集を書面の同意なしに禁止（商用の文脈だが明示の禁止として扱う）、4.2 が機械学習への利用も禁止（ledger r5-cinc-tos-appfollow-terms）。米国 App Store の口コミと開発者の返信の一覧））。根拠には使っていないこと
+- △ web:simgames: r5-fv-wiki-kairosoft は一部だけ読了（本文（概要・歴史の2節）と参考文献の一覧。作品一覧の表は読んでいない）
+- △ web:simgames: r5-fv-jawiki-kairosoft は一部だけ読了（冒頭の概要・社名の由来・歴史（投稿時代〜家庭用機への参入、Unity の騒動）と、初期作品の一覧の冒頭。マルチプラットフォーム作品の一覧表は読んでいない）
+- △ web:simgames: r5-fv-gamespark-ramenkan は一部だけ読了（記事本文（Steam 配信の告知の3段落）。サイトのナビ・関連記事の一覧は読んでいない）
+- △ web:simgames: r5-fv-appbank-gurume は一部だけ読了（レビュー記事の本文（導入・メニュー開発・食材の集め方・求人・多店舗・総括）。サイトのカテゴリ一覧・他記事は読んでいない）
+- △ web:simgames: r5-fv-gd-gamedevstory は一部だけ読了（記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-wiki-gamedevtycoon は一部だけ読了（概要・遊び方・改造の対応・海賊版対策・評価の要約の節。表と参考文献は読んでいない）
+- △ web:simgames: r5-fv-greenheart-onemonth は一部だけ読了（記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-digdl-gamedevtycoon は一部だけ読了（記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-matchstick-offworld は一部だけ読了（記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-wiki-offworld は一部だけ読了（記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-capilab-beginners は一部だけ読了（地図の偵察（賃金・地価・人通りの色の重ね表示・輸送費）、港からの部品の輸入、余った生産の行き先、借入と株式、工場の大きさと需給の棒、評価（値段・品質・ブランドの重み）、陳腐化、研修、役員、原料と農場の節。それより後ろの節は読んでいない）
+- △ web:simgames: r5-fv-capilab-strategies は一部だけ読了（記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-capilab-monopolistic は一部だけ読了（記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-sixthaxis-twopoint は一部だけ読了（記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-wiki-twopointhospital は一部だけ読了（概要・遊び方・開発（絵・音・オンライン）・発売と追加の内容・評価の節。参考文献の一覧は読んでいない）
+- △ web:simgames: r5-fv-wiki-goodpizza は一部だけ読了（概要・遊び方・開発・発売・評価の節。参考文献の一覧は読んでいない）
+- △ web:simgames: r5-fv-pmq-goodpizza は一部だけ読了（記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-gamemaker-csd は一部だけ読了（記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-wiki-csd は一部だけ読了（概要・遊び方・開発・評価・続編の節。参考文献は読んでいない）
+- △ web:simgames: r5-fv-indieranger-startup は取得したが読まない（取得した中身はウェブアーカイブの抜粋（他記事の見出しだけ）でレビュー本文がなかった。根拠にしない）。根拠にしない
+- △ web:simgames: r5-fv-automaton-startup は一部だけ読了（記事本文（正式リリースの告知と紹介の5段落）。下の他記事の見出しは読んでいない）
+- △ web:simgames: r5-fv-gd-juice は一部だけ読了（記事本文（ジュースの定義・補間と緩急・遊びに合わせる・音・効果音・環境音・粒子・止め・軌跡・周期関数の揺れ・作品の例・まとめ）。サイトのナビと他記事の一覧は読んでいない）
+- △ web:simgames: r5-fv-gd-idlemath1 は一部だけ読了（記事本文（用語・成長と費用の式・転生・複数の生成器の釣り合い・まとめ買いの式）。数式の画像と表の数値の一部は読めていない）
+- △ web:simgames: r5-fv-gd-idlemath3 は一部だけ読了（記事本文（転生の目的・計算の型の分類・各作品の式の比較・釣り合いの取り方・まとめ）。数式の画像は読めていない）
+- △ web:simgames: r5-fv-gd-mgmtdepth は一部だけ読了（記事本文（町づくりの単調さ・窓の外を眺める模擬・経営シムの平凡な深さ・RimWorld の考え方の要点・負けに報いる）。サイトのナビは読んでいない）
+- △ web:simgames: r5-fv-wiki-minimetro は一部だけ読了（概要・遊び方・開発・評価の節。参考文献は読んでいない）
+- △ web:simgames: r5-fv-gd-minimetro-gdc は一部だけ読了（記事本文（GDC 2017 の講演の紹介、5段落）。講演そのもの（動画）は見ていない）
+- △ web:simgames: r5-fv-tufte-sparkline は一部だけ読了（冒頭の定義・連勝の錯覚・血糖の例・為替の表・投資信託の表・縦横比・意図しない視覚の雑音・解像度の節。それより後ろ（作例の一覧・寄せられた投稿）は読んでいない）
+- △ web:simgames: r5-fv-netshop-takumen は一部だけ読了（記事本文（日本テレビの通販特番で有名店の冷凍ラーメンを売る話、8段落）。サイトのナビ・他記事は読んでいない）
+- △ web:simgames: r5-fv-prtimes-seimenki は一部だけ読了（プレスリリース本文（背景・特長・価格の参考・サイトの更新・ラーメン学校の案内）。下の関連リリースの一覧は読んでいない）
+- △ web:simgames: r5-fv-denfami-ramenkan は一部だけ読了（記事本文（PS4 版発売の告知と、公式の紹介文の引用部分）。サイトの他記事の見出しは読んでいない）
+- △ web:simgames: r5-fv-mogura-ramenkan は一部だけ読了（記事本文（VTuber の配信での遊ばれ方の紹介、4段落）。サイトの他の記事・Cookie の説明は読んでいない）
+- △ web:simgames: r5-fv-famitsu-ramenkan は一部だけ読了（記事本文（Xbox 版発売の告知と公式リリースの引用）。周りのランキング・広告は読んでいない）
+- △ web:simgames: r5-fv-appmatch-ramenkan は一部だけ読了（『こだわりラーメン館〜全国編〜』の紹介記事の本文（編集部レビュー・特色・口コミの要約の節）。下の他アプリの口コミ欄とサイトの一覧は読んでいない）
+- △ web:simgames: r5-fv-applion-ramenkan は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・記事・ページの本文はすべて読んだ（サイトのナビ・広告・関連記事の一覧・コメント欄・脚注は読んでいない））
+- △ web:simgames: r5-fv-applion-ramenkan-zenkoku は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない）
+- △ web:simgames: r5-fv-applion-gurume は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない）
+- △ web:simgames: r5-fv-applion-gamedevstory は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない）
+- △ web:simgames: r5-fv-applion-goodpizza は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない）
+- △ web:simgames: r5-cinc-applion-p2 は一部だけ読了（口コミ一覧の2ページ目に載っていた口コミ（20件）すべて。上部の評価の分布・サイトのナビ・ほかのアプリの紹介は除く）
+- △ web:simgames: r5-cinc-applion-p3 は一部だけ読了（口コミ一覧の3ページ目に載っていた口コミ（20件）すべて。上部の評価の分布・サイトのナビ・ほかのアプリの紹介は除く）
+- △ web:simgames: r5-cinc-applion-p4 は一部だけ読了（口コミ一覧の4ページ目に載っていた口コミ（20件）すべて。上部の評価の分布・サイトのナビ・ほかのアプリの紹介は除く）
+- △ web:simgames: r5-fv-hg101-gamedevtycoon は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（www.hardcoregaming101.net/robots.txt が ClaudeBot・anthropic-ai などを名指しで Disallow:/（明示の拒否）））。根拠には使っていないこと
+- △ web:simgames: r5-fv-giantbomb-minimetro は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（giantbomb.com/robots.txt が ClaudeBot を名指しで Disallow:/、AI 入力の利用を留保（明示の拒否）））。根拠には使っていないこと
+- △ web:simgames: r5-fv-shacknews-offworld は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（www.shacknews.com/robots.txt が ClaudeBot・anthropic-ai を名指しで拒否（明示の拒否）））。根拠には使っていないこと
+- △ web:simgames: r5-fv-pcgamesn-twopoint-diary は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（pcgamesn.com/robots.txt にスクレイピング・テキストマイニング・AI 利用の権利留保の明記と AI クローラの拒否））。根拠には使っていないこと
+- △ web:simgames: r5-fv-caniplaythat-twopoint は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（caniplaythat.com/robots.txt が anthropic-ai などを名指しで拒否））。根拠には使っていないこと
+- △ web:simgames: r5-fv-strategywiki-lemonadetycoon は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（strategywiki.org/robots.txt が ClaudeBot を名指しで Disallow:/））。根拠には使っていないこと
+- △ web:simgames: r5-fv-indieorama-minimetro は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（www.indieorama.com/robots.txt の Content-Signal で AI 入力（ai-input）の利用を明示的に留保））。根拠には使っていないこと
+- △ web:simgames: r5-cinc-applion-p5 は一部だけ読了（口コミ一覧の5ページ目に載っていた口コミ（20件）すべて。上部の評価の分布・サイトのナビ・ほかのアプリの紹介は除く）
+- △ web:simgames: r5-cinc-applion-p6 は一部だけ読了（口コミ一覧の6ページ目に載っていた口コミ（20件）すべて。上部の評価の分布・サイトのナビ・ほかのアプリの紹介は除く）
+- △ web:simgames: r5-cinc-applion-p7 は一部だけ読了（口コミ一覧の7ページ目に載っていた口コミ（15件）すべて。上部の評価の分布・サイトのナビ・ほかのアプリの紹介は除く）
+- △ web:simgames: r6-sd-train-ch03 は一部だけ読了（3.1 選ぶ確率、3.2 尺度、3.3 ロジットの力と限界（好みの違い・代替の型・繰り返しの選択）、3.5 消費者余剰、3.6 微分と弾力性、3.7 推定の冒頭、3.9 事例（BART の予測）、3.10 導出。3.4 非線形の効用と 3.7〜3.8 の推定・検定の細部は見出しと冒頭だけ）
+- △ web:simgames: r6-sd-train-ch04 は一部だけ読了（4.1 はじめに、4.2 入れ子ロジット（代替の型・選ぶ確率・2つのロジットへの分解・推定の冒頭）、4.4 重なる入れ子（冒頭と PCL の式）、4.6 GEV の族の終わりの導出。4.3 三段の入れ子、4.5 不均一分散のロジット、4.2.5 の式の同値性は見出しだけ）
+- △ web:simgames: r6-sd-mcfadden-nobel は一部だけ読了（I はじめに、II 短い歴史（BART の予測の表まで）、III.A 基本、III.B RUM と矛盾しない模型（GEV・混合ロジット）、III.C 支払意思額、III.D 動学、IV 選択の心理（冒頭と認知の錯覚の表）、V.C IIA の検定、V.E 市場調査、VI 結論。V.A・V.B（抽出と計算）、IV.B 以降の実験の細部、参考文献は見出しだけ）
+- △ web:simgames: r6-sd-cooper-mcibook は取得できず、理由つきで飛ばした（相手のサーバー（www-apache.anderson.ucla.edu）の TLS 証明書の鎖が不完全で、検証を外さない限り取れない。eScholarship の写しは CloudFront が 403、Internet Archive は接続が切られる。代わりに Train の教科書・McFadden の講演・Themido & Mendes の MCI の論文で同じ問いに答える）。根拠には使っていないこと
+- △ web:simgames: r6-sd-gd-glassbox2012 は一部だけ読了（記事の本文（GDC 2012 の講演の取材）。サイトの見出し・関連記事の一覧は読まない）
+- △ web:simgames: r6-sd-gamespark-bigambitions は一部だけ読了（記事の本文（質疑の全部）。下の関連記事・おすすめの一覧は読まない）
+- △ web:simgames: r6-rp-4gamer-balatro-review は取得したが読まない（4Gamer の Balatro のレビュー一覧は編集部の記事だけで読者レビューは0件。利用者の声の資料にならないので読まない）。根拠にしない
+- △ web:simgames: r6-sd-capilab-subsidiary は一部だけ読了（ページの本文（上のサイト全体の見出しの一覧と下の案内は読まない））
+- △ web:simgames: r6-rp-applion-sts-p1 は一部だけ読了（口コミ（Slay the Spire の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-sd-capilab-subsidiary-control は一部だけ読了（ページの本文（上のサイト全体の見出しの一覧と下の案内は読まない））
+- △ web:simgames: r6-sd-capilab-subsidiary-policies は一部だけ読了（ページの本文（上のサイト全体の見出しの一覧と下の案内は読まない））
+- △ web:simgames: r6-rp-applion-sts-s20 は一部だけ読了（口コミ（Slay the Spire の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-sd-capilab-subsidiary-finance は一部だけ読了（ページの本文（上のサイト全体の見出しの一覧と下の案内は読まない））
+- △ web:simgames: r6-sd-capilab-retailsim は一部だけ読了（ページの本文（上のサイト全体の見出しの一覧と下の案内は読まない））
+- △ web:simgames: r6-rp-applion-sts-s40 は一部だけ読了（口コミ（Slay the Spire の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-sd-capilab-highpriced は一部だけ読了（ページの本文（上のサイト全体の見出しの一覧と下の案内は読まない））
+- △ web:simgames: r6-rp-applion-sts-s60 は一部だけ読了（口コミ（Slay the Spire の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-sd-capilab-mgmtpolicies は一部だけ読了（ページの本文（上のサイト全体の見出しの一覧と下の案内は読まない））
+- △ web:simgames: r6-rp-applion-gdt-p1 は一部だけ読了（口コミ（Game Dev Tycoon の App Store の口コミの転載）4件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-sd-capilab-balance は一部だけ読了（ページの本文（上のサイト全体の見出しの一覧と下の案内は読まない））
+- △ web:simgames: r6-rp-gd-igf-slaythespire は一部だけ読了（記事本文（前置きと聞き取りの全問答）をすべて。サイトの見出し一覧・広告・関連記事は読んでいない）
+- △ web:simgames: r6-rp-gd-igf-outerwilds は一部だけ読了（記事本文（前置きと聞き取りの全問答）をすべて。サイトの見出し一覧・広告・関連記事は読んでいない）
+- △ web:simgames: r6-rp-gd-balatro-signposting は一部だけ読了（記事本文をすべて。サイトの見出し一覧・広告は読んでいない）
+- △ web:simgames: r6-rp-tomsguide-hades は一部だけ読了（記事本文（前置き・聞き取りの全問答・記者の後書き）をすべて。サイトの登録案内・関連記事の一覧・広告は読んでいない）
+- △ web:simgames: r6-rp-inven-hades は一部だけ読了（記事本文（前置きと全問答）をすべて。サイトのメニュー・関連記事は読んでいない）
+- △ web:simgames: r6-rp-deepnight-deadcells は一部だけ読了（記事本文（理由・6つの手順・結び）とその下のコメント欄をすべて。サイトのメニューは読んでいない）
+- △ web:simgames: r6-rp-gutefabrik-spelunky は一部だけ読了（記事本文（2012年の元の投稿と、その後に足した解説）をすべて。サイトのメニューは読んでいない）
+- △ web:simgames: r6-rp-gamespark-ftl は一部だけ読了（記事本文（講演の前半・後半の報告と記者のまとめ）をすべて。サイトのランキング・関連記事は読んでいない）
+- △ web:simgames: r6-rp-automaton-pope は一部だけ読了（聞き取りの1ページ目（前置き・「開発はビジュアルから始まった」の節）の本文をすべて。2ページ目以降は取得していない。サイトの関連記事は読んでいない）
+- △ web:simgames: r6-rp-superjump-yokotaro は一部だけ読了（記事本文（前置き・3人への全問答・聞き手の後書き）をすべて。サイトの会員案内は読んでいない）
+- △ web:simgames: r6-rp-superjump-nier-notreplayable は一部だけ読了（記事本文をすべて。サイトの会員案内は読んでいない）
+- △ web:simgames: r6-rp-twistedvoxel-nier-budget は一部だけ読了（記事本文をすべて。サイトの関連記事・広告は読んでいない）
+- △ web:simgames: r6-rp-rogueliker-balatro は一部だけ読了（記事本文（前置き・全問答・後書き）をすべて。サイト末尾の記事一覧は読んでいない）
+- △ web:simgames: r6-rp-butwhytho-kasavin は一部だけ読了（記事本文（動画の聞き取りの要約文）をすべて。動画そのものは見ていない（取得していない））
+- △ web:simgames: r6-rp-gpb-hades-stop は一部だけ読了（記事本文（筆者紹介まで）をすべて。放送局の寄付の案内は読んでいない）
+- △ web:simgames: r6-rp-wiki-sts は一部だけ読了（英語版 Wikipedia の記事本文（冒頭・遊び方・あらすじ・開発・発売・評価の節）をすべて。参考文献・情報欄・受賞の表は読んでいない）
+- △ web:simgames: r6-rp-wiki-hades は一部だけ読了（英語版 Wikipedia の記事本文（冒頭・遊び方・あらすじ・開発・発売・評価の節）をすべて。参考文献・情報欄・受賞の表は読んでいない）
+- △ web:simgames: r6-rp-wiki-outerwilds は一部だけ読了（英語版 Wikipedia の記事本文（冒頭・遊び方・あらすじ・開発・発売・評価の節）をすべて。参考文献・情報欄・受賞の表は読んでいない）
+- △ web:simgames: r6-rp-wiki-nierautomata は一部だけ読了（英語版 Wikipedia の記事本文（冒頭・遊び方・あらすじ・開発・発売・評価の節）をすべて。参考文献・情報欄・受賞の表は読んでいない）
+- △ web:simgames: r6-rp-wiki-obradinn は一部だけ読了（英語版 Wikipedia の記事本文（冒頭・遊び方・あらすじ・開発・発売・評価の節）をすべて。参考文献・情報欄・受賞の表は読んでいない）
+- △ web:simgames: r6-rp-wiki-intothebreach は一部だけ読了（英語版 Wikipedia の記事本文（冒頭・遊び方・開発・発売・評価の節）をすべて。参考文献・情報欄・受賞の表は読んでいない）
+- △ web:simgames: r6-rp-wiki-balatro は一部だけ読了（英語版 Wikipedia の記事本文（冒頭・遊び方・開発・発売・評価の節）をすべて。参考文献・情報欄・受賞の表は読んでいない）
+- △ web:simgames: r6-rp-wiki-spelunky は一部だけ読了（英語版 Wikipedia の記事本文（冒頭・遊び方・開発・発売・評価の節）をすべて。参考文献・情報欄・受賞の表は読んでいない）
+- △ web:simgames: r6-rp-wiki-deadcells は一部だけ読了（英語版 Wikipedia の記事本文（冒頭・遊び方・開発・発売・評価の節）をすべて。参考文献・情報欄・受賞の表は読んでいない）
+- △ web:simgames: r6-rp-wiki-ftl は一部だけ読了（英語版 Wikipedia の記事本文（冒頭・遊び方・開発・発売・評価の節）をすべて。参考文献・情報欄・受賞の表は読んでいない）
+- △ web:simgames: r6-sd-pecorella-idle1 は一部だけ読了（記事の本文（定義・1つの生産者の式・複数の生産者の最適・倍率の調整・まとめ買いの式・著者紹介）。サイトの見出し・関連記事は読まない）
+- △ web:simgames: r6-sd-openrct2-guest は一部だけ読了（客が乗り物・店に行くか決める shouldGoOnRide と GuestShouldGoToShop、次に向かう乗り物の選び方（GuestPickRideToGoOn・GuestFindRidesToGoOn・GuestFindBestRideToGoOn）、もう一度乗るか（GuestShouldGoOnRideAgain）、乗った後の満足（GuestCalculateRideSatisfaction・値段の満足・お気に入り）、園を出るか（GuestLeavePark の前後）、名前の隠し要素、【0.3で追加】店の品を買うかの判定（getItemValue と GuestDecideAndBuyItem の値段・価値・幸福の段・満足の段の所）。移動・行列・食べ物・天気の細部・画面の更新など残りの大部分は読んでいない）
+- △ web:simgames: r6-sd-steam-reviews-bigambitions は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（Steam Subscriber Agreement 4.C Automation が scripts・bots 等による Steam の Content and Services との一切のやり取りを禁止（ledger r5-cinc-tos-steam-ssa）。Coffee Inc 2 の Steam 版の有無の確認だけを依頼））。根拠には使っていないこと
+- △ web:simgames: r6-sd-micropolis-ssim は一部だけ読了（ファイルの頭（EA の公開の許諾の文）、宣言、SetValves（住宅・商業・工業の需要の弁の計算）の全部、ClearCensus・TakeCensus の頭。残りの模擬の段取り（火事・汚染・犯罪・税の徴収の関数など）は読んでいない）
+- △ web:simgames: r6-sd-corsixth-world は一部だけ読了（世界の初期化の頭（来院の割合の初期値）、患者の出現点（calculateSpawnTiles）、患者を作る spawnPatient、月末の onEndMonth と来院の日の割り振り（_prepareSpawnDates）、患者に病院を割り当てる chooseHospitalForPatient。地図・物・職員・災害・保存などの残りは読んでいない）
+- △ web:simgames: r6-rp-famitsu-deadcells-reviews は取得したが読まない（ファミ通の作品ページはファミ通公式の4人の評だけで、読者のレビューはなかった。利用者の声にならないので使わない）。根拠にしない
+- △ web:simgames: r6-rp-applion-balatro-p1 は一部だけ読了（口コミ（Balatro の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-rp-applion-stardew-p1 は一部だけ読了（口コミ（Stardew Valley の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-rp-applion-ftl-p1 は一部だけ読了（口コミ（FTL の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-rp-applion-balatro-s20 は一部だけ読了（口コミ（Balatro の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-rp-applion-balatro-s40 は一部だけ読了（口コミ（Balatro の App Store の口コミの転載）6件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-rp-applion-stardew-s20 は一部だけ読了（口コミ（Stardew Valley の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-rp-applion-stardew-s40 は一部だけ読了（口コミ（Stardew Valley の App Store の口コミの転載）20件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-rp-applion-ftl-s20 は一部だけ読了（口コミ（FTL の App Store の口コミの転載）4件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-rp-applion-sts-s80 は一部だけ読了（口コミ（Slay the Spire の App Store の口コミの転載）17件の題と本文をすべて。ページの見出し・広告・関連アプリ・ランキングの欄は読んでいない）
+- △ web:simgames: r6-rp-applion-sts-android-p1 は取得したが読まない（取得したが星5の口コミ20件だけで、iPhone版の5ページと同じ偏り（低い星が載らない）を正せないため読了ノートにしない。低い星の声の不足は BIZ-REPLAY.md の反証と限界に書く）。根拠にしない
+- △ web:simgames: r5-fv-applion-ramenkan-zenkoku-p2 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-gamedevstory-p2 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-goodpizza-p2 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-ramenkan-zenkoku-p3 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-gamedevstory-p3 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-goodpizza-p3 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-ramenkan-zenkoku-p4 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-gamedevstory-p4 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-goodpizza-p4 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-ramenkan-zenkoku-p5 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-gamedevstory-p5 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-goodpizza-p5 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-ramenkan-zenkoku-p6 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-gamedevstory-p6 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-goodpizza-p6 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-ramenkan-zenkoku-p7 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-gamedevstory-p7 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-goodpizza-p7 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-ramenkan-zenkoku-p8 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-gamedevstory-p8 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-goodpizza-p8 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-ramenkan-zenkoku-p9 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-gamedevstory-p9 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-goodpizza-p9 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-ramenkan-zenkoku-p10 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-gamedevstory-p10 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-goodpizza-p10 は一部だけ読了（このページの口コミ20件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ20件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r5-fv-applion-gurume-p2 は一部だけ読了（このページの口コミ3件の題と本文をすべて（BIZ-REPLAY 版0.3 で1件ずつ全文を読み、周回のコードを付けた）。サイトのナビ・広告・関連アプリの欄は読んでいない・このページの口コミ3件すべて（サイトのナビ・他アプリの紹介・広告は読んでいない））
+- △ web:simgames: r6-rp-rps-hades-myths は取得できず、理由つきで飛ばした（規約で自動取得が禁止のサイト（rockpapershotgun.com の robots.txt 冒頭に Ziff Davis が robot・crawler 等での自動取得を書面の許可なく禁止と明記（2026-10-22確認）））。根拠には使っていないこと
+- △ web:simgames: r5-fv-applion-goodpizza-app は一部だけ読了（作品の紹介の部分（集約サイトの紹介文・良い点と気になる点の箇条・抜粋の口コミ）と掲載の画面写真。ランキングの推移の表・関連アプリの一覧・広告は読んでいない）
+- △ web:simgames: r5-fv-applion-ramenkan-app は一部だけ読了（作品の紹介の部分（集約サイトの紹介文・良い点と気になる点の箇条・抜粋の口コミ）と掲載の画面写真。ランキングの推移の表・関連アプリの一覧・広告は読んでいない）
+- △ web:simgames: r5-fv-applion-zenkoku-app は一部だけ読了（作品の紹介の部分（集約サイトの紹介文・良い点と気になる点の箇条・抜粋の口コミ）と掲載の画面写真。ランキングの推移の表・関連アプリの一覧・広告は読んでいない）
+- △ web:simgames: r5-fv-applion-gurume-app は一部だけ読了（作品の紹介の部分（集約サイトの紹介文・良い点と気になる点の箇条・抜粋の口コミ）と掲載の画面写真。ランキングの推移の表・関連アプリの一覧・広告は読んでいない）
+- △ web:simgames: r5-fv-applion-gds-app は一部だけ読了（作品の紹介の部分（集約サイトの紹介文・良い点と気になる点の箇条・抜粋の口コミ）と掲載の画面写真。ランキングの推移の表・関連アプリの一覧・広告は読んでいない）
+- △ web:simgames: r5-fv-applion-cinc-app は一部だけ読了（作品の紹介の部分（集約サイトの紹介文・良い点と気になる点の箇条・抜粋の口コミ）と掲載の画面写真。ランキングの推移の表・関連アプリの一覧・広告は読んでいない）
+- △ web:simgames: r5-fv-hovgaard-startup は一部だけ読了（本文はすべて読んだ（数文しかない）。ページ末尾の著作権表示とメニューは見出しだけ）
+- △ web:simgames: r5-fv-mohawk-offworld は一部だけ読了（本文はすべて読んだ（数文しかない）。ページ末尾の著作権表示とメニューは見出しだけ）
+- △ web:simgames: r5-fv-capilab-home は一部だけ読了（トップページの本文すべて（見出しのナビゲーション・紹介文・利用者の推薦文・DLC 3本の紹介・MOD の紹介・購入と更新の案内）。本文中の画面写真3枚（企業一覧・製造の手引き・製品の画面。part shot1〜shot3）を目で見た。リンク先のページは読んでいない）
+- △ web:simgames: r6-sd-goldpray-220 は取得できず、理由つきで飛ばした（2026-10-22 再試行：ABSEL の論文誌サイトは保守中（tdl.org の保守の案内へ301）。Wayback の保存版（20260919、download/220/186）は存在するが、この環境の中継で接続が切れて0バイト（proxy の relay failure: web.archive.org）。Gold & Pray の需要関数の論文は読めず）。根拠には使っていないこと
+- △ web:simgames: r6-sd-toucharcade-reigns-gdc は一部だけ読了（記事の本文2段落（GDC 2017 の Alliot の講演の紹介）を全部。残りはサイトの共通の欄（新着の評・掲示板）で読んでいない）
+- △ web:simgames: r6-fc-gdt-modapi-api-persistence-js は取得したが読まない（開いて全文を見たが、需要の式に関係しない（セーブデータの置き場・研究項目の登録の検査だけ）。根拠にしない）。根拠にしない
+- △ web:simgames: r6-fc-gdt-modapi-api-research-js は取得したが読まない（開いて全文を見たが、需要の式に関係しない（セーブデータの置き場・研究項目の登録の検査だけ）。根拠にしない）。根拠にしない
+- △ web:simgames: r7-fc-cooper-nakanishi-mci-book は取得できず、理由つきで飛ばした（取得の状態0・0バイト（接続できず、2026-10-22 09:39）。robots.txt は取れた（r7-fc-ucla-robots）ので、ファイルの場所が変わった可能性がある。Cooper & Nakanishi の本は読めていない）。根拠には使っていないこと
+- △ web:simgames: r7-fc-cooper-mci-index は取得できず、理由つきで飛ばした（取得の状態0・0バイト（09:39）。上と同じ。一覧の頁も開けない）。根拠には使っていないこと
+- △ web:simgames: r7-fc-js-huff-logit2020 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:simgames: r7-fc-js-nakanishi-review1984 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:simgames: r7-fc-ia-applesoft-ii-ref は一部だけ読了（RND の項（早見表の段 1,055〜1,070行と、関数の本文の段 8,445〜8,470行）。ほかの章は読んでいない）
+- △ web:simgames: r9-robots-2018.cedec.cesa.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-article.ejinzai.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-automaton-media.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-bizstorm.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-business-games.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-butwhytho.net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-cedec.cesa.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-celemi.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-cgu.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-deepnight.net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-designer-notes.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-dl.digra.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-eml.berkeley.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-emshort.blog は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-en.wikipedia.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-escp.eu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-extralenin444.itch.io は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-gamemaker.io は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-gamesfuze.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-gamingnexus.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-gamingtrend.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-gutefabrik.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-hachinohe-hachitan.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-hirosaki.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-indieranger.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-jesperjuul.net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-mcvuk.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-mohawkgames.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-nakamura-u.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-netshop.impress.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-news.denfaminicogamer.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-newsletter.gamediscover.co は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-nozomi-tax.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-otaru-uc.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-repositorio.uac.pt は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-rogueliker.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-rpgamer.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-substack.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-timexsinclair.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-twistedvoxel.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-tynansylvester.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-upload.wikimedia.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-wesleyan.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-wikiwiki.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.appbank.net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.apple.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.appunwrapper.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.capitalismlab.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.capsim.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.cgmagonline.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.codecks.io は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.cst.nihon-u.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.designer-notes.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.digitallydownloaded.net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.edwardtufte.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.factorio.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.famitsu.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.gamedeveloper.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.gamesasylum.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.gamespark.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.gpb.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.inklestudios.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.intangiblecapital.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.invenglobal.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.jsise.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.matchstickeyes.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.mcvuk.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.moguravr.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.mohawkgames.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.nishiken.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.oreilly.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.pcgamesinsider.biz は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.pmq.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.pocketgamer.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.smg-gr.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.stratxsimulations.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.superjumpmagazine.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.thesixthaxis.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.tomsguide.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.value-press.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r9-robots-www.zb.em-net.ne.jp は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:simgames: r10-robots-blog.kongregate.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-infovore.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-gameanalytics.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-www.gameanalytics.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-tos-gameanalytics は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-tos-kongregate は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-www.pcgamer.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-geekdad.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-cliqist.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-gdcvault.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-www.gdcvault.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-tos-futureplc は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-rr-pcgamer-hades-ea は一部だけ読了（記事の本文（全部）。サイトの枠・購読の案内・関連記事は読んでいない）
+- △ web:simgames: r10-rr-geekdad-kasavin は一部だけ読了（記事の本文（聞き取りの後半の全部）。前半の記事・サイトの枠は読んでいない）
+- △ web:simgames: r10-robots-www.tpr.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-www.npr.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-www.seattleindies.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-tos-tpr-privacy は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-rr-tpr-hades-stop は一部だけ読了（記事の本文（随筆の全部）。サイトの枠・番組の案内は読んでいない）
+- △ web:simgames: r10-robots-www.4gamer.net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-www.gamesradar.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-robots-www.inside-games.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-rr-4gamer-twom-gdc2015 は一部だけ読了（記事の本文（講演の報告の全部）。サイトの枠・関連記事の一覧は読んでいない）
+- △ web:simgames: r10-tos-4gamer は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-rr-4gamer-meier-gdc2012 は一部だけ読了（記事の本文（講演の報告の全部）。サイトの枠・関連記事の一覧は読んでいない）
+- △ web:simgames: r10-rr-4gamer-glassbox-gdc2012 は一部だけ読了（記事の本文（講演の報告の全部）。サイトの枠・関連記事の一覧は読んでいない）
+- △ web:simgames: r10-rr-cliqist-itb-ma は一部だけ読了（記事の本文（聞き取りの全部）。サイトの枠・関連記事は読んでいない）
+- △ web:simgames: r10-rr-pcgamer-itb-preview は一部だけ読了（記事の本文（事前の紹介記事の全部、2017年9月の初出の再掲）。サイトの枠・購読の案内・関連記事は読んでいない）
+- △ web:simgames: r10-rr-wiki-rimworld は一部だけ読了（概要・遊び方（Gameplay）・開発・評価の節の本文。脚注・テンプレートの記述・追加の DLC の細目は流し読み）
+- △ web:simgames: r10-rr-wiki-incremental は一部だけ読了（概要と「仕組み」「転生（Prestige）」「収益化」の節。歴史と作品の一覧は流し読み）
+- △ web:simgames: r10-robots-absel-ojs-ttu.tdl.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:simgames: r10-rr-absel-praygold1982 は一部だけ読了（論文の頁の要旨・書誌（本文の PDF は取っていない））
+- △ web:uiux: r2-access-rehab-ld は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:uiux: r2-access-bda-style は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:uiux: r9-robots-design-system.service.gov.uk は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:uiux: r9-robots-www.bdadyslexia.org.uk は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:uiux: uiux-w3c-wcag22 は一部だけ読了（1.4（色・拡大・再配置・非テキスト・文字間隔・コントラスト）、2.1.1、2.2.1、2.3.1、2.4.7、2.5.5・2.5.7・2.5.8、3.3.4、3.3.7、4.1.3 の達成基準本文）
+- △ web:uiux: uiux-w3c-coga-usable は一部だけ読了（第4章のうち 目標1（4.2系の構成）、目標3（4.4.1 明確な言葉・4.4.4 文字どおりの言葉・4.4.5 短い文章）、目標4（4.5.1 動かない操作部品）、目標5（4.6.1 邪魔を減らす））
+- △ web:uiux: uiux-w3c-jlreq は一部だけ読了（ルビと圏点処理（ルビの使用、ルビの文字サイズ）、行長と行間（基本版面）の節）
+- △ web:uiux: access-w3c-coga-usable は一部だけ読了（目次、2.4、3.3.2（利用者の話：見た目の示し方）、4.4（目標3：分かりやすい内容の型 4.4.1〜4.4.13）、4.5.9（時間切れ）、4.6.3（内容を詰め込みすぎない）、4.8.2（込み入った情報の別の示し方）、4.9.1・4.9.3（動き・簡略化の利用者による制御）、5.4.1（試験の進め方）、6.9（人物 Tal）、付録A.3・B.1）
+- △ web:uiux: uiux-material3-accessibility は取得したが読まない（m3.material.io は JavaScript で描画され、取得できるのは本文のない殻だけだった。読めないので対象外）。根拠にしない
+- △ web:uiux: uiux-apple-hig は取得したが読まない（トップページは JS の殻だけ。個別ページの JSON を uiux-apple-hig-accessibility と uiux-apple-hig-onboarding として取得した）。根拠にしない
+- △ web:uiux: r2-uiux-nn-10heuristics は一部だけ読了（10則の本文すべて（各則の説明とヒント。動画・ポスターの案内は対象外））
+- △ web:uiux: r2-uiux-wcag22-target-size-min は一部だけ読了（基準本文と趣旨の節（技法・事例の節は拾い読み））
+- △ web:uiux: r2-uiux-wcag22-reflow は一部だけ読了（基準本文・注・趣旨の節（技法の一覧は未読））
+- △ web:uiux: r2-uiux-wcag22-resize-text は一部だけ読了（基準本文と趣旨の節）
+- △ web:uiux: r2-uiux-wcag22-focus-visible は一部だけ読了（基準本文・注・趣旨の節（2.4.13））
+- △ web:uiux: r2-uiux-wcag22-focus-visible2 は一部だけ読了（基準本文と趣旨の節）
+- △ web:uiux: r2-uiux-wcag22-keyboard は一部だけ読了（基準本文と趣旨の節）
+- △ web:uiux: r2-uiux-wcag22-text-spacing は一部だけ読了（基準本文と趣旨の節）
+- △ web:uiux: r2-uiux-wcag22-name-role は一部だけ読了（基準本文と趣旨の節（事例の節は未読））
+- △ web:uiux: r2-uiux-wcag22-status-msg は一部だけ読了（基準本文と趣旨の節）
+- △ web:uiux: r2-uiux-wcag22-timing は一部だけ読了（基準本文と趣旨の節）
+- △ web:uiux: r2-uiux-apg-keyboard は一部だけ読了（キーボード操作の考え方・フォーカスの予測可能性・選択とフォーカス・Tab順の節（部品ごとの例は未読））
+- △ web:uiux: r2-uiux-material-structure は取得したが読まない（JSで描画される殻(本文84字相当)で中身が取れなかったため読まない）。根拠にしない
+- △ web:uiux: r2-access-coga は一部だけ読了（1 Summary, 3.3, 4.4.1, 4.4.5, 4.4.9, 4.4.10, 4.4.13, 4.5.9, 4.7.5, 4.9.1, 6.9, 6.10）
+- △ web:uiux: r2-access-android-sts は一部だけ読了（記事本文のみ（周りのメニューは読んでいない））
+- △ web:uiux: r2-uiux-govuk-error-message は一部だけ読了（説明・使い方・文面の書き方・調査の節（実装コードは未読））
+- △ web:uiux: r2-uiux-dads-input-text は一部だけ読了（概要ページのみ（詳細ページは未取得））
+- △ web:uiux: r2-uiux-wcag-info-rel は一部だけ読了（基準本文と趣旨の節（技法の一覧は未読））
+- △ web:uiux: r2-uiux-wcag-contrast は一部だけ読了（基準本文と趣旨の節）
+- △ web:uiux: r2-uiux-wcag-error-ident は一部だけ読了（基準本文と趣旨の節）
+- △ web:uiux: r2-uiux-wcag-error-sugg は一部だけ読了（基準本文と趣旨の節）
+- △ web:uiux: r2-uiux-wcag-focus-order は一部だけ読了（基準本文と趣旨の節）
+- △ web:uiux: r2-uiux-jlreq は一部だけ読了（行長・行間の節（基本版面）、ルビの大きさの節。字取りや禁則の節は未読）
+- △ web:uiux: r2-uiux-nn-progressive は一部だけ読了（冒頭・利点・段階的開示の節（後半の基準は拾い読み））
+- △ web:uiux: r9-robots-blog.duolingo.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-design.digital.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-developer.apple.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-gameaccessibilityguidelines.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-lawsofux.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-learn.microsoft.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-m3.material.io は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-support.google.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-waic.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-webaim.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-www.freee.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-www.gankaikai.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-www.nngroup.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r9-robots-www.w3.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r4-mkt-issoh-discount は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r4-mkt-imitsu-posting は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r4-law-tokusho-tsuhan は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r5-mktr-anderson-yelp は取得に失敗した（404・404・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r5-mktr-kakaku-100meiten2023 は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r5-mktr-japanpost-dmsurvey は取得に失敗した（0・301・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r5-mktr-inshokuten-sns484 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r5-mktr-inshokuten-6599 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r5-mktr-inshokuten-6602 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r5-mktr-note-inada は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r5-mktr-note-kazemakase は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r9-robots-digitalpr.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r9-robots-j-net21.smrj.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r9-robots-webtan.impress.co.jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r9-robots-www.family.co.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r9-robots-www.no-trouble.caa.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r10-tos-minhyo は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmkt: r4-mkt-advertimes-orikomi は一部だけ読了（記事の1ページ目（全2ページ）。2ページ目は取得していない）
+- △ web:bizmkt: r4-mkt-honichi-instaads は一部だけ読了（会員登録なしで読める前半のみ（課金方法2の途中まで）。後半は会員限定のため読んでいない）
+- △ web:bizmkt: r4-mkt-honichi-sampling は一部だけ読了（会員登録なしで読める前半のみ（メリット1まで）。費用や種類の詳しい説明は会員限定のため読んでいない）
+- △ web:bizmkt: r4-mkt-honichi-gourmetsurvey は一部だけ読了（記事（調査のダイジェスト）は全部読んだ。レポート本体は会員限定で読んでいない）
+- △ web:bizmkt: r4-mkt-yamanashi-okugai は一部だけ読了（全52枚のスライドの文字はすべて読んだ。図（地図・写真・色見本）は画像として見ていない）
+- △ web:bizmkt: r4-law-ppc-kihon は一部だけ読了（3-1（中小規模事業者の定義）・3-4-4（第三者提供の例外：委託・事業の承継・共同利用）・3-4-5（記録）、追記：2-3（要配慮個人情報の取得）・2-4〜2-6（仮名加工情報・個人関連情報）・3-4-6（外国にある第三者）・3-4-7（開示・利用停止など）・1〜30ページと47〜51ページ（行政機関向けの31〜46ページは流し読み））
+- △ web:bizmkt: r5-mktr-cai-observational は一部だけ読了（要旨・1章（序論）・3章（データ）・5章の結果の文（表5・表8・表9の説明）・6章（結論）。表そのもの・2章の実験の細部・付録の質問票は読んでいない）
+- △ web:bizmkt: r5-mktr-aawe-michelin は一部だけ読了（要旨・1章（序論）・データの記述（表3の説明・価格のばらつき）・価格の推計の結果（表8〜10の説明）・7章（まとめ）。文献の章・推計式の細部・表の数値の全部は読んでいない）
+- △ web:bizmkt: r5-mktr-kakaku-q1fy26 は一部だけ読了（2頁（要約）・食べログの頁（11〜12頁）・付録の食べログの概要（29頁）と四半期推移（30頁）。価格.com・求人ボックス・その他の事業の頁は読んでいない）
+- △ web:bizmkt: r5-mktr-jnet21-consramen2 は一部だけ読了（調査の本文の全部（前は他業種のレポートの一覧）。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-tabelog-score は一部だけ読了（説明の本文の全部。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-tcbmag-ddd は一部だけ読了（記事の本文の全部（最後の段落の途中まで。頁の残りはサイトの一覧））
+- △ web:bizmkt: r5-mktr-bunshun-susuru1 は一部だけ読了（記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-bunshun-susuru2 は一部だけ読了（記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-bunshun-susuru3 は一部だけ読了（1〜4頁を通読（健康・家族の話が中心で、集客に関わる所は1〜2頁））
+- △ web:bizmkt: r5-mktr-jprime-ginparo は一部だけ読了（記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・3頁目の本文（写真の説明の並び）は全部読んだ。サイトのメニュー・広告・別記事の写真の一覧は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-jcast-tsuta は一部だけ読了（記事の1頁目の本文の全部（2頁目は #p2 のノート）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-toypeople-jiro は取得したが読まない（本文が数値文字参照（&#…;）で書かれ、research-check の照合用テキストに本文が出ない。読んだが根拠にしない（同じ件は別の資料で探す））。根拠にしない
+- △ web:bizmkt: r5-mktr-soranews-ytban は一部だけ読了（記事本文の全部（後ろはサイトの関連記事の一覧）。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-forbes-mycat は一部だけ読了（記事本文の全部（前後はサイトのメニュー）。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-digitalpr-raohaku は一部だけ読了（発表の本文の全部。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-moneypost-susuru は一部だけ読了（記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-daily-susuru-tsujita は一部だけ読了（記事本文の全部。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-appbank-biwako は一部だけ読了（記事本文の全部（後ろはサイトの分類一覧）。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-kobenp-ramendeka は一部だけ読了（記事本文の全部（後ろはサイトの他記事の一覧）。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-advertimes-ramenpr は一部だけ読了（2頁目の公開部分（麺屋武蔵の事例の冒頭だけ。続きは会員登録が必要で読んでいない）・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-family-shinasoba は一部だけ読了（発表の本文の全部。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-webtan-yamagata は一部だけ読了（記事本文の全部。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-agora-tabelog は一部だけ読了（記事本文の全部。記事・発表の本文は全部読んだ。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-jprime-blue は一部だけ読了（記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない・記事・発表の本文は全部読んだ（複数頁の記事はこの頁の本文）。頁の残り（サイトのメニュー・関連記事の一覧・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-president-eita は一部だけ読了（4頁目の公開部分（筆者の紹介と関連記事の見出し）・1〜2頁目の公開部分（2頁目の途中から先と3・4頁目は会員登録が必要で読んでいない。4頁目は筆者の紹介だけ読めた））
+- △ web:bizmkt: r5-mktr-hatena-goldhead は一部だけ読了（本文は全部読んだ。頁の残り（サイトのメニュー・関連記事）は読んでいない）
+- △ web:bizmkt: r5-mktr-hatena-ramendiet は一部だけ読了（本文は全部読んだ。頁の残り（サイトのメニュー・関連記事・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-hatena-sehensucht は一部だけ読了（本文は全部読んだ。頁の残り（サイトのメニュー・関連記事・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-hatena-hitorijikan は一部だけ読了（本文は全部読んだ。頁の残り（サイトのメニュー・関連記事・広告）は読んでいない）
+- △ web:bizmkt: r5-mktr-honichi-ai は一部だけ読了（ダイジェスト記事の本文は全部読んだ。会員限定のレポート本体と頁のメニュー・広告は読んでいない）
+- △ web:bizmkt: r5-mktr-mhlw-menrui は一部だけ読了（冒頭・第一（取り巻く状況：営業者の動向・消費動向・国際化・表示）・第二の営業者の取り組みのうち（1）〜（5）（経営・サービス・店舗・情報通信・表示と苦情）。第三以降（組合の事業・行政の支援）と別表は流し読み）
+- △ web:bizmkt: r5-mktr-jnet21-kaigyo711 は一部だけ読了（本文は全部読んだ。頁の前後のサイトのメニュー・広告は読んでいない）
+- △ web:bizmkt: r5-mktr-jnet21-kaigyo927 は一部だけ読了（本文は全部読んだ。頁の前後のサイトのメニュー・広告は読んでいない）
+- △ web:bizmkt: r5-mktr-jnet21-kaigyo928 は一部だけ読了（本文は全部読んだ。頁の前後のサイトのメニュー・広告は読んでいない）
+- △ web:bizmkt: r5-mktr-jnet21-hitmenu は一部だけ読了（本文は全部読んだ。頁の前後のサイトのメニュー・広告は読んでいない）
+- △ web:bizmkt: r9-robots-agora-web.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-are.berkeley.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-bunshun.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-corporate.kakaku.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-crowdworks.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-find-model.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-forbesjapan.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-glim-re.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-goldhead.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-hitorijikan-nico2.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-honichi.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-jicpa.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-jiro26.hatenablog.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-kyodonewsprwire.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-lp.raksul.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-ramendiet.hatenablog.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-sehensucht.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-soranews24.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-tcbmag.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-tkc.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-tonecchi.hatenablog.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.advertimes.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.daily.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.issoh.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.kobe-np.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.nber.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.ownly.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.post.japanpost.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.ppc.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.pref.yamanashi.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.toy-people.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r9-robots-www.vsnews.fr は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r10-rr-imitsu-posting は一部だけ読了（記事の本文（相場・内訳・事例・単価の要因・費用対効果の節）。サイトの枠・業者の一覧・見積もりの案内は読んでいない）
+- △ web:bizmkt: r10-robots-minhyo.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmkt: r10-robots-zaikei.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r4-mgmt-wiki-stockout は取得に失敗した（429・429・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r4-mgmt-wiki-gift は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r4-calib-jfc-shihyou-idx は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r4-calib-jfa-guide-top は取得に失敗した（401・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r4-calib-meiji-hoken は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r4-calib-inshokuten-media は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-jfc-shihyou-idx は取得に失敗した（503）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-parsa-whyfail2 は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-jfc-shihyou-202408-08a は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-jfc-shihyou-202408-08c は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-jfc-shihyou-202208-08a は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-jfc-shihyou-202208-08c は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-stat-cpi-longtime-idx は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-chugoku-saigai2021 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-chugoku-saigai2020 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-boj-yaku2112 は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-boj-yaku1612 は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r5-cal-estat-jinko2016-pref は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r6-fc-jfc-shihyou-idx は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r6-fc-jfc-202302-08a は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r6-fc-jfc-202302-08c は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r6-fc-jfc-202302-07a は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-202302-01 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r6-cal-estat-kouri-202601-xlsx は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r6-fc-inshokuten-research70 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r6-fc-inshokuten-foodist5120 は取得に失敗した（403）。読んでいないので根拠にしない
+- △ web:bizmgmt: r7-fc-q-ndl-nigoten-html は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-api.jstage.jst.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-ds.data.jma.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-fc-g.jfa-fc.or.jp は取得に失敗した（401・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-foodethics.univie.ac.at は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-portal.monodukuri-hojo.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r6-cal-stat-census2016-yogo-html は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:bizmgmt: r6-cal-stat-census2016-yogo-pdf は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-www.boj.or.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-www.chugoku.meti.go.jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-www.data.jma.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-www.fdma.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-www.jfc.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-www.jma.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-www.meiji.ac.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-www.mlit.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-www.pref.ishikawa.lg.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r9-robots-www.stat-search.boj.or.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizmgmt: r10-rr-jfc-202302_08a は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:bizmgmt: r10-rr-jfc-202302_08c は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:bizmgmt: r10-rr-jfc-202408_08a は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:bizmgmt: r10-rr-jfc-202208_08a は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:bizmgmt: r10-rr-jfc-202402_08a は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:bizmgmt: r10-rr-jfc-202308_08a は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:bizmgmt: r10-rr-jfc-202210_08a は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:bizmgmt: r4-mgmt-pmc-elasticity は取得したが読まない（pmc.ncbi.nlm.nih.gov がブラウザ確認（reCAPTCHA）の画面を返した（21KB）。中身がないので読まない。Europe PMC の API で取り直す）。根拠にしない
+- △ web:bizmgmt: r4-mgmt-jfc-panel2016 は一部だけ読了（2（はじめに：過去のコーホートの却下率と緊急保証制度）、17〜18（図10・11 従業者数）、21〜22（図15 報酬、図16 就業時間、図17 収入の満足度）。判定書2.6節の6・14を確かめるために読み直した頁だけ。全体は無印のノート（BIZ-MGMT 側）が通読している）
+- △ web:bizmgmt: r4-mgmt-tsr-insight は一部だけ読了（記事本文のみ（周りの関連記事・案内は読まない））
+- △ web:bizmgmt: r4-mgmt-wiki-lanchester は一部だけ読了（概要・法則の説明・経営学への応用（強者戦略と弱者戦略）。数式の導出とクープマン分析は流し読み）
+- △ web:bizmgmt: r4-mgmt-wiki-aidma は一部だけ読了（概要・歴史・各段階の説明・派生モデルの一覧（参考文献とリンク欄は読まない））
+- △ web:bizmgmt: r4-mgmt-stat-cpi2025 は一部だけ読了（1-6（概況と10大費目・寄与の内訳）。後ろの統計表は数字を拾い読みしただけ）
+- △ web:bizmgmt: r4-mgmt-fdma-fire は取得したが読まない（取得した頁は用途別の数字が画像の図だけで、本文は建物火災の総数程度。飲食店の件数が取れないので根拠にしない）。根拠にしない
+- △ web:bizmgmt: r4-mgmt-monodukuri は取得したが読まない（取得した頁は制度の案内だけで採択率の数字がなかった。根拠にしない）。根拠にしない
+- △ web:bizmgmt: r4-mgmt-tsr-ramen は一部だけ読了（記事本文のみ（周りの関連記事・案内は読まない））
+- △ web:bizmgmt: r4-mgmt-tsr-bakery は一部だけ読了（記事本文のみ（周りの関連記事・案内は読まない））
+- △ web:bizmgmt: r4-mgmt-wiki-komeda は一部だけ読了（概要・M&A・沿革・店舗の展開・おかげ庵と吉茶の節・出典欄（メニューの細かい節は流し読み）。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため・概要・沿革・店舗展開・商品の作り方（自社工場・パン）・関連業態。メニュー一覧と株主欄は流し読み）
+- △ web:bizmgmt: r4-mgmt-wiki-ippudo は一部だけ読了（概要・沿革・グループ会社・手がける店舗。人物欄と参考文献は流し読み）
+- △ web:bizmgmt: r4-law-mlit-hacchusha-gl は一部だけ読了（はじめに・1〜2（書面による契約、2-1〜2-3）と末尾の紛争解決（8以降の関係条文は流し読み））
+- △ web:bizmgmt: r4-mgmt-luca-yelp は一部だけ読了（書誌と要旨のみ（論文本文は読んでいない））
+- △ web:bizmgmt: r4-mgmt-stockout-regensburg は一部だけ読了（1-6（序論と先行研究の表1）、14-16（結果）。仮説と回帰の詳細は流し読み）
+- △ web:bizmgmt: r4-mgmt-stockout-penn は取得できず、理由つきで飛ばした（AgEcon Search が 202（0バイト）を返し中身が取れなかった。読まない）。根拠には使っていないこと
+- △ web:bizmgmt: r4-mgmt-rudd-elasticity は取得したが読まない（取得した頁は書誌だけで要旨がなかった。読まない）。根拠にしない
+- △ web:bizmgmt: r4-mgmt-duke-elasticity は一部だけ読了（書誌と要旨のみ（論文本文は読んでいない））
+- △ web:bizmgmt: r4-mgmt-mirasapo-hojo は取得したが読まない（取得した頁は JavaScript で中身を描く殻（352バイト）で本文がなかった。読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-jfc-shihyou-08b は取得したが読まない（08a の (1)業種別経営指標の部分と同じ表（31頁、同じ日付の同じ数字）。重複なので 08a のノートで読んだことにし、これは別に読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-warp-robots は取得したが読まない（WARP の robots.txt が保存版の領域（/web/・/20・/collections/）を Disallow にしているので、保存版は自動で取らない。robots.txt 自体は判断の材料で、資料としては読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-mirasapo-jizoku は取得したが読まない（ミラサポplusの頁は352バイトの殻（本文はJavaScriptで後から読み込む）で中身がない。読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-jizoku-s23 は取得したが読まない（事務局サイトの入口の頁（採択結果の頁への案内だけで、件数がない）。結果の頁を別に取ったので、これは資料として読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-jizoku-saitaku_backnumber は取得したが読まない（過去回の案内頁が『ページが見つかりません／準備中』で中身がない。読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-jizoku-r6 は取得したが読まない（事務局サイトの入口の頁（採択結果の頁への案内だけで、件数がない）。結果の頁を別に取ったので、これは資料として読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-jizoku-r6-saitaku は取得したが読まない（第19回の採択者一覧（地域別PDFへの入口）だけで、応募数・採択数の件数がない。発表日は s23 の頁の読了ノートで扱う。読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-shinshutsu-top は取得したが読まない（事務局サイトの入口の頁（採択結果の頁への案内だけで、件数がない）。結果の頁を別に取ったので、これは資料として読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-sogyotecho-jizoku17 は一部だけ読了（記事の本文（2025年9月29日公開の部分）。前後のサイトの案内・関連記事の一覧は読んでいない）
+- △ web:bizmgmt: r4-calib-tfd-jittai-idx は取得したが読まない（目次の頁（章ごとのPDFへの入口）。第7章を別に取るので、これは資料として読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-tfd-youto は一部だけ読了（冊子の196〜199ページ（第7章 2 飲食店：年別・業態別・時間帯・出火原因））
+- △ web:bizmgmt: r4-calib-jnet21-fc は一部だけ読了（記事の本文「FC加盟を考える」の部分。前後のサイトの業種一覧・広告は読んでいない）
+- △ web:bizmgmt: r4-calib-jfc-shihyou-07a は一部だけ読了（1-3（目次）, 127（パン小売業（製造小売）））
+- △ web:bizmgmt: r4-calib-mlit-kouki は取得したが読まない（令和5年度調査の報道発表（2頁）。新しい令和7年度の概要（r4-calib-mlit-kouki-r7）で代えるので、これは根拠にしない）。根拠にしない
+- △ web:bizmgmt: r4-calib-mlit-kouki-idx は取得したが読まない（年度別の調査結果への入口の頁で、数字がない。読まない）。根拠にしない
+- △ web:bizmgmt: r4-calib-mlit-kouki-r7idx は取得したが読まない（令和7年度調査のPDFへの入口の頁。概要PDFを別に取るので読まない）。根拠にしない
+- △ web:bizmgmt: r5-cal-jfc-panel-inoue は一部だけ読了（論文の21〜27頁（月商・売上状況・予想月商達成率・採算・従業者数・業種別の表3）と38〜39頁（まとめ）。28〜37頁（コロナの影響の内容・支援策）は図の題だけ）
+- △ web:bizmgmt: r5-cal-jfc-kaigyo-tsuiseki は一部だけ読了（1-6（目的・属性・経営状況）。7〜13頁（コロナの影響・満足度・まとめ）は見出しと図の題だけ）
+- △ web:bizmgmt: r5-cal-jfc-shihyou-08a-fy2023 は取得できず、理由つきで飛ばした（Wayback Machine（web.archive.org）への接続が切れて（Connection reset・429）取れなかった。2023年度の表の代わりに、公庫のサイトに残る2019年度の版（r5-cal-jfc-shihyou-202008-08a）で年ごとの振れを見た）。根拠には使っていないこと
+- △ web:bizmgmt: r5-cal-jfc-shihyou-202008-07a は一部だけ読了（目次、パン小売業（製造小売）・菓子・パン小売業・飲食料品小売業の業種別の頁、規模別の飲食料品小売業と菓子・パン小売業の頁）
+- △ web:bizmgmt: r5-cal-stat-cpi-top は取得したが読まない（一覧・入口の頁。統計表のファイルの所在を見るためだけに開いた（中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r5-cal-estat-cpi-files は取得したが読まない（一覧・入口の頁。統計表のファイルの所在を見るためだけに開いた（中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r5-cal-estat-cpi-item-annual-list は取得したが読まない（一覧・入口の頁。統計表のファイルの所在を見るためだけに開いた（中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r5-cal-sogyotecho-jfcrate2610 は一部だけ読了（記事の本文（利率の表を含む）。サイトの案内・関連記事は読んでいない）
+- △ web:bizmgmt: r5-cal-boj-yaku-idx は取得したが読まない（一覧の頁（PDF の所在を見るためだけ））。根拠にしない
+- △ web:bizmgmt: r5-cal-boj-yaku2608 は取得したが読まない（文字のない PDF（表は図として描かれている）で、同じ数字の月次の全系列を r5-cal-boj-ir04 で読んだので根拠にしない（1頁目を画像で見て、2026年3〜8月の値が ir04 と一致することだけ確かめた））。根拠にしない
+- △ web:bizmgmt: r5-cal-mpra-entry-prices は一部だけ読了（要旨・序論の前半・結論（53頁のうち、データの作り方と推定の節は見出しと図の題だけ））
+- △ web:bizmgmt: r5-cal-tms-portugal-entry は取得したが読まない（論文の要旨の頁（入口）。本文PDF を r5-cal-tms-portugal-entry-pdf で取って読んだ）。根拠にしない
+- △ web:bizmgmt: r5-cal-tms-portugal-entry-pdf は一部だけ読了（要旨・序論・データ（表1・表2）・結果の要約・結論・表7（10頁のうち推定の方法の細部と文献の節は流し読み））
+- △ web:bizmgmt: r5-cal-estat-census-search は取得したが読まない（e-Stat の検索結果の頁（統計表の所在を探すためだけ。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r5-cal-estat-census-search2 は取得したが読まない（e-Stat の検索結果の頁（統計表の所在を探すためだけ。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r5-cal-estat-census-search-p2 は取得したが読まない（e-Stat の検索結果の頁（統計表の所在を探すためだけ。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r5-cal-estat-census-search-p3 は取得したが読まない（e-Stat の検索結果の頁（統計表の所在を探すためだけ。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r5-cal-estat-census-search-p4 は取得したが読まない（e-Stat の検索結果の頁（統計表の所在を探すためだけ。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r5-cal-estat-census-search-p5 は取得したが読まない（e-Stat の検索結果の頁（統計表の所在を探すためだけ。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r5-cal-estat-kouri-search は取得したが読まない（e-Stat の検索結果の頁（表の所在を探すためだけ））。根拠にしない
+- △ web:bizmgmt: r5-cal-estat-kouri-202601 は取得したが読まない（第1表の銘柄の一覧だけで価格はなかった（価格の表は Excel だけ）。地域の値段の差は厚労省2014年の地域ブロック別の客単価で代えた）。根拠にしない
+- △ web:bizmgmt: r5-cal-estat-jinko-search は取得したが読まない（e-Stat の一覧の頁（表の所在を探すためだけ））。根拠にしない
+- △ web:bizmgmt: r5-cal-stat-jinsui2016 は取得したが読まない（人口推計の目次の頁（PDF の所在を見るためだけ））。根拠にしない
+- △ web:bizmgmt: r5-cal-stat-jinsui2016-tables は取得したが読まない（全国の年齢別などの表で都道府県別の人口がなかった。都道府県別は gaiyou3 で読んだ）。根拠にしない
+- △ web:bizmgmt: r5-cal-stat-jinsui2016-gaiyou3 は一部だけ読了（表5（都道府県別人口と全国に占める割合）と表6（都道府県別人口増減率）、その前後の説明。図（地図・棒グラフ）は数値を使っていない）
+- △ web:bizmgmt: r5-cal-stat-jinsui2016-gaiyou4 は取得したが読まない（年齢3区分の割合の章で、使う数字（都道府県別の総人口）はなかった。gaiyou3 で代えた）。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-hibetsu-search は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-hibetsu-search2 は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-top は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-t1 は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-t2 は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-2025 は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-m-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-202510 は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202510 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202501-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202501 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202502-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202502 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202503-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202503 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202504-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202504 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202505-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202505 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202506-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202506 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202507-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202507 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202508-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202508 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202509-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202509 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202511-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202511 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-estat-kakei-202512-list は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-kakei-hibetsu-202512 は一部だけ読了（二人以上の世帯と勤労者世帯の2枚の、消費支出・食料・外食（一般外食・日本そば・うどん・中華そば・他の麺類外食・すし・ハンバーガー・他の主食的外食・喫茶代）の行の全日（ほかの品目の行は読んでいない））
+- △ web:bizmgmt: r6-fc-stat-kakei-top は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-stat-kakei-qa は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-stat-kakei-index2 は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-stat-kakei-kaisetsu は取得したが読まない（e-Stat・統計局の一覧・入口の頁（統計表の所在を探すためだけに開いた。中身の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-wayback-cdx-jfc08 は取得できず、理由つきで飛ばした（Wayback Machine への接続が途中で切れた（agent proxy で ws_closed_mid_exchange）。国立国会図書館 WARP の保存版で代えた）。根拠には使っていないこと
+- △ web:bizmgmt: r6-fc-warp-jfc-try1 は取得したが読まない（WARP の保存版の外枠の頁（中の文書の置き場と保存日を見るためだけ））。根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-2024-08a は一部だけ読了（業種別の 飲食店，宿泊業・一般飲食店・中華料理店・喫茶店 の頁（ほかの業種の頁は見出しだけ））
+- △ web:bizmgmt: r6-fc-warp-jfc-2024-08c は一部だけ読了（規模別の 一般飲食店 の頁（ほかの業種の頁は見出しだけ））
+- △ web:bizmgmt: r6-fc-warp-jfc-2024-07a は一部だけ読了（業種別の 飲食料品小売業・菓子・パン小売業・パン小売業（製造小売） の頁（ほかの業種の頁は見出しだけ））
+- △ web:bizmgmt: r6-fc-warp-jfc-try2 は取得したが読まない（WARP の保存版の外枠の頁（保存日を見るためだけ））。根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-idx-20200101000000 は取得したが読まない（WARP の外枠の頁（保存日を見るためだけ））。根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-idx-20221001000000 は取得したが読まない（WARP の外枠の頁（保存日を見るためだけ））。根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-idx-2022 は取得したが読まない（WARP の保存版の一覧の頁（表の名と調査年度の対応を確かめるためだけ。数字の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-kekka-2022 は取得したが読まない（WARP の保存版の一覧の頁（表の名と調査年度の対応を確かめるためだけ。数字の根拠にしない））。根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-kekka-try は取得したが読まない（WARP の外枠の頁（保存日を見るためだけ））。根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-kekka-try2 は取得したが読まない（WARP の外枠の頁（保存日を見るためだけ））。根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-kekka-2025 は取得したが読まない（WARP の保存版の一覧の頁（表の名と調査年度を確かめた。読了ノートは r6-fc-warp-jfc-2024-08a 等の側に書く））。根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-kekka-2023 は取得したが読まない（WARP の保存版の一覧の頁（表の名と調査年度を確かめた。読了ノートは r6-fc-warp-jfc-2024-08a 等の側に書く））。根拠にしない
+- △ web:bizmgmt: r6-fc-warp-jfc-202302-08a は一部だけ読了（業種別の 飲食店，宿泊業・一般飲食店・中華料理店・喫茶店 の頁（ほかの業種の頁は見出しだけ））
+- △ web:bizmgmt: r6-fc-warp-jfc-202302-08c は一部だけ読了（規模別の 一般飲食店・中華料理店 の頁（ほかの業種の頁は見出しだけ））
+- △ web:bizmgmt: r6-fc-warp-jfc-202302-07a は一部だけ読了（業種別の 飲食料品小売業・菓子・パン小売業・パン小売業（製造小売） の頁（ほかの業種の頁は見出しだけ））
+- △ web:bizmgmt: r6-fc-estat-seiei-search は取得したが読まない（e-Stat の検索結果の頁（生活衛生関係営業経営実態調査の表は e-Stat に無かった））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-seiei-search2 は取得したが読まない（e-Stat の検索結果の頁（生活衛生関係営業経営実態調査の表は e-Stat に無かった））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-census-ramen-search は取得したが読まない（e-Stat の検索結果の頁（表の所在を探すためだけ））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-census2021-search は取得したが読まない（e-Stat の検索結果の頁（表の所在を探すためだけ））。根拠にしない
+- △ web:bizmgmt: r6-fc-estat-census-000040032976 は一部だけ読了（飲食店（76・761〜769・76A〜76G）の全国と47都道府県の「総数」の行（ほかの産業の行は読んでいない））
+- △ web:bizmgmt: r6-cal-estat-kouri-2025nen は一部だけ読了（シート「2102中華そば（外食）」の全行（81市の年平均と月別）と、表の題・銘柄・記号の説明。ほかの品目のシート（ビール・うどん・日本そば・定食など）は品目名だけ見た）
+- △ web:bizmgmt: r7-fc-cinii-search は取得できず、理由つきで飛ばした（CiNii Research の検索は robots.txt で Disallow（/crid/ だけ許可）。検索は J-STAGE の検索 API と国会図書館サーチで行う）。根拠には使っていないこと
+- △ web:bizmgmt: r7-fc-js-kisho-business2023 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-nippai-yosoku2023 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-q-ndl-nigoten は取得できず、理由つきで飛ばした（robots.txt が禁じるパス（Disallow: /api）。道具が自動で確かめた）。根拠には使っていないこと
+- △ web:bizmgmt: r6-cal-js-muroran-akitenpo は一部だけ読了（論文の要旨とキーワード（本文の PDF は取っていない）。頁のメニュー・引用文献の一覧は読んでいない）
+- △ web:bizmgmt: r6-cal-js-akiyuka-shihyo は一部だけ読了（論文の要旨とキーワード（本文の PDF は取っていない）。頁のメニュー・引用文献の一覧は読んでいない）
+- △ web:bizmgmt: r6-cal-js-suitai-kaigyo は一部だけ読了（論文の要旨とキーワード（本文の PDF は取っていない）。頁のメニュー・引用文献の一覧は読んでいない）
+- △ web:bizmgmt: r7-fc-js-chiba-census2024 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-gurume-census2024 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-shutten-keisai2025 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-ricchi-henka2019 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-uriage-yosoku2012 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-ml-inshoku2018 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-nowcast-tenko2022 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-eigyojikan2025 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-gaishoku-senryaku2012 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-zerozero-ebpm2025 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-kakaku-kioku2022 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-restaurant-kadou2013 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-corona-gaishoku2021 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-shokibo-gaishoku2023 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-gaishoku-kozo2000 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-obinata-review2013 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-fc-haigyo は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-kaihaigyo-youin は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-fc-haiki-loss は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-hacchu-seido は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-tsuko-chinryo2015 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-nebiki-kitai2003 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r7-fc-js-rakuno-kigyokachi2026 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r9-robots-ageconsearch.umn.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-epub.uni-regensburg.de は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-ideas.repec.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-ja.wikipedia.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-jfnet.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-jigyou-saikouchiku.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-mpra.ub.uni-muenchen.de は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-r6.jizokukahojokin.info は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-s23.jizokukahojokin.info は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-scholars.duke.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-shinjigyou-shinshutsu.smrj.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-sogyotecho.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-tmstudies.net は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-uconnruddcenter.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-web.archive.org は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:bizmgmt: r6-cal-stat-census2016-gaiyo-html は一部だけ読了（結果の一覧の頁のうち、資料の名と PDF への入口の行（用語の解説・利用上の注意・概況）。頁のメニューは読んでいない）
+- △ web:bizmgmt: r9-robots-www.e-stat.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-www.env.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r7-fc-js-fc-keiei-bunseki2006 は一部だけ読了（要旨（論文のページ。本文の PDF は J-STAGE の robots の決まりで取らない））
+- △ web:bizmgmt: r9-robots-www.kankyo.metro.tokyo.lg.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-www.onamae.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-www.stat.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r9-robots-www.tfd.metro.tokyo.lg.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r7-fc-estat-q-kakeikozo-youbi は一部だけ読了（調査の年の一覧の欄だけ（頁の大部分はサイト全体の統計の一覧で、読んでいない））
+- △ web:bizmgmt: r7-fc-estat-kakeikozo-top は一部だけ読了（調査の年の一覧の欄だけ）
+- △ web:bizmgmt: r7-fc-estat-kakeikozo2019-youbi は一部だけ読了（全国の分類の欄（都道府県の欄は読んでいない））
+- △ web:bizmgmt: r7-fc-estat-kakeikozo2019-kakei-p1 は一部だけ読了（一覧の全111件の題（中身は 1-89 だけ取った））
+- △ web:bizmgmt: r7-fc-estat-kakeikozo2019-kakei-p2 は取得したが読まない（頁送りの先で、表の一覧は無い（1頁目に111件すべてが出ていた）。読まない）。根拠にしない
+- △ web:bizmgmt: r7-fc-estat-kakeikozo2019-kakei-p3 は取得したが読まない（頁送りの先で、表の一覧は無い（1頁目に111件すべてが出ていた）。読まない）。根拠にしない
+- △ web:bizmgmt: r7-fc-estat-kakeikozo2019-kakei-p4 は取得したが読まない（頁送りの先で、表の一覧は無い（1頁目に111件すべてが出ていた）。読まない）。根拠にしない
+- △ web:bizmgmt: r7-fc-estat-kakeikozo2019-kakei-p5 は取得したが読まない（頁送りの先で、表の一覧は無い（1頁目に111件すべてが出ていた）。読まない）。根拠にしない
+- △ web:bizmgmt: r7-fc-estat-kakeikozo2019-kakei-p6 は取得したが読まない（頁送りの先で、表の一覧は無い（1頁目に111件すべてが出ていた）。読まない）。根拠にしない
+- △ web:bizmgmt: r7-fc-estat-kakeikozo2019-t1-89 は一部だけ読了（性別の平均（0_平均）の行のうち、外食・一般外食・こづかい（使途不明）の行の全部の世帯の組み合わせ（12組×曜日12区分）。ほかの品目は見ていない）
+- △ web:bizmgmt: r6-cal-estat-census-shikuchoson-search は一部だけ読了（検索の結果の1頁目（20件ほどの表の名）。2頁目以降は取っていない）
+- △ web:bizmgmt: r10-rr-jfc-idx は取得したが読まない（公庫の現行の索引の頁。過去の版（2021・2023年度）の表へのリンクがないことを確かめるためだけに開いた（リンクの一覧を見た）。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r10-rr-jfc-kekka-idx は取得したが読まない（公庫の現行の索引の頁。過去の版（2021・2023年度）の表へのリンクがないことを確かめるためだけに開いた（リンクの一覧を見た）。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizmgmt: r10-rr-ideas-cosman-schiff は一部だけ読了（書誌・要旨・参考文献の一覧（RePEc IDEAS の頁）。本文の PDF は取っていない（MPRA は robots.txt が Anthropic の名の組で禁じる））
+- △ web:bizmgmt: r10-rr-ideas-busso-galiani は一部だけ読了（書誌・要旨（RePEc IDEAS の頁）。本文は取っていない）
+- △ web:ramen: r4-ramen-prtimes-tsukemenhaku は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r5-rmn-book-solt-review は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:ramen: r5-rmn-inshoku-nandenkanden は取得に失敗した（403）。読んでいないので根拠にしない
+- △ web:ramen: r5-rmn-jprime-nandenkanden-p5 は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:ramen: r5-rmn-paper-tachikawa は取得に失敗した（502・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r5-rmn-paper-nanzan2022 は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r5-cal-tsr-an-20190701 は取得に失敗した（301・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r5-cal-tsr-an-20210602 は取得に失敗した（301・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r6-fill-jf-202607 は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r6-fill-ggs-202310 は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r6-fill-inshokuten-rent は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r6-fill-inshokuten-ginza-list は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r6-fill-kakaku-hyakumeiten-20231010 は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r6-fill-jma-tokyo-2025 は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r7-rmn-escholarship-q-solt は取得に失敗した（403）。読んでいないので根拠にしない
+- △ web:ramen: r7-rmn-gbooks-solt は取得に失敗した（429）。読んでいないので根拠にしない
+- △ web:ramen: r7-rmn-gbooks-hayamizu は取得に失敗した（429）。読んでいないので根拠にしない
+- △ web:ramen: r7-rmn-gbooks-okada は取得に失敗した（429）。読んでいないので根拠にしない
+- △ web:ramen: r7-rmn-ndl-q-digital-ramen は取得に失敗した（429）。読んでいないので根拠にしない
+- △ web:ramen: r7-rmn-ndl-q-irdb-ramen は取得に失敗した（429）。読んでいないので根拠にしない
+- △ web:ramen: r7-rmn-askul-q-paitan は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:ramen: r7-rmn-ichioshi-487230 は取得に失敗した（403）。読んでいないので根拠にしない
+- △ web:ramen: r7-fill-q-ndl-repeater-gaishoku は取得に失敗した（429・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r8-rmn-solt-rev-csusb-pdf は取得に失敗した（403）。読んでいないので根拠にしない
+- △ web:ramen: r8-rmn-nihonu-p85 は取得に失敗した（503）。読んでいないので根拠にしない
+- △ web:ramen: r8-rmn-irdb-q-ramen は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r8-fill-webtan-kuchikomi は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-5harad.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-chikumashobo.co.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-escholarship.org は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-ichioshi.smt.docomo.ne.jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-pweb.cc.sophia.ac.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-www.athome.co.jp は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-www.cit.nihon-u.ac.jp は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-www.googleapis.com は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-www.jetro.go.jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-www.pref.chiba.lg.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-www.pref.fukushima.lg.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-www.pref.yamaguchi.lg.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-www.rikenvitamin.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-www.tdb.co.jp は取得に失敗した（400・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r9-robots-www2.jpx.co.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:ramen: r10-rr-ndlsearch-subject-ramen は取得に失敗した（503）。読んでいないので根拠にしない
+- △ web:ramen: r10-rr-ndlsearch-subject-ramen2 は取得に失敗した（503）。読んでいないので根拠にしない
+- △ web:ramen: r4-ramen-tsr-2024 は一部だけ読了（記事本文の全部（ページ後半の関連記事の一覧・サイト案内は読んでいない））
+- △ web:ramen: r4-ramen-tsr-2023 は一部だけ読了（記事本文の全部（ページ後半の関連記事の一覧・サイト案内は読んでいない））
+- △ web:ramen: r4-ramen-tsr-2026h1 は一部だけ読了（記事本文の全部（ページ後半の関連記事の一覧・サイト案内は読んでいない））
+- △ web:ramen: r4-ramen-tsr-fy2023 は一部だけ読了（記事本文の全部（ページ後半の関連記事の一覧・サイト案内は読んでいない））
+- △ web:ramen: r4-ramen-jfc-kaigyo2025 は取得したが読まない（1ページの要約版だった。同じ調査の本文（r4-ramen-jfc-kaigyo2025full）を取得して読んだので、こちらは根拠にしない）。根拠にしない
+- △ web:ramen: r4-ramen-jnet21-guide は一部だけ読了（記事本文と本文中の画像の表2枚（ページ前半のサイト案内メニュー・後半の広告欄は読んでいない））
+- △ web:ramen: r4-ramen-gift-yuho2025 は一部だけ読了（主要な経営指標等の推移（連結）、サステナビリティの気候変動の表（物理リスク）、連結の販管費の主要な費目、減損損失の注記（2期分）、借入金等明細表・2〜3（主要な経営指標等の推移：連結と提出会社）、7〜8（直営店事業・業務委託店・プロデュース事業部門・店舗数の推移）、10（関係会社の状況と株式会社ギフトの主要な損益情報）、33〜34（設備投資等の概要・提出会社の主要な設備）、70〜71（収益の計上基準）、86付近（契約負債の残高）、101〜104（提出会社の収益の計上基準・損益計算書・営業費用の内訳）、111（新しいリース会計基準）、112（監査上の主要な検討事項）・4〜9、25、29〜35、63ページと販管費・減損の注記（経理の状況のその他の注記・株式の状況・コーポレートガバナンスは読んでいない））
+- △ web:ramen: r4-ramen-chikara-tanshin2026 は一部だけ読了（1〜6（経営成績・店舗数の表・配当方針）、9〜10（事業の内容：暖簾分け制度・海外のライセンス）、セグメント情報（調整額の注記）。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ）・1〜13ページ（サマリー・経営成績・見通し・企業集団の状況・経営方針）、16〜21ページの連結財務諸表の主な行、26〜28ページのセグメント情報）
+- △ web:ramen: r4-ramen-fukuoka-yatai-boshu は一部だけ読了（1〜12ページ（募集要項の本文。13ページ以降の問い合わせ先一覧・別図・様式は見出しだけ））
+- △ web:ramen: r4-ramen-maff-komugi2610 は一部だけ読了（1〜4ページと6〜9ページの本文・注記（5ページのシカゴ相場のグラフは見出しと注記のみ、グラフの細部の出来事の注記は読み流した））
+- △ web:ramen: r4-ramen-kourakuen-setsumei2511 は一部だけ読了（12（業績ハイライト）・13（過去業績の振り返り：40期〜56期上期の年商と営業利益のグラフ）・39（営業店の推移）。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:ramen: r4-ramen-yamaokaya-setsumei2603 は一部だけ読了（3〜4（会社概要・沿革）、6〜14（決算の実績・コスト内訳・出店と閉店）、22（まとめ）、25〜27・33（計画と中期計画）、35（業界データ）、39〜44（推移のグラフ。画像として開いて数字を読んだ）。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:ramen: r4-ramen-maff-konjaku は取得したが読まない（HTML版は目次と導入文だけで年表本文は画像。同じ記事のPDF版（r4-ramen-maff-konjaku-pdf）を取得して読む）。根拠にしない
+- △ web:ramen: r4-ramen-maff-kyodo-hokkaido は一部だけ読了（料理の解説とレシピ（ページ前後のサイト案内は読んでいない））
+- △ web:ramen: r4-ramen-instant-data は取得したが読まない（数字がすべてグラフ画像で、本文は見出しだけだった。根拠にしない）。根拠にしない
+- △ web:ramen: r4-ramen-jetro-us2025 は一部だけ読了（4〜11ページと20ページ（他の州の節は見出しと数字だけ））
+- △ web:ramen: r4-ramen-jetro-namerica2016 は一部だけ読了（PDF の54〜55頁（冊子の頁番号53〜54）の「福岡発のチーズケーキ専門店、直営で挑む」（通商弘報、2015年11月20日、トロント事務所）の全文。BIZ-MKT-RAMEN 版1.1で読み足した記事だけ。ほかの頁は無印のノートが読んでいる・目次・序文、16〜18ページ（喜多方ラーメンのチェーン）、25〜26ページ（札幌ラーメンの老舗）と前後の記事の冒頭）
+- △ web:ramen: r4-ramen-stat-kakei-rank は取得したが読まない（Excel への入口のページで、本文に数字がない。根拠にしない）。根拠にしない
+- △ web:ramen: r4-ramen-prtimes-tryfes は一部だけ読了（リリースの本文と出店予定店舗の一覧（ページ周りのPR TIMESの案内・関連リリースは読んでいない））
+- △ web:ramen: r5-rmn-stat-longtime-idx は取得したが読まない（家計調査の長期時系列の入口。月別の品目のCSVを探すためだけに開いた（品目別の月次はなかった））。根拠にしない
+- △ web:ramen: r5-rmn-stat-kakei-idx3 は取得したが読まない（家計調査の統計表の入口。e-Stat の一覧へのリンクを探すためだけに開いた）。根拠にしない
+- △ web:ramen: r5-rmn-estat-kakei-list は取得したが読まない（e-Stat の一覧ページ。表はJavaScriptで描かれ、中華そばの月次の表への直接のリンクが取れなかった）。根拠にしない
+- △ web:ramen: r5-rmn-gdfreak-chukasoba は取得できず、理由つきで飛ばした（2ページ目（12か月予測）は取得が空（status 0）。1ページ目（35か月の実数）で足りるので取り直さない）。根拠には使っていないこと
+- △ web:ramen: r5-rmn-gdfreak-chukasoba1 は一部だけ読了（1ページ目（長期トレンドの表）。2ページ目以降（予測）は取得できず）
+- △ web:ramen: r5-rmn-book-okada-chikuma は一部だけ読了（出版社の書誌ページ：内容紹介・目次（章の見出し）・著者紹介。本文は読んでいない）
+- △ web:ramen: r5-rmn-book-hayamizu-kodansha は取得したが読まない（講談社のサイトが脆弱性対応のメンテナンス中で、取得した版はメンテナンスの案内だけ。同じ本の紹介・目次は紀伊國屋の書誌（r5-rmn-book-hayamizu-kino）で読んだ）。根拠にしない
+- △ web:ramen: r5-rmn-book-hayamizu-kino は一部だけ読了（紀伊國屋書店の書誌：出版社の内容情報・目次（章と節の一部）・著者紹介・読書メーターの感想5件。本文は読んでいない）
+- △ web:ramen: r5-rmn-book-jiro-kino は一部だけ読了（紀伊國屋書店の書誌：内容説明・目次（9章）・読書メーターの感想5件。本文は読んでいない）
+- △ web:ramen: r5-rmn-book-gotochi-kino は一部だけ読了（紀伊國屋書店の書誌：出版社の内容情報・目次（3部）・著者紹介・読書メーターの感想2件。本文は読んでいない）
+- △ web:ramen: r5-rmn-book-solt-ucpress は一部だけ読了（出版社（カリフォルニア大学出版局）のチラシ：内容紹介・推薦文2つ・書誌。本文は読んでいない）
+- △ web:ramen: r5-rmn-itm-dosanko1 は一部だけ読了（記事本文の1/5ページ（周りの関連記事・広告は読まない））
+- △ web:ramen: r5-rmn-itm-dosanko2 は一部だけ読了（記事本文の2/5ページ）
+- △ web:ramen: r5-rmn-itm-dosanko3 は一部だけ読了（記事本文の3/5ページ）
+- △ web:ramen: r5-rmn-itm-dosanko4 は一部だけ読了（記事本文の4/5ページ）
+- △ web:ramen: r5-rmn-itm-dosanko5 は一部だけ読了（記事本文の5/5ページ（写真の説明と筆者紹介））
+- △ web:ramen: r5-rmn-jprime-nandenkanden は一部だけ読了（記事本文の1/4ページ（周りの関連記事・広告は読まない））
+- △ web:ramen: r5-rmn-pres-taishoken1 は一部だけ読了（記事本文の1/4ページ（本の抜粋・後編。2ページ目以降は会員限定））
+- △ web:ramen: r5-rmn-pres-ishido は一部だけ読了（記事本文の1/5ページ（本の抜粋。周りの関連記事は読まない））
+- △ web:ramen: r5-rmn-pres-ishido-p2 は一部だけ読了（記事本文の2/5ページ（本の抜粋））
+- △ web:ramen: r5-rmn-pres-ishido-p3 は一部だけ読了（記事本文の3/5ページ（本の抜粋））
+- △ web:ramen: r5-rmn-pres-ishido-p4 は一部だけ読了（記事本文の4/5ページ（本の抜粋））
+- △ web:ramen: r5-rmn-pres-ishido-p5 は一部だけ読了（記事本文の5/5ページ（本の抜粋と著者紹介））
+- △ web:ramen: r5-rmn-pres-taishoken1-p2 は取得したが読まない（会員限定の手前の2〜4文しか本文がない。根拠にせず、前のページまでを使う）。根拠にしない
+- △ web:ramen: r5-rmn-pres-taishoken1-p3 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-taishoken1-p4 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-taishoken0 は一部だけ読了（記事本文の1/4ページ（本の抜粋。2ページ目の冒頭まで読めた））
+- △ web:ramen: r5-rmn-jprime-nandenkanden-p2 は一部だけ読了（記事本文の2/4ページ）
+- △ web:ramen: r5-rmn-jprime-nandenkanden-p3 は一部だけ読了（記事本文の3/4ページ）
+- △ web:ramen: r5-rmn-jprime-nandenkanden-p4 は一部だけ読了（記事本文の4/4ページ）
+- △ web:ramen: r5-rmn-pres-ishido1 は一部だけ読了（記事本文の1/4ページ（本の抜粋））
+- △ web:ramen: r5-rmn-pres-ishido-topping は一部だけ読了（記事本文の1/7ページ（2ページ目の冒頭まで読めた。3ページ以降は会員限定で本文なし））
+- △ web:ramen: r5-rmn-pres-ishido1-p2 は一部だけ読了（記事本文の2/4ページ（本の抜粋））
+- △ web:ramen: r5-rmn-pres-ishido1-p3 は一部だけ読了（記事本文の3/4ページ（本の抜粋））
+- △ web:ramen: r5-rmn-pres-ishido1-p4 は一部だけ読了（記事本文の4/4ページ（本の抜粋と著者紹介））
+- △ web:ramen: r5-rmn-pres-ishido-topping-p2 は取得したが読まない（会員限定の手前の4文だけ（物価高で飲食店は厳しい、油は3〜4割上がった）。根拠にせず、1ページ目までを使う）。根拠にしない
+- △ web:ramen: r5-rmn-pres-ishido-topping-p3 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-ishido-topping-p4 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-ishido-topping-p5 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-ishido-topping-p6 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-ishido-topping-p7 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-rokurinsha は一部だけ読了（記事本文の1/4ページ（2ページ目以降はほぼ会員限定））
+- △ web:ramen: r5-rmn-pres-rokurinsha-p2 は取得したが読まない（会員限定の手前の2〜4文しか本文がない。根拠にせず、前のページまでを使う）。根拠にしない
+- △ web:ramen: r5-rmn-pres-rokurinsha-p3 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-rokurinsha-p4 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-fukuoka-tonkotsu は一部だけ読了（記事本文の1/4ページ（周りの関連記事は読まない））
+- △ web:ramen: r5-rmn-pres-fukuoka-tonkotsu-p2 は一部だけ読了（記事本文の2/4ページ）
+- △ web:ramen: r5-rmn-pres-fukuoka-tonkotsu-p3 は一部だけ読了（記事本文の3/4ページ）
+- △ web:ramen: r5-rmn-pres-fukuoka-tonkotsu-p4 は一部だけ読了（記事本文の4/4ページ）
+- △ web:ramen: r5-rmn-pres-ishido-tsuburenikui は一部だけ読了（記事本文の1/7ページ（本の著者の記事。周りの関連記事は読まない））
+- △ web:ramen: r5-rmn-pres-ishido-tsuburenikui-p2 は一部だけ読了（記事本文の2/7ページ）
+- △ web:ramen: r5-rmn-pres-ishido-tsuburenikui-p3 は一部だけ読了（記事本文の3/7ページ）
+- △ web:ramen: r5-rmn-pres-ishido-tsuburenikui-p4 は一部だけ読了（記事本文の4/7ページ）
+- △ web:ramen: r5-rmn-pres-ishido-tsuburenikui-p5 は一部だけ読了（記事本文の5/7ページ）
+- △ web:ramen: r5-rmn-pres-ishido-tsuburenikui-p6 は一部だけ読了（記事本文の6/7ページ）
+- △ web:ramen: r5-rmn-pres-ishido-tsuburenikui-p7 は一部だけ読了（記事本文の7/7ページ（結論と著者紹介））
+- △ web:ramen: r5-rmn-pres-taishoken0-p2 は一部だけ読了（2/4ページの冒頭（会員限定の手前まで））
+- △ web:ramen: r5-rmn-pres-taishoken0-p3 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-taishoken0-p4 は取得したが読まない（会員限定のページで、取得した版には本文がない（見出しと会員登録の案内だけ）。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-cal-kourakuen-yuho-a は一部だけ読了（主要な経営指標等の推移・沿革・事業の状況（経営成績・財政状態・設備）・損益計算書と販管費・製造原価明細書・減損損失の注記（105頁のうち約30頁）。2026-10-22 追記：直営店の地域別の売上・シェア・期末店舗数の表、出店計画、販管費の人件費の行の全部）
+- △ web:ramen: r5-cal-kourakuen-yuho-b は一部だけ読了（表紙・製造原価明細書・原価計算の方法の注記だけ）
+- △ web:ramen: r5-cal-hidaka-yuho2026 は一部だけ読了（主要な経営指標・沿革・経営方針と中期計画・事業の状況（経営成績・販売実績・設備投資）・損益計算書と販管費・製造原価明細書・減損の注記（81頁のうち約25頁））
+- △ web:ramen: r5-cal-yamaokaya-yuho2026 は一部だけ読了（主要な経営指標・事業の状況（経営成績・店舗）・設備・損益計算書と売上原価の内訳・販管費の全行・製造原価明細書・減損の注記。2026-10-22 追記：販売実績の都道府県別の表、設備の状況（都道府県別の店数と帳簿価額）、事業等のリスク（店舗設備の自社保有））
+- △ web:ramen: r5-cal-yamaokaya-yuho-old は一部だけ読了（主要な経営指標・事業の状況・損益計算書と販管費の全行・減損の注記）
+- △ web:ramen: r5-rmn-voice-mynavi2020 は一部だけ読了（記事本文（調査結果と回答者の理由の全部）。周りの関連記事・広告は読まない）
+- △ web:ramen: r5-rmn-voice-mynavi2023 は取得したが読まない（うどんの好みの調査で、ラーメンの声ではなかった（検索の要約の取り違え）。根拠にしない）。根拠にしない
+- △ web:ramen: r5-rmn-voice-nexer-ichiran は一部だけ読了（プレスリリースの本文（調査概要・結果・回答者の理由の全部））
+- △ web:ramen: r5-rmn-voice-navit は一部だけ読了（プレスリリースの本文（調査概要・設問の結果・自由回答の抜粋3件）。周りのサイト案内は読まない）
+- △ web:ramen: r5-cal-chikara-yuho2025 は取得したが読まない（11KB の確認書（表紙だけ）で有報本文ではなかった。r5-cal-chikara-yuho2025b で取り直す）。根拠にしない
+- △ web:ramen: r5-cal-chikara-yuho2025b は一部だけ読了（主要な経営指標・事業の内容（直営と暖簾分け・海外）・店数の表・リスク（キーマネー）・経営成績とセグメント・損益計算書と販管費・減損と借入の注記。2026-10-22 追記：事業等のリスクの「業績の季節変動等」の節）
+- △ web:ramen: r5-rmn-voice-maruha2018 は一部だけ読了（1〜8ページ（結果の本文）と9〜10ページの図表の一部。11〜25ページの図表は見出しだけ）
+- △ web:ramen: r5-rmn-voice-nifty2016 は取得できず、理由つきで飛ばした（取得が中継で失敗（502・0バイト）。2回試して取れず、根拠にしない）。根拠には使っていないこと
+- △ web:ramen: r5-rmn-voice-nifty2016b は取得できず、理由つきで飛ばした（取得が中継で失敗（502・0バイト）。2回試して取れず、根拠にしない）。根拠には使っていないこと
+- △ web:ramen: r5-rmn-ndl-subject は取得したが読まない（OpenSearch に subject の指定が効かず、全件（1億件超）が返った。件数の根拠にならない。SRU で取り直す）。根拠にしない
+- △ web:ramen: r5-rmn-cost-canaeru は一部だけ読了（記事本文（原価・経費・経営のポイントの節）。周りの案内・関連記事は読まない）
+- △ web:ramen: r5-rmn-cost-mfbiz は一部だけ読了（記事本文の売上の目安・原価・経費の節。周りの案内は読まない）
+- △ web:ramen: r5-rmn-cost-moneypost は一部だけ読了（記事の1ページ目（2ページで全部））
+- △ web:ramen: r5-rmn-maker-taisei は一部だけ読了（プレスリリースの本文。周りの案内は読まない）
+- △ web:ramen: r5-rmn-case-jcast-metro は一部だけ読了（記事本文。周りの案内は読まない）
+- △ web:ramen: r5-rmn-case-batonz24058 は一部だけ読了（案件のページの公開部分（会員限定の営業利益などは見えない））
+- △ web:ramen: r5-rmn-case-batonz31517 は一部だけ読了（案件のページの公開部分）
+- △ web:ramen: r5-rmn-goods-tenkaippin は一部だけ読了（記事本文。周りの関連記事は読まない）
+- △ web:ramen: r5-rmn-cost-moneypost-p2 は一部だけ読了（記事の2ページ目）
+- △ web:ramen: r5-cal-datamax-kojima は一部だけ読了（記事の本文の全部（周りの案内・関連記事の一覧・広告は読んでいない））
+- △ web:ramen: r5-cal-tsr-1201545 は一部だけ読了（記事の本文の全部（周りの案内・関連記事の一覧・広告は読んでいない））
+- △ web:ramen: r5-cal-tsr-1202726 は一部だけ読了（記事の本文の全部（周りの案内・関連記事の一覧・広告は読んでいない））
+- △ web:ramen: r5-cal-tsr-1198479 は一部だけ読了（記事の本文の全部（周りの案内・関連記事の一覧・広告は読んでいない））
+- △ web:ramen: r5-cal-tsr-1198316 は一部だけ読了（記事の本文の全部（周りの案内・関連記事の一覧・広告は読んでいない））
+- △ web:ramen: r5-cal-dxmag-ramen26 は一部だけ読了（記事の本文の全部（周りの案内・関連記事の一覧・広告は読んでいない））
+- △ web:ramen: r5-cal-tsr-news-1202252 は取得したが読まない（開いたら不動産業の倒産でラーメン店と無関係だった（検索結果の誤り）。根拠にしない）。根拠にしない
+- △ web:ramen: r5-cal-tsr-news-1202872 は一部だけ読了（記事の本文の全部（周りの案内・関連記事の一覧・広告は読んでいない））
+- △ web:ramen: r5-rmn-health-chiba-matsudo は一部だけ読了（1枚もののちらしの全文（表面の減塩の手順と「塩の種類」のメモ））
+- △ web:ramen: r5-cal-prtimes-inshoku-rent25h2 は一部だけ読了（プレスリリースの本文の全部（会社の事業一覧・関連リンクは読んでいない））
+- △ web:ramen: r5-cal-athome-kashitenpo24h1 は一部だけ読了（1〜3頁（要旨・調査概要・東京9エリア全体・エリアごとの表。3頁の表は画像にして目で読んだ）。4頁（銀座）と13〜16頁（名古屋駅周辺・栄・大阪梅田・なんば心斎橋）は画像にして図の表と推移を目で読んだ（2026-10-22 追記）。5〜12頁（東京のほかの8エリアの推移）と17頁（問合せ先）は見出しだけ）
+- △ web:ramen: r5-rmn-pres-tenichi1 は一部だけ読了（本の抜粋の1ページ目（2ページ目の冒頭まで。3ページ以降は会員限定で本文なし））
+- △ web:ramen: r5-rmn-pres-tenichi1-p2 は一部だけ読了（2ページ目の冒頭（会員限定の手前まで））
+- △ web:ramen: r5-rmn-pres-tenichi1-p3 は取得したが読まない（会員限定のページで、取得した版には本文がない。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-tenichi1-p4 は取得したが読まない（会員限定のページで、取得した版には本文がない。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-tenichi2 は一部だけ読了（本の抜粋の1ページ目（2ページ目の冒頭まで。3ページ以降は会員限定で本文なし））
+- △ web:ramen: r5-rmn-pres-tenichi2-p2 は一部だけ読了（2ページ目の冒頭（会員限定の手前まで））
+- △ web:ramen: r5-rmn-pres-tenichi2-p3 は取得したが読まない（会員限定のページで、取得した版には本文がない。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r5-rmn-pres-tenichi2-p4 は取得したが読まない（会員限定のページで、取得した版には本文がない。読めた前のページまでを根拠にする）。根拠にしない
+- △ web:ramen: r6-fill-jfc-shihyo-08a は一部だけ読了（目次・中華料理店とそば・うどん店の表）
+- △ web:ramen: r6-fill-jfc-shihyo-08b は一部だけ読了（目次・中華料理店とそば・うどん店の表）
+- △ web:ramen: r6-fill-jfc-shihyo-08c は一部だけ読了（目次と、31〜36ページの従業者規模別の表のうち飲食店，宿泊業（31）・一般飲食店（32）・中華料理店（34））
+- △ web:ramen: r6-fill-kouri-toshi-202606 は取得したが読まない（取得したら本表でなく銘柄設定一覧だった（中華そばを含まない）。使わない）。根拠にしない
+- △ web:ramen: r6-fill-kouri-toshi-b0011-202607 は一部だけ読了（r6-fill-kouri-toshi-b0011-202607）
+- △ web:ramen: r6-fill-kouri-toshi-b0012-202607 は一部だけ読了（r6-fill-kouri-toshi-b0012-202607）
+- △ web:ramen: r6-fill-athome-kashitenpo-2025h2 は一部だけ読了（1-6（3ページの表は画像で見た））
+- △ web:ramen: r6-fill-goel-twiral は一部だけ読了（要旨・1〜2節・結果の主な段落・結論）
+- △ web:ramen: r6-fill-jstage-gaishoku-uriage-yosoku は一部だけ読了（要旨）
+- △ web:ramen: r6-fill-jstage-flash-marketing は一部だけ読了（要旨）
+- △ web:ramen: r6-fill-jstage-sushi-crm は一部だけ読了（要旨）
+- △ web:ramen: r6-fill-jstage-kanko-shutten は一部だけ読了（書誌のみ）
+- △ web:ramen: r6-fill-mlit-shukuhaku-2025 は一部だけ読了（目次と第2表の12か月）
+- △ web:ramen: r7-rmn-jstage-q-ramen は取得したが読まない（J-STAGE の検索APIの結果（書誌の一覧）。探し先の記録で、資料として根拠にしない。ラーメン店の客の声・系統の原価を載せた論文は見つからなかった（結果の題名は24章に））。根拠にしない
+- △ web:ramen: r7-rmn-jstage-q-668c2a は取得したが読まない（J-STAGE 検索APIが ERR_001 を返した（keyword に複数語・店の語）。結果なし）。根拠にしない
+- △ web:ramen: r7-rmn-jstage-q-699241 は取得したが読まない（J-STAGE 検索APIが ERR_001 を返した（keyword に複数語・店の語）。結果なし）。根拠にしない
+- △ web:ramen: r7-rmn-jstage-q-78f7fe は取得したが読まない（J-STAGE 検索APIが ERR_001 を返した（keyword に複数語・店の語）。結果なし）。根拠にしない
+- △ web:ramen: r7-rmn-jstage-a-ramenten は取得したが読まない（J-STAGE の検索APIの結果（書誌の一覧）。探し先の記録で、資料として根拠にしない。ラーメン店の客の声・系統の原価を載せた論文は見つからなかった（結果の題名は24章に））。根拠にしない
+- △ web:ramen: r7-rmn-jstage-t-ramen は取得したが読まない（J-STAGE の検索APIの結果（書誌の一覧）。探し先の記録で、資料として根拠にしない。ラーメン店の客の声・系統の原価を載せた論文は見つからなかった（結果の題名は24章に））。根拠にしない
+- △ web:ramen: r7-rmn-ndl-q-hayamizu は取得したが読まない（国立国会図書館サーチの書誌（ラーメンと愛国）。デジタル化資料の公開はなく本文は読めない）。根拠にしない
+- △ web:ramen: r7-rmn-ucpress-solt は一部だけ読了（出版社の書誌の頁（内容紹介・著者紹介・目次・書評の抜粋）。本文の試し読みは頁になく、Google Books のプレビューへのリンクだけ（Google Books の API は1日の上限で429））
+- △ web:ramen: r7-rmn-jstage-x-jiyu は取得したが読まない（J-STAGE の検索APIの結果（書誌の一覧）。探し先の記録で、資料として根拠にしない。ラーメン店の客の声・系統の原価を載せた論文は見つからなかった（結果の題名は24章に））。根拠にしない
+- △ web:ramen: r7-rmn-jstage-x-kuchikomi は取得したが読まない（J-STAGE の検索APIの結果（書誌の一覧）。探し先の記録で、資料として根拠にしない。ラーメン店の客の声・系統の原価を載せた論文は見つからなかった（結果の題名は24章に））。根拠にしない
+- △ web:ramen: r7-rmn-jstage-inazawa は取得したが読まない（抄録だけ読んだ。稲沢市の外食全般の消費者ニーズで、ラーメン店の声ではない。PDF は robots.txt（/*_pdf 禁止）に従い取らない）。根拠にしない
+- △ web:ramen: r7-rmn-jstage-covid-shokibo は取得したが読まない（抄録の頁。ラーメン店に限らない小規模外食の経営の分析で、客の声ではない。PDF は robots に従い取らない）。根拠にしない
+- △ web:ramen: r7-rmn-ndl-q-ramen-manzoku は取得したが読まない（国立国会図書館サーチの検索結果（雑誌名の一覧）。論文の本文の手がかりなし）。根拠にしない
+- △ web:ramen: r6-fc-monogatari-yuho2025 は一部だけ読了（1〜6頁（表紙・沿革・事業の内容）、経営成績のラーメンカテゴリーの節、32〜33頁（重要な契約等）、36頁（設備の新設の計画）。事業等のリスク・財務諸表は読んでいない）
+- △ web:ramen: r7-rmn-moneypost-genka は一部だけ読了（記事の1ページ目（ラーメン編の前編の導入。2ページ目は別のノート））
+- △ web:ramen: r7-rmn-moneypost-genka-p2 は一部だけ読了（記事の2ページ目の本文（3ページ目の他業態の原価一覧は見出しだけ））
+- △ web:ramen: r7-rmn-moneypost-tsukemen は一部だけ読了（記事の1ページ目の本文（2ページ目以降は読んでいない））
+- △ web:ramen: r7-rmn-jnet21-cons-ramen2 は一部だけ読了（調査の本文（図の数字は本文の文にある値だけ。図そのものは画像で見ていない））
+- △ web:ramen: r7-rmn-jnet21-cons-ramen は一部だけ読了（調査の本文（2013年版、アンケートは2008年））
+- △ web:ramen: r6-fc-kourakuen-yuho2020 は一部だけ読了（表紙、事業の内容、経営成績の分析（業績等の概要のセグメントの節）、重要な契約等。財務諸表と注記は読んでいない）
+- △ web:ramen: r6-fc-kourakuen-yuho2021 は一部だけ読了（表紙、事業の内容、経営成績の分析（業績等の概要のセグメントの節）、重要な契約等。財務諸表と注記は読んでいない）
+- △ web:ramen: r6-fc-kourakuen-yuho2023 は一部だけ読了（表紙、事業の内容、経営成績の分析（業績等の概要のセグメントの節）、重要な契約等。財務諸表と注記は読んでいない）
+- △ web:ramen: r7-rmn-ndl-q-digital-ramen2 は取得したが読まない（国立国会図書館サーチ（インターネット公開のデジタル化資料に限る）の検索結果。研究の本の本文は含まれない）。根拠にしない
+- △ web:ramen: r7-rmn-ndldl-hayamizu は取得したが読まない（国立国会図書館デジタルコレクションの検索の頁（JavaScript で描かれ結果が本文に出ない））。根拠にしない
+- △ web:ramen: r6-fc-tsr-1203009 は取得したが読まない（全文を読んだが焼肉店の倒産の動向で、ラーメン店の個別の事例ではない。根拠にしない）。根拠にしない
+- △ web:ramen: r6-fc-tsr-news-1201600 は取得したが読まない（開いて冒頭を見たらラーメン店でない倒産（パチンコ・食堂受託・カード店）で、検索結果の取り違え。根拠にしない）。根拠にしない
+- △ web:ramen: r6-fc-tsr-news-1202749 は取得したが読まない（開いて冒頭を見たらラーメン店でない倒産（パチンコ・食堂受託・カード店）で、検索結果の取り違え。根拠にしない）。根拠にしない
+- △ web:ramen: r6-fc-tsr-news-1202799 は取得したが読まない（開いて冒頭を見たらラーメン店でない倒産（パチンコ・食堂受託・カード店）で、検索結果の取り違え。根拠にしない）。根拠にしない
+- △ web:ramen: r6-fc-gift-yuho2019 は一部だけ読了（1〜6頁（主要な経営指標等の推移の連結と提出会社、沿革）。事業の内容・財務諸表は読んでいない）
+- △ web:ramen: r6-fc-gift-yuho2020 は一部だけ読了（1〜6頁（主要な経営指標等の推移、沿革）。ほかは読んでいない）
+- △ web:ramen: r7-fill-js-machijikan-2018 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-chirashi-kyakusu-2010 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-chirashi-seiri-2008 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-line-o2o-2016 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-enjo-2015 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-enjo-business-2021 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-michelin-2019 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-gentei-label-2013 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-kaihaigyo-2024 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-coupon-1992 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-kinen-izakaya-2019 は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r6-cal-datamax-62034 は取得したが読まない（取り直したら既存の r5-cal-datamax-kojima と同じ記事（こじま亭）だった。5件目にならない）。根拠にしない
+- △ web:ramen: r6-cal-gendai-144647 は取得したが読まない（倒産の個別の事例ではなく、大手の買収の記事（M&A の例。この版では使わない））。根拠にしない
+- △ web:ramen: r6-cal-gendai-143126 は取得したが読まない（倒産の個別の事例ではなく、ラーメン業界の買収と二極化の論説（この版では使わない））。根拠にしない
+- △ web:ramen: r6-cal-tokyo-sangyo-robots は取得したが読まない（robots.txt の確認のためだけに取った（/documents/ は許可）。読了ノートは書かない）。根拠にしない
+- △ web:ramen: r6-cal-tokyo-corp202602 は取得したが読まない（東京の企業倒産状況（月報、2頁）は業種と原因の集計だけで、個別の倒産の事例が載っていない。5件目の事例にならない）。根拠にしない
+- △ web:ramen: r6-cal-tokyo-corp202604 は取得したが読まない（東京の企業倒産状況（月報、2頁）は業種と原因の集計だけで、個別の倒産の事例が載っていない。5件目の事例にならない）。根拠にしない
+- △ web:ramen: r6-cal-tokyo-corp202605 は取得したが読まない（東京の企業倒産状況（月報、2頁）は業種と原因の集計だけで、個別の倒産の事例が載っていない。5件目の事例にならない）。根拠にしない
+- △ web:ramen: r6-cal-iwatenp-robots は取得したが読まない（robots.txt が Claude の bot（ClaudeBot・Claude-User など）を拒んでいる。記事 r6-cal-iwatenp-191220 は取得しない）。根拠にしない
+- △ web:ramen: r6-cal-iwatenp-191220 は取得できず、理由つきで飛ばした（岩手日報の robots.txt が Claude の bot を拒むため取得しない（事例の見出しは検索の要約で見ただけ。根拠にしない））。根拠には使っていないこと
+- △ web:ramen: r6-cal-president-39451 は一部だけ読了（記事の本文（1頁目）。関連記事の一覧・広告は読んでいない）
+- △ web:ramen: r6-cal-bunshun-40751 は一部だけ読了（記事の1頁目（続きの頁は取っていない）。関連記事・広告は読んでいない）
+- △ web:ramen: r6-cal-aizu-robots は取得したが読まない（robots.txt の確認のためだけ（PDF の置き場は許可））。根拠にしない
+- △ web:ramen: r6-cal-aizu-akitenpo-r06 は取得したが読まない（会津若松の空き店舗の調査（30頁）。文字の層を「賃料・家賃・坪・円」で探したが、家賃の値は家賃支援の制度の名だけで、地方の賃料の数字はなかった）。根拠にしない
+- △ web:ramen: r6-cal-reinet-robots は取得したが読まない（robots.txt の確認のためだけ（/pdf/ は許可））。根拠にしない
+- △ web:ramen: r6-cal-reinet-tenpo-2025autumn は取得したが読まない（PDF の名の推測が外れ、同じ HTML の案内頁（56,004B）が返った。この版は取れていない）。根拠にしない
+- △ web:ramen: r6-cal-reinet-tenpo-2025spring は取得したが読まない（PDF の名の推測が外れ、同じ HTML の案内頁（56,004B）が返った。この版は取れていない）。根拠にしない
+- △ web:ramen: r6-cal-reinet-tenpo-2024autumn は取得したが読まない（PDF の名の推測が外れ、同じ HTML の案内頁（56,004B）が返った。この版は取れていない）。根拠にしない
+- △ web:ramen: r8-rmn-solt-rev-shashi は取得できず、理由つきで飛ばした（取得で status 0（応答なし）。同じ本の書評は Pacific Affairs（r8-rmn-solt-rev-pacaff）で読んだので、ここは根拠にしない）。根拠には使っていないこと
+- △ web:ramen: r8-rmn-solt-rev-csusb は取得したが読まない（CSUSB ScholarWorks の書評の書誌の頁。本文の PDF（viewcontent）は取得に失敗した）。根拠にしない
+- △ web:ramen: r8-rmn-solt-rev-pacaff は一部だけ読了（書評の本文（雑誌の頁の書評1本の全文。サイトのナビは読んでいない））
+- △ web:ramen: r8-rmn-hayamizu-sbbit は一部だけ読了（インタビューの1ページ目の本文（2ページ目以降は会員の頁で読んでいない））
+- △ web:ramen: r8-rmn-hayamizu-kodansha2 は取得したが読まない（講談社の書誌の頁は2回目もメンテナンス中で本文なし）。根拠にしない
+- △ web:ramen: r8-rmn-jnet21-chuka2025 は取得したが読まない（J-Net21 中華料理店（2025年版）の消費者調査。麺料理中心の店を除く調査で、ラーメン店の声ではない。根拠にしない（試した窓口の記録））。根拠にしない
+- △ web:ramen: r8-rmn-riken-catalog は取得したが読まない（理研ビタミンの業務用カタログ。塩・豚骨・つけ麺などのスープの素の1人前の使用量はあるが価格がなく、1杯の原価は出せない。根拠にしない）。根拠にしない
+- △ web:ramen: r8-rmn-canaeru-p1044 は取得したが読まない（USEN の記事（r5-rmn-cost-canaeru と同じ内容の別 URL）。系統別の原価の新しい数はない。重複として根拠にしない）。根拠にしない
+- △ web:ramen: r8-rmn-cinii-q-ramenten は取得できず、理由つきで飛ばした（CiNii Research の robots.txt（r8-rmn-cinii-robots）は /crid/ 以外を禁じ、検索（/all?q=）と OpenSearch（/opensearch/）は取得できない。WANTED.md の r8-rmn-cinii-irdb-search に回した）。根拠には使っていないこと
+- △ web:ramen: r7-fill-js-kuchikomi-campaign は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-shikohin-kuchikomi は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-seimenki は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-sns-kokoku-ikoku は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r7-fill-js-kojin-inshoku-kukan は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r8-fill-ggs-repeat-2019 は一部だけ読了（1〜3ページ（解説・トピックス・調査概要）。4ページ以降の図表は読んでいない）
+- △ web:ramen: r8-fill-president-hidakaya は一部だけ読了（記事の本文（ページの周りの案内・広告・関連記事の一覧は読まない））
+- △ web:ramen: r8-fill-shopowner-kenbaiki は一部だけ読了（記事の本文（ページの周りの案内・広告・関連記事の一覧は読まない））
+- △ web:ramen: r8-fill-imitsu-sodekanban は一部だけ読了（記事の本文（ページの周りの案内・広告・関連記事の一覧は読まない））
+- △ web:ramen: r8-fill-lycbiz-matoca は一部だけ読了（記事の本文（ページの周りの案内・広告・関連記事の一覧は読まない））
+- △ web:ramen: r8-fill-lycbiz-oa2 は一部だけ読了（記事の本文（ページの周りの案内・広告・関連記事の一覧は読まない））
+- △ web:ramen: r8-fill-ascii-boom は一部だけ読了（記事の本文（ページの周りの案内・広告・関連記事の一覧は読まない））
+- △ web:ramen: r8-fill-moneypost-genka は一部だけ読了（記事の本文（ページの周りの案内・広告・関連記事の一覧は読まない））
+- △ web:ramen: r8-fill-jprime-tv は一部だけ読了（記事の本文（ページの周りの案内・広告・関連記事の一覧は読まない））
+- △ web:ramen: r8-fill-tabelog-score は一部だけ読了（点数の決まり方・評価対象・点数の変動の段（ページの下の案内は読まない））
+- △ web:ramen: r8-fill-js-raiten-kankaku は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r8-fill-js-census-chiba は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r8-fill-js-gaishoku-ritchi は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r8-fill-js-yoyaku-juyo は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r8-fill-js-gurume-census は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r8-fill-js-skytree は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r8-fill-js-pos-cf は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r8-fill-js-ml-inshoku は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r8-fill-js-chikuseki は一部だけ読了（要旨（論文のページ））
+- △ web:ramen: r9-robots-athome-inc.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-canaeru.usen.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-chosa.nifty.com は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:ramen: r9-robots-data-max.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-dxmagazine.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-gradfoodstudies.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-hd.kourakuen.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-human.hirosaki-u.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-jp.gdfreak.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-maruchiyo.yamaokaya.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-news.mynavi.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-pacificaffairs.ubc.ca は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-prtimes.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-scholarworks.lib.csusb.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-shashi.pitt.edu は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:ramen: r9-robots-thedailytexan.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-u-gakugei.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.askul.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.city.fukuoka.lg.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.fashionsnap.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.inshokuten.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.instantramen.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.itmedia.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.jfnet.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.kinokuniya.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.kodansha.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.maff.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.maruha-nichiro.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.pref.kagawa.lg.jp は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:ramen: r9-robots-www.reishokukyo.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.sbbit.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.st.nanzan-u.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.ucpress.edu は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r9-robots-www.zaikei.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:ramen: r6-cal-president-39451-p2 は一部だけ読了（記事の2頁目の本文（関連記事の一覧・広告は読んでいない））
+- △ web:ramen: r6-cal-president-39451-p3 は一部だけ読了（記事の3頁目の本文（関連記事の一覧・広告は読んでいない））
+- △ web:ramen: r6-cal-bunshun-40751-p2 は一部だけ読了（記事の2頁目の本文（前編の最後。後編の記事は取っていない。広告・関連記事は読んでいない））
+- △ web:ramen: r10-robots-ci.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r5-growth-meti-cvs-owner-hearing は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-meti-cvs-003index は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-meti-cvs-index は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-meti-cvs-001-05 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-kyushu-hakusyo2025 は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-kanagawa-fc-hanrei は取得に失敗した（502・502・502・502）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-kanagawa-record15021 は取得に失敗した（502）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-ndl-dl-3525239-manifest は取得に失敗した（404）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-jftc-fc2011-ndl は取得に失敗した（401）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-jftc-fc2011-warp は取得に失敗した（403・403）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-jftc-fc2011-ndltext は取得に失敗した（403）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-ndl-q-fc-inshoku は取得に失敗した（429）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-ndl-q-fc-kameisha は取得に失敗した（429・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-courts-q-fc-ramen は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-meti-hakusho2025-press は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-meti-hakusho2025-press-b は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r9-robots-disclosure2dl.edinet-fsa.go.jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r9-robots-www.kyushu.meti.go.jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r9-robots-www.meti.go.jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r9-robots-www.nse.or.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizgrowth: r10-rr-inshoku-nandenkanden は取得に失敗した（403）。読んでいないので根拠にしない
+- △ web:bizgrowth: r5-growth-pepper-yuho2020 は一部だけ読了（沿革（2020年の行）、事業等のリスク（店舗出店・競合・新株予約権・継続企業の前提）、経営成績のセグメント、重要な後発事象・子会社株式の譲渡の注記、新株予約権の状況。財務諸表の本体と注記の大半は読んでいない。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-hidaka-yuho2026 は取得したが読まない（取れたのは訂正報告書（2ページ）で本体ではない。本体は別の文書番号で取り直す）。根拠にしない
+- △ web:bizgrowth: r5-growth-hidaka-yuho2020 は一部だけ読了（1〜8（経営指標・沿革・事業の内容・経営方針・会社の支配に関する方針）、9〜12（事業等のリスク・経営成績）、15〜17（設備投資と主要な設備）。財務諸表の注記の大半は読んでいない。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-kourakuen-yuho2023 は一部だけ読了（経営指標・沿革（2〜5ページ）、事業の内容と店舗数、事業等のリスク（生産体制・財務制限条項・継続企業の前提）、経営成績、重要な契約（FC契約の一覧）、会社の支配に関する方針（中期計画の骨子）、連結貸借対照表の注記（財務制限条項・コミットメントライン）。個別財務諸表・ガバナンスの大半は読んでいない。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-kourakuen-yuho2026 は一部だけ読了（沿革、事業の内容、経営方針と対処すべき課題、サステナビリティのうち人財と投資の戦略、経営成績・財政状態、資本の財源、設備投資の概要、株式の発行の注記、建設仮勘定の明細。財務諸表の注記の大半とガバナンスは読んでいない。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-skylark-yuho2025 は一部だけ読了（1〜8（はじめに：事業運営主体の変遷、沿革）、33〜34（事業等のリスクのうち多額の借入金・財務制限条項・減損会計）、経営成績の概要の一部、44（主要な設備の注記）。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-monogatari-yuho2025 は一部だけ読了（2〜5（経営指標・沿革・事業の内容）、経営方針（中期ビジョン）、経営成績（部門別・部門別店舗数の表、22〜23ページ）、重要な契約（FC加盟契約の加盟金・保証金・ロイヤルティの表、27ページ）。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-sakigake-yuho2025 は一部だけ読了（2〜6（経営指標・沿革）、事業の内容（店の形・店数の推移の表）、事業等のリスク（特定人物への依存・支配株主・株式の流動性）、大株主の状況。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-hachiban-yuho2026 は一部だけ読了（2〜8（経営指標・沿革・関係会社・経営方針と中期計画）、事業等のリスクのうちFC加盟店の展開・食材の調達、経営成績（セグメント別）、重要な契約（カンボジアのエリアFC）、セグメント情報の調整額の注記。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-plenus-yuho2022 は一部だけ読了（4〜5（沿革）、9〜12（事業の内容・経営方針のうち事業ごとの方針、事業等のリスクのうちFC契約・賃貸借・人材）、14〜16（経営成績・セグメント）、重要な契約（ほっともっとのFC契約と地区本部契約）、重要な後発事象（該当なし）。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-plenus-q3-2023 は一部だけ読了（経営成績の概要（2〜4ページ）、収益の分解の注記（直営店売上と加盟店向け売上）、重要な後発事象（株式併合と上場廃止、18〜21ページ）。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-ootoya-yuho2021 は一部だけ読了（経営指標（2〜3ページ）、沿革（4ページ）、経営方針・新中期計画・対処すべき課題（9〜10ページ）、事業等のリスクのうち人材・継続企業の前提、経営成績と財政状態の概要、大株主。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-ootoya-yuho2026 は一部だけ読了（経営指標（2〜3ページ）、経営成績のセグメント（国内直営・国内FC、16〜17ページ）、純資産の変動の説明（優先株式の取得と消却）、株式の状況の優先株式の欄。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-chikara-yuho2026 は一部だけ読了（2〜3（経営指標）、4〜7（沿革）、株式の状況のうち発行済株式総数の推移（47ページ）。読まなかった所の理由：BIZ-GROWTH の根拠に使うのは沿革・事業の内容・リスク・経営成績・関係する注記で、ガバナンス・株式事務・財務諸表の本体と残りの注記は成長の分かれ道（店数・工場・FC・資本・減損）の判断に関係する記述を語句の検索で探して、該当が見つからなかったため通読していない（全文通読は根拠の中心の6本だけ））
+- △ web:bizgrowth: r5-growth-jfc-shoukei2023-report は一部だけ読了（「日本政策金融公庫 調査月報」2023年8月号のうち、事業承継の調査の記事（雑誌の7〜16ページ前後。9・10ページの図と表は画像として開いて読んだ）。同じ号の他の記事は読んでいない。読まなかった所の理由：同じ号の他の記事は事業承継の調査と別の話題のため）
+- △ web:bizgrowth: r5-growth-jfa-komeda-fc は一部だけ読了（1〜13（案内・目次・本部の概要・5期の損益・全店売上・店数・新規開店・中途終了・再契約・訴訟件数・売上予測の説明・加盟金と保証金）、18〜19（ロイヤルティと付属契約の費用・営業時間）、別紙（類似店の収支）。14〜17ページ（商品の販売条件・経営指導・商標・契約期間と解除）と20ページ以降のチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-komeda-mokuromi-mizuho は取得できず、理由つきで飛ばした（コメダHDの株式売出届出目論見書（みずほ証券のURL）は接続できず（応答なし）。ウェブアーカイブの写しは自動取得しない。EDINETの有価証券届出書（2016年）は保存期間の約10年を過ぎている。代わりに名証の新規上場会社概要と有報・FC開示書面で確かめる）。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-arxiv-mortality-pdf は一部だけ読了（1〜11（要旨・序論・データ・方法・起業時の規模・景気・飲食店と他のサービス業の比較・表1〜3）。12ページ以降の結論と参考文献は流し読み。読まなかった所の理由：12頁以降は結論の繰り返しと参考文献で、使う数（表2・表3）は11頁までにあるため流し読み）
+- △ web:bizgrowth: r5-growth-nber-w8416 は取得したが読まない（PDFの文字がフォントの符号化で文字に起こせない（pdftotext で意味のある文字が出ない）。OCRは使わず、同じ著者の別の論文で代える）。根拠にしない
+- △ web:bizgrowth: r5-growth-lafontaine-kaufmann1994 は取得したが読まない（取れたのは1,959バイトのHTML（ブラウザ確認の画面）でPDFではない。robots.txt の Content-Signal も確かめた。根拠にしない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-tomatomen は一部だけ読了（本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-osakaosho は一部だけ読了（訴訟件数の頁と、加盟金・保証金・ロイヤリティ・違約金の頁・本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-mujinzo は一部だけ読了（本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-kagetsu は一部だけ読了（訴訟件数の頁と、加盟金・保証金・ロイヤリティ・違約金の頁・加盟の時に払う金銭の表の全部（審査費用・申込金・加盟金・保証金・研修費・宣伝費）、定期の金銭、営業時間の頁（版0.5で読み足した）。会社の概要・決算・研修の日程表は読んでいない・本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-ajisen は一部だけ読了（訴訟件数の頁と、加盟金・保証金・ロイヤリティ・違約金の頁・加盟に際し徴収する金銭（加盟金・保証金の額と性質・返還の条件）と作成日の頁、定期的に払う金銭（商標権使用料）、加盟者の店舗数の頁（版0.5で読み足した）。会社の概要・沿革・組織図・決算は読んでいない・本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-tadokoro は一部だけ読了（訴訟件数の頁と、加盟金・保証金・ロイヤリティ・違約金の頁・本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-hachiban は一部だけ読了（訴訟件数の頁と、加盟金・保証金・ロイヤリティ・違約金の頁・加盟の時に払う金銭（加盟金・保証金・研修費・性質・返還）とロイヤリティ・広告分担金の頁、加盟者の店舗数の頁（作成日 2018年6月20日。版0.5で読み足した）。会社の概要・決算は読んでいない・本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-bannai は一部だけ読了（訴訟件数の頁と、加盟金・保証金・ロイヤリティ・違約金の頁・本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-ringerhut は一部だけ読了（本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-yamagoya は一部だけ読了（訴訟件数の頁と、加盟金・保証金・ロイヤリティ・違約金の頁・加盟の時に払う金銭（加盟金・保証金）とロイヤリティの頁、加盟者の店舗数の頁（作成日 令和8年2月1日。版0.5で読み足した）。会社の概要・沿革は流し読み、決算は読んでいない・本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-yudetaro は一部だけ読了（本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-sutadonya は一部だけ読了（本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-tsurumaru は一部だけ読了（本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-ootoya は一部だけ読了（本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-cocoichi は一部だけ読了（本部の概要・店数と売上の推移・加盟店の店舗に関する事項・訴訟件数・加盟時と毎月の金銭・違約金の欄。契約の要点の残り（商品の販売条件・経営指導・テリトリー・競業避止など）とチェックリストは流し読み。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-soudan2026 は一部だけ読了（本文（相談件数の説明・月別の表・9月の業種別の表・分類の注）。サイトの見出しと案内のリンクは除く。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-jfa-fcstat2024 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった）。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2024 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-soudan2025 は一部だけ読了（本文（相談件数の説明・月別の表・3月の業種別の表・分類の注）。サイトの見出しと案内のリンクは除く。読まなかった所の理由：使うのは店数・中途終了・訴訟・料金の数で、契約の細目とチェックリストは数の根拠にならないため流し読み）
+- △ web:bizgrowth: r5-growth-ndl-q-fc-kameiten は取得したが読まない（検索APIの結果の一覧（書誌だけ）または資料ページの画面の枠で、本文を取りに行くための入口にだけ使った。書誌は全部目を通したが、資料そのものは根拠にしない（取った本文はそれぞれ別の読了ノート））。根拠にしない
+- △ web:bizgrowth: r5-growth-ndl-dl-3525239-page は取得したが読まない（検索APIの結果の一覧（書誌だけ）または資料ページの画面の枠で、本文を取りに行くための入口にだけ使った。書誌は全部目を通したが、資料そのものは根拠にしない（取った本文はそれぞれ別の読了ノート））。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-soudan2024 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2023 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2022 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2021 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2020 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2019 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2018 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2017 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2016 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2015 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2014 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2013 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2012 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2011 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2010 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2009 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2008 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2007 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-jfa-soudan2006 は一部だけ読了（本文（相談件数の説明・月別の表・業種別の表・分類の注）。サイトの見出しと案内のリンクは読んでいない（本文ではないため））
+- △ web:bizgrowth: r5-growth-ndl-q-fc-inshoku2 は取得したが読まない（検索APIの結果の一覧（書誌だけ）または資料ページの画面の枠で、本文を取りに行くための入口にだけ使った。書誌は全部目を通したが、資料そのものは根拠にしない（取った本文はそれぞれ別の読了ノート））。根拠にしない
+- △ web:bizgrowth: r5-growth-jstage-q-fc-kamei は取得したが読まない（検索APIの結果の一覧（書誌だけ）または資料ページの画面の枠で、本文を取りに行くための入口にだけ使った。書誌は全部目を通したが、資料そのものは根拠にしない（取った本文はそれぞれ別の読了ノート））。根拠にしない
+- △ web:bizgrowth: r5-growth-js-fc-royalty2009 は一部だけ読了（要約・序論・モデルの設定・結論と注（数式の展開の節は読み飛ばした。結論の理解に要らないため））
+- △ web:bizgrowth: r5-growth-jfa-fcstat2023 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2023 の取得物が小さすぎる（64 バイト）が、取れない記録がある（協会の統計のPDF（/folder/1/img/…）は、取りに行くとサイトのトップへ転送する64バイトの頁しか返らない（2026-10-22 08:25 と 09:1x に再試行、2023年度は --force で取り直しても同じ）。統計は取れた2003〜2009年度だけを使い、2010年度以降は使わない）。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2023 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2022 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2022 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2021 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2021 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2020 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2020 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2019 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2019 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2018 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2018 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2017 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2017 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2016 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2016 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2015 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2015 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2014 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2014 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2013 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2013 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2012 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2012 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2011 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2011 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2010 の取得物が小さすぎる（64 バイト）が、取れない記録がある（PDFのURLがサイトのトップへの転送（64バイトのmeta refresh）だけを返し、統計の本体が取れなかった（2010〜2024年度のPDFは同じ。2003〜2009年度は取れた））。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-jfa-fcstat2010 は取得したが読まない（訂正：前の skipped の理由の「09:1x に再試行」は誤り。記録にある取り直しは2023年度の1回（2026-10-22 09:08:56、--force、64バイト）だけ。協会の統計のPDF（/folder/1/img/…）はサイトのトップへ転送する64バイトの頁しか返らず、2010年度以降の統計は使わない）。根拠にしない
+- △ web:bizgrowth: r5-growth-jfa-fcstat2009 は一部だけ読了（1頁目の概要（総計・業種別の動向の文）と、業種別の表の外食業の行（とくにラーメン・餃子）。小売・サービスの細目の行は読んでいない（ラーメンの推移に関係しないため））
+- △ web:bizgrowth: r5-growth-jfa-fcstat2008 は一部だけ読了（1頁目の概要（総計・業種別の動向の文）と、業種別の表の外食業の行（とくにラーメン・餃子）。小売・サービスの細目の行は読んでいない（ラーメンの推移に関係しないため））
+- △ web:bizgrowth: r5-growth-jfa-fcstat2007 は一部だけ読了（1頁目の概要（総計・業種別の動向の文）と、業種別の表の外食業の行（とくにラーメン・餃子）。小売・サービスの細目の行は読んでいない（ラーメンの推移に関係しないため））
+- △ web:bizgrowth: r5-growth-jfa-fcstat2006 は一部だけ読了（1頁目の概要（総計・業種別の動向の文）と、業種別の表の外食業の行（とくにラーメン・餃子）。小売・サービスの細目の行は読んでいない（ラーメンの推移に関係しないため））
+- △ web:bizgrowth: r5-growth-jfa-fcstat2005 は一部だけ読了（1頁目の概要（総計・業種別の動向の文）と、業種別の表の外食業の行（とくにラーメン・餃子）。小売・サービスの細目の行は読んでいない（ラーメンの推移に関係しないため））
+- △ web:bizgrowth: r5-growth-jfa-fcstat2004 は一部だけ読了（1頁目の概要（総計・業種別の動向の文）と、業種別の表の外食業の行（とくにラーメン・餃子）。小売・サービスの細目の行は読んでいない（ラーメンの推移に関係しないため））
+- △ web:bizgrowth: r5-growth-jfa-fcstat2003 は一部だけ読了（1頁目の概要（総計・業種別の動向の文）と、業種別の表の外食業の行（とくにラーメン・餃子）。小売・サービスの細目の行は読んでいない（ラーメンの推移に関係しないため））
+- △ web:bizgrowth: r5-growth-jstage-q-gaishoku-tenpo は取得したが読まない（検索APIの結果の一覧（書誌だけ）または資料ページの画面の枠で、本文を取りに行くための入口にだけ使った。書誌は全部目を通したが、資料そのものは根拠にしない（取った本文はそれぞれ別の読了ノート））。根拠にしない
+- △ web:bizgrowth: r5-growth-jstage-q-ramen-chain は取得したが読まない（検索APIの結果の一覧（書誌だけ）または資料ページの画面の枠で、本文を取りに行くための入口にだけ使った。書誌は全部目を通したが、資料そのものは根拠にしない（取った本文はそれぞれ別の読了ノート））。根拠にしない
+- △ web:bizgrowth: r5-growth-js-china-kyoso2020 は取得したが読まない（冒頭を読んで、中国の即席めんの会社の事例でラーメン店・外食チェーンの成長と関係しないと分かったので、それ以上は読まない。根拠にしない）。根拠にしない
+- △ web:bizgrowth: r5-growth-js-fc-hou2015 は一部だけ読了（題・はじめに（研究の目的）・第3節冒頭（FCの定義と独禁法上の問題点の導入）。判例の個別の紹介と結論の節は文字起こしが大きく化けて読めた範囲が限られる。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-js-fc-ranyo2015 は一部だけ読了（はじめに・Ⅱ日本の現状（FC法制と行政規制・近年の判例）・結び と注。Ⅲ以降の米国の規制の詳細は読んでいない（日本の外食の分かれ道に直接使わないため））
+- △ web:bizgrowth: r5-growth-jstage-q-sogyosha は取得したが読まない（検索APIの結果の一覧（書誌だけ）または資料ページの画面の枠で、本文を取りに行くための入口にだけ使った。書誌は全部目を通したが、資料そのものは根拠にしない（取った本文はそれぞれ別の読了ノート））。根拠にしない
+- △ web:bizgrowth: r5-growth-js-gaishoku-senryaku2012 は一部だけ読了（要約・1〜3章（外食産業の概要・市場規模・上場会社の現状・業態別の成長性と収益性の表2）。4章以降の10社の個別の事例は流し読み（会社の一次資料で別に確かめているため））
+- △ web:bizgrowth: r5-growth-creator-hidaka-pres112180 は一部だけ読了（記事の1頁目の本文の全部（サイトの見出し・関連記事・ランキングは読んでいない）。2頁目は別のノート、3頁目は会員限定で本文がない）
+- △ web:bizgrowth: r5-growth-creator-hidaka-pres88995 は一部だけ読了（無料で読める部分の全部（有料会員限定の案内より前）。後半は有料で読めていない）
+- △ web:bizgrowth: r5-growth-creator-hidaka-pres112180-p2 は一部だけ読了（記事の2頁目の本文の全部（会員限定の案内より前）。サイトの見出し・関連記事は読んでいない）
+- △ web:bizgrowth: r5-growth-creator-hidaka-pres112180-p3 は取得したが読まない（取得したが本文は会員限定の案内だけで、記事の文がない（読む中身がないので読了ノートを書かない））。根拠にしない
+- △ web:bizgrowth: r5-growth-creator-ichinose-sogyo1 は一部だけ読了（インタビュー前編の本文の全部（目次から後編予告まで）。サイトの広告・人気ランキングは読んでいない。後編は取っていない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-creator-ichinose-moneypost は一部だけ読了（記事の本文の全部（週刊ポスト2024年7月12日号の転載部分）。サイトの見出し・関連記事は読んでいない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-creator-pepper-gendai57252 は一部だけ読了（記事の本文の全部（2018年8月の連載の2回目）。関連記事・広告は読んでいない。1回目と3回目は取っていない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-creator-tenkaippin-pres94330 は一部だけ読了（記事の1頁目の本文の全部。サイトの見出し・関連記事は読んでいない。3〜6頁目は会員限定で本文がない（取得しない記録あり））
+- △ web:bizgrowth: r5-growth-creator-iida-pres94330-p2 は一部だけ読了（記事の2頁目の本文の全部（会員限定の案内より前））
+- △ web:bizgrowth: r5-growth-creator-iida-pres94330-p3 は取得したが読まない（取得したが本文は会員限定の案内だけで、記事の文がない（読む中身がないので読了ノートを書かない））。根拠にしない
+- △ web:bizgrowth: r5-growth-creator-iida-pres94330-p4 は取得したが読まない（取得したが本文は会員限定の案内だけで、記事の文がない（読む中身がないので読了ノートを書かない））。根拠にしない
+- △ web:bizgrowth: r5-growth-creator-iida-pres94330-p5 は取得したが読まない（取得したが本文は会員限定の案内だけで、記事の文がない（読む中身がないので読了ノートを書かない））。根拠にしない
+- △ web:bizgrowth: r5-growth-creator-iida-pres94330-p6 は取得したが読まない（取得したが本文は会員限定の案内だけで、記事の文がない（読む中身がないので読了ノートを書かない））。根拠にしない
+- △ web:bizgrowth: r5-growth-oppose-gendai168226 は一部だけ読了（記事（後編）の本文の全部。前編は取っていない。関連記事・広告は読んでいない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-oppose-gendai69815 は一部だけ読了（記事の本文の全部。関連記事・広告は読んでいない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-oppose-gendai70771 は一部だけ読了（記事の本文の全部。関連記事・広告は読んでいない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-oppose-gentosha57837 は取得できず、理由つきで飛ばした（検索の要約ではラーメンのプロデュース業者が自社の事業を勧める記事（FCの仕入れが高いという主張に利害がある）。反対意見は利害の薄い論文（js-fc-ranyo2015・js-fc-hou2015）で取るので、規約を判定してまでは取らない）。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-creator-tagawa-itmedia5 は一部だけ読了（連載記事の5頁目の本文の全部（Shift_JIS を文字に直して読んだ）。1〜4・6頁目は取っていない。関連記事の見出しは読んでいない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-creator-kawahara-bunshun36250 は一部だけ読了（対談記事の1頁目の本文の全部。関連記事・広告は読んでいない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-creator-kawahara-nissyoku は一部だけ読了（インタビューの本文の全部（会社概要まで）。動画（3本）は見ていない。サイトの速報・ランキングは読んでいない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-tos-nissyoku は一部だけ読了（規約の条文（利用・禁止事項・料金と解約の条）。サイトの見出しは読んでいない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r5-growth-creator-kawahara-bunshun36250-p2 は一部だけ読了（対談記事の2頁目の本文の全部（全文は有料の雑誌でここでは読めない））
+- △ web:bizgrowth: r5-growth-hakusyo-scbri2025 は取得できず、理由つきで飛ばした（白書の置き場ではなく信用金庫の研究所の業種レポート。白書の数字を使うなら又引きになる（QUALITY 6章で禁止）ので取らない）。根拠には使っていないこと
+- △ web:bizgrowth: r5-growth-kokkai-q-fc は一部だけ読了（検索の結果185件のうち、返ってきた新しい順の30件の発言を全部読んだ。31件目以降（2019年3月より前）は取っていない。読まなかった所の理由：API は1回に30件を返し、残りの155件は取りに行っていない（2019年3月より前の発言。読んでいないので、この30件が全体を代表するとは言えない））
+- △ web:bizgrowth: r5-growth-courts-top は一部だけ読了（検索の画面の説明（掲載判例の説明・符号の説明）だけ。保守中の画面ではないことを確かめるために取った）
+- △ web:bizgrowth: r5-growth-courts-q-fc-kameiten は一部だけ読了（「フランチャイズ 加盟店」の検索結果の1頁目（382件中の30件の一覧：事件番号・事件名・裁判所・日付・分野）。判決の全文は開いていない。読まなかった所の理由：BIZ-GROWTH で使う数と主張は読んだ所にあり、残りはその根拠に関係しないため）
+- △ web:bizgrowth: r9-robots-dl.ndl.go.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r9-robots-guide.news.nissyoku.co.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r9-robots-kanagawa-u.repo.nii.ac.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r9-robots-www.jfa-fc.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r10-rr-js-cvs-part2024 は一部だけ読了（J-STAGE の記事の頁（書誌と抄録）。本文の PDF は robots.txt が禁じるパス（/*_pdf）なので取っていない）
+- △ web:bizgrowth: r10-rr-js-fc-fukusuten2014 は取得したが読まない（J-STAGE の記事の頁を開いたが、書誌（題・著者・誌名）と参考文献だけで抄録がなく、主張を支える中身がない。根拠に使わない（PDF の代わりの経路を試した記録））。根拠にしない
+- △ web:bizgrowth: r10-rr-js-fc-haigyou2006 は一部だけ読了（J-STAGE の記事の頁（書誌と抄録）。本文の PDF は robots.txt が禁じるパス（/*_pdf）なので取っていない）
+- △ web:bizgrowth: r10-rr-js-fc-hou2015 は一部だけ読了（J-STAGE の記事の頁（書誌と抄録）。本文の PDF は robots.txt が禁じるパス（/*_pdf）なので取っていない）
+- △ web:bizgrowth: r10-rr-js-fc-manzoku2025 は取得したが読まない（J-STAGE の記事の頁を開いたが、書誌（題・著者・誌名）と参考文献だけで抄録がなく、主張を支える中身がない。根拠に使わない（PDF の代わりの経路を試した記録））。根拠にしない
+- △ web:bizgrowth: r10-rr-js-fc-ranyo2015 は取得したが読まない（J-STAGE の記事の頁を開いたが、書誌（題・著者・誌名）と参考文献だけで抄録がなく、主張を支える中身がない。根拠に使わない（PDF の代わりの経路を試した記録））。根拠にしない
+- △ web:bizgrowth: r10-rr-js-fc-royalty2009 は一部だけ読了（J-STAGE の記事の頁（書誌と抄録）。本文の PDF は robots.txt が禁じるパス（/*_pdf）なので取っていない）
+- △ web:bizgrowth: r10-rr-js-fc-shoukei2024 は一部だけ読了（J-STAGE の記事の頁（書誌と抄録）。本文の PDF は robots.txt が禁じるパス（/*_pdf）なので取っていない。この記事は学会の発表要旨で、頁に要旨の全文が載る）
+- △ web:bizgrowth: r10-rr-js-gaishoku-genchika2018 は一部だけ読了（J-STAGE の記事の頁（書誌と抄録）。本文の PDF は robots.txt が禁じるパス（/*_pdf）なので取っていない）
+- △ web:bizgrowth: r10-rr-js-gaishoku-jumyo2015 は一部だけ読了（J-STAGE の記事の頁（書誌と抄録）。本文の PDF は robots.txt が禁じるパス（/*_pdf）なので取っていない）
+- △ web:bizgrowth: r10-rr-js-gaishoku-kozo2000 は取得したが読まない（J-STAGE の記事の頁を開いたが、書誌（題・著者・誌名）と参考文献だけで抄録がなく、主張を支える中身がない。根拠に使わない（PDF の代わりの経路を試した記録））。根拠にしない
+- △ web:bizgrowth: r10-robots-www.moneypost.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r10-robots-www.inshokuten.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r10-robots-imitsu.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r10-robots-www.nikkan-gendai.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r10-rr-moneypost-ramenshop は一部だけ読了（記事の本文（全部の頁）。サイトの枠・関連記事・広告は読んでいない）
+- △ web:bizgrowth: r10-robots-president.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r10-robots-san-tatsu.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizgrowth: r10-rr-santatsu-bannai は一部だけ読了（記事の本文（全部の頁）。サイトの枠・関連記事・広告は読んでいない）
+- △ web:bizgrowth: r10-rr-nikkangendai-nandenkanden は取得したが読まない（なんでんかんでんの家賃の発言の別の公開元を探して開いたが、この記事に家賃の発言はなかった（家賃・売り上げの語で本文を探した）。根拠に使わない）。根拠にしない
+- △ web:bizgrowth: r10-rr-president-ichinose は一部だけ読了（記事の本文のうち会員でない人に見える前半（後半は有料で読めない）。サイトの枠・関連記事は読んでいない）
+- △ web:bizlaw: r5-blr-robots-www-cas-go-jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-inshoku-teikishakuya は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-inshoku-genjoukaifuku は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-nli-research-co-jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-rengo-qa07 は取得に失敗した（502・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-nli-menu は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-nli-tabelog は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-robots-lex-juris-hokudai-ac-jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-livedoor-gmap は取得に失敗した（302・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-crex-data-com は取得に失敗した（429・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-crex-ramen-closure は取得に失敗した（429・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-nenkin-tekiyou は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-nenkin-tekiyou2 は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-fsa-go-jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-jpo-go-jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-chusho-meti-go-jp は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-jpo-example-idx は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-jfc-go-jp は取得に失敗した（503・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r9-robots-www.crex-data.com は取得に失敗した（429・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r9-robots-www.sangiin.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-sangiin-go-jp は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:bizlaw: r5-blr-robots-kumanichi-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-sangiin-gian-hikisage は取得できず、理由つきで飛ばした（参議院のサイトへの接続がプロキシで切れて取れなかった（ws_closed_mid_exchange）。法律案が成立したかは確かめられないまま。内閣官房・財務省の説明資料（法律案の段階）で代える）。根拠には使っていないこと
+- △ web:bizlaw: r5-blr-ejinzai-invoice-r8 は一部だけ読了（本文（経過措置のしくみ・具体例・令和8年改正の見直し・適用の要件・交渉の注意点・まとめ）。表の中の控除割合の数字は HTML の表から取り出せず、日付の行だけ読めた）
+- △ web:bizlaw: r5-blr-aichiu-fc-hanrei は一部だけ読了（判例批評の全体（事案の概要・判旨・研究の【0】〜【1】）を読んだ。後半の学説の整理は流し読み）
+- △ web:bizlaw: r5-blr-robots-mag-smarthr-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-mc-law-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-jtuc-rengo-or-jp は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:bizlaw: r5-blr-robots-seijiyama-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-keiyaku-watch-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-newswitch-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-smarthr-tencho は一部だけ読了（記事の本文の全部（ページの後半はサイトの案内で、読んでいない））
+- △ web:bizlaw: r5-blr-mclaw-kanrishoku は一部だけ読了（本文（1〜3）。事務所の案内・関連記事は読んでいない）
+- △ web:bizlaw: r5-blr-seijiyama-hotel は一部だけ読了（ニュースまとめの全項目（2013年10月22日〜11月8日の見出しと要約））
+- △ web:bizlaw: r5-blr-keiyaku-tabelog は一部だけ読了（記事の無料部分（まとめ・事案の概要・原審の結論まで）。会員限定の後半は読めない）
+- △ web:bizlaw: r5-blr-seijiyama-ichiran は一部だけ読了（記事の本文（企業法務ナビ提供の解説））
+- △ web:bizlaw: r5-blr-robots-shiodome-co-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-masouken-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-biz-moneyforward-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-economicsnetwork-ac-uk は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-obc-co-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-hcm-jinjer-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-shiodome-ipo は一部だけ読了（本文の1〜5章（未払い賃金・勤怠管理・長時間労働・管理監督者と裁量労働制・労働基準監督署の調査）。サイトの案内は読んでいない）
+- △ web:bizlaw: r5-blr-masouken-zangyo は一部だけ読了（本文の1〜6章（発覚のパターン・法改正・ペナルティ・M&A への影響・対処法・まとめ）。関連記事の一覧は読んでいない）
+- △ web:bizlaw: r5-blr-mf-ma-boogai は一部だけ読了（本文（業界の動向・手法・居抜きとの違い・メリット・リスク・事例の冒頭・費用・注意点・まとめ））
+- △ web:bizlaw: r5-blr-mf-genjou は一部だけ読了（本文の全章（基本の考え方・範囲・費用の相場と内訳・トラブルと回避策・費用を抑える方法・まとめ）。関連記事は読んでいない）
+- △ web:bizlaw: r5-blr-mf-teikishakuya は一部だけ読了（本文の前半（定期借家と普通借家の比較・契約書の確認点・賃料の型）と後半の居抜き売却の注意点）
+- △ web:bizlaw: r5-blr-econ-cartelgame は一部だけ読了（ゲームの説明（目的・道具・役割・規制当局の調査・罰金・腐敗した規制当局・告発）。後半の結果の表と結論は流し読み）
+- △ web:bizlaw: r5-blr-jinjer-ipo は一部だけ読了（本文の1〜3章（労務監査とは・誰に頼むか・指摘されやすいポイント10項目の説明）。4章以降と資料の案内は流し読み）
+- △ web:bizlaw: r5-blr-robots-www-rodo-co-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-zenshoren-or-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-tsr-ramen-tousan2025 は一部だけ読了（記事の本文（2025年度のラーメン店の倒産動向））
+- △ web:bizlaw: r5-blr-rodo-shaho-inshoku は一部だけ読了（無料で読める質問と回答の冒頭（以降は購読者限定で読めない））
+- △ web:bizlaw: r5-blr-mf-futourenbai は一部だけ読了（本文（概要・目的・市場への影響・判断基準・防止策・守る方法・事例の見出し））
+- △ web:bizlaw: r5-blr-robots-www-j-cast-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-gift-yuho-a は一部だけ読了（表紙・第1の2【事業の内容】（店舗数の表）・第2の1・2（事業の状況、直営店とプロデュースの事業部門の概況））
+- △ web:bizlaw: r5-blr-jcast-sukiya は一部だけ読了（記事の1ページ目（2ページ目のゼンショー広報の話は取得していない））
+- △ web:bizlaw: r5-blr-robots-ayusawa-partners-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-batonz-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-monolith-law は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-bengo4-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-www-zeiken-co-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-mf-roukisho は一部だけ読了（本文の臨検の根拠・拒否の罰・4種類の説明）
+- △ web:bizlaw: r5-blr-rodo-souken-inshoku は一部だけ読了（記事の無料部分（冒頭の段落））
+- △ web:bizlaw: r5-blr-rodo-machida-tencho は一部だけ読了（記事の無料部分（冒頭の段落））
+- △ web:bizlaw: r5-blr-ayusawa-chousa は一部だけ読了（本文の前半（臨検の4種類・全体の流れ・定期監督と申告監督・用意する書類・保存期間・違反の多い項目））
+- △ web:bizlaw: r5-blr-batonz-hosho は一部だけ読了（記事の本文（日本公庫の経営者保証免除特例制度の要件・注・利率））
+- △ web:bizlaw: r5-blr-monolith-tabelog は一部だけ読了（記事の前半から中盤（佐賀市の店の事例・札幌の店の事例と地裁・高裁・最高裁の結論・部分削除の論点））
+- △ web:bizlaw: r5-blr-rodo-hibou は一部だけ読了（連載第2回の無料部分（冒頭の4段落））
+- △ web:bizlaw: r5-blr-robots-gendai-media は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-news-livedoor-com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-gendai-gisou は一部だけ読了（記事の本文（フライデーの取材記事。17ホテルのアンケートの表は画像で読めない））
+- △ web:bizlaw: r5-blr-rodo-shaho-hanbai は一部だけ読了（無料で読める質問と回答の冒頭）
+- △ web:bizlaw: r5-blr-robots-www-nenkin-go-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-nenkin-tekiyou1 は一部だけ読了（本文（1．適用事業所〜2．被保険者の（3）の冒頭まで。3・4 の届出の方法と取り組みは見出しだけ））
+- △ web:bizlaw: r5-blr-tsr-shohizei-inshoku は一部だけ読了（記事の本文の全部（前文・Q1・産業別・Q2・調査の概要・引用の決まり）。ページの後ろの関連記事・メニュー・フッターは読んでいない）
+- △ web:bizlaw: r5-blr-q-jstage-kachoukin は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-jstage-gaishoku-houmu は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-cinii-kachoukin-mondai は取得できず、理由つきで飛ばした（robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた）。根拠には使っていないこと
+- △ web:bizlaw: r5-blr-q-cinii-keigen-gaishoku は取得できず、理由つきで飛ばした（robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた）。根拠には使っていないこと
+- △ web:bizlaw: r5-blr-q-cinii-fc-kisei は取得できず、理由つきで飛ばした（robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた）。根拠には使っていないこと
+- △ web:bizlaw: r5-blr-robots-www-keidanren-or-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-keidanren-policy2014 は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-fsa-hoshou-jirei-idx は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-fsa-sankojirei-r1-idx は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-fsa-hoshou-jirei は一部だけ読了（はじめに・目次と、飲食・レストランの事例（事例13・30・61）と、その前後の事例12・14・31。ほかの事例（製造・建設・卸など）は見出しだけ）
+- △ web:bizlaw: r5-blr-robots-work-holiday-mhlw-go-jp は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:bizlaw: r5-blr-mhlw-wh-case-idx は取得できず、理由つきで飛ばした（一覧のページを探したが、URL が違う（404）か中身が空（0バイト）で取れなかった。成功の事例の探し方の記録は research/searches/bizlaw-ramen.jsonl）。根拠には使っていないこと
+- △ web:bizlaw: r5-blr-q-jstage-s1 は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-jstage-s2 は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-jstage-s3 は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-jstage-s4 は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-jstage-s5 は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-jstage-s6 は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-jstage-s7 は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-jstage-s8 は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-mirasapo-plus-go-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-robots-shoukei-smrj-go-jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-mirasapo-case-inshoku は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-mirasapo-inshoku は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-mirasapo-ramen は取得したが読まない（検索・一覧のページで、資料を探すためだけに取得した。結果は research/searches/bizlaw-ramen.jsonl に記録し、資料そのものは別の文書として取った。読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r5-blr-q-ndl-ramen-houmu は取得できず、理由つきで飛ばした（robots.txt が禁じるパス（Disallow: /api）。道具が自動で確かめた）。根拠には使っていないこと
+- △ web:bizlaw: r9-robots-jtuc-rengo.or.jp は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:bizlaw: r9-robots-work-holiday.mhlw.go.jp は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:bizlaw: r10-robots-www.j-cast.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:bizlaw: r10-rr-jcast-hankyu-2013 は一部だけ読了（記事の本文（全部）。サイトの枠・関連記事・求人の広告は読んでいない）
+- △ web:restaurant: jfc-robots は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:restaurant: jfc-sitepolicy は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:restaurant: jfc-guideline は取得したが読まない（利用規約の確認のために取った（site-policy.json に結果）。資料の本文ではない）。根拠にしない
+- △ web:restaurant: jfc-topics_241127 は取得したが読まない（2024年度調査の2ページのニュースリリース。同じ調査の新しい2025年度の本文は ramen/r4-ramen-jfc-kaigyo2025full に読了ノートがあり、こちらは使わない）。根拠にしない
+- △ web:restaurant: jfc-topics_251205 は取得したが読まない（2025年度調査のニュースリリース。同じ調査の本文が ramen/r4-ramen-jfc-kaigyo2025full に読了ノートとしてあるので、そちらを使う）。根拠にしない
+- △ web:restaurant: jfc-kaigyotsuiseki_220119_1 は一部だけ読了（1-5,12）
+- △ web:restaurant: jfc-panel_211221 は一部だけ読了（1-6,12）
+- △ web:restaurant: jfc-topics_191122_1 は一部だけ読了（1-3,11-13）
+- △ web:restaurant: mhlw-chuka-h23 は取得したが読まない（平成21年の調査の古い報告書。経営指標の表を1つ見たが、新しい数（2025年度の小企業の経営指標、bizmgmt/r4-calib-jfc-shihyou-08a）を使うので読まない）。根拠にしない
+- △ web:restaurant: mhlw-chuka-h26 は取得したが読まない（審議会の配付資料の目次だけのPDF（44行）で、報告の本文が入っていなかった）。根拠にしない
+- △ 検索: searches/calib.jsonl：採用したURL 14 件のうち 14 件に取得記録がない
+- △ 検索: searches/fill-calib.jsonl：採用したURL 34 件のうち 34 件に取得記録がない
+- △ 検索: searches/fill-ramen.jsonl：採用したURL 28 件のうち 28 件に取得記録がない
 - △ 検索: searches/learnsci.jsonl：採用したURL 40 件のうち 3 件に取得記録がない
-- △ 検索: searches/simgames.jsonl：採用したURL 36 件のうち 2 件に取得記録がない
+- △ 検索: searches/ramen.jsonl：採用したURL 54 件のうち 2 件に取得記録がない
+- △ 検索: searches/simgames.jsonl：採用したURL 91 件のうち 2 件に取得記録がない

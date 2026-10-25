@@ -52,13 +52,18 @@
         { id: 'use', label: 'そのまま使う', outcomes: [{ id: 'ok', w: 60, label: '何も起きなかった' }, { id: 'complain', w: 40, label: 'お客さんから苦情。評判が下がった', fx: (W, fx) => { fx.Rd -= 0.08; } }] },
       ],
       docs: (W) => [doc('buy_return', `r-ret-${W.t}`, { type: '返品の伝票', title: '返品の伝票（豚肉）', from: '杉田食品', to: SHOP, date: `${W.m}月15日`, rows: [['返品した品', '豚肉 5kg'], ['金額', 20000, 'amt']] }, je([['買掛金', 20000]], [['仕入', 20000]]), ['買掛金', '仕入', '普通預金', '売上'], ['s-sanbunpo'])] },
-    { id: 'bulk', title: '小麦の値上げの知らせ（まとめ買いの誘い）', shelf: 'cost', kind: 'decision', scope: ['s-sanbunpo', 's-genmo'], tFrom: 5, docFor: { bulk: [0] }, when: (W) => W.m === 9 || W.m === 3, weight: () => 4, once: true,
+    { id: 'bulk', title: '小麦の値上げの知らせ（まとめ買いの誘い）', shelf: 'cost', kind: 'decision', scope: ['s-sanbunpo', 's-genmo'], tFrom: 5, docFor: { bulk: [0, 1, 2] }, when: (W) => W.m === 9 || W.m === 3, weight: () => 4, once: true,
       talk: [['eigyo', '来月から小麦が上がるそうです。今まとめて買えば、少し戻しもあると。']], q: 'まとめて買う？',
       options: [
         { id: 'bulk', label: '3か月分まとめて買う', outcomes: [{ id: 'cheap', w: 50, label: '1つあたりの値段が下がり、まとめ買いの戻しももらえた', cash: 15000 }, { id: 'spoil', w: 30, label: '使い切れず、一部が湿気た', cash: -20000 }, { id: 'space', w: 20, label: '置き場が足りず、棚を借りた', cash: -8000 }] },
         { id: 'small', label: 'いつもどおり小分けに', outcomes: [{ id: 'ok', w: 70, label: '値上がりの分だけ原価が上がった', fx: (W, fx, s) => { s.costMul = (s.costMul || 1) * 1.01; } }, { id: 'nochange', w: 30, label: '値上げは小さかった' }] },
       ],
-      docs: (W) => [doc('rebate', `r-reb-${W.t}`, { type: 'お知らせ', title: 'まとめ買いの戻しのお知らせ', from: '杉田食品', to: SHOP, date: `${W.m}月末`, rows: [['内容', 'まとめ買いの戻し（買掛金から差し引き）'], ['金額', 15000, 'amt']] }, je([['買掛金', 15000]], [['仕入', 15000]]), ['買掛金', '仕入', '売上', '普通預金'], ['s-sanbunpo'])] },
+      // PR #3 / 6384886194：翌月に確定した結果に対応する1枚だけをramen.jsが出す。
+      docs: (W) => [
+        doc('rebate', `r-reb-${W.t}`, { type: '通帳', title: 'まとめ買いの戻し（割戻し）の入金', from: '杉田食品', to: SHOP, date: `${W.m}月末`, rows: [['内容', 'まとめ買いの戻しが普通預金に入金'], ['金額', 15000, 'amt']] }, je([['普通預金', 15000]], [['仕入', 15000]]), ['買掛金', '仕入', '売上', '普通預金'], ['s-sanbunpo']),
+        doc('buy_cash', `r-bulk-buy-${W.t}`, { type: '領収書', title: '湿気た分を買い足した', from: '杉田食品', to: SHOP, date: `${W.m}月末`, rows: [['内容', '湿気た小麦を買い足した'], ['金額', 20000, 'amt']] }, je([['仕入', 20000]], [['普通預金', 20000]]), ['仕入', '普通預金', '買掛金'], ['s-sanbunpo']),
+        doc('rent', `r-bulk-space-${W.t}`, { type: '領収書', title: '小麦を置く棚を借りた', from: '倉庫', to: SHOP, date: `${W.m}月末`, rows: [['内容', '棚を借りた分'], ['金額', 8000, 'amt']] }, je([['支払家賃', 8000]], [['普通預金', 8000]]), ['支払家賃', '普通預金', '買掛金'], ['s-sanbunpo'])
+      ] },
     { id: 'foodup', title: '豚と油の値上がり', shelf: 'cost', kind: 'shock', scope: ['s-sanbunpo'], when: (W) => W.m === 4 || W.m === 10 || W.m === 1, weight: () => 2,
       talk: [['eigyo', '豚と油、来月から5%上がるそうです。']], q: 'どうする？',
       options: [

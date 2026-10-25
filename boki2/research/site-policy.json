@@ -760,9 +760,9 @@
   "checked": "2026-10-22"
  },
  "www.jfc.go.jp": {
-  "verdict": "gray",
-  "basis": "規約の確認のため robots.txt のみを取得（判定は本文の取得時に上書き）",
-  "checked": "2026-10-22"
+  "verdict": "ok",
+  "basis": "https://www.jfc.go.jp/n/guideline/index.html 当サイトご利用にあたっての注意事項：自動取得の禁止なし、転載・複製は出所を明記（商用・画像は要相談）。robots.txt は404（制限なし）",
+  "checked": "2026-10-24"
  },
  "jfnet.or.jp": {
   "verdict": "gray",
