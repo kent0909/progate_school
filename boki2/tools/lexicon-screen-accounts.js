@@ -14,7 +14,8 @@ class AccountScreens{
   constructor(scan){this.scan=scan;this.seen=new Set();this.learned=new Set();this.rows=[];this.months=new Map();this.intro=new Set();}
   learn(xs){for(const a of xs||[]){this.learned.add(a);this.seen.add(a);}}
   show(month,id,text,teaches=[]){const names=[...new Set([...this.scan(text),...teaches.filter(a=>this.scan(a).includes(a))])],fresh=names.filter(a=>!this.seen.has(a));
-    const row={month,id,newCount:fresh.length,newNames:fresh,shownNames:names};this.rows.push(row);for(const a of names)this.seen.add(a);this.learn(teaches);
+    const firstTeaches=teaches.filter(a=>!this.learned.has(a)&&this.scan(a).includes(a)),beforeTeach=names.filter(a=>!this.learned.has(a)&&!teaches.includes(a));
+    const row={month,id,newCount:fresh.length,newNames:fresh,shownNames:names,firstTeaches,beforeTeach};this.rows.push(row);for(const a of names)this.seen.add(a);this.learn(teaches);
     if(!this.months.has(month))this.months.set(month,{month,newNames:new Set(),screens:[]});const m=this.months.get(month);fresh.forEach(a=>m.newNames.add(a));if(fresh.length)m.screens.push({id,newNames:fresh});return row;
   }
   result(){return{screens:this.rows,months:[...this.months.values()].map(m=>({...m,newCount:m.newNames.size,newNames:[...m.newNames]})),failures:this.rows.filter(r=>r.newCount>2)};}
@@ -100,8 +101,9 @@ function projectEvent(audit,D,B,live,e,m){
 }
 function auditStory({cases='all'}={}){
   const {economicStory,forcedStory}=require('./ramen-y2-check.js'),D=SIMDATA,B=BOKI,scan=scanner(B.accounts,B.lex),visited=new Set(),types=new Set(),coverage=[],failures=[];let runs=0;
-  const bucket=()=>({screens:new Map(),months:new Map()}),normal=bucket(),shortcut=bucket();
+  const bucket=()=>({screens:new Map(),months:new Map(),receivables:new Map()}),normal=bucket(),shortcut=bucket();
   function collect(target,audit,label){
+    for(const row of audit.rows)for(const kind of ['firstTeaches','beforeTeach'])if(row[kind].includes('売掛金')){const key=row.month+' '+row.id+' '+kind;if(!target.receivables.has(key))target.receivables.set(key,{month:row.month,id:row.id,kind,witness:label});}
     for(const row of audit.rows){const key=row.month+' '+row.id,old=target.screens.get(key);if(!old||row.newCount>old.newCount)target.screens.set(key,{...row,witness:label});}
     for(const row of audit.result().months){const old=target.months.get(row.month);if(!old||row.newCount>old.newCount)target.months.set(row.month,{...row,witness:label});}
   }
@@ -117,7 +119,7 @@ function auditStory({cases='all'}={}){
     for(const card of D.cards.deck.filter(c=>!c.y2&&c.docs))for(const opt of card.options){let reached=false;for(const seed of [0,3,7,1,2,4,5,6,8,9,10,11]){const {S}=run(seed,{[card.id]:opt.id});if(Object.entries(S.decisions).some(([id,v])=>id.startsWith(card.id+'@')&&+id.slice(card.id.length+1)<12&&v===opt.id)){reached=true;break;}}if(!reached)failures.push('旧札の選択肢へ未到達 '+card.id+'/'+opt.id);}
     for(const card of D.y2.cards.cards)for(const opt of card.options)for(const out of opt.outcomes){let reached=false;for(const seed of [3,0,7]){const choices={finance_asset:'installment',maintain_y2:'break',maintain_replace:'keep',bonus:'standard',[card.id]:opt.id};if(card.id==='items_stock_sale')choices.ticket_items='n20';if(card.id==='equipment_purchase')choices.finance_asset='loan';if(card.id==='repair_pay')choices.maintain_y2='plan';if(card.id==='close_restore')choices.close='close';if(card.id==='close_equipment')choices.close='format';const {S}=run(seed,choices,{card:card.id,option:opt.id,outcome:out.id});if(S.cardOutcomes.some(x=>x.card===card.id&&x.option===opt.id&&x.outcome===out.id)){reached=true;break;}}coverage.push({card:card.id,option:opt.id,outcome:out.id,reached});if(!reached)failures.push('札の結果へ未到達 '+card.id+'/'+opt.id+'/'+out.id);}
   }
-  const finish=(b,variant)=>{const result={variant,runs,displayPaths:runs*(variant==='shortcut'?4:1),types:[...types],eventCount:visited.size,outcomes:coverage,screens:[...b.screens.values()],months:[...b.months.values()],failures};result.screenErrors=result.screens.filter(x=>x.newCount>2);result.monthWarnings=result.months.filter(x=>x.newCount>2);return result;};
+  const finish=(b,variant)=>{const result={variant,receivables:[...b.receivables.values()],runs,displayPaths:runs*(variant==='shortcut'?4:1),types:[...types],eventCount:visited.size,outcomes:coverage,screens:[...b.screens.values()],months:[...b.months.values()],failures};result.screenErrors=result.screens.filter(x=>x.newCount>2);result.monthWarnings=result.months.filter(x=>x.newCount>2);return result;};
   const result=finish(normal,'normal');result.shortcut=finish(shortcut,'shortcut');return result;
 }
 function exitCode(r){return r.screenErrors.length||r.failures.length||(r.shortcut&&exitCode(r.shortcut))?1:0;}

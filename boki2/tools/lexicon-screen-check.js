@@ -39,3 +39,14 @@ console.log('OK：名前と試験文は同一画面、無効な選択肢も表�
  const known=new AccountScreens(scan);known.pro3=true;known.learn(['現金']);projectEvent(known,{pro3:{lite:['lite']}},{accounts},state,e,m);assert.equal(known.result().failures.length,0);assert.equal(known.rows[0].newCount,2);
 }
 console.log('OK：近道の同一画面で3科目は失敗、applyPro3の既習を引くと2科目');
+// 近道で連続する自動記帳は1画面に並ぶ。伝票ごとに分けて3科目を隠さない。
+{
+ const audit=new AccountScreens(scan);audit.pro3=true;audit.preset=new Set(['sale']);
+ const D={pro3:{lite:[]},kindIntro:{}},B={accounts},m={m:4,label:'4月',events:[]};
+ const doc=(id,names)=>({t:'doc',id,kind:'sale',doc:{title:'伝票'},ans:{dr:[[names[0],1]],cr:[[names[1],1]]}});
+ projectEvent(audit,D,B,state,doc('auto1',['現金','売掛金']),m);
+ projectEvent(audit,D,B,state,doc('auto2',['借入金','現金']),m);
+ projectEvent(audit,D,B,state,{t:'end',id:'end'},m);
+ assert.equal(audit.rows.filter(r=>r.id.endsWith('/自動で記帳')).length,1);assert.equal(audit.result().failures[0].newCount,3);
+}
+console.log('OK：近道の連続する自動記帳も1画面の3科目で失敗');
