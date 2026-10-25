@@ -1210,12 +1210,12 @@
       const ns = noteState(), c = noteCards(s).find(c => c.id === id);
       if (!c || ns.blocked === id || sub[id] === side || !ns.demoDone && !demo) return;
       if (!demo && !noteStart(id)) return;
-      const before = noteValues(s), now = Date.now(), r = noteRecord(c);
+      const before = noteValues(s), now = Date.now(), r = noteRecord(c); ns.lastPlacedAt = now;
       if (r && !demo) {
         r.attempts++;
         if (r.firstSide == null) { r.firstSide = side; r.firstCorrect = side === c.side; r.readMs = Math.max(0, (ns.liftedAt?.[id] || now) - (ns.shown[id] || now)); }
         if (r.reactShownAt) { r.retryMs = Math.max(0, now - r.reactShownAt); r.fastRetries = (r.fastRetries || 0) + (r.retryMs < (r.reactLength || 0) * 100 ? 1 : 0); }
-        r.sameSideTwice = !!(r.lastSide === side && side !== c.side); r.lastSide = side; r.input = meta.input || 'tap';
+        r.sameSideTwice ||= !!(r.lastSide === side && side !== c.side); if (r.lastSide === side && side !== c.side) r.repeatWrong = (r.repeatWrong || 0) + 1; r.lastSide = side; r.input = meta.input || 'tap';
       }
       if (side !== c.side) {
         if (sub[id]) { delete sub[id]; delete ns.reasons[c.li]; }
@@ -1247,7 +1247,7 @@
       const ready = all.every(c => sub[c.id]) && s.lines.every((_, li) => ns.reasons[li]);
       const li = Math.max(0, s.lines.findIndex((l, k) => l.cards.some((_, ci) => !sub[`${k}-${ci}`]) || !ns.reasons[k]));
       const cards = all.filter(c => c.li === li), now = Date.now(); cards.forEach(c => { ns.shown[c.id] ||= now; });
-      const complete = cards.every(c => sub[c.id]), values = noteFlash && !noteFlash.wrong ? noteFlash.before : noteValues(s), names = ['もっているもの', '返すお金', '返さないお金'];
+      const complete = cards.every(c => sub[c.id]), values = noteFlash ? noteFlash.before : noteValues(s), names = ['もっているもの', '返すお金', '返さないお金'];
       const reasonQs = ['小銭が左の列なのは？', 'かせいだ分が右の列なのは？', '小銭が右の列なのは？'];
       const reasonOpts = [
         ['小銭（左の棚のもの）が増えたから', '親方に返すお金（右の棚）が増えたから'],
@@ -1263,17 +1263,20 @@
       const ask = ns.askOpen != null && !sub['ask' + ns.askOpen] ? s.lines[ns.askOpen].ask : null;
       const blocked = ns.blocked ? `<div class="j-feedback" role="alert"><p data-react-text>${esc(ns.message)}</p><button class="btn" data-react-close>説明を閉じる</button></div>` : '';
       const soundPrompt = !S.soundAsked ? `<div class="j-sound-prompt"><p>音を出す？</p><button data-j-sound="on">出す</button><button data-j-sound="off">消す</button></div>` : '';
-      const body = `<div class="j-layout" data-journal>${shelfHtml}<section class="s-card j-center">${soundPrompt}${reason ? `<p class="s-q">${reasonQs[li]}</p><div class="s-opts">${choices.map(k => `<button class="s-opt" data-note-reason="${li}-${k}">${reasonOpts[li][k]}</button>`).join('')}</div>` : `${ns.demoDone ? `<details class="j-say-again"><summary>ピヨの説明</summary>${talk(s.say)}</details>` : talk(s.say)}<p class="s-q">${esc(s.q)}</p>`}<h3>${esc(s.lines[editLi].title)}</h3>${sub.ask2 ? '<p class="j-reverse">へったときは反対の列</p>' : ''}${ask ? `${talk(ask.say)}<div class="s-opts">${ask.opts.map((o, k) => `<button class="s-opt" data-ask="${ns.askOpen}-${k}">${esc(o.t)}</button>`).join('')}</div>${msg ? `<p role="alert">${esc(msg)}</p>` : ''}` : ''}${J.markup({ cards: shownCards, columns: noteColumns, positions: sub, blocked: ns.blocked })}${blocked}${ns.reasonMessage ? `<p class="s-react" role="status">${esc(ns.reasonMessage)}</p>` : ''}${ns.editLi != null ? '<button class="btn ghost" data-edit-done>ノートにもどる</button>' : ''}${!ns.demoDone ? '<p class="j-demo-text" data-demo-text>ピヨの手本。小銭が増えた。左の棚のものが増えたから、左の列ピヨ</p><button class="btn ghost" data-demo-skip>手本を飛ばす</button>' : '<button class="link" data-demo-replay>もう一度見る</button>'}${ready ? `<p data-circle class="j-circle">○</p>${talk(s.after)}<button class="btn wide" data-step>つぎへ</button>` : reason ? '<p data-circle class="j-circle">○</p>' : ''}${hist.length ? '<button class="link" data-undo>最後の1枚を戻す</button>' : ''}<button class="btn ghost sm" data-back>← もどる</button></section>${notebook}</div>`;
+      const body = `<div class="j-layout" data-journal>${shelfHtml}<section class="s-card j-center">${soundPrompt}${reason ? `<p class="s-q">${reasonQs[li]}</p><div class="s-opts">${choices.map(k => `<button class="s-opt" data-note-reason="${li}-${k}">${reasonOpts[li][k]}</button>`).join('')}</div>` : `${ns.demoDone ? `<details class="j-say-again"><summary>ピヨの説明</summary>${talk(s.say)}</details>` : talk(s.say)}<p class="s-q">${esc(s.q)}</p>`}<h3>${esc(s.lines[editLi].title)}</h3>${sub.ask2 ? '<p class="j-reverse">へったときは反対の列</p>' : ''}${ask ? `${talk(ask.say)}<div class="s-opts">${ask.opts.map((o, k) => `<button class="s-opt" data-ask="${ns.askOpen}-${k}">${esc(o.t)}</button>`).join('')}</div>${msg ? `<p role="alert">${esc(msg)}</p>` : ''}` : ''}${J.markup({ cards: shownCards, columns: noteColumns, positions: sub, blocked: ns.blocked })}${blocked}${ns.reasonMessage ? `<p class="s-react" role="status">${esc(ns.reasonMessage)}</p>` : ''}${ns.editLi != null ? '<button class="btn ghost" data-edit-done>ノートにもどる</button>' : ''}${!ns.demoDone ? '<p class="j-demo-text" data-demo-text>ピヨの手本。<strong class="j-keyword">小銭</strong>が増えた。左の棚のものが増えたから、左の列ピヨ</p><button class="btn ghost" data-demo-skip>手本を飛ばす</button>' : '<button class="link" data-demo-replay>もう一度見る</button>'}${ready ? `<p data-circle class="j-circle">○</p>${talk(s.after)}<button class="btn wide" data-step>つぎへ</button>` : reason ? '<p data-circle class="j-circle">○</p>' : ''}${hist.length ? '<button class="link" data-undo>最後の1枚を戻す</button>' : ''}<button class="btn ghost sm" data-back>← もどる</button></section>${notebook}</div>`;
       keepBoard(); frame(body); $('#s-main', app)?.classList.add('j-main');
       const root = $('[data-journal]', app);
-      noteDeck = J.deck({ root, cards: shownCards, columns: noteColumns, positions: sub, onStart: noteStart, onPlace: notePlace, onRemove: noteRemove });
+      root.addEventListener('pointerdown', e => { if (!ns.demoDone && S.soundAsked && !e.target.closest('[data-j-sound]')) { e.preventDefault(); e.stopImmediatePropagation(); ns.demoSkipped = true; notePlace('0-0', 'L', { input: 'demo' }, true); } }, true);
+      noteDeck = J.deck({ root, cards: shownCards, columns: noteColumns, positions: sub, lastPlacedAt: ns.lastPlacedAt, onStart: noteStart, onPlace: notePlace, onRemove: noteRemove });
+      noteDeck.layout(() => { const shelf = $('.j-shelf', root), deck = $('.j-deck', root); if (window.innerWidth < 1000) deck.after(shelf); else root.prepend(shelf); });
       // deck 外のボタンは board の委譲へ渡す。deck は自分の取っ手だけを受け持つ。
-      if (ready) all.forEach(c => { const el = $(`[data-placed="${c.id}"]`, root); if (el) el.dataset.state = 'done'; });
+      shownCards.forEach(c => { const el = $(`[data-placed="${c.id}"]`, root); if (el) el.dataset.state = ns.reasons[c.li] ? 'done' : s.lines[c.li].cards.every((_, ci) => sub[`${c.li}-${ci}`]) ? 'settled' : 'settled-pending'; });
       const flash = noteFlash; noteFlash = null;
       if (flash) {
         noteDeck.flight(flash.id, flash.rect, flash);
         const c = all.find(c => c.id === flash.id), bandIndex = c.kind.endsWith('L') ? 0 : c.li === 0 ? 1 : 2, band = $(`[data-band="${bandIndex}"]`, root);
         if (flash.wrong) {
+          noteDeck.shelf(flash.before, noteValues(s), $$('[data-band]', root), 0);
           noteDeck.state(c.id, 'blocked'); const explain = $('[data-react-text]', root).parentElement; explain.hidden = true;
           noteDeck.later(() => { explain.hidden = false; }, 400);
           if (ns.errors[c.id] >= 2) { const col = $(`[data-col="${c.side}"]`, root); col.classList.add('j-cue-glow'); noteDeck.later(() => col.classList.remove('j-cue-glow'), 1000); }
@@ -1281,6 +1284,8 @@
         } else {
           const after = noteValues(s); noteDeck.shelf(flash.before, after, $$('[data-band]', root), flash.returning ? 0 : flash.demo ? 200 : J.timelines.note.find(x => x.name === 'shelf').start);
           const el = $(`[data-placed="${c.id}"],[data-card="${c.id}"]`, root);
+          const book = $(`[data-edit-card="${c.id}"]`, root);
+          if (book && !flash.returning) { noteDeck.anim(book, J.motion(S.motion) === 'calm' ? [{ opacity: 1 }, { opacity: 1 }] : [{ opacity: 0, transform: 'scale(.9)' }, { opacity: 1, transform: 'scale(1)' }], { delay: 330, duration: 150, fill: 'backwards' }); book.classList.add('j-changed'); noteDeck.later(() => book.classList.remove('j-changed'), 1200); }
           noteDeck.coins(flash.returning ? band : el, flash.returning ? el : band, flash.returning ? 0 : 250, c.amount < 0);
           if (!flash.returning) { noteDeck.later(() => { J.sfx.land(); if (c.label === '小銭' && c.amount > 0) J.sfx.money(); }, 330);
             if (c.label === '小銭' && c.amount > 0) noteDeck.reward($(`[data-bookrow="${c.li}"]`, root), 250);
@@ -1313,8 +1318,8 @@
       if (b.hasAttribute('data-demo-replay')) { ns.demoDone = false; ns.demoSkipped = false; ns.shortDone = false; delete sub['0-0']; draw(); return true; }
       if (b.hasAttribute('data-react-close')) { if (Date.now() < ns.reactShownAt) return true; ns.blocked = null; ns.message = ''; draw(); return true; }
       if (b.dataset.noteReason) {
-        const [li, k] = b.dataset.noteReason.split('-').map(Number); if (k !== 0) { ns.reasonMessage = 'その理由は、もう片方の札の話。問われた札で変わったものを見よう。'; draw(); return true; }
-        ns.reasons[li] = true; ns.reasonMessage = ''; draw(); return true;
+        const [li, k] = b.dataset.noteReason.split('-').map(Number);
+        noteDeck.choose(b, () => { if (k !== 0) ns.reasonMessage = 'その理由は、もう片方の札の話。問われた札で変わったものを見よう。'; else { ns.reasons[li] = true; ns.reasonMessage = ''; } draw(); }); return true;
       }
       if (b.dataset.editRow != null) { ns.editLi = +b.dataset.editRow; draw(); return true; }
       if (b.hasAttribute('data-edit-done')) { delete ns.editLi; draw(); return true; }

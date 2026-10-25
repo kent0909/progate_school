@@ -543,3 +543,18 @@ html.s-big .cbt-head { position: static !important; }
 }
 
 .j-card[data-placed] { touch-action:none; }
+@media(max-width:999px) {
+  .j-center>.j-shelf { margin:.4rem 0; padding:.5rem; }
+  .j-center>.j-shelf .j-shelf-art { font-size:1.4rem; padding:0; }
+  .j-center>.j-shelf h3 { font-size:.85rem; margin-bottom:.1rem; }
+  .j-center>.j-shelf .j-band { padding:.15rem; }
+  .j-center>.j-shelf .j-band [data-bar] { max-height:80px; }
+  .j-center>.j-shelf .j-band small { font-size:.65rem; }
+  .j-center .j-hand:empty { min-height:0; padding:0; }
+}
+.j-keyword { display:inline-block; animation:j-keyword 200ms ease-out; }
+@keyframes j-keyword { from { transform:scale(1.1); } to { transform:scale(1); } }
+.j-band { position:relative; }
+[data-motion="rich"] .j-band.j-changed::before { content:""; position:absolute; top:0; left:0; width:100%; height:2px; background:#e1b12c; transform-origin:left; animation:j-gold-line 150ms ease-out; }
+@keyframes j-gold-line { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+[data-motion="calm"] .j-keyword { animation:none; }

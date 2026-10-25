@@ -87,4 +87,4 @@ async function main() {
   } finally { await b.close(); s.close(); }
 }
 if (require.main === module) main().catch(e => { console.error(e); process.exitCode = 1; });
-module.exports = { main, prepare, complete, move };
+module.exports = { main, prepare, complete, move, server };

@@ -40,7 +40,8 @@
     J.cleanup();
     const { root, cards, columns, positions, onStart = () => true, onPlace, onRemove, onState = () => {} } = opts;
     const abort = new AbortController(), animations = new Set(), timers = new Set(), ghosts = new Set();
-    let lifted = null, selected = null, pointer = null, suppressClick = false, lastPlace = 0, dead = false;
+    let continuation = null;
+    let lifted = null, selected = null, pointer = null, suppressClick = false, lastPlace = opts.lastPlacedAt || 0, dead = false;
     const findCard = id => cards.find(c => c.id === id), cardEl = id => [...root.querySelectorAll('[data-card],[data-placed]')].find(e => (e.dataset.card || e.dataset.placed) === id);
     const status = text => { const e = root.querySelector('[data-j-status]'); if (e) e.textContent = text; };
     const later = (fn, ms) => { const t = setTimeout(() => { timers.delete(t); if (!dead && root.isConnected) fn(); }, ms); timers.add(t); return t; };
@@ -49,7 +50,7 @@
       const a = el.animate(frames, { easing: 'cubic-bezier(.2,.8,.2,1)', ...options }); animations.add(a);
       a.finished.then(() => { animations.delete(a); if (a.playState !== 'idle') a.cancel(); }).catch(() => animations.delete(a)); return a;
     };
-    const finish = () => { [...animations].forEach(a => { try { a.finish(); } catch (_) {} }); };
+    const finish = () => { const fn = continuation; continuation = null; [...animations].forEach(a => { try { a.finish(); } catch (_) {} }); if (!dead) fn?.(); };
     const state = (id, value) => { const e = cardEl(id); if (e) e.dataset.state = value; onState(id, value); };
     const highlight = side => { root.querySelectorAll('[data-zone]').forEach(e => e.classList.toggle('j-target', e.dataset.zone === side)); };
     const reset = () => { if (lifted) state(lifted, positions[lifted] ? 'settled-pending' : 'idle'); lifted = selected = null; highlight(null); root.querySelector('[data-menu]').hidden = true; };
@@ -57,9 +58,9 @@
     const place = (id, side, input, rect) => {
       if (!findCard(id) || !columns.some(c => c.id === side) || positions[id] === side) return;
       if (cardEl(id)?.disabled) return;
-      finish(); lastPlace = performance.now(); state(id, 'placed'); onPlace(id, side, { input, rect: rect || cardEl(id)?.getBoundingClientRect() });
+      finish(); lastPlace = Date.now(); state(id, 'placed'); onPlace(id, side, { input, rect: rect || cardEl(id)?.getBoundingClientRect() });
     };
-    const menu = id => { if (performance.now() - lastPlace < J.limits.repeat) return; finish(); lifted = id; state(id, 'menu');
+    const menu = id => { if (Date.now() - lastPlace < J.limits.repeat) return; finish(); lifted = id; state(id, 'menu');
       const e = root.querySelector('[data-menu]'); e.hidden = false;
       e.innerHTML = columns.filter(c => c.id !== positions[id]).map(c => `<button data-menu-side="${c.id}">${esc(c.label)}へ</button>`).join('') + `<button data-undo-card="${id}">棚へ戻す</button>`;
       e.querySelector('button')?.focus({ preventScroll: true });
@@ -76,6 +77,7 @@
       else if (b.dataset.undoCard) { finish(); onRemove(b.dataset.undoCard, { input: 'menu', rect: cardEl(b.dataset.undoCard)?.getBoundingClientRect() }); }
     });
     listen('keydown', e => {
+      if (continuation) { e.preventDefault(); finish(); return; }
       const b = e.target.closest('[data-card],[data-placed]');
       if (e.key === 'Escape') { e.preventDefault(); reset(); return; }
       const id = b && (b.dataset.card || b.dataset.placed);
@@ -88,6 +90,7 @@
       return zs.filter(({ r }) => x >= r.left - J.limits.hit && x <= r.right + J.limits.hit && y >= r.top - J.limits.hit && y <= r.bottom + J.limits.hit).sort((a, b) => Math.abs(x - (a.r.left + a.r.width / 2)) - Math.abs(x - (b.r.left + b.r.width / 2)))[0]?.el.dataset.zone;
     };
     listen('pointerdown', e => {
+      if (continuation) { e.preventDefault(); finish(); return; }
       const el = e.target.closest('[data-card],[data-placed]'); if (!el || el.disabled || e.button > 0) return;
       const id = el.dataset.card || el.dataset.placed;
       if (!onStart(id)) { e.preventDefault(); suppressClick = true; return; }
@@ -135,14 +138,27 @@
     const phase = (timeline, name) => J.timelines[timeline].find(x => x.name === name);
     const api = {
       anim, later, finish, status, state, root,
-      flight(id, from, { wrong = false, returning = false, demo = false } = {}) {
+      layout(fn) { g.addEventListener('resize', fn, { signal: abort.signal }); fn(); },
+      choose(button, next) {
+        if (continuation) { finish(); return; }
+        J.sfx.tap(); continuation = next;
+        button.setAttribute('aria-pressed', 'true');
+        const others = [...button.parentElement.querySelectorAll('button')].filter(e => e !== button);
+        anim(button, settings.motion === 'calm' ? [{ backgroundColor: '#fff4bd' }, { backgroundColor: '#eef5f2' }] : [{ transform: 'translateY(2px)' }, { transform: 'scale(1.03)' }, { transform: 'scale(1)' }], { duration: 230 });
+        others.forEach(el => { el.style.opacity = '.6'; anim(el, [{ opacity: 1 }, { opacity: .6 }], { duration: 150 }); });
+        later(() => { const fn = continuation; continuation = null; fn?.(); }, 230);
+      },
+      flight(id, from, { wrong = false, returning = false, demo = false, side = null } = {}) {
         const el = cardEl(id); if (!el || !from) return;
         const to = el.getBoundingClientRect(), x = from.left - to.left, y = from.top - to.top, flight = phase('note', 'flight'), land = phase('note', 'land');
-        if (settings.motion === 'calm') { anim(el, [{ opacity: .25 }, { opacity: 1 }], { duration: 150 }); return; }
         if (wrong) {
-          anim(el, [{ transform: `translate(${x}px,${y}px)` }, { transform: `translate(${x}px,${y}px)` }, { transform: 'translate(0,0)' }], { duration: 400 }); return;
+          const col = [...root.querySelectorAll('[data-col]')].find(e => e.dataset.col === side), edge = col?.getBoundingClientRect();
+          anim(col, settings.motion === 'calm' ? [{ backgroundColor: '#f5cec0' }, { backgroundColor: 'transparent' }] : [{ transform: 'translateX(0)' }, { transform: 'translateX(-4px)' }, { transform: 'translateX(4px)' }, { transform: 'translateX(0)' }], { duration: 160 });
+          const ex = edge ? edge.left + edge.width / 2 - to.left - to.width / 2 : x, ey = edge ? edge.bottom - to.top - to.height / 2 : y, scale = edge ? Math.min(1, edge.width / to.width) : 1;
+          anim(el, settings.motion === 'calm' ? [{ opacity: .25 }, { opacity: 1 }] : [{ transform: `translate(${x}px,${y}px)` }, { transform: `translate(${ex}px,${ey}px) scale(${scale})`, offset: .375 }, { transform: 'translate(0,0)' }], { duration: 400 }); return;
         }
-        anim(el, [{ transform: `translate(${x}px,${y}px)`, opacity: .75 }, { transform: `translate(${x / 2}px,${y / 2 - 24}px)`, opacity: 1 }, { transform: 'translate(0,0)', opacity: 1 }], { delay: returning || demo ? 0 : flight.start, duration: returning || demo ? 200 : flight.duration });
+        if (settings.motion === 'calm') { anim(el, [{ opacity: .25 }, { opacity: 1 }], { duration: 150 }); return; }
+        anim(el, [{ transform: `translate(${x}px,${y}px)`, opacity: .75 }, { transform: `translate(${x / 2}px,${y / 2 - 24}px)`, opacity: 1 }, { transform: 'translate(0,0)', opacity: 1 }], { delay: returning || demo ? 0 : flight.start, duration: returning || demo ? 200 : flight.duration, fill: 'backwards' });
         if (!returning) anim(el, [{ transform: 'scaleY(.96)' }, { transform: 'scaleY(1)' }], { delay: demo ? 200 : land.start, duration: land.duration });
         if (settings.motion === 'rich') later(() => api.coins(el, el, 0), 330);
       },
@@ -174,7 +190,7 @@
         }
           anim(row, [{ backgroundColor: '#fff4bd' }, { backgroundColor: '#eef5f2' }], { duration: 150 });
         }, delay);
-        const circle = root.closest('.j-layout')?.querySelector('[data-circle]'); if (circle) anim(circle, settings.motion === 'calm' ? [{ opacity: 0 }, { opacity: 1 }] : [{ transform: 'scale(.6)' }, { transform: 'scale(1.15)' }, { transform: 'scale(1)' }], { delay: phase('row', 'circle').start, duration: phase('row', 'circle').duration });
+        const circle = root.closest('.j-layout')?.querySelector('[data-circle]'); if (circle) anim(circle, settings.motion === 'calm' ? [{ opacity: 0 }, { opacity: 1 }] : [{ transform: 'scale(.6)' }, { transform: 'scale(1.15)' }, { transform: 'scale(1)' }], { delay: phase('row', 'circle').start, duration: phase('row', 'circle').duration, fill: 'backwards' });
       },
       speech(el, full) {
         if (!el || settings.motion === 'calm') return;
