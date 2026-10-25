@@ -21,19 +21,23 @@ class AccountScreens{
   result(){return{screens:this.rows,months:[...this.months.values()].map(m=>({...m,newCount:m.newNames.size,newNames:[...m.newNames]})),failures:this.rows.filter(r=>r.newCount>2)};}
 }
 // __onEventの状態を、読むことだけを許すProxyで渡す。コピーを世界へ書き戻さない。
-function readOnly(value,cache=new WeakMap()){
-  if(!value||typeof value!=='object')return value;
+const readOnlyViews=new WeakMap(),viewProxies=new WeakSet();
+function readOnly(value,cache=readOnlyViews){
+  if(!value||typeof value!=='object'||viewProxies.has(value))return value;
   if(cache.has(value))return cache.get(value);
   const fail=()=>{throw Error('画面の検査から状態を書き換えようとした');};
-  const proxy=new Proxy(value,{get:(o,k,r)=>readOnly(Reflect.get(o,k,r),cache),set:fail,deleteProperty:fail,defineProperty:fail,setPrototypeOf:fail});cache.set(value,proxy);return proxy;
+  const proxy=new Proxy(value,{get:(o,k,r)=>readOnly(Reflect.get(o,k,r),cache),set:fail,deleteProperty:fail,defineProperty:fail,setPrototypeOf:fail});cache.set(value,proxy);viewProxies.add(proxy);return proxy;
 }
+// 科目ごとに帳簿全体を再走査せず、同じ残高を一度で作る。入力は変更しない。
+function entryBalances(entries){const out={};for(const entry of entries){for(const [a,n]of entry.dr)out[a]=(out[a]||0)+n;for(const [a,n]of entry.cr)out[a]=(out[a]||0)-n;}return out;}
 function projectEvent(audit,D,B,live,e,m){
   const S=readOnly(live),month=m.m===0?'プロローグ':!m.year&&live.mi<4?'開店前 3月':`${m.year||(/翌年/.test(m.label)?2:1)}年目 ${m.m}月`,id=m.label+'/'+(e.id||`${e.t}#${m.events.indexOf(e)}`),show=(stage,text,learn=[])=>audit.show(month,id+'/'+stage,[e.t==='discover'&&!(audit.pro3&&D.pro3.lite.includes(e.id))?e.title:'',text],learn),v=x=>value(x,S),talk=x=>v(x)||[];
   // 誤答・任意のヒントは見なくても進める。別経路の初出を先取りさせない。
   const optional=(stage,text)=>{const seen=new Set(audit.seen),learned=new Set(audit.learned);show(stage,text);audit.seen=seen;audit.learned=learned;};
   const branch=fn=>{const seen=new Set(audit.seen),learned=new Set(audit.learned);fn();audit.seen=seen;audit.learned=learned;};
   const paper=(stage,d,teaches=[],header=[])=>{const body=[header,d.from,d.to,d.date,d.title,d.body];show(stage,body,teaches);for(const [i,mark]of(d.marks||[]).entries())optional(stage+'/言い直し'+i,[body,mark.plain]);};
-  const balances=()=>Object.keys(B.accounts).filter(a=>D.y2books.balance(S.T,a)!==0);
+  let balanceValues;const bookBalances=()=>balanceValues||(balanceValues=entryBalances(S.T));
+  const balances=()=>Object.keys(B.accounts).filter(a=>(bookBalances()[a]||0)!==0);
   if(audit.mi!==S.mi){if(audit.pendingAuto){audit.pendingAuto.flush();audit.pendingAuto=null;}audit.show(month,m.label+'/月の入口',m.title);audit.mi=S.mi;}
 
   function naming(acc){if(audit.learned.has(acc))return;const n=D.namings[acc];if(!n)throw Error(id+'：名前の札がない '+acc);
@@ -83,7 +87,7 @@ function projectEvent(audit,D,B,live,e,m){
       const names=[...new Set([...Object.keys(pre),...Object.keys(adj)])].filter(acc=>pre[acc]||adj[acc]);show('精算表',[names,'勘定科目 試算表 整理記入 整理後 損益計算書 貸借対照表']);show('差を運ぶ',[names,'当期純利益 損益計算書 貸借対照表']);show('精算表の名前','精算表');break;}
     case 'report':{
       const names=balances();if(!e.kubun&&!e.redo&&!audit.built){for(const acc of names)show('決算書を組む/'+acc,acc);audit.built=true;}
-      let displayed=names;if(e.kubun&&D.y2?.maturity){const b=Object.fromEntries(Object.keys(B.accounts).map(a=>[a,D.y2books.balance(S.T,a)])),classified=D.y2.maturity.display(S,b,m.bookT??((S.W?.t||1)-1));displayed=Object.keys(classified).filter(a=>classified[a]);}
+      let displayed=names;if(e.kubun&&D.y2?.maturity){const b=Object.fromEntries(Object.keys(B.accounts).map(a=>[a,bookBalances()[a]||0])),classified=D.y2.maturity.display(S,b,m.bookT??((S.W?.t||1)-1));displayed=Object.keys(classified).filter(a=>classified[a]);}
       const shown=displayed.map(a=>({差入保証金:'差入保証金（投資その他の資産）',長期前払費用:'長期前払費用（投資その他の資産）',繰越商品:'商品',前払家賃:'前払費用',未払賃金:'未払費用',減価償却累計額:'機械装置減価償却累計額'})[a]||a);
       if(e.kubun)shown.push('繰越利益剰余金');show('決算書',[e.kubun?[]:names,shown,'貸借対照表 損益計算書',e.teaches],e.teaches);break;}
     case 'ss':show('株主資本等変動計算書',['資本金','資本準備金','利益準備金','繰越利益剰余金',talk(e.talk)]);break;
@@ -157,6 +161,6 @@ function printReport(r){
   for(const row of r.monthWarnings)console.log(`注意（月の目安）：${row.month} 新しい科目${row.newCount}（${row.screens.map(s=>s.id+'＝'+s.newNames.join('・')).join(' / ')}）`);
   for(const error of r.failures)console.error(error);if(r.shortcut)printReport(r.shortcut);
 }
-module.exports={readOnly,AccountScreens,scanner,projectEvent,auditStory,auditFixture,exitCode,printReport};
+module.exports={entryBalances,readOnly,AccountScreens,scanner,projectEvent,auditStory,auditFixture,exitCode,printReport};
 if(require.main===module&&process.argv.includes('--fixture')){const p=process.argv.indexOf('--fixture'),r=auditFixture(JSON.parse(fs.readFileSync(process.argv[p+1],'utf8')));printReport(r);process.exitCode=exitCode(r);}
 else if(require.main===module){global.window=global;for(const f of ['../js/core.js','../js/data/accounts.js','../js/data/kubun.js','../js/sim/lexicon.js'])require(f);const r=auditStory({cases:process.argv.includes('--sample')?'sample':'all'}),i=process.argv.indexOf('--report');if(i>=0)fs.writeFileSync(process.argv[i+1],JSON.stringify(r,null,2)+'\n');printReport(r);process.exitCode=exitCode(r);}

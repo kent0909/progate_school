@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const assert=require('assert/strict'),path=require('path'),{spawnSync}=require('child_process');
-const {AccountScreens,scanner,readOnly,projectEvent}=require('./lexicon-screen-accounts');
+const {entryBalances,AccountScreens,scanner,readOnly,projectEvent}=require('./lexicon-screen-accounts');
 for(const [file,expected]of [['three',1],['two',0],['month-three',0]]){
   const r=spawnSync(process.execPath,[path.join(__dirname,'lexicon-screen-accounts.js'),'--fixture',path.join(__dirname,'fixtures/lexicon-screens',file+'.json')],{encoding:'utf8'});
   assert.ifError(r.error);assert.equal(r.status,expected,r.stderr);if(file==='month-three')assert.match(r.stdout,/注意（月の目安）.*新しい科目3/);if(file==='three')assert.match(r.stderr,/three.*3科目/);
@@ -66,3 +66,11 @@ console.log('OK：近道の連続する自動記帳も1画面の3科目で失敗
  projectEvent(audit,{}, {accounts},state,e,m);assert.equal(audit.result().failures.length,0);assert.equal(audit.rows.find(r=>r.id.endsWith('/問い')).newCount,2);assert.equal(audit.rows.find(r=>r.id.endsWith('/問いの理由')).newCount,1);
 }
 console.log('OK：警告の各段は別画面、届いた書類の3科目は検出、選択後の理由の初出も順番に数える');
+
+// 合計の新旧方式は、借方残・貸方残・消込み・複合仕訳で同じ。入力にも書かない。
+{
+ const entries=[{dr:[['現金',100],['売掛金',50]],cr:[['借入金',150]]},{dr:[['借入金',20]],cr:[['現金',20]]},{dr:[['現金',50]],cr:[['売掛金',50]]}],before=JSON.stringify(entries),balances=entryBalances(readOnly(entries));
+ for(const acc of Object.keys(accounts)){const old=entries.reduce((n,e)=>n+e.dr.filter(x=>x[0]===acc).reduce((s,x)=>s+x[1],0)-e.cr.filter(x=>x[0]===acc).reduce((s,x)=>s+x[1],0),0);assert.equal(balances[acc]||0,old);}
+ assert.equal(JSON.stringify(entries),before);assert.equal(balances['売掛金'],0);assert.equal(balances['借入金'],-130);
+}
+console.log('OK：一度で集計した残高が科目別走査と一致し、帳簿の入力も不変');
