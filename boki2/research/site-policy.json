@@ -2393,5 +2393,15 @@
   "verdict": "gray",
   "basis": "Boston College の機関リポジトリ eScholarship。規約に自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。単発閲覧、転載しない",
   "checked": "2026-10-25"
+ },
+ "m2.material.io": {
+  "verdict": "gray",
+  "basis": "m2.material.io（Material Design 2 の保存版）。m3.material.io と同じ Google の規約で、該当ページの自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。読むだけで転載しない",
+  "checked": "2026-10-25"
+ },
+ "soundeffect-lab.info": {
+  "verdict": "gray",
+  "basis": "効果音ラボ。利用規約のページそのものを1回読む。robots.txt は research-fetch が確かめる。転載しない",
+  "checked": "2026-10-25"
  }
 }
