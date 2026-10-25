@@ -76,11 +76,11 @@
         { id: 'keep', label: '毎日つける（時間1）', outcomes: [{ id: 'ok', w: 99, label: '何も起きない（記録が残った）' }, { id: 'sick', w: 1, label: 'お客さんがおなかをこわした。記録があったので、範囲を絞れた', cash: -50000, fx: (W, fx) => { fx.Rd -= 0.1; } }] },
         { id: 'skip', label: '忙しい月は飛ばす', outcomes: [{ id: 'ok', w: 97, label: '何も起きない（今は）' }, { id: 'sick', w: 3, label: '食中毒の疑い。3日の営業停止', cash: -250000, fx: (W, fx) => { fx.Rd -= 0.3; fx.demandMul *= 0.85; } }] },
       ] },
-    { id: 'maintain', title: '寸胴の火が弱い（点検の報告）', shelf: 'cost', kind: 'decision', scope: ['s-capex', 's-cost', 'b-mibarai'], tFrom: 8, when: (W) => W.t >= 8 && !((W.cardsSeen || {}).maintain >= 2), docFor: { repair: [0], new: [1] }, disc: 'dCapex', weight: (W) => ((W.cardsSeen || {}).maintain ? 0.5 : 1.6),
+    { id: 'maintain', title: '寸胴の火が弱い（点検の報告）', shelf: 'cost', kind: 'decision', scope: ['s-capex', 's-cost', 'b-mibarai'], tFrom: 8, when: (W) => W.t < 12 && W.t >= 8 && !((W.cardsSeen || {}).maintain >= 2), docFor: { repair: [0], new: [1] }, disc: 'dCapex', weight: (W) => ((W.cardsSeen || {}).maintain ? 0.5 : 1.6),
       talk: [['piyo', 'コンロの火が弱くなったピヨ。業者さんの見積りが来た。']], q: 'どうする？',
       options: [
         { id: 'repair', label: '修理する（12万円）', outcomes: [{ id: 'ok', w: 80, label: '直った', cash: -120000 }, { id: 'again', w: 20, label: '直ったが、また弱くなりそう', cash: -120000 }] },
-        { id: 'new', label: '新しいコンロに買い替える（30万円）', outcomes: [{ id: 'ok', w: 90, label: '火が強くなり、炊く時間が短くなった' }, { id: 'late', w: 10, label: '届くまで3日休んだ', fx: (W, fx) => { fx.demandMul *= 0.9; } }] },
+        { id: 'new', label: '新しいコンロに買い替える（30万円）', outcomes: [{ id: 'ok', w: 90, label: '火が強くなり、炊く時間が短くなった', cash: -300000 }, { id: 'late', w: 10, label: '届くまで3日休んだ', cash: -300000, fx: (W, fx) => { fx.demandMul *= 0.9; } }] },
         { id: 'wait', label: 'まだ使う', outcomes: [{ id: 'ok', w: 60, label: 'しばらくは使えた' }, { id: 'stop', w: 40, label: '営業中に止まった。2日休んだ', cash: -150000, fx: (W, fx) => { fx.demandMul *= 0.93; fx.Rd -= 0.05; } }] },
       ],
       docs: (W) => [doc('repair', `r-rep-${W.t}`, { type: '請求書', title: '請求書（コンロの修理）', from: '山中厨房', to: SHOP, date: `${W.m}月20日`, rows: [['内容', 'コンロの部品の交換（もとの性能に戻す修理）'], ['金額', 120000, 'amt'], ['お支払期日', '翌月末']] }, je([['修繕費', 120000]], [['未払金', 120000]]), ['修繕費', '備品', '未払金', '買掛金'], ['s-capex', 'b-mibarai']),
@@ -128,8 +128,8 @@
     { id: 'coupon_dual', title: '「通常950円→今だけ850円」の張り紙（社長）', shelf: 'law', kind: 'decision', scope: ['s-revenue'], once: true, tFrom: 2, when: (W) => W.t >= 2, weight: () => 1.5,
       talk: [['shacho', '「通常950円」と書いて安く見せよう！ 1週間だけ950円で売ったから大丈夫！']], q: '張り紙は？',
       options: [
-        { id: 'check', label: '帳簿で8週間の値段を確かめてから書く', outcomes: [{ id: 'ok', w: 80, label: '書けない形と分かった。普通の値引きにした' }, { id: 'fine', w: 20, label: '書ける形にそろえた' }] },
-        { id: 'post', label: 'そのまま張る', pres: true, outcomes: [{ id: 'ok', w: 70, label: '客が少し増えた', fx: (W, fx) => { fx.demandMul *= 1.03; } }, { id: 'warn', w: 30, label: '「本当に通常価格？」と指摘され、評判が下がった', fx: (W, fx) => { fx.Rd -= 0.1; } }] },
+        { id: 'check', label: '帳簿で8週間の値段を確かめてから書く', outcomes: [{ id: 'ok', w: 80, label: '書けない形と分かった。普通の値引きにした', cash: W => -man(salesOf(W)*0.03) }, { id: 'fine', w: 20, label: '書ける形にそろえた', cash: W => -man(salesOf(W)*0.03) }] },
+        { id: 'post', label: 'そのまま張る', pres: true, outcomes: [{ id: 'ok', w: 70, label: '客が少し増えた', cash: W => -man(salesOf(W)*0.03), fx: (W, fx) => { fx.demandMul *= 1.03; } }, { id: 'warn', w: 30, label: '「本当に通常価格？」と指摘され、評判が下がった', cash: W => -man(salesOf(W)*0.03), fx: (W, fx) => { fx.Rd -= 0.1; } }] },
       ],
       docs: (W) => { const a = man(salesOf(W) * 0.03); return [doc('discount', `r-disc-${W.t}`, { type: '値引きの記録', title: `${W.m}月の値引き（クーポン）`, from: '券売機', to: '経理', date: `${W.m}月末`, rows: [['値引きした額', a, 'amt'], ['メモ', '値引きした分は、売れた額から引く（ポイントのような後の約束ではない）']] }, je([['売上', a]], [['普通預金', a]]), ['売上', '普通預金', '広告宣伝費', '支払手数料'], ['s-revenue'])]; } },
     { id: 'premium', title: '商品券の抽選（社長）', shelf: 'law', kind: 'decision', scope: [], once: true, tFrom: 4, when: (W) => W.t >= 4, weight: () => 1.2,
@@ -184,7 +184,7 @@
         { id: 'prep', label: '仕込みと人を増やして迎える', outcomes: [{ id: 'busy', w: 65, label: '行列ができた', cash: -15000, fx: (W, fx) => { fx.demandMul *= 1.06; } }, { id: 'rain', w: 35, label: '雨で人出は少なめ', cash: -15000 }] },
         { id: 'none', label: 'いつもどおり', outcomes: [{ id: 'ok', w: 60, label: '少し忙しかった' }, { id: 'short', w: 40, label: '品切れで帰った客がいた', fx: (W, fx) => { fx.Rd -= 0.03; } }] },
       ] },
-    { id: 'ev_summer', title: '夏祭りの出店の誘い', shelf: 'outside', kind: 'good', scope: [], fixed: true, once: true, when: (W) => W.m === 7,
+    { id: 'ev_summer', title: '夏祭りの出店の誘い', shelf: 'outside', kind: 'good', scope: [], fixed: true, once: true, when: (W) => W.t < 12 && W.m === 7,
       talk: [['eigyo', '来月の夏祭りで、屋台を出しませんかと。出店料をもらう形です。']], q: '出店する？',
       options: [
         { id: 'go', label: '出店する（人を1日借りる）', outcomes: [{ id: 'good', w: 60, label: '屋台が大にぎわい。店の名前も広まった', cash: 60000, fx: (W, fx, s) => { s.A = (s.A || 0) + 0.5; } }, { id: 'tired', w: 40, label: 'にぎわったが、店のほうが手薄になった', cash: 40000, fx: (W, fx) => { fx.Rd -= 0.02; } }] },
@@ -208,7 +208,7 @@
         { id: 'sign', label: '看板の一杯で', outcomes: [{ id: 'good', w: 70, label: '看板の一杯が載った', fx: (W, fx, s) => { fx.demandMul *= 1.04; fx.Rd += 0.05; } }, { id: 'small', w: 30, label: '記事は小さかった', fx: (W, fx) => { fx.demandMul *= 1.01; } }] },
         { id: 'limited', label: '限定の一杯で', outcomes: [{ id: 'good', w: 50, label: '限定が話題に', fx: (W, fx, s) => { s.bowl = SIM.bowl.apply(s.bowl, 'limited', () => 0.3, W.t); } }, { id: 'miss', w: 50, label: '限定は売り切れ、記事を見た客が帰った', fx: (W, fx) => { fx.Rd -= 0.03; } }] },
       ] },
-    { id: 'bowl_limited', title: '夏の限定の一杯（8月）', shelf: 'bowl', kind: 'decision', scope: [], fixed: true, once: true, when: (W) => W.m === 8,
+    { id: 'bowl_limited', title: '夏の限定の一杯（8月）', shelf: 'bowl', kind: 'decision', scope: [], fixed: true, once: true, when: (W) => W.t < 12 && W.m === 8,
       talk: [['shacho', '夏の限定、冷やし中華でいこう！']], q: '限定は？',
       options: [
         { id: 'go', label: '出す（試作の材料3万円）', outcomes: [{ id: 'hit', w: 20, label: '大当たり。話題になった', fx: (W, fx, s) => { s.bowl = SIM.bowl.apply(s.bowl, 'limited', () => 0.1, W.t); } }, { id: 'mid', w: 50, label: 'そこそこ売れた', fx: (W, fx, s) => { s.bowl = SIM.bowl.apply(s.bowl, 'limited', () => 0.4, W.t); } }, { id: 'miss', w: 30, label: '外れ。材料が余った', cash: -15000, fx: (W, fx, s) => { s.bowl = SIM.bowl.apply(s.bowl, 'limited', () => 0.9, W.t); } }], cash: -30000 },
@@ -246,10 +246,25 @@
   function apply(W, card, optId, outId, fx, res, rng) {
     const o = card.options.find((x) => x.id === optId), oc = o.outcomes.find((x) => x.id === outId), s = W.stores[0];
     const cash = (typeof oc.cash === 'function' ? oc.cash(W) : oc.cash || 0) + (typeof o.cash === 'function' ? o.cash(W) : o.cash || 0);
-    fx.cash += cash;
+    const flow = oc.flow || 'op';
+    if (flow === 'capital' || flow === 'invest') {
+      W.cash += cash;
+      res[flow] = (res[flow] || 0) + cash;
+    } else if (flow === 'op') fx.cash += cash;
+    else throw new Error(`札 ${card.id} のお金の区分が不正：${flow}`);
+    if (card.y2 && o.time) res.cardTime = (res.cardTime || 0) + o.time;
     if (oc.fx) oc.fx(W, fx, s, rng);
     (res.choices = res.choices || []).push({ card: card.id, option: optId, outcome: outId, cash });
   }
   SIM.cards = { deck, byId, deal, apply };
+  // 年別の札を追加する口。重複は読み込み時に止め、既存の札を上書きしない。
+  SIM.cards.register = (extra) => {
+    const ids = new Set(Object.keys(byId));
+    for (const c of extra) {
+      if (!c.id || ids.has(c.id)) throw new Error(`札のidが重複または空：${c.id}`);
+      ids.add(c.id);
+    }
+    for (const c of extra) { deck.push(c); byId[c.id] = c; }
+  };
 })(typeof window !== 'undefined' ? window : globalThis);
 

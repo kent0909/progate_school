@@ -621,8 +621,10 @@
 
   // PR #3 / 6384464617：0円は仕訳しない。式や世界のお金は変えず、書類と正解を揃える。
   // 月の手で0円になりうる給料・仕入・在庫・引当・未払なども同じ規則で扱う。
+  const zeroDocs=new WeakSet();
   const omitZeroDoc = (ev) => {
-    if (ev.t !== 'doc') return;
+    if (ev.t !== 'doc' || zeroDocs.has(ev)) return;
+    zeroDocs.add(ev);
     const answer = ev.ans, rows = ev.doc.rows, when = ev.when;
     const value = (x, S) => typeof x === 'function' ? x(S) : x;
     ev.ans = (S) => {
@@ -636,6 +638,6 @@
 
   // ---------- 台本の形（ramen.js が月の出来事を組み立てる） ----------
   SIM.y1 = { prologue, pre: [{ label: '開店の前（お金を集める）', title: '株式会社{店}、はじまる', events: pre1 }, { label: '開店の前（借りる）', title: '店を借りる・お金を借りる', events: pre2 }, { label: '開店の前（内装と一杯）', title: '前の店の内装と、看板の一杯', events: pre3 }],
-    months: Y1, kessan: KESSAN, MON, CARD_FROM, VAT_FROM, polOf, R, salesNet, calc, bulkInventory, disc: { dCapex } };
+    months: Y1, kessan: KESSAN, MON, CARD_FROM, VAT_FROM, polOf, R, salesNet, calc, bulkInventory, omitZeroDoc, disc: { dCapex } };
 })(typeof window !== 'undefined' ? window : globalThis);
 

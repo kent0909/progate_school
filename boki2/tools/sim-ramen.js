@@ -18,6 +18,17 @@ const errors = [], info = [];
 const err = (m) => errors.push(m);
 const pct = (a, n) => (n ? Math.round((1000 * a) / n) / 10 : 0);
 const t0 = Date.now();
+// PR #2 / 承認6384644992：既存の13か月・3/5年の母集団は保つ。
+// 新台本は別コマンドの39か月検査で全札・全結果・帳簿を検査し、指標も出す。
+info.push('新台本込みの39か月検査と指標は、別コマンド node boki2/tools/ramen-y2-check.js --metrics で検査（この旧比較では新札を引かない）');
+const legacyDeck=CD.deck.filter(c=>!c.y2);
+CD.deck.splice(0,CD.deck.length,...legacyDeck);
+// 2年目以降に同じ札を別idへ分けた3札について、旧経営比較の出現条件だけを復元。
+for(const id of ['maintain','ev_summer','bowl_limited']){const card=CD.byId[id],current=card.when;card.when=W=>current({...W,t:Math.min(W.t,11)});}
+// 旧比較は1本の乱数列を使用。新台本の独立した乱数列は上の別コマンドで検査する。
+D.y2.stream=null;
+info.push('旧比較：新札を停止、maintain/夏祭り/限定の旧条件と共有乱数を検査用に復元。従来の閾値は変更なし');
+
 const wilson=(k,n)=>{const z=1.96,p=k/n,d=1+z*z/n,c=(p+z*z/(2*n))/d,h=z/d*Math.sqrt(p*(1-p)/n+z*z/(4*n*n));return `${(100*(c-h)).toFixed(1)}〜${(100*(c+h)).toFixed(1)}%`;};
 
 
@@ -255,10 +266,15 @@ function smartPolicy(W, strategy, price) { return smartX(W,strategy,price == nul
     };
     const bulk=run('bulk'),keep=run('keep'),entry=doc.ans(bulk);
     if(!doc.when(bulk)||doc.when(keep)||entry.dr[0][0]!=='仕入'||entry.cr[0][0]!=='普通預金'||entry.dr[0][1]!==300000||entry.cr[0][1]!==bulk.res[9].bulkPaid)err('まとめ買い：1月の仕訳と世界の支払いが一致しない');
+    // 6393637001：表示の残高だけでなく、共通の照合が読むT/Lを持つ資料にする。
+    const bulkEntry={...entry,ev:'buy-bulk9',mi:D.ramen.monthIndexOfT(9)};
+    bulk.T=[bulkEntry];bulk.L=[JSON.parse(JSON.stringify(bulkEntry))];keep.T=[];keep.L=[];
     for(const t of [9,10,11]){
       // 同じ月の既存仕訳を共通の残高とし、追加した仕訳と世界の支払いの差だけを比較する。
       const brBulk=D.rview.bridge(bulk,t,{'普通預金':-entry.cr[0][1]}),brKeep=D.rview.bridge(keep,t,{});
       if(brBulk.rest!==brKeep.rest)err(`まとめ買い：seed${seed} t${t}でdata-bridgeの説明できない差が増えた`);
+      const wrong=JSON.parse(JSON.stringify(bulk));wrong.L=[];
+      if(D.rview.bridge(wrong,t,{},0).rest===brBulk.rest)err(`まとめ買い：seed${seed} t${t}でLから消した支払を検出しない`);
     }
     const noBulk=JSON.parse(JSON.stringify(bulk));delete noBulk.res[9].bulkPaid;
     if(stock.ans(bulk).dr[0][1]-stock.ans(noBulk).dr[0][1]!==300000||back.ans(bulk).dr[0][1]-back.ans(noBulk).dr[0][1]!==300000||genmo.ans(bulk).dr[0][1]!==genmo.ans(noBulk).dr[0][1])err('まとめ買い：棚卸/翌期戻し30万または通常の材料だけの減耗が不正');

@@ -32,7 +32,14 @@ const findEv = (sc) => {
 const findCardDoc = (sc) => evs.filter((x) => x.e.card === sc.card && new RegExp(`^${sc.card}-doc${sc.doc}@\\d+$`).test(x.e.id || ''));
 const findCardCalc = (sc) => evs.filter((x) => x.e.card === undefined && x.e.t === 'calc' && new RegExp(`^${sc.calc}@\\d+$`).test(x.e.id || '') && x.e.scope);
 const S0 = { decisions: {}, T: [], L: [] };
-const truthOk = (e) => { try { const a = typeof e.ans === 'function' ? e.ans(S0) : e.ans; const s = (k) => a[k].reduce((t, x) => t + x[1], 0); return a && a.dr.length && a.cr.length && s('dr') === s('cr'); } catch (x) { return false; } };
+const truthOk = (e) => { try {
+  const answer=S=>typeof e.ans==='function'?e.ans(S):e.ans;
+  let a=answer(S0);
+  // 承認6385996341：全額0の条件付き書類だけ、書類が持つ正額資料も検査。
+  if(a&&[...a.dr,...a.cr].every(([,v])=>v===0)&&e.fixture){const fixture=e.fixture();if(e.when&&!e.when(fixture))return false;a=answer(fixture);}
+  const s=k=>a[k].reduce((t,[,v])=>t+v,0);
+  return a&&a.dr.length&&a.cr.length&&[...a.dr,...a.cr].every(([,v])=>Number.isFinite(v)&&v>0)&&s('dr')===s('cr');
+} catch(x){return false;} };
 const lines = [], stat = {};
 for (const it of B.scope) {
   const m = MAP[it.id];

@@ -419,3 +419,5 @@ b.r-big span { font-size: .875rem; margin-left: .125rem; } b.r-big.pos { color: 
   .r-tabs button { min-height: 2.5rem; font-size: .75rem; padding: 0 .5rem; flex: 1 0 auto; }
 }
 .r-handdocs { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .125rem; font-size: .875rem; } .r-handdocs small { margin-left: .5rem; color: var(--risk); }
+
+.s-opt[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
