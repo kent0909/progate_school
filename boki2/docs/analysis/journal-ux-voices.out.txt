@@ -1,0 +1,5 @@
+パブロフ簿記2級lite（APPLION 1ページ目）：19 件
+Reigns（APPLION 1ページ目）：20 件
+Reigns（Google Play 代表3件）：3 件
+合計 42 件
+符号ごとの件数：{"FLOW":6,"CHAR":6,"OTHER":17,"EXPL":6,"OP+":8,"GUESS":6,"BORE":4}
