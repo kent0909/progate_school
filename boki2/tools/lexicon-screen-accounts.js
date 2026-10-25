@@ -31,7 +31,11 @@ function projectEvent(audit,D,B,live,e,m){
   const S=readOnly(live),month=m.m===0?'プロローグ':!m.year&&live.mi<4?'開店前 3月':`${m.year||(/翌年/.test(m.label)?2:1)}年目 ${m.m}月`,id=m.label+'/'+(e.id||`${e.t}#${m.events.indexOf(e)}`),show=(stage,text,learn=[])=>audit.show(month,id+'/'+stage,[e.t==='discover'&&!(audit.pro3&&D.pro3.lite.includes(e.id))?e.title:'',text],learn),v=x=>value(x,S),talk=x=>v(x)||[];
   // 誤答・任意のヒントは見なくても進める。別経路の初出を先取りさせない。
   const optional=(stage,text)=>{const seen=new Set(audit.seen),learned=new Set(audit.learned);show(stage,text);audit.seen=seen;audit.learned=learned;};
-  const balances=()=>Object.keys(B.accounts).filter(a=>D.y2books.balance(S.T,a)!==0),learn=xs=>audit.learn(xs);
+  const branch=fn=>{const seen=new Set(audit.seen),learned=new Set(audit.learned);fn();audit.seen=seen;audit.learned=learned;};
+  const paper=(stage,d,teaches=[],header=[])=>{const body=[header,d.from,d.to,d.date,d.title,d.body];show(stage,body,teaches);for(const [i,mark]of(d.marks||[]).entries())optional(stage+'/言い直し'+i,[body,mark.plain]);};
+  const balances=()=>Object.keys(B.accounts).filter(a=>D.y2books.balance(S.T,a)!==0);
+  if(audit.mi!==S.mi){if(audit.pendingAuto){audit.pendingAuto.flush();audit.pendingAuto=null;}audit.show(month,m.label+'/月の入口',m.title);audit.mi=S.mi;}
+
   function naming(acc){if(audit.learned.has(acc))return;const n=D.namings[acc];if(!n)throw Error(id+'：名前の札がない '+acc);
     show('名前/'+acc+'/問い',[n.q,n.opts.map(o=>o.t)]);for(const [i,o]of n.opts.entries())if(!o.ok&&o.react)optional('名前/'+acc+'/反応'+i,[n.q,n.opts.map(o=>o.t),o.react]);show('名前/'+acc+'/説明',[n.q,acc,n.line],n.teaches);}
   function intro(kind){const n=D.kindIntro[kind];if(!n||audit.intro.has(kind))return;show('動きの問い',[n.q,n.opts.map(o=>o.t)]);for(const [i,o]of n.opts.entries())if(!o.ok&&o.react)optional('動きの反応'+i,[n.q,n.opts.map(o=>o.t),o.react]);show('動きの説明',[n.q,n.line]);audit.intro.add(kind);}
@@ -49,23 +53,25 @@ function projectEvent(audit,D,B,live,e,m){
   switch(e.t){
     case 'board':for(const [i,s]of e.steps.entries()){
       if(audit.pro3&&i>0&&i+1<e.steps.length&&(e.lite||[]).includes(i))continue;
-      const base=[talk(s.say),s.q,(s.tokens||[]).map(x=>x.label),(s.dests||[]).map(x=>x.label),(s.opts||[]).map(x=>x.t),(s.lines||[]).map(x=>[x.title,(x.cards||[]).map(c=>c.label)])];
-      if(s.k==='card')show('手順'+i+'/説明',[s.name,s.line],s.teaches);
-      else{show('手順'+i+'/問い',base);for(const [j,t]of (s.tokens||[]).entries())if(t.react)optional('手順'+i+'/札の反応'+j,[base,t.react]);for(const [j,l]of (s.lines||[]).entries())if(l.ask)optional('手順'+i+'/途中の問い'+j,[base,l.ask.say,l.ask.opts]);for(const [j,r]of Object.values(s.react||{}).entries())optional('手順'+i+'/反応'+j,[base,r]);for(const [j,o]of (s.opts||[]).entries())if(o.result)optional('手順'+i+'/選択の結果'+j,[base,o.result]);show('手順'+i+'/あと',talk(s.after));}
+      const base=[talk(s.say),s.q,(s.tokens||[]).map(x=>x.label),(s.dests||[]).map(x=>x.label),(s.opts||[]).map(x=>x.t),(s.lines||[]).map(x=>x.title)];
+      if(s.k==='card')show('手順'+i+'/説明',[s.name,s.line,s.leaf?.label],s.teaches);
+      else{show('手順'+i+'/問い',base);if(s.k==='note'){const cards=(s.lines||[]).flatMap(l=>l.cards.map(c=>c.label));for(let k=0;k<cards.length;k+=2)show('手順'+i+'/記入'+k,[base,cards.slice(0,k+2)]);}for(const [j,t]of (s.tokens||[]).entries())if(t.react)optional('手順'+i+'/札の反応'+j,[base,t.react]);for(const [j,l]of (s.lines||[]).entries())if(l.ask)optional('手順'+i+'/途中の問い'+j,[base,l.ask.say,l.ask.opts.map(o=>o.t)]);for(const [j,r]of Object.values(s.react||{}).entries())optional('手順'+i+'/反応'+j,[base,r]);for(const [j,o]of (s.opts||[]).entries())if(o.result)optional('手順'+i+'/選択の結果'+j,[base,o.result]);show('手順'+i+'/あと',talk(s.after));}
     }show('つづき',talk(e.next));break;
     case 'discover':{
       if(audit.pro3&&D.pro3.lite.includes(e.id)){show('3級の確認',[talk(e.b1.talk),e.b1.dyn?e.b1.dyn(S):'',e.b1.doc&&{...e.b1.doc,rows:v(e.b1.doc.rows)},e.b4.name,e.b4.line,e.b4.exam],e.b4.teaches);break;}
       const x=e.dynamic?e.dynamic(S,e):e,b=x.b2;
       show('困りごと',[talk(x.b1.talk),x.b1.dyn?x.b1.dyn(S):'',x.b1.doc&&{...x.b1.doc,rows:v(x.b1.doc.rows)}]);
       if(x.predict)show('予想',[x.predict.q,x.predict.opts.map(o=>o.t)]);
-      const question=[x.b1.doc&&{...x.b1.doc,rows:v(x.b1.doc.rows)},b.q,b.token,(v(b.tokens)||[]).map(t=>t.label),b.targets.map(t=>[t.label,t.sub]),b.reasons.map(r=>r.t)];show('問い',question);optional('問いのヒント',[question,b.hints]);
-      for(const [i,t]of b.targets.entries())if(t.react)optional('問いの反応'+i,[question,t.react]);
-      for(const [i,r]of b.reasons.entries())if(r.react)optional('理由の反応'+i,[question,r.react]);if(b.wrongReact)optional('並べ方の反応',[question,b.wrongReact]);
-      show('結果',[x.b3.ok,x.b3.bs,x.b3.bars]);show('名前',[x.b4.name,x.b4.line,x.b3.bs,(b.layout==='flow'?v(b.tokens).filter(t=>t.je).map(t=>t.je):[]),S.mode==='2026'&&x.b4.exam26?x.b4.exam26:x.b4.exam],x.b4.teaches);optional('手帳',x.hand);break;}
+      const question=[x.b1.doc&&{...x.b1.doc,rows:v(x.b1.doc.rows)},b.q,b.token,(v(b.tokens)||[]).map(t=>t.label),b.targets.map(t=>[t.label,t.sub])];show('問い',question);
+      const hints=base=>branch(()=>{for(const [i,hint]of(b.hints||[]).entries())show('問いのヒント'+i,[base,(b.hints||[]).slice(0,i+1)]);});
+      hints(question);const reason=[question,b.reasons.map(r=>r.t)];show('問いの理由',reason);hints(reason);
+      for(const [i,t]of b.targets.entries())if(!t.ok&&t.react)optional('問いの反応'+i,t.react);
+      for(const [i,r]of b.reasons.entries())if(!r.ok&&r.react)optional('理由の反応'+i,r.react);if(b.wrongReact)optional('並べ方の反応',b.wrongReact);
+      show('結果',[b.targets.filter(t=>t.ok).map(t=>t.react),x.b3.ok,x.b3.bs,x.b3.bars]);show('名前',[x.b4.name,x.b4.line,x.b3.bs,(b.layout==='flow'?v(b.tokens).filter(t=>t.je).map(t=>t.je):[]),S.mode==='2026'&&x.b4.exam26?x.b4.exam26:x.b4.exam,x.b4.leaf?.label],x.b4.teaches);optional('手帳',x.hand);break;}
     case 'doc':{
       const ans=v(e.ans);for(const [acc]of [...ans.dr,...ans.cr])naming(acc);
       const doc=e.doc?{...e.doc,rows:v(e.doc.rows)}:null,opts=[...new Set([...(e.opts||[]),...ans.dr.map(x=>x[0]),...ans.cr.map(x=>x[0])])].filter(x=>audit.learned.has(x));
-      show('記帳',[doc,opts]);show('書いたあと',[doc,opts,ans.dr.map(x=>x[0]),ans.cr.map(x=>x[0])]);
+      show('記帳',[doc,opts]);show('書いたあと',[doc,opts,ans.dr.map(x=>x[0]),ans.cr.map(x=>x[0])]);optional('記帳のヒント',[doc,opts,ans.dr.map(x=>x[0]),ans.cr.map(x=>x[0])]);for(const alt of [...(v(e.alts)||[]),...(B.kubun?.altsOf?B.kubun.altsOf(ans,e):[])])optional('会社の書き方/'+alt.form,[doc,opts,alt.note]);
       audit.docCounts||={};audit.docCounts[e.kind]=(audit.docCounts[e.kind]||0)+1;
       const rule=D.rules?.[e.kind];if(rule&&audit.docCounts[e.kind]>=3){const base=[rule.label,rule.entry,rule.conds.map(c=>c.t)];optional('自動仕訳の条件',base);for(const [i,c]of rule.conds.entries())optional('自動仕訳の条件の反応'+i,[base,c.why]);}
       break;}
@@ -86,12 +92,23 @@ function projectEvent(audit,D,B,live,e,m){
       show('もうけを運ぶ',[audit.learned.has('損益')?'損益':'1年のもうけを集める箱',audit.learned.has('繰越利益剰余金')?'繰越利益剰余金':'これまでのもうけの貯まり','資本金 普通預金']);
       show('締切の名前','損益 繰越利益剰余金 締め切り 当期純利益 決算振替',['損益','繰越利益剰余金','締め切り','当期純利益','決算振替']);break;}
     case 'opening':for(const acc of balances().filter(x=>!['収益','費用'].includes(B.accounts[x].cat)))show('開始記入の札/'+acc,acc);show('開始記入の名前','前期繰越 開始記入',['前期繰越','開始記入']);break;
-    case 'talk':show('会話',e.memo?v(e.memo):talk(e.lines),e.teaches);break;
-    case 'decision':{const opts=e.optionsFor?e.optionsFor(S):e.options;const base=[talk(e.talk),e.q,opts.map(o=>[o.label,o.desc])];show('判断',base,e.teaches);for(const o of opts.filter(o=>!o.disabled))optional('判断の確認/'+o.id,[talk(e.talk),e.q,o.label,o.result,e.trial?e.trial(S,o.id):[]]);break;}
+    case 'talk':if(e.memo)paper('会話の書類',v(e.memo),e.teaches);else show('会話',talk(e.lines),e.teaches);break;
+    case 'decision':{const opts=e.optionsFor?e.optionsFor(S):e.options;const base=[talk(e.talk),e.q,opts.map(o=>[o.label,o.desc])];show('判断',base,e.teaches);const trials=[];for(const o of opts.filter(o=>!o.disabled)){const rows=e.trial?e.trial(S,o.id):[];optional('判断の確認/'+o.id,[talk(e.talk),e.q,o.label,o.result,rows]);trials.push([o.label,rows]);}if(e.trial)(audit.trialBookmarks||={})[e.id]=[e.q,trials];break;}
     case 'plan':show('作戦の机',[D.rview.TEXT.plan,D.rview.TEXT.band,e.opens.map(k=>D.rview.HANDS[k]?.label)]);break;
-    case 'rreport':show('月報',[D.rview.TEXT.report,v(e.rows),e.auto(S).map(x=>x.label),D.rview.TEXT.debrief]);break;
+    case 'rreport':{
+      const RV=D.rview,t=e.ramenT,tree=RV.forkTree(S,t),back=tree.back.map(x=>[x.title,x.got]);
+      show('月報',[RV.TEXT.report,v(e.rows),'給料',t<7?'売上（現金）':'',e.auto(S).map(x=>x.label),back]);
+      show('店じまいの帯',RV.TEXT.band);if(t>0){const base=[RV.TEXT.debrief[0],RV.TEXT.debrief[1],Object.values(RV.FACTORS).map(x=>x.label)];show('ふりかえり1',base);for(const [key,f]of Object.entries(RV.FACTORS))optional('ふりかえりの返事/'+key,[base,f.line]);if([2,5,8,11].includes(t%12)){show('ふりかえり2','ほかの理由を合わせると、増えた？へった？');show('ふりかえり3',[RV.TEXT.debrief[0],RV.TEXT.debrief[3],'売上 材料 人のお金 宣伝 家賃・ガス水道電気']);show('ふりかえり4',[RV.TEXT.debrief[0],RV.TEXT.debrief[4],['price','prep','staff','flyer','tweak'].map(k=>RV.HANDS[k].label)]);}}
+      show('分かれ道の図',tree);break;}
+
     case 'bank':show('銀行',talk(e.lines));break;
-    case 'ending':{const x=D.endings[e.id];show('結末',[x.title,x.cause(S),x.numbers(S).rows,x.scene(S),x.lesson]);show('現実の制度',x.reality);break;}
+    case 'ending':{
+      const x=D.endings[e.id],SX=readOnly({...live,__ni:D.y2books.income(S.L.filter(entry=>(entry.y||1)===1&&!entry.closing)).net});
+      show('原因',[x.title,x.cause(SX)]);show('数字',[x.title,x.numbers(SX).rows]);
+      for(const [i,d]of x.docs(SX).entries())paper('届いた書類'+i,d,[],x.title);
+      show('その後',[x.title,x.scene(SX)]);show('現実の制度',[x.title,x.reality]);
+      const lesson=[x.title,x.lesson,x.check?.q,x.check?.opts.map(o=>o.t),audit.trialBookmarks?.[x.back]];show('学び',lesson);for(const [i,o]of(x.check?.opts||[]).entries())if(o.react)optional('学びの反応'+i,[lesson,o.react]);break;}
+
     case 'bowl':show('一杯の組立',D.rview.TEXT.bowl);break;
     case 'recall':show('想起',[]);break; // 既出書類から選び、候補もknowsで絞る（engine.js:1122〜1132）。初出はない。
     case 'end':show('年の区切り',[]);break;
@@ -99,27 +116,33 @@ function projectEvent(audit,D,B,live,e,m){
   }
 
 }
-function auditStory({cases='all'}={}){
-  const {economicStory,forcedStory}=require('./ramen-y2-check.js'),D=SIMDATA,B=BOKI,scan=scanner(B.accounts,B.lex),visited=new Set(),types=new Set(),coverage=[],failures=[];let runs=0;
+function auditStory({cases='all',seeds=Array.from({length:12},(_,i)=>i),modes=['2026','2027']}={}){
+  const {economicStory,forcedStory}=require('./ramen-y2-check.js'),D=SIMDATA,B=BOKI,scan=scanner(B.accounts,B.lex),visited=new Set(),types=new Set(),coverage=[],failures=[],nonCardCases=new Map();let runs=0;
   const bucket=()=>({screens:new Map(),months:new Map(),receivables:new Map()}),normal=bucket(),shortcut=bucket();
   function collect(target,audit,label){
     for(const row of audit.rows)for(const kind of ['firstTeaches','beforeTeach'])if(row[kind].includes('売掛金')){const key=row.month+' '+row.id+' '+kind;if(!target.receivables.has(key))target.receivables.set(key,{month:row.month,id:row.id,kind,witness:label});}
     for(const row of audit.rows){const key=row.month+' '+row.id,old=target.screens.get(key);if(!old||row.newCount>old.newCount)target.screens.set(key,{...row,witness:label});}
     for(const row of audit.result().months){const old=target.months.get(row.month);if(!old||row.newCount>old.newCount)target.months.set(row.month,{...row,witness:label});}
   }
-  function run(seed,choices={},forced){const label=forced?`${forced.card}/${forced.option}/${forced.outcome}/seed${seed}`:`seed${seed}/${choices.__mode||'2026'}/${JSON.stringify(choices)}`;
+  function run(seed,choices={},forced){const label=forced?`${forced.card}/${forced.option}/${forced.outcome}/seed${seed}/${JSON.stringify(choices)}`:`seed${seed}/${choices.__mode||'2026'}/${JSON.stringify(choices)}`;
     const audits=[new AccountScreens(scan),...[3,5,6,7].map(mask=>{const a=new AccountScreens(scan);a.pro3=true;a.gate=mask;a.learn(D.pro3.words);a.intro=new Set(D.pro3.intros);a.preset=new Set(D.pro3.gate.flatMap((q,i)=>(mask&(1<<i))?q.kinds:[]));return a;})];
-    const opts={...choices,__onEvent:(S,e,m)=>{visited.add(S.mi+':'+(e.id||e.t+'#'+m.events.indexOf(e)));types.add(e.t);for(const audit of audits)projectEvent(audit,D,B,S,e,m);}};
-    const result=forced?forcedStory(seed,opts,forced.card,forced.outcome):economicStory(seed,opts);runs++;if(runs%25===0)console.error(`画面の集計中：${runs}経路（通常＋近道の合格4通り）`);
+    const opts={...choices,__onEvent:(S,e,m)=>{visited.add(S.mi+':'+(e.id||e.t+'#'+m.events.indexOf(e)));types.add(e.t);
+      if(e.t==='decision'&&!e.card)for(const option of(e.optionsFor?e.optionsFor(readOnly(S)):e.options).filter(o=>!o.disabled)){
+        const key=S.mode+'/'+e.id+'/'+option.id;if(!nonCardCases.has(key))nonCardCases.set(key,{mode:S.mode,event:e.id,option:option.id,seed,choices:{...choices,[e.id]:option.id},forced,reached:false});
+      }
+      for(const audit of audits)projectEvent(audit,D,B,S,e,m);}};
+    const result=forced?forcedStory(seed,opts,forced.card,forced.outcome):economicStory(seed,opts);runs++;if(runs%5===0)console.error(`画面の集計中：${runs}経路（通常＋近道の合格4通り）`);
+    for(const c of nonCardCases.values())if(result.S.mode===c.mode&&result.S.decisions[c.event]===c.option){c.reached=true;c.witness||=label;}
     collect(normal,audits[0],label);for(const a of audits.slice(1))collect(shortcut,a,label+'/近道gate'+a.gate);
     return result;
   }
-  for(const mode of ['2026','2027'])for(let seed=0;seed<12;seed++)run(seed,{__mode:mode});
+  for(const mode of modes)for(const seed of seeds)run(seed,{__mode:mode});
   if(cases==='all'){
     for(const card of D.cards.deck.filter(c=>!c.y2&&c.docs))for(const opt of card.options){let reached=false;for(const seed of [0,3,7,1,2,4,5,6,8,9,10,11]){const {S}=run(seed,{[card.id]:opt.id});if(Object.entries(S.decisions).some(([id,v])=>id.startsWith(card.id+'@')&&+id.slice(card.id.length+1)<12&&v===opt.id)){reached=true;break;}}if(!reached)failures.push('旧札の選択肢へ未到達 '+card.id+'/'+opt.id);}
     for(const card of D.y2.cards.cards)for(const opt of card.options)for(const out of opt.outcomes){let reached=false;for(const seed of [3,0,7]){const choices={finance_asset:'installment',maintain_y2:'break',maintain_replace:'keep',bonus:'standard',[card.id]:opt.id};if(card.id==='items_stock_sale')choices.ticket_items='n20';if(card.id==='equipment_purchase')choices.finance_asset='loan';if(card.id==='repair_pay')choices.maintain_y2='plan';if(card.id==='close_restore')choices.close='close';if(card.id==='close_equipment')choices.close='format';const {S}=run(seed,choices,{card:card.id,option:opt.id,outcome:out.id});if(S.cardOutcomes.some(x=>x.card===card.id&&x.option===opt.id&&x.outcome===out.id)){reached=true;break;}}coverage.push({card:card.id,option:opt.id,outcome:out.id,reached});if(!reached)failures.push('札の結果へ未到達 '+card.id+'/'+opt.id+'/'+out.id);}
   }
-  const finish=(b,variant)=>{const result={variant,receivables:[...b.receivables.values()],runs,displayPaths:runs*(variant==='shortcut'?4:1),types:[...types],eventCount:visited.size,outcomes:coverage,screens:[...b.screens.values()],months:[...b.months.values()],failures};result.screenErrors=result.screens.filter(x=>x.newCount>2);result.monthWarnings=result.months.filter(x=>x.newCount>2);return result;};
+  if(cases==='all')for(const c of nonCardCases.values())if(!c.reached){run(c.seed,c.choices,c.forced);if(!c.reached)failures.push('札以外の選択肢へ未到達 '+c.mode+'/'+c.event+'/'+c.option);}
+  const finish=(b,variant)=>{const result={variant,nonCardOptions:[...nonCardCases.values()].map(({mode,event,option,reached,witness})=>({mode,event,option,reached,witness})),receivables:[...b.receivables.values()],runs,displayPaths:runs*(variant==='shortcut'?4:1),types:[...types],eventCount:visited.size,outcomes:coverage,screens:[...b.screens.values()],months:[...b.months.values()],failures};result.screenErrors=result.screens.filter(x=>x.newCount>2);result.monthWarnings=result.months.filter(x=>x.newCount>2);return result;};
   const result=finish(normal,'normal');result.shortcut=finish(shortcut,'shortcut');return result;
 }
 function exitCode(r){return r.screenErrors.length||r.failures.length||(r.shortcut&&exitCode(r.shortcut))?1:0;}

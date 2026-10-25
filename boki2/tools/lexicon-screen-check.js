@@ -36,7 +36,7 @@ console.log('OK：名前と試験文は同一画面、無効な選択肢も表�
  const audit=new AccountScreens(scan);audit.pro3=true;
  const m={m:4,label:'4月',events:[]},e={id:'lite',t:'discover',title:'表示しないタイトル',b1:{talk:[['piyo','現金']]},b4:{name:'売掛金',line:'',exam:'借入金',teaches:['売掛金']}};
  projectEvent(audit,{pro3:{lite:['lite']}},{accounts},state,e,m);assert.equal(audit.result().failures[0].newCount,3);
- const known=new AccountScreens(scan);known.pro3=true;known.learn(['現金']);projectEvent(known,{pro3:{lite:['lite']}},{accounts},state,e,m);assert.equal(known.result().failures.length,0);assert.equal(known.rows[0].newCount,2);
+ const known=new AccountScreens(scan);known.pro3=true;known.learn(['現金']);projectEvent(known,{pro3:{lite:['lite']}},{accounts},state,e,m);assert.equal(known.result().failures.length,0);assert.equal(known.rows.find(r=>r.id.endsWith('/3級の確認')).newCount,2);
 }
 console.log('OK：近道の同一画面で3科目は失敗、applyPro3の既習を引くと2科目');
 // 近道で連続する自動記帳は1画面に並ぶ。伝票ごとに分けて3科目を隠さない。
@@ -50,3 +50,19 @@ console.log('OK：近道の同一画面で3科目は失敗、applyPro3の既習�
  assert.equal(audit.rows.filter(r=>r.id.endsWith('/自動で記帳')).length,1);assert.equal(audit.result().failures[0].newCount,3);
 }
 console.log('OK：近道の連続する自動記帳も1画面の3科目で失敗');
+// 警告の原因・数字・その後は別表示。合算して偽の3科目にしない。
+{
+ const make=(docs=[])=>({y2books:{income:()=>({net:0})},endings:{warning:{title:'警告',cause:()=> '現金',numbers:()=>({rows:[['売掛金',1]]}),docs:()=>docs,scene:()=>[['piyo','借入金']],reality:'',lesson:''}}});
+ const m={m:4,label:'4月',events:[]},e={t:'ending',id:'warning'},audit=new AccountScreens(scan);
+ projectEvent(audit,make(),{accounts},state,e,m);assert.equal(audit.result().failures.length,0);
+ const paper=new AccountScreens(scan);projectEvent(paper,make([{title:'書類',body:['現金 売掛金 借入金']}]),{accounts},state,e,m);
+ // 原因と数字で既出になるため、書類だけで独立した資料も検査する。
+ const fresh=new AccountScreens(scan);const D=make([{title:'書類',body:['現金 売掛金 借入金']}]);D.endings.warning.cause=()=>'';D.endings.warning.numbers=()=>({rows:[]});
+ projectEvent(fresh,D,{accounts},state,e,m);assert.ok(fresh.result().failures.some(r=>r.id.includes('届いた書類')&&r.newCount===3));
+}
+// 問いで2科目を見た後、理由に1科目が増えるなら、同時初出の3とはしない。
+{
+ const audit=new AccountScreens(scan),m={m:4,label:'4月',events:[]},e={t:'discover',id:'reason',b1:{talk:[]},b2:{q:'現金 売掛金',targets:[],reasons:[{t:'借入金',ok:true}]},b3:{ok:''},b4:{name:'',line:'',exam:'',teaches:[]}};
+ projectEvent(audit,{}, {accounts},state,e,m);assert.equal(audit.result().failures.length,0);assert.equal(audit.rows.find(r=>r.id.endsWith('/問い')).newCount,2);assert.equal(audit.rows.find(r=>r.id.endsWith('/問いの理由')).newCount,1);
+}
+console.log('OK：警告の各段は別画面、届いた書類の3科目は検出、選択後の理由の初出も順番に数える');
