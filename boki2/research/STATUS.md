@@ -2,7 +2,7 @@
 
 `node boki2/tools/research-check.js --write` が生成。手で編集しない。
 
-取得記録 4989 行・読了ノート 2278 本（うち docs から出典として引かれていない 906 本）
+取得記録 5043 行・読了ノート 2301 本（うち docs から出典として引かれていない 929 本）
 
 ## 利用規約
 - 商工会議所の検定試験（日本商工会議所）（kentei）：規約 確認済み・問題なし（2026-10-20）。robots.txt は /wp/wp-admin/ のみ禁止。自動取得を禁じる規約ページは見当たらない。ただしサンプル問題のページに「著作権は日本商工会議所に帰属、無断転載・無断の営利利用を厳禁」と明記されている。原文はリポジトリに入れず、転載しない（分析・数字と設定を変えたオリジナル問題のみ）
@@ -28,11 +28,11 @@
 | cpa-learning:column | 簿記・経理のコラム（post-sitemap.xml の全記事：boki 95・keiri 135・technique 9・career 13） | 252 | 252 | 0 | 252 | 252 | 252 | 0 | 0 |
 | cpa-learning:videos | 講義動画 | — | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
 | law:primary | EPISODES.md・scenario.js の法令・制度の記述を照合した一次資料 | — | 349 | 0 | 344 | 328 | 327 | 141 | 0 |
-| web:learnsci | 理解されやすい教え方・伝え方の研究（学習科学・認知心理・教育工学・ゲーム学習、〜2026年10月） | — | 162 | 0 | 152 | 105 | 105 | 28 | 0 |
+| web:learnsci | 理解されやすい教え方・伝え方の研究（学習科学・認知心理・教育工学・ゲーム学習、〜2026年10月） | — | 168 | 0 | 154 | 107 | 107 | 28 | 0 |
 | web:acctedu | 簿記・会計教育の研究と実践報告（国内外） | — | 107 | 0 | 107 | 81 | 81 | 18 | 0 |
 | web:boki2content | 簿記2級の教材・講座・アプリ・動画の教え方と見せ方、学習者の声 | — | 53 | 0 | 53 | 36 | 36 | 1 | 0 |
-| web:simgames | 既存の会計・財務・経営シミュレーションゲーム（ボードゲーム・研修ゲーム・デジタルゲーム・教育用シミュレーション） | — | 519 | 0 | 493 | 345 | 343 | 200 | 0 |
-| web:uiux | UI・UX デザインのセオリー（ヒューリスティック・アクセシビリティ・ガイドライン）と、学習アプリ・ゲーム・業務ソフトの UI・UX の成功事例 | — | 80 | 0 | 80 | 63 | 63 | 27 | 0 |
+| web:simgames | 既存の会計・財務・経営シミュレーションゲーム（ボードゲーム・研修ゲーム・デジタルゲーム・教育用シミュレーション） | — | 528 | 0 | 502 | 354 | 352 | 200 | 0 |
+| web:uiux | UI・UX デザインのセオリー（ヒューリスティック・アクセシビリティ・ガイドライン）と、学習アプリ・ゲーム・業務ソフトの UI・UX の成功事例 | — | 97 | 0 | 97 | 75 | 75 | 27 | 0 |
 | web:bizmkt | マーケティングの打ち手（チラシ・SNS・インフルエンサー・値付け・販促・口コミ）の効果と費用の事例・調査・数字 | — | 105 | 0 | 105 | 70 | 70 | 41 | 0 |
 | web:bizmgmt | 小さな店・中小企業の経営の定石と数字（損益分岐・粗利・在庫・人・設備投資・需要の変動・競合） | — | 289 | 0 | 283 | 184 | 183 | 82 | 0 |
 | web:ramen | ラーメン（歴史・文化・業界・店の経営・製麺とスープの製造・多店舗化とFC・物販やアパレル・通販）の資料 | — | 367 | 0 | 358 | 258 | 254 | 154 | 0 |
@@ -74,7 +74,7 @@
 | docs/analysis/sim-games.md | web 52本 | 既存の会計・財務シミュレーションゲームの分析と取り入れる要素 |
 | docs/DESIGN-REVISION.md | web 62本・kentei 14本・cpa-learning 16本 | 全分析を統合した設計改訂案（Fable、2026-10-20） |
 
-## 検査結果：エラー 0・注意 1790
+## 検査結果：エラー 0・注意 1805
 - △ kentei:kubun2027: 2027kubunhyo_fixed は一部だけ読了（第二 諸取引の4（その他の債権と債務）・8（顧客への移転）・10〜21（固定資産・リース・税金・税効果）の2級と1級の列・1〜4頁のうち商業簿記・会計学の欄（固定資産・リース・外貨建取引・税効果・会計上の変更・決算・株式会社会計・本支店会計・連結会計）。工業簿記の欄は BIZ-GROWTH の会計の列に使う範囲（工業簿記の全体が2級）だけ見た）
 - △ cpa-learning:texts2: r9-robots-cpa-learning-content-prod.s3.ap-northeast-1.amazonaws.com は取得に失敗した（403・skipped）。読んでいないので根拠にしない
 - △ cpa-learning:texts2: 480123 は一部だけ読了（150110との差分箇所（PDF 4・9・11・187・270・329・330ページ）。全330ページを150110とページごとに比べ（文字は pdftotext の全ページ比較、図や枠は40dpiの画像の画素比較）、差分が出た7ページだけを読んだ。それ以外の323ページは150110と同一と判定し、中身は 150110 の章ノートで読んでいる）
@@ -307,6 +307,9 @@
 - △ web:learnsci: r9-robots-www.pref.miyagi.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
 - △ web:learnsci: r9-robots-www.rehab.go.jp は取得に失敗した（404・skipped）。読んでいないので根拠にしない
 - △ web:learnsci: r10-robots-api.crossref.org は取得に失敗した（404・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r11-ju-ou-jordan-dragdrop-mc は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r11-ju-core-dragdrop-call は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:learnsci: r11-ju-bc-dragdrop-irt は取得に失敗した（404・skipped）。読んでいないので根拠にしない
 - △ web:learnsci: clark2016-digital-games-meta は一部だけ読了（本文をすべて（要旨・序論・方法・結果・考察・限界・注・著者紹介）。参考文献の一覧と表の脚注の一部は読んでいない）
 - △ web:learnsci: theory-mext-fte2023 は一部だけ読了（1〜2ページ（教員用調査票の前半、質問1〜16の手前まで））
 - △ web:learnsci: child-mext-kanji-haitou は一部だけ読了（表の本体のうち、簿記・会計・お店・会社の言葉に出る漢字約250字の行（学年と、小・中・高の読み方の段階つき）を、位置情報つきの文字抽出で一つずつ引いた。1〜2ページの備考と最後の付表も読んだ）
@@ -393,6 +396,10 @@
 - △ web:learnsci: r10-rr-crossref-latimier2021 は取得したが読まない（書誌の API の応答を開いたが、要旨（abstract）の欄がなく、主張を支える中身がない。根拠に使わない（Latimier 2021 の要旨の別の置き場を探した記録））。根拠にしない
 - △ web:learnsci: r10-rr-openalex-latimier2021 は取得したが読まない（書誌の API の応答を開いたが、要旨（abstract）の欄がなく、主張を支える中身がない。根拠に使わない（Latimier 2021 の要旨の別の置き場を探した記録））。根拠にしない
 - △ web:learnsci: r10-robots-educationalneuroscience.org.uk は取得できず、理由つきで飛ばした（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠には使っていないこと
+- △ web:learnsci: r11-ju-hoffler2007-anim-meta は取得できず、理由つきで飛ばした（0バイトしか返らなかった（wikicap.ulb.be）。同じ主題の Berney & Bétrancourt 2016（r11-ju-berney2016-anim-meta）で代える）。根拠には使っていないこと
+- △ web:learnsci: r11-ju-ponce2021-dragdrop-reading は取得できず、理由つきで飛ばした（robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた）。根拠には使っていないこと
+- △ web:learnsci: r11-ju-noor2016-swipe-errors は取得できず、理由つきで飛ばした（robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた）。根拠には使っていないこと
+- △ web:learnsci: r11-ju-ploetzner2021-anim-static は取得できず、理由つきで飛ばした（robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた）。根拠には使っていないこと
 - △ web:acctedu: accountant-genka-higenka は取得に失敗した（429）。読んでいないので根拠にしない
 - △ web:acctedu: r2-teen15-miyazaki-koumin は取得に失敗した（404）。読んでいないので根拠にしない
 - △ web:acctedu: r2-teen15-gifu-koumin は取得に失敗した（404）。読んでいないので根拠にしない
@@ -505,6 +512,9 @@
 - △ web:simgames: r10-robots-gamebanshee.com は取得に失敗した（301・skipped）。読んでいないので根拠にしない
 - △ web:simgames: r10-tos-tpr は取得に失敗した（404・skipped）。読んでいないので根拠にしない
 - △ web:simgames: r10-robots-toucharcade.com は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r11-ju-reigns-appunwrapper は取得に失敗した（403・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r11-ju-tinder-venturebeat は取得に失敗した（429・skipped）。読んでいないので根拠にしない
+- △ web:simgames: r11-ju-tinder-fastcompany は取得に失敗した（403・skipped）。読んでいないので根拠にしない
 - △ web:simgames: r3-fable-wiki-slay-the-spire は一部だけ読了（Gameplay・Development の節（Reception・References は読んでいない））
 - △ web:simgames: r3-fable-wiki-hades は一部だけ読了（Gameplay・Plot の節（Development・Reception は読んでいない））
 - △ web:simgames: r3-fable-wiki-roguelike は一部だけ読了（本文をすべて（冒頭・Origin・Gameplay and design の4節・History の全節・Community）。参考文献の一覧は読んでいない・「Roguelites and procedural death labyrinths」「Subgenres within roguelikes」の節だけ）
@@ -927,6 +937,11 @@
 - △ web:uiux: r9-robots-www.gankaikai.or.jp は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
 - △ web:uiux: r9-robots-www.nngroup.com は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
 - △ web:uiux: r9-robots-www.w3.org は取得したが読まない（利用規約・robots.txt の確認のためだけに取得した。分析の資料ではないので読了ノートは書かない）。根拠にしない
+- △ web:uiux: r11-ju-m3-motion-tokens は取得したが読まない（JS で描く殻（本文なし）しか取れなかった。m1.material.io の静的ページで代える）。根拠にしない
+- △ web:uiux: r11-ju-m3-motion-applying は取得したが読まない（JS で描く殻（本文なし）しか取れなかった。m1.material.io の静的ページで代える）。根拠にしない
+- △ web:uiux: r11-ju-m2-motion-speed は取得したが読まない（JS で描く殻（本文なし）しか取れなかった。m1.material.io の静的ページで代える）。根拠にしない
+- △ web:uiux: r11-ju-m2-motion-understanding は取得したが読まない（JS で描く殻（本文なし）しか取れなかった。m1.material.io の静的ページで代える）。根拠にしない
+- △ web:uiux: r11-ju-m1-motion-duration は取得したが読まない（サーバーが gzip 圧縮のまま返し、道具が展開しないので語句の照合ができない（2回とも）。中身（300ms・225ms・195ms・400ms 超は遅い・desktop 150〜200ms）は読んだが出典には使わない）。根拠にしない
 - △ web:bizmkt: r4-mkt-issoh-discount は取得に失敗した（403・skipped）。読んでいないので根拠にしない
 - △ web:bizmkt: r4-mkt-imitsu-posting は取得に失敗した（503・skipped）。読んでいないので根拠にしない
 - △ web:bizmkt: r4-law-tokusho-tsuhan は取得に失敗した（503・skipped）。読んでいないので根拠にしない
