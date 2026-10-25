@@ -421,3 +421,6 @@ b.r-big span { font-size: .875rem; margin-left: .125rem; } b.r-big.pos { color: 
 .r-handdocs { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .125rem; font-size: .875rem; } .r-handdocs small { margin-left: .5rem; color: var(--risk); }
 
 .s-opt[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+
+/* 動きの設定は既存の屋台の湯気にも適用。控えめは色・不透明度の反応を残す。 */
+[data-motion="calm"] .r-steam, [data-motion="calm"] .r-steam * { animation:none!important; }
