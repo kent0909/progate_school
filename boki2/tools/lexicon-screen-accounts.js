@@ -3,7 +3,6 @@
 'use strict';
 const fs=require('fs');
 const stringParts=x=>typeof x==='string'?[x]:Array.isArray(x)?x.flatMap(stringParts):x&&typeof x==='object'?Object.values(x).flatMap(stringParts):[];
-const value=(x,S)=>typeof x==='function'?x(S):x;
 function scanner(accounts,lex){
   const words=[...new Set([...Object.keys(accounts),...(lex.concepts||[]),...Object.keys(lex.docWords||{})])].sort((a,b)=>b.length-a.length),cache=new Map();
   return text=>{text=stringParts(text).join(' ');if(cache.has(text))return cache.get(text);let rest=text.replace(/<[^>]*>/g,' ');const out=new Set();
@@ -30,8 +29,11 @@ function readOnly(value,cache=readOnlyViews){
 }
 // 科目ごとに帳簿全体を再走査せず、同じ残高を一度で作る。入力は変更しない。
 function entryBalances(entries){const out={};for(const entry of entries){for(const [a,n]of entry.dr)out[a]=(out[a]||0)+n;for(const [a,n]of entry.cr)out[a]=(out[a]||0)-n;}return out;}
-function projectEvent(audit,D,B,live,e,m){
-  const S=readOnly(live),month=m.m===0?'プロローグ':!m.year&&live.mi<4?'開店前 3月':`${m.year||(/翌年/.test(m.label)?2:1)}年目 ${m.m}月`,id=m.label+'/'+(e.id||`${e.t}#${m.events.indexOf(e)}`),show=(stage,text,learn=[])=>audit.show(month,id+'/'+stage,[e.t==='discover'&&!(audit.pro3&&D.pro3.lite.includes(e.id))?e.title:'',text],learn),v=x=>value(x,S),talk=x=>v(x)||[];
+function frozenCopy(x){if(!x||typeof x!=='object')return x;const copy=Array.isArray(x)?x.map(frozenCopy):Object.fromEntries(Object.entries(x).map(([k,v])=>[k,frozenCopy(v)]));Object.freeze(copy);viewProxies.add(copy);return copy;}
+function projectEvent(audit,D,B,live,e,m,cache=new Map()){
+  // 同じ出来事の5表示で同じ計算の行を再計算しない。帳簿のコピーは凍結し、元へは書かない。
+  if(!cache.has('state'))cache.set('state',readOnly(e.t==='calc'?{...live,T:frozenCopy(live.T)}:live));
+  const S=cache.get('state'),month=m.m===0?'プロローグ':!m.year&&live.mi<4?'開店前 3月':`${m.year||(/翌年/.test(m.label)?2:1)}年目 ${m.m}月`,id=m.label+'/'+(e.id||`${e.t}#${m.events.indexOf(e)}`),show=(stage,text,learn=[])=>audit.show(month,id+'/'+stage,[e.t==='discover'&&!(audit.pro3&&D.pro3.lite.includes(e.id))?e.title:'',text],learn),v=x=>{if(typeof x!=='function')return x;if(!cache.has(x))cache.set(x,x(S));return cache.get(x);},talk=x=>v(x)||[];
   // 誤答・任意のヒントは見なくても進める。別経路の初出を先取りさせない。
   const optional=(stage,text)=>{const seen=new Set(audit.seen),learned=new Set(audit.learned);show(stage,text);audit.seen=seen;audit.learned=learned;};
   const branch=fn=>{const seen=new Set(audit.seen),learned=new Set(audit.learned);fn();audit.seen=seen;audit.learned=learned;};
@@ -63,7 +65,7 @@ function projectEvent(audit,D,B,live,e,m){
     }show('つづき',talk(e.next));break;
     case 'discover':{
       if(audit.pro3&&D.pro3.lite.includes(e.id)){show('3級の確認',[talk(e.b1.talk),e.b1.dyn?e.b1.dyn(S):'',e.b1.doc&&{...e.b1.doc,rows:v(e.b1.doc.rows)},e.b4.name,e.b4.line,e.b4.exam],e.b4.teaches);break;}
-      const x=e.dynamic?e.dynamic(S,e):e,b=x.b2;
+      if(e.dynamic&&!cache.has('dynamic'))cache.set('dynamic',e.dynamic(S,e));const x=e.dynamic?cache.get('dynamic'):e,b=x.b2;
       show('困りごと',[talk(x.b1.talk),x.b1.dyn?x.b1.dyn(S):'',x.b1.doc&&{...x.b1.doc,rows:v(x.b1.doc.rows)}]);
       if(x.predict)show('予想',[x.predict.q,x.predict.opts.map(o=>o.t)]);
       const question=[x.b1.doc&&{...x.b1.doc,rows:v(x.b1.doc.rows)},b.q,b.token,(v(b.tokens)||[]).map(t=>t.label),b.targets.map(t=>[t.label,t.sub])];show('問い',question);
@@ -97,7 +99,7 @@ function projectEvent(audit,D,B,live,e,m){
       show('締切の名前','損益 繰越利益剰余金 締め切り 当期純利益 決算振替',['損益','繰越利益剰余金','締め切り','当期純利益','決算振替']);break;}
     case 'opening':for(const acc of balances().filter(x=>!['収益','費用'].includes(B.accounts[x].cat)))show('開始記入の札/'+acc,acc);show('開始記入の名前','前期繰越 開始記入',['前期繰越','開始記入']);break;
     case 'talk':if(e.memo)paper('会話の書類',v(e.memo),e.teaches);else show('会話',talk(e.lines),e.teaches);break;
-    case 'decision':{const opts=e.optionsFor?e.optionsFor(S):e.options;const base=[talk(e.talk),e.q,opts.map(o=>[o.label,o.desc])];show('判断',base,e.teaches);const trials=[];for(const o of opts.filter(o=>!o.disabled)){const rows=e.trial?e.trial(S,o.id):[];optional('判断の確認/'+o.id,[talk(e.talk),e.q,o.label,o.result,rows]);trials.push([o.label,rows]);}if(e.trial)(audit.trialBookmarks||={})[e.id]=[e.q,trials];break;}
+    case 'decision':{const opts=e.optionsFor?v(e.optionsFor):e.options;const base=[talk(e.talk),e.q,opts.map(o=>[o.label,o.desc])];show('判断',base,e.teaches);const trials=[];for(const o of opts.filter(o=>!o.disabled)){const key='trial/'+o.id;if(e.trial&&!cache.has(key))cache.set(key,e.trial(S,o.id));const rows=e.trial?cache.get(key):[];optional('判断の確認/'+o.id,[talk(e.talk),e.q,o.label,o.result,rows]);trials.push([o.label,rows]);}if(e.trial)(audit.trialBookmarks||={})[e.id]=[e.q,trials];break;}
     case 'plan':show('作戦の机',[D.rview.TEXT.plan,D.rview.TEXT.band,e.opens.map(k=>D.rview.HANDS[k]?.label)]);break;
     case 'rreport':{
       const RV=D.rview,t=e.ramenT,tree=RV.forkTree(S,t),back=tree.back.map(x=>[x.title,x.got]);
@@ -134,7 +136,7 @@ function auditStory({cases='all',seeds=Array.from({length:12},(_,i)=>i),modes=['
       if(e.t==='decision'&&!e.card)for(const option of(e.optionsFor?e.optionsFor(readOnly(S)):e.options).filter(o=>!o.disabled)){
         const key=S.mode+'/'+e.id+'/'+option.id;if(!nonCardCases.has(key))nonCardCases.set(key,{mode:S.mode,event:e.id,option:option.id,seed,choices:{...choices,[e.id]:option.id},forced,reached:false});
       }
-      for(const audit of audits)projectEvent(audit,D,B,S,e,m);}};
+      const values=new Map();for(const audit of audits)projectEvent(audit,D,B,S,e,m,values);}};
     const result=forced?forcedStory(seed,opts,forced.card,forced.outcome):economicStory(seed,opts);runs++;if(runs%5===0)console.error(`画面の集計中：${runs}経路（通常＋近道の合格4通り）`);
     for(const c of nonCardCases.values())if(result.S.mode===c.mode&&result.S.decisions[c.event]===c.option){c.reached=true;c.witness||=label;}
     collect(normal,audits[0],label);for(const a of audits.slice(1))collect(shortcut,a,label+'/近道gate'+a.gate);

@@ -74,3 +74,11 @@ console.log('OK：警告の各段は別画面、届いた書類の3科目は検�
  assert.equal(JSON.stringify(entries),before);assert.equal(balances['売掛金'],0);assert.equal(balances['借入金'],-130);
 }
 console.log('OK：一度で集計した残高が科目別走査と一致し、帳簿の入力も不変');
+// 同じ出来事の表示を比べる間だけ、純粋な行の計算を共用する。帳簿は凍結コピー。
+{
+ const ledger={mi:0,T:[{dr:[['現金',10]],cr:[['借入金',10]]}],L:[]},saved=JSON.stringify(ledger),shared=new Map();let calls=0;
+ const e={t:'calc',id:'shared',rows:S=>{calls++;assert.ok(Object.isFrozen(S.T));assert.ok(Object.isFrozen(S.T[0].dr[0]));assert.throws(()=>{S.T[0].dr[0][1]=99;},TypeError);return [['現金',S.T[0].dr[0][1]]];}},m={m:4,label:'4月',events:[]};
+ projectEvent(new AccountScreens(scan),{}, {accounts},ledger,e,m,shared);projectEvent(new AccountScreens(scan),{}, {accounts},ledger,e,m,shared);assert.equal(calls,1);assert.equal(JSON.stringify(ledger),saved);
+ projectEvent(new AccountScreens(scan),{}, {accounts},ledger,e,m);assert.equal(calls,2);
+}
+console.log('OK：同じ出来事だけ計算を共用、帳簿は凍結コピー、元の状態は不変');
