@@ -70,7 +70,11 @@
   const reverseMarch = t => ({t:'doc',id:`y${Math.floor(t/12)+1}-reverse`,kind:'accrued_reverse',
     doc:{type:'振替伝票',title:'4月1日・去年の未払分を戻す',from:'経理',to:'経理',date:'4月1日',rows:S=>[['去年3月の給料',Math.round(R(S,t-1).labor),'amt'],['去年3月のガス・水道・電気',Math.round(R(S,t-1).util),'amt'],['メモ','去年の費用に入れた分。今月の支払と重ねない']]},
     ans:S=>je([['未払費用',Math.round(R(S,t-1).labor+R(S,t-1).util)]],[['給料',Math.round(R(S,t-1).labor)],['水道光熱費',Math.round(R(S,t-1).util)]]),opts:opts('未払費用','水道光熱費')});
-  const routineAt = t => [...(t % 12 === 0 ? [reverseMarch(t)] : []),...routine(t)];
+  // 評価損後の原価を読む。三分法なので使用・廃棄の追加仕訳は作らない（6393380107）。
+  const bulkUse=S=>{const q=Y1.bulkInventory(S),used=q.purchased?C('bulkBack')*C('bulkMonths'):0;return {...q,used,discarded:q.carrying-used};};
+  const bulkMemoBody=S=>{const q=bulkUse(S);return [`残った小麦${yen(q.discarded)}円分を捨てた。`,`前年の購入${yen(q.purchased)}円、評価損${yen(q.loss)}円、繰り越した原価${yen(q.carrying)}円。4〜9月に使った分は${yen(q.used)}円。`,'三分法では、買うときに仕入へ書き、期末（年の終わり）に残った分だけを商品へ戻す。捨てた分は期末の棚卸に入らず、仕入のまま売上原価になる。仕訳は要らない。'];};
+  const bulkMemo=t=>({t:'talk',id:`bulk-disposal-memo@${t}`,when:S=>t===C('shockAt')+C('bulkMonths')-1&&bulkUse(S).purchased>0,teaches:['三分法','期末'],lines:S=>bulkMemoBody(S).map(text=>['senpai',text]),memo:S=>({from:'経理',to:SHOP,title:`${MON[t%12]}月末・小麦の廃棄メモ（仕訳なし）`,body:bulkMemoBody(S)})});
+  const routineAt = t => [...(t % 12 === 0 ? [reverseMarch(t)] : []),...routine(t),...(t===C('shockAt')+C('bulkMonths')-1?[bulkMemo(t)]:[])];
   const monthTitle = t => `${Math.floor(t/12)+1}年目・${MON[t%12]}月の店`;
   const bal = (S,a) => BK.balance(S.T || [],a);
   const positive = n => Math.max(0,Math.round(n));
@@ -121,5 +125,5 @@
   };
   // 抽選の種類ごとに独立。同じseed・月・種類なら、ほかの判断の有無で乱数をずらさない。
   const stream=(W,kind)=>{let h=0;for(const c of kind)h=(h*31+c.charCodeAt(0))>>>0;return SIM.rng((W.seed*1000003+W.t*10007+h)>>>0);};
-  SIM.y2 = {stream, consolidation, routine: routineAt, monthTitle, kessan, books: BK, je, opts, pb, R, MON, yearIncome};
+  SIM.y2 = {bulkUse, stream, consolidation, routine: routineAt, monthTitle, kessan, books: BK, je, opts, pb, R, MON, yearIncome};
 })(typeof window !== 'undefined' ? window : globalThis);

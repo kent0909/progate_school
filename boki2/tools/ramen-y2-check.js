@@ -268,9 +268,65 @@ function verifyClassification(){
   for(const a of ['差入保証金','子会社株式','関連会社株式','繰延税金資産'])assert.equal(BOKI.kubun.bsOf(a),'固定資産',a);
   console.log('OK：engine実関数で税効果の貸方6000/なし/借方6000→純利益356000/350000/344000、通常/区分P/L・作業台B/S・正の締切仕訳と残高0、構築物/使用権資産の控除');
 }
+// PR #3統合・6393380107/6393453636：実際に配られる札と記帳期間の回帰検査。
+function verifyYear1Integration(){
+  const bank=a=>a.dr.reduce((n,[k,v])=>n+(k==='普通預金'?v:0),0)-a.cr.reduce((n,[k,v])=>n+(k==='普通預金'?v:0),0);
+  const material=a=>a.dr.reduce((n,[k,v])=>n+(k==='仕入'?v:0),0)-a.cr.reduce((n,[k,v])=>n+(k==='仕入'?v:0),0);
+  const all=D.months.flatMap(m=>m.events),april=D.months.find(m=>m.ramenT===12);
+  for(const id of ['opening2','stock-back','tax-pay']){
+    assert.equal(all.filter(e=>e.id===id).length,1,id+':重複');
+    assert.ok(april.events.some(e=>e.id===id),id+':年2の4月にない');
+  }
+  assert.deepEqual(april.events.slice(0,3).map(e=>e.id),['opening2','stock-back','plan12']);
+  const taxPay=all.find(e=>e.id==='tax-pay');
+  for(const amount of [70000,246800]){
+    const S={T:[{ev:'tax1',dr:[['法人税等',amount]],cr:[['未払法人税等',amount]]}]};
+    assert.equal(taxPay.ans(S).cr[0][1],amount,'締切後に税額を計算し直した');
+    assert.equal(taxPay.doc.rows(S).find(r=>r[2]==='amt')[1],amount);
+  }
+  for(const [k,outcome,cash]of [[0,'cheap',15000],[1,'spoil',-20000],[2,'space',-8000]]){
+    // seed3では9月にbulkが配られず、3月(t11)に自然に配られる。結果だけを3通りに固定。
+    const {S}=forcedStory(3,{bulk:'bulk'},'bulk',outcome);
+    assert.equal(S.decisions['bulk@11'],'bulk','自然な3月の配札経路に達していない');
+    assert.equal(S.decisions['bulk@5'],undefined,'9月のbulkを使ってしまった');
+    const x=S.res[12].choices.find(x=>x.card==='bulk');assert.equal(x.outcome,outcome);assert.equal(x.cash,cash);
+    const docs=S.T.filter(e=>/^bulk-doc\d+@12$/.test(e.ev));assert.equal(docs.length,1);assert.equal(docs[0].ev,`bulk-doc${k}@12`);assert.equal(docs[0].y,2);assert.equal(bank(docs[0]),cash);
+    assert.ok(!S.T.some(e=>/^bulk-doc\d+@11$/.test(e.ev)),'結果確定前に記帳');
+    assert.equal(D.y2books.reconcile(S,12).rest,0,'bulkと汎用fxの二重計上');
+  }
+  const measures=[];
+  for(const [seed,loss,discarded]of [[0,0,30000],[13,12000,18000]]){
+    const memos=[];let opening;
+    const {S}=economicStory(seed,{supplier:'high',costOmen:'bulk',__onEvent:(s,e)=>{
+      if(e.id==='opening2')opening={cash:D.y2books.cash(s.T),unpaid:-D.y2books.balance(s.T,'未払法人税等'),inventory:D.y2books.balance(s.T,'繰越商品')};
+      if(e.id==='bulk-disposal-memo@17')memos.push(e.memo(s));
+    }});
+    assert.deepEqual(D.y2.bulkUse(S),{purchased:300000,loss,carrying:300000-loss,used:270000,discarded});
+    assert.equal(memos.length,1);assert.ok(memos[0].body.some(s=>s.includes(discarded.toLocaleString('ja-JP'))));
+    assert.ok(!S.T.some(e=>/bulk-(use|disposal|restore)/.test(e.ev)),'三分法なのに使用・廃棄を再記帳');
+    const rows=S.T.filter(e=>e.y===2&&!e.closing),start=rows.find(e=>e.ev==='stock-back'),end=rows.find(e=>e.ev==='stock2');
+    assert.equal(start.dr[0][1],opening.inventory);assert.equal(opening.unpaid,S.T.find(e=>e.ev==='tax1').cr[0][1]);
+    const raw=Array.from({length:12},(_,i)=>S.res[12+i].cogs+S.res[12+i].wasteCost).reduce((a,b)=>a+b,0);
+    const buys=rows.filter(e=>/^buy\d+$/.test(e.ev)).reduce((n,e)=>n+material(e),0);assert.equal(buys,raw,'世界の材料と当期仕入書類の不一致');
+    // 世界の材料支払を発生原価へ直す：期首/期末の差と、別札の返品・割戻し/買足し。
+    let cards=0;for(let t=12;t<24;t++){
+      if((S.dealt[t]||[]).some(c=>(typeof c==='string'?c:c.id)==='defect')&&S.decisions[`defect@${t}`]==='return')cards-=20000;
+      const x=S.res[t].choices.find(x=>x.card==='bulk'&&x.option==='bulk');if(x)cards+=x.outcome==='cheap'?-15000:x.outcome==='spoil'?20000:0;
+    }
+    const final=Math.round((S.res[23].cogs+S.res[23].wasteCost)*0.15/100)*100;
+    assert.equal(end.cr[0][1],final,'期末に前年のまとめ買いを残した');
+    const expected=start.dr[0][1]+raw+cards-final,actual=rows.reduce((n,e)=>n+material(e),0);assert.equal(actual,expected,'期首＋当期仕入−期末：重複/欠落');
+    measures.push({seed,loss,discarded,opening:opening.inventory,raw,cards,ending:final,cogs:actual});
+  }
+  const noBulk=economicStory(0,{supplier:'high',costOmen:'keep'}).S;assert.equal(D.y2.bulkUse(noBulk).purchased,0);assert.equal(all.find(e=>e.id==='bulk-disposal-memo@17').when(noBulk),false);
+  console.log('OK：年1統合・3月bulk→4月3結果・翌4月3件の年2記帳・税額据置・在庫評価損あり/なし・三分法の原価：'+JSON.stringify(measures));
+}
+
 if (!process.argv.includes('--world')) {
   verifyClassification();
   if(process.argv.includes('--classification-only'))process.exit(0);
+  if(!process.argv.includes('--save-only'))verifyYear1Integration();
+  if(process.argv.includes('--integration-only'))process.exit(0);
   if(!process.argv.includes('--save-only')){
   for(const seed of [0,7]){
     const full=story(seed).S,fast=economicStory(seed).S;

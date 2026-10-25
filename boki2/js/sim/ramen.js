@@ -163,10 +163,17 @@
   Y.pre.forEach((p) => months.push({ m: 3, label: p.label, title: p.title, closeless: true, pre: true, events: p.events }));
   const TITLES = ['開店！ 看板の一杯を出す', 'もうけたのに、口座がへった？', '問屋さんと掛けで', '家賃と返済が始まる', '夏の限定と、チラシ', 'カードで払うお客さん', '消費税を預かる', '通帳と帳簿が合わない', '年末の売り出し', '寒い月の一杯', '谷の月', '1年のしめくくり'];
   for (let t = 0; t < 12; t++) months.push({ m: MON[t], label: `${MON[t]}月`, title: TITLES[t], ramenT: t, events: [plan(t), ...Y.months[t], ...cardEvents(t), rreport(t), ...endings(t)] });
-  Y.kessan.forEach((k) => months.push({ m: k.next4 ? 4 : 3, label: k.label, title: k.title, seg: k.seg, closeless: k.closeless, events: k.events }));
+  // 6393453636：翌4月の取引は年2へ。年1の決算書・銀行・締切は元の区切りに残す。
+  const april=Y.kessan.find(k=>k.next4).events,aprilIds=new Set(['opening2','stock-back','tax-pay']);
+  const opening2={...april.find(e=>e.id==='opening2'),year:2},stockBack=april.find(e=>e.id==='stock-back'),oldTaxPay=april.find(e=>e.id==='tax-pay');
+  const year1TaxDue=S=>{const e=(S.T||[]).find(e=>e.ev==='tax1');return e?(e.cr||[]).filter(([a])=>a==='未払法人税等').reduce((n,x)=>n+x[1],0):0;};
+  const taxPay={...oldTaxPay,when:S=>year1TaxDue(S)>0,fixture:()=>({T:[{ev:'tax1',dr:[['法人税等',70000]],cr:[['未払法人税等',70000]]}]}),
+    doc:{...oldTaxPay.doc,rows:S=>[['摘要','法人税・住民税・事業税（1年目の分）'],['お引出し',year1TaxDue(S),'amt']]},
+    ans:S=>({dr:[['未払法人税等',year1TaxDue(S)]],cr:[['普通預金',year1TaxDue(S)]]})};
+  Y.kessan.forEach((k) => months.push({ m: k.next4 ? 4 : 3, label: k.label, title: k.title, seg: k.seg, closeless: k.closeless, events:k.next4?k.events.filter(e=>!aprilIds.has(e.id)):k.events }));
   for (const year of [2, 3]) {
     for (let t = (year - 1) * 12; t < year * 12; t++) months.push({ year, m: MON[t % 12], label: `${year}年目 ${MON[t % 12]}月`, title: SIM.y2.monthTitle(t), ramenT: t,
-      events: [plan(t), ...SIM.y2.routine(t), ...cardEvents(t), { t: 'recall', id: `recall${t}` }, rreport(t), ...endings(t)] });
+      events: [...(t===12?[opening2,stockBack]:[]),plan(t), ...SIM.y2.routine(t),...(t===12?[taxPay]:[]), ...cardEvents(t), { t: 'recall', id: `recall${t}` }, rreport(t), ...endings(t)] });
     months.push(...SIM.y2.kessan(year));
   }
   for (let t = 36; t < 39; t++) months.push({ year: 4, m: MON[t % 12], label: `4年目 ${MON[t % 12]}月`, title: '前の年の約束を払う', ramenT: t,

@@ -1153,7 +1153,7 @@
     teach(ev.teaches);
     // 判断の結果が返ってきた場面は、経営日誌に「判断→返った結果」として残す
     if (ev.diary && !S.diary.some((d) => d.t === ev.diary)) { S.diary.push({ m: month().label, t: ev.diary, ret: true }); save(); }
-    frame(`<div class="s-card">${talk(val(ev.lines, S))}<button class="btn wide" data-n>つぎへ</button></div>`);
+    frame(`<div class="s-card">${ev.memo?docPaper(val(ev.memo,S)):talk(val(ev.lines, S))}<button class="btn wide" data-n>つぎへ</button></div>`);
     app.onclick = (e) => { if (e.target.closest('[data-n]')) next(); };
   }
 
