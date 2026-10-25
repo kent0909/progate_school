@@ -2071,8 +2071,8 @@
  },
  "www.appunwrapper.com": {
   "verdict": "gray",
-  "basis": "robots.txt（2026-10-22）は GPTBot だけ全面禁止、* は /wp-admin/ だけ禁止。トップページに利用規約のリンクなし（規約の明示なし）。個人の聞き取りの記事1本を読むため",
-  "checked": "2026-10-22"
+  "basis": "AppUnwrapper（個人運営のゲーム紹介サイト）。規約ページなし・自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。記事の単発閲覧、転載しない",
+  "checked": "2026-10-25"
  },
  "www.nenkin.go.jp": {
   "verdict": "gray",
@@ -2328,5 +2328,50 @@
   "verdict": "gray",
   "basis": "PRESIDENT Online。robots.txt（2026-10-23 取得 r10-robots-president.jp）は User-agent:* に /search・/articles/print/ などだけ Disallow、Anthropic の名の組なし。2026-10-22 の他の担当の取得と同じ判定（gray）。記事の単発の閲覧、転載しない",
   "checked": "2026-10-23"
+ },
+ "wikicap.ulb.be": {
+  "verdict": "gray",
+  "basis": "wikicap.ulb.be（ブリュッセル自由大学の wiki）。規約ページに自動取得の明示の禁止を確認できず。robots.txt は research-fetch が確かめる。論文PDFの単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "tecfa.unige.ch": {
+  "verdict": "gray",
+  "basis": "tecfa.unige.ch（ジュネーブ大学 TECFA の個人ページ）。著者が公開した原稿。規約に自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "largescaleassessmentsineducation.springeropen.com": {
+  "verdict": "gray",
+  "basis": "SpringerOpen（CC BY のオープンアクセス誌）。link.springer.com と同じ Springer Nature の規約で、OA 記事の閲覧は許可。robots.txt は research-fetch が確かめる。単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "eprints.gla.ac.uk": {
+  "verdict": "gray",
+  "basis": "Enlighten（グラスゴー大学の機関リポジトリ）。公開の著者版。規約に自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "research.lycorp.co.jp": {
+  "verdict": "gray",
+  "basis": "LY Corporation の研究公開ページ。規約に自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "gigazine.net": {
+  "verdict": "gray",
+  "basis": "GIGAZINE。利用規約に自動取得の明示の禁止を確認できず。robots.txt は research-fetch が確かめる。記事の単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "venturebeat.com": {
+  "verdict": "gray",
+  "basis": "VentureBeat。利用規約に自動取得の明示の禁止を確認できず。robots.txt は research-fetch が確かめる。記事の単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "gameinformer.com": {
+  "verdict": "gray",
+  "basis": "Game Informer。利用規約に自動取得の明示の禁止を確認できず。robots.txt は research-fetch が確かめる。記事の単発閲覧、転載しない",
+  "checked": "2026-10-25"
+ },
+ "www.open.ac.uk": {
+  "verdict": "gray",
+  "basis": "Open University の教員ブログ。規約に自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。単発閲覧、転載しない",
+  "checked": "2026-10-25"
  }
 }

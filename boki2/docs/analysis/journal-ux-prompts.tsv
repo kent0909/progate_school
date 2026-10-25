@@ -1,0 +1,274 @@
+screen	where	kind	id	flags	text
+board	prologue.steps[0]	q	prologue:0:tap		屋台の箱の中身をタップして、左の棚に並べよう。
+board	prologue.steps[0].tokens	token	coin	何の数か不明	小銭 10,000
+board	prologue.steps[0].tokens	token	pot	何の数か不明	寸胴なべ 5,000
+board	prologue.steps[1]	q	prologue:1:sort		どこから来たか。2枚の札を、右の棚のどちらかに置こう。
+board	prologue.steps[1].tokens	token	oya	何の数か不明	親方に借りた 10,000
+board	prologue.steps[1].tokens	token	own	何の数か不明	貯金 5,000
+board	prologue.steps[1].dests	target	R1		返すお金
+board	prologue.steps[1].dests	target	R0		返さないお金（じぶんのお金）
+board	prologue.steps[2]	q	prologue:2:choice		仕込みの量を決めよう（材料は1杯200円）。
+board	prologue.steps[3]	q	prologue:3:sort		「かせいだ」の札を、右の棚のどちらかに置こう。
+board	prologue.steps[3].tokens	token	earn		かせいだ sale
+board	prologue.steps[3].dests	target	R1		返すお金
+board	prologue.steps[3].dests	target	R0		返さないお金（じぶんのお金）
+board	prologue.steps[4]	q	prologue:4:sort		「つかった」の札を、右の棚のどちらかに置こう。
+board	prologue.steps[4].tokens	token	use		つかった -cost
+board	prologue.steps[4].dests	target	R1		返すお金
+board	prologue.steps[4].dests	target	R0		返さないお金（じぶんのお金）
+board	prologue.steps[5]	q	prologue:5:note		それぞれの札を、ノートの左の列・右の列のどちらに書く？
+board	prologue.steps[5].lines[0]	title	0		親方に1万円借りた
+board	prologue.steps[5].lines[0].cards[0]	token	0-0		小銭が増えた 10,000
+board	engine.boardScreen note	shown	0-0	A：B	親方に1万円借りた：小銭が増えた 10,000
+board	prologue.steps[5].lines[0].cards[1]	token	0-1		返すお金が増えた 10,000
+board	engine.boardScreen note	shown	0-1	A：B	親方に1万円借りた：返すお金が増えた 10,000
+board	prologue.steps[5].lines[1]	title	1		ラーメンが売れた
+board	prologue.steps[5].lines[1].cards[0]	token	1-0		小銭が増えた sale
+board	engine.boardScreen note	shown	1-0		ラーメンが売れた：小銭が増えた sale
+board	prologue.steps[5].lines[1].cards[1]	token	1-1		かせいだ（じぶんのお金が増えた） sale
+board	engine.boardScreen note	shown	1-1		ラーメンが売れた：かせいだ（じぶんのお金が増えた） sale
+board	prologue.steps[5].lines[2]	title	2		材料を買って使った
+board	prologue.steps[5].lines[2].cards[0]	token	2-0		小銭がへった cost
+board	engine.boardScreen note	shown	2-0	A：B	材料を買って使った：小銭がへった cost
+board	prologue.steps[5].lines[2].cards[1]	token	2-1		つかった（じぶんのお金がへった） cost
+board	engine.boardScreen note	shown	2-1	A：B	材料を買って使った：つかった（じぶんのお金がへった） cost
+board	prologue.steps[5].lines[2].ask	q	2:ask		あれ？ ノートには、マイナスの数は書かない約束ピヨ。小銭がへったことは、どう書けばいい？
+discover	months[1] d-capital	q	d-capital:b2		300万円の札は、右の棚のどちら？
+discover	months[1] d-capital	q	d-capital:predict		300万円を受け取ると、棚の左（もっているもの）と右（どこから来たか）の合計はどうなると思う？
+discover	months[1] d-capital	token	d-capital:token	何の数か不明	出してもらった 3,000,000
+discover	months[1] d-capital	target	d-capital:R1		返すお金
+discover	months[1] d-capital	target	d-capital:R0		返さないお金
+discover	months[3] d-cost	q	d-cost:b2		店のもっているものとして、器材はいくらで見せる？
+discover	months[3] d-cost	q	d-cost:predict		取り付けのお金を器材の値段に入れずに、別に今年の費用にすると、今年のもうけはどう見えると思う？
+discover	months[3] d-cost	token	d-cost:token		器材
+discover	months[3] d-cost	target	d-cost:550		550,000円
+discover	months[3] d-cost	target	d-cost:600		600,000円
+discover	months[4] d-sales	q	d-sales:b2		2つの出来事。「返さないお金（純資産）」を増やした？ へらした？
+discover	months[4] d-sales	q	d-sales:predict		ラーメンが売れて、材料も買って使った月。会社の「返さないお金」は、月のはじめとくらべてどうなると思う？
+discover	months[4] d-sales	token	d-sales:sale		お客さんにラーメンが売れた
+discover	months[4] d-sales	token	d-sales:use		材料を買って、スープにして使った
+discover	months[4] d-sales	target	d-sales:up		増やした
+discover	months[4] d-sales	target	d-sales:down		へらした
+discover	engine.discoverScreen sort aria-label	shown	d-sales:sale:up	A：B	お客さんにラーメンが売れた：増やした
+discover	engine.discoverScreen sort aria-label	shown	d-sales:sale:down	A：B	お客さんにラーメンが売れた：へらした
+discover	engine.discoverScreen sort aria-label	shown	d-sales:use:up	A：B	材料を買って、スープにして使った：増やした
+discover	engine.discoverScreen sort aria-label	shown	d-sales:use:down	A：B	材料を買って、スープにして使った：へらした
+discover	months[4] d-siire	q	d-siire:b2		買った材料。どう書いていく？
+discover	months[4] d-siire	q	d-siire:predict		売れるたびに、へった材料を計算して書くとしたら、毎日の記帳の手間はどうなると思う？
+discover	months[4] d-siire	token	d-siire:token		材料
+discover	months[4] d-siire	target	d-siire:each		売れるたびに、へった分を計算して書く
+discover	months[4] d-siire	target	d-siire:end		いったん全部「使った」ことにして、1年の終わりに残りを数える
+discover	months[5] d-cash	q	d-cash:b2		4月に働いてもらった分の給料。どの月のもうけを、へらす？
+discover	months[5] d-cash	q	d-cash:predict	手がかりなし	4月の分の給料を5月に払った。4月と5月、どちらの月の費用だと思う？
+discover	months[5] d-cash	token	d-cash:token		4月分の給料
+discover	months[5] d-cash	target	d-cash:apr		働いてもらった4月
+discover	months[5] d-cash	target	d-cash:may		払った5月
+discover	months[6] d-kake	q	d-kake:b2		6月に届いた材料。いつ、何を書く？
+discover	months[6] d-kake	q	d-kake:predict		6月の請求書を、払う7月まで書かないと、6月の帳簿のもうけはどう見えると思う？
+discover	months[6] d-kake	token	d-kake:token	何の数か不明	材料 250,000
+discover	months[6] d-kake	target	d-kake:now		6月に、仕入と「あとで払う約束」を書く
+discover	months[6] d-kake	target	d-kake:later		7月に払ったときに、仕入を書く
+discover	months[9] d-card	q	d-card:b2		9月にカードで売れた分。9月に何を書く？
+discover	months[9] d-card	q	d-card:predict		カードで売れた分を、入金の日まで書かないと、9月の売上はどう見えると思う？
+discover	months[9] d-card	token	d-card:token		カード払いの売上
+discover	months[9] d-card	target	d-card:now		売上と、カードの会社から「もらえる権利」
+discover	months[9] d-card	target	d-card:later		入金の日に売上だけ
+discover	months[11] d-tax	q	d-tax:b2		お客さんから預かった税金。右の棚のどっち？
+discover	months[11] d-tax	q	d-tax:predict		預かった税金まで売上に入れると、店のもうけはどう見えると思う？
+discover	months[11] d-tax	token	d-tax:token		預かった税金
+discover	months[11] d-tax	target	d-tax:R1		返すお金（国に納める）
+discover	months[11] d-tax	target	d-tax:R0		返さないお金（売上）
+discover	months[11] d-bank	q	d-bank:b2		ずれの原因を探す。まず、何をする？
+discover	months[11] d-bank	token	d-bank:token		通帳と帳簿のずれ
+discover	months[11] d-bank	target	d-bank:list		通帳と帳簿を1行ずつ見くらべ、ずれの理由を表にする
+discover	months[11] d-bank	target	d-bank:fix		帳簿の数を、通帳に合わせて書きかえる
+discover	months[12] d-capex	q	d-capex:b2		「前より火が強くなる」部品のお金。どう見せる？
+discover	months[12] d-capex	token	d-capex:token		強い火の部品
+discover	months[12] d-capex	target	d-capex:asset		コンロ（備品）の値打ちに足す
+discover	months[12] d-capex	target	d-capex:exp		修理なので今年の費用
+discover	months[16] d-stock	q	d-stock:b2		残った材料。今年の費用？
+discover	months[16] d-stock	token	d-stock:token		残った材料
+discover	months[16] d-stock	target	d-stock:next		来年使うので、今年の費用から抜いて、もっているものの棚へ
+discover	months[16] d-stock	target	d-stock:now		買ったのは今年なので、今年の費用のまま
+discover	months[16] d-genmo	q	d-genmo:b2		足りない分の材料。どう見せる？
+discover	months[16] d-genmo	token	d-genmo:token		足りない分
+discover	months[16] d-genmo	target	d-genmo:out		棚から出して、今年の費用
+discover	months[16] d-genmo	target	d-genmo:keep		帳簿どおり、棚に残す
+discover	months[17] d-dep	q	d-dep:b2		150万円の内装（あと5年使う予定）。どの年の費用にする？
+discover	months[17] d-dep	q	d-dep:predict		150万円を全部今年の費用にすると、来年のもうけはどう見えると思う？
+discover	months[17] d-dep	token	d-dep:token	何の数か不明	内装 1,500,000
+discover	months[17] d-dep	target	d-dep:now		全部今年
+discover	months[17] d-dep	target	d-dep:five		使う5年間に分ける
+discover	months[17] d-dep	target	d-dep:never		売るまで費用にしない
+discover	months[17] d-accum	q	d-accum:b2		使ったぶんを、どう見せる？
+discover	months[17] d-accum	token	d-accum:token		使った30万円
+discover	months[17] d-accum	target	d-accum:cut		内装の札をへらす
+discover	months[17] d-accum	target	d-accum:minus		別の札で引いて見せる
+discover	months[19] d-allow	q	d-allow:b2	手がかりなし	もらえないかもしれない分を、資産の棚でどう見せる？
+discover	months[19] d-allow	token	d-allow:token		クレジット売掛金
+discover	months[19] d-allow	target	d-allow:cut		クレジット売掛金をへらす
+discover	months[19] d-allow	target	d-allow:minus		別の札で引いて見せる
+discover	months[19] d-allow	target	d-allow:none		そのままにする
+discover	months[24] y2-capital-name	q	y2-capital-name:b2		株主から入るお金。店で売ったお金と同じ札に入れる？
+discover	months[24] y2-capital-name	token	y2-capital-name:token		株主からのお金
+discover	months[24] y2-capital-name	target	y2-capital-name:separate		売ったお金とは分ける
+discover	months[24] y2-capital-name	target	y2-capital-name:sales		どちらも売上にする
+discover	months[25] y2-dividend-name	q	y2-dividend-name:b2		去年までに残したもうけを株主へ分ける。何がへる？
+discover	months[25] y2-dividend-name	token	y2-dividend-name:token		株主へ分けるお金
+discover	months[25] y2-dividend-name	target	y2-dividend-name:saved		会社に残していたもうけ
+discover	months[25] y2-dividend-name	target	y2-dividend-name:cost		今年のラーメンの原価
+discover	months[31] y2-interstore	q	y2-interstore:b2		1号店から2号店へ送ったお金。会社全体では？
+discover	months[31] y2-interstore	token	y2-interstore:token		会社の中の送金
+discover	months[31] y2-interstore	target	y2-interstore:same		全体のお金は変わらない
+discover	months[31] y2-interstore	target	y2-interstore:less		全体のお金がへる
+discover	months[41] y2-disposal-name	q	y2-disposal-name:b2		使わなくなった内装に、まだ値打ちが残っている。帳簿では？
+discover	months[41] y2-disposal-name	token	y2-disposal-name:token		手放す内装
+discover	months[41] y2-disposal-name	target	y2-disposal-name:loss		残っていた値打ちを損失にする
+discover	months[41] y2-disposal-name	target	y2-disposal-name:leave		内装の札をずっと残す
+discover	months[44] y2-sale-name	q	y2-sale-name:b2		器材を売ったとき、売れた額だけをもうけにしてよい？
+discover	months[44] y2-sale-name	token	y2-sale-name:token		売った器材
+discover	months[44] y2-sale-name	target	y2-sale-name:book		まだ残っていた値打ちと比べる
+discover	months[44] y2-sale-name	target	y2-sale-name:all		入った額を全部もうけにする
+discover	months[47] y2-bonus-name	q	y2-bonus-name:b2		今年の働きや使用が原因で、あとで払う見込みがある。どの年に負担を残す？
+discover	months[47] y2-bonus-name	token	y2-bonus-name:token		今年が原因の負担
+discover	months[47] y2-bonus-name	target	y2-bonus-name:now		今年の分を、今年に見積もる
+discover	months[47] y2-bonus-name	target	y2-bonus-name:paid		払う年に全部入れる
+discover	months[49] y2-repair-name	q	y2-repair-name:b2		今年の働きや使用が原因で、あとで払う見込みがある。どの年に負担を残す？
+discover	months[49] y2-repair-name	token	y2-repair-name:token		今年が原因の負担
+discover	months[49] y2-repair-name	target	y2-repair-name:now		今年の分を、今年に見積もる
+discover	months[49] y2-repair-name	target	y2-repair-name:paid		払う年に全部入れる
+naming	namings.普通預金	q	普通預金	手がかりなし	通帳に入った300万円。棚のどこ？
+naming	namings.借入金	q	借入金		公庫から借りた700万円。右の棚のどっち？
+naming	namings.差入保証金	q	差入保証金		店を借りるときに大家さんに預けた90万円。出ていくときに返ってくる。これは？
+naming	namings.給料	q	給料		パートさんに払う給料。じぶんのお金はどうなる？
+naming	namings.水道光熱費	q	水道光熱費		スープを炊くガスと、水と電気のお金。これは？
+naming	namings.保険料	q	保険料		火事に備える保険のお金。1年分を先に払った。いったん、何の札？
+naming	namings.支払家賃	q	支払家賃		店を借りているお礼の家賃。これは？
+naming	namings.支払リース料	q	支払リース料		店を借りているお礼の家賃。これは？
+naming	namings.支払利息	q	支払利息		借りたお金と一緒に払う、お礼のお金。これは何のお金？
+naming	namings.広告宣伝費	q	広告宣伝費		チラシの印刷と配るお金。チラシは配ったらなくなる。これは？
+naming	namings.未払金	q	未払金		チラシの代金は来月末に払う。いま、右の棚のどっち？
+naming	namings.支払手数料	q	支払手数料		カードの会社が、入金のときに引いたお金。これは？
+naming	namings.修繕費	q	修繕費		こわれたコンロを、もとどおりに直したお金。これは？
+naming	namings.未払消費税	q	未払消費税		1年で預かった消費税から、払った消費税を引いた残り。まだ国に納めていない。これは？
+naming	namings.未払費用	q	未払費用		3月に働いてもらった分の給料を、4月に払う。いま、右の棚のどっち？
+naming	namings.前払保険料	q	前払保険料		6月に1年分払った保険料のうち、来年の4・5月の分。今年の費用？
+naming	namings.法人税等	q	法人税等		1年のもうけに対して、国などに納める税金。これは何の札？
+naming	namings.未払法人税等	q	未払法人税等		税金は、決算のあと2か月以内に納める。いま、まだ納めていない税金は？
+naming	namings.備品減価償却累計額	q	備品減価償却累計額		寸胴や券売機（備品）の、使ったぶんの札。どこに置く？
+naming	namings.商品評価損	q	商品評価損		まとめ買いの小麦が湿気て、売れる値段が下がった。下がったぶんは？
+naming	namings.貸倒引当金戻入	q	貸倒引当金戻入		去年作った、もらえない見込みの額が今年は余る。余った分はどうする？
+naming	namings.研究開発費	q	研究開発費		まだ売れるか分からない味の試作に使った材料。来年の売上を約束する資産？
+naming	namings.役務収益	q	役務収益		屋台を運営する仕事を終え、約束の報酬を受け取った。何を提供してかせいだ？
+naming	namings.役務原価	q	役務原価		引き受けた屋台の仕事のために使った人と材料。何のための費用？
+naming	namings.商品	q	商品	手がかりなし	売るために仕入れた鉢。売れるまでは店に残っている。どの棚？
+naming	namings.売上原価	q	売上原価		鉢が1個売れた。売上とは別に、どの額を費用へ移す？
+naming	namings.建設仮勘定	q	建設仮勘定		まだ工事中の内装へ払った着手金。完成した店と同じ札でよい？
+naming	namings.支店	q	支店		本店から2号店へお金を送った。本店の帳簿で、代わりに残す札は？
+naming	namings.本店	q	本店		2号店が会社の中心の店からお金を受け取った。2号店の帳簿では？
+naming	namings.資本準備金	q	資本準備金		株主から受け取ったお金の一部を、会社に残す別の札へ分けた。店で売ってかせいだお金？
+naming	namings.利益準備金	q	利益準備金		利益を株主に分けるとき、会社に残して積む分。だれかに返す約束？
+naming	namings.未払配当金	q	未払配当金		株主に分ける額が決まったが、振込はまだ。いま何が残る？
+naming	namings.賞与	q	賞与		毎月の給料とは別に、今まで働いてもらったお礼を払った。これは？
+naming	namings.前払利息	q	前払利息		分割の契約に含まれる利息。全部を買った月の費用にする？
+naming	namings.長期未払金	q	長期未払金	手がかりなし	器材を受け取り、代金を2年かけて払う約束。どの棚？
+naming	namings.短期借入金	q	短期借入金		借りたお金のうち、次の1年に返す分はどこへ分ける？
+naming	namings.長期借入金	q	長期借入金		借りたお金のうち、返すのが1年より先の分は？
+naming	namings.前払費用	q	前払費用		先に払った分のうち、次の1年の費用になる分は？
+naming	namings.長期前払費用	q	長期前払費用		先に払った分のうち、費用になるのが1年より先なら？
+kindIntro	kindIntro.buy_return	q	buy_return		問屋さんに、色のおかしい豚を返した。先月書いた「仕入」と「あとで払う約束」はどうなる？
+kindIntro	kindIntro.discount	q	discount		クーポンで値引きした分。売上はどうなる？
+kindIntro	kindIntro.pay_ap	q	pay_ap		問屋さんに、先月の材料の代金を払った。「あとで払う約束」（買掛金）はどうなった？
+kindIntro	kindIntro.repay	q	repay		借りたお金の一部と、お礼（利息）をまとめて返した。何が起きた？
+calc	months[5] mayfund-calc@1	q	mayfund-calc@1		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[6] cvp-hire	q	cvp-hire		給料の20万円を取り戻すには、1日に何人多くお客さんが要る？（小数点以下は切り上げ）
+calc	months[6] mayfund-calc@2	q	mayfund-calc@2		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[7] mayfund-calc@3	q	mayfund-calc@3		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[7] due-calc@3	q	due-calc@3		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[8] mayfund-calc@4	q	mayfund-calc@4		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[8] due-calc@4	q	due-calc@4		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[9] mayfund-calc@5	q	mayfund-calc@5		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[9] due-calc@5	q	due-calc@5		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[10] mayfund-calc@6	q	mayfund-calc@6		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[10] due-calc@6	q	due-calc@6		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[11] bankrec	q	bankrec		帳簿を直したあとの普通預金の残りは、いくら？
+calc	months[11] mayfund-calc@7	q	mayfund-calc@7		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[11] due-calc@7	q	due-calc@7		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[12] mayfund-calc@8	q	mayfund-calc@8		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[12] due-calc@8	q	due-calc@8		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[13] mayfund-calc@9	q	mayfund-calc@9		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[13] due-calc@9	q	due-calc@9		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[14] mayfund-calc@10	q	mayfund-calc@10		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[14] due-calc@10	q	due-calc@10		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[15] mayfund-calc@11	q	mayfund-calc@11		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[15] due-calc@11	q	due-calc@11		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[19] allow-calc	q	allow-calc		今年に作る貸倒引当金は、いくら？（1円未満は四捨五入）
+calc	months[22] ni-calc	q	ni-calc		税金を入れる前の、1年のもうけ（赤字ならマイナス）は？
+calc	months[23] fs-ratio	q	fs-ratio		純資産÷資産の割合は何％？（小数点以下は四捨五入）
+calc	months[23] cvp	q	cvp		赤字にならない1日のお客さんの数は？（小数点以下は切り上げ）
+calc	months[24] mayfund-calc@12	q	mayfund-calc@12		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[24] due-calc@12	q	due-calc@12		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[24] issue-amount@12	q	issue-amount@12		払い込んでもらえる額はいくら？
+calc	months[25] mayfund-calc@13	q	mayfund-calc@13		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[25] due-calc@13	q	due-calc@13		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[25] div-limit@13	q	div-limit@13		1株の上限に株の数を掛けると、総額の上限はいくら？
+calc	months[26] mayfund-calc@14	q	mayfund-calc@14		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[26] due-calc@14	q	due-calc@14		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[27] mayfund-calc@15	q	mayfund-calc@15		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[27] due-calc@15	q	due-calc@15		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[28] mayfund-calc@16	q	mayfund-calc@16		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[28] due-calc@16	q	due-calc@16		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[29] mayfund-calc@17	q	mayfund-calc@17		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[29] due-calc@17	q	due-calc@17		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[30] mayfund-calc@18	q	mayfund-calc@18		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[30] due-calc@18	q	due-calc@18		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[31] mayfund-calc@19	q	mayfund-calc@19		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[31] due-calc@19	q	due-calc@19		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[32] mayfund-calc@20	q	mayfund-calc@20		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[32] due-calc@20	q	due-calc@20		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[33] mayfund-calc@21	q	mayfund-calc@21		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[33] due-calc@21	q	due-calc@21		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[33] taiwitsu-vs@21	q	taiwitsu-vs@21		三分法なら仕入から残った分を戻す。売上から、使った原価を引くといくら？
+calc	months[34] mayfund-calc@22	q	mayfund-calc@22		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[34] due-calc@22	q	due-calc@22		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[35] mayfund-calc@23	q	mayfund-calc@23		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[35] due-calc@23	q	due-calc@23		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[37] loan-current@23	q	loan-current@23		残りの借入金のうち、次の1年に返す元本はいくら？
+calc	months[37] ss2	q	ss2		資料の5つを合わせると、今年末はいくら？
+calc	months[39] mayfund-calc@24	q	mayfund-calc@24		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[39] due-calc@24	q	due-calc@24		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[39] issue-amount@24	q	issue-amount@24		払い込んでもらえる額はいくら？
+calc	months[40] mayfund-calc@25	q	mayfund-calc@25		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[40] due-calc@25	q	due-calc@25		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[40] div-limit@25	q	div-limit@25		1株の上限に株の数を掛けると、総額の上限はいくら？
+calc	months[40] kappu-interest@25	q	kappu-interest@25		分割の支払総額から現金価格を引くと、利息の総額はいくら？
+calc	months[41] mayfund-calc@26	q	mayfund-calc@26		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[41] due-calc@26	q	due-calc@26		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[42] mayfund-calc@27	q	mayfund-calc@27		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[42] due-calc@27	q	due-calc@27		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[43] mayfund-calc@28	q	mayfund-calc@28		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[43] due-calc@28	q	due-calc@28		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[44] mayfund-calc@29	q	mayfund-calc@29		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[44] due-calc@29	q	due-calc@29		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[45] mayfund-calc@30	q	mayfund-calc@30		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[45] due-calc@30	q	due-calc@30		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[45] sale-gain@30	q	sale-gain@30		買い取り額から帳簿価額を引いた損益は？（損はマイナス）
+calc	months[46] mayfund-calc@31	q	mayfund-calc@31		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[46] due-calc@31	q	due-calc@31		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[47] mayfund-calc@32	q	mayfund-calc@32		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[47] due-calc@32	q	due-calc@32		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[48] mayfund-calc@33	q	mayfund-calc@33		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[48] due-calc@33	q	due-calc@33		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[48] taiwitsu-vs@33	q	taiwitsu-vs@33		三分法なら仕入から残った分を戻す。売上から、使った原価を引くといくら？
+calc	months[49] mayfund-calc@34	q	mayfund-calc@34		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[49] due-calc@34	q	due-calc@34		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[50] mayfund-calc@35	q	mayfund-calc@35		先月の給料とガス代を、その月に払っていたとしたら、口座の増え方はもうけより何円小さくなった？
+calc	months[50] due-calc@35	q	due-calc@35		来月の売上が入る前に払う約束は、合わせていくら？
+calc	months[51] dep-rate@35	q	dep-rate@35		取得価額に償却率を掛け、今年使った月数の分にするといくら？
+calc	months[52] loan-current@35	q	loan-current@35		残りの借入金のうち、次の1年に返す元本はいくら？
+calc	months[52] kappu-current@35	q	kappu-current@35		残りの支払いのうち、1年以内に払う分はいくら？
+calc	months[52] kappu-prepaid@35	q	kappu-prepaid@35		前払利息のうち、来年の費用になる分はいくら？
+calc	months[52] ss3	q	ss3		資料の5つを合わせると、今年末はいくら？
+calc	months[52] gappei-fs	q	gappei-fs		会社の中のやり取りを消すと、会社全体の資産はいくら？
+doc	engine.docScreen	q	docScreen		この書類の出来事を、帳簿に書こう。金額は、書類の数字を押しても入る。
+doc	engine.docScreen fix	q	docScreen:fix		森さん「この書類、もう一度見てみよう」
