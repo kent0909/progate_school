@@ -20,3 +20,14 @@ for(const type of ['calc','desk','report','sheet','ss']){
  projectEvent(audit,D,B,live,e,m);assert.ok(audit.result().failures.length,`${type}も3科目で失敗する`);
 }
 console.log('OK：前の画面の表示／teach、長い語の優先、読み取り専用、計算・作業台・決算書・精算表・変動計算書');
+// 名前と折りたたみの試験文は同じ画面。別画面として数えて負荷を消さない。
+{
+ const audit=new AccountScreens(scan),m={m:4,label:'4月',events:[]},e={id:'discover-exam',t:'discover',title:'問い',b1:{talk:[]},b2:{q:'',targets:[],reasons:[]},b3:{ok:''},b4:{name:'現金 売掛金',line:'',exam:'借入金',teaches:['現金','売掛金']}};
+ projectEvent(audit,{}, {accounts},state,e,m);assert.ok(audit.result().failures.some(s=>s.id.endsWith('/名前')&&s.newCount===3));
+}
+// 無効な選択肢も画面には出る。選べないからといって科目数から除かない。
+{
+ const audit=new AccountScreens(scan),m={m:4,label:'4月',events:[]},e={id:'disabled-choice',t:'decision',q:'',talk:[],options:[{id:'a',label:'現金 売掛金',desc:''},{id:'b',label:'借入金',desc:'',disabled:true}]};
+ projectEvent(audit,{}, {accounts},state,e,m);assert.equal(audit.result().failures.length,1);
+}
+console.log('OK：名前と試験文は同一画面、無効な選択肢も表示として数える');
