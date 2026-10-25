@@ -21,7 +21,7 @@ function tables(report, out) {
   };
   write('screens.tsv', [
     ['月', '画面id', '初出科目数（検査経路の最大）', '初出科目', '経路id', '表示された科目'],
-    ...report.screens.map(s => [s.month, s.id, s.newCount, s.newNames.join('・'), witness(s.witness), s.shownNames.join('・')]),
+    ...report.screens.map(s => [s.month, s.id, s.newCount, s.newNames.join('・'), witness(s.witness), s.shownNames.join('・') || '—']),
   ]);
   write('months.tsv', [
     ['月', '初出科目数（1経路の最大）', '初出科目', '画面ごとの内訳', '経路id'],
