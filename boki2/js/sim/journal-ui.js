@@ -2,17 +2,34 @@
 (function (g) {
   'use strict';
   const J = (g.BOKI = g.BOKI || {}).journal = {};
-  // DESIGN-JOURNAL-UX 4.1・4.4・5.1。すべて推論の置き値。許容範囲も検査する。
-  J.limits = { drag: 3, swipe: .35, velocity: .3, vertical: 1.5, scrollMs: 60, hit: 24, finger: 12, repeat: 300, returnMs: 250, timeline: 700 };
-  J.ranges = { drag: [1, 6], swipe: [.2, .5], velocity: [.1, .6], vertical: [1, 2], scrollMs: [30, 100], hit: [0, 32], finger: [0, 24], repeat: [200, 400], returnMs: [150, 300], timeline: [680, 700] };
-  // 同じ表を実際の再生と journal-check が読む。開始時刻は押した時点からの ms。
-  const motion = (name, start, duration, props, calm = ['opacity']) => ({ name, start, duration, type: 'feedback', rich: props, normal: props, calm });
+  // コメント6405792276の条件：全部が【推論・置き値】。lo/hiは試遊で決める幅で、出典の実測値ではない。
+  // 画面の手ざわりの数であり、経営の計算を扱う coef.js の世界の係数とは別のもの。
+  // sectionは DESIGN-JOURNAL-UX 版0.4の節。値を変えるときも5.1の時間の線の上限は守る。
+  J.parameters = {
+    drag: { value: 3, lo: 1, hi: 6, section: '4.1・4.4' },
+    swipe: { value: .35, lo: .2, hi: .5, section: '4.1・4.4' },
+    velocity: { value: .3, lo: .1, hi: .6, section: '4.1・4.4' },
+    vertical: { value: 1.5, lo: 1, hi: 2, section: '4.1・4.4' },
+    scrollMs: { value: 60, lo: 30, hi: 100, section: '4.4' },
+    hit: { value: 24, lo: 0, hi: 32, section: '4.1・4.4' },
+    finger: { value: 12, lo: 0, hi: 24, section: '4.4' },
+    repeat: { value: 300, lo: 200, hi: 400, section: '4.4' },
+    returnMs: { value: 250, lo: 150, hi: 300, section: '4.4・5.2 A4' },
+    timeline: { value: 700, lo: 680, hi: 700, section: '5.1' },
+  };
+  J.limits = Object.fromEntries(Object.entries(J.parameters).map(([key, p]) => [key, p.value]));
+  J.ranges = Object.fromEntries(Object.entries(J.parameters).map(([key, p]) => [key, [p.lo, p.hi]]));
+  // 同じ表を実際の再生とjournal-checkが読む。startLo/Hiは開始時刻、lo/hiは長さの幅（ms）。
+  const motion = (name, start, duration, props, calm = ['opacity']) => ({ name, start, duration,
+    section: '5.1・5.2・5.5', startLo: Math.max(0, start - 50), startHi: start + 50,
+    lo: Math.max(0, duration - 50), hi: Math.min(400, duration + 50),
+    type: 'feedback', rich: props, normal: props, calm });
   J.timelines = {
     note: [motion('press', 0, 80, ['transform']), motion('flight', 80, 250, ['transform']), motion('land', 330, 150, ['transform']), motion('shelf', 250, 400, ['transform', 'height', 'number'], ['color', 'opacity']), motion('money', 250, 300, ['transform'], [])],
     row: [motion('row', 330, 150, ['color']), motion('reward', 330, 300, ['transform'], []), motion('circle', 480, 200, ['transform'])],
     doc: [motion('press', 0, 80, ['transform']), motion('ledger', 80, 300, ['transform']), motion('shelf', 230, 400, ['height', 'number'], ['color']), motion('reward', 230, 300, ['transform'], []), motion('row', 380, 150, ['opacity'])],
-    demo: [{ name: 'demo', start: 0, duration: 2100, type: 'teaching', skippable: true, rich: ['transform'], normal: ['transform'], calm: ['opacity'] }],
-    speech: [{ name: 'speech', start: 0, duration: 1500, type: 'teaching', skippable: true, rich: ['text'], normal: ['text'], calm: [] }],
+    demo: [{ name: 'demo', start: 0, startLo: 0, startHi: 0, duration: 2100, lo: 1500, hi: 2100, section: '3.3・5.2 A9・5.5', type: 'teaching', skippable: true, rich: ['transform'], normal: ['transform'], calm: ['opacity'] }],
+    speech: [{ name: 'speech', start: 0, startLo: 0, startHi: 0, duration: 1500, lo: 0, hi: 1500, section: '5.2 A14・5.5', type: 'teaching', skippable: true, rich: ['text'], normal: ['text'], calm: [] }],
   };
   J.motion = value => ['rich', 'normal', 'calm'].includes(value) ? value : g.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'calm' : 'normal';
   let settings = { motion: J.motion(), sound: 'on', soundAsked: false }, active = null, audio;
@@ -35,7 +52,7 @@
   J.amount = n => Math.abs(n) % 10000 === 0 ? Math.abs(n) / 10000 + '万円' : Math.abs(n) % 1000 === 0 ? Math.abs(n) / 1000 + '千円' : Math.abs(n).toLocaleString('ja-JP') + '円';
   J.label = (c, placed) => `${c.label} ${placed ? '' : c.amount < 0 ? '−' : '＋'}${J.amount(c.amount)}`;
   // button を入れ子にせず、列の取っ手と置いた札を別々の button にする。
-  J.markup = ({ cards, columns, positions = {}, blocked = null }) => `<div class="j-deck"><div class="j-columns">${columns.map(col => `<section class="j-column" data-zone="${col.id}"><button class="j-drop" data-col="${col.id}" aria-describedby="j-cue-${col.id}">${esc(col.label)}<small id="j-cue-${col.id}">${esc(col.cue)}</small></button><div class="j-placed">${cards.filter(c => positions[c.id] === col.id).map(c => `<button class="j-card" data-placed="${c.id}" data-state="settled-pending" aria-label="${esc(J.label(c, true))}、${esc(col.label)}に入っている。押すと直せる">✓ ${esc(c.label)} <span class="j-sign" data-negative="${c.amount < 0}">${c.amount < 0 ? '−' : ''}</span>${J.amount(c.amount)}</button>`).join('')}</div></section>`).join('')}</div><div class="j-hand" data-hand>${cards.filter(c => !positions[c.id]).map(c => `<div class="j-hand-card"><button class="j-card" data-card="${c.id}" data-state="${blocked === c.id ? 'blocked' : 'idle'}" ${blocked === c.id ? 'disabled' : ''} aria-label="${esc(J.label(c))}、手札">${esc(J.label(c))}</button><div class="j-directions">${columns.map(col => `<button class="j-direct" data-note="${c.id}" data-side="${col.id}" ${blocked === c.id ? 'disabled' : ''} aria-label="${esc(J.label(c))}を${esc(col.label)}に入れる">${col.id === 'L' ? '◀ ' : ''}${esc(col.label)}に入れる${col.id === 'R' ? ' ▶' : ''}</button>`).join('')}</div></div>`).join('')}</div><div class="j-menu" data-menu hidden></div><p class="j-status" role="status" aria-live="polite" data-j-status></p></div>`;
+  J.markup = ({ cards, columns, positions = {}, blocked = null }) => `<div class="j-deck"><div class="j-columns">${columns.map(col => `<section class="j-column" data-zone="${col.id}"><button class="j-drop" data-col="${col.id}" aria-describedby="j-cue-${col.id}">${esc(col.label)}<small id="j-cue-${col.id}">${esc(col.cue)}</small></button><div class="j-placed">${cards.filter(c => positions[c.id] === col.id).map(c => `<button class="j-card" data-placed="${c.id}" data-state="settled-pending" aria-label="${esc(J.label(c, true))}、${esc(col.label)}に入っている。押すと直せる">✓ ${esc(c.label)} <span class="j-sign" data-negative="${c.amount < 0}">${c.amount < 0 ? '−' : ''}</span>${J.amount(c.amount)}</button>`).join('')}</div></section>`).join('')}</div><div class="j-hand" data-hand>${cards.filter(c => !positions[c.id]).map(c => `<div class="j-hand-card"><button class="j-card" data-card="${c.id}" data-state="${(Array.isArray(blocked) ? blocked.includes(c.id) : blocked === c.id) ? 'blocked' : 'idle'}" ${(Array.isArray(blocked) ? blocked.includes(c.id) : blocked === c.id) ? 'disabled' : ''} aria-label="${esc(J.label(c))}、手札">${esc(J.label(c))}</button><div class="j-directions">${columns.map(col => `<button class="j-direct" data-note="${c.id}" data-side="${col.id}" ${(Array.isArray(blocked) ? blocked.includes(c.id) : blocked === c.id) ? 'disabled' : ''} aria-label="${esc(J.label(c))}を${esc(col.label)}に入れる">${col.id === 'L' ? '◀ ' : ''}${esc(col.label)}に入れる${col.id === 'R' ? ' ▶' : ''}</button>`).join('')}</div></div>`).join('')}</div><div class="j-menu" data-menu hidden></div><p class="j-status" role="status" aria-live="polite" data-j-status></p></div>`;
   J.deck = opts => {
     J.cleanup();
     const { root, cards, columns, positions, onStart = () => true, onPlace, onRemove, onState = () => {} } = opts;
@@ -56,13 +73,15 @@
     const reset = () => { if (lifted) state(lifted, positions[lifted] ? 'settled-pending' : 'idle'); lifted = selected = null; highlight(null); root.querySelector('[data-menu]').hidden = true; };
     const lift = id => { finish(); if (!onStart(id)) return false; lifted = id; state(id, 'lifted'); J.sfx.tap(); status(`${J.label(findCard(id))}を持った。左右を選び、Enterで入れる。Escでやめる`); return true; };
     const place = (id, side, input, rect) => {
-      if (!findCard(id) || !columns.some(c => c.id === side) || positions[id] === side) return;
+      if (!findCard(id) || !columns.some(c => c.id === side)) return;
+      if (positions[id] === side) { anim(cardEl(id), settings.motion === 'calm' ? [{ backgroundColor: '#fff4bd' }, { backgroundColor: '#fff8df' }] : [{ transform: 'scale(1)' }, { transform: 'scale(1.03)' }, { transform: 'scale(1)' }], { duration: 200 }); status('この札は、ここにある'); return; }
       if (cardEl(id)?.disabled) return;
       finish(); lastPlace = Date.now(); state(id, 'placed'); onPlace(id, side, { input, rect: rect || cardEl(id)?.getBoundingClientRect() });
     };
     const menu = id => { if (Date.now() - lastPlace < J.limits.repeat) return; finish(); lifted = id; state(id, 'menu');
       const e = root.querySelector('[data-menu]'); e.hidden = false;
       e.innerHTML = columns.filter(c => c.id !== positions[id]).map(c => `<button data-menu-side="${c.id}">${esc(c.label)}へ</button>`).join('') + `<button data-undo-card="${id}">棚へ戻す</button>`;
+      anim(e, settings.motion === 'calm' ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 120 });
       e.querySelector('button')?.focus({ preventScroll: true });
     };
     const listen = (type, fn, options = {}) => root.addEventListener(type, fn, { ...options, signal: abort.signal });

@@ -16,6 +16,15 @@ for (const line of note.lines) for (const c of line.cards) {
 }
 assert(note.lines[2].ask && note.lines[2].cards.every(c => c.delta === '-cost'));
 console.log('OK：noteの問いの手がかり・6枚の札・符号・手本・3行目の発見');
+for (const [key, p] of Object.entries(J.parameters)) {
+  assert(p.section && Number.isFinite(p.lo) && Number.isFinite(p.hi), key + ' の節とlo/hi');
+  assert(p.value >= p.lo && p.value <= p.hi, key + ' の置き値');
+}
+for (const seq of Object.values(J.timelines)) for (const a of seq) {
+  assert(a.section && a.start >= a.startLo && a.start <= a.startHi, a.name + ' の節と開始の幅');
+  assert(a.duration >= a.lo && a.duration <= a.hi, a.name + ' の長さの幅');
+}
+console.log('OK：コメント6405792276の条件（置き値ごとの設計節・lo/hi）');
 for (const [key, value] of Object.entries(J.limits)) { const [lo, hi] = J.ranges[key]; assert(value >= lo && value <= hi, key + ' の範囲'); }
 for (const [name, seq] of Object.entries(J.timelines)) {
   const feedback = seq.filter(a => a.type === 'feedback');

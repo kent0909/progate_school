@@ -29,7 +29,17 @@ const { prepare, move, server } = require('./journal-inputs');
       for (let n = 0; n < 2; n++) { await move(p, '0-1', 'L', 'tap'); await p.waitForTimeout(420); await p.click('[data-react-close]'); }
       await move(p, '0-1', 'R', 'tap');
       const r = await p.evaluate(() => window.__sim.S.noteLog.find(x => x.card === '0-1')); assert.equal(r.errors, 2); assert.equal(r.repeatWrong, 1); assert.equal(r.sameSideTwice, true); assert.equal(r.firstSide, 'R');
-      assert.equal(await p.locator('.j-ghost').count(), 0); await c.close(); console.log(`OK：${width} Esc・小さいスワイプ・縦スクロール・touchCancel・連打300ms・連続誤答の保持`);
+      // ほかの札を先に直しても説明を失わず、2枚の誤答はそれぞれ閉じるまでロック。
+      await p.click('[data-note-reason="0-0"]'); await p.waitForSelector('[data-note-reason="0-0"]', { state: 'detached' });
+      await move(p, '1-0', 'R', 'tap'); await p.waitForTimeout(420);
+      await move(p, '1-1', 'R', 'tap'); assert.match(await p.locator('[data-react-text]').innerText(), /左の列/); assert(await p.locator('[data-card="1-0"]').isDisabled());
+      await p.click('[data-react-close]'); await p.waitForTimeout(310); await p.click('[data-placed="1-1"]'); await p.click('[data-undo-card="1-1"]');
+      await move(p, '1-0', 'R', 'tap'); await p.waitForTimeout(420); await move(p, '1-1', 'L', 'tap'); await p.waitForTimeout(420);
+      assert(await p.locator('[data-card="1-0"]').isDisabled()); assert(await p.locator('[data-card="1-1"]').isDisabled());
+      await p.click('[data-react-close]'); assert(!(await p.locator('[data-card="1-0"]').isDisabled())); assert(await p.locator('[data-card="1-1"]').isDisabled());
+      await p.click('[data-react-close]'); assert(!(await p.locator('[data-card="1-1"]').isDisabled()));
+      await move(p, '1-0', 'L', 'tap'); await move(p, '1-1', 'R', 'tap');
+      assert.equal(await p.locator('.j-ghost').count(), 0); await c.close(); console.log(`OK：${width} Esc・小さいスワイプ・縦スクロール・touchCancel・連打300ms・連続誤答の保持・2枚の個別ロック`);
     }
   } finally { await b.close(); s.close(); }
 })().catch(e => { console.error(e); process.exitCode = 1; });

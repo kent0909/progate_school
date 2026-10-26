@@ -51,6 +51,7 @@ async function main() {
       const errors = [], c = await b.newContext({ viewport: { width, height: 900 }, hasTouch: input === 'swipe', reducedMotion: 'reduce' });
       await c.route('**/*', r => r.request().url().startsWith(origin + '/') ? r.continue() : r.abort());
       const p = await c.newPage(); p.on('pageerror', e => errors.push(e.message)); p.setDefaultTimeout(5000); await prepare(p, origin);
+      if (width === 1280) assert(await p.locator('[data-journal]').evaluate(el => el.getBoundingClientRect().width > 1000), 'PCは3段の枠を広く使う');
       assert.match(await p.locator('[data-card="0-1"]').getAttribute('aria-label'), /手札/);
       assert.match(await p.locator('[data-placed="0-0"]').getAttribute('aria-label'), /押すと直せる/);
       await complete(p, input);
