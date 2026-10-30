@@ -282,6 +282,10 @@ function checkNote(n, es, tag, indexText, gen, r, isSection) {
   // 原文と照合
   const files = es.map(rawFile).filter(Boolean);
   const target = files.find((f) => fileSha(f) === n.sha256) || files[0];
+  // 画像（画面の参考の写真、2026-10-30）：語句では照合できない。何を見たかの申告（image_seen:）を求め、照合できないもの（注意）として数える
+  const shots = es.filter((e) => /\.(png|jpe?g|webp|gif)$/i.test(e.file || ''));
+  if (target && /\.(png|jpe?g|webp|gif)$/i.test(target)) { if (!n.image_seen) err(tag, `${where} は画像。見た所（画面の部品・配置・色・文字の強弱など）を image_seen: に書くこと`); else warn(tag, `${where} は画像。語句では照合できない（見たと申告：${String(n.image_seen).slice(0, 40)}）`); r.unverifiable++; return; }
+  if (shots.length && !n.image_seen) err(tag, `${where} の文書には画面写真の取得記録が ${shots.length} 件ある。見た所を image_seen: に書くこと（写真を撮って見ていない疑い）`);
   const text = target ? norm(textOf(target)) : null;
   if (!text) { r.unverifiable++; return; }
   // 文字がほとんどない PDF（画像だけの講演スライドなど）は、語句で照合できない。照合できないもの（注意）として数え、画像として見たページの申告（image_pages）を求める

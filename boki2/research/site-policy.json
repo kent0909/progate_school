@@ -2408,5 +2408,90 @@
   "verdict": "gray",
   "basis": "m1.material.io（Material Design 1 の保存版）。Google の規約で該当ページの自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。読むだけで転載しない",
   "checked": "2026-10-25"
+ },
+ "ui-pocket.com": {
+  "verdict": "gray",
+  "basis": "UI Pocket 利用規約（ui-pocket.com/terms、2025-02-17改定）第5条の禁止事項に自動取得・スクレイピングの明示なし。robots.txt は User-agent: * Allow: /。ログインが要る画面には入らない",
+  "checked": "2026-10-30"
+ },
+ "design-library.jp": {
+  "verdict": "no-automation",
+  "basis": "robots.txt が User-agent: ClaudeBot に Disallow: /（Anthropic の名指し。研究の決まりで自分への禁止として守る）",
+  "checked": "2026-10-30"
+ },
+ "partsdesign.net": {
+  "verdict": "gray",
+  "basis": "Parts.（partsdesign.net/about）に利用規約なし・自動取得の禁止の明示なし。画像の著作権は各デザインの権利者に帰属と明記。robots.txt は /wp-admin/ のみ禁止",
+  "checked": "2026-10-30"
+ },
+ "mobbin.com": {
+  "verdict": "no-automation",
+  "basis": "Mobbin Terms（mobbin.com/terms）が scraper, robot, bot, spider, crawler 等による取得を禁止。公式の API・MCP（AI Credits）あり",
+  "checked": "2026-10-30"
+ },
+ "refero.design": {
+  "verdict": "no-automation",
+  "basis": "Refero Terms of Use（doc.refero.design/legal/terms-of-use）が scraping, crawling, automation による複製を禁止。設計の調べに使ってよいのは公式の MCP・API 経由（13章）",
+  "checked": "2026-10-30"
+ },
+ "muz.li": {
+  "verdict": "gray",
+  "basis": "Muzli 利用規約（muz.li/terms/）に自動取得・スクレイピングの禁止の明示なし。robots.txt は Claude-bot・ClaudeWeb を名指しで Allow: /",
+  "checked": "2026-10-30"
+ },
+ "collectui.com": {
+  "verdict": "gray",
+  "basis": "collectui.com/terms は存在しない（404）。規約が見つからない。robots.txt に Anthropic の名指しの禁止なし",
+  "checked": "2026-10-30"
+ },
+ "dribbble.com": {
+  "verdict": "no-automation",
+  "basis": "Dribbble Terms of Service（dribbble.com/terms）が automated or non-automated \"scraping\" と robots・spiders による複製を禁止",
+  "checked": "2026-10-30"
+ },
+ "www.behance.net": {
+  "verdict": "no-automation",
+  "basis": "robots.txt が anthropic-ai・Claude-Web・ClaudeBot に Disallow: /",
+  "checked": "2026-10-30"
+ },
+ "www.gameuidatabase.com": {
+  "verdict": "no-automation",
+  "basis": "robots.txt が ClaudeBot に Disallow: /",
+  "checked": "2026-10-30"
+ },
+ "interfaceingame.com": {
+  "verdict": "no-automation",
+  "basis": "Interface In Game Terms and Conditions が spider, crawl, or scrape を禁止",
+  "checked": "2026-10-30"
+ },
+ "pageflows.com": {
+  "verdict": "gray",
+  "basis": "robots.txt の取得が Cloudflare の人間確認（Just a moment...）で返らない。中身に届かない（2026-10-30）",
+  "checked": "2026-10-30"
+ },
+ "screenlane.com": {
+  "verdict": "gray",
+  "basis": "robots.txt の取得が Cloudflare の人間確認で返らない（応答のゾーンは pageflows.com）。中身に届かない",
+  "checked": "2026-10-30"
+ },
+ "sankoudesign.com": {
+  "verdict": "gray",
+  "basis": "robots.txt に 403 Forbidden。中身に届かない",
+  "checked": "2026-10-30"
+ },
+ "81-web.com": {
+  "verdict": "gray",
+  "basis": "81-web.com/about に規約なし・自動取得の禁止の明示なし（スクショの著作権はサイトの権利者）。robots.txt は Cloudflare の content-signal（ai-train=no）で Anthropic の名指しの禁止なし",
+  "checked": "2026-10-30"
+ },
+ "www.figma.com": {
+  "verdict": "no-automation",
+  "basis": "robots.txt が ClaudeBot に Disallow: /。Figma はオーナーが接続した Figma MCP（公式）経由でだけ見る",
+  "checked": "2026-10-30"
+ },
+ "doc.refero.design": {
+  "verdict": "gray",
+  "basis": "Refero の規約・説明書の置き場。規約を読むための取得のみ",
+  "checked": "2026-10-30"
  }
 }

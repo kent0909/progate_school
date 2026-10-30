@@ -39,3 +39,10 @@
 | 2026-10-25 | web/learnsci/r11-ju-ponce2021-dragdrop-reading | https://largescaleassessmentsineducation.springeropen.com/articles/10.1186/s40536-021-00095-4 | robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた | 未 |
 | 2026-10-25 | web/learnsci/r11-ju-noor2016-swipe-errors | https://eprints.gla.ac.uk/114779/ | robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた | 未 |
 | 2026-10-25 | web/learnsci/r11-ju-ploetzner2021-anim-static | https://link.springer.com/article/10.1007/s11251-021-09541-w | robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた | 未 |
+| 2026-10-30 | web/uiref/dl-mainvisual | https://design-library.jp/ui/sp/category/mainvisual | 規約で自動取得が禁止のサイト（robots.txt が User-agent: ClaudeBot に Disallow: /（Anthropic の名指し。研究の決まりで自分への禁止として守る）） | 未 |
+| 2026-10-30 | web/uiref/mobbin-ios-flows | https://mobbin.com/browse/ios/flows | 規約で自動取得が禁止のサイト（Mobbin Terms（mobbin.com/terms）が scraper, robot, bot, spider, crawler 等による取得を禁止。公式の API・MCP（AI Credits）あり） | 未 |
+| 2026-10-30 | web/uiref/dribbble-top | https://dribbble.com/shots/popular/mobile | 規約で自動取得が禁止のサイト（Dribbble Terms of Service（dribbble.com/terms）が automated or non-automated "scraping" と robots・spiders による複製を禁止） | 未 |
+| 2026-10-30 | web/uiref/behance-top | https://www.behance.net/galleries/ui-ux | 規約で自動取得が禁止のサイト（robots.txt が anthropic-ai・Claude-Web・ClaudeBot に Disallow: /） | 未 |
+| 2026-10-30 | web/uiref/gameuidb-top | https://www.gameuidatabase.com/ | 規約で自動取得が禁止のサイト（robots.txt が ClaudeBot に Disallow: /） | 未 |
+| 2026-10-30 | web/uiref/iig-top | https://interfaceingame.com/ | 規約で自動取得が禁止のサイト（Interface In Game Terms and Conditions が spider, crawl, or scrape を禁止） | 未 |
+| 2026-10-30 | web/uiref/refero-ios | https://refero.design/apps/ios | 規約で自動取得が禁止のサイト（Refero Terms of Use（doc.refero.design/legal/terms-of-use）が scraping, crawling, automation による複製を禁止。設計の調べに使ってよいのは公式の MCP・API 経由（13章）） | 未 |
