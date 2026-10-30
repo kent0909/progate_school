@@ -56,5 +56,9 @@ const Fq = [0.2, 0.4, 0.6, 0.8].map((p) => q(ranked.map((o) => o.F), p));
 const fb = (F) => Fq.filter((x) => F > x).length;
 console.log('人通りの5分位ごと', by((o) => 'F第' + (fb(o.F) + 1)));
 console.log('ライバルの軒数ごと（くじ）', Object.entries(cnt(pool, (d) => d.n)).map(([n, c]) => `${n}軒:${c} 利益${(q(pool.filter((d) => d.n == n).map((d) => d.op), 0.5) / 1e4).toFixed(0)}万`).join(' | '));
+// 遊ぶ人はくじの結果を開店前に見て選ぶ（4.3）。だから1つの世界（くじ k）の中で、実現したライバルを見たうえでの上位50を見る
+{ const r0 = []; for (let k = 0; k < K; k++) { const w = out.map((o) => ({ o, d: o.draws[k] })).sort((a, b) => b.d.op - a.d.op).slice(0, 50); r0.push({ zero: w.filter((x) => x.d.n === 0).length, tiers: new Set(w.map((x) => x.o.pins)).size, attrs: new Set(w.map((x) => x.o.type)).size, js: w.filter((x) => ['jutaku', 'shoten'].includes(x.o.type)).length, top1: w[0].o.type + '/段' + w[0].o.pins + '/' + w[0].d.riv }); }
+  const allZero = pool.filter((d) => d.n === 0).length / pool.length;
+  console.log(`⑤ 1つの世界（くじ1回）の中の利益の上位50：ライバル0軒の候補地 ${r0.map((x) => x.zero).join('/')}（全体の0軒の割合 ${(100 * allZero).toFixed(0)}%）・駅の段の種類 ${r0.map((x) => x.tiers).join('/')}・属性の種類 ${r0.map((x) => x.attrs).join('/')}・住宅地か商店街 ${r0.map((x) => x.js).join('/')}・1位 ${r0.map((x) => x.top1).join(' ')}`); }
 if (P.bestParts) console.log(`パート2人のほうが利益が上のくじ ${(100 * pool.filter((d) => d.p2).length / pool.length).toFixed(1)}%・利益の上位50で2人を選ぶ候補地 ${top.filter((o) => mean(o.draws.map((d) => d.p2)) > 0.5).length}`);
 if (process.env.SAVE) require('fs').writeFileSync(process.env.SAVE, JSON.stringify(ranked.map(({ draws, ...o }) => o)));
