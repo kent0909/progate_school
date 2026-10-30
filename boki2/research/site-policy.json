@@ -2501,7 +2501,7 @@
  },
  "storage.ghost.io": {
   "verdict": "gray",
-  "basis": "Ghost の画像配信（blog.duolingo.com の記事が表示に使う画像）。robots.txt は research-fetch が確認。配信の画像に自動取得の禁止の明示なし。記事の図を目で見るためだけに1枚ずつ取得し転載しない",
+  "basis": "storage.ghost.io は blog.duolingo.com（gray 判定済み）が使う Ghost の画像置き場。記事に載る画像の閲覧。規約に自動取得の明示の禁止なし。robots は research-fetch が確かめる",
   "checked": "2026-10-30"
  },
  "homes.cs.washington.edu": {
@@ -2552,6 +2552,21 @@
  "www.g-mark.org": {
   "verdict": "gray",
   "basis": "グッドデザイン賞（g-mark.org）。robots.txt が置かれていない（404、2026-10-30 取得 uA-robots-g-mark）。検索でも利用規約・サイトポリシーのページが見つからず、自動取得の禁止の明示を確認できない。README の目安どおり gray（受賞ページの単発の閲覧、転載しない）",
+  "checked": "2026-10-30"
+ },
+ "apnews.com": {
+  "verdict": "gray",
+  "basis": "robots.txt の確認のためだけに取る（本文は取らない）。AP の転載記事の元の配信元の確かめ（README の転載の決まり）",
+  "checked": "2026-10-30"
+ },
+ "vis.csail.mit.edu": {
+  "verdict": "gray",
+  "basis": "MIT CSAIL の授業の読み物置き場。利用規約の頁はなく自動取得の明示の禁止なし。robots は research-fetch が確かめる",
+  "checked": "2026-10-30"
+ },
+ "news.wsu.edu": {
+  "verdict": "gray",
+  "basis": "ワシントン州立大学の広報の記事。サイトの利用の頁に自動取得の明示の禁止なし。robots は research-fetch が確かめる",
   "checked": "2026-10-30"
  }
 }
