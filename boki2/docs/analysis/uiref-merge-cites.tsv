@@ -44,22 +44,73 @@ uB-applion-cultist-rev	何をすれば良いか分かりにくい	開いた	開�
 uC-juul-juicy-feedback	a lower 40,340	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-arx-juicy-vis	only post-feedback	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-hicks-goodgamefeel	Feedback Coherence	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
-uC-heer-animated-transitions	around 1 second	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
+uC-heer-animated-transitions	around 1 second	開いた	開いた	支える	版2：「約1秒は Robertson ほかの勧めの引用」という主張にだけ使う（6章 #8）。実験の値としては使わない（判定役は版1の使い方を弱いとした）
 uC-tversky-animation	too complex or too fast	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-wsu-seductive-details	static joke	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-gp-pokemonsleep	テンポが悪いので	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-hicks-goodgamefeel	too much screenshake	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-arx-juicy-or-dry	Goldilocks effect	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-kirby-ui-gamewatch	攻撃的な形状は避けている	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
-uC-kirby-ui-denfami	可愛くなりすぎない	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
-uC-duolingo-shape-language	fewest details	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
+uC-kirby-ui-denfami	可愛くなりすぎない	開いた	開いた	弱い	判定役：HD 機のフラットデザインの話で、「角を丸め強いコントラストを避ける」の箇所でない。版2では使わない
+uC-duolingo-shape-language	fewest details	開いた	開いた	支える	版2：P7 の「絵の細部は分かりやすさのために最小」だけに使う（原文の CLEAR TO UNDERSTAND の節）。版1の K5「大量に描くための規則」には支えない（判定役）ので外した
 uC-bateman-useful-junk	two-to-three-week gap	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
-uC-tversky-animation	the schematic	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
+uC-tversky-animation	the schematic	開いた	開いた	支えない	判定役：この箇所は「動きは図式に寄せよ」で、「動きは消えるので見比べられない」を支えない。版2では使わず「they disappear」に引き直した
 uC-arx-juicy-vis	annoying distraction	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-collectui-leaderboard	No leaderboard posts	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
-uC-arx-juicy-text	Progress feedback	開いた	開いた	弱い	原文で語句が出るのは尺度（PXI）の名前の並び。意味の文字が進み具合の手ごたえを上げたという結果は、ノートと原文の別の箇所（Use Semantic Text for Progress Feedback）にある
+uC-arx-juicy-text	Progress feedback	開いた	開いた	支える	版2：判定役の判定に合わせて直した。原文の結果の文（Performance stage の Progress feedback で Text が Particle より高い）に同じ語句が出る
 uC-gp-habitica	ぬるっと出てくる	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-arx-juicy-vis	get the work done	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-kirby-ui-gamewatch	頻繁に使用するUI	開いた	開いた	支える	語句は原文にあり、ノートの要約と原文の前後がこの報告の主張と同じ向き
 uC-collectui-funny-animation	Playful and humorous	開いた	開いた	弱い	分類ページの説明の語で、C1 の動画の中身を支えない（C の既知の傷）。この報告では引いていない
 uA-uip-duolingo	レッスンコンプリート①	開いた	開いた	弱い	UI Pocket の流れの名前だけ。この報告では引いていない
+uB-fami-p5-ui	ライトユーザーを獲得すること	開いた	開いた	支える	原文：ペルソナ3 は「ライトユーザーを獲得すること（それも低予算で）」が課題。低予算はペルソナ3 の話（R2-2.4-1）
+uB-fami-p5-ui	UI専属のプログラマー	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-fami-p5-ui	黄色をサブカラーとして使い	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uC-heer-animated-transitions	were 1.25 seconds	開いた	開いた	支える	原文：実験1の動きは 1.25秒
+uC-heer-animated-transitions	around a full second	開いた	開いた	支える	原文：段ごとに半秒でなく約1秒を勧める（Heer 自身の勧め）
+uC-heer-animated-transitions	minimal movement	開いた	開いた	支える	原文：動きの少ない切り替えはもっと速くてよい
+uC-heer-animated-transitions	1.50, p = 0.224	開いた	開いた	支える	原文：積み上げ棒では有意でない
+uA-dads-typo	14 CSS px未満の大きさの使用	開いた	開いた	支える	原文：14 CSS px 未満の使用は原則として許容されない
+uA-dads-spacing	3つから5つ程度になることが多い	開いた	開いた	支える	原文：余白の段は3〜5つが多い
+uB-applion-coffeeinc2	テナントのマークが出現すると	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-applion-coffeeinc2	30秒程度待たされ	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-applion-coffeeinc2	作業感もある	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uC-juul-juicy-feedback	compared to 3.74	開いた	開いた	支える	原文：出来の評価 3.26 対 3.74（相関 0.19）
+uC-juul-juicy-feedback	score counting up	開いた	開いた	支える	原文：基本の版にも点の数え上がりが入る
+uC-arx-juicy-text	between effects	開いた	開いた	支える	原文：観察と成績の段で効果による差なし
+uC-arx-juicy-or-dry	carbs never appeared	開いた	開いた	支える	原文：派手な版で炭水化物の数が出なかった声
+uC-arx-juicy-vis	2.396 / 2.625	開いた	開いた	支える	原文の表：課題の点 2.396/2.625/2.412/2.180。順の傾き −0.097、p=7.514e−2（.075）、4段の差 p=6.077e−2（.061）。どちらも有意でない（統合の担当が原文の表で確かめた）
+uC-arx-juicy-vis	most often preferred	開いた	開いた	支える	原文：好みは最中13・後12
+uB-4g-kirby-ui	テレビなどの横長の画面	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-4g-kirby-ui	キャラクターのイラストもなくして	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-4g-kirby-ui	周りの表示物に埋もれて見えない	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-gw-umamusume-talk	横画面会話はフルボイス	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-gw-umamusume-ui2	基礎能力をつねに表示	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uC-tversky-animation	they disappear	開いた	開いた	支える	原文 3.2節：区切った図は比べ直し・見直しができ、動きは消える
+uC-tversky-animation	the fill bar	開いた	開いた	支える	原文：進み具合の帯のような抽象の使い方
+uC-tversky-animation	so they have a cost	開いた	開いた	支える	原文：動きは時間がかかりコストがある
+uA-applion-mikan	赤色囲みで毎回強調する	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uA-applion-freee	検索できないので不便	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uA-applion-freee	仕訳帳形式でない分	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-gi-balatro	came up organically	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-gi-balatro	resembling a gambling	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-duolingo-shape	Duolingo KIDS	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-duolingo-shape	huge and ongoing task	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uA-applion-minna	指でスライドしてお金を移動	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-applion-pokesleep-rev	岩陰に隠れて取りにくかったり	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uC-gp-pokemonsleep	画面遷移毎に同期の為の通信	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-applion-balatro-rev	見た目は地味で	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-applion-balatro-rev	動き一つ一つが凝っていて	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-fami-p3r-ui	思っていたより使いづらかったり	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uA-applion-zaim	モタつく感が	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uA-applion-moneyforward	独立で表示非表示を切り得られる	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-gi-florence	too awkward	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uC-bateman-useful-junk	1-tailed ttests	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uC-kirby-ui-denfami	清潔に移る色使い	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-applion-gakumas-rev	何度見ても飽きません	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-applion-unpacking-rev	自分の指が邪魔で細かい位置調整	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-applion-cultist-rev	アイコンの意味も分からなければ	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uA-applion-pboki2	一部の文字が見切れます	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-applion-papersplease	18歳以上	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uC-wsu-seductive-details	than in digital formats	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
+uB-4g-charagame-ui	軽さや分かりやすさが犠牲	開いた	開いた	支える	版2で足した。R1〜R3 が full にしたノートの要約と、原文の語句の前後を開き、主張と同じ向きと確かめた
