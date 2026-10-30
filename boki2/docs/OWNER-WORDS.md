@@ -153,3 +153,4 @@ QUALITY.md 4.1-1：依頼文にはオーナーの言葉を要約せずに入れ�
 - 自動で取れない6サイト（design-library.jp・Behance・Game UI Database は robots.txt で Anthropic を名指しで禁止、Dribbble・Mobbin・Interface In Game は規約で自動取得を禁止、Page Flows・Screenlane は Cloudflare で門前払い）：「先に代替で進める（推奨）」
 - JavaScript で組み立てるページのため research-fetch に描画モードを足すか：「足してよい（推奨）」
 - 調べの結果を使う段（10/30）：「段１もだいぶ終わってるデザインだからテコ入れしたいから段２以降と区切らなくてもよいのでは？と思ったけどどう？」→ 取りまとめ役「賛成。段1も含める。段1は PR #7 が作業中なので、効く実例は『いまの設計とぶつかる点』に節番号つきで出し、決めるのは作り直しの担当とオーナー」
+- Codex の手伝い（10/30）：「Codexに手伝わせることある？」→ 取りまとめ役の推し：①いまの画面の全数の写真集と目録（依頼書 CODEX-TASK-uiref-screens.md）②統合の報告の論証の検査

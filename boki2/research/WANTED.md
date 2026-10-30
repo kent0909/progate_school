@@ -46,3 +46,4 @@
 | 2026-10-30 | web/uiref/gameuidb-top | https://www.gameuidatabase.com/ | 規約で自動取得が禁止のサイト（robots.txt が ClaudeBot に Disallow: /） | 未 |
 | 2026-10-30 | web/uiref/iig-top | https://interfaceingame.com/ | 規約で自動取得が禁止のサイト（Interface In Game Terms and Conditions が spider, crawl, or scrape を禁止） | 未 |
 | 2026-10-30 | web/uiref/refero-ios | https://refero.design/apps/ios | 規約で自動取得が禁止のサイト（Refero Terms of Use（doc.refero.design/legal/terms-of-use）が scraping, crawling, automation による複製を禁止。設計の調べに使ってよいのは公式の MCP・API 経由（13章）） | 未 |
+| 2026-10-30 | web/uiref/uA-minna-designnow3 | https://news.livedoor.com/article/detail/28829491/ | robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた | 未 |

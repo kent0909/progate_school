@@ -2528,5 +2528,30 @@
   "verdict": "gray",
   "basis": "cdn.collectui.com は collectui.com（gray 判定済み）の画像・動画の置き場。同じ運営。規約の頁は 404 で自動取得の明示の禁止なし。robots は research-fetch が確かめる",
   "checked": "2026-10-30"
+ },
+ "codezine.jp": {
+  "verdict": "gray",
+  "basis": "規約の確認のための robots.txt の取得（判定は規約を読んで上書きする）",
+  "checked": "2026-10-30"
+ },
+ "smarthr.design": {
+  "verdict": "gray",
+  "basis": "規約の確認のための robots.txt の取得（判定は規約を読んで上書きする）",
+  "checked": "2026-10-30"
+ },
+ "play-lh.googleusercontent.com": {
+  "verdict": "gray",
+  "basis": "play-lh.googleusercontent.com は Google Play（ok 判定済み）のストアの画面写真の配信元。同じ Google の規約で、ストアの掲載画像の閲覧の範囲。robots は research-fetch が確かめる",
+  "checked": "2026-10-30"
+ },
+ "www.red-dot.org": {
+  "verdict": "gray",
+  "basis": "規約の確認のための robots.txt の取得（判定は規約を読んで上書きする）",
+  "checked": "2026-10-30"
+ },
+ "www.g-mark.org": {
+  "verdict": "gray",
+  "basis": "グッドデザイン賞（g-mark.org）。robots.txt が置かれていない（404、2026-10-30 取得 uA-robots-g-mark）。検索でも利用規約・サイトポリシーのページが見つからず、自動取得の禁止の明示を確認できない。README の目安どおり gray（受賞ページの単発の閲覧、転載しない）",
+  "checked": "2026-10-30"
  }
 }
