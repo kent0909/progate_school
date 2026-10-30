@@ -1,0 +1,46 @@
+{
+  "target": "db0c2298a97a9ceafffcc175a9886a951bad6126",
+  "regressions": [
+    {
+      "command": "node boki2/tools/sim-check.js",
+      "exit": 0
+    },
+    {
+      "command": "node boki2/tools/sim-check.js --ramen --runs 300",
+      "exit": 0
+    },
+    {
+      "command": "node boki2/tools/validate.js",
+      "exit": 0
+    },
+    {
+      "command": "node boki2/tools/lexicon-check.js --ramen",
+      "exit": 1
+    },
+    {
+      "command": "node boki2/tools/coverage.js --ramen --stage 1",
+      "exit": 0
+    },
+    {
+      "command": "node boki2/tools/law-check.js",
+      "exit": 0
+    }
+  ],
+  "ramenSeconds": 1755.3,
+  "independent": [
+    {
+      "command": "python boki2/docs/analysis/inspector-manager-design.py <db0c229のDESIGN-MANAGER.md> <出力JSON>",
+      "exit": 0
+    },
+    {
+      "command": "node boki2/docs/analysis/inspector-manager-context.js <db0c229のboki2> <出力JSON>",
+      "exit": 0
+    }
+  ],
+  "originalHTML": "手元に原文rawなし。公開報告・ノートの照合まで。一次原文照合は未実施",
+  "otherAudit": {
+    "path": "boki2/docs/audit/ARGCHECK-manager-2026-10-30.md",
+    "blob": "21ff97f4617f35fa367fca4e3a4d43fd6f7ac29a",
+    "notReproduced": "同書の手の効きの測定・20万回の抽出・原文確認は自分の実績に含めない。"
+  }
+}

@@ -1,0 +1,593 @@
+{
+  "targetCommit": "db0c2298a97a9ceafffcc175a9886a951bad6126",
+  "designBlob": "6cd40472800a418ea9104a8f9b64fda8b2cad2f6",
+  "ranges": [
+    {
+      "name": "候補を開く店数（計画を含む）",
+      "value": 2,
+      "lo": 2,
+      "hi": 3
+    },
+    {
+      "name": "経験者の月給（円）",
+      "value": 300000,
+      "lo": 250000,
+      "hi": 400000
+    },
+    {
+      "name": "育成候補の月給（円）",
+      "value": 220000,
+      "lo": 180000,
+      "hi": 260000
+    },
+    {
+      "name": "会社の社会保険負担率",
+      "value": 15,
+      "lo": 10,
+      "hi": 20
+    },
+    {
+      "name": "経験者の年賞与（円）",
+      "value": 120000,
+      "lo": 0,
+      "hi": 240000
+    },
+    {
+      "name": "育成候補の年賞与（円）",
+      "value": 60000,
+      "lo": 0,
+      "hi": 120000
+    },
+    {
+      "name": "経験者の委任上限（月の枠）",
+      "value": 2,
+      "lo": 1,
+      "hi": 2
+    },
+    {
+      "name": "育成候補の委任上限（月の枠）",
+      "value": 1,
+      "lo": 1,
+      "hi": 2
+    },
+    {
+      "name": "育成期間（月）",
+      "value": 2,
+      "lo": 1,
+      "hi": 4
+    },
+    {
+      "name": "教育が使う社長の枠（月）",
+      "value": 1,
+      "lo": 1,
+      "hi": 2
+    },
+    {
+      "name": "経験者の初月引継ぎ枠",
+      "value": 1,
+      "lo": 0,
+      "hi": 2
+    },
+    {
+      "name": "経験者の採用費（円）",
+      "value": 80000,
+      "lo": 40000,
+      "hi": 120000
+    },
+    {
+      "name": "育成候補の採用費（円）",
+      "value": 50000,
+      "lo": 20000,
+      "hi": 80000
+    },
+    {
+      "name": "教育の外部費（月、円）",
+      "value": 40000,
+      "lo": 20000,
+      "hi": 60000
+    },
+    {
+      "name": "Aの1枠の限界利益（円）",
+      "value": 150000,
+      "lo": 0,
+      "hi": 300000
+    },
+    {
+      "name": "Bの1枠の限界利益（円）",
+      "value": 250000,
+      "lo": 0,
+      "hi": 400000
+    },
+    {
+      "name": "Bで初店の手を1つやめる機会損失（円）",
+      "value": 250000,
+      "lo": 0,
+      "hi": 400000
+    },
+    {
+      "name": "Cで初店の手を1つやめる機会損失（円）",
+      "value": 340000,
+      "lo": 0,
+      "hi": 450000
+    },
+    {
+      "name": "Cの1枠の限界利益（円）",
+      "value": 340000,
+      "lo": 0,
+      "hi": 450000
+    },
+    {
+      "name": "大胆案の店ごとの調整負担（月の枠）",
+      "value": 1,
+      "lo": 0,
+      "hi": 2
+    },
+    {
+      "name": "大胆案の別地域への追加移動負担（月の枠）",
+      "value": 1,
+      "lo": 0,
+      "hi": 2
+    }
+  ],
+  "baseline": {
+    "monthlyExperienced": 356500,
+    "monthlyJunior": 258750,
+    "A_mature": {
+      "experienced": -206500,
+      "junior": -108750
+    },
+    "B_6months": {
+      "none": 0,
+      "self": 0,
+      "experienced": 531000,
+      "junior": -682500
+    },
+    "C_18months": {
+      "none": 0,
+      "self": 0,
+      "experienced": -717000,
+      "junior": 652500
+    }
+  },
+  "withoutAdditionalDesk": {
+    "experiencedMonthly": -356500,
+    "juniorMatureMonthly": -258750,
+    "juniorTrainingMonthly": -298750
+  },
+  "opportunitySensitivity": [
+    {
+      "scenario": "B",
+      "lossPerForegoneSlot": 0,
+      "gains": {
+        "none": 0,
+        "self": 3000000,
+        "experienced": 781000,
+        "junior": -182500
+      },
+      "best": [
+        "self"
+      ]
+    },
+    {
+      "scenario": "B",
+      "lossPerForegoneSlot": 200000,
+      "gains": {
+        "none": 0,
+        "self": 600000,
+        "experienced": 581000,
+        "junior": -582500
+      },
+      "best": [
+        "self"
+      ]
+    },
+    {
+      "scenario": "B",
+      "lossPerForegoneSlot": 250000,
+      "gains": {
+        "none": 0,
+        "self": 0,
+        "experienced": 531000,
+        "junior": -682500
+      },
+      "best": [
+        "experienced"
+      ]
+    },
+    {
+      "scenario": "B",
+      "lossPerForegoneSlot": 400000,
+      "gains": {
+        "none": 0,
+        "self": -1800000,
+        "experienced": 381000,
+        "junior": -982500
+      },
+      "best": [
+        "experienced"
+      ]
+    },
+    {
+      "scenario": "C",
+      "lossPerForegoneSlot": 0,
+      "gains": {
+        "none": 0,
+        "self": 6120000,
+        "experienced": -377000,
+        "junior": 1332500
+      },
+      "best": [
+        "self"
+      ]
+    },
+    {
+      "scenario": "C",
+      "lossPerForegoneSlot": 200000,
+      "gains": {
+        "none": 0,
+        "self": 2520000,
+        "experienced": -577000,
+        "junior": 932500
+      },
+      "best": [
+        "self"
+      ]
+    },
+    {
+      "scenario": "C",
+      "lossPerForegoneSlot": 250000,
+      "gains": {
+        "none": 0,
+        "self": 1620000,
+        "experienced": -627000,
+        "junior": 832500
+      },
+      "best": [
+        "self"
+      ]
+    },
+    {
+      "scenario": "C",
+      "lossPerForegoneSlot": 340000,
+      "gains": {
+        "none": 0,
+        "self": 0,
+        "experienced": -717000,
+        "junior": 652500
+      },
+      "best": [
+        "junior"
+      ]
+    },
+    {
+      "scenario": "C",
+      "lossPerForegoneSlot": 450000,
+      "gains": {
+        "none": 0,
+        "self": -1980000,
+        "experienced": -827000,
+        "junior": 432500
+      },
+      "best": [
+        "junior"
+      ]
+    }
+  ],
+  "recoveryAndThresholds": {
+    "B_firstPositiveMonth": 3,
+    "C_firstPositiveMonth": 10,
+    "B_experienced_vs_self_loss_threshold": {
+      "numerator": 2219000,
+      "denominator": 11,
+      "decimal": 201727.27272727274
+    },
+    "C_junior_vs_self_loss_threshold": {
+      "numerator": 1196875,
+      "denominator": 4,
+      "decimal": 299218.75
+    }
+  },
+  "A_matureRange": {
+    "evaluations": 96,
+    "period": "平常月のみ。Aの比較月数は未指定なので作らない",
+    "experienced": [
+      -504000,
+      25000
+    ],
+    "junior": [
+      -324000,
+      102000
+    ]
+  },
+  "economicProfilesPerMode": 24576,
+  "totalEvaluations": 98304,
+  "grid": {
+    "B/same-capacity": {
+      "profiles": 24576,
+      "bestAtIllustrationValues": {
+        "junior": 7417,
+        "none+self": 10551,
+        "experienced": 6433,
+        "experienced+junior": 6,
+        "none+self+experienced": 169
+      },
+      "dominance": {
+        "experiencedStrictlyDominatedOverRectangle": 7086,
+        "juniorStrictlyDominatedOverRectangle": 3552
+      },
+      "benefitAndLossRange": [
+        0,
+        400000
+      ]
+    },
+    "B/training-capped-at-one": {
+      "profiles": 24576,
+      "bestAtIllustrationValues": {
+        "junior": 4391,
+        "none+self": 12888,
+        "experienced": 7091,
+        "experienced+junior": 2,
+        "none+self+experienced": 204
+      },
+      "dominance": {
+        "experiencedStrictlyDominatedOverRectangle": 5813,
+        "juniorStrictlyDominatedOverRectangle": 3552
+      },
+      "benefitAndLossRange": [
+        0,
+        400000
+      ]
+    },
+    "C/same-capacity": {
+      "profiles": 24576,
+      "bestAtIllustrationValues": {
+        "junior": 11040,
+        "experienced": 5444,
+        "none+self+experienced": 296,
+        "none+self": 7788,
+        "experienced+junior": 8
+      },
+      "dominance": {
+        "experiencedStrictlyDominatedOverRectangle": 15924,
+        "juniorStrictlyDominatedOverRectangle": 4256
+      },
+      "benefitAndLossRange": [
+        0,
+        450000
+      ]
+    },
+    "C/training-capped-at-one": {
+      "profiles": 24576,
+      "bestAtIllustrationValues": {
+        "junior": 11040,
+        "experienced": 5444,
+        "none+self+experienced": 296,
+        "none+self": 7788,
+        "experienced+junior": 8
+      },
+      "dominance": {
+        "experiencedStrictlyDominatedOverRectangle": 15924,
+        "juniorStrictlyDominatedOverRectangle": 4256
+      },
+      "benefitAndLossRange": [
+        0,
+        450000
+      ]
+    }
+  },
+  "dominanceExamples": [
+    {
+      "label": "junior-dominates",
+      "scenario": "B",
+      "training": "same-capacity",
+      "parameters": {
+        "ce": 504000,
+        "cj": 216000,
+        "qe": 1,
+        "qj": 2,
+        "months": 1,
+        "education": 1,
+        "handover": 2,
+        "fee_e": 120000,
+        "fee_j": 20000,
+        "education_cost": 20000
+      },
+      "minimumJuniorMinusExperienced": 1808000,
+      "maximumJuniorMinusExperienced": 4608000
+    },
+    {
+      "label": "junior-dominates",
+      "scenario": "B",
+      "training": "training-capped-at-one",
+      "parameters": {
+        "ce": 504000,
+        "cj": 216000,
+        "qe": 1,
+        "qj": 2,
+        "months": 1,
+        "education": 1,
+        "handover": 2,
+        "fee_e": 120000,
+        "fee_j": 20000,
+        "education_cost": 20000
+      },
+      "minimumJuniorMinusExperienced": 1808000,
+      "maximumJuniorMinusExperienced": 4208000
+    },
+    {
+      "label": "junior-dominates",
+      "scenario": "C",
+      "training": "same-capacity",
+      "parameters": {
+        "ce": 504000,
+        "cj": 216000,
+        "qe": 1,
+        "qj": 2,
+        "months": 1,
+        "education": 1,
+        "handover": 2,
+        "fee_e": 120000,
+        "fee_j": 20000,
+        "education_cost": 20000
+      },
+      "minimumJuniorMinusExperienced": 5264000,
+      "maximumJuniorMinusExperienced": 5714000
+    },
+    {
+      "label": "junior-dominates",
+      "scenario": "C",
+      "training": "training-capped-at-one",
+      "parameters": {
+        "ce": 504000,
+        "cj": 216000,
+        "qe": 1,
+        "qj": 2,
+        "months": 1,
+        "education": 1,
+        "handover": 2,
+        "fee_e": 120000,
+        "fee_j": 20000,
+        "education_cost": 20000
+      },
+      "minimumJuniorMinusExperienced": 5264000,
+      "maximumJuniorMinusExperienced": 5714000
+    },
+    {
+      "label": "experienced-dominates",
+      "scenario": "B",
+      "training": "same-capacity",
+      "parameters": {
+        "ce": 275000,
+        "cj": 297000,
+        "qe": 2,
+        "qj": 1,
+        "months": 4,
+        "education": 2,
+        "handover": 0,
+        "fee_e": 40000,
+        "fee_j": 80000,
+        "education_cost": 60000
+      },
+      "minimumJuniorMinusExperienced": -6012000,
+      "maximumJuniorMinusExperienced": -412000
+    },
+    {
+      "label": "experienced-dominates",
+      "scenario": "B",
+      "training": "training-capped-at-one",
+      "parameters": {
+        "ce": 275000,
+        "cj": 297000,
+        "qe": 2,
+        "qj": 1,
+        "months": 4,
+        "education": 2,
+        "handover": 0,
+        "fee_e": 40000,
+        "fee_j": 80000,
+        "education_cost": 60000
+      },
+      "minimumJuniorMinusExperienced": -6012000,
+      "maximumJuniorMinusExperienced": -412000
+    },
+    {
+      "label": "experienced-dominates",
+      "scenario": "C",
+      "training": "same-capacity",
+      "parameters": {
+        "ce": 275000,
+        "cj": 297000,
+        "qe": 2,
+        "qj": 1,
+        "months": 4,
+        "education": 2,
+        "handover": 0,
+        "fee_e": 40000,
+        "fee_j": 80000,
+        "education_cost": 60000
+      },
+      "minimumJuniorMinusExperienced": -4276000,
+      "maximumJuniorMinusExperienced": -676000
+    },
+    {
+      "label": "experienced-dominates",
+      "scenario": "C",
+      "training": "training-capped-at-one",
+      "parameters": {
+        "ce": 275000,
+        "cj": 297000,
+        "qe": 2,
+        "qj": 1,
+        "months": 4,
+        "education": 2,
+        "handover": 0,
+        "fee_e": 40000,
+        "fee_j": 80000,
+        "education_cost": 60000
+      },
+      "minimumJuniorMinusExperienced": -4276000,
+      "maximumJuniorMinusExperienced": -676000
+    }
+  ],
+  "payroll": {
+    "entries": [
+      {
+        "dr": {
+          "給料": 300000
+        },
+        "cr": {
+          "未払費用": 300000
+        }
+      },
+      {
+        "dr": {
+          "法定福利費": 45000
+        },
+        "cr": {
+          "未払費用": 45000
+        }
+      },
+      {
+        "dr": {
+          "未払費用": 300000
+        },
+        "cr": {
+          "普通預金": 260000,
+          "預り金": 40000
+        }
+      },
+      {
+        "dr": {
+          "未払費用": 45000,
+          "預り金": 35000
+        },
+        "cr": {
+          "普通預金": 80000
+        }
+      },
+      {
+        "dr": {
+          "預り金": 5000
+        },
+        "cr": {
+          "普通預金": 5000
+        }
+      }
+    ],
+    "balances": {
+      "給料": 300000,
+      "未払費用": 0,
+      "法定福利費": 45000,
+      "普通預金": -345000,
+      "預り金": 0
+    },
+    "expense": 345000,
+    "cashOut": 345000
+  },
+  "limits": [
+    "仮の式の検査であり、現行ゲームで店長の効果を測定したものではない",
+    "格子の比率は実在候補の確率ではない。lo/hi内の独立な角点の件数",
+    "育成中の枠の定義が曖昧なため2解釈を別々に評価",
+    "現行初店の5枠の機会損失・追加店の利益は未測定"
+  ]
+}
