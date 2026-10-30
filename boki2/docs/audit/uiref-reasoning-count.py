@@ -63,8 +63,8 @@ for r in rows:
     v = c[5].replace('*', '')
     verdict[v] += 1
     if v == '不当': unfair.append(c[0])
-    if not re.search(r'【(確かめた|問い)】', c[4]): untagged.append(c[0] + ' 逆の結論')
-    if c[6] not in ('なし',) and not re.search(r'【(確かめた|問い)】', c[6]): untagged.append(c[0] + ' 直し方')
+    if not re.search(r'【(確かめた|問い)[】：]', c[4]): untagged.append(c[0] + ' 逆の結論')
+    if c[6] not in ('なし',) and not re.search(r'【(確かめた|問い)[】：]', c[6]): untagged.append(c[0] + ' 直し方')
 print('■ 2. 判定')
 print(f'  妥当 {verdict["妥当"]}・弱い {verdict["弱い"]}・不当 {verdict["不当"]}（合計 {sum(verdict.values())}）')
 other = {k: v for k, v in verdict.items() if k not in ('妥当', '弱い', '不当')}
