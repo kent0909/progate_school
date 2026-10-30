@@ -608,6 +608,48 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "rent23",
+     "desc": "東京23区の1階の小さな飲食店の坪家賃・保証金の月数・居抜きの造作譲渡の相場と、家賃と地価・人通りの関係（出店の地図の候補地の家賃、DESIGN-STATIONMAP 4.4。2026-10-30）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
+    }
+   ]
+  },
+  {
+   "id": "geo",
+   "name": "出店の地図の元データ（国土交通省 国土数値情報：駅別乗降客数・鉄道・行政区域・用途地域・地価公示・都道府県地価調査）",
+   "hosts": [
+    "nlftp.mlit.go.jp"
+   ],
+   "tos": {
+    "checked": "2026-10-30",
+    "verdict": "ok",
+    "min_interval_s": 2,
+    "urls": [
+     "https://nlftp.mlit.go.jp/ksj/other/agreement.html"
+    ],
+    "note": "国土数値情報ダウンロードサイト利用規約（2026-03-23 施行）：公共データ利用規約（PDL1.0）を適用。出典の記載が必要で、加工したときは加工したことと元のデータ名を書く。加工した情報を国が作ったように見せない。データごとの使用許諾は個別ページ：S12-25・N02-25・N03-2026・L01-26・L02-26 は CC BY 4.0、A29-19 は CC BY 4.0（一部制限、都市計画の原典の注意事項に従う）。robots.txt は置かれていない（HTMLが返る）。2026-10-30 取りまとめ役が確認"
+   },
+   "collections": [
+    {
+     "id": "geospec",
+     "desc": "各データの説明ページ（使用許諾・属性の定義）と利用規約",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
+    },
+    {
+     "id": "geodata",
+     "desc": "データ本体（zip）。加工して boki2/js/data/ の駅・候補地のデータを作る。原文（zip）はリポジトリに入れず、加工の手順は tools/stations-build.py に残す",
+     "need_notes": false,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   }

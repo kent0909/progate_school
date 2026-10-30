@@ -39,3 +39,5 @@
 | 2026-10-25 | web/learnsci/r11-ju-ponce2021-dragdrop-reading | https://largescaleassessmentsineducation.springeropen.com/articles/10.1186/s40536-021-00095-4 | robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた | 未 |
 | 2026-10-25 | web/learnsci/r11-ju-noor2016-swipe-errors | https://eprints.gla.ac.uk/114779/ | robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた | 未 |
 | 2026-10-25 | web/learnsci/r11-ju-ploetzner2021-anim-static | https://link.springer.com/article/10.1007/s11251-021-09541-w | robots.txt が禁じるパス（Disallow: /）。道具が自動で確かめた | 未 |
+| 2026-10-30 | web/rent23/ins-st289 | https://www.inshokuten.com/bukken/kanto/bukkens/list/local-23ward/station-289/floor-1 | 飲食店ドットコムの駅ページは取得の道具に 403 を返す（人の閲覧は可）。北千住駅の1階の物件一覧と、ページに出る「平均坪単価」。BIZ-RENT23 の地名の例（23区の外れの大きな駅）に使う | 未 |
+| 2026-10-30 | web/rent23/ins-st-others | 飲食店ドットコム「店舗物件探し」で駅を選び「1階」に絞ったページ：下北沢・三軒茶屋・高円寺・中野・赤羽・蒲田・錦糸町・十条・西荻窪（23区内なら代わりの駅でも可） | 同上（403）。住宅地・商店街の駅の1階の家賃の資料が他に見つからない。BIZ-RENT23 の表の「地価100万円/㎡未満」と「住宅地」の列が資料なしのまま | 未 |
