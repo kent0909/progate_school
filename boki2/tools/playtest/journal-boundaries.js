@@ -2,10 +2,13 @@
 // 入れなかった操作が誤答に数えられないこと、連打とキャンセルを確かめる。
 'use strict';
 const assert = require('node:assert/strict'), { chromium } = require(process.env.PIYO_PLAYWRIGHT || 'playwright');
+const { browserPath } = require('./bot-runs');
 const { prepare, move, server } = require('./journal-inputs');
 (async () => {
-  const { s, origin } = await server(), b = await chromium.launch({ executablePath: process.env.PIYO_CHROMIUM || '/usr/bin/chromium', args: ['--no-sandbox'] });
+  const { s, origin } = await server();
+  let b;
   try {
+    b = await chromium.launch({ executablePath: browserPath(), args: ['--no-sandbox'] });
     for (const width of [390, 1280]) {
       const c = await b.newContext({ viewport: { width, height: 900 }, hasTouch: true, reducedMotion: 'reduce' }); await c.route('**/*', r => r.request().url().startsWith(origin + '/') ? r.continue() : r.abort()); const p = await c.newPage(); p.setDefaultTimeout(5000); await prepare(p, origin);
       await p.locator('[data-card="0-1"]').focus(); await p.keyboard.press('Space'); await p.keyboard.press('ArrowLeft'); await p.keyboard.press('Escape');
@@ -41,5 +44,5 @@ const { prepare, move, server } = require('./journal-inputs');
       await move(p, '1-0', 'L', 'tap'); await move(p, '1-1', 'R', 'tap');
       assert.equal(await p.locator('.j-ghost').count(), 0); await c.close(); console.log(`OK：${width} Esc・小さいスワイプ・縦スクロール・touchCancel・連打300ms・連続誤答の保持・2枚の個別ロック`);
     }
-  } finally { await b.close(); s.close(); }
+  } finally { try { if (b) await b.close(); } finally { await new Promise(r => s.close(r)); } }
 })().catch(e => { console.error(e); process.exitCode = 1; });

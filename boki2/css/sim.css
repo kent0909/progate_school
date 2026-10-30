@@ -517,7 +517,7 @@ html.s-big .cbt-head { position: static !important; }
 .j-book-card { font:inherit; border:0; background:transparent; color:inherit; display:block; width:100%; text-align:left; min-height:44px; overflow-wrap:anywhere; cursor:pointer; }
 .j-complete { background:#eef5f2; }
 .j-feedback { background:#fff1dc; border-left:4px solid #ab5529; padding:.6rem; }
-.j-circle { color:#417960; font-size:1.6rem; font-weight:bold; text-align:center; margin:.2rem; }
+.j-circle { display:inline-block; color:#417960; font-size:1.6rem; font-weight:bold; text-align:center; margin:.2rem; }
 .j-demo-hand { display:inline-block; position:absolute; font-size:2rem; pointer-events:none; }
 .j-reverse { background:#fff1c3; padding:.35rem; font-weight:bold; }
 .j-sound-prompt { padding:.5rem; background:#fff1c3; }

@@ -209,7 +209,7 @@
         }
           anim(row, [{ backgroundColor: '#fff4bd' }, { backgroundColor: '#eef5f2' }], { duration: 150 });
         }, delay);
-        const circle = root.closest('.j-layout')?.querySelector('[data-circle]'); if (circle) anim(circle, settings.motion === 'calm' ? [{ opacity: 0 }, { opacity: 1 }] : [{ transform: 'scale(.6)' }, { transform: 'scale(1.15)' }, { transform: 'scale(1)' }], { delay: phase('row', 'circle').start, duration: phase('row', 'circle').duration, fill: 'backwards' });
+        const circle = row?.querySelector('[data-circle]'); if (circle) anim(circle, settings.motion === 'calm' ? [{ opacity: 0 }, { opacity: 1 }] : [{ transform: 'scale(.6)' }, { transform: 'scale(1.15)' }, { transform: 'scale(1)' }], { delay: phase('row', 'circle').start, duration: phase('row', 'circle').duration, fill: 'backwards' });
       },
       speech(el, full) {
         if (!el || settings.motion === 'calm') return;

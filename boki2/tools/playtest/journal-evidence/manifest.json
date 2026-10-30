@@ -1,5 +1,4 @@
 {
-  "commit": "366e739bf63c48c7eb43d908486bf50ec0ec7169",
   "noteChecks": 15,
   "boundaryWidths": [
     390,
@@ -9,122 +8,122 @@
     {
       "file": "390-rich.png",
       "source": [
-        "390-rich-0-1792941872058.png",
-        "390-rich-80-1792941872228.png",
-        "390-rich-170-1792941872473.png",
-        "390-rich-80-1792941872647.png",
-        "390-rich-150-1792941872878.png",
-        "390-rich-200-1792941873183.png"
+        "390-rich-0-1793341990649.png",
+        "390-rich-80-1793341990818.png",
+        "390-rich-170-1793341991056.png",
+        "390-rich-80-1793341991260.png",
+        "390-rich-150-1793341991495.png",
+        "390-rich-200-1793341991792.png"
       ],
       "captureOffsetsMs": [
         0,
-        170,
-        415,
-        589,
-        820,
-        1125
+        169,
+        407,
+        611,
+        846,
+        1143
       ],
-      "sha256": "833819590279afd0a2cd51ecaf6d2342fe471319e7b281ee7b6a4c9485f61741"
+      "sha256": "bfbc1d424dc897bbaecfbc038cb6ae769fad6a9d7edd6a14d53a9da0f6eb23af"
     },
     {
       "file": "390-normal.png",
       "source": [
-        "390-normal-0-1792941876991.png",
-        "390-normal-80-1792941877139.png",
-        "390-normal-170-1792941877393.png",
-        "390-normal-80-1792941877554.png",
-        "390-normal-150-1792941877781.png",
-        "390-normal-200-1792941878062.png"
+        "390-normal-0-1793341996358.png",
+        "390-normal-80-1793341996603.png",
+        "390-normal-170-1793341996900.png",
+        "390-normal-80-1793341997100.png",
+        "390-normal-150-1793341997339.png",
+        "390-normal-200-1793341997755.png"
       ],
       "captureOffsetsMs": [
         0,
-        148,
-        402,
-        563,
-        790,
-        1071
+        245,
+        542,
+        742,
+        981,
+        1397
       ],
-      "sha256": "81e1dd3f0a290b51daf505647968aff5243e038b31ae31ac299af09a1db219b8"
+      "sha256": "4ede4810b3f3603cf3a4dae2ac47ffe5ed9812094cfefb279fd438c7e13548d6"
     },
     {
       "file": "390-calm.png",
       "source": [
-        "390-calm-0-1792941881831.png",
-        "390-calm-80-1792941882019.png",
-        "390-calm-170-1792941882264.png",
-        "390-calm-80-1792941882444.png",
-        "390-calm-150-1792941882685.png",
-        "390-calm-200-1792941882966.png"
+        "390-calm-0-1793342003003.png",
+        "390-calm-80-1793342003194.png",
+        "390-calm-170-1793342003500.png",
+        "390-calm-80-1793342003664.png",
+        "390-calm-150-1793342003902.png",
+        "390-calm-200-1793342004211.png"
       ],
       "captureOffsetsMs": [
         0,
-        188,
-        433,
-        613,
-        854,
-        1135
+        191,
+        497,
+        661,
+        899,
+        1208
       ],
-      "sha256": "db942584fb2a72d7f4cd86132832bc9fa495adb91a69ebe2fd14b68b52ff6f84"
+      "sha256": "2ab980b82181bb4f63fd045b6ffbd651f977b7f1c71b8e440bee42323fbf2e70"
     },
     {
       "file": "1280-rich.png",
       "source": [
-        "1280-rich-0-1792941887413.png",
-        "1280-rich-80-1792941887629.png",
-        "1280-rich-170-1792941888053.png",
-        "1280-rich-80-1792941888248.png",
-        "1280-rich-150-1792941888490.png",
-        "1280-rich-200-1792941888776.png"
+        "1280-rich-0-1793342008172.png",
+        "1280-rich-80-1793342008337.png",
+        "1280-rich-170-1793342008592.png",
+        "1280-rich-80-1793342008770.png",
+        "1280-rich-150-1793342009032.png",
+        "1280-rich-200-1793342009306.png"
       ],
       "captureOffsetsMs": [
         0,
-        216,
-        640,
-        835,
-        1077,
-        1363
+        165,
+        420,
+        598,
+        860,
+        1134
       ],
-      "sha256": "8cee54c36b52caaf84596b4b43ee2d764bfaee88e860b4c45d280f87b5a132cf"
+      "sha256": "5e8337e22b5a35a77537c53e0bcf54b511f30b1b4cf64e820381bae3789528ec"
     },
     {
       "file": "1280-normal.png",
       "source": [
-        "1280-normal-0-1792941895077.png",
-        "1280-normal-80-1792941895314.png",
-        "1280-normal-170-1792941895969.png",
-        "1280-normal-80-1792941896192.png",
-        "1280-normal-150-1792941896486.png",
-        "1280-normal-200-1792941897193.png"
+        "1280-normal-0-1793342013533.png",
+        "1280-normal-80-1793342013719.png",
+        "1280-normal-170-1793342013995.png",
+        "1280-normal-80-1793342014179.png",
+        "1280-normal-150-1793342014419.png",
+        "1280-normal-200-1793342014683.png"
       ],
       "captureOffsetsMs": [
         0,
-        237,
-        892,
-        1115,
-        1409,
-        2116
+        186,
+        462,
+        646,
+        886,
+        1150
       ],
-      "sha256": "cf4117f6f5f62cc3fc94b5f17ae43aacd3071bf67f8fb436b48a07122ae98aa4"
+      "sha256": "e3867ba3d693410a2a7c8dab23c7c992a413e14725d5fa14563c232ea8702e85"
     },
     {
       "file": "1280-calm.png",
       "source": [
-        "1280-calm-0-1792941901946.png",
-        "1280-calm-80-1792941902152.png",
-        "1280-calm-170-1792941902430.png",
-        "1280-calm-80-1792941902604.png",
-        "1280-calm-150-1792941902843.png",
-        "1280-calm-200-1792941903109.png"
+        "1280-calm-0-1793342019040.png",
+        "1280-calm-80-1793342019219.png",
+        "1280-calm-170-1793342019484.png",
+        "1280-calm-80-1793342019694.png",
+        "1280-calm-150-1793342019929.png",
+        "1280-calm-200-1793342020214.png"
       ],
       "captureOffsetsMs": [
         0,
-        206,
-        484,
-        658,
-        897,
-        1163
+        179,
+        444,
+        654,
+        889,
+        1174
       ],
-      "sha256": "626c2c1e2b398c446944c60525d435c57728c2509ebc7ec0d5e01d9eaf9a5505"
+      "sha256": "42556251681bb505646e946d9a86d2e6efaad9c03d4163dd58a2db48cdd4b1db"
     }
   ],
   "meaning": "並びは画面写真の取得順。時刻は最初の取得要求からの実測差で、描画と写真の保存に要した時間も含む。動画の全長とCSSの時間の線は別に確認する。",
@@ -186,38 +185,84 @@
       "configHash": "0096532e6376d62c464764c856edc2a093dc440582ce56744d2b15fe989b8d65"
     }
   ],
-  "appliedCommit": "6857f8613414287442fa106cf7c209b546c27c07",
-  "afterCaptureChanges": "コメント6405792276に従い、既存値を変えずに設計節・lo/hi・推論と世界の係数との区別を追記",
   "videosRetainedLocally": [
     {
-      "file": "390-rich.webm",
-      "bytes": 582342,
-      "sha256": "85a6128c1f84e39898e1f6bfb24222ddfe11d6b640b8f607fa0511799d4cd190"
-    },
-    {
-      "file": "390-normal.webm",
-      "bytes": 500891,
-      "sha256": "15fbff1ec3eb160588efc05348e1ce7e567b5bf3b3cc8ae1841a480d791f865c"
-    },
-    {
-      "file": "390-calm.webm",
-      "bytes": 560251,
-      "sha256": "c83a59aa8443c71a42520026b7b5481dddee8c7b09df031ae25d48f20494b666"
-    },
-    {
-      "file": "1280-rich.webm",
-      "bytes": 775845,
-      "sha256": "8b969065e16f2b472d4c1db89cf74ab3c49c85715d5c076ca1a76539611cfc1d"
+      "file": "1280-calm.webm",
+      "bytes": 610652,
+      "sha256": "3ff07a65148120a28fb40adf426ee7882821f331a3e19934aef683c4283c808f"
     },
     {
       "file": "1280-normal.webm",
-      "bytes": 787593,
-      "sha256": "60a302b78e04fcd7cbe417765d9498994aaadae92760fb9dcd9476024717cb57"
+      "bytes": 700984,
+      "sha256": "d2fd3f854529b4a9e48ee56dc0bc1f21d34287e74cfe602159c6207b31545a79"
     },
     {
-      "file": "1280-calm.webm",
-      "bytes": 700829,
-      "sha256": "f1c86b8d209840bb748bf2e03202643cdc0f5d626338b9bc7ec976f31926663c"
+      "file": "1280-rich.webm",
+      "bytes": 644930,
+      "sha256": "b62447ebdcb0912b5afc34fa72e858f5ba57f6e27fccbbb768f98d1ddf2b6ea9"
+    },
+    {
+      "file": "390-calm.webm",
+      "bytes": 575834,
+      "sha256": "05993c17677c9ccdf87c01ede3f09ee8a5d6975f9976048ba5146458367bfe0d"
+    },
+    {
+      "file": "390-normal.webm",
+      "bytes": 643150,
+      "sha256": "667f190e3689306ed020553712a4130838f98cc47e628bf7f1de605342ea2889"
+    },
+    {
+      "file": "390-rich.webm",
+      "bytes": 577226,
+      "sha256": "fb20035f5263a3e3a8d323ed397c4f2b1b2815a9459d649ae0223c412ddae4bd"
     }
-  ]
+  ],
+  "baseCommit": "6857f8613414287442fa106cf7c209b546c27c07",
+  "reviewComment": "6406936959",
+  "sourceFilesSha256": {
+    "boki2/js/sim/engine.js": "0e9398759215a468e986b9209cf8cb67ad44a4521ca2dca9256f01cf09a6ac44",
+    "boki2/js/sim/journal-ui.js": "1d524e0bcba723c6fc0c20051e60b5db2a18fec4c5065a9267a50759c958568b",
+    "boki2/css/sim.css": "c18e269bdb12ce5c880367b7672bc2038058b430e175c37ef77cf403c2d12bf9",
+    "boki2/tools/playtest/journal-inputs.js": "592e533dd0f3bb204be544af8ede5ad36716557a243744f473be7ad1195bd422",
+    "boki2/tools/playtest/journal-boundaries.js": "779d02fc2a0bb70b7be3795c6b689d30bda617642d1e3e58aa7d79d7ac68ec5c"
+  },
+  "reviewChecks": {
+    "noteChecks": 15,
+    "naturalDemoWithoutSoundAnswer": [
+      390,
+      1280
+    ],
+    "reasonBelowEventAndCircleInBookrow": true,
+    "missingChromiumExitCode": 1,
+    "missingChromiumSeconds": {
+      "journal-inputs": 4.56,
+      "journal-boundaries": 1.36
+    },
+    "boundaryWidths": [
+      390,
+      1280
+    ],
+    "simCheck": {
+      "branches": 12692,
+      "alt": 86548
+    },
+    "ramen300": {
+      "result": "前回実行済み・計算系の変更なし",
+      "seconds": 3506.0
+    },
+    "logs": {
+      "journal-review-four-retry.log": {
+        "sha256": "e29dc8962b384d0ba2c0b4b299ab1bcc1323ee3b85183e75ace2b2c8f08481fe",
+        "result": "OK：noteの問いの手がかり・6枚の札・符号・手本・3行目の発見\nOK：コメント6405792276の条件（置き値ごとの設計節・lo/hi）\nOK：時間の線 note 650ms・行がそろった680ms・書類630ms、1つ400ms以内、控えめは色と不透明度\nOK：古いv4互換・設定の共有・初回列の保存・2MiB上限\nOK：札と列の取っ手・読み上げの名前・状態通知（実画面は--browser）\nOK：390 tap note完走・5枚の初回列・保存・名前・はみ出しなし\nOK：390 keyboard note完走・5枚の初回列・保存・名前・はみ出しなし\nOK：390 drag note完走・5枚の初回列・保存・名前・はみ出しなし\nOK：390 swipe note完走・5枚の初回列・保存・名前・はみ出しなし\nOK：1280 tap note完走・5枚の初回列・保存・名前・はみ出しなし\nOK：1280 keyboard note完走・5枚の初回列・保存・名前・はみ出しなし\nOK：1280 drag note完走・5枚の初回列・保存・名前・はみ出しなし\nOK：1280 swipe note完走・5枚の初回列・保存・名前・はみ出しなし\nOK：誤答後のロックと再開・最初の列の保持・手本1枚だけを戻して修正\nOK：390 rich 録画・連続画面写真・実Animation\nOK：390 normal 録画・連続画面写真・実Animation\nOK：390 calm 録画・連続画面写真・実Animation\nOK：1280 rich 録画・連続画面写真・実Animation\nOK：1280 normal 録画・連続画面写真・実Animation\nOK：1280 calm 録画・連続画面写真・実Animation\nOK：noteブラウザ検査 15件"
+      },
+      "journal-review-boundaries.log": {
+        "sha256": "e68a14f20b778c187ad49be0bf4218c5cb5789f7bce2bdaa1b856283572a758f",
+        "result": "OK：390 Esc・小さいスワイプ・縦スクロール・touchCancel・連打300ms・連続誤答の保持・2枚の個別ロック\nOK：1280 Esc・小さいスワイプ・縦スクロール・touchCancel・連打300ms・連続誤答の保持・2枚の個別ロック"
+      },
+      "journal-review-sim.log": {
+        "sha256": "b08a097496e3abe83adda4718e73b6c91979c724b7d5b6840cdce97ae4081338",
+        "result": "OK：12692 本の分かれ道で検算した（会社の書き方 alt 86548 件も検算。結末：be5-warn 6684・be10-warn 4・be5-final 1300・be3-warn 1300・be1-warn 228・be1-final 228・be5-quit 76・be3-final 1296）"
+      }
+    }
+  }
 }

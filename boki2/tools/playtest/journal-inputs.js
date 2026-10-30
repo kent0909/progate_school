@@ -2,6 +2,7 @@
 // note の実入力による通し検査。外部リクエストは遮断。進行状態を注入しない。
 'use strict';
 const assert = require('node:assert/strict'), fs = require('node:fs'), path = require('node:path'), http = require('node:http');
+const { browserPath } = require('./bot-runs');
 const { chromium } = require(process.env.PIYO_PLAYWRIGHT || 'playwright');
 const auto = require('./auto.js');
 const ROOT = path.resolve(__dirname, '../..'), OUT = path.resolve(process.env.JOURNAL_OUT || 'work/journal-evidence');
@@ -23,18 +24,25 @@ async function move(p, id, side, input) {
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await cdp.detach();
   }
 }
-async function prepare(p, origin) {
+async function prepare(p, origin, naturalDemo = false) {
   await p.goto(origin + '/ramen.html');
   const r = await auto(p, { style: 'idle', maxSteps: 100, stopWhen: async () => exists(p, '[data-journal]') }); assert(r.stopped); assert.deepEqual(r.overflow, []);
-  if (await exists(p, '[data-j-sound]')) await p.click('[data-j-sound="off"]');
-  if (await exists(p, '[data-demo-skip]')) await p.click('[data-demo-skip]');
+  assert.equal(await p.locator('[data-j-sound]').count(), 0, 'ノートで音の返事を待たない');
+  if (naturalDemo) {
+    await p.waitForSelector('[data-placed="0-0"]', { timeout: 4000 });
+    assert.equal(await p.evaluate(() => !!window.__sim.S.soundAsked), false, '音を選ばずに手本が進む');
+  } else if (await exists(p, '[data-demo-skip]')) await p.click('[data-demo-skip]');
   await p.waitForTimeout(510);
 }
 async function complete(p, input) {
   for (let step = 0; step < 30; step++) {
     if (await exists(p, '[data-step]')) return;
     if (await exists(p, '[data-ask]')) { await p.click('[data-ask="2-0"]'); continue; }
-    if (await exists(p, '[data-note-reason]')) { const li = (await p.getAttribute('[data-note-reason]', 'data-note-reason')).split('-')[0]; const sel = `[data-note-reason="${li}-0"]`; await p.click(sel); await p.waitForSelector(sel, { state: 'detached' }); continue; }
+    if (await exists(p, '[data-note-reason]')) { const li = (await p.getAttribute('[data-note-reason]', 'data-note-reason')).split('-')[0]; const sel = `[data-note-reason="${li}-0"]`;
+      assert(await p.locator('[data-note-title]').evaluate(el => el.nextElementSibling.hasAttribute('data-note-reason-block')), '理由は出来事のすぐ下');
+      assert.equal(await p.locator('.j-center [data-circle]').count(), 0, '○を操作ボタンの間に出さない');
+      assert.equal(await p.locator(`[data-bookrow="${li}"] [data-circle]`).count(), 1, 'そろった帳簿の行に○');
+      await p.click(sel); await p.waitForSelector(sel, { state: 'detached' }); continue; }
     const id = await p.getAttribute('[data-card]', 'data-card'); assert(id, '次の札がある');
     const side = await p.evaluate(id => { const [li, ci] = id.split('-').map(Number); return window.__sim.events()[window.__sim.S.ei].steps.find(s => s.k === 'note').lines[li].cards[ci].side; }, id);
     await move(p, id, side, input);
@@ -44,13 +52,14 @@ async function complete(p, input) {
 }
 async function main() {
   fs.mkdirSync(OUT, { recursive: true }); const { s, origin } = await server();
-  const b = await chromium.launch({ executablePath: process.env.PIYO_CHROMIUM || '/usr/bin/chromium', headless: true, args: ['--no-sandbox'] });
-  let checks = 0;
+  let b;
   try {
+    b = await chromium.launch({ executablePath: browserPath(), headless: true, args: ['--no-sandbox'] });
+    let checks = 0;
     for (const width of [390, 1280]) for (const input of ['tap', 'keyboard', 'drag', 'swipe']) {
       const errors = [], c = await b.newContext({ viewport: { width, height: 900 }, hasTouch: input === 'swipe', reducedMotion: 'reduce' });
       await c.route('**/*', r => r.request().url().startsWith(origin + '/') ? r.continue() : r.abort());
-      const p = await c.newPage(); p.on('pageerror', e => errors.push(e.message)); p.setDefaultTimeout(5000); await prepare(p, origin);
+      const p = await c.newPage(); p.on('pageerror', e => errors.push(e.message)); p.setDefaultTimeout(5000); await prepare(p, origin, input === 'tap');
       if (width === 1280) assert(await p.locator('[data-journal]').evaluate(el => el.getBoundingClientRect().width > 1000), 'PCは3段の枠を広く使う');
       assert.match(await p.locator('[data-card="0-1"]').getAttribute('aria-label'), /手札/);
       assert.match(await p.locator('[data-placed="0-0"]').getAttribute('aria-label'), /押すと直せる/);
@@ -85,7 +94,7 @@ async function main() {
       console.log(`OK：${width} ${motion} 録画・連続画面写真・実Animation`);
     }
     console.log(`OK：noteブラウザ検査 ${checks}件`);
-  } finally { await b.close(); s.close(); }
+  } finally { try { if (b) await b.close(); } finally { await new Promise(r => s.close(r)); } }
 }
 if (require.main === module) main().catch(e => { console.error(e); process.exitCode = 1; });
 module.exports = { main, prepare, complete, move, server };
