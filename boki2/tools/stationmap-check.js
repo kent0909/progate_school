@@ -26,7 +26,7 @@ const out = (n,s) => console.log(`[${n}] ${s}`);
     browser=await chromium.launch({headless:true,...(process.env.STATIONMAP_CHROMIUM?{executablePath:process.env.STATIONMAP_CHROMIUM}:fs.existsSync('/usr/bin/chromium')?{executablePath:'/usr/bin/chromium'}:{})});
     out('環境',`Chromium ${browser.version()}`);
     const errors=[], external=[];
-    async function monitored(options){const c=await browser.newContext(options);await c.route('**/*',route=>{if(new URL(route.request().url()).origin!==origin){external.push(route.request().url());return route.abort();}return route.continue();});c.on('page',p=>p.on('pageerror',e=>errors.push(e.message)));return c;}
+    async function monitored(options){const c=await browser.newContext(options);await c.route('**/*',route=>{if(new URL(route.request().url()).origin!==origin){external.push(route.request().url());return route.abort();}return route.continue();});c.on('page',p=>p.on('pageerror',e=>errors.push(e.stack||e.message)));return c;}
     const context=await monitored({viewport:{width:1440,height:1000}});
     const page=await context.newPage();
     async function load(){await page.goto(origin+'/boki2/stationmap-demo.html');await page.waitForFunction(()=>window.mountPaintMs>0);await page.waitForTimeout(350);}
@@ -38,24 +38,48 @@ const out = (n,s) => console.log(`[${n}] ${s}`);
       let overlaps=0;for(let i=0;i<rects.length;i++)for(let j=i+1;j<rects.length;j++){const a=rects[i],b=rects[j];if(a.left<b.right&&b.left<a.right&&a.top<b.bottom&&b.top<a.bottom)overlaps++;}
       return {overlaps,small:rects.filter(r=>r.width<44||r.height<44).length,rects:rects.length,overflow:document.documentElement.scrollWidth>innerWidth,clipped:rects.filter(r=>r.left<vp.left||r.right>vp.right||r.top<vp.top||r.bottom>vp.bottom).length};
     });}
+    async function textGeometry(){return page.evaluate(()=>{
+      const viewport=document.querySelector('.sm-viewport'),v=viewport.getBoundingClientRect();
+      const visible=selector=>[...viewport.querySelectorAll(selector)].map(el=>({el,text:el.textContent,box:el.getBoundingClientRect()})).filter(({box:b})=>b.width>0&&b.height>0&&b.left<v.right&&b.right>v.left&&b.top<v.bottom&&b.bottom>v.top);
+      const labels=visible('.sm-station-label,.sm-ward-label,.sm-town,.sm-ward-entry-name');
+      const marks=visible('.sm-dot,.sm-site:not([hidden]) .sm-symbol,.sm-site:not([hidden]) .sm-owner,.sm-cluster');
+      const collides=(a,b)=>a.left<b.right&&b.left<a.right&&a.top<b.bottom&&b.top<a.bottom;
+      let overlap=0,covered=0;const examples=[];
+      for(let i=0;i<labels.length;i++){
+        for(let j=i+1;j<labels.length;j++)if(collides(labels[i].box,labels[j].box)){overlap++;if(examples.length<5)examples.push(labels[i].text+' × '+labels[j].text);}
+        for(const mark of marks)if(!mark.el.contains(labels[i].el)&&collides(labels[i].box,mark.box)){covered++;if(examples.length<5)examples.push(labels[i].text+' × 印 '+mark.text);}
+      }
+      return {labels:labels.length,overlap,covered,examples};
+    });}
     await load();
     const counts=await page.evaluate(()=>({wards:document.querySelectorAll('[data-ward]').length,stations:document.querySelectorAll('[data-station]').length,sites:document.querySelectorAll('[data-site]').length,lines:document.querySelectorAll('[data-line]').length,dots:document.querySelectorAll('[data-pin-dot]').length}));
     const data=await page.evaluate(()=>SIMDATA.tokyo23);
     const expected={wards:data.wards.length,stations:data.stations.length,sites:data.sites.length,lines:data.lines.length,dots:data.sites.length};
     assert.deepEqual(counts,expected);out(1,`DOM=${JSON.stringify(counts)} データ=${JSON.stringify(expected)} --ops=${data.ops||'jm'}`);
+    const stationIds=await page.locator('[data-station]').evaluateAll(ns=>ns.map(n=>n.dataset.station).sort());assert.deepEqual(stationIds,data.stations.map(s=>s.id).sort());out('駅',`ピン0本の駅=${data.stations.filter(st=>!data.sites.some(s=>s.st===st.id)).length} を含め、全駅IDとDOMが一致`);
     const palette=await page.locator('[data-line]').evaluateAll(nodes=>nodes.map(n=>({op:n.dataset.op,color:n.getAttribute('stroke')})));const byOp=new Map();for(const p of palette){if(byOp.has(p.op))assert.equal(byOp.get(p.op),p.color);byOp.set(p.op,p.color);}assert.equal(new Set(byOp.values()).size,byOp.size);out('路線色',`事業者=${byOp.size} 各社内の色一致・社ごとの区別: 通過`);
     const shibuya=data.stations.find(s=>s.name==='渋谷'), shibuyaSites=data.sites.filter(s=>s.st===shibuya.id);
     assert.ok(shibuyaSites.length>0);
     for(const width of [375,1440]) {
       await page.setViewportSize({width,height:1000});await load();
+      const entries=await page.locator('.sm-cluster').evaluateAll(ns=>ns.map(n=>({opacity:getComputedStyle(n).opacity,animation:getComputedStyle(n).animationName})));assert.ok(entries.every(e=>e.opacity==='1'&&e.animation==='none'));out('入口',`幅${width} まとめ${entries.length}個: 不透明・登場フェードなし`);
+      const overviewText=await textGeometry();assert.ok(overviewText.labels>0);assert.equal(overviewText.overlap,0,JSON.stringify(overviewText));assert.equal(overviewText.covered,0,JSON.stringify(overviewText));out(11,`幅${width} 段①: 文字=${overviewText.labels} 文字どうし=${overviewText.overlap} 印に隠れる文字=${overviewText.covered}`);
       await page.screenshot({path:path.join(artifacts,`${width}-1-overview.png`),fullPage:true});
+      const entrances=await page.locator('[data-ward-entry]').evaluateAll(nodes=>nodes.map(n=>({code:n.dataset.wardEntry,members:n.dataset.members.split(' '),count:+n.querySelector('strong').textContent})));
+      const expectedWards=data.wards.filter(w=>data.sites.some(s=>s.ward===w.name));assert.deepEqual(entrances.map(e=>e.code).sort(),expectedWards.map(w=>w.code).sort());
+      assert.deepEqual(entrances.flatMap(e=>e.members).sort(),data.sites.map(s=>s.id).sort());
+      const entryGeo=await geometry();assert.equal(entryGeo.overlaps,0);assert.equal(entryGeo.small,0);
+      for(const entry of entrances){const ward=data.wards.find(w=>w.code===entry.code);assert.equal(entry.count,data.sites.filter(s=>s.ward===ward.name).length);await page.locator(`[data-ward-entry="${entry.code}"]`).click();assert.equal(await page.locator('.stationmap').getAttribute('data-level'),'2');assert.equal(await page.locator('.stationmap').getAttribute('data-focus-ward'),entry.code);assert.equal(await page.locator('.sm-group').isVisible(),false);await page.locator('[data-action="home"]').click();}
+      out('区入口',`幅${width}: ${entrances.length}区・全${data.sites.length}ピンを所属区で網羅、各入口クリックで段②、入口の重なり0・44px未満0。候補地0の区には入口なし`);
+
       await focus('渋谷');await page.screenshot({path:path.join(artifacts,`${width}-2-shibuya.png`),fullPage:true});
       for(const s of shibuyaSites){await pick(s.id);assert.equal(await page.locator('.sm-card h2').textContent(),s.town);assert.equal(await page.locator('.sm-card .sm-address').textContent(),`${s.ward} / 渋谷駅`);assert.ok((await page.locator('.sm-description').textContent()).includes(s.desc));if(s.id===shibuyaSites[0].id)await page.screenshot({path:path.join(artifacts,`${width}-3-udagawa.png`),fullPage:true});await page.locator('.sm-pick').click();assert.equal(await page.evaluate(()=>window.lastPicked),s.id);await close();}
       out(2,`幅${width} 渋谷${shibuyaSites.length}本をクリック・カード町名とデータ照合・onPick一致: ${shibuyaSites.map(s=>s.town).join('、')}`);
-      let allRects=0,overlap=0,small=0,clipped=0;
+      let allRects=0,overlap=0,small=0,clipped=0,textCount=0,textOverlap=0,textCovered=0;
       // 東京・大手町・日本橋を含む全駅の段②を測る。表示から落ちたピンはまとめに必ず所属する。
-      for(const st of data.stations){await page.evaluate(id=>stationMap.focus(id),st.id);const geo=await geometry();allRects+=geo.rects;overlap+=geo.overlaps;small+=geo.small;clipped+=geo.clipped;assert.equal(geo.overflow,false);const missing=await page.evaluate(()=>{const vp=document.querySelector('.sm-viewport').getBoundingClientRect();const represented=new Set([...document.querySelectorAll('.sm-cluster')].flatMap(b=>b.dataset.members.split(' ')));return [...document.querySelectorAll('.sm-site[hidden]')].filter(b=>{const left=parseFloat(b.style.left),top=parseFloat(b.style.top);return left>=2&&left<=vp.width-46&&top>=2&&top<=vp.height-46&&!represented.has(b.dataset.site);}).length;});assert.equal(missing,0);}
+      for(const st of data.stations){await page.evaluate(id=>stationMap.focus(id),st.id);const geo=await geometry(),text=await textGeometry();textCount+=text.labels;textOverlap+=text.overlap;textCovered+=text.covered;assert.equal(text.overlap,0,st.name+JSON.stringify(text));assert.equal(text.covered,0,st.name+JSON.stringify(text));allRects+=geo.rects;overlap+=geo.overlaps;small+=geo.small;clipped+=geo.clipped;assert.equal(geo.overflow,false);const missing=await page.evaluate(()=>{const vp=document.querySelector('.sm-viewport').getBoundingClientRect();const represented=new Set([...document.querySelectorAll('.sm-cluster')].flatMap(b=>b.dataset.members.split(' ')));return [...document.querySelectorAll('.sm-site[hidden]')].filter(b=>{const left=parseFloat(b.style.left),top=parseFloat(b.style.top);return left>=2&&left<=vp.width-46&&top>=2&&top<=vp.height-46&&!represented.has(b.dataset.site);}).length;});assert.equal(missing,0);}
       assert.equal(overlap,0);assert.equal(small,0);assert.equal(clipped,0);out(3,`幅${width} 全${data.stations.length}駅の段②（東京・大手町・日本橋を含む）: 操作矩形=${allRects} 重なり=${overlap} 44px未満=${small} 切れ=${clipped} まとめからの脱落=0`);
+      assert.equal(textOverlap,0);assert.equal(textCovered,0);out(11,`幅${width} 全${data.stations.length}駅の段②: 文字=${textCount} 文字どうし=${textOverlap} 印に隠れる文字=${textCovered}`);
       await focus('渋谷');const id=shibuyaSites[0].id;let b=page.locator(`[data-site="${id}"]`);if(!await b.isVisible())await page.locator(`.sm-cluster[data-members~="${id}"]`).click();
       // 実際にTabで候補地へ入り、Enterで開く（直接 focus や click で代用しない）。
       await page.locator('select').focus();let reached=false;for(let i=0;i<650;i++){await page.keyboard.press('Tab');const active=await page.evaluate(()=>document.activeElement.dataset.site);if(active){reached=true;const bb=await page.locator(`[data-site="${active}"]`).boundingBox();assert.ok(bb.width>=44&&bb.height>=44);await page.keyboard.press('Enter');await page.waitForTimeout(350);assert.equal(await page.locator('.sm-card h2').textContent(),data.sites.find(s=>s.id===active).town);break;}}assert.ok(reached);out(4,`幅${width} Tabでピンへ移動→Enterでカード一致、44×44px以上`);

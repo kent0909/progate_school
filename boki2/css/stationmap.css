@@ -28,7 +28,7 @@
 .sm-site,.sm-cluster{position:absolute;width:44px;height:44px;min-width:44px;min-height:44px;padding:0;border:0;background:transparent;border-radius:12px;text-align:center;z-index:2;transition:background .18s,box-shadow .18s}
 .sm-site:hover,.sm-site:focus-visible{background:#fff9e8;box-shadow:0 5px 16px #294d4133;z-index:4}
 .sm-symbol{display:inline-block;font-size:22px;text-shadow:0 2px 0 #fff8}
-.sm-town{position:absolute;left:50%;top:38px;transform:translateX(-50%);white-space:nowrap;font-size:10px;font-weight:700;background:#fffbedeb;padding:2px 4px;border-radius:3px;color:var(--ink);pointer-events:none}
+.sm-town{position:absolute;left:50%;top:40px;transform:translateX(-50%);white-space:nowrap;font-size:10px;font-weight:700;background:#fffbedeb;padding:2px 4px;border-radius:3px;color:var(--ink);pointer-events:none}
 .stationmap[data-level="1"] .sm-town{display:none}
 .sm-owner{position:absolute;right:0;top:0;color:#204c41;font-size:15px;background:#fff3cd;border-radius:50%;padding:1px}
 .stationmap .sm-hanka{color:#b44d6b;fill:#b44d6b}
@@ -37,7 +37,7 @@
 .stationmap .sm-jutaku{color:#3c8760;fill:#3c8760}
 .stationmap .sm-kojo{color:#796b99;fill:#796b99}
 .sm-occupied{opacity:.38}
-.sm-cluster{background:#244f45;color:#fff8e5!important;border:3px solid #fff8e0;box-shadow:0 4px 10px #223b4238;font-size:13px!important;font-weight:750;animation:sm-appear .24s both}
+.sm-cluster{background:#244f45;color:#fff8e5!important;border:3px solid #fff8e0;box-shadow:0 4px 10px #223b4238;font-size:13px!important;font-weight:750}
 .sm-cluster:hover{background:#457966}
 .sm-compass{position:absolute;right:20px;top:16px;text-align:center;font-family:serif;font-size:18px;pointer-events:none;color:#59786b}
 .sm-zoom{position:absolute;right:16px;bottom:64px;display:grid;background:#fffdf3;border:1px solid #afc1b4;border-radius:10px;overflow:hidden;box-shadow:0 4px 12px #28483e20}
@@ -137,3 +137,11 @@ to{transform:translateY(0)}
 .sm-operators summary{cursor:pointer;min-height:28px;padding-block:6px}
 .sm-operators>span{display:inline-flex;gap:5px;align-items:center;margin:5px 14px 5px 0}
 .sm-operators i{display:inline-block;width:18px;height:3px;border-radius:2px}
+
+.sm-label-leader{stroke:#718a7d;stroke-width:1;stroke-dasharray:2 2;opacity:.8;pointer-events:none}
+
+.sm-cluster.sm-ward-entry{width:76px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:12px;line-height:1.15}
+.sm-ward-entry-name{font-size:10px;font-weight:600}
+.sm-ward-entry strong{font-size:13px;letter-spacing:.02em}
+
+.sm-entry-owner{position:absolute;right:4px;bottom:3px;font-size:10px;font-style:normal;color:#ffe5ad}
