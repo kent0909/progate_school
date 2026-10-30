@@ -1,0 +1,223 @@
+{
+  "commit": "366e739bf63c48c7eb43d908486bf50ec0ec7169",
+  "noteChecks": 15,
+  "boundaryWidths": [
+    390,
+    1280
+  ],
+  "images": [
+    {
+      "file": "390-rich.png",
+      "source": [
+        "390-rich-0-1792941872058.png",
+        "390-rich-80-1792941872228.png",
+        "390-rich-170-1792941872473.png",
+        "390-rich-80-1792941872647.png",
+        "390-rich-150-1792941872878.png",
+        "390-rich-200-1792941873183.png"
+      ],
+      "captureOffsetsMs": [
+        0,
+        170,
+        415,
+        589,
+        820,
+        1125
+      ],
+      "sha256": "833819590279afd0a2cd51ecaf6d2342fe471319e7b281ee7b6a4c9485f61741"
+    },
+    {
+      "file": "390-normal.png",
+      "source": [
+        "390-normal-0-1792941876991.png",
+        "390-normal-80-1792941877139.png",
+        "390-normal-170-1792941877393.png",
+        "390-normal-80-1792941877554.png",
+        "390-normal-150-1792941877781.png",
+        "390-normal-200-1792941878062.png"
+      ],
+      "captureOffsetsMs": [
+        0,
+        148,
+        402,
+        563,
+        790,
+        1071
+      ],
+      "sha256": "81e1dd3f0a290b51daf505647968aff5243e038b31ae31ac299af09a1db219b8"
+    },
+    {
+      "file": "390-calm.png",
+      "source": [
+        "390-calm-0-1792941881831.png",
+        "390-calm-80-1792941882019.png",
+        "390-calm-170-1792941882264.png",
+        "390-calm-80-1792941882444.png",
+        "390-calm-150-1792941882685.png",
+        "390-calm-200-1792941882966.png"
+      ],
+      "captureOffsetsMs": [
+        0,
+        188,
+        433,
+        613,
+        854,
+        1135
+      ],
+      "sha256": "db942584fb2a72d7f4cd86132832bc9fa495adb91a69ebe2fd14b68b52ff6f84"
+    },
+    {
+      "file": "1280-rich.png",
+      "source": [
+        "1280-rich-0-1792941887413.png",
+        "1280-rich-80-1792941887629.png",
+        "1280-rich-170-1792941888053.png",
+        "1280-rich-80-1792941888248.png",
+        "1280-rich-150-1792941888490.png",
+        "1280-rich-200-1792941888776.png"
+      ],
+      "captureOffsetsMs": [
+        0,
+        216,
+        640,
+        835,
+        1077,
+        1363
+      ],
+      "sha256": "8cee54c36b52caaf84596b4b43ee2d764bfaee88e860b4c45d280f87b5a132cf"
+    },
+    {
+      "file": "1280-normal.png",
+      "source": [
+        "1280-normal-0-1792941895077.png",
+        "1280-normal-80-1792941895314.png",
+        "1280-normal-170-1792941895969.png",
+        "1280-normal-80-1792941896192.png",
+        "1280-normal-150-1792941896486.png",
+        "1280-normal-200-1792941897193.png"
+      ],
+      "captureOffsetsMs": [
+        0,
+        237,
+        892,
+        1115,
+        1409,
+        2116
+      ],
+      "sha256": "cf4117f6f5f62cc3fc94b5f17ae43aacd3071bf67f8fb436b48a07122ae98aa4"
+    },
+    {
+      "file": "1280-calm.png",
+      "source": [
+        "1280-calm-0-1792941901946.png",
+        "1280-calm-80-1792941902152.png",
+        "1280-calm-170-1792941902430.png",
+        "1280-calm-80-1792941902604.png",
+        "1280-calm-150-1792941902843.png",
+        "1280-calm-200-1792941903109.png"
+      ],
+      "captureOffsetsMs": [
+        0,
+        206,
+        484,
+        658,
+        897,
+        1163
+      ],
+      "sha256": "626c2c1e2b398c446944c60525d435c57728c2509ebc7ec0d5e01d9eaf9a5505"
+    }
+  ],
+  "meaning": "並びは画面写真の取得順。時刻は最初の取得要求からの実測差で、描画と写真の保存に要した時間も含む。動画の全長とCSSの時間の線は別に確認する。",
+  "bot390": [
+    {
+      "seed": 0,
+      "ended": true,
+      "stuck": false,
+      "errors": [],
+      "overflow": [],
+      "steps": 594,
+      "configHash": "e75ac6eadf902fa830261d8808560b6b1aca7b2163b47fb0deb543c138bfb49e"
+    },
+    {
+      "seed": 2,
+      "ended": true,
+      "stuck": false,
+      "errors": [],
+      "overflow": [],
+      "steps": 599,
+      "configHash": "e75ac6eadf902fa830261d8808560b6b1aca7b2163b47fb0deb543c138bfb49e"
+    },
+    {
+      "seed": 1,
+      "ended": true,
+      "stuck": false,
+      "errors": [],
+      "overflow": [],
+      "steps": 594,
+      "configHash": "e75ac6eadf902fa830261d8808560b6b1aca7b2163b47fb0deb543c138bfb49e"
+    }
+  ],
+  "bot1280": [
+    {
+      "seed": 0,
+      "ended": true,
+      "stuck": false,
+      "errors": [],
+      "overflow": [],
+      "steps": 593,
+      "configHash": "0096532e6376d62c464764c856edc2a093dc440582ce56744d2b15fe989b8d65"
+    },
+    {
+      "seed": 1,
+      "ended": true,
+      "stuck": false,
+      "errors": [],
+      "overflow": [],
+      "steps": 592,
+      "configHash": "0096532e6376d62c464764c856edc2a093dc440582ce56744d2b15fe989b8d65"
+    },
+    {
+      "seed": 2,
+      "ended": true,
+      "stuck": false,
+      "errors": [],
+      "overflow": [],
+      "steps": 597,
+      "configHash": "0096532e6376d62c464764c856edc2a093dc440582ce56744d2b15fe989b8d65"
+    }
+  ],
+  "appliedCommit": "6857f8613414287442fa106cf7c209b546c27c07",
+  "afterCaptureChanges": "コメント6405792276に従い、既存値を変えずに設計節・lo/hi・推論と世界の係数との区別を追記",
+  "videosRetainedLocally": [
+    {
+      "file": "390-rich.webm",
+      "bytes": 582342,
+      "sha256": "85a6128c1f84e39898e1f6bfb24222ddfe11d6b640b8f607fa0511799d4cd190"
+    },
+    {
+      "file": "390-normal.webm",
+      "bytes": 500891,
+      "sha256": "15fbff1ec3eb160588efc05348e1ce7e567b5bf3b3cc8ae1841a480d791f865c"
+    },
+    {
+      "file": "390-calm.webm",
+      "bytes": 560251,
+      "sha256": "c83a59aa8443c71a42520026b7b5481dddee8c7b09df031ae25d48f20494b666"
+    },
+    {
+      "file": "1280-rich.webm",
+      "bytes": 775845,
+      "sha256": "8b969065e16f2b472d4c1db89cf74ab3c49c85715d5c076ca1a76539611cfc1d"
+    },
+    {
+      "file": "1280-normal.webm",
+      "bytes": 787593,
+      "sha256": "60a302b78e04fcd7cbe417765d9498994aaadae92760fb9dcd9476024717cb57"
+    },
+    {
+      "file": "1280-calm.webm",
+      "bytes": 700829,
+      "sha256": "f1c86b8d209840bb748bf2e03202643cdc0f5d626338b9bc7ec976f31926663c"
+    }
+  ]
+}
