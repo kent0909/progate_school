@@ -2423,5 +2423,10 @@
   "verdict": "gray",
   "basis": "一般社団法人 社会基盤情報流通推進協議会：robots.txt は /wp-admin/ のみ Disallow。AIGID アカウント利用規約に自動取得の明示の禁止なし。2026-10-30 確認",
   "checked": "2026-10-30"
+ },
+ "www.tokyometro.jp": {
+  "verdict": "gray",
+  "basis": "東京メトロ：robots.txt を含めて取得の道具に 403（Akamai の Access Denied）を返す。規約の確認もできないので取らない（WANTED.md）。2026-10-30",
+  "checked": "2026-10-30"
  }
 }
