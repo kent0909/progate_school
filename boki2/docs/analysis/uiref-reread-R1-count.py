@@ -30,3 +30,26 @@ for line in open(os.path.join(here, 'uiref-B-voices.tsv'), encoding='utf8'):
         m = re.search(r'W（([^）]*)）', p[6]); c[m.group(1) if m else '（メモなし）'] += 1
 for k, n in c.most_common(): print(f'   {k}\t{n}')
 print('   計', sum(c.values()))
+print('3) uiref-reread-R1.md の3章の表の行を、「向き」の列の頭の語で数える（反する・悪い面／支える／新しい）')
+md = open(os.path.join(here, 'uiref-reread-R1.md'), encoding='utf8').read()
+sec = md[md.index('## 3. '):md.index('## 4. ')]
+cnt, per = collections.Counter(), collections.Counter()
+cur = None
+for line in sec.split('\n'):
+    if line.startswith('### '): cur = line[4:].split('（')[0].strip(); continue
+    if not line.startswith('| ') or line.startswith('| #') or line.startswith('|---'): continue
+    line = re.sub(r'\[\[web:uiref:([^|\]]+)\|', r'[[web:uiref:\1¦', line)  # 出典の中の | を外す
+    cells = [x.strip() for x in line.strip('|').split('|')]
+    # 3.0 は「文書」の列が1つ多い。出典の列（[[web:）の次が向き
+    i = next(k for k, x in enumerate(cells) if x.startswith('[[web:'))
+    head = cells[i + 1][:3]
+    key = '反する' if head.startswith('反する') else '支える' if head.startswith('支える') else '新しい' if head.startswith('新しい') else '？' + head
+    cnt[key] += 1; per[(cur, key)] += 1
+    if '反する' in cells[i + 1]: cnt['反するを含む'] += 1
+    if cur and cur.startswith('3.0'): cnt['判定書から'] += 1
+for k in ['反する', '支える', '新しい']: print(f'   {k}\t{cnt[k]}')
+others = {k: v for k, v in cnt.items() if k not in ('反する', '支える', '新しい', '反するを含む', '判定書から')}
+if others: print('   ほか', others)
+print('   計', cnt['反する'] + cnt['支える'] + cnt['新しい'], '行')
+print('   向きの列のどこかに「反する」がある行（頭が支える・新しいでも）', cnt['反するを含む'])
+print('   うち 3.0 判定書から', cnt['判定書から'], '行')
