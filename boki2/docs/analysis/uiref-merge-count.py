@@ -8,6 +8,7 @@
 #  4. いまの画面：上部の帯の高さ（画像の画素の色で測る）、CSS の文字の大きさの値の種類（書かれたまま／px にそろえて）、幅390で効く帯の字の大きさ
 #  5. この報告：出典の数、各章の表の行数、5章の段の索引が下書きの「段」の列と合うか
 #  6. 出典の確かめの記録（uiref-merge-cites.tsv）の集計と、報告の出典が全部記録にあるか
+#  8. 版3：判定2への対応表（17章）の行数。
 #  7. 版2：読み直し R1〜R3 の数（各スクリプトの出力）、口コミの数え直し、反映の対象（R1 の「反する」を含む行・R2 の「反する」・R3 の反する／悪い面／訂正）が本文のどの章に入ったか（漏れ・9章だけ・反映表との食い違い）、判定への対応表の行数
 import os, re, subprocess, sys
 from collections import Counter
@@ -208,7 +209,7 @@ for l in chap.get(16, []):
 miss = []; only9 = []; diff = []; per = Counter()
 for t in targets:
     rx = re.compile(re.escape(t) + r'(?!\d)')
-    where = [n for n in sorted(chap) if n not in (15, 16) and any(rx.search(x) for x in chap[n])]
+    where = [n for n in sorted(chap) if n not in (15, 16, 17) and any(rx.search(x) for x in chap[n])]
     for n in where: per[n] += 1
     if not where and not re.search('入れない', table.get(t, '')): miss.append(t)
     if where == [9]: only9.append(t)
@@ -221,4 +222,6 @@ print('  反映表と本文の食い違い:', len(diff), diff[:10])
 print('  章ごとの入った数（1行が複数の章に入る）:', dict(sorted(per.items())))
 j = [l for l in chap.get(15, []) if re.match(r'^\| (直す点|傷)\d+', l)]
 print('  判定への対応表の行:', len(j))
+j2 = [l for l in chap.get(17, []) if re.match(r'^\| (J1|J2)', l)]
+print('  判定2への対応表の行:', len(j2), '（直す点', len([l for l in j2 if re.match(r'^\| J[12]-', l)]), '・既知の傷', len([l for l in j2 if re.match(r'^\| J[12] 傷', l)]), '・うち「直さない」を含む行', len([l for l in j2 if '直さない' in l]), '）')
 sys.exit(1 if (nr or bad or miss or diff) else 0)
