@@ -130,3 +130,10 @@ to{transform:translateY(0)}
 
 
 .sm-selected-dot{paint-order:stroke;stroke:#fff8dd;stroke-width:3px}
+
+.stationmap .sm-shogyo{color:#8a613b;fill:#8a613b}
+.stationmap .sm-other{color:#5f6872;fill:#5f6872}
+.sm-operators{width:100%;font-size:10px;color:var(--muted)}
+.sm-operators summary{cursor:pointer;min-height:28px;padding-block:6px}
+.sm-operators>span{display:inline-flex;gap:5px;align-items:center;margin:5px 14px 5px 0}
+.sm-operators i{display:inline-block;width:18px;height:3px;border-radius:2px}
