@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 const B = path.join(__dirname, '..', '..');
 const rep = fs.readFileSync(path.join(B, 'docs', 'analysis', 'uiref-C-visual.md'), 'utf8');
-const section = (title) => { const m = rep.match(new RegExp('^## ' + title + '.*\\n([\\s\\S]*?)(?=^## |(?![\\s\\S]))', 'm')); return m ? m[1] : ''; };
+const section = (title) => { const m = rep.match(new RegExp('^## .*' + title + '.*\\n([\\s\\S]*?)(?=^## |(?![\\s\\S]))', 'm')); return m ? m[1] : ''; };
 const rows = (s, re) => s.split('\n').filter((l) => re.test(l));
 const ledger = rows(section('実例の台帳'), /^\| C\d+ /);
 const fun = rows(section('楽しさ・面白さに何が効くか'), /^\| F\d+ /);
@@ -24,7 +24,7 @@ console.log('見た画像の一覧の行（Read で開いた参考の画像）',
 const stageCol = (() => { const head = section('実例の台帳').split('\n').find((l) => /^\| 番号 /.test(l)); return head ? head.split('|').map((c) => c.trim()).indexOf('段') : -1; })();
 if (stageCol > 0) {
   const cnt = {};
-  for (const l of ledger) { const v = (l.split('|')[stageCol] || '').trim() || '（空）'; for (const k of v.split(/[・,、\s]+/).filter(Boolean)) cnt[k] = (cnt[k] || 0) + 1; }
+  for (const l of ledger) { const v = (l.replace(/\[\[[^\]]*\]\]/g, 'CITE').split('|')[stageCol] || '').trim() || '（空）'; for (const k of v.split(/[・,、\s]+/).filter(Boolean)) cnt[k] = (cnt[k] || 0) + 1; }
   console.log('段の列の値ごとの行数', JSON.stringify(cnt));
 }
 // 2. ノートの種類
