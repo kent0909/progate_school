@@ -1,0 +1,5 @@
+ramen-y2-check.js：export/mainガード前後の結合ログを比較（時間の除外不要）
+default: before exit=0 / after exit=0 / diff=空 / 23行
+integration: before exit=0 / after exit=0 / diff=空 / 5行
+bridge: before exit=0 / after exit=0 / diff=空 / 3行
+baseline: before exit=0 / after exit=0 / diff=空 / 652行
