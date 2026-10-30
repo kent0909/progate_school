@@ -1996,7 +1996,7 @@
  },
  "is1-ssl.mzstatic.com": {
   "verdict": "gray",
-  "basis": "Apple の画像配信の CDN（App Store の掲載画面写真）。robots.txt は 403 で取得できず、配信の画像に自動取得の禁止の明示は見当たらない。APPLION の掲載ページが表示に使う画像を1枚ずつ目で見るためだけに取得し、転載・再配布はしない",
+  "basis": "Apple の画像配信の CDN（App Store の掲載画面写真）。robots.txt は 403 で取得できず、配信の画像に自動取得の禁止の明示は見当たらない。APPLION の掲載ページが表示に使う画像を1枚ずつ目で見るためだけに取得し、転載・再配布はしない。2026-10-30 オーナーの決定「先例どおり使う」（apps.apple.com の no-automation との関係を示したうえでの選択。docs/OWNER-WORDS.md）",
   "checked": "2026-10-30"
  },
  "upload.wikimedia.org": {
