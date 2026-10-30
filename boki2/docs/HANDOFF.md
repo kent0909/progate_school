@@ -48,6 +48,7 @@
 - 検査：validate / sim-check / lexicon-check / coverage / law-check / research-check。ブラウザ試験は scratchpad の `sim/play2.js`・`sim/room-test.js`・`sim/hall-test.js`・`exam/exam-test.js`（新セッションでは消える）
 
 ## 5. いまやっていること
+- **出店の地図（東京23区の駅と候補地、オーナーの依頼 10/30、ブランチ `claude/beautiful-tesla-pfr5q5`）**：1号店から23区の JR・メトロの駅（187）と候補地（575、地価公示と地価調査の地点、属性5つ）を地図で選ぶ。データ `js/data/tokyo23.js`（`tools/stations-build.py`、国土数値情報）済。設計書 `DESIGN-STATIONMAP.md` 版0.1 は判定中（`docs/audit/DESIGN-STATIONMAP-audit.md`）。Codex への依頼書 `CODEX-TASK-station-map.md`（仕事1：地図の画面の部品、ブランチ `codex/station-map`、PR は `claude/beautiful-tesla-pfr5q5` 向け）。残り：判定の反映→論証の検査→需要の式への接続の依頼書（仕事2）、家賃と昼夜の人口の調べ物（設計書5章）
 - **仕訳を書く画面の作り直し（オーナーの初めての試遊から、10/25）**：オーナーの決定は案B（出来事を見出し・札には変わったものだけ）と、ドラッグ／スワイプ（押して選ぶ形も残す）・意味のある動き・1枚ずつ直す・問いに手がかり・ピヨの手本・全場面の洗い出し。依頼文 `BRIEF-JOURNAL-UX.md`。設計担当（Fable）が `DESIGN-JOURNAL-UX.md` を書いている → 論証の検査（PR #5）→ オーナーの承認 → 実装
 - **PR #6（Codex、codex/ramen-after-y2）**：仕事1 画面ごとの言葉の検査・仕事2 方針の呼び名・仕事3 店長の設計案（DESIGN-MANAGER.md、PR #5 に論証の検査を依頼 6395365128、対象 db0c229）
 - **PR #2 を取り込んだ（10/25、オーナーの確認のうえ。674c589）**：取り込み後の内容は、確かめた写し（cec5797）とゲームと道具のファイルで差なし。取り込み後の5つの検査と年1の橋の検査も通過。PR #5 仕事4も済（6394544421、検査書 71537b2）。**次**：6章の「PR #2 の取り込みのあと」の仕事（lexicon-check の画面ごとの数え方、方針名の言い換え、店長の雇用、版1.4 の札の釣り合い、5年目前の保存の作り直し、売上で一括記帳される札5本、遅いクリック）と、オーナーの試遊
