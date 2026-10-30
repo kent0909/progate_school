@@ -39,3 +39,31 @@ for d in docs:
 for r in rows:
     print('\t'.join(str(r[k]) for k in ['doc', 'note_bytes', 'raw', 'status', 'text_chars']))
 print('docs', len(rows), 'total_chars', sum(r['text_chars'] for r in rows))
+
+# 2段目：読むための本文（main）。APPLION はサイトの頭（ランキングの一覧など）と末尾（関連アプリ）を除く。
+# 論文は参考文献の一覧（References）から後ろを除く。除いた所は主張の根拠にならない（判定書に書く）。
+mdir = os.path.join(out, 'main')
+os.makedirs(mdir, exist_ok=True)
+tot = 0
+for r in rows:
+    b = open(os.path.join(out, r['doc'] + '.txt'), encoding='utf-8').read()
+    if 'APPLION' in b[:300]:
+        s = b.find('\n概要\n')
+        s2 = b.find('\n口コミ\n')
+        s = min(x for x in [s, s2] if x >= 0) if (s >= 0 or s2 >= 0) else 0
+        e = b.find('このアプリのレビューやランキングの詳細情報')
+        if e < 0: e = b.find('このゲームのレビューやランキングの詳細情報')
+        b = b[s:(e if e > 0 else len(b))]
+    else:
+        m = None
+        for pat in [r'\n\s*REFERENCES\s*\n', r'\n\s*References\s*\n', r'\n\s*\d*\.?\s*REFERENCES\b', r'\n\s*References\b']:
+            ms = list(re.finditer(pat, b))
+            if ms:
+                m = ms[-1]; break
+        if m and m.start() > len(b) * 0.5:
+            b = b[:m.start()]
+    b = re.sub(r'[ \t]+', ' ', b)
+    open(os.path.join(mdir, r['doc'] + '.txt'), 'w', encoding='utf-8').write(b)
+    print('main', r['doc'], len(b))
+    tot += len(b)
+print('main_total', tot)
