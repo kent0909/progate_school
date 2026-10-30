@@ -1,11 +1,19 @@
 #!/usr/bin/env node
 /* 実際のDOM・クリック・キーボード・通信・描画を調べる。localhost だけで完結。 */
 'use strict';
-const { chromium } = require('playwright');
 const fs = require('fs'), path = require('path'), http = require('http'), assert = require('assert/strict');
 const root = path.resolve(__dirname, '../..');
 const artifacts = path.join(root,'boki2/docs/audit/stationmap');
 const scratch = path.join(root,'work/stationmap');
+// この環境はシステムのChromium/ffmpegを使用。ホームや共有ランタイムは変更しない。
+if (!process.env.PLAYWRIGHT_BROWSERS_PATH && fs.existsSync('/usr/bin/chromium') && fs.existsSync('/usr/bin/ffmpeg')) {
+  const registry=JSON.parse(fs.readFileSync(path.join(path.dirname(require.resolve('playwright-core')),'browsers.json'),'utf8'));
+  const rev=registry.browsers.find(b=>b.name==='ffmpeg').revision;
+  const cache=path.join(scratch,'browser-tools'), bin=path.join(cache,'ffmpeg-'+rev,'ffmpeg-linux');
+  fs.mkdirSync(path.dirname(bin),{recursive:true});if(!fs.existsSync(bin))fs.symlinkSync('/usr/bin/ffmpeg',bin);
+  process.env.PLAYWRIGHT_BROWSERS_PATH=cache;
+}
+const { chromium } = require('playwright');
 const out = (n,s) => console.log(`[${n}] ${s}`);
 (async()=>{
   fs.mkdirSync(artifacts,{recursive:true});fs.mkdirSync(scratch,{recursive:true});
@@ -21,7 +29,7 @@ const out = (n,s) => console.log(`[${n}] ${s}`);
     const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
     async function load(){await page.goto(origin+'/boki2/stationmap-demo.html');await page.waitForFunction(()=>window.mountPaintMs>0);await page.waitForTimeout(350);}
     async function focus(name){await page.selectOption('select', {label:(await page.locator('select option').allTextContents()).find(t=>t.startsWith(name+' ·'))});await page.waitForTimeout(350);}
-    async function pick(id){let b=page.locator(`[data-site="${id}"]`);if(!await b.isVisible()){const c=page.locator('.sm-cluster').filter({has:page.locator('never')});const cluster=page.locator(`.sm-cluster[data-members~="${id}"]`);assert.equal(await cluster.count(),1,`${id} のまとめがある`);await cluster.click();await page.waitForTimeout(300);}await b.click();await page.waitForTimeout(350);}
+    async function pick(id){let b=page.locator(`[data-site="${id}"]`);if(!await b.isVisible()){const cluster=page.locator(`.sm-cluster[data-members~="${id}"]`);assert.equal(await cluster.count(),1,`${id} のまとめがある`);await cluster.click();await page.waitForTimeout(300);}await b.click();await page.waitForTimeout(350);}
     async function close(){await page.locator('.sm-card-close').click();if(await page.locator('.sm-group').isVisible())await page.locator('[data-action="group-close"]').click();await page.waitForTimeout(300);}
     async function geometry(){return page.evaluate(()=>{
       const vp=document.querySelector('.sm-viewport').getBoundingClientRect();const rects=[...document.querySelectorAll('.sm-pins .sm-site:not([hidden]),.sm-cluster')].map(el=>({id:el.dataset.site||el.dataset.members,...Object.fromEntries(['x','y','width','height','left','right','top','bottom'].map(k=>[k,el.getBoundingClientRect()[k]]))}));
@@ -41,7 +49,7 @@ const out = (n,s) => console.log(`[${n}] ${s}`);
       out(2,`幅${width} 渋谷8本をクリック・カード町名とデータ照合・onPick一致: ${shibuyaSites.map(s=>s.town).join('、')}`);
       let allRects=0,overlap=0,small=0,clipped=0;
       // 東京・大手町・日本橋を含む全駅の段②を測る。表示から落ちたピンはまとめに必ず所属する。
-      for(const st of data.stations){await page.evaluate(id=>stationMap.focus(id),st.id);const geo=await geometry();allRects+=geo.rects;overlap+=geo.overlaps;small+=geo.small;clipped+=geo.clipped;assert.equal(geo.overflow,false);const missing=await page.evaluate(()=>{const vp=document.querySelector('.sm-viewport').getBoundingClientRect();const represented=new Set([...document.querySelectorAll('.sm-cluster')].flatMap(b=>b.dataset.members.split(' ')));return [...document.querySelectorAll('.sm-site[hidden]')].filter(b=>{const r=b.getBoundingClientRect();const left=parseFloat(b.style.left),top=parseFloat(b.style.top);return left>=2&&left<=vp.width-46&&top>=2&&top<=vp.height-46&&!represented.has(b.dataset.site);}).length;});assert.equal(missing,0);}
+      for(const st of data.stations){await page.evaluate(id=>stationMap.focus(id),st.id);const geo=await geometry();allRects+=geo.rects;overlap+=geo.overlaps;small+=geo.small;clipped+=geo.clipped;assert.equal(geo.overflow,false);const missing=await page.evaluate(()=>{const vp=document.querySelector('.sm-viewport').getBoundingClientRect();const represented=new Set([...document.querySelectorAll('.sm-cluster')].flatMap(b=>b.dataset.members.split(' ')));return [...document.querySelectorAll('.sm-site[hidden]')].filter(b=>{const left=parseFloat(b.style.left),top=parseFloat(b.style.top);return left>=2&&left<=vp.width-46&&top>=2&&top<=vp.height-46&&!represented.has(b.dataset.site);}).length;});assert.equal(missing,0);}
       assert.equal(overlap,0);assert.equal(small,0);assert.equal(clipped,0);out(3,`幅${width} 全187駅の段②（東京・大手町・日本橋を含む）: 操作矩形=${allRects} 重なり=${overlap} 44px未満=${small} 切れ=${clipped} まとめからの脱落=0`);
       await focus('渋谷');const id=shibuyaSites[0].id;let b=page.locator(`[data-site="${id}"]`);if(!await b.isVisible())await page.locator(`.sm-cluster[data-members~="${id}"]`).click();
       // 実際にTabで候補地へ入り、Enterで開く（直接 focus や click で代用しない）。
@@ -61,7 +69,7 @@ const out = (n,s) => console.log(`[${n}] ${s}`);
     assert.deepEqual(errors,[]);assert.deepEqual(external,[]);out(6,`外部通信=${external.length} ブラウザエラー=${errors.length}`);
     const shots=fs.readdirSync(artifacts).filter(f=>/^\d+-[123]-.*\.png$/.test(f));assert.equal(shots.length,6);out(9,`画面写真=${shots.length}枚: ${shots.join(', ')}`);
     // 動きはWebMへ。写真6枚と別のworkに保存し、PRから参照できるようにする。
-    const videoContext=await browser.newContext({viewport:{width:1000,height:850},recordVideo:{dir:scratch,size:{width:1000,height:850}}});const vp=await videoContext.newPage();await vp.goto(origin+'/boki2/stationmap-demo.html');await vp.waitForTimeout(400);await vp.selectOption('select','s001');await vp.waitForTimeout(400);const vc=vp.locator('.sm-cluster[data-members~="s001-1"]');if(await vc.count())await vc.click();await vp.waitForTimeout(350);await vp.locator('[data-site="s001-1"]').click();await vp.waitForTimeout(600);const video=vp.video();await videoContext.close();await video.saveAs(path.join(scratch,'stationmap-motion.webm'));out('動画','work/stationmap/stationmap-motion.webm');
+    const videoContext=await browser.newContext({viewport:{width:1000,height:850},recordVideo:{dir:scratch,size:{width:1000,height:850}}});const vp=await videoContext.newPage();await vp.goto(origin+'/boki2/stationmap-demo.html');await vp.waitForTimeout(400);await vp.selectOption('select','s001');await vp.waitForTimeout(400);const vc=vp.locator('.sm-cluster[data-members~="s001-1"]');if(await vc.count())await vc.click();await vp.waitForTimeout(350);await vp.locator('[data-site="s001-1"]').click();await vp.waitForTimeout(600);await vp.locator('.sm-card-close').click();await vp.waitForTimeout(350);await vp.locator('[data-action="plus"]').click();await vp.waitForTimeout(400);const video=vp.video();await videoContext.close();await video.saveAs(path.join(artifacts,'motion.webm'));out('動画','boki2/docs/audit/stationmap/motion.webm（拡大・一覧・ピン選択・カードの出入り）');
     await context.close();out('結果','地図の検査はすべて通過');
   } finally {if(browser)await browser.close();await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exitCode=1;});
