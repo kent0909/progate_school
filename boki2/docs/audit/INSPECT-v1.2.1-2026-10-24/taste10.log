@@ -1,0 +1,14 @@
+# 実装の sim で測る（root=/workspace/work/reference/boki2、potentialScale=0.558734、runs=300、seeds=60、exp=taste10）
+
+## 版1.0 の置き値：歯止めなし・値下げ後の値上げ ×1・家族の上限45・パート1人の上限 70・パートの給料 20万・外れの年 −0.05・看板 大50万+0.07・立地倍率 1.0/0.8/0.6・待ちの離れ 0×待ちの割合・乱数あり・追随 確率0.25・幅≤50円・試算の乱数に seed を混ぜる
+較正 potentialScale=0.581226（放置の3年目中央値 44、120周）
+
+| 条件 | 周 | 最良の手の割合 | 変える最良−変えない | 時間の予算で外した手 |
+|---|---|---|---|---|
+| 版1.0（手直しの時間1・上手の手は予算に余り） | 120 | never 1.7%・yearly 6.7%・max 55.8%・thermo 16.7%・thermoAug 19.2% | 251万 | never 0.0・yearly 0.0・max 0.3・thermo 0.0・thermoAug 0.0 回/周 |
+| 手直しの時間2 | 120 | never 3.3%・yearly 6.7%・max 55.8%・thermo 15.8%・thermoAug 18.3% | 246万 | never 0.0・yearly 1.0・max 4.8・thermo 1.9・thermoAug 2.0 回/周 |
+| 上手の手が予算を使い切る（SNS・予報・衛生・地図を全部）→ 手直しが1つ押し出す | 120 | never 2.5%・yearly 10.8%・max 45%・thermo 15.8%・thermoAug 25.8% | 232万 | never 0.0・yearly 1.4・max 6.0・thermo 2.9・thermoAug 3.2 回/周 |
+| 時間2＋予算を使い切る | 120 | never 5%・yearly 18.3%・max 35.8%・thermo 15.8%・thermoAug 25% | 197万 | never 0.0・yearly 3.6・max 14.6・thermo 7.0・thermoAug 7.3 回/周 |
+| 外れの年なし（参考：版0.8） | 120 | never 0%・yearly 1.7%・max 75.8%・thermo 9.2%・thermoAug 13.3% | 343万 | never 0.0・yearly 0.0・max 0.3・thermo 0.0・thermoAug 0.0 回/周 |
+
+（270秒）

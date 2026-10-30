@@ -1,0 +1,3634 @@
+検査: legacy
+exit: 0
+{
+  "paths": 300,
+  "targets": 131,
+  "documents": 126503,
+  "coveredYear2DocIds": 424,
+  "reachedTargets": 0,
+  "missingTargets": [],
+  "cashDiscrepancyPaths": 0,
+  "failures": [],
+  "docCoverage": {
+    "stock-back": 300,
+    "y2-reverse": 300,
+    "sale12": 300,
+    "card12": 300,
+    "cardin12": 300,
+    "buy12": 300,
+    "pap12": 300,
+    "sal12": 300,
+    "util12": 300,
+    "rent12": 300,
+    "repay12": 300,
+    "tax-pay": 300,
+    "defect-doc0@12": 109,
+    "sale13": 300,
+    "card13": 300,
+    "cardin13": 300,
+    "buy13": 300,
+    "pap13": 300,
+    "sal13": 293,
+    "util13": 300,
+    "rent13": 300,
+    "repay13": 300,
+    "issue-doc0@13": 300,
+    "sale14": 300,
+    "card14": 300,
+    "cardin14": 300,
+    "buy14": 300,
+    "pap14": 300,
+    "sal14": 291,
+    "util14": 300,
+    "rent14": 300,
+    "repay14": 300,
+    "sale15": 300,
+    "card15": 300,
+    "cardin15": 300,
+    "buy15": 300,
+    "pap15": 300,
+    "sal15": 286,
+    "util15": 300,
+    "rent15": 300,
+    "repay15": 300,
+    "sale16": 300,
+    "card16": 300,
+    "cardin16": 300,
+    "buy16": 300,
+    "pap16": 300,
+    "sal16": 294,
+    "util16": 300,
+    "rent16": 300,
+    "repay16": 300,
+    "defect-doc0@16": 141,
+    "ev_summer_y2-doc0@16": 300,
+    "ev_summer_y2-doc1@16": 300,
+    "sale17": 300,
+    "card17": 300,
+    "cardin17": 300,
+    "buy17": 300,
+    "pap17": 300,
+    "sal17": 287,
+    "util17": 300,
+    "rent17": 300,
+    "repay17": 300,
+    "defect-doc0@17": 126,
+    "bowl_limited_y2-doc0@17": 300,
+    "sale18": 300,
+    "card18": 300,
+    "cardin18": 300,
+    "buy18": 300,
+    "pap18": 300,
+    "sal18": 288,
+    "util18": 300,
+    "rent18": 300,
+    "repay18": 300,
+    "defect-doc0@18": 19,
+    "site2-doc0@18": 300,
+    "site2-doc1@18": 300,
+    "sale19": 300,
+    "card19": 300,
+    "cardin19": 300,
+    "buy19": 300,
+    "pap19": 300,
+    "sal19": 269,
+    "util19": 300,
+    "rent19": 300,
+    "repay19": 300,
+    "site2-doc2@19": 300,
+    "site2-doc3@19": 300,
+    "site2-doc4@19": 300,
+    "site2-doc5@19": 300,
+    "sale20": 300,
+    "card20": 300,
+    "cardin20": 300,
+    "buy20": 300,
+    "pap20": 300,
+    "sal20": 300,
+    "util20": 300,
+    "rent20": 300,
+    "repay20": 300,
+    "sale21": 300,
+    "card21": 300,
+    "cardin21": 300,
+    "buy21": 300,
+    "pap21": 300,
+    "sal21": 300,
+    "util21": 300,
+    "rent21": 300,
+    "repay21": 300,
+    "defect-doc0@21": 250,
+    "ticket_items-doc0@21": 300,
+    "ticket_items-doc1@21": 300,
+    "sale22": 300,
+    "card22": 300,
+    "cardin22": 300,
+    "buy22": 300,
+    "pap22": 300,
+    "sal22": 300,
+    "util22": 300,
+    "rent22": 300,
+    "repay22": 300,
+    "defect-doc0@22": 269,
+    "sale23": 300,
+    "card23": 300,
+    "cardin23": 300,
+    "buy23": 300,
+    "pap23": 300,
+    "sal23": 300,
+    "util23": 300,
+    "rent23": 300,
+    "repay23": 300,
+    "old-equipment-dep2": 300,
+    "stock2": 300,
+    "accrued2": 300,
+    "dep-fitout2": 300,
+    "allow2": 300,
+    "vat-close2": 300,
+    "tax2": 300,
+    "tax-pay2": 300,
+    "stock-back2": 300,
+    "y3-reverse": 300,
+    "sale24": 300,
+    "card24": 300,
+    "cardin24": 300,
+    "buy24": 300,
+    "pap24": 300,
+    "sal24": 300,
+    "util24": 300,
+    "rent24": 300,
+    "repay24": 300,
+    "sale25": 300,
+    "card25": 300,
+    "cardin25": 300,
+    "buy25": 300,
+    "pap25": 300,
+    "sal25": 300,
+    "util25": 300,
+    "rent25": 300,
+    "repay25": 300,
+    "issue-doc0@25": 300,
+    "sale26": 300,
+    "card26": 300,
+    "cardin26": 300,
+    "buy26": 300,
+    "pap26": 300,
+    "sal26": 300,
+    "util26": 300,
+    "rent26": 300,
+    "repay26": 300,
+    "finance_asset-doc0@26": 300,
+    "sale27": 300,
+    "card27": 300,
+    "cardin27": 300,
+    "buy27": 300,
+    "pap27": 300,
+    "sal27": 300,
+    "util27": 300,
+    "rent27": 300,
+    "repay27": 300,
+    "kyoshitsu-doc0@27": 300,
+    "kyoshitsu-doc1@27": 300,
+    "close-doc0@27": 272,
+    "close-doc1@27": 272,
+    "close-doc2@27": 272,
+    "close-restore@27": 272,
+    "sale28": 300,
+    "card28": 300,
+    "cardin28": 300,
+    "buy28": 300,
+    "pap28": 300,
+    "sal28": 290,
+    "util28": 300,
+    "rent28": 300,
+    "repay28": 300,
+    "ev_summer_y2-doc0@28": 300,
+    "ev_summer_y2-doc1@28": 300,
+    "frozen_noodle-doc0@28": 300,
+    "sale29": 300,
+    "card29": 300,
+    "cardin29": 300,
+    "buy29": 300,
+    "pap29": 300,
+    "sal29": 292,
+    "util29": 300,
+    "rent29": 300,
+    "repay29": 300,
+    "defect-doc0@29": 163,
+    "bowl_limited_y2-doc0@29": 300,
+    "sale30": 300,
+    "card30": 300,
+    "cardin30": 300,
+    "buy30": 300,
+    "pap30": 300,
+    "sal30": 294,
+    "util30": 300,
+    "rent30": 300,
+    "repay30": 300,
+    "maintain_replace-doc0@30": 300,
+    "maintain_replace-doc1@30": 300,
+    "sale31": 300,
+    "card31": 300,
+    "cardin31": 300,
+    "buy31": 300,
+    "pap31": 300,
+    "sal31": 281,
+    "util31": 300,
+    "rent31": 300,
+    "repay31": 300,
+    "defect-doc0@31": 276,
+    "sale32": 300,
+    "card32": 300,
+    "cardin32": 300,
+    "buy32": 300,
+    "pap32": 300,
+    "sal32": 275,
+    "util32": 300,
+    "rent32": 300,
+    "repay32": 300,
+    "sale33": 300,
+    "card33": 300,
+    "cardin33": 300,
+    "buy33": 300,
+    "pap33": 300,
+    "sal33": 286,
+    "util33": 300,
+    "rent33": 300,
+    "repay33": 300,
+    "defect-doc0@33": 277,
+    "ticket_items-doc0@33": 300,
+    "ticket_items-doc1@33": 300,
+    "sale34": 300,
+    "card34": 300,
+    "cardin34": 300,
+    "buy34": 300,
+    "pap34": 300,
+    "sal34": 287,
+    "util34": 300,
+    "rent34": 300,
+    "repay34": 300,
+    "defect-doc0@34": 182,
+    "sale35": 300,
+    "card35": 300,
+    "cardin35": 300,
+    "buy35": 300,
+    "pap35": 300,
+    "sal35": 294,
+    "util35": 300,
+    "rent35": 300,
+    "repay35": 300,
+    "defect-doc0@35": 289,
+    "bonus-doc1@35": 293,
+    "maintain_y2-doc0@35": 300,
+    "equip-doc0@35": 300,
+    "stock3": 300,
+    "accrued3": 300,
+    "dep-fitout3": 300,
+    "allow3": 300,
+    "vat-close3": 300,
+    "tax3": 300,
+    "tax-pay3": 300,
+    "stock-back3": 300,
+    "y4-reverse": 300,
+    "sale36": 300,
+    "card36": 300,
+    "cardin36": 300,
+    "buy36": 300,
+    "pap36": 300,
+    "sal36": 295,
+    "util36": 300,
+    "rent36": 300,
+    "repay36": 300,
+    "maintain_y2-doc1@36": 300,
+    "sale37": 300,
+    "card37": 300,
+    "cardin37": 300,
+    "buy37": 300,
+    "pap37": 300,
+    "sal37": 291,
+    "util37": 300,
+    "rent37": 300,
+    "repay37": 300,
+    "sale38": 300,
+    "card38": 300,
+    "cardin38": 300,
+    "buy38": 300,
+    "pap38": 300,
+    "sal38": 288,
+    "util38": 300,
+    "rent38": 300,
+    "repay38": 300,
+    "bonus-doc2@38": 293,
+    "fx-book-maintain@12": 69,
+    "defect-doc0@13": 92,
+    "defect-doc0@15": 137,
+    "defect-doc0@19": 231,
+    "defect-doc0@20": 139,
+    "items-stock-sale@22": 91,
+    "defect-doc0@23": 264,
+    "defect-doc0@26": 32,
+    "staff-left-pay@27": 12,
+    "defect-doc0@28": 171,
+    "staff-cost@28": 12,
+    "items-stock-sale@34": 101,
+    "defect-doc0@14": 189,
+    "defect-doc0@32": 20,
+    "bulk-doc2@12": 13,
+    "coupon_dual-doc0@24": 12,
+    "bulk-doc0@12": 53,
+    "coupon_dual-doc0@22": 8,
+    "coupon_dual-doc0@15": 16,
+    "staff-left-pay@17": 12,
+    "staff-cost@18": 12,
+    "coupon_dual-doc0@18": 7,
+    "staff-left-pay@18": 31,
+    "staff-cost@19": 31,
+    "defect-doc0@30": 17,
+    "freelance-doc0@14": 12,
+    "staff-left-pay@30": 21,
+    "staff-cost@31": 21,
+    "staff-left-pay@33": 14,
+    "staff-cost@34": 14,
+    "defect-doc0@24": 23,
+    "coupon_dual-doc0@12": 21,
+    "defect-doc0@25": 15,
+    "staff-left-pay@25": 10,
+    "staff-cost@26": 10,
+    "staff-left-pay@31": 25,
+    "staff-cost@32": 25,
+    "coupon_dual-doc0@13": 9,
+    "freelance-doc0@16": 3,
+    "bulk-doc1@18": 7,
+    "freelance-doc0@17": 2,
+    "staff-left-pay@23": 11,
+    "staff-cost@24": 11,
+    "coupon_dual-doc0@32": 11,
+    "staff-left-pay@16": 13,
+    "staff-cost@17": 13,
+    "coupon_dual-doc0@14": 4,
+    "staff-left-pay@20": 19,
+    "staff-left-pay@21": 8,
+    "staff-cost@21": 19,
+    "staff-cost@22": 8,
+    "staff-left-pay@26": 10,
+    "staff-cost@27": 10,
+    "staff-left-pay@28": 8,
+    "staff-cost@29": 8,
+    "freelance-doc0@15": 2,
+    "bulk-doc0@24": 12,
+    "staff-left-pay@35": 7,
+    "staff-cost@36": 7,
+    "defect-doc0@27": 25,
+    "staff-left-pay@19": 23,
+    "staff-cost@20": 23,
+    "bulk-doc2@24": 8,
+    "staff-left-pay@13": 9,
+    "staff-cost@14": 9,
+    "freelance-doc0@20": 4,
+    "coupon_dual-doc0@29": 3,
+    "staff-left-pay@14": 14,
+    "staff-cost@15": 14,
+    "bulk-doc1@12": 31,
+    "bulk-doc1@30": 2,
+    "staff-left-pay@15": 6,
+    "staff-cost@16": 6,
+    "freelance-doc0@21": 2,
+    "staff-left-pay@34": 6,
+    "staff-cost@35": 6,
+    "staff-left-pay@24": 4,
+    "staff-cost@25": 4,
+    "coupon_dual-doc0@30": 5,
+    "staff-left-pay@32": 16,
+    "staff-cost@33": 16,
+    "staff-left-pay@22": 3,
+    "staff-cost@23": 3,
+    "staff-left-pay@37": 12,
+    "staff-cost@38": 12,
+    "coupon_dual-doc0@20": 12,
+    "freelance-doc0@12": 4,
+    "staff-left-pay@12": 7,
+    "staff-cost@13": 7,
+    "coupon_dual-doc0@23": 11,
+    "bulk-doc0@18": 7,
+    "coupon_dual-doc0@19": 2,
+    "coupon_dual-doc0@17": 7,
+    "freelance-doc0@13": 11,
+    "coupon_dual-doc0@35": 2,
+    "coupon_dual-doc0@21": 5,
+    "bulk-doc1@24": 5,
+    "coupon_dual-doc0@36": 1,
+    "staff-left-pay@29": 6,
+    "staff-cost@30": 6,
+    "coupon_dual-doc0@34": 2,
+    "freelance-doc0@19": 2,
+    "staff-left-pay@36": 9,
+    "staff-cost@37": 9,
+    "close-doc0@31": 2,
+    "close-doc1@31": 2,
+    "close-doc2@31": 2,
+    "close-restore@31": 2,
+    "freelance-doc0@22": 3,
+    "bulk-doc0@30": 3,
+    "coupon_dual-doc0@16": 5,
+    "staff-left-pay@38": 5,
+    "bulk-doc2@18": 3,
+    "coupon_dual-doc0@37": 1,
+    "bulk-doc1@36": 1
+  },
+  "languageWarnings": [],
+  "missingNames": [],
+  "dividendFixtures": [
+    {
+      "retained": 0,
+      "reserve": 0,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 0,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 0,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 0,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 0,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 0,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 0,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 0,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 1,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 1,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 0,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 0,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 0,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 10,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 10,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 0,
+      "per": 3,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 0,
+      "per": 3,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 0,
+      "per": 3,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 1000,
+      "reserve": 749999,
+      "per": 3,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 749999,
+      "per": 3,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 749999,
+      "per": 3,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 1000,
+      "reserve": 750000,
+      "per": 3,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 750000,
+      "per": 3,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 750000,
+      "per": 3,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 0,
+      "per": 3030,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 0,
+      "per": 3030,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 0,
+      "per": 3030,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 1000000,
+      "reserve": 749999,
+      "per": 3333,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 749999,
+      "per": 3333,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 749999,
+      "per": 3333,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 1000000,
+      "reserve": 750000,
+      "per": 3333,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 750000,
+      "per": 3333,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 750000,
+      "per": 3333,
+      "amount": 300000,
+      "reserveAdded": 0
+    }
+  ],
+  "legacyCards": [
+    {
+      "id": "costOmen",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "switch",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "keep",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "bulk",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mayfund",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "list",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "tight",
+              "cash": -10000
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "late",
+              "cash": -3000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "due",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "make",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "catch",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "skip",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "miss",
+              "cash": -2000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "supplier",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "cheap",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "bad",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "stable",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "up",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "defect",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "return",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "late",
+              "cash": -10000
+            }
+          ]
+        },
+        {
+          "id": "use",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "complain",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bulk",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "bulk",
+          "outcomes": [
+            {
+              "id": "cheap",
+              "cash": 15000
+            },
+            {
+              "id": "spoil",
+              "cash": -20000
+            },
+            {
+              "id": "space",
+              "cash": -8000
+            }
+          ]
+        },
+        {
+          "id": "small",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "nochange",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foodup",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "raise",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "small",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "keep",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "small",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "haccp",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "keep",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "sick",
+              "cash": -50000
+            }
+          ]
+        },
+        {
+          "id": "skip",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "sick",
+              "cash": -250000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maintain",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "repair",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -120000
+            },
+            {
+              "id": "again",
+              "cash": -120000
+            }
+          ]
+        },
+        {
+          "id": "new",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -300000
+            },
+            {
+              "id": "late",
+              "cash": -300000
+            }
+          ]
+        },
+        {
+          "id": "wait",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "stop",
+              "cash": -150000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "insurance",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "full",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "fire",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "fire",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "fire",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "fire",
+              "cash": -400000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waste",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "timesale",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 8000
+            },
+            {
+              "id": "habit",
+              "cash": 4000
+            }
+          ]
+        },
+        {
+          "id": "toss",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "think",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soup",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "own",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "uneven",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "buy",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 15000
+            },
+            {
+              "id": "noticed",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hours",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "night",
+          "outcomes": [
+            {
+              "id": "up",
+              "cash": -30000
+            },
+            {
+              "id": "even",
+              "cash": -30000
+            },
+            {
+              "id": "tired",
+              "cash": -30000
+            }
+          ]
+        },
+        {
+          "id": "lunch",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "lost",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "menu",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "set",
+          "outcomes": [
+            {
+              "id": "up",
+              "cash": 30000
+            },
+            {
+              "id": "mid",
+              "cash": 10000
+            },
+            {
+              "id": "waste",
+              "cash": -15000
+            }
+          ]
+        },
+        {
+          "id": "one",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "boring",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heat",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "cold",
+          "outcomes": [
+            {
+              "id": "fill",
+              "cash": -10000
+            },
+            {
+              "id": "waste",
+              "cash": -25000
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "outcomes": [
+            {
+              "id": "down",
+              "cash": 0
+            },
+            {
+              "id": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coupon_dual",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "check",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": "function"
+            },
+            {
+              "id": "fine",
+              "cash": "function"
+            }
+          ]
+        },
+        {
+          "id": "post",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": "function"
+            },
+            {
+              "id": "warn",
+              "cash": "function"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "premium",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "small",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -10000
+            },
+            {
+              "id": "none",
+              "cash": -10000
+            }
+          ]
+        },
+        {
+          "id": "big",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -30000
+            },
+            {
+              "id": "warn",
+              "cash": -30000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "freelance",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "write",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "late",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "oral",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "fight",
+              "cash": -10000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "president_cash",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "stop",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "sulk",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "pay",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -80000
+            },
+            {
+              "id": "tax",
+              "cash": -90000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "minwage",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "min",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "quit",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "plus",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "same",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rival_open",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "tweak",
+          "outcomes": [
+            {
+              "id": "hold",
+              "cash": 0
+            },
+            {
+              "id": "lose",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "cut",
+          "outcomes": [
+            {
+              "id": "hold",
+              "cash": 0
+            },
+            {
+              "id": "war",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "lose",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "torizai",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "sign",
+          "outcomes": [
+            {
+              "id": "boom",
+              "cash": -20000
+            },
+            {
+              "id": "small",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "no",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "regret",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wholesale_offer",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "no",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "later",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "ask",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "pushy",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ev_spring",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "prep",
+          "outcomes": [
+            {
+              "id": "busy",
+              "cash": -15000
+            },
+            {
+              "id": "rain",
+              "cash": -15000
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "short",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ev_summer",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "go",
+          "outcomes": [
+            {
+              "id": "good",
+              "cash": 60000
+            },
+            {
+              "id": "tired",
+              "cash": 40000
+            }
+          ]
+        },
+        {
+          "id": "no",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "quiet",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ev_year",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "join",
+          "outcomes": [
+            {
+              "id": "busy",
+              "cash": -20000
+            },
+            {
+              "id": "flat",
+              "cash": -20000
+            }
+          ]
+        },
+        {
+          "id": "skip",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "cold",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "good_kouji",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "take",
+          "outcomes": [
+            {
+              "id": "good",
+              "cash": 16000
+            },
+            {
+              "id": "rush",
+              "cash": 16000
+            }
+          ]
+        },
+        {
+          "id": "no",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "none",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "good_jouren",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "sign",
+          "outcomes": [
+            {
+              "id": "good",
+              "cash": 0
+            },
+            {
+              "id": "small",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "limited",
+          "outcomes": [
+            {
+              "id": "good",
+              "cash": 0
+            },
+            {
+              "id": "miss",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bowl_limited",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "go",
+          "outcomes": [
+            {
+              "id": "hit",
+              "cash": -30000
+            },
+            {
+              "id": "mid",
+              "cash": -30000
+            },
+            {
+              "id": "miss",
+              "cash": -45000
+            }
+          ]
+        },
+        {
+          "id": "no",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "rival",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "family_sick",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "close",
+          "outcomes": [
+            {
+              "id": "rest",
+              "cash": 0
+            },
+            {
+              "id": "long",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "hire",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -250000
+            },
+            {
+              "id": "none",
+              "cash": -50000
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
+検査: paths
+exit: 0
+{
+  "paths": 144,
+  "targets": 131,
+  "documents": 61769,
+  "coveredYear2DocIds": 376,
+  "reachedTargets": 130,
+  "missingTargets": [
+    {
+      "card": "finance_asset",
+      "option": "loan",
+      "outcome": "borrowed"
+    },
+    {
+      "card": "equipment_purchase",
+      "option": "pay",
+      "outcome": "paid",
+      "decisions": {
+        "ticket_items": "n20",
+        "maintain_y2": "break",
+        "finance_asset": "loan",
+        "maintain_replace": "keep",
+        "close": "format",
+        "site2": "wait"
+      },
+      "forceMap": {
+        "ticket_items": "d6"
+      },
+      "lowCost": true
+    },
+    {
+      "card": "equipment_principal",
+      "option": "pay",
+      "outcome": "paid",
+      "decisions": {
+        "ticket_items": "n20",
+        "maintain_y2": "break",
+        "finance_asset": "loan",
+        "maintain_replace": "keep",
+        "close": "format",
+        "site2": "wait"
+      },
+      "forceMap": {
+        "ticket_items": "d6"
+      },
+      "lowCost": true
+    },
+    {
+      "card": "staff_leave",
+      "option": "leave",
+      "outcome": "left",
+      "decisions": {
+        "ticket_items": "n20",
+        "maintain_y2": "break",
+        "finance_asset": "installment",
+        "maintain_replace": "keep",
+        "close": "format"
+      },
+      "forceMap": {
+        "ticket_items": "d6"
+      }
+    },
+    {
+      "card": "staff_hire",
+      "option": "hire",
+      "outcome": "hired",
+      "decisions": {
+        "ticket_items": "n20",
+        "maintain_y2": "break",
+        "finance_asset": "installment",
+        "maintain_replace": "keep",
+        "close": "format"
+      },
+      "forceMap": {
+        "ticket_items": "d6"
+      }
+    },
+    {
+      "card": "finance_asset",
+      "option": "loan",
+      "outcome": "borrowed",
+      "decisions": {
+        "site2": "wait"
+      },
+      "lowCost": true
+    }
+  ],
+  "cashDiscrepancyPaths": 0,
+  "failures": [],
+  "docCoverage": {
+    "stock-back": 144,
+    "y2-reverse": 144,
+    "sale12": 144,
+    "card12": 144,
+    "cardin12": 144,
+    "buy12": 144,
+    "pap12": 144,
+    "sal12": 144,
+    "util12": 144,
+    "rent12": 144,
+    "repay12": 144,
+    "tax-pay": 144,
+    "defect-doc0@12": 139,
+    "sale13": 144,
+    "card13": 144,
+    "cardin13": 144,
+    "buy13": 144,
+    "pap13": 144,
+    "sal13": 144,
+    "util13": 144,
+    "rent13": 144,
+    "repay13": 144,
+    "issue-doc0@13": 144,
+    "sale14": 144,
+    "card14": 144,
+    "cardin14": 144,
+    "buy14": 144,
+    "pap14": 144,
+    "sal14": 144,
+    "util14": 144,
+    "rent14": 144,
+    "repay14": 144,
+    "sale15": 144,
+    "card15": 144,
+    "cardin15": 144,
+    "buy15": 144,
+    "pap15": 144,
+    "sal15": 144,
+    "util15": 144,
+    "rent15": 144,
+    "repay15": 144,
+    "sale16": 144,
+    "card16": 144,
+    "cardin16": 144,
+    "buy16": 144,
+    "pap16": 144,
+    "sal16": 144,
+    "util16": 144,
+    "rent16": 144,
+    "repay16": 144,
+    "defect-doc0@16": 31,
+    "ev_summer_y2-doc0@16": 138,
+    "ev_summer_y2-doc1@16": 138,
+    "sale17": 144,
+    "card17": 144,
+    "cardin17": 144,
+    "buy17": 144,
+    "pap17": 144,
+    "sal17": 144,
+    "util17": 144,
+    "rent17": 144,
+    "repay17": 144,
+    "defect-doc0@17": 140,
+    "bowl_limited_y2-doc0@17": 139,
+    "sale18": 144,
+    "card18": 144,
+    "cardin18": 144,
+    "buy18": 144,
+    "pap18": 144,
+    "sal18": 144,
+    "util18": 144,
+    "rent18": 144,
+    "repay18": 144,
+    "defect-doc0@18": 31,
+    "site2-doc0@18": 135,
+    "site2-doc1@18": 135,
+    "sale19": 144,
+    "card19": 144,
+    "cardin19": 144,
+    "buy19": 144,
+    "pap19": 144,
+    "sal19": 144,
+    "util19": 144,
+    "rent19": 144,
+    "repay19": 144,
+    "site2-doc2@19": 135,
+    "site2-doc3@19": 135,
+    "site2-doc4@19": 135,
+    "site2-doc5@19": 135,
+    "sale20": 144,
+    "card20": 144,
+    "cardin20": 144,
+    "buy20": 144,
+    "pap20": 144,
+    "sal20": 144,
+    "util20": 144,
+    "rent20": 144,
+    "repay20": 144,
+    "sale21": 144,
+    "card21": 144,
+    "cardin21": 144,
+    "buy21": 144,
+    "pap21": 144,
+    "sal21": 144,
+    "util21": 144,
+    "rent21": 144,
+    "repay21": 144,
+    "defect-doc0@21": 140,
+    "ticket_items-doc0@21": 139,
+    "ticket_items-doc1@21": 139,
+    "sale22": 144,
+    "card22": 144,
+    "cardin22": 144,
+    "buy22": 144,
+    "pap22": 144,
+    "sal22": 144,
+    "util22": 144,
+    "rent22": 144,
+    "repay22": 144,
+    "defect-doc0@22": 140,
+    "sale23": 144,
+    "card23": 144,
+    "cardin23": 144,
+    "buy23": 144,
+    "pap23": 144,
+    "sal23": 144,
+    "util23": 144,
+    "rent23": 144,
+    "repay23": 144,
+    "old-equipment-dep2": 144,
+    "stock2": 144,
+    "accrued2": 144,
+    "dep-fitout2": 144,
+    "allow2": 144,
+    "vat-close2": 144,
+    "tax2": 144,
+    "tax-pay2": 144,
+    "stock-back2": 144,
+    "y3-reverse": 144,
+    "sale24": 144,
+    "card24": 144,
+    "cardin24": 144,
+    "buy24": 144,
+    "pap24": 144,
+    "sal24": 144,
+    "util24": 144,
+    "rent24": 144,
+    "repay24": 144,
+    "sale25": 144,
+    "card25": 144,
+    "cardin25": 144,
+    "buy25": 144,
+    "pap25": 144,
+    "sal25": 144,
+    "util25": 144,
+    "rent25": 144,
+    "repay25": 144,
+    "issue-doc0@25": 144,
+    "sale26": 144,
+    "card26": 144,
+    "cardin26": 144,
+    "buy26": 144,
+    "pap26": 144,
+    "sal26": 141,
+    "util26": 144,
+    "rent26": 144,
+    "repay26": 144,
+    "finance_asset-doc0@26": 144,
+    "sale27": 144,
+    "card27": 144,
+    "cardin27": 144,
+    "buy27": 144,
+    "pap27": 144,
+    "sal27": 144,
+    "util27": 144,
+    "rent27": 144,
+    "repay27": 144,
+    "kyoshitsu-doc0@27": 139,
+    "kyoshitsu-doc1@27": 139,
+    "close-doc0@27": 106,
+    "close-doc1@27": 106,
+    "close-doc2@27": 105,
+    "close-restore@27": 105,
+    "sale28": 144,
+    "card28": 144,
+    "cardin28": 144,
+    "buy28": 144,
+    "pap28": 144,
+    "sal28": 143,
+    "util28": 144,
+    "rent28": 144,
+    "repay28": 144,
+    "ev_summer_y2-doc0@28": 138,
+    "ev_summer_y2-doc1@28": 138,
+    "frozen_noodle-doc0@28": 139,
+    "sale29": 144,
+    "card29": 144,
+    "cardin29": 144,
+    "buy29": 144,
+    "pap29": 144,
+    "sal29": 144,
+    "util29": 144,
+    "rent29": 144,
+    "repay29": 144,
+    "defect-doc0@29": 28,
+    "bowl_limited_y2-doc0@29": 139,
+    "sale30": 144,
+    "card30": 144,
+    "cardin30": 144,
+    "buy30": 144,
+    "pap30": 144,
+    "sal30": 144,
+    "util30": 144,
+    "rent30": 144,
+    "repay30": 144,
+    "maintain_replace-doc0@30": 112,
+    "maintain_replace-doc1@30": 112,
+    "sale31": 144,
+    "card31": 144,
+    "cardin31": 144,
+    "buy31": 144,
+    "pap31": 144,
+    "sal31": 144,
+    "util31": 144,
+    "rent31": 144,
+    "repay31": 144,
+    "defect-doc0@31": 140,
+    "sale32": 144,
+    "card32": 144,
+    "cardin32": 144,
+    "buy32": 144,
+    "pap32": 144,
+    "sal32": 39,
+    "util32": 144,
+    "rent32": 144,
+    "repay32": 144,
+    "sale33": 144,
+    "card33": 144,
+    "cardin33": 144,
+    "buy33": 144,
+    "pap33": 144,
+    "sal33": 144,
+    "util33": 144,
+    "rent33": 144,
+    "repay33": 144,
+    "defect-doc0@33": 140,
+    "ticket_items-doc0@33": 139,
+    "ticket_items-doc1@33": 139,
+    "sale34": 144,
+    "card34": 144,
+    "cardin34": 144,
+    "buy34": 144,
+    "pap34": 144,
+    "sal34": 144,
+    "util34": 144,
+    "rent34": 144,
+    "repay34": 144,
+    "defect-doc0@34": 139,
+    "sale35": 144,
+    "card35": 144,
+    "cardin35": 144,
+    "buy35": 144,
+    "pap35": 144,
+    "sal35": 144,
+    "util35": 144,
+    "rent35": 144,
+    "repay35": 144,
+    "defect-doc0@35": 32,
+    "bonus-doc1@35": 144,
+    "maintain_y2-doc0@35": 112,
+    "equip-doc0@35": 144,
+    "stock3": 144,
+    "accrued3": 144,
+    "dep-fitout3": 144,
+    "allow3": 144,
+    "vat-close3": 144,
+    "tax3": 144,
+    "tax-pay3": 144,
+    "stock-back3": 144,
+    "y4-reverse": 144,
+    "sale36": 144,
+    "card36": 144,
+    "cardin36": 144,
+    "buy36": 144,
+    "pap36": 144,
+    "sal36": 144,
+    "util36": 144,
+    "rent36": 144,
+    "repay36": 144,
+    "maintain_y2-doc1@36": 112,
+    "sale37": 144,
+    "card37": 144,
+    "cardin37": 144,
+    "buy37": 144,
+    "pap37": 144,
+    "sal37": 144,
+    "util37": 144,
+    "rent37": 144,
+    "repay37": 144,
+    "sale38": 144,
+    "card38": 144,
+    "cardin38": 144,
+    "buy38": 144,
+    "pap38": 144,
+    "sal38": 144,
+    "util38": 144,
+    "rent38": 144,
+    "repay38": 144,
+    "bonus-doc2@38": 144,
+    "equipment-pay@27": 32,
+    "equipment-interest@27": 29,
+    "equipment-pay@28": 32,
+    "equipment-interest@28": 29,
+    "equipment-pay@29": 32,
+    "equipment-interest@29": 29,
+    "equipment-pay@30": 32,
+    "equipment-interest@30": 29,
+    "spare-storage@30": 32,
+    "equipment-pay@31": 32,
+    "equipment-interest@31": 29,
+    "spare-storage@31": 8,
+    "equipment-pay@32": 32,
+    "equipment-interest@32": 29,
+    "spare-storage@32": 8,
+    "equipment-pay@33": 32,
+    "equipment-interest@33": 29,
+    "spare-storage@33": 8,
+    "equipment-pay@34": 32,
+    "equipment-interest@34": 29,
+    "spare-storage@34": 8,
+    "equipment-pay@35": 32,
+    "equipment-interest@35": 29,
+    "spare-storage@35": 8,
+    "old-equipment-dep3": 33,
+    "equipment-pay@36": 32,
+    "equipment-interest@36": 29,
+    "spare-storage@36": 8,
+    "equipment-pay@37": 32,
+    "equipment-interest@37": 29,
+    "spare-storage@37": 8,
+    "equipment-pay@38": 32,
+    "equipment-interest@38": 29,
+    "spare-storage@38": 8,
+    "defect-doc0@14": 108,
+    "defect-doc0@19": 109,
+    "defect-doc0@20": 109,
+    "defect-doc0@23": 109,
+    "defect-doc0@25": 108,
+    "staff-left-pay@25": 110,
+    "staff-cost@26": 110,
+    "defect-doc0@28": 109,
+    "staff-left-pay@31": 110,
+    "staff-cost@32": 110,
+    "fx-book-maintain@12": 3,
+    "finance_asset-doc1@26": 3,
+    "defect-doc0@26": 4,
+    "items-stock-sale@22": 59,
+    "items-stock-sale@34": 59,
+    "items-stock-sale@23": 22,
+    "items-stock-sale@35": 23,
+    "items-stock-value2": 5,
+    "items-stock-value3": 13,
+    "close-doc3@27": 1,
+    "close-doc0@31": 1,
+    "close-doc1@31": 1,
+    "close-doc3@31": 1,
+    "close-equipment-dep3": 27,
+    "close-doc4@27": 26,
+    "close-doc5@27": 26,
+    "close-doc4@31": 26,
+    "close-doc5@31": 2,
+    "repair-failure@36": 1,
+    "defect-doc0@13": 1,
+    "defect-doc0@15": 1,
+    "staff-left-pay@27": 1,
+    "staff-cost@28": 1
+  },
+  "languageWarnings": [],
+  "missingNames": [],
+  "dividendFixtures": [
+    {
+      "retained": 0,
+      "reserve": 0,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 0,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 0,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 0,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 0,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 0,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 0,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 0,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 0,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 1,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 1,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 0,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 0,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 0,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 10,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 749999,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 10,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 10,
+      "reserve": 750000,
+      "per": 0,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 0,
+      "per": 3,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 0,
+      "per": 3,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 0,
+      "per": 3,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 1000,
+      "reserve": 749999,
+      "per": 3,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 749999,
+      "per": 3,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 749999,
+      "per": 3,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 1000,
+      "reserve": 750000,
+      "per": 3,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 750000,
+      "per": 3,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000,
+      "reserve": 750000,
+      "per": 3,
+      "amount": 300000,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 0,
+      "per": 3030,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 0,
+      "per": 3030,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 0,
+      "per": 3030,
+      "amount": 300000,
+      "reserveAdded": 30000
+    },
+    {
+      "retained": 1000000,
+      "reserve": 749999,
+      "per": 3333,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 749999,
+      "per": 3333,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 749999,
+      "per": 3333,
+      "amount": 300000,
+      "reserveAdded": 1
+    },
+    {
+      "retained": 1000000,
+      "reserve": 750000,
+      "per": 3333,
+      "amount": 0,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 750000,
+      "per": 3333,
+      "amount": 1,
+      "reserveAdded": 0
+    },
+    {
+      "retained": 1000000,
+      "reserve": 750000,
+      "per": 3333,
+      "amount": 300000,
+      "reserveAdded": 0
+    }
+  ],
+  "legacyCards": [
+    {
+      "id": "costOmen",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "switch",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "keep",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "bulk",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mayfund",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "list",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "tight",
+              "cash": -10000
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "late",
+              "cash": -3000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "due",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "make",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "catch",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "skip",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "miss",
+              "cash": -2000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "supplier",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "cheap",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "bad",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "stable",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "up",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "defect",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "return",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "late",
+              "cash": -10000
+            }
+          ]
+        },
+        {
+          "id": "use",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "complain",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bulk",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "bulk",
+          "outcomes": [
+            {
+              "id": "cheap",
+              "cash": 15000
+            },
+            {
+              "id": "spoil",
+              "cash": -20000
+            },
+            {
+              "id": "space",
+              "cash": -8000
+            }
+          ]
+        },
+        {
+          "id": "small",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "nochange",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foodup",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "raise",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "small",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "keep",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "small",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "haccp",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "keep",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "sick",
+              "cash": -50000
+            }
+          ]
+        },
+        {
+          "id": "skip",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "sick",
+              "cash": -250000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maintain",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "repair",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -120000
+            },
+            {
+              "id": "again",
+              "cash": -120000
+            }
+          ]
+        },
+        {
+          "id": "new",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -300000
+            },
+            {
+              "id": "late",
+              "cash": -300000
+            }
+          ]
+        },
+        {
+          "id": "wait",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "stop",
+              "cash": -150000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "insurance",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "full",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "fire",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "fire",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "fire",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "fire",
+              "cash": -400000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "waste",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "timesale",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 8000
+            },
+            {
+              "id": "habit",
+              "cash": 4000
+            }
+          ]
+        },
+        {
+          "id": "toss",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "think",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soup",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "own",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "uneven",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "buy",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 15000
+            },
+            {
+              "id": "noticed",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hours",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "night",
+          "outcomes": [
+            {
+              "id": "up",
+              "cash": -30000
+            },
+            {
+              "id": "even",
+              "cash": -30000
+            },
+            {
+              "id": "tired",
+              "cash": -30000
+            }
+          ]
+        },
+        {
+          "id": "lunch",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "lost",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "menu",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "set",
+          "outcomes": [
+            {
+              "id": "up",
+              "cash": 30000
+            },
+            {
+              "id": "mid",
+              "cash": 10000
+            },
+            {
+              "id": "waste",
+              "cash": -15000
+            }
+          ]
+        },
+        {
+          "id": "one",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "boring",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heat",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "cold",
+          "outcomes": [
+            {
+              "id": "fill",
+              "cash": -10000
+            },
+            {
+              "id": "waste",
+              "cash": -25000
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "outcomes": [
+            {
+              "id": "down",
+              "cash": 0
+            },
+            {
+              "id": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coupon_dual",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "check",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": "function"
+            },
+            {
+              "id": "fine",
+              "cash": "function"
+            }
+          ]
+        },
+        {
+          "id": "post",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": "function"
+            },
+            {
+              "id": "warn",
+              "cash": "function"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "premium",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "small",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -10000
+            },
+            {
+              "id": "none",
+              "cash": -10000
+            }
+          ]
+        },
+        {
+          "id": "big",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -30000
+            },
+            {
+              "id": "warn",
+              "cash": -30000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "freelance",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "write",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "late",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "oral",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "fight",
+              "cash": -10000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "president_cash",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "stop",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "sulk",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "pay",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -80000
+            },
+            {
+              "id": "tax",
+              "cash": -90000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "minwage",
+      "hasDocs": true,
+      "options": [
+        {
+          "id": "min",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "quit",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "plus",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "same",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rival_open",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "tweak",
+          "outcomes": [
+            {
+              "id": "hold",
+              "cash": 0
+            },
+            {
+              "id": "lose",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "cut",
+          "outcomes": [
+            {
+              "id": "hold",
+              "cash": 0
+            },
+            {
+              "id": "war",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "lose",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "torizai",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "sign",
+          "outcomes": [
+            {
+              "id": "boom",
+              "cash": -20000
+            },
+            {
+              "id": "small",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "no",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "regret",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wholesale_offer",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "no",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "later",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "ask",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "pushy",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ev_spring",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "prep",
+          "outcomes": [
+            {
+              "id": "busy",
+              "cash": -15000
+            },
+            {
+              "id": "rain",
+              "cash": -15000
+            }
+          ]
+        },
+        {
+          "id": "none",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "short",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ev_summer",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "go",
+          "outcomes": [
+            {
+              "id": "good",
+              "cash": 60000
+            },
+            {
+              "id": "tired",
+              "cash": 40000
+            }
+          ]
+        },
+        {
+          "id": "no",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "quiet",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ev_year",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "join",
+          "outcomes": [
+            {
+              "id": "busy",
+              "cash": -20000
+            },
+            {
+              "id": "flat",
+              "cash": -20000
+            }
+          ]
+        },
+        {
+          "id": "skip",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "cold",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "good_kouji",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "take",
+          "outcomes": [
+            {
+              "id": "good",
+              "cash": 16000
+            },
+            {
+              "id": "rush",
+              "cash": 16000
+            }
+          ]
+        },
+        {
+          "id": "no",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "none",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "good_jouren",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "sign",
+          "outcomes": [
+            {
+              "id": "good",
+              "cash": 0
+            },
+            {
+              "id": "small",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "limited",
+          "outcomes": [
+            {
+              "id": "good",
+              "cash": 0
+            },
+            {
+              "id": "miss",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bowl_limited",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "go",
+          "outcomes": [
+            {
+              "id": "hit",
+              "cash": -30000
+            },
+            {
+              "id": "mid",
+              "cash": -30000
+            },
+            {
+              "id": "miss",
+              "cash": -45000
+            }
+          ]
+        },
+        {
+          "id": "no",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": 0
+            },
+            {
+              "id": "rival",
+              "cash": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "family_sick",
+      "hasDocs": false,
+      "options": [
+        {
+          "id": "close",
+          "outcomes": [
+            {
+              "id": "rest",
+              "cash": 0
+            },
+            {
+              "id": "long",
+              "cash": 0
+            }
+          ]
+        },
+        {
+          "id": "hire",
+          "outcomes": [
+            {
+              "id": "ok",
+              "cash": -250000
+            },
+            {
+              "id": "none",
+              "cash": -50000
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+
+検査: integrated
+exit: 0
+{
+  "head": "8defe7edb35317cf9e4ed907e5538555ad4aec9f",
+  "legacy": {
+    "paths": 300,
+    "documents": 126503,
+    "cashDiscrepancyPaths": 0
+  },
+  "bridge": {
+    "points": 7680,
+    "maxRest": 0,
+    "unknown": 0
+  },
+  "coupon": {
+    "cases": 320,
+    "maxDifference": 0
+  },
+  "bulk": {
+    "cases": 60,
+    "maxDifference": 0
+  },
+  "inventory": {
+    "cases": 17,
+    "maxDifference": 0
+  },
+  "negativeControls": [
+    {
+      "errorRest": -1000,
+      "unknownRest": -1000,
+      "unknownCount": 1
+    },
+    {
+      "errorRest": -1000,
+      "unknownRest": -1000,
+      "unknownCount": 1
+    }
+  ]
+}
+
+
+検査: coupon-world
+exit: 0
+{"head":"8defe7edb35317cf9e4ed907e5538555ad4aec9f","cases":1200,"maxDifference":0,"minDiscount":16000,"maxDiscount":38000}
+
+
+検査: displays
+exit: 0
+{"head":"8defe7edb35317cf9e4ed907e5538555ad4aec9f","fixtures":12,"maxDifference":0,"returnNaming":true,"rows":[{"cost":600000,"paid":0,"unpaid":660000,"prepaid":60000,"currentUnpaid":330000,"longUnpaid":330000,"currentInterest":30000,"longInterest":30000,"difference":0},{"cost":600000,"paid":9,"unpaid":412500,"prepaid":37500,"currentUnpaid":330000,"longUnpaid":82500,"currentInterest":30000,"longInterest":7500,"difference":0},{"cost":600000,"paid":12,"unpaid":330000,"prepaid":30000,"currentUnpaid":330000,"longUnpaid":0,"currentInterest":30000,"longInterest":0,"difference":0},{"cost":600000,"paid":13,"unpaid":302500,"prepaid":27500,"currentUnpaid":302500,"longUnpaid":0,"currentInterest":27500,"longInterest":0,"difference":0},{"cost":600000,"paid":23,"unpaid":27500,"prepaid":2500,"currentUnpaid":27500,"longUnpaid":0,"currentInterest":2500,"longInterest":0,"difference":0},{"cost":600000,"paid":24,"unpaid":0,"prepaid":0,"currentUnpaid":0,"longUnpaid":0,"currentInterest":0,"longInterest":0,"difference":0},{"cost":1200000,"paid":0,"unpaid":1320000,"prepaid":120000,"currentUnpaid":660000,"longUnpaid":660000,"currentInterest":60000,"longInterest":60000,"difference":0},{"cost":1200000,"paid":9,"unpaid":825000,"prepaid":75000,"currentUnpaid":660000,"longUnpaid":165000,"currentInterest":60000,"longInterest":15000,"difference":0},{"cost":1200000,"paid":12,"unpaid":660000,"prepaid":60000,"currentUnpaid":660000,"longUnpaid":0,"currentInterest":60000,"longInterest":0,"difference":0},{"cost":1200000,"paid":13,"unpaid":605000,"prepaid":55000,"currentUnpaid":605000,"longUnpaid":0,"currentInterest":55000,"longInterest":0,"difference":0},{"cost":1200000,"paid":23,"unpaid":55000,"prepaid":5000,"currentUnpaid":55000,"longUnpaid":0,"currentInterest":5000,"longInterest":0,"difference":0},{"cost":1200000,"paid":24,"unpaid":0,"prepaid":0,"currentUnpaid":0,"longUnpaid":0,"currentInterest":0,"longInterest":0,"difference":0}]}
