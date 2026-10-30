@@ -23,7 +23,13 @@ opt = lambda k, d=None: args[args.index(k) + 1] if k in args else d
 OUT = opt('--out', os.path.join(ROOT, 'js', 'data', 'tokyo23.js'))
 REPORT = opt('--report')
 
-OPS = ('東日本旅客鉄道', '東京地下鉄')
+JM = ('東日本旅客鉄道', '東京地下鉄')
+# --ops jm（JR とメトロだけ）／all（23区の中の全事業者の駅。判定 H3：JR とメトロだけだと世田谷区に駅が0）
+OPS_MODE = opt('--ops', 'jm')
+OPS = JM if OPS_MODE == 'jm' else None
+inops = lambda op: OPS is None or op in OPS
+SHORT = {'東日本旅客鉄道': 'JR', '東京地下鉄': 'メトロ', '東京都': '都営', '東急電鉄': '東急', '小田急電鉄': '小田急', '京王電鉄': '京王', '西武鉄道': '西武', '東武鉄道': '東武', '京成電鉄': '京成', '京浜急行電鉄': '京急', '首都圏新都市鉄道': 'TX', '東京臨海高速鉄道': 'りんかい', 'ゆりかもめ': 'ゆりかもめ', '東京モノレール': 'モノレール', '東海旅客鉄道': 'JR東海', '北総鉄道': '北総', '埼玉高速鉄道': '埼玉高速'}
+short = lambda op: SHORT.get(op, op)
 MERGE_M = 800        # 同じ駅名をまとめる距離
 SITE_M = 1000        # 候補地を駅に割り当てる距離（直線）
 # ピン数の段（1日の乗降客数・全事業者の合計 → ピン数）。置き値：DESIGN-STATIONMAP 3章
@@ -52,18 +58,25 @@ def dist_m(a, b):
   return math.hypot((a[0] - b[0]) * KY * 1000, (a[1] - b[1]) * KX * 1000)
 
 
-def classify(desc, kubun):
-  # 周辺の土地利用の状況（L01_047）と用途区分（L01_002：000 住宅地・005 商業地・009 工業地）から属性を決める。上から順に当てる
+def classify(desc, kubun, zone=''):
+  # 周辺の土地利用の状況（L01_047）・用途区分（000 住宅地・005 商業地・009 工業地）・用途地域から属性を決める。上から順に当てる。
+  # 版0.2（判定 H1・M2・M3・M4）：店舗と事務所が混ざる文（「中高層の店舗、事務所ビル」）は、文だけではオフィス街か商店街か決められないので
+  # 6つめの属性「店とオフィスが混ざる商業地」shogyo にする。事務所が先で店舗が後（「事務所、店舗等」）はオフィス街。
+  # 「飲食」だけでは繁華街にしない（「小売店舗、飲食店等」は町の商店街）。工場の語があっても「住宅地域」の文は住宅地
   s = desc or ''
-  if re.search(r'繁華|歓楽|飲食|遊興|娯楽', s): return 'hanka'
-  if kubun == '009' or (re.search(r'工場|倉庫|作業所', s) and not re.search(r'店舗', s)): return 'kojo'
+  if re.search(r'繁華|歓楽|遊興|遊技|娯楽|ホテル等が集まる', s): return 'hanka'
+  if re.search(r'飲食', s) and not re.search(r'小売|日用品|店舗併用|一般住宅|近隣商業', s) and zone != '近商': return 'hanka'
+  if kubun == '009' or re.search(r'工業地域|流通業務', s): return 'kojo'
   if '住宅地域' in s: return 'jutaku'
-  if re.search(r'大規模ビル|特定街区|業務', s): return 'office'
-  office, shop, home = re.search(r'事務所|オフィス', s), re.search(r'店舗|商店|小売', s), re.search(r'住宅|マンション|アパート', s)
-  if office and not home: return 'office'
-  if shop: return 'shoten'
+  if re.search(r'工場|倉庫|作業所', s) and not re.search(r'店舗', s): return 'kojo'
+  if re.search(r'大規模ビル|特定街区|業務|本社', s): return 'office'
+  office = re.search(r'事務所|オフィス', s)
+  shop = re.search(r'店舗|商店|小売|商業ビル|ホテル|劇場|百貨店', s)
+  if office and shop: return 'office' if re.search(r'事務所(ビル)?[、等]', s[:shop.start()]) and not re.search(r'店舗', s[:office.start()]) else 'shogyo'
+  if re.search(r'中心商業|高度商業', s): return 'shogyo'
   if office: return 'office'
-  return 'jutaku' if home else 'shoten'
+  if shop or '商業地域' in s: return 'shoten'
+  return 'jutaku'
 
 
 KAN = {k: i + 1 for i, k in enumerate('一 二 三 四 五 六 七 八 九 十'.split())}
@@ -106,7 +119,7 @@ for f in s12['features']:
 
 stations = []
 for r in feats:
-  if r['op'] not in OPS: continue
+  if not inops(r['op']): continue
   w = ward_at(Point(r['pt'][1], r['pt'][0]))
   if not w: continue
   for s in stations:
@@ -125,7 +138,7 @@ for s in stations:
     if r['name'] == s['name'] and r['dup'] == 1 and dist_m(r['pt'], s['pt']) < MERGE_M: by[r['op']] += r['n']
   s['by'] = dict(by)
   s['all'] = sum(by.values())
-  s['jm'] = sum(v for k, v in by.items() if k in OPS)
+  s['jm'] = sum(v for k, v in by.items() if k in JM)
   s['pins'] = next(n for th, n in PIN_TIERS if s['all'] >= th)
 stations.sort(key=lambda s: -s['all'])
 for i, s in enumerate(stations): s['id'] = f's{i + 1:03d}'
@@ -153,13 +166,18 @@ for q in pts:
 DUP = len(pts) - len(uniq)
 pts = uniq
 for q in pts:
-  q['type'] = classify(q['desc'], q['kubun'])
+  q['type'] = classify(q['desc'], q['kubun'], q['zone'])
   q['ward'], q['town'] = town_of(q['addr'])
 # 駅ごとの候補：半径 SITE_M 以内の地点（1つの地点は近くの何駅もの候補になりうる）
 cand = {s['id']: sorted([(dist_m((q['lat'], q['lon']), s['pt']), i) for i, q in enumerate(pts) if dist_m((q['lat'], q['lon']), s['pt']) <= SITE_M]) for s in stations}
 # 割り当て：ピン1本ずつの巡回（1巡目は全駅が1本、2巡目は2本以上の駅が…）。巡の中は乗降客数の多い順。
 # 各駅は、まだ使われていない候補のうち、まだ持っていない属性を近い順に先に取り、なければ近い順（同じ駅で選べる型を増やす）。
 # 1つの地点は1つの駅にだけ使う（地図の上でピンが重ならない）
+def quad(s, q):
+  dy, dx = (q['lat'] - s['pt'][0]) * KY, (q['lon'] - s['pt'][1]) * KX
+  return ('北' if dy > 0 else '南') if abs(dy) >= abs(dx) else ('東' if dx > 0 else '西')
+
+
 used, got = set(), {s['id']: [] for s in stations}
 for k in range(max(s['pins'] for s in stations)):
   for s in stations:
@@ -168,10 +186,10 @@ for k in range(max(s['pins'] for s in stations)):
     if not free: continue
     have = {pts[i]['type'] for _, i in got[s['id']]}
     towns = {pts[i]['town'] for _, i in got[s['id']]}
-    # 優先：①まだない属性で、まだない町 ②まだない属性 ③まだない町 ④近い順
-    d, i = next((x for x in free if pts[x[1]]['type'] not in have and pts[x[1]]['town'] not in towns), None) \
-      or next((x for x in free if pts[x[1]]['type'] not in have), None) \
-      or next((x for x in free if pts[x[1]]['town'] not in towns), free[0])
+    quads = {quad(s, pts[i]) for _, i in got[s['id']]}
+    # 優先（版0.2、判定 M5）：属性がまだない＞方角（北・東・南・西）がまだない＞町がまだない＞近い。
+    # 渋谷の「西口・センター街・松濤」のように、駅のまわりの方角ごとに性格の違う町が出るようにする
+    d, i = min(free, key=lambda x: (pts[x[1]]['type'] in have, quad(s, pts[x[1]]) in quads, pts[x[1]]['town'] in towns, x[0]))
     used.add(i); got[s['id']].append((d, i))
 
 # まだ足りない駅だけ、半径を SITE_M2 まで広げてもう一度（近い順）。それでも足りない数は報告に出し、作り話の候補地は足さない
@@ -188,7 +206,7 @@ for s in stations:
   for d, i in sorted(got[s['id']]):
     q = dict(pts[i]); q['d'] = d
     # 歩く距離：地価公示の最寄り駅がこの駅なら公示の道路距離、違えば直線×1.25（置き値）
-    q['walkm'] = q['walk'] if q['near'] == s['name'] and q['walk'] else int(round(d * 1.25, -1))
+    q['walkm'] = (q['walk'] or 30) if q['near'] == s['name'] and q['walk'] is not None else int(round(d * 1.25, -1))
     chosen.append(q)
   s['short'] = s['pins'] - len(chosen)
   for k, q in enumerate(chosen):
@@ -211,30 +229,30 @@ lines = collections.defaultdict(list)
 box = ku23.buffer(0.01)
 for f in n02['features']:
   p = f['properties']
-  if p['N02_004'] not in OPS: continue
+  if not inops(p['N02_004']): continue
   g = shape(f['geometry'])
   if not g.intersects(box): continue
   g = g.intersection(box)
   for part in (getattr(g, 'geoms', None) or [g]):
     if part.geom_type != 'LineString' or part.length == 0: continue
     lines[(p['N02_004'], re.sub(r'^\d+号線', '', p['N02_003']))].append([xy(lat, lon) for lon, lat in part.simplify(25 / KX / 1000).coords])
-line_out = [{'op': 'JR' if op == OPS[0] else 'メトロ', 'name': nm, 'paths': ps} for (op, nm), ps in sorted(lines.items())]
+line_out = [{'op': short(op), 'name': nm, 'paths': ps} for (op, nm), ps in sorted(lines.items())]
 
 st_out = []
 for s in stations:
   x, y = xy(*s['pt'])
   st_out.append({'id': s['id'], 'name': s['name'], 'x': x, 'y': y, 'ward': ward_name[s['wards'].most_common(1)[0][0]], 'riders': s['all'], 'ridersJM': s['jm'], 'pins': s['pins'],
-                 'lines': [('JR' if op == OPS[0] else 'メトロ') + ' ' + ln for op, ln in s['lines']], 'byOp': s['by']})
+                 'lines': [short(op) + ' ' + ln for op, ln in s['lines']], 'byOp': s['by']})
 
 SRC = ('出典：「国土数値情報（駅別乗降客数データ S12-25・鉄道データ N02-25・行政区域データ N03-2026・地価公示データ L01-26・都道府県地価調査データ L02-26）」（国土交通省）'
        '（https://nlftp.mlit.go.jp/ksj/）をもとに加工して作成。乗降客数は2024年度、各事業者が独自に算出した値（統一の基準ではない）。')
-data = {'src': SRC, 'year': YEAR, 'origin': ORIGIN, 'pinTiers': PIN_TIERS, 'wards': ward_out, 'lines': line_out, 'stations': st_out, 'sites': sites}
+data = {'src': SRC, 'ops': OPS_MODE, 'year': YEAR, 'origin': ORIGIN, 'pinTiers': PIN_TIERS, 'wards': ward_out, 'lines': line_out, 'stations': st_out, 'sites': sites}
 js = ('// 出店の地図（東京23区）のデータ。tools/stations-build.py が作る（手で直さない）。\n// ' + SRC + '\n'
       '(function (g) {\n  const SIM = (g.SIMDATA = g.SIMDATA || {});\n  SIM.tokyo23 = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n})(typeof window !== \'undefined\' ? window : globalThis);\n')
 open(OUT, 'w', encoding='utf-8').write(js)
 
 tc = collections.Counter(x['type'] for x in sites)
-print(f"駅 {len(st_out)}（JRとメトロ両方 {sum(1 for s in stations if len(s['ops']) == 2)}・JRだけ {sum(1 for s in stations if s['ops'] == {OPS[0]})}・メトロだけ {sum(1 for s in stations if s['ops'] == {OPS[1]})}）")
+print(f"駅 {len(st_out)}（--ops {OPS_MODE}。JRとメトロ両方 {sum(1 for s in stations if set(JM) <= s['ops'])}・JRあり {sum(1 for s in stations if JM[0] in s['ops'])}・メトロあり {sum(1 for s in stations if JM[1] in s['ops'])}・JRもメトロもない {sum(1 for s in stations if not (s['ops'] & set(JM)))}）／区ごとの駅 {dict(collections.Counter(ward_name[s['wards'].most_common(1)[0][0]] for s in stations).most_common())}")
 print(f"ピン 求めた数 {sum(s['pins'] for s in stations)}・置けた数 {len(sites)}・足りない駅 {sum(1 for s in stations if s['short'] > 0)}（足りない数の合計 {sum(s['short'] for s in stations)}）・候補地0の駅 {sum(1 for s in stations if not got[s['id']])}")
 print(f'地価公示と地価調査の同じ地点 {DUP} をまとめた（候補の地点 {len(pts)}）')
 print('属性', dict(tc), '／路線', len(line_out), '／出力', OUT, f'{len(js) // 1024}KB')
