@@ -1,0 +1,85 @@
+# 事実の判定（BIZ-UIREF）：出典の無作為の抜き取り55件（uiref-audit-sample.py、seed 20261030）。列：番号／報告の行／文書／語句／判定／メモ。前後は uiref-audit-context.py で出した
+番号	行	文書	語句	判定	メモ
+C00	L16	uA-gp-freee	質問に答えるだけで	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C03	L74	uC-tversky-animation	too complex or too fast	支える	要旨の文：動く図が静止図に勝つ研究は比べ方の偏り、の直後の理由の文
+C04	L75	uB-applion-cultist-rev	何をすれば良いか分かりにくい	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C05	L75	uC-wsu-seductive-details	static joke	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C09	L77	uB-applion-balatro-rev	ごみ箱の位置が罠すぎます	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C10	L77	uA-applion-freee	表示がリアルタイムで出てくれる	支える	1件の声。報告は「freee の利用者は」と複数に書く（既知の傷）
+C11	L78	uB-applion-balatro-rev	ドラッグだけでできる	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C12	L78	uA-applion-moneyforward	ひたすら右フリックする必要がある	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C15	L79	uB-applion-royalmatch-rev	小気味よくヌルヌル動く	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C16	L79	uC-arx-juicy-text	Progress feedback	支える	語句は結果の文（Performance stage：Text 5.62 > Particle 4.43）にも出る。統合の 9.1 の「尺度の名前の並びだけ」は誤り
+C18	L79	uA-applion-mikan	文字の大きさの改悪	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C19	L79	uB-applion-gakumas-rev	完全にスキップしたいです	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C20	L79	uB-applion-royalmatch-rev	演出がまどろっこしい時がある	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C21	L79	uC-juul-juicy-feedback	a lower 40,340	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C22	L79	uC-hicks-goodgamefeel	too much screenshake	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C23	L80	uB-fami-p5-ui	主張の強い主人公	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C24	L80	uB-duolingo-shape	QUICK TO PRODUCE	支える	見出しの直後に minimalistic art style that was fast to produce
+C25	L80	uC-duolingo-shape-language	fewest details	支える	形の数は支える。線なしは同じ記事の画像（img2）から
+C26	L80	uC-kirby-ui-gamewatch	攻撃的な形状は避けている	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C28	L80	uB-applion-papersplease	粗いビジュアルがかえって	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C29	L80	uB-gi-florence	Premium mobile is tough	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C30	L81	uA-dads-typo	16 CSS px以上が基準値	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C31	L81	uA-dads-spacing	余白による階層の明示	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C33	L81	uA-applion-moneyforward	一画面で見える範囲が狭くなり	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C34	L81	uA-applion-minna	見に行く場所が多いため	弱い	声は「見に行く場所が多いため迷う」。「5つのタブでも」の数との対比は原文にない。紹介コードつきの口コミ（統合も弱いと自己申告）
+C35	L81	uB-applion-pokesleep-rev	ボタンが多くて何が何やら	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C36	L81	uB-4g-kirby-ui	あえて情報を分散させている	支える	語句は支える。続く「帳簿のような比べる画面では行き来が増える」は推論の印なし（既知の傷）
+C38	L82	uB-applion-coffeeinc2	後半は少し煩雑に感じることがある	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C39	L82	uC-collectui-leaderboard	No leaderboard posts	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C40	L92	uB-gw-umamusume-talk	1テキストに1回	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C41	L100	uB-4g-charagame-ui	リザルト画面ではキャラクターを前面に表示	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C42	L115	uA-applion-zaim	子供ぽっく	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C43	L117	uB-applion-royalmatch-rev	小気味よくヌルヌル動く	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C47	L359	uA-applion-mikan	もう1タップされてから	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C51	L376	uA-gmark-minna	モーションデザインに力を入れており	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C52	L378	uC-hicks-goodgamefeel	Feedback Coherence	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C58	L389	uB-applion-coffeeinc2	なんでも鑑定団みたいな演出	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C59	L389	uC-gp-pokemonsleep	テンポが悪いので	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C60	L390	uC-wsu-seductive-details	static joke	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C61	L392	uC-arx-juicy-vis	get the work done	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C62	L393	uA-applion-duolingo	けっこうヒリヒリします	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C64	L478	uB-gw-umamusume-ui2	ヘッダー、サブ情報、メイン情報、フッター	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C66	L479	uC-arx-juicy-vis	only post-feedback	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C67	L479	uC-juul-juicy-feedback	a lower 40,340	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C68	L479	uB-applion-gakumas-rev	完全にスキップしたいです	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C69	L480	uB-applion-royalmatch-rev	小気味よくヌルヌル動く	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C70	L481	uB-fami-p5-ui	主張の強い主人公	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C71	L481	uA-applion-zaim	子供ぽっく	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C72	L482	uC-duolingo-shape-language	fewest details	支えない	fewest details は原文の CLEAR TO UNDERSTAND（分かりやすさ）の節。「絵を大量に描くための規則」は同じ記事の QUICK TO PRODUCE の節の話で、この語句の箇所は支えない
+C73	L482	uB-duolingo-shape	QUICK TO PRODUCE	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C75	L483	uB-applion-coffeeinc2	週の売上の数字の表示が遅い	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C76	L484	uB-applion-balatro-rev	ドラッグだけでできる	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C77	L484	uB-applion-unpacking-rev	タッチペンを使うのをおすすめ	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C79	L485	uA-gp-freee	質問に答えるだけで	支える	語句の箇所が主張と同じ向き（前後±220字を読んだ）
+C80	L486	uC-heer-animated-transitions	around 1 second	弱い	around 1 second は Robertson ほかの推奨の引用。K9 の結論（同じ画面で足される途中が見える）を直接は支えない
+# 以下は抜き取りに入らなかった残り27件（判定役が全数に広げた分。割合の n=55 には入れない）
+C01	L74	uB-applion-bluearchive-rev	紙芝居形式でボイス無いこと多い	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C02	L74	uB-applion-pokesleep-rev	演出が長く、操作不能時間が多い	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C06	L76	uB-applion-coffeeinc2	週の売上の数字の表示が遅い	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C07	L76	uC-tversky-animation	the schematic	支えない	語句の箇所は「動きは写実より図式に寄せる」。主張の「動きは消えるので見比べられない・静止の手がかりが要る」は支えない
+C08	L77	uB-fami-p3r-ui	選択肢などで失敗しても数日前まで	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C13	L78	uB-applion-unpacking-rev	タッチペンを使うのをおすすめ	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C14	L78	uB-applion-balatro-rev	クローバーとスペード	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C17	L79	uA-applion-mikan	爆音ファンファーレが派手過ぎる	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C27	L80	uA-applion-zaim	子供ぽっく	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C32	L81	uB-gw-umamusume-ui2	ヘッダー、サブ情報、メイン情報、フッター	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C37	L82	uB-applion-coffeeinc2	株式投資を行うときのUIの悪さ	支える	同じ口コミの追記で直ったことは統合が書いている
+C44	L119	uC-kirby-ui-gamewatch	頻繁に使用するUI	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C45	L354	uC-heer-animated-transitions	around 1 second	支える	約1秒の推奨（Robertson ほかの引用として Heer が書く）。「Heer の約1秒」は出所の書き方が粗い
+C46	L356	uC-hicks-goodgamefeel	too much screenshake	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C48	L360	uC-arx-juicy-or-dry	Goldilocks effect	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C49	L362	uA-applion-freee	表示がリアルタイムで出てくれる	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C50	L365	uA-applion-pboki2	表示区分が大分わかるように	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C53	L378	uC-arx-juicy-vis	only post-feedback	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C54	L379	uB-gi-balatro	four lines and 20 words	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C55	L380	uA-applion-odipo	キャラが成長していくのがツボ	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C56	L382	uC-bateman-useful-junk	two-to-three-week gap	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C57	L383	uC-kirby-ui-denfami	可愛くなりすぎない	弱い	語句は HD 機のフラットデザインが可愛くなりすぎない話。主張の「角を丸め、強いコントラストを避ける→難しそうに見えない」の箇所は同じ講演の別の所
+C63	L478	uA-dads-spacing	余白による階層の明示	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C65	L478	uA-applion-moneyforward	一画面で見える範囲が狭くなり	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C74	L483	uB-applion-coffeeinc2	後半は少し煩雑に感じることがある	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C78	L484	uB-applion-balatro-rev	クローバーとスペード	支える	語句の箇所が主張と同じ向き（前後±130字を読んだ）
+C81	L486	uC-tversky-animation	the schematic	支えない	C07 と同じ組の使い回し。K9 の反対②「動きは消えるので見比べられない」を支えない

@@ -100,13 +100,26 @@ const dir = path.join(R, 'raw', src, coll);
 fs.mkdirSync(dir, { recursive: true });
 let file = path.join(dir, `${doc}${part ? '_' + part : ''}.${ext}`);
 if (fs.existsSync(file) && !a.includes('--force')) die(`${path.relative(R, file)} は取得済み（取り直すなら --force）`);
-const r = spawnSync('curl', ['-sS', '-L', '-m', '90', '-A', 'boki2-quest-research (personal study design)', '-o', file, '-w', '%{http_code}', url], { encoding: 'utf8' });
+// --render：JavaScript で組み立てるページを Chromium で描画してから保存する（2026-10-30 オーナーの承認）。描画後の HTML と、画面写真（PNG、part に _shot を付けた別の記録）を残す
+// --viewport 390x844 で幅と高さ、--full で縦に全部を撮る
+const render = a.includes('--render');
+let r;
+if (render) {
+  const [vw, vh] = (opt('--viewport') || '1280x900').split('x');
+  const png = file.replace(/\.[^.\/]+$/, '') + '_shot.png';
+  if (fs.existsSync(png) && !a.includes('--force')) die(`${path.relative(R, png)} は取得済み（取り直すなら --force）`);
+  r = spawnSync(process.execPath, [path.join(__dirname, 'research-render.js'), url, file, png, vw, vh, a.includes('--full') ? '1' : '0'], { encoding: 'utf8', timeout: 180000 });
+  if (r.stderr) console.error(r.stderr.trim());
+  if (fs.existsSync(png)) { const pb = fs.readFileSync(png); append({ url, part: (part ? part + '_' : '') + 'shot', status: Number((r.stdout || '').trim()) || 0, bytes: pb.length, sha256: crypto.createHash('sha256').update(pb).digest('hex'), file: path.relative(R, png), via: 'research-fetch-render', viewport: `${vw}x${vh}`, ...(S.tos.verdict === 'per-site' ? { tos: { verdict: tosV, basis: tosB, checked: tosC || new Date().toISOString().slice(0, 10) } } : {}) }); console.log(`画面写真 → ${path.relative(R, png)}`); }
+} else r = spawnSync('curl', ['-sS', '-L', '-m', '90', '-A', 'boki2-quest-research (personal study design)', '-o', file, '-w', '%{http_code}', url], { encoding: 'utf8' });
 const status = Number((r.stdout || '').trim()) || 0;
 let buf = fs.existsSync(file) ? fs.readFileSync(file) : Buffer.alloc(0);
 // 中身で拡張子を正す（URL に拡張子がない Excel・PDF が .html で保存され、「Excel だから読めない」と誤解された）
-{ const magic = buf.slice(0, 4).toString('latin1'); const real = magic.startsWith('%PDF') ? 'pdf' : magic.startsWith('PK') ? 'xlsx' : magic === '\xd0\xcf\x11\xe0' ? 'xls' : null;
+{ const magic = buf.slice(0, 4).toString('latin1'); const m12 = buf.slice(0, 12).toString('latin1');
+  // 画像も拡張子を正す（画面の参考を集めるとき、画像が .html で保存されて開けなかった。2026-10-30）
+  const real = magic.startsWith('%PDF') ? 'pdf' : magic.startsWith('PK') ? 'xlsx' : magic === '\xd0\xcf\x11\xe0' ? 'xls' : magic === '\x89PNG' ? 'png' : magic.startsWith('\xff\xd8\xff') ? 'jpg' : magic === 'GIF8' ? 'gif' : (magic === 'RIFF' && m12.slice(8) === 'WEBP') ? 'webp' : null;
   if (real && !file.endsWith('.' + real)) { const nf = file.replace(/\.[^.\/]+$/, '.' + real); if (!fs.existsSync(nf)) { fs.renameSync(file, nf); file = nf; console.log(`中身が ${real} だったので拡張子を直した → ${path.relative(R, nf)}`); } } }
-append({ url, status, bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex'), file: path.relative(R, file), via: 'research-fetch', ...(S.tos.verdict === 'per-site' ? { tos: { verdict: tosV, basis: tosB, checked: tosC || new Date().toISOString().slice(0, 10) } } : {}) });
+append({ url, status, bytes: buf.length, sha256: crypto.createHash('sha256').update(buf).digest('hex'), file: path.relative(R, file), via: render ? 'research-fetch-render' : 'research-fetch', ...(S.tos.verdict === 'per-site' ? { tos: { verdict: tosV, basis: tosB, checked: tosC || new Date().toISOString().slice(0, 10) } } : {}) });
 console.log(`${status} ${buf.length}B → ${path.relative(R, file)}`);
 if (status !== 200) {
   // 403 でも「ページが存在しない」の案内のことがある（中小企業庁は存在しない URL に 403 を返す）。拒否か URL 違いかを見分けられるよう、本文の先頭を見せる

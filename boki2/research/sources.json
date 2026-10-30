@@ -608,6 +608,14 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "uiref",
+     "desc": "画面の見た目と操作の実例（UI ギャラリー・ゲーム UI のデータベース・Figma の公開ファイル）。オーナーの依頼（2026-10-30「本コンセプトに適うUI/UXデザインとしてリファレンスできるもの」）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   }

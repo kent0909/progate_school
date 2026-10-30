@@ -171,9 +171,10 @@ for (const [id, hs] of Object.entries(tosHits)) err(id, `規約で自動取得�
 for (const s of sources) {
   if (s.tos.verdict === 'unchecked' && ledger.some((e) => e.src === s.id)) err(s.id, '利用規約を確認してから取得すること（sources.json の tos を埋める）');
   const hostOf = (e) => { try { return new URL(e.url).host; } catch (x) { return ''; } };
-  const hits = ledger.filter((e) => e.src === s.id && e.via !== 'backfill' && e.via !== 'relocate' && e.via !== 'owner' && e.t && e.status !== 'skipped' && e.status !== 'headings-only').sort((a, b) => Date.parse(a.t) - Date.parse(b.t));
+  const hits = ledger.filter((e) => e.src === s.id && e.via !== 'backfill' && e.via !== 'relocate' && e.via !== 'owner' && !(e.via === 'research-fetch-render' && /shot$/.test(e.part || '')) && e.t && e.status !== 'skipped' && e.status !== 'headings-only').sort((a, b) => Date.parse(a.t) - Date.parse(b.t));
   let fast = 0;
   const lastAt = {};
+  // --render の画面写真の行は、HTML の行と同じ1回の描画（通信は1回）の記録なので間隔に数えない（2026-10-30、担当 A の指摘）
   // 起きてしまった違反で、原因と直し方を sources.json の tos.incidents に書いたものは数えない（記録は消さない）
   const known = new Set(((s.tos || {}).incidents || []).map((x) => x.t));
   for (const h of hits) { const k = hostOf(h); if (lastAt[k] != null && (Date.parse(h.t) - lastAt[k]) / 1000 < (s.tos.min_interval_s || 3) - 0.5 && !known.has(h.t)) fast++; lastAt[k] = Date.parse(h.t); }
@@ -282,6 +283,12 @@ function checkNote(n, es, tag, indexText, gen, r, isSection) {
   // 原文と照合
   const files = es.map(rawFile).filter(Boolean);
   const target = files.find((f) => fileSha(f) === n.sha256) || files[0];
+  // 画像（画面の参考の写真、2026-10-30）：語句では照合できない。何を見たかの申告（image_seen:）を求め、照合できないもの（注意）として数える
+  const shots = es.filter((e) => /\.(png|jpe?g|webp|gif)$/i.test(e.file || ''));
+  if (target && /\.(png|jpe?g|webp|gif)$/i.test(target)) { if (!n.image_seen) err(tag, `${where} は画像。見た所（画面の部品・配置・色・文字の強弱など）を image_seen: に書くこと`); else warn(tag, `${where} は画像。語句では照合できない（見たと申告：${String(n.image_seen).slice(0, 40)}）`); r.unverifiable++; return; }
+  // 求めるのは --render の画面写真だけ（記事の図などの古い画像の記録にまで求めると、10/30 以前の資料が一斉にエラーになった）
+  const renders = shots.filter((e) => e.via === 'research-fetch-render');
+  if (renders.length && !n.image_seen) err(tag, `${where} の文書には描画した画面写真の取得記録が ${renders.length} 件ある。見た所を image_seen: に書くこと（写真を撮って見ていない疑い）`);
   const text = target ? norm(textOf(target)) : null;
   if (!text) { r.unverifiable++; return; }
   // 文字がほとんどない PDF（画像だけの講演スライドなど）は、語句で照合できない。照合できないもの（注意）として数え、画像として見たページの申告（image_pages）を求める
