@@ -172,7 +172,7 @@ N02_NAMES = {f['properties']['N02_005'] for f in _n02s['features']}
 DROPPED = [st['name'] for st in stations if st['all'] == 0 and st['name'] not in N02_NAMES]
 stations = [st for st in stations if not (st['all'] == 0 and st['name'] not in N02_NAMES)]
 for s in stations:
-  s['pins'] = next(n for th, n in PIN_TIERS if s['all'] >= th)
+  s['pins'] = s['tier'] = next(n for th, n in PIN_TIERS if s['all'] >= th)  # tier：乗降客数の段（閑静の枠で pins が増えても変わらない）
 stations.sort(key=lambda s: -s['all'])
 for i, s in enumerate(stations): s['id'] = f's{i + 1:03d}'
 
@@ -290,7 +290,7 @@ line_out = [{'op': short(op), 'name': nm, 'paths': ps} for (op, nm), ps in sorte
 st_out = []
 for s in stations:
   x, y = xy(*s['pt'])
-  st_out.append({'id': s['id'], 'name': s['name'], 'aliases': s.get('aliases', []), 'x': x, 'y': y, 'ward': ward_name[s['wards'].most_common(1)[0][0]], 'riders': s['all'], 'ridersJM': s['jm'], 'pins': s['pins'],
+  st_out.append({'id': s['id'], 'name': s['name'], 'aliases': s.get('aliases', []), 'x': x, 'y': y, 'ward': ward_name[s['wards'].most_common(1)[0][0]], 'riders': s['all'], 'ridersJM': s['jm'], 'pins': s['pins'], 'tier': s['tier'],
                  'lines': [short(op) + ' ' + ln for op, ln in s['lines']], 'byOp': s['by']})
 
 SRC = ('出典：「国土数値情報（駅別乗降客数データ S12-25・鉄道データ N02-25・行政区域データ N03-2026・地価公示データ L01-26・都道府県地価調査データ L02-26）」（国土交通省）'
