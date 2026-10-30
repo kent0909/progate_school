@@ -5,7 +5,7 @@ doc: uC-arx-juicy-vis
 file: uC-arx-juicy-vis_html.html
 sha256: 3e50ba8fa03643310df6ea4cd51acc4d7615f37b6df8387f690fa91c7b9f21b7
 read: full
-anchors: ["Juice Elements Palette", "Commit Burst", "Status Badge & Stamp", "only post-feedback showed a significant positive effect", "The pings were an annoying distraction", "The Boundary Between", "get the work done", "Functional narrative animation as visual feedback", "Effectiveness of animation in trend visualization"]
+anchors: ["Juice Elements Palette", "Commit Burst", "Status Badge & Stamp", "only post-feedback showed a significant positive effect", "The pings were an annoying distraction", "The Boundary Between", "get the work done", "Functional narrative animation as visual feedback", "Effectiveness of animation in trend visualization", "Effect duration", "M = 3.647", "most often preferred", "novelty decay untested"]
 ---
 Liang・Chen・Harrison（WPI、2026年10月の arXiv）。本文、表、参考文献の末尾まで読んだ。
 
@@ -23,3 +23,14 @@ Liang・Chen・Harrison（WPI、2026年10月の arXiv）。本文、表、参考
 - 「完了の印のスタンプ」「選んでいる間は周りを暗く」は、帳簿・月報の画面の部品にそのまま使える型
 - 簿記の学びは「仕事寄り」になりうるので、帳簿を読む画面では飾りを減らし、店・町の画面で厚くする、という場所による使い分けの根拠
 - 限界：英語圏のオンライン参加者、1回きり（慣れによる効果の減りは見ていない）
+
+## R3 の全文の読み直し（2026-10-30、BRIEF-UIREF-REREAD）
+
+読んだ範囲：本文・表1〜8・考察・限界・付録の説明・参考文献まで全部。
+拾い直した事実：
+- 調査1：派手な版が使い込み 3.224→3.647、美しさ 4.284→5.155、課題 2.703→2.832（p=.016）。使い込みの4つの下位の尺度も全部上
+- 調査2：好みで一番多かったのは「最中」（13人）、次が「後」（12人）、全部（10人）。前（3人）、無し（5人）。数で効いたのは「後」だけ（使い込み 3.504→3.713）。「前」は課題の点を下げる向き（2.482→2.316、p=.073、有意でない）
+- 調査3：強さで差なし。課題は 無し 2.396・低 2.625・中 2.412・高 2.180 で、強いほど下がる向き（順の傾き −0.097、p=.075、有意でない）。好みは中10・低6・無し2
+- 強さの段は中を基準の倍率：動きの大きさ 0.10／1.00／1.90、長さ 0.55／1.00／1.55、音 0.35／1.00／1.35、粒の密度 0.40／1.00／2.60。中の長さの絶対値（ms）は本文にない
+- 参加者は Prolific、平均年齢 36〜40歳、西洋・英語圏。1回きりで、目新しさが薄れる効果は見ていない。手ごたえの作りは著者自身で、外部の作り手の確かめはない
+- 勧め：手ごたえで遅れ（latency）を足さない、印や操作を隠さない、強さは変えられるように。集中を保つのが難しい所・多段の操作で効く声

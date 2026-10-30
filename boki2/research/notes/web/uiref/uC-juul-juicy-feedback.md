@@ -5,7 +5,7 @@ doc: uC-juul-juicy-feedback
 file: uC-juul-juicy-feedback_pdf.pdf
 sha256: 0946f3f761f0296d9e379f77b0af165ab25346e832c6469562115c1652925b88
 read: full
-anchors: ["Good Feedback for bad Players", "mechanically identical versions", "end-of-level sequence in", "We recruited 46 players", "a lower 40,340 on the juicy version", "barely made them feel more competent", "of sufficient quality to give the hypothesized results", "longer-lasting particle effects"]
+anchors: ["Good Feedback for bad Players", "mechanically identical versions", "end-of-level sequence in", "We recruited 46 players", "a lower 40,340 on the juicy version", "barely made them feel more competent", "of sufficient quality to give the hypothesized results", "longer-lasting particle effects", "not a test of your skill", "compared to 3.74", "score counting up"]
 ---
 Juul と Begy の FDG/DiGRA 2016 のポスター論文。2ページ全部を読んだ。
 
@@ -22,3 +22,13 @@ Juul と Begy の FDG/DiGRA 2016 のポスター論文。2ページ全部を読�
 - 「派手にすれば上手くなる・分かりやすくなる」は支えられない。派手さが上げるのは「出来がよく見える」側。オーナーの「チープすぎる」は見栄えの評価の話なので、派手さはそこには効く向き。
 - 一方で、仕訳の正誤のように成績（正しく読む）が大事な所では、状態を伝えない重複の手ごたえは成績を下げる向き。だから「状態を伝える動き（札がどこへ入ったか・数字が増えた）」と「飾りの動き（粒・揺れ）」を分け、飾りは判断の後（正解の後・月末）に寄せる、という規則の根拠になる。
 - 限界：46人・6分・パズル1つ・有意差なし。向きの手がかりにとどめる。
+
+## R3 の全文の読み直し（2026-10-30、BRIEF-UIREF-REREAD）
+
+読んだ範囲：PDF 1ページ（2段組みのポスター）を、要旨・方法・結果・考察・図1の説明・参考文献まで全部。
+拾い直した事実：
+- 指示は「腕前の試験ではない」と告げてから遊ばせた。点を上げる動機づけは揃えていない（成績の差の読み方を弱める）
+- 基本の版にも状態を伝える動き（札が動く・点が数え上がる・消える）がある。比べたのは「動きの有無」ではなく「状態を伝える最小」と「重ねた飾り（長く残る粒・音・点の小瓶）」
+- 4つの結果：遊びやすさ 4.57→4.43、点 49,682→40,340（p=.12）、出来の評価 3.26→3.74（p=.20）、賢く感じた 2.83→3.05（p=.44）。どれも有意でない。点が下がる向きと、出来がよく見える向きは同じ程度の弱さ
+- 参加者は大学の学生46人（半々に分けた、間の比較）、謝礼はコーヒー券など。国は書いていない
+ノートの訂正：「2ページ」は誤り。PDF は1ページ（pdfinfo）。

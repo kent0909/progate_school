@@ -5,7 +5,7 @@ doc: uC-tversky-animation
 file: uC-tversky-animation_pdf2.pdf
 sha256: 9b02208a40b33b177bdd0e726b2917d8dfbe7257e22b2d832dcc8a4ecf06a865
 read: full
-anchors: ["Animation: can it facilitate?", "the Congruence Principle", "a pair of moving dashed lines", "Star Trek Phaser Bank", "after a week, performance of students who had studied the text improved", "the legs of galloping horses incorrectly", "the ﬁll bar indicating the rate of completion", "lean toward the schematic and away from the realistic", "Wax Tablets of the Mind"]
+anchors: ["Animation: can it facilitate?", "the Congruence Principle", "a pair of moving dashed lines", "Star Trek Phaser Bank", "after a week, performance of students who had studied the text improved", "the legs of galloping horses incorrectly", "the ﬁll bar indicating the rate of completion", "lean toward the schematic and away from the realistic", "Wax Tablets of the Mind", "so they have a cost", "junior high school", "they disappear", "must be used with care"]
 ---
 Tversky・Morrison・Betrancourt「Animation: can it facilitate?」（IJHCS 2002）。本文16ページと参考文献まで全部読んだ。
 
@@ -21,3 +21,15 @@ Tversky・Morrison・Betrancourt「Animation: can it facilitate?」（IJHCS 2002
 - 仕訳の流れ（出来事→札→左右→棚）は人が区切った段で理解するので、段ごとの静止の図（前の段が見える）と組むのがよい
 - 動きの効く場所は「その場の変化の知らせ」（数字が増えた・棚が伸びた）。教科書の仕組みの説明を動画のように流す使い方は避ける
 - 限界：2002年、対象は複雑な仕組みを教える動き。ゲームの手ごたえの動きは調べていない
+
+## R3 の全文の読み直し（2026-10-30、BRIEF-UIREF-REREAD）
+
+読んだ範囲：本文16ページ（序〜含み・結び）と参考文献まで全部。
+拾い直した事実：
+- 結論は「複雑な仕組みを教える動き」に限る、と著者自身が書く。進み具合の帯のような、その場の変化の知らせは長く使われ有望とする
+- 動きは消えるので、比べ直し・見直しには区切った図が向く（「消える」の箇所は 3.2 節）
+- 動きは時間がかかることが多くコストがある。皆に好まれるわけでも、使われるわけでもない
+- 初心者は動く天気図で目立つ所に目を奪われ、因果を取り出せなかった
+- 動きの効きと混ざっていたもの：予想させること、操作できること（どちらも単独で学びに効く）
+- 年齢：中学生（11〜14歳）には連続の動きの群が勝ったが情報が同じでない。小学生・大学生の運動の法則では効きなし。図は空間の力の低い人にだけ効いた例
+- 数値（長さ・強さ）は総説なので出ていない

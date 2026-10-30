@@ -5,7 +5,7 @@ doc: uC-heer-animated-transitions
 file: uC-heer-animated-transitions_pdf.pdf
 sha256: 6f08d6bf46903ac8ebb2bae98aae1592dea2b3b2d5dda589c2464ad2c5e45c05
 read: full
-anchors: ["Animated Transitions in Statistical Data Graphics", "temporal “chart junk”", "Maintain valid data graphics during transitions", "Make transitions as long as needed, but no longer", "we implemented staggering", "Experiment 1: Object Tracking", "Twenty-four subjects", "most subjects laughed upon first viewing", "persisting axis gridlines as landmarks", "Phosphor: Explaining Transitions"]
+anchors: ["Animated Transitions in Statistical Data Graphics", "temporal “chart junk”", "Maintain valid data graphics during transitions", "Make transitions as long as needed, but no longer", "we implemented staggering", "Experiment 1: Object Tracking", "Twenty-four subjects", "most subjects laughed upon first viewing", "persisting axis gridlines as landmarks", "Phosphor: Explaining Transitions", "may prove boring", "minimal movement", "were 1.25 seconds", "around a full second"]
 ---
 Heer（当時 Berkeley）と Robertson（Microsoft Research）の InfoVis 2007 論文。本文と参考文献まで全部読んだ。
 
@@ -22,3 +22,16 @@ Heer（当時 Berkeley）と Robertson（Microsoft Research）の InfoVis 2007 �
 - 長さは1秒前後が実験の値。手ごたえの動き（DESIGN-JOURNAL-UX の 400ms 以下）と、数字の変化を読ませる動き（約1秒）を別の枠にする根拠になる
 - 月報の行を少しずつずらして出す（stagger）、目盛りは変えない（月をまたいでも同じ目盛り）、変わる途中も正しい棒であること、は規則にそのまま入れられる
 - 限界：2007年、デスクトップの大きな画面、仕事でグラフを使う大人。スマホの小さい画面・中高生は調べていない
+
+## R3 の全文の読み直し（2026-10-30、BRIEF-UIREF-REREAD）
+
+読んだ範囲：8ページの本文・図の説明・表・参考文献まで全部。
+拾い直した事実：
+- 実験の長さは、実験1が 1.25秒、実験2が 2秒（静止は一瞬）。表示は始まりの3秒前から見せ、始まりから3秒で隠す。見る人はマウスを図から離して待つ（受け身で見るだけ）
+- 「約1秒」は Robertson ほかの勧めの引用。著者自身の勧めは「段ごとに約1秒（半秒ではなく）」。動きが少ない切り替えはもっと速くてよい、とも
+- 遅すぎると退屈で課題の時間が延び、速すぎると誤りが増える（両側にコスト）
+- 実験2の積み上げ棒は、動きでも差がない（p=0.224）。細かく段に分けると誤差が増えた
+- 参加者24人は26〜62歳（平均49.6）、図を仕事で使う人。21インチの画面
+- 好み（5段）：分かりやすい 4.20、楽しい 4.54、自分の分析で使う 4.17、発表で使う 4.36
+- 出し入れは「下から伸びる・空から落ちる」をやめ、薄れで統一（意味のない動きを避けるため）。共通の次元のない図どうしは、動きでつながず静止か溶ける切り替え
+ノートの訂正：「長さは1秒前後が実験の値」は誤り。実験の値は 1.25秒と2秒で、1秒前後は他の研究の勧めの引用。

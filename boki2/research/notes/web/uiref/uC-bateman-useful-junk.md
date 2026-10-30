@@ -5,7 +5,7 @@ doc: uC-bateman-useful-junk
 file: uC-bateman-useful-junk_pdf.pdf
 sha256: 93997731cedb7efa54ac1ec3c2df2844427f5e4e1303b2b5060f9c9564167664
 read: full
-anchors: ["Useful Junk?", "Nigel Holmes", "Twenty participants (9 male, 11 female)", "Monstrous Costs", "40% of users’ time was spent looking at embellishments", "the monster’s oddly shaped mouth and teeth", "safety-critical systems", "Chartjunk or goldgraph?"]
+anchors: ["Useful Junk?", "Nigel Holmes", "Twenty participants (9 male, 11 female)", "Monstrous Costs", "40% of users’ time was spent looking at embellishments", "the monster’s oddly shaped mouth and teeth", "safety-critical systems", "Chartjunk or goldgraph?", "aged between 18", "1-tailed ttests", "time was limited", "most extreme type"]
 ---
 Bateman ほか（サスカチュワン大学）「Useful Junk?」（CHI 2010）。10ページを参考文献まで全部読んだ。
 
@@ -24,3 +24,15 @@ Bateman ほか（サスカチュワン大学）「Useful Junk?」（CHI 2010）�
 - ただし絵は価値の伝言を運ぶ（借金＝怪物、のような絵は、借入金は悪いという誤った価値を教えうる）。簿記の勘定は良し悪しでないので、絵の感情を中立にする規則が要る【推論】
 - 検定会場（CBT の本番の形）では素の表を守る（本番と同じ見た目で練習する目的）
 - 反対の資料との関係：Tufte の最小主義（BIZ-FUNVISUAL 3章の数字の画面の型）と向きが逆。両方を立てると「判断のために読む画面は素、覚えてほしい結果の画面は絵入り」と分けられる【推論】
+
+## R3 の全文の読み直し（2026-10-30、BRIEF-UIREF-REREAD）
+
+読んだ範囲：10ページの本文・図・表・参考文献まで全部。
+拾い直した事実：
+- 図は静止画（動きの研究ではない）。見る時間は無制限で、著者は「時間を区切ると、データを見る時間が減るかもしれない」と書く
+- 参加者は18〜40歳の大学生・院生20人（うち17人は図を作る人）。14枚の図を、絵入りと素を交互に見る（1枚につき片方の版）。図の順は入れ替えていない。採点は1人（別の人の確かめは1人分）
+- 想起は10人ずつ。直後（5分の遊びの後）は主題・分類・傾向で差なし（価値の伝言だけ差）。12〜22日後は全部で差。検定は片側（α=.05）で、傾向は p=.042
+- 説明にかかった時間は絵入り 2.60分・素 2.43分（p=.082、有意でない）。視線の4割が飾りの所（13% はデータを持たない絵、27% は重なる所）
+- 好みは絵入り（楽しい・魅力・覚えやすい）。「説明が速かった」とも答えたが、実際の時間は速くない
+- 著者は最も極端な飾り（漫画の絵）を選んだ。質感・色・抽象の形のような控えめな飾りは効きが小さいと予想
+ノートの訂正：「1人はどちらか片方の版を見る」は、1枚ごとに片方の版で、14枚全部を見る。

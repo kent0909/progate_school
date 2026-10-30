@@ -5,7 +5,7 @@ doc: uC-arx-juicy-text
 file: uC-arx-juicy-text_html.html
 sha256: 7d6fcd9679e61f215f34b984adf4a9079874117505bb427ac6248a056d67ceb7
 read: full
-anchors: ["Onomatopoeia and Semantic Text Effects", "the comic book soundtrack", "Persona 5 and Valorant", "Each effect lasted half a second", "A rainbow colored", "Default to Juicy Particle", "Use Semantic Text for Progress Feedback", "Showing–Saying of Japanese Culture", "Motivated to lose?"]
+anchors: ["Onomatopoeia and Semantic Text Effects", "the comic book soundtrack", "Persona 5 and Valorant", "Each effect lasted half a second", "A rainbow colored", "Default to Juicy Particle", "Use Semantic Text for Progress Feedback", "Showing–Saying of Japanese Culture", "Motivated to lose?", "more than 13 hours", "outside of Appeal", "44.4% chose", "Our game was simple, lacking"]
 ---
 Fabre・Seaborn・Verhulst・伊藤・暦本（東大・Sony CSL ほか、ICMI 2024、arXiv 版）。本文と付録、参考文献の末尾まで読んだ。
 
@@ -24,3 +24,15 @@ Fabre・Seaborn・Verhulst・伊藤・暦本（東大・Sony CSL ほか、ICMI 2
 - オーナーの「文字にも動き」への具体の形：仕訳の結果を「○」だけでなく、意味の文字（「ぴったり！」「＋1万円」）を粒と一緒に短く出すと、進み具合の手ごたえが上がる向き。日本語は擬音が豊か（著者も日本語・漫画の擬音に触れている）なので、「ジュワッ」「チャリン」のような擬音の文字は湯気・お金の質感を伝えるのに使える
 - ただし誤りを「BAD」のように強く出すと有能感が下がる。誤りの文字は動かさず、短い・柔らかい言葉にする（DESIGN-JOURNAL-UX の「こつん」の音と同じ向き）
 - 限界：英語圏の45人、最小の的当て、物語も進行もない
+
+## R3 の全文の読み直し（2026-10-30、BRIEF-UIREF-REREAD）
+
+読んだ範囲：本文・表1〜3・図の説明・付録・参考文献まで全部。
+拾い直した事実：
+- 成績（押すまでの時間・正確さ）は、観察と成績の段で効果による差がない。意味のない語の文字だけ押す間隔が少し延びた（0.17秒→0.20秒）
+- 標準の粒と派手な粒の差は「見た目の好み」だけで、好奇心・意味・没入には差がなかった（Hicks 2019a と違う。著者は最小の的当てのせいかもと）
+- 好み：粒 44.4%・文字＋粒 40%・文字 11.1%・無し 4.4%。もう一度遊ぶなら文字＋粒 48.9%。成績の段は粒 62.2%
+- 有能感：粒 5.24・無し 4.65・文字 4.38（1〜7）。進み具合の手ごたえ：文字 5.62・粒 4.43・無し 2.81
+- 参加者45人は英語圏（豪・加・NZ・英・米）、年齢の中央値28、40% が週13時間を超えて遊ぶ。1条件で的20個を3回ずつ押す（効果は60回）。全体で約40分
+- 水の擬音の文字は、的を濡れた・冷たいと感じさせた（粒と同じ程度）
+- 限界：物語も進行もない。文字に音を付けていない

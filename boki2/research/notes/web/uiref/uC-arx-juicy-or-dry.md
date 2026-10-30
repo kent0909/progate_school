@@ -5,7 +5,7 @@ doc: uC-arx-juicy-or-dry
 file: uC-arx-juicy-or-dry_pdf.pdf
 sha256: e3ff948b9f9d7032656b76ed7d6e565df0a4b2836a78b043fa27c27f2e372359
 read: full
-anchors: ["JUICY OR DRY?", "wet little term for constant and bountiful user feedback", "Goldilocks effect", "the top bun bounces", "a “squish” sound plays when items collide", "8 correct answers for the dry version and just 1 correct answer", "time spent just waiting for animations to finish", "tension between engagement and cognitive load", "Sky Burger for Android"]
+anchors: ["JUICY OR DRY?", "wet little term for constant and bountiful user feedback", "Goldilocks effect", "the top bun bounces", "a “squish” sound plays when items collide", "8 correct answers for the dry version and just 1 correct answer", "time spent just waiting for animations to finish", "tension between engagement and cognitive load", "Sky Burger for Android", "and high juiciness", "Google Notebook LM", "carbs never appeared", "trusted their own senses"]
 ---
 Campos（MacEwan 大学）の比較研究（2025）。本文・表・参考文献まで全部読んだ。
 
@@ -22,3 +22,17 @@ Campos（MacEwan 大学）の比較研究（2025）。本文・表・参考文�
 - 数字とグラフを見せる所（棚の帯・月報・帳簿）は「乾いた版」の読みやすさを先に守る。ハンバーガーの例は、物理で落ちる具の楽しさが、どの品が一番大きいかの読み取りを邪魔した例に読める【推論：著者自身は、答えを図から得たか勘で答えたかは不明と書いている】
 - 待たされる・追いかけさせるは不満になる。動く的を押させない、動きの終わりを待たせない（DESIGN-JOURNAL-UX 5.4 の「押せば終点へ」と同じ向き）
 - 限界：参加者は少数、題材が別、同じ人が同じ題材の両版を触っていない
+
+## R3 の全文の読み直し（2026-10-30、BRIEF-UIREF-REREAD）
+
+読んだ範囲：20ページの本文・表1〜3・図4〜9（図は画像として見た）・参考文献まで全部。
+拾い直した事実：
+- 引用の Kao の結果は「中と高が、低と極端に勝つ」。高い強さも良い側（「中だけが良い」ではない）。Kao の本文は取れていない
+- ハンバーガーの想起で乾いた版が勝った件には交絡がある：派手な版で「炭水化物の数が出なかった」という不具合の声があり、問い1は炭水化物を問う。正解の品は棒が一番長く伸びる品で、著者も図から答えたか勘かは分からないと書く
+- 検定はしていない（平均と人数だけ）。1人は乾いた1つ・派手な1つ（別の題材）。人数は本文になく、図9の割合（8人＝44.4%）から1群約18人と読める（図から読んだ）
+- 自由記述の分析は NotebookLM で行った。参加者はメール・WhatsApp・口伝え、2025年3月に集めた
+- 使いやすさ（PU）は1日の過ごし方で乾いた版が上（4.17 対 3.87）。派手な版の帯は乱れた時刻で高さが変わり、画面が揺れ音が鳴る。色で比べにくい・どこが押せるか分からない、の声
+- 想起は1日の過ごし方 4.06→4.17、チャクラ 3.78→4.61（派手が上）。乾いた版の利用者から「もっと動きがあれば覚えやすかった」の声
+- 乾いた版の1つは既存の図（Podio）で、派手な版は著者が作った（作り手が違う）
+- 長さの数値はない。上のパンが5回ほど落ち続けて止まるまで待たされた声
+ノートの訂正：「参加者は少数」は、本文に人数がなく、図から1群約18人。

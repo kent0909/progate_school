@@ -5,7 +5,7 @@ doc: uC-hicks-goodgamefeel
 file: uC-hicks-goodgamefeel_pdf.pdf
 sha256: 66756795ffb25c0089dd0e403aaa96d77e583886e13f5be444a24b1fcd831ee0
 read: full
-anchors: ["received responses from 17 game developers", "Juice should be used to direct the players attention, not divide it", "too much screenshake", "Juice alone isn't enough", "smooth and silky", "Feedback Coherence: Does feedback reflect the importance of the event?", "reserved use of colour", "Useful junk?"]
+anchors: ["received responses from 17 game developers", "Juice should be used to direct the players attention, not divide it", "too much screenshake", "Juice alone isn't enough", "smooth and silky", "Feedback Coherence: Does feedback reflect the importance of the event?", "reserved use of colour", "Useful junk?", "mean age 29", "pair of shoes", "only examined developers"]
 ---
 Hicks・Dickinson・Holopainen・Gerling「Good Game Feel」（DiGRA 2018）。17ページを全部読んだ（参考文献まで）。
 
@@ -24,3 +24,15 @@ Hicks・Dickinson・Holopainen・Gerling「Good Game Feel」（DiGRA 2018）。1
 - 「手ごたえの大きさ＝出来事の大事さ」は動きの体系の芯にできる。札を置く（小）→行がそろう（中）→月の締めが通る・決算（大）の段で、動きの強さ・長さ・音を段にする。いまは全部が同じ強さ（何も動かない）なので段がない。
 - 「入力なしでも世界が生きている」は、背景（湯気・客・町）の動きの根拠。会話の紙芝居の背景に効く。
 - 「色を絞って目を引く所を作る」は、今の画面で赤（手もとに残るお金）・橙（ボタン）・青桃（借方貸方）・紫が同じ強さで並ぶ問題（w29・w49）への直し方の根拠。
+
+## R3 の全文の読み直し（2026-10-30、BRIEF-UIREF-REREAD）
+
+読んだ範囲：17ページの本文・表1〜10・参考文献まで全部。
+拾い直した事実：
+- 回答した作り手17人（平均29歳、男11）。Twitter・Steam・reddit で集めた。独立系が多い。遊ぶ人は調べていない。枠組みは2作品（各30分ほど遊んで）で直した
+- Downwell の撃つ反動は大げさで、連続すると遊ぶ人を圧倒しうる（研究者の分析）
+- Candy Crush は数秒動かないと次の手が脈打つ（入力なしの手がかり）。秒数は書いていない
+- 作り手の声：手ごたえの大きさから行動の値打ちが分かるべき／音・絵・振動を同時に出すのは聞こえない人・見えない人のためにもなる
+- 結果の不確かさ（でたらめな宝）が繰り返しの理由、と作り手。描画の速さ（フレームの速さ）もなめらかさの要因
+- 作り手自身も言葉にしにくい（新しい靴の履き心地のたとえ）
+- 長さ・強さの数値は出ていない
