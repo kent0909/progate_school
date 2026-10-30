@@ -2408,5 +2408,20 @@
   "verdict": "gray",
   "basis": "m1.material.io（Material Design 1 の保存版）。Google の規約で該当ページの自動取得の明示の禁止なし。robots.txt は research-fetch が確かめる。読むだけで転載しない",
   "checked": "2026-10-25"
+ },
+ "www.geospatial.jp": {
+  "verdict": "gray",
+  "basis": "G空間情報センター（AIGID 運営）：robots.txt は /ckan/user/*・クエリ付きURL（/*?*）・.php・.js のみ Disallow。サイトの AIGID アカウント利用規約（https://aigid.jp/account-terms/、2023-07-11 改定）に自動取得・スクレイピングの明示の禁止なし（第5条はサーバーの妨害・不正アクセス等）。データ（全国の人流オープンデータ）の利用規約は政府標準利用規約2.0準拠・CC BY 4.0 互換・商用可・出典と加工の記載が必要。ただしデータ本体のダウンロードはユーザー登録とログインが条件（データセットのページに明記）なので、登録の要るデータ本体は取らない（WANTED.md）。説明のページと利用規約・定義書の PDF は未ログインで開ける。2026-10-30 確認",
+  "checked": "2026-10-30"
+ },
+ "front.geospatial.jp": {
+  "verdict": "gray",
+  "basis": "G空間情報センターの入口（WordPress）：robots.txt は /wp-admin/ のみ Disallow。ユーザー登録のページの利用規約は AIGID アカウント利用規約（自動取得の明示の禁止なし）。2026-10-30 確認",
+  "checked": "2026-10-30"
+ },
+ "aigid.jp": {
+  "verdict": "gray",
+  "basis": "一般社団法人 社会基盤情報流通推進協議会：robots.txt は /wp-admin/ のみ Disallow。AIGID アカウント利用規約に自動取得の明示の禁止なし。2026-10-30 確認",
+  "checked": "2026-10-30"
  }
 }

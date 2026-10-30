@@ -616,6 +616,14 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "footfall23",
+     "desc": "東京23区の駅・候補地の人通り（乗り換えの二重の数えのない数）と昼と夜の強さの資料：国交省の全国の人流オープンデータ（1kmメッシュ）・大都市交通センサス・経済センサスと国勢調査の小地域・各社の乗換人員（出店の地図 DESIGN-STATIONMAP 5章・4.5 段2、BIZ-FOOTFALL23）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   },
