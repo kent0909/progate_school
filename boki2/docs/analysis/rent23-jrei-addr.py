@@ -4,7 +4,7 @@
 import re, sys
 t = open(sys.argv[1], encoding='utf8').read().split('\n')
 area = None
-rowre = re.compile(r'((?:千代田|中央|港|新宿|渋谷|豊島|文京|台東)区\S+?)\s+¥([\d,]+)\s+(\d+)\s+(¥[\d,]+|-)\s+(\d+)')
+rowre = re.compile(r'((?:千代田|中央|港|新宿|渋谷|豊島|文京|台東)区\S+?)\s+¥([\d,]+)\s+(\d+)\s+(¥[\d,]+|-)\s+(\d+|-)')
 for l in t:
     m = re.match(r'^\s*(\S+)エリア\s*$', l)
     if m: area = m.group(1)
