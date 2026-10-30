@@ -165,6 +165,12 @@ if XFER_M > 0:
       merged.append([st['name'] for st in g])
     out.append(m)
   stations = out
+# 2025年の鉄道データ（N02-25）に駅がなく、乗降客数も0の駅（廃止。上野懸垂線の上野動物園東園・西園）は除く（判定 v04 の中の指摘）。
+# 乗降客数0でも駅が残るもの（とうきょうスカイツリー：数が押上の側に入る）は残す
+_n02s = zip_geojson('N02-25', 'N02-25_Station.geojson')
+N02_NAMES = {f['properties']['N02_005'] for f in _n02s['features']}
+DROPPED = [st['name'] for st in stations if st['all'] == 0 and st['name'] not in N02_NAMES]
+stations = [st for st in stations if not (st['all'] == 0 and st['name'] not in N02_NAMES)]
 for s in stations:
   s['pins'] = next(n for th, n in PIN_TIERS if s['all'] >= th)
 stations.sort(key=lambda s: -s['all'])
@@ -206,9 +212,25 @@ def quad(s, q):
 
 
 used, got = set(), {s['id']: [] for s in stations}
+# 閑静な住宅地の枠（版0.5、オーナーの決定 10/30「その駅に実際にそういうエリアがあるなら入れる」）：
+# ピン6本以上の駅で、重心から QUIET_M 以内に「閑静・大規模住宅・区画整然」と書かれた住宅地の地点があれば、地価のいちばん高い所を1本足す
+# （渋谷なら松濤1丁目）。無い駅には足さない。普通のピンの巡回より先に取る（先に取らないと、近くの駅の普通のピンに取られる）
+QUIET_M = 1200
+QUIET_RE = re.compile(r'閑静|大規模住宅|区画整然')
+quiet = []
+for s in stations:
+  if s['pins'] < 6: continue
+  c = [(q['price'], dist_m((q['lat'], q['lon']), s['pt']), i) for i, q in enumerate(pts)
+       if i not in used and q['type'] == 'jutaku' and QUIET_RE.search(q['desc'] or '') and dist_m((q['lat'], q['lon']), s['pt']) <= QUIET_M]
+  if not c: continue
+  pr, d, i = max(c)
+  used.add(i); got[s['id']].append((d, i)); pts[i]['quiet'] = True; s['pins'] += 1
+  quiet.append(f"{s['name']}:{pts[i]['town']}")
+
 for k in range(max(s['pins'] for s in stations)):
   for s in stations:
-    if s['pins'] <= k: continue
+    n = len(got[s['id']])
+    if n >= s['pins'] or n > k: continue  # 持っている本数で数える（閑静の枠を先に持つ駅がある）。1巡に1本
     free = [(d, i) for d, i in cand[s['id']] if i not in used]
     if not free: continue
     have = {pts[i]['type'] for _, i in got[s['id']]}
@@ -239,7 +261,7 @@ for s in stations:
   for k, q in enumerate(chosen):
     ward, town = q['ward'], q['town']
     x, y = xy(q['lat'], q['lon'])
-    sites.append({'id': f"{s['id']}-{k + 1}", 'st': s['id'], 'town': town, 'ward': ward, 'type': q['type'], 'x': x, 'y': y, 'walk': q['walkm'], 'price': q['price'], 'zone': q['zone'], 'desc': q['desc'], 'l01': q['no']})
+    sites.append({'id': f"{s['id']}-{k + 1}", 'st': s['id'], 'town': town, 'ward': ward, 'type': q['type'], 'x': x, 'y': y, 'walk': q['walkm'], 'price': q['price'], 'zone': q['zone'], 'desc': q['desc'], 'l01': q['no'], **({'quiet': True} if q.get('quiet') else {})})
 
 # ---------- 地図の線 ----------
 def coords(geom, tol):
@@ -282,6 +304,7 @@ tc = collections.Counter(x['type'] for x in sites)
 print(f"駅 {len(st_out)}（--ops {OPS_MODE}。JRとメトロ両方 {sum(1 for s in stations if set(JM) <= s['ops'])}・JRあり {sum(1 for s in stations if JM[0] in s['ops'])}・メトロあり {sum(1 for s in stations if JM[1] in s['ops'])}・JRもメトロもない {sum(1 for s in stations if not (s['ops'] & set(JM)))}）／区ごとの駅 {dict(collections.Counter(ward_name[s['wards'].most_common(1)[0][0]] for s in stations).most_common())}")
 print(f"ピン 求めた数 {sum(s['pins'] for s in stations)}・置けた数 {len(sites)}・足りない駅 {sum(1 for s in stations if s['short'] > 0)}（足りない数の合計 {sum(s['short'] for s in stations)}）・候補地0の駅 {sum(1 for s in stations if not got[s['id']])}")
 print(f'乗り換え駅のまとめ（{XFER_M}m 以内）{len(merged)}組：' + '／'.join('・'.join(g) for g in merged))
+print(f'閑静な住宅地の枠 {len(quiet)}駅：' + '・'.join(quiet) + f'／乗降客数0で除いた駅：' + '・'.join(DROPPED))
 print(f'地価公示と地価調査の同じ地点 {DUP} をまとめた（候補の地点 {len(pts)}）')
 print('属性', dict(tc), '／路線', len(line_out), '／出力', OUT, f'{len(js) // 1024}KB')
 if REPORT:
