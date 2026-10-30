@@ -38,21 +38,19 @@
     const stationNodes = d.stations.map(s => {
       const n = svgNode('g',{'data-station':s.id},q('.sm-stations'));
       svgNode('circle',{r:Math.max(2.2,Math.min(9,2+Math.sqrt(s.riders)/230)),class:'sm-station'},n);
-      const leader=svgNode('line',{class:'sm-label-leader'},n);const t = svgNode('text',{x:11,y:-8,class:'sm-station-label'},n);t.textContent=s.name;return {s,n,t,leader};
+      const leader=svgNode('line',{class:'sm-label-leader'},n);const t = svgNode('text',{x:11,y:-8,class:'sm-station-label'},n);t.textContent=s.name;t.style.display='none';return {s,n,t,leader};
     });
     const siteNodes = d.sites.map(s => {
-      const btn = document.createElement('button');btn.type='button';btn.className=`sm-site sm-${typeKey(s)}`;btn.dataset.site=s.id;
+      const btn = document.createElement('button');btn.type='button';btn.hidden=true;btn.className=`sm-site sm-${typeKey(s)}`;btn.dataset.site=s.id;
       const mark = mine.has(s.id)?'★':rivals.has(s.id)?'⚑':'';
       btn.classList.toggle('sm-occupied',!vacant(s));btn.setAttribute('aria-label',`${s.town}、${type(s)[0]}、${stations.get(s.st).name}駅${mark?'、'+(mine.has(s.id)?'自分の店':'ライバル '+rivals.get(s.id)):''}${!vacant(s)?'、空きなし':''}`);
       btn.innerHTML=`<span class="sm-symbol" aria-hidden="true">${type(s)[1]}</span><span class="sm-town">${esc(s.town)}</span>${mark?`<span class="sm-owner" title="${esc(mine.has(s.id)?'自分の店':'ライバル '+rivals.get(s.id))}">${mark}</span>`:''}`;
       pins.append(btn);on(btn,'click',()=>openCard(s,btn));
-      const dot=svgNode('text',{class:`sm-dot sm-${typeKey(s)}`,'data-pin-dot':s.id},q('.sm-dots'));dot.textContent=mark||type(s)[1];dot.style.opacity=vacant(s)?'1':'.35';return {s,btn,dot,town:btn.querySelector('.sm-town')};
+      const dot=svgNode('text',{class:`sm-dot sm-${typeKey(s)}`,'data-pin-dot':s.id},q('.sm-dots'));dot.textContent=mark||type(s)[1];dot.style.opacity=vacant(s)?'1':'.35';dot.style.display='none';return {s,btn,dot,town:btn.querySelector('.sm-town')};
     });
-    // 文字の大きさは、最初に全ノードを追加してから一括で実測する。
-    // 表示ごとのgetBoundingClientRectの連続呼び出しを避ける。
-    stationNodes.forEach(p=>{const b=p.t.getBBox();p.labelBox={width:b.width,height:b.height,baseline:b.y+8};});
+    // 区名だけを最初に実測。駅名・町名は画面に出るときに測って再利用する。
+    // 全体表示で隠す1000か所以上の文字を、初期化時にレイアウトしない。
     wardLabels.forEach(p=>{const b=p.n.getBBox();p.labelBox={width:b.width,height:b.height,baseline:b.y};});
-    siteNodes.forEach(p=>{const b=p.town.getBoundingClientRect(),r=p.btn.getBoundingClientRect(),mark=p.btn.querySelector('.sm-symbol').getBoundingClientRect();p.labelBox={width:b.width,height:b.height};p.symbolBox={x:mark.left-r.left-22,y:mark.top-r.top-22,width:mark.width,height:mark.height};});
     const glyphMetrics=new Map();
     const wardGroups=d.wards.map(w=>{const members=siteNodes.filter(p=>p.s.ward===w.name);return {w,members,x:members.reduce((n,p)=>n+p.s.x,0)/members.length,y:members.reduce((n,p)=>n+p.s.y,0)/members.length};}).filter(w=>w.members.length);
     on(clusters,'click',e=>{const b=e.target.closest('.sm-cluster');if(b){if(b.dataset.wardEntry)focusWard(b.dataset.wardEntry);else showGroup(clusterGroups.get(b));}});
@@ -69,6 +67,13 @@
     // 新基準11：ピンの座標は動かさず、実測した文字矩形を優先順で置く。
     // 駅名は乗降客数順→区名→町名。置けない文字だけを隠す（DOMやピンは残す）。
     function layoutLabels(near, clusterMarks) {
+      // 書き込みと実測を分け、レイアウトの強制再計算をまとめる。
+      const eligible=stationNodes.filter(p=>{const xy=project(p.s);return (near||p.s.riders>=250000)&&xy.x>=0&&xy.x<=width&&xy.y>=0&&xy.y<=height;});
+      const unmeasured=near?siteNodes.filter(p=>!p.btn.hidden&&!p.labelBox):[];
+      for(const p of unmeasured)p.town.style.display='';
+      for(const p of eligible)if(!p.labelBox){const b=p.t.getBBox();p.labelBox={width:b.width,height:b.height,baseline:b.y-Number(p.t.getAttribute('y'))};}
+      for(const p of unmeasured){const b=p.town.getBoundingClientRect(),r=p.btn.getBoundingClientRect(),mark=p.btn.querySelector('.sm-symbol').getBoundingClientRect();p.labelBox={width:b.width,height:b.height};p.symbolBox={x:mark.left-r.left-22,y:mark.top-r.top-22,width:mark.width,height:mark.height};}
+      const eligibleIds=new Set(eligible.map(p=>p.s.id));
       const cells=new Map(), step=64;
       const overlaps=(a,b)=>a.x<b.x+b.width&&b.x<a.x+a.width&&a.y<b.y+b.height&&b.y<a.y+a.height;
       function keys(b){const out=[];for(let x=Math.floor(b.x/step);x<=Math.floor((b.x+b.width)/step);x++)for(let y=Math.floor(b.y/step);y<=Math.floor((b.y+b.height)/step);y++)out.push(x+','+y);return out;}
@@ -89,7 +94,7 @@
       const origin=viewport.getBoundingClientRect();
       for(const selector of ['.sm-zoom','.sm-source','.sm-compass']){const r=q(selector).getBoundingClientRect();insert({x:r.left-origin.left,y:r.top-origin.top,width:r.width,height:r.height});}
       for(const p of [...stationNodes].sort((a,b)=>b.s.riders-a.s.riders)){
-        p.t.style.display='none';p.leader.style.display='none';if(!near&&p.s.riders<250000)continue;
+        p.t.style.display='none';p.leader.style.display='none';if(!eligibleIds.has(p.s.id))continue;
         const xy=project(p.s),b=p.labelBox;
         const positions=[[14,-8],[14,22],[-14-b.width,-8],[-14-b.width,22],[28,-8],[28,22],[-28-b.width,-8],[-28-b.width,22]];
         for(const distance of [42,56,70])for(const y of [-8,22,-24,38])positions.push([distance,y],[-distance-b.width,y]);
@@ -98,7 +103,7 @@
         }
       }
       for(const p of wardLabels){const xy=project(p),b=p.labelBox;p.n.style.display=place({x:xy.x-b.width/2,y:xy.y+b.baseline,width:b.width,height:b.height})?'':'none';}
-      for(const p of siteNodes){const b=p.labelBox;p.town.style.display=near&&!p.btn.hidden&&place({x:p.x-b.width/2,y:p.y+18,width:b.width,height:b.height})?'':'none';}
+      for(const p of siteNodes){const b=p.labelBox;p.town.style.display=near&&b&&!p.btn.hidden&&place({x:p.x-b.width/2,y:p.y+18,width:b.width,height:b.height})?'':'none';}
     }
     function focusWard(code){
       const ward=wardGroups.find(w=>w.w.code===code);if(!ward)return;
@@ -131,7 +136,7 @@
       q('.sm-geography').setAttribute('transform',`translate(${width/2-cx*scale} ${height/2-cy*scale}) scale(${scale})`);
       const near=scale/minScale>=3;el.dataset.level=selected?'3':near?'2':'1';
       wardLabels.forEach(w=>{const p=project(w);w.n.setAttribute('x',p.x);w.n.setAttribute('y',p.y);});
-      stationNodes.forEach(({s,n,t})=>{const p=project(s);n.setAttribute('transform',`translate(${p.x} ${p.y})`);t.style.display=near||s.riders>=250000?'':'none';});
+      stationNodes.forEach(({s,n,t})=>{const p=project(s);n.setAttribute('transform',`translate(${p.x} ${p.y})`);t.style.display=(near||s.riders>=250000)&&p.x>=0&&p.x<=width&&p.y>=0&&p.y<=height?'':'none';});
       const visible=[];
       siteNodes.forEach(p=>{const xy=project(p.s);Object.assign(p,xy);p.btn.hidden=true;p.btn.style.left=`${xy.x-22}px`;p.btn.style.top=`${xy.y-22}px`;p.dot.setAttribute('x',xy.x);p.dot.setAttribute('y',xy.y);p.dot.style.display=near?'':'none';p.dot.style.fontSize=p.s.id===selected?'20px':near?'12px':'5px';p.dot.classList.toggle('sm-selected-dot',p.s.id===selected);if(xy.x>=24&&xy.x<=width-24&&xy.y>=24&&xy.y<=height-24)visible.push(p);});
       let clusterMarks=[];q('.sm-entry-leaders').replaceChildren();clusters.replaceChildren();
