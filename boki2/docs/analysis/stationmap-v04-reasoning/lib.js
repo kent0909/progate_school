@@ -28,8 +28,9 @@ const Fsite = (s, P = DEF) => P.tier[s.pins] * P.dist(s.walk) * P.attr[s.type];
 const rentOf = (s, P = DEF, u = 0) => Math.max(P.floor, P.R0 * Math.pow(s.price / 1e7, P.b)) * (1 + P.rentSpread * u);
 const lamOf = (s, P = DEF) => P.lamTier[s.pins] * P.lamAttr[s.type] * P.lamMul;
 function poisson(rng, lam) { const L = Math.exp(-lam); let k = 0, p = 1; do { k++; p *= rng(); } while (p > L); return k - 1; }
-function drawRivals(s, seed, P = DEF) { const rng = D.rng(seed); const n = Math.min(P.lamCap, poisson(rng, lamOf(s, P))); const w = P.w[s.type]; const out = []; for (let i = 0; i < n; i++) { const x = rng(); out.push(x < w[0] ? 'cheap' : x < w[0] + w[1] ? 'kodawari' : 'shinise'); } return out; }
+function drawRivals(s, seed, P = DEF) { const rng = D.rng(seed); const lam = lamOf(s, P); const n = Math.min(P.lamCap, P.countMode === 'round' ? Math.round(lam) : poisson(rng, lam)); const w = P.w[s.type]; const out = []; if (P.fixedTypes) { const order = ['cheap', 'kodawari', 'shinise'].map((t, j) => [t, w[j]]).sort((a, b) => b[1] - a[1]); for (let i = 0; i < n; i++) out.push(order[i % 3][0]); return out; } for (let i = 0; i < n; i++) { const x = rng(); out.push(x < w[0] ? 'cheap' : x < w[0] + w[1] ? 'kodawari' : 'shinise'); } return out; }
 const rs = (r) => ({ id: r.id, price: r.price, R: r.R, A: r.A, L: r.L, bowl: r.bowl, type: r.type, Q: r.Q, rival: true, open: true });
+const idleParts = (parts) => (W) => { const p = Wd.policy0(W, null, { neutral: true }); for (const k of Wd.TIME_KEYS) p[k] = false; return { ...p, price: 850, parts, family: 0, map: true, line: false, prep: 'mid', flyer: 0, borrow: false }; };
 const idle = (W) => { const p = Wd.policy0(W, null, { neutral: true }); for (const k of Wd.TIME_KEYS) p[k] = false; return { ...p, price: 850, parts: 1, family: 0, map: true, line: false, prep: 'mid', flyer: 0, borrow: false }; };
 const refStore = (a) => ({ id: 'ref', price: a.pRef, R: 3, A: 0, L: 0, bowl: D.bowl.create(D.bowl.presets[0].spec), parts: 1, family: 0 });
 // 世界を作る：P は外から与える（4.2 の「1回だけの逆算」）。epsScale も基準の候補地で1回（E.eps）
@@ -58,4 +59,4 @@ function calibrate(P = DEF) {
   for (let i = 0; i < 40; i++) { const mid = (lo + hi) / 2; const y = run36(makeWorld(key, mid * Fb, P.refRivals, eps, rentB)); if (y.N < P.target) lo = mid; else hi = mid; }
   return { Pref: (lo + hi) / 2, eps, Fb, shRef: sh };
 }
-module.exports = { D, Wd, RV, C, T, ST, DEF, KEY, sites, Fsite, rentOf, lamOf, drawRivals, makeWorld, run36, calibrate, rs, refStore, idle, poisson };
+module.exports = { idleParts, D, Wd, RV, C, T, ST, DEF, KEY, sites, Fsite, rentOf, lamOf, drawRivals, makeWorld, run36, calibrate, rs, refStore, idle, poisson };

@@ -7,7 +7,8 @@ const P = { ...L.DEF, ...over };
 if (over.tierMul) { P.tier = Object.fromEntries(Object.entries(L.DEF.tier).map(([k, v]) => [k, 1 + (v - 1) * over.tierMul])); }
 if (over.attrSet) P.attr = { ...L.DEF.attr, ...over.attrSet };
 if (over.lamTierSet) P.lamTier = { ...L.DEF.lamTier, ...over.lamTierSet };
-const cal = L.calibrate(P);
+if (P.pRefStep != null) L.C.table.pRefStep.v = P.pRefStep;
+const cal = L.calibrate(P); if (P.Pmul) cal.Pref *= P.Pmul;
 const q = (a, p) => { const s = [...a].sort((x, y) => x - y); return s[Math.floor(p * (s.length - 1))]; };
 const out = [];
 for (let i = 0; i < L.sites.length; i++) {
@@ -16,8 +17,8 @@ for (let i = 0; i < L.sites.length; i++) {
     const riv = L.drawRivals(s, 7000 + i * 101 + k, P);
     const u = (L.D.rng(5000 + i * 37 + k)() * 2 - 1); // 町の物件のばらつき ±20%
     const rent = L.rentOf(s, P, P.rentSpread ? u : 0);
-    const y = L.run36(L.makeWorld(key, cal.Pref * F, riv, cal.eps, rent));
-    draws.push({ riv: riv.slice().sort().join('+') || '0', n: riv.length, N: y.N, dem: y.dem, op: y.op, rent: y.rent / 12, u });
+    let y = L.run36(L.makeWorld(key, cal.Pref * F, riv, cal.eps, rent)); if (P.bestParts) { const y2 = L.run36(L.makeWorld(key, cal.Pref * F, riv, cal.eps, rent), L.idleParts(2)); if (y2.op > y.op) y = { ...y2, parts2: 1 }; }
+    draws.push({ p2: y.parts2 || 0, riv: riv.slice().sort().join('+') || '0', n: riv.length, N: y.N, dem: y.dem, op: y.op, rent: y.rent / 12, u });
   }
   out.push({ id: s.id, st: s.st, type: s.type, pins: s.pins, walk: s.walk, price: s.price, F, rentBase: L.rentOf(s, P, 0), draws });
 }
@@ -29,7 +30,7 @@ console.log(`① 3年目の売れた客/日 の中央値（全くじ） ${q(pool
 const over70 = pool.filter((d) => d.dem > 70).length / pool.length, over70s = out.filter((o) => siteMean(o, 'dem') > 70).length;
 console.log(`② 需要/日が上限70を越える：くじの ${(100 * over70).toFixed(1)}%・候補地の平均で ${over70s}/${out.length}（${(100 * over70s / out.length).toFixed(1)}%）`);
 // ③ 利益の上位50（候補地のくじの平均）
-const ranked = out.map((o) => ({ ...o, op: siteMean(o, 'op'), N: siteMean(o, 'N') })).sort((a, b) => b.op - a.op);
+const ranked = out.map((o) => ({ ...o, op: siteMean(o, 'op'), N: siteMean(o, 'N'), dem: siteMean(o, 'dem'), dems: o.draws.map((d) => d.dem) })).sort((a, b) => b.op - a.op);
 const top = ranked.slice(0, 50); const cnt = (arr, f) => arr.reduce((m, x) => ((m[f(x)] = (m[f(x)] || 0) + 1), m), {});
 const tp = cnt(top, (x) => x.pins), ta = cnt(top, (x) => x.type);
 console.log(`③ 利益の上位50：駅の段 ${JSON.stringify(tp)}（${Object.keys(tp).length}種）・属性 ${JSON.stringify(ta)}（${Object.keys(ta).length}種）・住宅地か商店街 ${(ta.jutaku || 0) + (ta.shoten || 0)}か所`);
@@ -55,4 +56,5 @@ const Fq = [0.2, 0.4, 0.6, 0.8].map((p) => q(ranked.map((o) => o.F), p));
 const fb = (F) => Fq.filter((x) => F > x).length;
 console.log('人通りの5分位ごと', by((o) => 'F第' + (fb(o.F) + 1)));
 console.log('ライバルの軒数ごと（くじ）', Object.entries(cnt(pool, (d) => d.n)).map(([n, c]) => `${n}軒:${c} 利益${(q(pool.filter((d) => d.n == n).map((d) => d.op), 0.5) / 1e4).toFixed(0)}万`).join(' | '));
+if (P.bestParts) console.log(`パート2人のほうが利益が上のくじ ${(100 * pool.filter((d) => d.p2).length / pool.length).toFixed(1)}%・利益の上位50で2人を選ぶ候補地 ${top.filter((o) => mean(o.draws.map((d) => d.p2)) > 0.5).length}`);
 if (process.env.SAVE) require('fs').writeFileSync(process.env.SAVE, JSON.stringify(ranked.map(({ draws, ...o }) => o)));
