@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>東京の出店地図 — 麺や、次の一歩。</title><link rel="icon" href="data:,"><link rel="stylesheet" href="css/stationmap.css"><style>body{margin:0;padding:24px;background:#e9ece1}main{max-width:1520px;margin:auto}#picked{font:14px system-ui;color:#244f45;min-height:24px}@media(max-width:760px){body{padding:8px}}</style></head>
+<body><main><div id="map"></div><p id="picked" role="status"></p></main><script src="js/data/tokyo23.js"></script><script src="js/ramen/stationmap.js"></script><script>
+// 印と空き状況は呼び出し側の例。需要・家賃・台本とは接続しない。
+window.mapOptions={mine:['s002-1'],rivals:[{siteId:'s003-1',type:'味で勝負'}],vacant:id=>id!=='s004-1',onPick:id=>{window.lastPicked=id;document.getElementById('picked').textContent='選んだ候補地：'+SIMDATA.tokyo23.sites.find(s=>s.id===id).town;}};
+window.mountStart=performance.now();window.stationMap=RAMENMAP.mount(document.getElementById('map'),mapOptions);
+requestAnimationFrame(()=>requestAnimationFrame(()=>{window.mountPaintMs=performance.now()-window.mountStart;}));
+</script></body></html>
