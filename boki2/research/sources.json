@@ -608,6 +608,14 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "rent23",
+     "desc": "東京23区の1階の小さな飲食店の坪家賃・保証金の月数・居抜きの造作譲渡の相場と、家賃と地価・人通りの関係（出店の地図の候補地の家賃、DESIGN-STATIONMAP 4.4。2026-10-30）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   },
