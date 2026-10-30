@@ -1,0 +1,7 @@
+shotengai part1 base op/月 153641 SNS差 23804 検品差 0 予報差 0 地図なし差 -184160
+shotengai part2 base op/月 28631 SNS差 46819 検品差 0 予報差 0 地図なし差 -259150
+ekimae part1 base op/月 142999 SNS差 16787 検品差 0 予報差 0 地図なし差 -210242
+ekimae part2 base op/月 16399 SNS差 29040 検品差 0 予報差 0 地図なし差 -283412
+jutaku part1 base op/月 181921 SNS差 21936 検品差 0 予報差 0 地図なし差 -173360
+jutaku part2 base op/月 68894 SNS差 42586 検品差 0 予報差 0 地図なし差 -259299
+[ 'family', 'part1', 'part2' ]
