@@ -1997,7 +1997,7 @@
  "is1-ssl.mzstatic.com": {
   "verdict": "gray",
   "basis": "Apple の画像配信の CDN（App Store の掲載画面写真）。robots.txt は 403 で取得できず、配信の画像に自動取得の禁止の明示は見当たらない。APPLION の掲載ページが表示に使う画像を1枚ずつ目で見るためだけに取得し、転載・再配布はしない",
-  "checked": "2026-10-22"
+  "checked": "2026-10-30"
  },
  "upload.wikimedia.org": {
   "verdict": "gray",
@@ -2492,6 +2492,36 @@
  "doc.refero.design": {
   "verdict": "gray",
   "basis": "Refero の規約・説明書の置き場。規約を読むための取得のみ",
+  "checked": "2026-10-30"
+ },
+ "eqvijushltqvyhrvircg.supabase.co": {
+  "verdict": "gray",
+  "basis": "UI Pocket（ui-pocket.com、規約 gray 判定済み 2026-10-30）が画面写真を置く Supabase の公開ストレージ。規約は UI Pocket の規約（第5条に自動取得の禁止の明示なし）に従う。robots.txt は research-fetch が取得時に確認。ログイン不要の公開URLで、UI Pocket の詳細ページにログインなしで表示される画像だけを取る",
+  "checked": "2026-10-30"
+ },
+ "storage.ghost.io": {
+  "verdict": "gray",
+  "basis": "Ghost の画像配信（blog.duolingo.com の記事が表示に使う画像）。robots.txt は research-fetch が確認。配信の画像に自動取得の禁止の明示なし。記事の図を目で見るためだけに1枚ずつ取得し転載しない",
+  "checked": "2026-10-30"
+ },
+ "homes.cs.washington.edu": {
+  "verdict": "gray",
+  "basis": "大学の教員の論文置き場（UW CSE）。サイトに利用規約の頁はなく自動取得の禁止の明示なし。robots.txt は research-fetch が取得時に確かめる",
+  "checked": "2026-10-30"
+ },
+ "hci.stanford.edu": {
+  "verdict": "gray",
+  "basis": "大学の授業の論文置き場（Stanford HCI）。利用規約の頁はなく自動取得の禁止の明示なし。robots.txt は research-fetch が確かめる",
+  "checked": "2026-10-30"
+ },
+ "www.gameinformer.com": {
+  "verdict": "gray",
+  "basis": "Game Informer。利用規約に自動取得の明示の禁止を確認できず（gameinformer.com の既存判定 2026-10-25 と同じ運営）。robots.txt は research-fetch が確かめる。記事の単発閲覧、転載しない",
+  "checked": "2026-10-30"
+ },
+ "faculty.washington.edu": {
+  "verdict": "gray",
+  "basis": "大学の授業の読み物置き場（UW faculty）。利用規約の頁はなく自動取得の禁止の明示なし。robots.txt は research-fetch が確かめる",
   "checked": "2026-10-30"
  }
 }

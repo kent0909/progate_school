@@ -124,3 +124,9 @@
 
 - 3章〜4章を満たす1本の報告（担当のファイル）と、読了ノート
 - 最後に、取りまとめ役への返事として：報告のパス、実例の数（スクリプトで数えた数と、その命令）、Read で開いた画像の数と一覧、research-check の uiref の行、report-check の出力、「やっていないこと」
+
+## 11. 追加の決まり（2026-10-30、仕訳の画面を作り直している担当からの申し入れを受けて）
+
+1. 触らないファイル：`boki2/docs/DESIGN-JOURNAL-UX.md`、PR #7 が触る `boki2/js/sim/engine.js`・`boki2/js/sim/journal-ui.js`・`boki2/css/sim.css`。気づいたことは報告に書くだけ
+2. 実例の台帳に列「段2以降」：仕訳の画面の作り直しの段2以降（②月の書類 docScreen ③並べる画面 sort/tap ④全画面の選択肢・文字・背景の動き ⑤月報・締め・開始記入）のどれに使えるかを番号で書く。DESIGN-JOURNAL-UX の決定とぶつかるものは章「いまの設計とぶつかる点」に、節番号とぶつかり方を書く（決めない。作り直しの担当とオーナーが決める）
+3. 置き場所：ノートは `boki2/research/notes/web/uiref/`、統合の報告は `boki2/docs/BIZ-UIREF.md`。`boki2-quest` へは直接 push せず、判定と論証の検査のあと PR #8 で取り込む
