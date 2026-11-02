@@ -1,0 +1,842 @@
+{
+  "foot.tier.1": {
+    "v": 0.7,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.tier.2": {
+    "v": 0.8,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.tier.3": {
+    "v": 0.9,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.tier.4": {
+    "v": 1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.tier.5": {
+    "v": 1.15,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.tier.6": {
+    "v": 1.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.tier.8": {
+    "v": 1.5,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.tierRatio": {
+    "v": null,
+    "lo": 1.6,
+    "hi": 3,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.dist.near": {
+    "v": 1.15,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.dist.mid": {
+    "v": 1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.dist.far": {
+    "v": 0.8,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.distRatio": {
+    "v": null,
+    "lo": 1.2,
+    "hi": 1.6,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.attr.hanka": {
+    "v": 1.15,
+    "lo": 1,
+    "hi": 1.3,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.attr.shogyo": {
+    "v": 1.1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.attr.office": {
+    "v": 1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.attr.shoten": {
+    "v": 1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.attr.jutaku": {
+    "v": 0.8,
+    "lo": 0.6,
+    "hi": 0.9,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "foot.attr.kojo": {
+    "v": 0.6,
+    "lo": 0.4,
+    "hi": 0.7,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "rival.lambdaTier.1": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaTier.2": {
+    "v": 0.5,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaTier.3": {
+    "v": 0.8,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaTier.4": {
+    "v": 1.1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaTier.5": {
+    "v": 1.5,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaTier.6": {
+    "v": 2,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaTier.8": {
+    "v": 2.6,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaMultiplier": {
+    "v": 1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3（倍率の探索幅は未記載）"
+  },
+  "rival.lambdaAttr.hanka": {
+    "v": 1.4,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaAttr.shogyo": {
+    "v": 1.2,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaAttr.office": {
+    "v": 1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaAttr.shoten": {
+    "v": 1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaAttr.jutaku": {
+    "v": 0.6,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.lambdaAttr.kojo": {
+    "v": 0.4,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.countProb.minus": {
+    "v": 0.2,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.countProb.center": {
+    "v": 0.6,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.countProb.plus": {
+    "v": 0.2,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.cap": {
+    "v": 5,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.entryRate": {
+    "v": 0.01,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.hanka.cheap": {
+    "v": 0.4,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.hanka.kodawari": {
+    "v": 0.4,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.hanka.shinise": {
+    "v": 0.2,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.shogyo.cheap": {
+    "v": 0.5,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.shogyo.kodawari": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.shogyo.shinise": {
+    "v": 0.2,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.office.cheap": {
+    "v": 0.5,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.office.kodawari": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.office.shinise": {
+    "v": 0.2,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.shoten.cheap": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.shoten.kodawari": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.shoten.shinise": {
+    "v": 0.4,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.jutaku.cheap": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.jutaku.kodawari": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.jutaku.shinise": {
+    "v": 0.4,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.kojo.cheap": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.kojo.kodawari": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "rival.typeWeight.kojo.shinise": {
+    "v": 0.4,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3"
+  },
+  "market.price.hanka": {
+    "v": 950,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.3"
+  },
+  "market.price.shogyo": {
+    "v": 900,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.3"
+  },
+  "market.price.office": {
+    "v": 900,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.3"
+  },
+  "market.price.shoten": {
+    "v": 850,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.3"
+  },
+  "market.price.jutaku": {
+    "v": 850,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.3"
+  },
+  "market.price.kojo": {
+    "v": 800,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.3"
+  },
+  "hours.lunchWeight.hanka": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
+  },
+  "hours.lunchWeight.shogyo": {
+    "v": 0.55,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
+  },
+  "hours.lunchWeight.office": {
+    "v": 0.75,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
+  },
+  "hours.lunchWeight.shoten": {
+    "v": 0.5,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
+  },
+  "hours.lunchWeight.jutaku": {
+    "v": 0.35,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
+  },
+  "hours.lunchWeight.kojo": {
+    "v": 0.85,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
+  },
+  "mix.hanka.office": {
+    "v": 0.35,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.hanka.family": {
+    "v": 0.15,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.hanka.student": {
+    "v": 0.2,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.hanka.tourist": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.shogyo.office": {
+    "v": 0.5,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.shogyo.family": {
+    "v": 0.25,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.shogyo.student": {
+    "v": 0.1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.shogyo.tourist": {
+    "v": 0.15,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.office.office": {
+    "v": 0.7,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.office.family": {
+    "v": 0.1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.office.student": {
+    "v": 0.05,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.office.tourist": {
+    "v": 0.15,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.shoten.office": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.shoten.family": {
+    "v": 0.55,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.shoten.student": {
+    "v": 0.1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.shoten.tourist": {
+    "v": 0.05,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.jutaku.office": {
+    "v": 0.15,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.jutaku.family": {
+    "v": 0.75,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.jutaku.student": {
+    "v": 0.1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.jutaku.tourist": {
+    "v": 0,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.kojo.office": {
+    "v": 0.6,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.kojo.family": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.kojo.student": {
+    "v": 0.1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "mix.kojo.tourist": {
+    "v": 0,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "calendar.hanka": {
+    "v": "kanko",
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "calendar.shogyo": {
+    "v": "shoten",
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "calendar.office": {
+    "v": "office",
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "calendar.shoten": {
+    "v": "shoten",
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "calendar.jutaku": {
+    "v": "jutaku",
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "calendar.kojo": {
+    "v": "office",
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.1"
+  },
+  "rent.R0": {
+    "v": 28000,
+    "lo": 25000,
+    "hi": 40000,
+    "src": "DESIGN-STATIONMAP.md 4.4"
+  },
+  "rent.b": {
+    "v": 0.25,
+    "lo": 0.15,
+    "hi": 0.7,
+    "src": "DESIGN-STATIONMAP.md 4.4"
+  },
+  "rent.floor": {
+    "v": 13000,
+    "lo": 10000,
+    "hi": 15000,
+    "src": "DESIGN-STATIONMAP.md 4.4"
+  },
+  "rent.spread": {
+    "v": 0.2,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.4"
+  },
+  "deposit.months": {
+    "v": [
+      6,
+      8,
+      10
+    ],
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.4"
+  },
+  "deposit.probabilities": {
+    "v": null,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.4（確率は未記載）"
+  },
+  "fitout.ratio": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.4"
+  },
+  "fitout.cap": {
+    "v": 3000000,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.4"
+  },
+  "fitout.distribution": {
+    "v": null,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.4（0円を含む分布は未記載）"
+  },
+  "hours.closedSaving": {
+    "v": null,
+    "lo": 160000,
+    "hi": 200000,
+    "src": "DESIGN-STATIONMAP.md 4.5（初期値は未記載）"
+  },
+  "hours.lunchCapacity": {
+    "v": 0.45,
+    "lo": 0.4,
+    "hi": 0.6,
+    "src": "DESIGN-STATIONMAP.md 4.5"
+  },
+  "hours.switchChurn": {
+    "v": 0.01,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.5"
+  },
+  "hours.rivalLunchOnly.cheap": {
+    "v": 0,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.5"
+  },
+  "hours.rivalLunchOnly.kodawari": {
+    "v": 0,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.5"
+  },
+  "hours.rivalLunchOnly.shinise": {
+    "v": 0.3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.5"
+  },
+  "regular.retain.hanka": {
+    "v": 0.7,
+    "lo": 0.5,
+    "hi": 0.9,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.churn.hanka": {
+    "v": 1.25,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.retain.shogyo": {
+    "v": 1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.churn.shogyo": {
+    "v": 1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.retain.office": {
+    "v": 0.9,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.churn.office": {
+    "v": 1.1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.retain.shoten": {
+    "v": 1.2,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.churn.shoten": {
+    "v": 0.85,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.retain.jutaku": {
+    "v": 1.3,
+    "lo": 1.1,
+    "hi": 1.5,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.churn.jutaku": {
+    "v": 0.8,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.retain.kojo": {
+    "v": 1.1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "regular.churn.kojo": {
+    "v": 0.9,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.7"
+  },
+  "reference.tier": {
+    "v": 3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2"
+  },
+  "reference.distance": {
+    "v": "mid",
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2"
+  },
+  "reference.attribute": {
+    "v": "shoten",
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2"
+  },
+  "reference.rivals": {
+    "v": [
+      "shinise"
+    ],
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2"
+  },
+  "reference.target": {
+    "v": 44,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2"
+  },
+  "reference.reputation": {
+    "v": 3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2"
+  },
+  "reference.quality": {
+    "v": 3,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2"
+  },
+  "reference.price": {
+    "v": 850,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2"
+  },
+  "reference.parts": {
+    "v": 1,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2"
+  },
+  "reference.advertising": {
+    "v": 0,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2"
+  },
+  "decision.simpleSelection": {
+    "v": null,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 6⑥（単純規則の中の選び方）"
+  },
+  "decision.skilledBot": {
+    "v": null,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 6⑥（上手の方策・情報の範囲）"
+  },
+  "decision.entryTiming": {
+    "v": null,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.3（予兆から参入までの期間）"
+  },
+  "decision.regularClosed": {
+    "v": null,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.5（閉店帯の常連の離れ方）"
+  },
+  "decision.partSaving": {
+    "v": null,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.5（増員時の閉店削減費）"
+  }
+}
