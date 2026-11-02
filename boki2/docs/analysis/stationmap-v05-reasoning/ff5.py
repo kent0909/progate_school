@@ -63,7 +63,7 @@ print(f'- 複数事業者の駅 {len(mg)}：D13/A と昼の比の順位相関 {s
 ALL = G['ALL']; okn = {x['name'] for x in ok}
 miss = [x for x in ALL if x['name'] not in okn]
 why = collections.Counter(('D13が0' if not x['gate13'] else '') + ('・' if not x['gate13'] and x['food5'] is None else '') + ('500mの飲食店の値なし' if x['food5'] is None else '') for x in miss)
-print(f'\n## (d) 係数が1のままの駅 {len(miss)}：理由 {dict(why)}')
+print(f'\n## (d) 係数が1のままの駅 {len(miss)}：理由 {dict(why)}。補正のある {len(ok)} 駅のうち1で頭打ち {sum(1 for x in ok if adjd(x, single) >= 1)}')
 print('  D13 はあるが飲食店の値がないので係数1：' + '、'.join(f'{x["name"]}(D13/A {x["gate13"] / x["A"]:.2f}→係数ならば {min(1, x["gate13"] / x["A"] / single):.2f})' for x in miss if x['gate13'] and x['food5'] is None and x['A']))
 # (e) 候補地ごとの 500m メッシュの 従業者/(従業者+夜間)（BIZ-FOOTFALL23 5.2 の値の作り方。all5.js の Lsite で使う）
 import json, os

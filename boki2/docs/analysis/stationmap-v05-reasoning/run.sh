@@ -1,7 +1,7 @@
 #!/bin/sh
 # DESIGN-STATIONMAP 版0.5・BIZ-FOOTFALL23・BIZ-RENT23 版0.2 の論証の検査（docs/audit/DESIGN-STATIONMAP-v05-reasoning.md）の検算をまとめて回す。
 # node 22・python3（openpyxl・shapely）。出力は out/r_*.txt。ゲームのファイル・データ（js/・tools/data/・research/raw/）は書き換えない。
-# 全部で 4並びで約15分。
+# 全部で 4並びで約25分。
 cd "$(dirname "$0")"; mkdir -p out
 B=../../..
 # ---- 乗り換えの補正（BIZ-FOOTFALL23 9節）：元の台本をそのまま回して、割る値・相関の揺れ・コロナの落ち込み・候補地の昼の比（out/site_L.json）
