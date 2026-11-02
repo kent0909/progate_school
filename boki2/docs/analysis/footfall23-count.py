@@ -120,17 +120,26 @@ for i, r in enumerate(wb['首都圏'].iter_rows(values_only=True)):
 print(f'# 第13回IC定期外：首都圏の OD 行 {icrows}・秘匿（*）{icstar}・合計の出入り {sum(IC.values()):.0f}')
 
 OPN = {'東京都': '東京都交通局'}  # ゲーム（S12）の事業者名 → センサスの事業者名
+import unicodedata
+# 駅名の表記の揺れ（ヶ/ケ・ッ/ツ・全角数字・互換漢字）をそろえて照らす（11/2、BIZ-FOOTFALL23 の判定 H1：
+# 四ツ谷の JR（センサスは「四ッ谷」）・霞ヶ関・市ヶ谷などのメトロ・羽田空港の IC が完全一致で落ちていた）
+def NZ(n):
+  n = unicodedata.normalize('NFKC', n)
+  return n.replace('ヶ', 'ケ').replace('ヵ', 'カ').replace('ッ', 'ツ')
+LOC23N = None
 def census13(s):
-  names = {s['name'], *s.get('aliases', [])}
+  global LOC23N
+  if LOC23N is None: LOC23N = {(o, NZ(n)) for (o, n) in LOC23}  # 23区の中かの表も表記をそろえる（羽田空港の IC は全角「第１・第２」、表は半角）
+  names = {NZ(x) for x in (s['name'], *s.get('aliases', []))}
   ops = {OPN.get(o, o) for o in s['byOp']}
   # (1) ゲームの byOp と同じ事業者だけ（A と同じ範囲）
-  te = sum(v for (o, n), v in TEIKI.items() if n in names and o in ops)
-  ic = sum(v for (o, n), v in IC.items() if n in names and o in ops)
+  te = sum(v for (o, n), v in TEIKI.items() if NZ(n) in names and o in ops)
+  ic = sum(v for (o, n), v in IC.items() if NZ(n) in names and o in ops)
   # (2) 同じ駅名で23区にある全事業者（「不明」の定期を含む）。駅の改札の出入りの全体
-  tea = sum(v for (o, n), v in TEIKI.items() if n in names and (o, n) in LOC23)
-  ica = sum(v for (o, n), v in IC.items() if n in names and (o, n) in LOC23)
-  extra = sorted({o for (o, n) in LOC23 if n in names and o not in ops and o != '不明'})
-  miss = sorted({o for o in ops if not any(n in names and oo == o for (oo, n) in IC)})
+  tea = sum(v for (o, n), v in TEIKI.items() if NZ(n) in names and (o, NZ(n)) in LOC23N)
+  ica = sum(v for (o, n), v in IC.items() if NZ(n) in names and (o, NZ(n)) in LOC23N)
+  extra = sorted({o for (o, n) in LOC23 if NZ(n) in names and o not in ops and o != '不明'})
+  miss = sorted({o for o in ops if not any(NZ(n) in names and oo == o for (oo, n) in IC)})
   return te, ic, miss, tea, ica, extra
 
 def row(s):
