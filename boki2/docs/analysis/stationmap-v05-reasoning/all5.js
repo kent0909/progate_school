@@ -50,6 +50,7 @@ console.log(`④ 利益の分散：候補地の間 ${(100 * vb / vt).toFixed(0)}
 const zero = [], r0 = [];
 for (let k = 0; k < K; k++) { const w = out.map((o) => ({ o, d: o.draws[k] })).sort((a, b) => b.d.op - a.d.op).slice(0, 50); zero.push(w.filter((x) => x.d.n === 0).length); r0.push(w); }
 R.c5 = Math.max(...zero);
+{ const comp = {}; r0.forEach((w) => w.forEach((x) => { comp[x.d.riv] = (comp[x.d.riv] || 0) + 1; })); console.log(`   1つの世界の上位50のライバルの組（開店の前、${K}つの世界の合計。c=安売り k=こだわり s=老舗 L=昼だけ）：` + Object.entries(comp).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([k, v]) => `${k}:${v}`).join(' ')); }
 console.log(`⑤ 1つの世界の上位50のうち開店の前にライバル0軒の所 ${zero.join('/')}（目標15以下）・全くじの0軒の割合 ${(100 * pool.filter((d) => d.n === 0).length / pool.length).toFixed(0)}%`);
 // ⑥ 単純な規則：1つの世界で、規則の並べ方で上から10か所を選んだ平均の利益 ÷ その世界の本当の上位10の平均（上手なボット＝見える情報で利益を当てる上限として、本当の上位を使う）
 const rules = {

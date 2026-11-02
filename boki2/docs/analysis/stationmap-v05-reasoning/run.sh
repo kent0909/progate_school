@@ -25,5 +25,7 @@ sh batch.sh v01_b04 '{"b":0.4}' v02_b055 '{"b":0.55}' v03_pref_moving '{"pRefFix
   t1_entry05 '{"entry":0.05}' t2_lam15 '{"lamMul":1.5}' t3_cmin1 '{"cMin":1}' t4_ret_churn '{"ret":{"jutaku":[1.5,0.6],"hanka":[0.5,1.5]}}' \
   u1_tier60 '{"tierSpan":6.0}' u2_V0_4 '{"V0":4}' u3_V0_4_cmin1 '{"V0":4,"cMin":1}' u4_ret_churn2 '{"ret":{"jutaku":[1.5,0.5],"hanka":[0.5,1.5]}}' \
   u5_t6_V04_c1 '{"tierSpan":6.0,"V0":4,"cMin":1}' u6_t4_V04_c1 '{"tierSpan":4.0,"V0":4,"cMin":1}' u7_t3_V04_c1 '{"tierSpan":3.0,"V0":4,"cMin":1}'
+sh batch.sh m3_round '{"countMode":"round"}' m6_pref850 '{"pRef":{"office":850,"shogyo":850,"hanka":850,"kojo":850}}' v03_pref_moving '{"pRefFixed":false}'
+SAVE=out/sites_v00.json node all5.js 6 '{}' > out/r_v00_as_written.txt
 wait
 grep -h '^SUMMARY' out/r_v*.txt out/r_m*.txt out/r_s*.txt out/r_w*.txt out/r_h*.txt out/r_t*.txt out/r_u*.txt > out/r_summary.txt
