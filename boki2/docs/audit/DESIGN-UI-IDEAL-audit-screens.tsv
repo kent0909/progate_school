@@ -1,0 +1,184 @@
+k	番号	id8	主張と画像	image_seenと画像	所見
+1	X2	4dd0e004	合う	合う	70%の輪・「Next milestone is 10th Deposit!」・六角の印。量の数の禁止の例として画面どおり
+2	X4	05906c98	合う	合う	「$0 saved in Aug」「$10 to go in Aug」。済み・残りの2数
+3	X5	8e5cbd25	一部合わない	合う	線（Today→Age 92）と線の先の星の丸は画面どおり。素案が同じ所で寄せる「このペースの点線」「前提を押せば見える」（1.3・2.15・4.1-4）は画面になく（点線も前提の切り替えもない。ⓘは「Current net worth」の横だけ）、星も軸の右端でなく線の途中で止まる
+4	X6	942b1d25	合う	合う	額「$10.31」の上に丘とどんぐりの立体の絵。7章#4の「数の画面に絵」の通り
+5	X6	2f052065	合う	合う	同じ番号のほかの画面。全面緑地に折れ線で、絵（イラスト）はない＝#4の主張はこの画面には当たらないが、主の画面で足りる
+6	X7	ca6407b9	合う	合う	「5 months to go (21 June 2026)」「Save about $24 per week to achieve this goal」。ただし「このペースなら◯年◯月」の見込みではなく、期日から逆算した必要なペースの1文（向きが逆）
+7	X8	3a8f7f18	合う	合う	「Your focus／Stay active」と点線、「7 months left」「Dec 31, 2026」
+8	X10	27c3c80c	合う	合う	番号の丸い石4〜7、5が紫で現在地、右上に炎「1」と左上「18%」。「済み実線・先は点線」の線は画面になく（石は線でつながっていない）、素案の設計の足し分
+9	X12	07440204	一部合わない	合う	段ごとに特典が増える（Earn Plus +0.25%→+0.50%、Trading Rebates 0.05%→0.075%）は合う。しかし段の解放は「0/2 quests completed」「1/3 quests completed」と Upgrade Benefits で、こなした数（量）で段を作る画面。素案の「状態で段を作る例」（1.3）とは言えない
+10	X13	7279bc2a	合う	合う	取り消し線と赤い DONE の判、次の STRETCH GOAL が枠で強調。ただし段の中身は「12406 / 21219 sponsorships raised」の量
+11	X14	9f9ad31c	合う	合う	December Quest（19 DAYS）・WEEKEND QUEST・DAILY QUESTS、XP。「月・週・日」の週は週末のクエスト
+12	X15	d2547f6d	一部合わない	合う	「You reached a milestone」の小さな黒い札は上端にあるが、その下に画面の上半分を覆う白い札「Build nourishing friendships」と紙吹雪が世界の絵に重なる。素案の「舞台の上の小さな札で、操作を止めない」（画面8）のうち「小さい」は札の一部だけ、「止めない・押さずに消える」は静止画で見えない
+13	X16	da51f189	合う	合う	Daily Streaks・Weekly Streaks・My Journey（First Session だけ色）。禁止の型の例として画面どおり
+14	X17	f5c83f4d	合う	合う	条件の1行「Your progress is based on the last two times…」と 0 Not studied・46 Still learning・22 Mastered。数を出さないのは素案の選択で、画面は数を出す（C6 の書き方どおり）
+15	X19	bfe532d9	合う	合う	大きな「80 READINESS」と上の小さな丸札（7・102・15m）
+16	X20	3f912d2e	合う	合う	「97 Opal Score」が線で3つの丸札（100・92・100）に枝分かれ、Sleep を選ぶと他はぼかし
+17	X21	3f60710a	合う	合う	「4」→「Looking stable」と説明→3つの理由の札
+18	X23	1744bee6	合う	合う	「July's progress／Great job! You're up-to-date for July.」の札は「$995 net worth」の札より上。ただし画面は札が縦に並ぶダッシュボードで、「1つだけに変わる」形ではない（素案は文言の例として引くだけ）
+19	X24	2063df51	一部合わない	合う	「1 Order to fulfill」「That's it for now」「Check back later…」は画面どおり。しかし「1 Order to fulfill」は Sessions 21・Total sales $149,94・Orders 2 の数の列と折れ線のグラフの**下**の小さな灰色の札で、主役でも数より上でもない。素案の「主役は数の帯でなく次にやる1つ」（0章-1）、「どれも『次にやる1つ』を数より上に置く」（C1・D1）は、この画面については逆
+20	X24	27c8fc98	合う	合う	「Get ready to sell」と6行の手順（Set up Tap to Pay だけ点線の丸）。C13 の MB1 の引き方どおり。この画面も数の列（Conversion rate・Sessions・Total sales・Orders）が手順より上
+21	X28	a1576a19	合う	合う	PROFIT & LOSS の Income・Expenses の棒の右に斜線と「3 to review」「2 to review」。数を多く並べるホーム（7章#1 反対②）も合う
+22	X30	a0fcfcb0	合う	合う	5つの輪（over/left）、UPCOMING（in 10 days Allstate $10.46）、NET THIS MONTH $301.48。数を多く並べるホームで、来月の支払いの例としても合う
+23	X31	a252fcfd	合う	合う	In $326・Out $188 の硬貨の山の絵、Limit まで灰色の硬貨、「$115.90 per day」。数の画面に絵（7章#4）も合う
+24	X31	d1d13fc6	合う	合う	「$1,274.87 until $1,463」「$115.90 per day」、BILLS DUE、Essential spending と手の絵
+25	X32	207509eb	合う	合う	特大「$978.62」「Over spend limit」「17 days to go」「It happens」。なお棒は黒で赤は使っていない（4.3-2 の「赤は超えた…」の色は素案の決め）
+26	X33	b00a6ecc	合う	合う	MAY〜SEP 2025 の月の札（JUL が橙）、Left to budget -$1,250
+27	X34	4d946d9e	合う	一部合わない	資産（青）と負債（赤）の棒の上を黒い線と白い丸（純資産）が 09/25→10/25 へ上がる形は合う。ノートの「-$720 から $1,200 へ」は表の -$767.31→$1,117.05 と違う（付録A が書いた通り。終点の $1,200 も違うことは付録A に書かれていない）
+28	X34	d8cda354	合う	合う	Net Worth $52,218.75、Assets・Debts、Sep の棒、Age of Money 2 Days
+29	X36	86d1b223	合う	合う	月ごとに灰（資産）と水色（負債・純資産）の対の棒、Working capital の折れ線、表 Total Assets・Liabilities 0.60・Equity。負債がほぼ0なので「対の棒」は資産と純資産がほぼ同じ高さ
+30	X38	61123e7a	合う	合う	Total Revenue→Cost of Revenue→Gross Profit→Total Operating Expense（開いて SG&A・R&D）→Operating Income。押すと内訳の通り
+31	X41	0303c0ec	合う	合う	「Profit or loss -1,672」と下の1文「No profit was made because the expenses were higher than the income」
+32	X43	088f1e0a	合う	合う	NET INCOME の月の棒が0の線の上は緑・下は赤、月ごとの Total income・Total expenses
+33	X47	c792115c	合う	合う	「£80 less than this time in June」、May・Jun・Jul の棒
+34	X50	8d71697d	合う	合う	「You've done 3 activities so far this month - up from 0 at this point last month.」
+35	X53	dc306981	合う	合う	左右に Bayern と Chelsea、Top stats の行で勝る側の数に色（FotMob rating だけは両側に色）
+36	X54	98dbc571	合う	合う	EMISSIONS 197 KG（紺）と COMMONS AVG. 630 KG（灰）、月の棒も自分は色・平均は灰、YOU VS. THE WORLD
+37	X56	e1ca6ae4	合う	合う	「£1 transferred to …」と「…'s card balance is now £1」。ただし全面の完了画面で、素案の画面8の「舞台の上の小さな札」の形ではない（素案は額と残高を1画面に、の型だけを引く）
+38	X57	1aecb208	合う	合う	縦の線でつながるチェックの4段（set up→used SGD→paid out→complete）
+39	X58	f2b45e8e	合う	合う	Budgets：「$3 over total budget」、中央の点線と TARGET、右に出た分類は赤い↑（Shops ↑$85・Other ↑$6）、左は緑の↓、CONTINUE TO INCOME
+40	X58	0e16bced	合う	合う	March の札に $2,064 TOTAL INCOME・$702 TOTAL SPENT・$3.44 OVER BUDGET の3つの数と OPEN YOUR MONTH IN REVIEW（入口の3つの数）
+41	X58	5f8e3760	合う	合う	Spending「$702 total spent in March」と分類の帯、CONTINUE TO BUDGETS
+42	X58	eae8101b	合う	合う	Cash Flow「$1,362 saved from income」、月の棒が0の上で緑・下で赤、CONTINUE TO INVESTMENTS（Budgets の札の「CONTINUE TO INCOME」の次の札の題は Cash Flow）
+43	X58	5440388d	合う	合う	Investments「$167 balance change in March」と2つの口座、最後の札は CLOSE。Spending→Budgets→Cash Flow→Investments の4枚＝「最大4枚」の元と合う
+44	X59	d6f73070	合う	合う	黒地の巨大な「January」「2024」、FEB〜JAN の縦線（OCT が最長、JAN だけ橙と「3 HRS」）
+45	X59	59094bb8	合う	合う	JANUARY TOTALS の巨大な「2」DAYS、3 HRS・4.0 KM・13 M、点の暦、TOP SPORTS「Run」
+46	X59	5a328a63	合う	合う	LONGEST ACTIVITY の地図と Evening Run、下に「Kudos,」
+47	X59	554e31e8	合う	合う	「Kudos, …!」「Way to get out there this January.」、Share Your Stats と Set A Goal
+48	X60	ea59c327	一部合わない	合う	画面は「most productive **day** was Friday」と「most distracting **day** was Monday」の日の対。素案 2.13 の括弧「一番良い週と悪い週を対に」は週と書く（型＝良い方と悪い方を対に、は合う）
+49	X61	6d4fe16b	合う	合う	ホームの「WELCOME BACK, SAM.」の下に濃い青の札「SPENDING REFLECTION／How did you do last week?」と NEW INSIGHTS
+50	X62	d635a1c2	合う	合う	「Pay or dispute your host's repair invoice／You have until Mar 25, 2025 to respond.」、「Respond to damage report by Mar 25, 2025」（題に何を・いつまでに）
+51	X63	b1bd4556	合う	合う	行ごとに出どころの小見出し（Payments • 9:33 am、Point of Sale • Aug 3, 2026、Settings • …）と太字の題
+52	W1	8d99b66f	一部合わない	合う	「TO REVIEW」の札1枚（Sp Vitaly Design Ltd・OTHER・$94.28・MARK AS REVIEWED）はある。しかし画面の一番上で一番大きいのは「$1,592 left／out of $1,612 budgeted」と予定線・「$53 under」の数の札で、TO REVIEW はその**下**、さらに下に予算の丸5つ。素案の「主役は数の帯でなく『次にやる1つ』」（0章-1）、「どれも『次にやる1つ』を数より上に置く」（C1）、「根拠の画面は『次の1つ』を数より上に置く」（D1）は、この画面については逆
+53	W1	5ebf5abc	合う	合う	札を開いた後、見出しが TRANSACTION、$94.28、EXCLUDE・SPLIT・RECURRING
+54	W1	0e7388f4	合う	合う	TO REVIEW の札が消え、星の印と「19 transactions to unlock Intelligence」（欄の形が変わる、の通り）。上の数の札はそのまま一番上
+55	W2	457e2184	合う	合う	緑の丸に白いチェック、「You reviewed everything!」と3行、View all transactions
+56	W3	325fffea	合う	合う	「30 new transactions to approve or categorize.」、「$165.13 Cleared Balance + $0.00 Uncleared Balance = $165.13 Working Balance」、黄色の札「This needs a category」が十数行
+57	W6	35656b22	合う	合う	「SORT YOUR SPENDS」「Tap to add or remove your categories」、Essential spend の箱に8つ（緑のチェック）、Other spend に6つ、Save が紫
+58	W6	89466e6b	合う	合う	同じ見出しと文、Essential spend に5つ、Other spend に8つ、Save は灰（押す前）
+59	W7	05f44de1	合う	合う	「$500」、EXPENSE・INCOME・TRANSFER、「Category: Miscellaneous」、色の丸4つ（Income・Groceries・Gift・Telephone）と「Browse all categories」
+60	W8	f1778c3a	一部合わない	合う	画面は分類の一覧（$2,383 spent in Aug・ドーナツ・$1,705 total budget、分類ごとの額と棒と予算）。素案 2.14 ⑦の「科目を押すと、その月の仕訳の一覧（総勘定元帳の見え方）[W8]」の「押した後の一覧」はこの画面になく、MB2 の台帳の2枚目（e6fe4340、Other を開いた画面）にある。その画面は素案のリンクにも cites.tsv にもない
+61	W9	a6d10794	合う	合う	「Are these all paychecks?」「If they're not, swipe them away」、札1枚（Deel Inc・+$2,106.62）、「This looks right」
+62	W10	85cdec88	一部合わない	合う	Minor adjustment 6.75、赤字「Your adjustment is more than 1.00」、「USD 42.75 ✓ Totals match」、Reconcile は青。差を調整の行で埋めて確定できる（雑損の逃げ道、8章#3）は画面どおり。しかし素案が C3・2.5 悪い面(1)・7章#2 反対①・D2 で同じ画面に寄せる「差0でも**科目違い**はある」は画面にない（画面にあるのは科目の誤りでなく、差を調整の額で埋めたこと）
+63	W10	2b57df0e	合う	合う	36.00 USD の行を選び Split、3. の文、「Total is out by: 6.75」と灰色の Reconcile（差があると確定できない）
+64	W10	722f15b0	合う	合う	Adjustments の選びに「Bank fee」「Minor adjustment」、Reconcile は灰
+65	W10	e194359a	合う	合う	Minor adjustment の空の入力欄とごみ箱、「Total is out by: 6.75」、Reconcile は灰
+66	W11	00af44d3	合う	合う	「$300.00」と緑のチェック「$0.00 left to split」、橙の Save
+67	W11	31f30340	合う	合う	「$600.00」「$300.00 left to split」、Category Other Income、Save
+68	W12	3b699b56	合う	合う	上端の帯「Left to Split ✓ $0.00」の下に、スクロールで切れた Groceries の行（帯が上に残る）。Split 2・Add Split・灰色の Add Left to Split・Continue
+69	W13	1ae4ac51	一部合わない	合う	画面は分割の始め（1行目 $9.00 GROCERIES、2行目 灰色 $0.00 OTHER、+ add、SAVE、数字の盤）。素案 2.5・8章#2 の「Copilot の自動の合わせ（片方を入れると反対側を自動で埋める）[W13]」の「自動で減る」所は、この画面になく、MB2 の台帳の3・4枚目（ea307f13・b945aba6）にある。その画面は素案のリンク・cites.tsv にない
+70	W15	bd4785a8	合う	合う	「This transaction has been split」と Salary +$600・+$300、黒い知らせ「2 split transactions created / Create a rule to do this automatically.」と CREATE
+71	W16	b5b9a184	合う	合う	左に Banking／Books、右の取引の札に Transaction／Journal Entry のタブ（同じ取引を2つの見え方で）、表の Ledger account の列
+72	W17	2b734396	合う	合う	「Swipe right if it's a bill you gotta keep」「Swipe left if it's something you might wanna ditch」、Netflix の札が右へ傾き「Keep」の印。流れの9枚目（大きな数は #73 の4枚目）
+73	W17	9d375a82	合う	合う	画面の大半を「YOU HAVE / $19 IN BILLS DUE BEFORE PAYDAY」の特大の字。上に自分の答え「bills ✨」と「They're no one's fault」の吹き出し
+74	W17	39d6b9d5	合う	合う	Try this と左右の指示の吹き出し、Netflix $18.63 の札と左右の指の丸
+75	W18	812ba62d	合う	合う	写真の札が左へ傾き「Swipe left to delete」と手の印、右にごみ箱の丸、下にごみ箱とハートの押す札
+76	W18	fe08f11d	合う	合う	札が右へ傾き「Swipe right to keep」、左に赤いハートの丸
+77	W18	5774ee10	合う	合う	札がまっすぐ、下にごみ箱とハートの2つの押す札（同じ2択を押しても）
+78	W19	5dacac8f	合う	合う	札が右へ傾き緑の枠、札の中に「Know」と薄い「ache」、左上の橙の「0」、下に「Swipe left to mark Still learning」。ノートの「+1 のように光る」は右上の緑の小札で、字は読めない（言い過ぎは「のように」で留めてある）
+79	W19	80a4c6a5	合う	合う	「1 / 68」、左右の端に橙「0」と緑「0」、単語カード「ache」、「Swipe left to mark Still learning」
+80	W20	22fa4170	合う	合う	写真の札1枚、丸い札「Forget」「Keep」、橙の帯「Card deleted and moved to trash.」
+81	W23	a29d4250	合う	合う	「Press and drag an item to move it.」、持ち上げた CNN の行が影つきでずれる＝並べ替え。「12件」は MB2 の検索の数で、この画面からは確かめられない
+82	W26	25fc692d	合う	合う	緑の輪のチェック、「You Paid US$12.94」「…will be reflected in your balance within 24 hours.」
+83	W27	a822a300	合う	合う	X31 と同じ Cleo の FEBRUARY'S BREAKDOWN（In $326・Out $188 の硬貨の山、$1,274.87 until $1,463、$115.90 per day）
+84	W28	10e9460a	合う	合う	左の入り（MOBBIN PTE. LTD.・Amazon・Fi…）→「Money In」→「Expenses」→右の行き先（Refero・Uphold…）の帯の図、左に気づきの3項。金額は伏せ字
+85	W29	f5b4a2cc	合う	合う	Default Categories の表 GROUP・DESCRIPTION・CATEGORY（Airlines→Travel、Gas→Car…）。素案の「棚（札の束）」は表で、札の形ではない（決まりの一覧という型は合う）
+86	W30	29b835da	一部合わない	合う	View reimbursement：receipt.png と View receipt、Amount claimed・Transaction amount・date・Merchant、Line items (2)（Shipping fee 1.50・Mail stamp 1.00）、Total 2.50 SGD。根拠の欄の「証憑と行と合計」は合う。しかし 1.2 と 2.5-3 で同じ番号に寄せる「書類の値を押して拾う」は画面にない（見るだけの頁で、値を押す所はない）
+87	W31	af24a9b8	合う	合う	「$311,318」、Debt-to-income ratio「41% | Stretch」、青緑→橙→赤のつまみ、「Exceeds recommended debt-to-income ratio.」の注意
+88	W32	a196ebe3	合う	合う	「25 Years £49,151.13 Projection」、Projection の線と薄い緑の Likely range の帯、Monthly Deposits のつまみ
+89	W33	75324601	一部合わない	合う	「Rp25.000.000」のつまみ、Tenure の6択、「Monthly Repayment Rp2.570.833」（根拠の欄の「額と期間で月の返済」は合う）。2.10 の操作の文「『借りない』の札も同じ重さで出す [W33]」の「借りない」の札は画面になく、上に大きな「Cash Loan Up to Rp100.000.000」がある（借りる向きに寄せた画面）
+90	W34	dee30ae9	合う	合う	Compare：列に Free・Plus・Premium のカードの絵、行は×とチェック、Price の行
+91	W36	7df5c89a	合う	合う	「2x+2=y+6」の両辺を長さの棒（x x 2／y 6）、x・y のつまみ、Check
+92	W37	a8c724bd	合う	合う	Q10、YES 10 Pts／NO 15 Pts、「2X Apply Chip」、残り時間 03D:02H:41M。点・倍の札・残り時間は素案の言う【禁止の型】の部分として画面どおり
+93	W38	d58fe905	合う	合う	見出しごとに「0/2」「0/1」、下に −1＋と「Add — $10.25」
+94	W39	0d630f70	合う	合う	上に大きな完成の絵（Build Your BURRITO）、PROTEIN OR VEGGIE の品の行、ADD TO BAG
+95	W40	5528f405	合う	合う	「Mobbin Spice Traders LLC → Shop location」の矢印、4行（Qty 50・$4.00・$200.00）、Cost summary Total $800.00、同じ頁に Terms None
+96	W41	78129b1d	一部合わない	合う	Inventory：Black・Beige・Blue の行に −「100」＋。±は合う。素案 2.11 の根拠「[W41]（±と品切れ）」と悪い面の「Running Low」の札は、この画面になく、MB2 の台帳の2枚目（Thrive Market、c9a96ef6）にある。その画面は素案のリンク・cites.tsv にない
+97	W42	e838b7af	合う	合う	New Bill：From・Date・Due Date、行の列 Item・Description・Qty・Unit Price・**Account**・Amount（行ごとに科目の欄）、TOTAL 0.00、Approve
+98	W43	5b3c4dd9	合う	合う	部屋の絵（Professor Sheldrake's Rooms）、2文「The room is empty. / Sheldrake isn't here.」、選択肢は1つだけ「Maybe Sheldrake left me something?」
+99	W44	9a34e3c2	合う	合う	Approve・Reject、Approvals 1 of 1 の時系列（Submitted for review→Owner Awaiting approval）
+100	W45	d5187615	合う	合う	下の黒い帯「Message archived.」と「Undo」
+101	W46	6869f280	合う	合う	点数のピン（9.1・9.2・8.5・7.5・8.9・9.0）と「-50%」「-30%」の値下げの小札、中央でピンが重なり数が隠れる
+102	W47	ef125d25	合う	合う	重なる所に数の丸「2」「3」、「Turtle Tower +2 more」
+103	W48	ff560597	合う	合う	地図のピンを押した店の札（RT Rotisserie）、下に「31 people visited last week」
+104	W49	88393975	合う	合う	「Climb the leaderboard」、自分の行「Me +7.17 83.2% ▲」が浮き上がる、ほかの行に ▲▼
+105	W49	1b028e6a	合う	合う	corner の leader board「ranked by # of places visited」、1〜4位（767・762・750・702 visited）。実在の人との順位＝素案が禁止の型とする側の例
+106	W50	8461968f	合う	合う	「Position your lights」、等角の部屋の床に黄色く光る丸、左下に金の枠の札「Light」
+107	W50	ec23b20f	合う	合う	等角の白い部屋の断面、物に名札「Marcel Breuer / Model B46 chair」、下の丸い札と DONE。**cites.tsv と付録Aのアプリ名は「Philips Hue」だが、画面は Google Arts & Culture**（MB2 の台帳どおり。記録の誤り）
+108	W51	7966062b	合う	合う	通貨 2,159、「Finkea Furnishings」「50% OFF SALE 450」、店番の Robin の吹き出し、「Items refresh: 21:07:43」、品の札 500・900・500
+109	W52	d92c0617	合う	合う	緑のチェック、「Congrats on your first purchase of bitcoin on Cash App!」「You bought $1 of bitcoin」、紙吹雪
+110	Q1	fe8eae1b	合う	合う	「Cheep cheep, thanks for hatching me. If my name is Lee, what's your name?」と名前の欄（相手が名乗ってから聞く）
+111	Q2	0b3973cb	合う	合う	「What do you want to name your baby birb?」「You can change this later.」、Shuffle と Next
+112	Q3	6ccd84e3	合う	合う	「Choose a trait for Lee」Resilience・Security・Logic の3択
+113	Q5	528d7ee1	合う	合う	「Nice to meet you, Alex!」と両手を上げたキャラの全身
+114	Q7	b8a54efb	合う	合う	「Okay! Here's your first 2 minute lesson.」
+115	Q8	2014db16	合う	合う	キャラの「Let's put it into action!」と、これからやることの2行（Flip through…／Collect the ones…）、Let's go!
+116	Q11	efb78fab	合う	合う	上に部屋の絵と2人（黒い丸のキャラと帽子の男）、下に1行の吹き出し「I am! I earn money, but…」と緑の再生のボタン（送りの形）
+117	Q11	db053cc5	合う	合う	同じ部屋の絵、吹き出し「I can help you with that. Let's roll.」と緑の再生のボタン（絵は前の画面と同じで動いていない）
+118	Q13	f1474ff0	一部合わない	合う	部屋の絵の上に白い吹き出し5つと水色の返事1つ（計6つ）。素案 4.2-1 は「吹き出しは1画面3つまで [Q13]」と、6つ並ぶ画面を「3つまで」の根拠の位置に置く。MB3 の台帳では悪い面（多いと180字を超える）から出した上限で、画面は反例。素案はその読み方を書いていない
+119	Q14	bb06ea68	合う	合う	会話の札と灰色の訳、新出の語「Dag」「Tot ziens」だけ四角の枠、Continue
+120	Q15	5b2d14ea	合う	合う	熊と女の子、女の子の大きな吹き出し「I don't know. What?」（分からないを代弁）
+121	Q16	68de0a71	合う	合う	「Can you repeat the explanation?」→「which part wasn't clear? Was it why the truck needed to turn, or why turn left specifically?」と2択「Why turn at all」「Why turn left specifically」、下に自由入力の「How can I help?」
+122	Q17	81b520ac	合う	合う	Incorrect、Correct Answer の文で違う語「petit」だけ下線、EXPLAIN MY MISTAKE と GOT IT
+123	Q18	26c5c998	合う	合う	「Replaced ~~son~~ → petit」、理由2行、同じ型の別の例2つ（un petit chat・une petite maison）
+124	Q19	93499943	合う	合う	4択の最後に「I don't know」、選んだ誤り（Expressionism）と正解の説明
+125	Q20	b43fc9b9	合う	合う	「Please try again」…「You're partially correct」
+126	Q21	4da72f80	一部合わない	合う	「Question 1 of 4」「Your Acorns Invest portfolio holds assets called」の下に札「mutual funds」が文末の位置に置かれる（文の途中の穴ではない）。付録Aの判定と同じ。なおこの札は誤答で、下に「The correct answer is ETFs」
+127	Q23	c63bc528	合う	合う	「Almost there!」「Make sure to pick h1」（場所だけを言う）、Skip と Try again
+128	Q24	433fb29c	合う	合う	Browser のタブを開いた状態で、border の付いた「50% Discount Code」の枠（結果が対象の頁に出る）、「Great job! Let's keep it going.」
+129	Q25	2d8d62b7	合う	合う	Browser に縦の 1・2・3、「Almost there!」と課題の言い直し、紫の小さな「✦ Get help」と Try again。ヒントの入口は合う。「無料で3段」は画面になく PEDAGOGY 5 の決め（素案も括弧で PEDAGOGY を示しているので、画面の主張とは読まない）
+130	Q28	7b63d513	合う	合う	「What state has about 125 cafes?」と5本の棒の図（図の上で答える）、Start over、Check
+131	Q29	7f33ea08	合う	合う	左右の札「Born developed」「Born helpless」の2択、Horse の札、上に「0★」、下に「0:45」の時計（時計と星＝禁止の型の部分）
+132	Q30	dd9df113	合う	合う	伏せた札「Tap to reveal the idea」、上に7分割の進み
+133	Q31	9c79865b	合う	合う	「1 — 2 — 3 — 木の印」、伏せた「?」の木、「Your Reward Awaits」「Complete challenges… and unlock a new tree.」、Reveal Your Tree
+134	Q32	991bedee	合う	合う	「This exam is not timed…」「5 questions / …You can return to your earlier answers before submitting the exam.」、Start exam
+135	Q33	57fcc0a4	合う	合う	上に番号つきの格子（1・2・3 に色、4〜8）、下に「1 ▸ Number of sides on a cube」と ‹ ›、左上の時計「00:01」。時計は経過時間で「残り時間」ではない（素案の残り時間の根拠には Q34 の「1:43」が当たる）
+136	Q34	faf99c88	合う	合う	進みの棒（5・10・20 の目盛り）と時計「1:43」、「Select the correct translation」、3択と CHECK
+137	Q36	0fe586a8	合う	合う	「You got 3 of 5 correct」「4 of 5 to pass」と赤い棒、左の Question 1〜5 に緑・赤の点（格子が正誤の色）
+138	Q37	ed1ddb57	合う	合う	「You're learning!」、70% の輪と Correct 7・Incorrect 3、Next steps の2つ（Practice with Learn・Take a new test）
+139	Q38	00c43458	合う	合う	「Answered correctly: 3/4」、Incorrect の箱（Tot ziens!）と Correct の箱（goedemorgen・Hoi!・Dag!）。素案の「直した札／一度で正しかった札」は Incorrect／Correct を言い換えた設計（画面に「直した」はない）
+140	Q39	27314584	合う	合う	LEVELED UP 4 skills・LEVELED DOWN 2 skills・NO CHANGE、技能ごとの↑↓、「4/6 correct · 550 energy pts」（energy pts は禁止の型）
+141	Q43	55459f0d	合う	合う	「Review streak 0」「For review 20」、Start review と鍵の付いた「Review on Tue 20」「Review on Fri 23」
+142	Q44	f5c83f4d	合う	合う	X17 と同じ画面（条件の1行と 0・46・22）
+143	Q47	97fe8772	合う	合う	MILESTONE 1〜5 の日付つきの区切り（MAR 03 Kickoff、MAR 12、MAR 22、APR 01）と縦の線
+144	Q48	43ae2042	合う	合う	「2 Day streak」、文に数を埋める「You learned 4 words In total with a 50% rate. Got it! 2 & Needs review 2」、暦
+145	Q49	83509751	合う	合う	リングで綴じた帳面「Lee's collection」、Micropets「1 / 60」、Food 2/114・Drinks 1/25・Books 1/52、「?」の影、上端に薄い「9 day streak / Longest self-care streak ever!」
+146	Q50	e3bb25f0	合う	合う	Stickers：灰色の影の形の下に名前（1UP・7-10 Split…）、取ったものだけ色
+147	Q52	58646e99	合う	合う	札に Dec 13・Waxing Gibbous・2 years ago、下に「South Jakarta」「Dec 13, 2024」「02:06 PM」（いつ・どこで）。「誰と」は画面にない
+148	Q54	625b38aa	合う	合う	感情の語の丸が並び、Eager を選ぶと下に1行「impatiently wanting to do or get something」（近い語との違いの1行）
+149	Q56	f81f0d35	合う	合う	Achievements：Recent（Calm Beginnings・Day One）と Streaks（Consistency Seed・Week Warrior・Fortnight Focus…）の印
+150	Q57	e7c6977d	一部合わない	合う	Graph view：5つの点（緑・赤・灰）と名前、細い線が2本ほど。2.19 で同じ番号に寄せる「主の線は太く副は細く、誤りの線は色」は画面になく（線は全部同じ細さ、色は点に付く）、MB3 の設計の足し分。「点と線のつながり」の型だけが画面にある
+151	Q58	3ef3dce1	合う	合う	Course Map「Your Noom learning journey」：済んだ所は実線、先は点線、丸い絵の節
+152	Q59	1ae37391	合う	合う	Ahead の地図の石1〜5（2が紫）、右上に炎「1」、左上「5%」。素案 2.15 は「Ahead・Mimo の道は炎・％と一緒 [X10][Q59]」と書くが、Q59 も Ahead で Mimo ではない（アプリ名の誤り）
+153	Q63	7aa235cf	合う	合う	「PAUSED / Productivity」、「Feeling ready to jump back in?」と Resume area、「This area is now paused - take a break and come back anytime!」
+154	Q64	442d1c66	合う	合う	「Continue Listening / Continue from where you left off.」、前回の要約の3行と「Playing 18 min left」の1つのボタン
+155	Q67	d6179aa1	合う	合う	Settings の Account に「Last backup: 9 Jun 2026, 11:12」と Sync（書き出し・読み込みの別の項目は画面にない）
+156	Q68	9ca8e991	一部合わない	合う	Customization：音の種類（Sine・Synth・Bowl・Off）、Vibration On/Off、Voice Guide（Lexi・Max・Off）。2.23 の「音・声」は合う。しかし 4.4 の「強さ3段（控えめ・ふつう・派手）は設定で選ぶ [Q68]」の**強さの段**は画面になく、あるのは種類の選択とオン・オフ
+157	Q69	b26c98e9	合う	合う	Game options：Asteroid speed「Normal」、Number of answers、Game duration「60s」（速さ・時間を本人が選ぶ）
+158	Q70	d1cca038	合う	合う	「You got here first.」と POPULATION 0 の看板の冗談の絵、Add your crew
+159	Q74	5b76071b	合う	合う	To Do List の項目そのものが使い方（Check the box to mark items as do…、Click the due date to change it…）
+160	Q77	6a699da6	合う	合う	Nightly ritual を選ぶと先生役がマグカップの姿になり「Source code by starlight. Sounds dreamy.」
+161	Q77	d19406b0	合う	合う	「Sign up for free to discover your learning path」、林檎・Google・email（登録が課題の前）
+162	Q78	168b1c76	合う	一部合わない	「You exercised an important coding skill: using the right commands in the right order.」「In this course, you'll learn to use loops, logic, and variables…」とコードの見本・格子の道。素案の書き直し（loops などは予告、順だけが合う）は画面どおり。ノートの末尾「やったことに後から名前を付ける」は画面から言えない（付録Aの通り）
+163	Q78	26456629	合う	合う	地図の絵に車と経路、札 drive forward・turn right、「Writing Programs」「Programs are instructions. You already know how to write them — let's prove it.」（素案の引く扉の文どおり）
+164	Q78	0806e864	合う	合う	「Tap the blocks to write a program…」、島の町の地図、番号つきの欄 1 turn left・2 drive forward と札の候補（地図の上で札を置く）
+165	Q78	82e01d81	合う	合う	番号つきの欄 drive forward・drive forward・turn right・空の4、黄色い帯「Not quite.」と Get help・Try again
+166	Q78	b7c9a698	合う	合う	「Drag to reorder the program commands.」、紺の格子の盤、番号つきの札3つ（ドラッグは並べ替え：C12 の向きと合う）
+167	Q79	50164305	合う	合う	「PART 1 · SESSION 1 / Easing in」、済んだ札が緑一面の「✓ Completed」、次の札「Finding Deeper Motivation」（Video・5 min）が大きく、再生のボタン
+168	Q79	d99e1da1	合う	合う	「Today's Action / Don't forget why you started」と書き留める行動の文、動画の再生中
+169	Q79	6ec55816	合う	合う	「Finding Your Best Sleep」18 sessions、Part 1〜3 の札、Start Today（Part・Session の構造）
+170	Q80	16fe98e3	合う	合う	「Section 1: Warm-up」、区切り線「QUESTION 1/9」「QUESTION 2/9」、相手が先に「Bonjour ! Moi, c'est Philippe.」、文字を隠す目の印、絵はない
+171	Q80	4a2727b7	合う	合う	同じ相手の1文と「Say, "Nice to meet you!"」、読み込みの輪
+172	Q80	67805405	合う	合う	同じ1文と「Speak now...」、マイクの丸と×・キーボード
+173	Q81	7499140f	合う	合う	「What do these terms mean?」と用語の定義の一覧（Total spent = …、Your share = …）
+174	Q83	573f7362	合う	合う	黄と青のブロックの「Company」の一部に吹き出し「Stock — a piece of ownership」
+175	M1	fbbbcbd0	合う	合う	店を真上から見た部屋（水槽・厨房のカウンターと熊の店員・席・植木・橙の服の客と口ひげの男）、数の帯はない、「！」はない。素案が今この画面に寄せる「真上から見た部屋・数の帯がない」は合う。**ノートはすでに訂正済み**（コミット 7b44cf0 で「『！』があるのは同じ流れの c775292b」と書き換え）で、付録Aの「ノートは『！』と書く」は今のノートと合わない。**c775292b の原寸には橙の服の客の頭に白い吹き出しの「！」がある**（判定役が開いて確かめた）。素案 2.2・11章の「人物に印を付ける型は別に探す必要がある／足りない」は、取得済みの画面で満たせる
+176	M2	84d6004b	合う	合う	客の上に青い名前の札「LUCIE」と吹き出し「Je voudrais de l'eau.」
+177	M7	469aaab7	合う	合う	斜め上から見た四角い芝の島に木、Day・Week・Month・Year、月ごとの棒
+178	M8	6e9ad774	合う	合う	上に Bank「£6.1m」と桃色の Undo、ピッチの選手と値段
+179	M11	d2af9ba5	合う	合う	「GREENS / Select up to 2」、選んだ2枚に −1＋、下に「$10.88 — 340 cal」と I'M DONE
+180	M12	5966689f	合う	一部合わない	Duolingo「The top 8 move up to the next league.」、PROMOTION ZONE、自分の行（9位 Alex Smith）だけ灰、XP。ノートは4つのアプリ（Mimo・Brilliant・Speak）の画面をまとめた同じ文で、この画像にない物を含む（付録Aの備考の通り）
+181	M12	41baf926	合う	一部合わない	Mimo の Weekly Leaderboard（Wooden League・6d 13h 50m・PROMOTION ZONE・XP）。この画面では自分の行の色の区別は見えない。ノートは #180 と同じ4画面まとめの文
+182	M13	02228791	合う	一部合わない	Spotify「You listened to 12 albums this year.」「Long live the album.」と円盤の模様。ノートは4画面（Oura・How We Feel・Goodreads）まとめの文で、この画像にない物を含む
+183	M14	3c9e2d5d	合う	合う	Score Simulator「Drag the slider to see what each score means」、「800-850 out of 850」、つまみと Drag me、下の2つの結果（4.7%・2.4%）
