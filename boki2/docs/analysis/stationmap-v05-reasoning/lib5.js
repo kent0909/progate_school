@@ -90,7 +90,7 @@ function restore() { C.table.capBy.v = T0.capBy.slice(); C.table.capSeat.v = T0.
 // 返す値：3年目の 通し・昼だけ・夜だけ の営業利益（年）、売れた客/日（昼・夜）、需要/日、1年目の売れた客/日、ライバルの数
 function runSite(o) {
   const { attr, Pabs, rivals, eps, rent, P } = o, parts = o.parts || 1;
-  const L = P.split ? P.L[attr] : 1;
+  const L = P.split ? (o.Lsite != null ? Math.min(0.95, Math.max(0.05, o.Lsite)) : P.L[attr]) : 1; // Lsite：候補地ごとのメッシュの昼の比（検査役の試し）
   const erng = D.rng(o.entrySeed || 1);
   let nid = rivals.length;
   const rl = rivals.map((r, k) => mkRival(r, k));

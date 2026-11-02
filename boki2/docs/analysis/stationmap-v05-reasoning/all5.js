@@ -11,6 +11,7 @@ if (over.tierSpan) { // 段1を据え置き、段8＝段1×tierSpan、間は初�
 const cal = L.calibrate(P); if (P.Pmul) cal.Pref *= P.Pmul;
 const q = (a, p) => { const s = [...a].sort((x, y) => x - y); return s[Math.floor(p * (s.length - 1))]; };
 const mean = (a) => a.reduce((t, v) => t + v, 0) / a.length;
+const LS = P.LsiteFile ? JSON.parse(require('fs').readFileSync(P.LsiteFile)) : null;
 const out = []; const doP2 = process.env.PARTS2 !== '0';
 for (let i = 0; i < L.sites.length; i++) {
   const s = L.sites[i], F = L.Fsite(s, P), lam = L.lamOf(s, P), draws = [];
@@ -18,7 +19,7 @@ for (let i = 0; i < L.sites.length; i++) {
     const riv = L.drawRivals(s, 7000 + i * 101 + k, P);
     const u = (L.D.rng(5000 + i * 37 + k)() * 2 - 1);
     const rent = L.rentOf(s, P, P.rentSpread ? u : 0);
-    const base = { attr: s.type, Pabs: cal.Pref * F, rivals: riv, eps: cal.eps, rent, P, lam, entrySeed: 3000 + i * 53 + k };
+    const base = { attr: s.type, Pabs: cal.Pref * F, rivals: riv, eps: cal.eps, rent, P, lam, entrySeed: 3000 + i * 53 + k, Lsite: LS && LS[s.id] != null && (!P.LsiteTypes || P.LsiteTypes.includes(s.type)) ? LS[s.id] : null };
     const y = L.runSite(base);
     let p2 = null; if (doP2 && y.dem > 70) { const y2 = L.runSite({ ...base, parts: 2 }); p2 = y2.thru; }
     draws.push({ n: riv.length, riv: riv.map((r) => r.type[0] + (r.lunchOnly ? 'L' : '')).sort().join('') || '0', N: y.N, N1: y.N1, NL: y.NL, NN: y.NN, dem: y.dem, demL: y.demL, demN: y.demN, op: y.thru, opL: y.opL, opN: y.opN, fixed: y.fixed, p2, end: y.rivalsEnd, rent });
