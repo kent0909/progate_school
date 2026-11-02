@@ -618,6 +618,28 @@
      "parts": []
     }
    ]
+  },
+  {
+   "id": "mobbin-mcp",
+   "name": "Mobbin（オーナーが接続した公式 MCP が返す画面の画像）",
+   "hosts": [
+    "mobbin.com"
+   ],
+   "tos": {
+    "verdict": "owner-approved",
+    "note": "Mobbin の規約（tos-mobbin.com）はスクレイパー等による取得を禁じるが、公式の API・MCP（AI Credits）を用意している。オーナーが 2026-11-02 に claude.ai のコネクタで Mobbin の MCP を接続し、MCP の説明が「保存・書き出しは image_url から原寸をダウンロードせよ」と案内する。取るのは MCP の検索結果が返した image_url（mobbin.com/api/mcp/short/…）だけ。頁（mobbin.com/screens/…）は取らない。オーナーの指示「research-fetchの記録には残せよ。テキストだけ見てもわからんだろ」（2026-11-02）",
+    "min_interval_s": 3
+   },
+   "collections": [
+    {
+     "id": "screens",
+     "desc": "MCP の search_screens・search_flows が返した画面の画像（doc は画面の id）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
+    }
+   ]
   }
  ],
  "derived_docs": [

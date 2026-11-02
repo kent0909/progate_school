@@ -278,6 +278,9 @@ function checkNote(n, es, tag, indexText, gen, r, isSection) {
   const body = norm(n.body);
   if (body.length < 150) err(tag, `${where} の本文が短すぎる（${body.length} 字）。何を読み取ったかが書かれていない`);
   const anchors = (n.anchors || []).map(norm).filter(Boolean);
+  // 画像だけの文書（Mobbin の画面など、2026-11-02）：語句の代わりに見た所の申告（image_seen）で検査する
+  const onlyImages = es.length && es.every((e) => !e.file || /\.(png|jpe?g|webp|gif)$/i.test(e.file));
+  if (onlyImages) { if (!n.image_seen || String(n.image_seen).length < 60) err(tag, `${where} は画像だけの文書。見た所（部品・配置・色・文字）を image_seen: に60字以上で書くこと`); else warn(tag, `${where} は画像だけの文書。語句では照合できない（見たと申告：${String(n.image_seen).slice(0, 40)}）`); if (!hashes.includes(n.sha256)) {} r.unverifiable++; return; }
   if (anchors.length < 5) err(tag, `${where} の anchors が ${anchors.length} 個（5個以上）`);
   if (n.read !== 'full' && n.read !== 'partial') err(tag, `${where} の read が full / partial のどちらでもない`);
   // 原文と照合
@@ -320,6 +323,8 @@ function coverage(ns, es, tag) {
   const files = es.map(rawFile).filter(Boolean);
   const f = files.find((x) => ns.some((n) => fileSha(x) === n.sha256)) || files[0];
   if (!f) return null;
+  // 画像（Mobbin の画面など）は語句の区間を測れない。checkNote の image_seen の検査で見る（2026-11-02）
+  if (/\.(png|jpe?g|webp|gif)$/i.test(f)) return null;
   const text = norm(textOf(f));
   if (text.length <= 45000 && ns.length === 1) return true; // 短い文書は checkNote の前・中・後ろで見ている
   const Z = Math.max(3, Math.min(40, Math.ceil(text.length / 15000)));
