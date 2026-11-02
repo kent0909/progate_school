@@ -92,15 +92,26 @@ for i in ids:
             short.append(i)
 print(f'cites.tsv の行（画面）: {len(data)}  番号の種類: {len(set(r[1] for r in data))}')
 print(f'ノートがない: {len(no_note)}  原寸がない: {len(no_raw)}  取得記録（200）がない: {len(no_led)}  image_seen が60字未満: {len(short)}')
-print(f'ノートを開いた（はい）: {sum(1 for r in data if r[5]=="はい")}  画像を開いた（はい）: {sum(1 for r in data if r[6]=="はい")}')
+print(f'ノートを開いた（書き手・はい）: {sum(1 for r in data if r[5]=="はい")}  画像を開いた（書き手・はい）: {sum(1 for r in data if r[6]=="はい")}  画像を開いた（判定役・はい）: {sum(1 for r in data if r[7]=="はい")}')
 opened_nums = sorted(set(r[1] for r in data if r[6] == 'はい'), key=lambda x: (x[0], int(x[1:])))
-print(f'原寸を開いた番号: {len(opened_nums)} 件 {opened_nums}')
+print(f'原寸を開いた番号（書き手）: {len(opened_nums)} 件 {opened_nums}')
+print(f'原寸を開いた画面（書き手）: {sum(1 for r in data if r[6]=="はい")} 枚')
 prim = {}
 for r in data:
     prim.setdefault(r[1], r)
-verdict = collections.Counter(r[7] for r in prim.values())
-print('番号ごとの判定:', dict(verdict))
-print('合わない・一部合わない:', [(n, r[7]) for n, r in prim.items() if r[7] != '合う'])
+verdict = collections.Counter(r[10] for r in prim.values())
+print('番号ごとの判定（書き手・版0.1）:', dict(verdict))
+print('書き手の版0.1 で合わない・一部合わない:', [(n, r[10]) for n, r in prim.items() if r[10] != '合う'])
+# 判定役の判定（docs/audit/DESIGN-UI-IDEAL-audit-screens.tsv）を、版0.1 の cites の画面で数える
+AUD = os.path.join(ROOT, 'docs', 'audit', 'DESIGN-UI-IDEAL-audit-screens.tsv')
+aud = [l.split('\t') for l in open(AUD, encoding='utf8').read().strip().split('\n')[1:]]
+print(f'判定役の判定（画面）: 主張と画像 {dict(collections.Counter(r[3] for r in aud))}  image_seen と画像 {dict(collections.Counter(r[4] for r in aud))}  計 {len(aud)}')
+bynum = collections.defaultdict(list)
+for r in aud:
+    bynum[r[1]].append(r[3])
+nv = collections.Counter('一部合わない' if any(v.startswith('一部') for v in vs) else ('合う' if all(v == '合う' for v in vs) else 'その他') for vs in bynum.values())
+print(f'判定役の判定（番号。1画面でも一部なら一部）: {dict(nv)}  計 {len(bynum)}')
+print('判定役が一部合わないとした番号:', sorted([n for n, vs in bynum.items() if any(v.startswith('一部') for v in vs)], key=lambda x: (x[0], int(x[1:]))))
 tsv_nums = set(r[1] for r in data)
 print('本文の番号で cites.tsv にない:', sorted(set(nums) - tsv_nums) or 'なし', ' cites.tsv にあって本文にない:', sorted(tsv_nums - set(nums)) or 'なし')
 dup = collections.Counter(r[0] for r in data)
@@ -113,5 +124,14 @@ def table_rows(title_re):
 print('食い違いの行（3章）:', len(table_rows(r'^## 3\. ')))
 print('論証の表の行（7章）:', len(table_rows(r'^## 7\. ')))
 print('簡略化の台帳の行（8章）:', len(table_rows(r'^## 8\. ')))
-print('オーナーに決めてもらう問い（9章の ### D）:', len(re.findall(r'^### D\d ', s, re.M)))
-print('試作で比べる物（6.1 の T）:', len(re.findall(r'^\| T\d ', s, re.M)))
+print('試作で比べる物（6.1 の T）:', len(re.findall(r'^\| T\d+ ', s, re.M)))
+print('オーナーに決めてもらう問い（9章の ### 問）:', len(re.findall(r'^### 問\d ', s, re.M)))
+def sect(title):
+    mm = re.search(r'^## ' + title + r'\n(.*?)(?=^## )', s, re.S | re.M)
+    return [l for l in mm.group(1).split('\n') if l.startswith('| ') and not l.startswith('| 番号') and not l.startswith('| #') and not l.startswith('| 検査書・判定書')] if mm else []
+resp = sect('判定と検査への対応表')
+print('判定と検査への対応表の行:', len(resp), ' 扱い:', dict(collections.Counter(l.rstrip(' |').split('|')[-1].strip().split('（')[0].split('。')[0] for l in resp)))
+print('  J:', sum(1 for l in resp if l.startswith('| J')), ' K:', sum(1 for l in resp if l.startswith('| K')), ' R-:', sum(1 for l in resp if l.startswith('| R-')), ' ほか:', sum(1 for l in resp if not re.match(r'\| (J|K|R-)', l)))
+print('検査役の筋から採ったものの行:', len(sect('検査役の筋から採ったもの')))
+print('版0.1 からの変更の行:', len(sect('版0.1 からの変更の一覧')))
+print('「動き」の行の数（2章）:', len(re.findall(r'^- \*\*動き', s, re.M)), ' うち【推論】つき:', len(re.findall(r'^- \*\*動き【推論】', s, re.M)))
