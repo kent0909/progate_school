@@ -14,11 +14,11 @@ for th in 5 1; do
 done
 # ---- 4.3 の効きの向きと検査⑩（ライバルの値下げ）
 node dir5.js > out/r_dir5.txt
+node rent5.js > out/r_rent5.txt
 # ---- 6章の検査①〜⑨：版0.5 の初めの置き値と、置き値・仕組みを動かした組
 RET='"ret":{"jutaku":[1.5,0.8],"hanka":[0.5,1.25]}'
 S3='"tierSpan":3.0,"b":0.15,"R0":25000,"floor":15000'
-SAVE=out/sites_v00.json node all5.js 6 '{}' > out/r_v00_as_written.txt &
-sh batch.sh v01_b04 '{"b":0.4}' v02_b055 '{"b":0.55}' v03_pref_moving '{"pRefFixed":false}' \
+sh batch.sh v01_b04 '{"b":0.4}' v02_b055 '{"b":0.55}' \
   m1_poisson '{"countMode":"poisson"}' m2_entry0 '{"entry":0}' m4_nosplit '{"split":false}' m5_retoff '{"ret":{"jutaku":[1,1],"shoten":[1,1],"office":[1,1],"hanka":[1,1],"kojo":[1,1]}}' \
   s1_ret "{$RET}" s2_tier30 '{"tierSpan":3.0}' s3_tier30_flat "{$S3}" s4_edge "{$S3,\"attr\":{\"hanka\":1.3,\"jutaku\":0.6,\"kojo\":0.7},\"dist\":[1.2,1.0,0.75]}" \
   w1_inrange "{\"tierSpan\":3.0,\"b\":0.4,$RET,\"attr\":{\"hanka\":1.3}}" h1_Lhanka05 '{"L":{"hanka":0.5}}' h2_Lmesh '{"LsiteFile":"out/site_L.json"}' \
@@ -26,6 +26,13 @@ sh batch.sh v01_b04 '{"b":0.4}' v02_b055 '{"b":0.55}' v03_pref_moving '{"pRefFix
   u1_tier60 '{"tierSpan":6.0}' u2_V0_4 '{"V0":4}' u3_V0_4_cmin1 '{"V0":4,"cMin":1}' u4_ret_churn2 '{"ret":{"jutaku":[1.5,0.5],"hanka":[0.5,1.5]}}' \
   u5_t6_V04_c1 '{"tierSpan":6.0,"V0":4,"cMin":1}' u6_t4_V04_c1 '{"tierSpan":4.0,"V0":4,"cMin":1}' u7_t3_V04_c1 '{"tierSpan":3.0,"V0":4,"cMin":1}'
 sh batch.sh m3_round '{"countMode":"round"}' m6_pref850 '{"pRef":{"office":850,"shogyo":850,"hanka":850,"kojo":850}}' v03_pref_moving '{"pRefFixed":false}'
+W1='"tierSpan":3.0,"b":0.4,"ret":{"jutaku":[1.5,0.8],"hanka":[0.5,1.25]},"attr":{"hanka":1.3}'
+sh batch.sh w2_inrange_save20 "{$W1,\"save\":200000}" x1_round_t4 "{$W1,\"save\":200000,\"countMode\":\"round\",\"tierSpan\":4.0}" x2_round_V04 "{$W1,\"save\":200000,\"countMode\":\"round\",\"V0\":4}" x3_round_t4_V04 "{$W1,\"save\":200000,\"countMode\":\"round\",\"tierSpan\":4.0,\"V0\":4}"
 SAVE=out/sites_v00.json node all5.js 6 '{}' > out/r_v00_as_written.txt
-wait
-grep -h '^SUMMARY' out/r_v*.txt out/r_m*.txt out/r_s*.txt out/r_w*.txt out/r_h*.txt out/r_t*.txt out/r_u*.txt > out/r_summary.txt
+node -e '
+const S=JSON.parse(require("fs").readFileSync("out/sites_v00.json"));const g={};
+for(const s of S){const k="段"+s.tier;g[k]=g[k]||{n:0,z:0,c0:0};for(const d of s.draws){g[k].n++;if(d.n===0)g[k].z++;}if(Math.round(s.lam)===0)g[k].c0++;}
+console.log(Object.entries(g).map(([k,v])=>k+": 0軒のくじ "+(100*v.z/v.n).toFixed(0)+"%・中心0の候補地 "+v.c0).join(" | "));
+for (const l of [0.18,0.3,0.48,0.8]) console.log("λ",l,"3年で1軒も来ない確率",Math.pow(1-0.01*l,36).toFixed(3),"平均の待ち",(1/(0.01*l)/12).toFixed(0),"年");
+' > out/r_zero_by_tier.txt
+grep -h "^SUMMARY" out/r_*.txt > out/summary.txt

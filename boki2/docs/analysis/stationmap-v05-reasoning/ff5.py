@@ -77,3 +77,10 @@ byt = collections.defaultdict(list)
 for s in G['SITES']:
   if s['id'] in out: byt[s['type']].append(out[s['id']])
 print(f'\n## (e) 候補地ごとの昼の比（{len(G["SITES"])}か所のうち値のある {len(out)}）：' + '・'.join(f'{k} 中央{statistics.median(v):.2f}（{len(v)}）' for k, v in byt.items()))
+# (f) 「2つの独立した資料が同じ向き」：D13 からの乗り換えの割合の見積もり 1−(D13/A)÷中央値 と、第12回の乗換え÷合計 の順位相関
+both = [x for x in ok if x.get('t12_x') and x.get('t12_all')]
+est = [1 - (x['gate13'] / x['A']) / single for x in both]; d12 = [x['t12_x'] / x['t12_all'] for x in both]
+KEYS = set(G['KEY'])
+k10 = [i for i, x in enumerate(both) if x['name'] in KEYS]
+mb = [i for i, x in enumerate(both) if x['ops'] >= 2]; sb = [i for i, x in enumerate(both) if x['ops'] == 1]
+print(f'\n## (f) 乗り換えの割合の2つの見積もり（D13 から・第12回）の順位相関：両方ある {len(both)}駅 {sp(est, d12):.3f}・主要10駅 {sp([est[i] for i in k10], [d12[i] for i in k10]):.3f}・複数事業者 {len(mb)}駅 {sp([est[i] for i in mb], [d12[i] for i in mb]):.3f}・単独事業者 {len(sb)}駅 {sp([est[i] for i in sb], [d12[i] for i in sb]):.3f}')

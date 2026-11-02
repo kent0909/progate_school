@@ -51,13 +51,15 @@ const zero = [], r0 = [];
 for (let k = 0; k < K; k++) { const w = out.map((o) => ({ o, d: o.draws[k] })).sort((a, b) => b.d.op - a.d.op).slice(0, 50); zero.push(w.filter((x) => x.d.n === 0).length); r0.push(w); }
 R.c5 = Math.max(...zero);
 { const comp = {}; r0.forEach((w) => w.forEach((x) => { comp[x.d.riv] = (comp[x.d.riv] || 0) + 1; })); console.log(`   1つの世界の上位50のライバルの組（開店の前、${K}つの世界の合計。c=安売り k=こだわり s=老舗 L=昼だけ）：` + Object.entries(comp).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([k, v]) => `${k}:${v}`).join(' ')); }
-console.log(`⑤ 1つの世界の上位50のうち開店の前にライバル0軒の所 ${zero.join('/')}（目標15以下）・全くじの0軒の割合 ${(100 * pool.filter((d) => d.n === 0).length / pool.length).toFixed(0)}%`);
+const weak = r0.map((w) => w.filter((x) => x.d.riv === '0' || x.d.riv === 'k').length);
+console.log(`⑤ 1つの世界の上位50のうち開店の前にライバル0軒の所 ${zero.join('/')}（参考：0軒かこだわり1軒だけの所 ${weak.join('/')}）（目標15以下）・全くじの0軒の割合 ${(100 * pool.filter((d) => d.n === 0).length / pool.length).toFixed(0)}%`);
 // ⑥ 単純な規則：1つの世界で、規則の並べ方で上から10か所を選んだ平均の利益 ÷ その世界の本当の上位10の平均（上手なボット＝見える情報で利益を当てる上限として、本当の上位を使う）
 const rules = {
   '大きい駅（段5以上、人通りの倍率の大きい順）': (x) => (x.o.tier >= 5 ? x.o.F : -1),
   'ライバル0〜1軒（その中で人通りの倍率の大きい順）': (x) => (x.d.n <= 1 ? x.o.F : -1),
   '家賃が下から25%（その中で人通りの倍率の大きい順）': (x) => (x.d.rent <= q(pool.map((d) => d.rent), 0.25) ? x.o.F : -1),
   'ライバル0軒（その中で人通りの倍率の大きい順）': (x) => (x.d.n === 0 ? x.o.F : -1),
+  '弱いライバルだけ（0軒かこだわり1軒、その中で人通りの倍率の大きい順）': (x) => (x.d.riv === '0' || x.d.riv === 'k' ? x.o.F : -1),
 };
 R.c6 = {};
 for (const [nm, f] of Object.entries(rules)) {
