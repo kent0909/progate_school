@@ -838,5 +838,23 @@
     "lo": null,
     "hi": null,
     "src": "DESIGN-STATIONMAP.md 4.5（増員時の閉店削減費）"
+  },
+  "decision.referenceHours": {
+    "v": null,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2・4.5（基準の老舗の営業時間）"
+  },
+  "decision.calibrationEntry": {
+    "v": null,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 4.2・4.3（較正中の参入）"
+  },
+  "decision.rivalCut": {
+    "v": null,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 6⑩（値下げの札・金額・時点は未記載）"
   }
 }
