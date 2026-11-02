@@ -62,5 +62,14 @@
     "boki2/js/sim/year2.js"
   ],
   "regressionRepeatByteIdentical": true,
-  "pendingRepeatByteIdentical": true
+  "pendingRepeatByteIdentical": true,
+  "originalScriptStdoutByteIdentical": true,
+  "checks": {
+    "sim-check": 0,
+    "ramen-300": 0,
+    "validate": 0,
+    "lexicon": 0,
+    "coverage": 0,
+    "law": 0
+  }
 }

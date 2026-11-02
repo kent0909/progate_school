@@ -15,7 +15,7 @@ const mean = a => a.length ? a.reduce((t, x) => t + x, 0) / a.length : null;
 const quantile = (a, p = .5) => a.length ? [...a].sort((x, y) => x - y)[Math.floor((a.length - 1) * p)] : null;
 const variance = a => { const m = mean(a); return mean(a.map(x => (x - m) ** 2)); };
 const hash = s => crypto.createHash('sha256').update(s).digest('hex');
-const seedFor = (seed, ...xs) => { let s = seed >>> 0; for (const x of xs) for (const c of String(x)) s = Math.imul(s ^ c.charCodeAt(0), 16777619) >>> 0; return s; };
+const seedFor = (seed, ...xs) => { let s = seed >>> 0; for (const c of JSON.stringify(xs)) s = Math.imul(s ^ c.charCodeAt(0), 16777619) >>> 0; return s; };
 function ranks(a, ties = true) {
   const order = a.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v), out = [];
   for (let i = 0; i < order.length;) { let j = i + 1; if (ties) while (j < order.length && order[j].v === order[i].v) j++;
@@ -35,10 +35,13 @@ function readParams(file = PARAMS, override = {}) {
   }
   for (const [k, v] of Object.entries(override)) {
     if (!(k in schema)) throw Error(`未知の置き値: ${k}`);
+    if (['foot.tierRatio', 'foot.distRatio'].includes(k)) throw Error(`比の制約は直接上書きできない: ${k}`);
     const s = schema[k];
+    if (s.v != null && (Array.isArray(s.v) ? !Array.isArray(v) : typeof s.v !== typeof v)) throw Error(`置き値の型が違う: ${k}`);
     if (typeof v === 'number' && (!Number.isFinite(v) || s.lo != null && v < s.lo || s.hi != null && v > s.hi)) throw Error(`探索幅の外: ${k}=${v}`);
     values[k] = v;
   }
+  for (const [k, v] of Object.entries(values)) if (/countProb|typeWeight|mix\.|rivalLunchOnly|entryRate/.test(k) && (typeof v !== 'number' || v < 0 || v > 1)) throw Error(`確率が0〜1でない: ${k}`);
   const sum = ks => ks.reduce((s, k) => s + values[k], 0);
   if (Math.abs(sum(['minus', 'center', 'plus'].map(k => 'rival.countProb.' + k)) - 1) > 1e-9) throw Error('軒数の確率の合計が1でない');
   const tr = values['foot.tier.8'] / values['foot.tier.1'], dr = values['foot.dist.near'] / values['foot.dist.far'];
@@ -64,6 +67,7 @@ function loadGame(instrument = false, dataFile) {
       if (start < 0 || end < 0) throw Error('常連の差し込み位置が変わった');
       source = source.slice(0, start) + `    const { regularBefore, regularAdded, regularDelta, regularLost } = SIM.stationmap.regular(W, me, e0, sold, churn);\n` + source.slice(end);
       replace('regularLost: regularBefore * churn,', 'regularLost,');
+      replace('regShare: me.L / Math.max(1, e0.N)', 'regShare: SIM.stationmap.activeRegular(W, me) / Math.max(1, e0.N)');
       replace("a.pRef = list.slice(1).every(x=>x.open===false) ? C('price0') : (1 - C('pRefStep')) * a.pRef + C('pRefStep') * weightedPrice(list);", 'a.pRef = SIM.stationmap.price(W);');
       vm.runInThisContext(source, { filename: path.join(ROOT, f) });
     } else require(path.join(ROOT, f));
@@ -120,7 +124,9 @@ function regression(opts) {
   }
   const ranked = out.map(s => ({ ...s, profit: mean(s.draws.map(d => d.profit)) })).sort((a, b) => b.profit - a.profit);
   const result = { mode: '版0.4回帰・期待値（週の揺れなし）', K: opts.K, seed: opts.seed, stations: T.stations.length, sites: out.length, Pref, medianCustomers: quantile(out.flatMap(s => s.draws.map(d => d.N))), overflowSitesPct: 100 * out.filter(s => mean(s.draws.map(d => d.demand)) > 70).length / out.length, overflowDrawsPct: 100 * mean(out.flatMap(s => s.draws.map(d => +(d.demand > 70)))), spearmanLegacy: spearman(ranked.map(s => s.profit), ranked.map(s => s.F), false), spearmanMidrank: spearman(ranked.map(s => s.profit), ranked.map(s => s.F)), dataSha256: hash(fs.readFileSync(file)) };
-  result.comparison = [['客数中央値', result.medianCustomers, 64.7, 64.7 * .02], ['上限越え候補地%', result.overflowSitesPct, 69.5, 69.5 * .02], ['順位相関', result.spearmanLegacy, -.01, .02]].map(([metric, actual, expected, tolerance]) => ({ metric, actual, expected, tolerance, pass: Math.abs(actual - expected) <= tolerance }));
+  const reference = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/analysis/stationmap-sim/regression-reference.json'), 'utf8'));
+  result.reference = reference;
+  result.comparison = [['客数中央値', result.medianCustomers, reference.medianDisplay, reference.medianDisplay * .02], ['上限越え候補地%', result.overflowSitesPct, reference.overflowSitesPct, reference.overflowSitesPct * .02], ['順位相関', result.spearmanLegacy, reference.spearmanLegacy, Math.abs(reference.spearmanLegacy) * .02]].map(([metric, actual, expected, tolerance]) => ({ metric, actual, expected, tolerance, pass: Math.abs(actual - expected) <= tolerance }));
   fs.mkdirSync(opts.out, { recursive: true });
   fs.writeFileSync(path.join(opts.out, 'regression.json'), JSON.stringify(result, null, 2) + '\n');
   fs.writeFileSync(path.join(opts.out, 'regression.md'), '# 版0.4 回帰\n\n' + JSON.stringify(result, null, 2) + '\n');
@@ -134,6 +140,7 @@ function installHooks(D, p) {
   const C = D.coef;
   D.stationmap = {
     price: W => p['market.price.' + W.stationmap.attribute],
+    activeRegular: (W, me) => W.stationmap.hours === 'both' ? me.L : me.regularBands[W.stationmap.hours === 'lunch' ? 0 : 1],
     expected(W, list, comp, original) {
       const meta = W.stationmap, weight = p['hours.lunchWeight.' + meta.attribute];
       const bands = [weight, 1 - weight].map((w, b) => {
@@ -339,7 +346,8 @@ function summarize(sites, mode, direction, p, opts) {
     const ss = ranked.filter(s => s[key] === value);
     return { [key]: value, count: ss.length, customers: quantile(ss.map(s => s.avg.N)), annualProfit: quantile(ss.map(s => s.avg.profit)), monthlyRent: quantile(ss.map(s => s.avg.rent)) };
   });
-  return { mode: mode === 'expected' ? '期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）' : `乱数込み（N=${opts.N}周、各候補地×開店くじごと）`, rows, byTier: group('tier'), byAttribute: group('type'), spearman: spearman(ranked.map(s => s.avg.profit), ranked.map(s => s.draws[0].F)), lossFraction: mean(pool.map(x => +(x.profit < 0))), allPass: rows.every(r => ['合格', '報告のみ'].includes(r.status)) };
+  const lossFraction = mean(sites.flatMap(profits).map(v => +(v < 0)));
+  return { mode: mode === 'expected' ? '期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）' : `乱数込み（N=${opts.N}周、各候補地×開店くじごと）`, rows, byTier: group('tier'), byAttribute: group('type'), spearman: spearman(ranked.map(s => s.avg.profit), ranked.map(s => s.draws[0].F)), lossFraction, admissible: lossFraction <= .5, allPass: lossFraction <= .5 && rows.every(r => ['合格', '報告のみ'].includes(r.status)) };
 }
 function directionTest(D, p, cal, opts) {
   const s = { id: 'direction', tier: 3, walk: 300, type: 'shoten', price: 1e7 }, open = opening(D, s, 0, opts.seed, p, ['shinise']);
@@ -428,7 +436,7 @@ function searchCombinations(schema, spec, seed) {
   const entries = Object.entries(spec.fields || {});
   if (!entries.length) throw Error('探索する項目を fields に指定する');
   for (const [k, vals] of entries) {
-    const s = schema[k]; if (!s || s.lo == null || s.hi == null) throw Error(`探索幅が未指定: ${k}`);
+    const s = schema[k]; if (['foot.tierRatio', 'foot.distRatio'].includes(k)) throw Error(`比の制約は探索する係数ではない: ${k}`); if (!s || s.lo == null || s.hi == null) throw Error(`探索幅が未指定: ${k}`);
     if (!Array.isArray(vals) || !vals.length || vals.some(v => typeof v !== 'number' || !Number.isFinite(v) || v < s.lo || v > s.hi)) throw Error(`探索値が幅の外: ${k}`);
   }
   if (spec.mode === 'random') {
@@ -455,7 +463,7 @@ async function search(opts, override) {
   for (let i = 0; i < combinations.length; i++) {
     const trial = String(i).padStart(4, '0'), p = { ...override, ...combinations[i] };
     const r = await measure({ ...opts, out: path.join(opts.out, 'trial-' + trial) }, p);
-    const modes = r.summaries.map(s => ({ mode: s.mode, allPass: s.allPass, failures: s.rows.filter(r => !['合格', '報告のみ'].includes(r.status)) }));
+    const modes = r.summaries.map(s => ({ mode: s.mode, allPass: s.allPass, failures: s.rows.filter(r => !['合格', '報告のみ'].includes(r.status)), parameterRangeFailure: s.admissible ? null : '4.4: 赤字のくじが50%を越える' }));
     results.push({ trial, overrides: p, modes, allPass: modes.every(m => m.allPass) && r.pending.length === 0, failedCount: modes.reduce((n, m) => n + m.failures.length, 0) });
   }
   const result = { mode: spec.mode, seed: opts.seed, K: opts.K, N: opts.N, mandatoryBTested: [.25, .4, .55].map(b => ({ b, tested: bValues.includes(b) })), passing: results.filter(r => r.allPass), trials: results };
@@ -510,6 +518,7 @@ async function selfTest() {
   assert.equal(searchCombinations(schema, spec, 0).length, 6);
   const random = { mode: 'random', trials: 10, fields: { 'rent.b': [.15, .7] } };
   assert.deepEqual(searchCombinations(schema, random, 7), searchCombinations(schema, random, 7));
+  assert.notEqual(seedFor(0, 'site1', 23), seedFor(0, 'site12', 3));
   assert.equal(spearman([1, 2, 2, 4], [1, 2, 2, 4]), 1);
   assert.equal(spearman([1, 1], [2, 2]), null);
   const D = loadGame(false), original = { ...D.world }, C = D.coef;
@@ -534,11 +543,13 @@ async function selfTest() {
   assert.ok(lunch.bands[1].Nnew > full.bands[1].Nnew);
   assert.ok(Math.abs(lunch.bands[0].Nnew - full.bands[0].Nnew) < 1e-10);
   // ここだけは架空のテスト入力。180000円などを設計の初期値へ採用するものではない。
-  const fixture = clone(p); fixture['hours.closedSaving'] = 180000;
+  const fixture = clone(p); fixture['hours.closedSaving'] = 180000; fixture['decision.referenceHours'] = 'both'; fixture['decision.calibrationEntry'] = 'none';
   const opts = { K: 2, N: 2, seed: 123, workers: 2 };
   const fake = Object.keys(KEY).map((type, i) => ({ id: 'fixture-' + i, st: 'fixture', tier: 3, type, walk: 300, price: 1e7 }));
   const temp = fs.mkdtempSync(path.join(require('os').tmpdir(), 'stationmap-fixture-'));
   try {
+    const fitted = await workerRun({ action: 'calibrate', p: fixture, opts });
+    assert.ok(Math.abs(fitted.median - fixture['reference.target']) < .01, '架空条件の較正が44に届かない');
     const cache1 = path.join(temp, 'one'), cache2 = path.join(temp, 'two'); fs.mkdirSync(cache1); fs.mkdirSync(cache2);
     const one = await workerRun({ action: 'sites', p: fixture, cal, opts, sites: fake, cache: cache1 });
     const two = (await Promise.all([0, 1].map(i => workerRun({ action: 'sites', p: fixture, cal, opts, sites: fake.filter((_, j) => j % 2 === i), cache: cache2 })))).flat().sort((a, b) => a.id.localeCompare(b.id, 'en'));
@@ -547,5 +558,5 @@ async function selfTest() {
     for (const mode of ['expected', 'monteCarlo']) assert.equal(summarize(one, mode, direction, fixture, opts).rows.length, 10);
     const again = await workerRun({ action: 'sites', p: fixture, cal, opts, sites: fake, cache: cache1 }); assert.equal(JSON.stringify(one), JSON.stringify(again));
   } finally { fs.rmSync(temp, { recursive: true, force: true }); }
-  console.log('OK：入力の制約・探索の再現・同順位・差し込みなしとの36か月同値・決定論・昼だけライバルの夜の取り合い・架空6属性の10行出力・worker数1/2と保存再開のバイト一致');
+  console.log('OK：入力の制約・探索の再現・同順位・較正・差し込みなしとの36か月同値・決定論・昼だけライバルの夜の取り合い・架空6属性の10行出力・worker数1/2と保存再開のバイト一致');
 }

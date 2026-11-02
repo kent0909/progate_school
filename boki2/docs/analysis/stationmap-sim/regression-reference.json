@@ -1,0 +1,11 @@
+{
+  "source": "stationmap-v04-reasoning/i_all.js の未変更の再実行とSAVE出力。旧データを読み込んだ後はrequireキャッシュで現行データへの置換を防いだ",
+  "originalScriptBlob": "0e3282c7cc89e1f1dc0d1c1a909368c077477f6b",
+  "dataBlob": "130bc3bfe640014e81ae7098fe62b298c94cfb0d",
+  "K": 8,
+  "seed": 0,
+  "sites": 965,
+  "medianDisplay": 64.7,
+  "overflowSitesPct": 69.53367875647669,
+  "spearmanLegacy": -0.006158793781421958
+}
