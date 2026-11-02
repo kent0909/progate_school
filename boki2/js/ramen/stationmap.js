@@ -69,10 +69,10 @@
       members.forEach(p=>{p.btn.hidden=false;p.town.style.display='';p.btn.classList.add('sm-in-list');list.append(p.btn);});members[0].btn.focus();
     }
     // 新基準11：ピンの座標は動かさず、実測した文字矩形を優先順で置く。
-    // 駅名は人通り順→区名→町名。置けない文字だけを隠す（DOMやピンは残す）。
+    // 駅名は乗降客数順→区名→町名。置けない文字だけを隠す（DOMやピンは残す）。
     function layoutLabels(near, clusterMarks) {
       // 書き込みと実測を分け、レイアウトの強制再計算をまとめる。
-      const eligible=stationNodes.filter(p=>{const xy=project(p.s);return (near||foot(p.s)>=250000)&&xy.x>=0&&xy.x<=width&&xy.y>=0&&xy.y<=height;});
+      const eligible=stationNodes.filter(p=>{const xy=project(p.s);return (near||p.s.riders>=250000)&&xy.x>=0&&xy.x<=width&&xy.y>=0&&xy.y<=height;});
       const unmeasured=near?siteNodes.filter(p=>!p.btn.hidden&&!p.labelBox):[];
       for(const p of unmeasured)p.town.style.display='';
       for(const p of eligible)if(!p.labelBox){const b=p.t.getBBox();p.labelBox={width:b.width,height:b.height,baseline:b.y-Number(p.t.getAttribute('y'))};}
@@ -97,7 +97,7 @@
       for(const p of stationNodes){const xy=project(p.s),radius=+p.n.firstChild.getAttribute('r')+2;insert({x:xy.x-radius,y:xy.y-radius,width:radius*2,height:radius*2});}
       const origin=viewport.getBoundingClientRect();
       for(const selector of ['.sm-zoom','.sm-source','.sm-compass']){const r=q(selector).getBoundingClientRect();insert({x:r.left-origin.left,y:r.top-origin.top,width:r.width,height:r.height});}
-      for(const p of [...stationNodes].sort((a,b)=>foot(b.s)-foot(a.s))){
+      for(const p of [...stationNodes].sort((a,b)=>b.s.riders-a.s.riders)){
         p.t.style.display='none';p.leader.style.display='none';if(!eligibleIds.has(p.s.id))continue;
         const xy=project(p.s),b=p.labelBox;
         const positions=[[14,-8],[14,22],[-14-b.width,-8],[-14-b.width,22],[28,-8],[28,22],[-28-b.width,-8],[-28-b.width,22]];
@@ -140,7 +140,7 @@
       q('.sm-geography').setAttribute('transform',`translate(${width/2-cx*scale} ${height/2-cy*scale}) scale(${scale})`);
       const near=scale/minScale>=3;el.dataset.level=selected?'3':near?'2':'1';
       wardLabels.forEach(w=>{const p=project(w);w.n.setAttribute('x',p.x);w.n.setAttribute('y',p.y);});
-      stationNodes.forEach(({s,n,t})=>{const p=project(s);n.setAttribute('transform',`translate(${p.x} ${p.y})`);t.style.display=(near||foot(s)>=250000)&&p.x>=0&&p.x<=width&&p.y>=0&&p.y<=height?'':'none';});
+      stationNodes.forEach(({s,n,t})=>{const p=project(s);n.setAttribute('transform',`translate(${p.x} ${p.y})`);t.style.display=(near||s.riders>=250000)&&p.x>=0&&p.x<=width&&p.y>=0&&p.y<=height?'':'none';});
       // ブラウザがCSSの小数を丸めた後の位置で、画面内とまとめの所属を決める。
       const visible=[];
       siteNodes.forEach(p=>{const xy=project(p.s);Object.assign(p,xy);p.btn.hidden=true;p.btn.style.left=`${xy.x-22}px`;p.btn.style.top=`${xy.y-22}px`;p.dot.setAttribute('x',xy.x);p.dot.setAttribute('y',xy.y);p.dot.style.display=near?'':'none';p.dot.style.fontSize=p.s.id===selected?'20px':near?'12px':'5px';p.dot.classList.toggle('sm-selected-dot',p.s.id===selected);const left=parseFloat(p.btn.style.left),top=parseFloat(p.btn.style.top);if(left>=2&&left<=width-46&&top>=2&&top<=height-46)visible.push(p);});
