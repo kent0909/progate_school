@@ -3,7 +3,7 @@
 
 2026-11-02、担当 MB3。依頼文 `docs/BRIEF-UIREF-MOBBIN.md`（9章 MB3）。第1回 `docs/analysis/uiref-mobbin.md` の M1〜M19 は番号で参照するだけにし、新しい画面を探した。
 
-**取り方**：オーナーが接続した Mobbin の公式 MCP（search_screens・search_flows）で 25 回検索し、引いた画面の image_url を **全部 research-fetch で取得**した（取得元 `mobbin-mcp`、集合 `screens`、doc は画面の id）。取得は 129 枚（単独の画面 79 枚＋流れ4本の全画面 50 枚）。番号を付けた一覧の画像（8枚ずつ、17枚）を作り、全部を Read で開いて見た。文字の細かい PC の画面2枚と、一覧で読みにくかった1枚は原寸を開き直した。見た所は読了ノート `research/notes/mobbin-mcp/screens/<id>.md` の image_seen（129本、各60字以上）。数は末尾の「数の出力」のスクリプトで数えた。
+**取り方**：オーナーが接続した Mobbin の公式 MCP（search_screens・search_flows）で 25 回検索し、引いた画面の image_url を **全部 research-fetch で取得**した（取得元 `mobbin-mcp`、集合 `screens`、doc は画面の id）。取得は 129 枚（単独の画面 79 枚＋流れ4本の全画面 50 枚）。番号を付けた一覧の画像（8枚ずつ、17枚）を作り、全部を Read で開いて見た。文字の細かい PC の画面2枚と、一覧を作った時点でまだ取得中だった1枚（Nibble の振り分け）は原寸を開いた。見た所は読了ノート `research/notes/mobbin-mcp/screens/<id>.md` の image_seen（MB3 が書いたのは 127 本、各68字以上。残り2枚は MB1 が先に取得してノートを書いていた画面で、MB3 も取り直した：やっていないことの最後の項）。数は末尾の「数の出力」のスクリプトで数えた。
 
 **この文書は、書いた本人以外の判定・論証の検査をまだ受けていない**（QUALITY 2.3・5章）。
 
@@ -47,7 +47,7 @@
 | 流れの全画面 | 50 | Brilliant Onboarding 14・Brilliant 最初の課題 12・Headspace プログラム開始 14・Speak Q&A の課 10 |
 | 合計 | 129 | 末尾「数の出力」 |
 
-アプリの領域：学び（Brilliant・Duolingo・Duolingo ABC・Speak・Babbel・Mimo・Khan Academy・Quizlet・Nibble・Uxcel Go・CapWords・Vocabulary・Preply・Deepstash）、案内役・物語（Finch・Tolan・Kit・Ahead・Bevel・Yazio・Numo・Headspace）、お金（GoHenry・Acorns・Cleo・Crypto.com・Ubank）、業務・研修（Turo・Expensify・Unity・Notion）、収集（Swarm・Slopes・Moonlitt・Google Arts & Culture・Mindvalley）、そのほか。Duolingo（ABC を含む）が台帳の主のアプリになっている行は 78 行中 7 行（数の出力）で、3分の1の上限より十分小さい。
+アプリの領域：学び（Brilliant・Duolingo・Duolingo ABC・Speak・Babbel・Mimo・Khan Academy・Quizlet・Nibble・Uxcel Go・CapWords・Vocabulary・Preply・Deepstash）、案内役・物語（Finch・Tolan・Kit・Ahead・Bevel・Yazio・Numo・Headspace）、お金（GoHenry・Acorns・Cleo・Crypto.com・Ubank）、業務・研修（Turo・Expensify・Unity・Notion）、収集（Swarm・Slopes・Moonlitt・Google Arts & Culture・Mindvalley）、そのほか。Duolingo（ABC を含む）が台帳の主のアプリになっている行は 81 行中 7 行（8.6%、数の出力）で、3分の1の上限より小さい。台帳のアプリは 51 種。
 
 ## 実例の台帳
 
@@ -295,10 +295,10 @@ S-3 月の扉 → S-4 書類の会話（取引相手ごとに1〜3件。自動�
 
 | 原文の文 | どこでどう応えたか |
 |---|---|
-| 今やっていることに合わせてProgress indicator や Dashboardとかも含め本ゲームのコンセプトに合うデザインUi/UXをmobbinで探索・引用してきて。 | MB3 の範囲（物語・学び・はじまり）で 25 回検索（検索の記録）、78 行の実例の台帳に mobbin_url を引用。進み具合は MB3 の範囲の形（月の札が緑に Q79、1年の道 Q58・Q59、段の条件 Q44、検定の格子 Q33）。ダッシュボードは MB1 の範囲で、ここでは扱っていない（やっていないこと） |
+| 今やっていることに合わせてProgress indicator や Dashboardとかも含め本ゲームのコンセプトに合うデザインUi/UXをmobbinで探索・引用してきて。 | MB3 の範囲（物語・学び・はじまり）で 25 回検索（検索の記録）、81 行の実例の台帳に mobbin_url を引用。進み具合は MB3 の範囲の形（月の札が緑に Q79、1年の道 Q58・Q59、段の条件 Q44、検定の格子 Q33）。ダッシュボードは MB1 の範囲で、ここでは扱っていない（やっていないこと） |
 | 抜本的にデザインとユーザ体験を見直すことを想定している。 | 「本来あるべき画面の設計の素案」S-1〜S-12：画面の層を3枚（舞台・人物の帯・手元）にする、問題の画面を別の頁にしない、報酬を状態の変化だけに、など。いまの画面の小直しは書いていない |
 | 「いまつくっているものに取り込むならどうか」ではなく「本来あるべきデザインとしてどうか」という視点で。 | 素案の前提に「いまの画面・コード・PR #7 に合わせない」と書き、各実例の「本来のゲームでの置き場所」は体験の芯（1か月＝1話、書類＝相手との会話、図鑑＝帳面）で書いた |
-| research-fetchの記録には残せよ。テキストだけ見てもわからんだろ | 引いた画面 129 枚を全部 research-fetch で取得し、129 本の読了ノート（image_seen 各60字以上）。一覧の画像 17 枚を作って全部を Read で開き、PC の2枚と1枚は原寸を開いた（数の出力） |
+| research-fetchの記録には残せよ。テキストだけ見てもわからんだろ | 引いた画面 129 枚を全部 research-fetch で取得し（取得記録は MB3 のノート 127 本の全部にある）、読了ノートは MB3 が 127 本・MB1 が先に書いていた 2 本（image_seen は MB3 の分で最短68字）。一覧の画像 17 枚を作って全部を Read で開き、PC の2枚と1枚は原寸を開いた（数の出力） |
 | アニメーション要素無さすぎて紙芝居になっててしんどい | うまくいかない理由2（Kit Q11 の送るだけの会話＝紙芝居の形）、S-4 で「送りの再生ボタンでなく書類を受け取る操作で進む・人物の姿勢が変わる」、S-2・S-5・S-7・S-8 の動きの列。反対の事実の章で、動きより返事が効くかもしれない材料も書いた |
 | 問題文がわかりづらい。なにを聞かれてるのか | 要点3、うまくいく理由3、S-4（取引相手が先に1文）・S-5（穴のある1文と置く先の図）・S-6（場所の名指しと聞き返し） |
 | （依頼文9章 MB3 の問い）はじめの体験・会話・学びの画面・試験の形・ふりかえり・図鑑・成長の記録・設定・空の状態 | 台帳の A〜I の節と、素案 S-1〜S-12 |
@@ -440,4 +440,18 @@ S-3 月の扉 → S-4 書類の会話（取引相手ごとに1〜3件。自動�
 
 ## 数の出力
 
-（node boki2/docs/analysis/uiref-mobbin-MB3-count.js の出力を下に貼る）
+`node boki2/docs/analysis/uiref-mobbin-MB3-count.js` の出力（2026-11-02）。一覧の画像の枚数（17）は一覧を作るスクリプトの出力「129 items 17 sheets」から。開いた一覧の画像は 17 枚の全部、原寸を開き直したのは3枚（Unity・Expensify・Nibble の振り分け）。
+
+```
+実例の台帳の行: 81
+アプリの種類: 51
+Duolingo（ABC を含む）が主の行: 7 / 81 = 8.6%
+行の多いアプリ: Finch 6、Duolingo 6、Brilliant 6、Quizlet 5、Mimo 4、Nibble 3、Speak 2、Ahead 2
+本文が引く画面の URL: 78、流れの URL: 4
+MB3 の読了ノート: 127（うち流れの画面 50、単独の画面 77、PC 2）
+原寸の画像がある: 127 / 127
+image_seen の最短: 68 字
+本文が引く画面のうちノートが無いもの: 0
+MB3 のノートの画面のうち research-fetch の取得記録があるもの: 127 / 127
+検索の記録: 25 回（screens 22、flows 3）
+```
