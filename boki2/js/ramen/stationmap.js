@@ -4,6 +4,10 @@
   const TYPES = { hanka: ['繁華街', '◆'], shogyo: ['店とオフィスが混ざる商業地', '✚'], office: ['オフィス街', '■'], shoten: ['商店街', '●'], jutaku: ['住宅地', '▲'], kojo: ['工場・倉庫の町', '⬟'], other: ['その他', '◇'] };
   const typeKey = s => Object.hasOwn(TYPES,s.type) ? s.type : 'other';
   const type = s => TYPES[typeKey(s)];
+  // 旧データを --data で検査する場合だけ、foot のない駅は和を使う。
+  const foot = s => s.foot ?? s.riders;
+  const names = s => [s.name, ...(s.aliases || [])];
+  const normalize = s => s.normalize('NFKC').trim().toLocaleLowerCase('ja');
   const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const path = (rings, close) => rings.map(r => r.map((p,i) => `${i?'L':'M'}${p[0]},${p[1]}`).join(' ') + (close?'Z':'')).join(' ');
   function mount(el, opts = {}) {
@@ -21,7 +25,7 @@
     const pointers = new Map(), clusterGroups = new WeakMap();
     el.classList.add('stationmap');
     el.innerHTML = `<header class="sm-header"><div><span class="sm-eyebrow">麺や、次の一歩。</span><h1>東京、どの町に店を出そう。</h1></div><span class="sm-edition">TOKYO / 23</span></header>
-      <div class="sm-toolbar"><label>駅を探す <select aria-label="駅を探す"><option value="">駅を選ぶ</option>${d.stations.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} · ${esc(s.ward)}</option>`).join('')}</select></label><button type="button" data-action="home">23区全体</button><span class="sm-status" aria-live="polite"></span></div>
+      <div class="sm-toolbar"><label>駅を探す <input type="search" aria-label="駅名・別名で探す" placeholder="駅名・別名を入力"></label><select aria-label="駅を選ぶ"></select><span class="sm-search-status" role="status"></span><button type="button" data-action="home">23区全体</button><span class="sm-status" aria-live="polite"></span></div>
       <div class="sm-body"><section class="sm-map" aria-label="東京23区の出店地図"><div class="sm-viewport" tabindex="0" aria-label="地図。矢印キーで移動、プラスとマイナスで拡大縮小"><svg class="sm-svg" aria-hidden="true"><defs><pattern id="sm-grid-${mount.serial++}" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#bfd4ce" stroke-width=".5"/></pattern></defs><g class="sm-geography">${d.wards.map((w,i)=>`<path class="sm-ward" data-ward="${w.code}" d="${path(w.rings,true)}" fill="${['#e7eddd','#e3eadb','#dfe9dc','#ecedde'][i%4]}"/>`).join('')}${d.lines.map((l,i)=>`<path class="sm-line" data-line="${i}" d="${path(l.paths,false)}" data-op="${esc(l.op)}" stroke="${lineColor(l.op)}"><title>${esc(l.op+' '+l.name)}</title></path>`).join('')}</g><g class="sm-entry-leaders"></g><g class="sm-ward-labels"></g><g class="sm-stations"></g><g class="sm-dots"></g></svg><div class="sm-pins"></div><div class="sm-clusters"></div></div>
       <div class="sm-compass" aria-hidden="true">N<br>↑</div><div class="sm-zoom"><button type="button" data-action="plus" aria-label="拡大">＋</button><button type="button" data-action="minus" aria-label="縮小">−</button></div>
       <div class="sm-group" hidden><div class="sm-group-heading"><strong></strong><button type="button" data-action="group-close" aria-label="候補地一覧を閉じる">×</button></div><p>近くにある候補地。町名から選べます。</p><div class="sm-group-list"></div></div>
@@ -37,7 +41,7 @@
     });
     const stationNodes = d.stations.map(s => {
       const n = svgNode('g',{'data-station':s.id},q('.sm-stations'));
-      svgNode('circle',{r:Math.max(2.2,Math.min(9,2+Math.sqrt(s.riders)/230)),class:'sm-station'},n);
+      svgNode('circle',{r:Math.max(2.2,Math.min(9,2+Math.sqrt(foot(s))/230)),class:'sm-station'},n);
       const leader=svgNode('line',{class:'sm-label-leader'},n);const t = svgNode('text',{x:11,y:-8,class:'sm-station-label'},n);t.textContent=s.name;t.style.display='none';return {s,n,t,leader};
     });
     const siteNodes = d.sites.map(s => {
@@ -65,10 +69,10 @@
       members.forEach(p=>{p.btn.hidden=false;p.town.style.display='';p.btn.classList.add('sm-in-list');list.append(p.btn);});members[0].btn.focus();
     }
     // 新基準11：ピンの座標は動かさず、実測した文字矩形を優先順で置く。
-    // 駅名は乗降客数順→区名→町名。置けない文字だけを隠す（DOMやピンは残す）。
+    // 駅名は人通り順→区名→町名。置けない文字だけを隠す（DOMやピンは残す）。
     function layoutLabels(near, clusterMarks) {
       // 書き込みと実測を分け、レイアウトの強制再計算をまとめる。
-      const eligible=stationNodes.filter(p=>{const xy=project(p.s);return (near||p.s.riders>=250000)&&xy.x>=0&&xy.x<=width&&xy.y>=0&&xy.y<=height;});
+      const eligible=stationNodes.filter(p=>{const xy=project(p.s);return (near||foot(p.s)>=250000)&&xy.x>=0&&xy.x<=width&&xy.y>=0&&xy.y<=height;});
       const unmeasured=near?siteNodes.filter(p=>!p.btn.hidden&&!p.labelBox):[];
       for(const p of unmeasured)p.town.style.display='';
       for(const p of eligible)if(!p.labelBox){const b=p.t.getBBox();p.labelBox={width:b.width,height:b.height,baseline:b.y-Number(p.t.getAttribute('y'))};}
@@ -93,7 +97,7 @@
       for(const p of stationNodes){const xy=project(p.s),radius=+p.n.firstChild.getAttribute('r')+2;insert({x:xy.x-radius,y:xy.y-radius,width:radius*2,height:radius*2});}
       const origin=viewport.getBoundingClientRect();
       for(const selector of ['.sm-zoom','.sm-source','.sm-compass']){const r=q(selector).getBoundingClientRect();insert({x:r.left-origin.left,y:r.top-origin.top,width:r.width,height:r.height});}
-      for(const p of [...stationNodes].sort((a,b)=>b.s.riders-a.s.riders)){
+      for(const p of [...stationNodes].sort((a,b)=>foot(b.s)-foot(a.s))){
         p.t.style.display='none';p.leader.style.display='none';if(!eligibleIds.has(p.s.id))continue;
         const xy=project(p.s),b=p.labelBox;
         const positions=[[14,-8],[14,22],[-14-b.width,-8],[-14-b.width,22],[28,-8],[28,22],[-28-b.width,-8],[-28-b.width,22]];
@@ -110,7 +114,7 @@
       if(selected)closeCard(false);selected=null;cx=ward.x;cy=ward.y;
       const xs=ward.members.map(p=>p.s.x),ys=ward.members.map(p=>p.s.y);
       scale=Math.max(minScale*3.2,Math.min(450,width/(Math.max(...xs)-Math.min(...xs)+2),height/(Math.max(...ys)-Math.min(...ys)+2)));
-      q('select').value='';el.dataset.focusWard=code;render();pulse();
+      resetSearch();el.dataset.focusWard=code;render();pulse();
     }
     // 全体図の入口は区ごと。最寄りの空いている格子に置き、重心へ線を引く。
     function renderWardEntries(){
@@ -136,9 +140,10 @@
       q('.sm-geography').setAttribute('transform',`translate(${width/2-cx*scale} ${height/2-cy*scale}) scale(${scale})`);
       const near=scale/minScale>=3;el.dataset.level=selected?'3':near?'2':'1';
       wardLabels.forEach(w=>{const p=project(w);w.n.setAttribute('x',p.x);w.n.setAttribute('y',p.y);});
-      stationNodes.forEach(({s,n,t})=>{const p=project(s);n.setAttribute('transform',`translate(${p.x} ${p.y})`);t.style.display=(near||s.riders>=250000)&&p.x>=0&&p.x<=width&&p.y>=0&&p.y<=height?'':'none';});
+      stationNodes.forEach(({s,n,t})=>{const p=project(s);n.setAttribute('transform',`translate(${p.x} ${p.y})`);t.style.display=(near||foot(s)>=250000)&&p.x>=0&&p.x<=width&&p.y>=0&&p.y<=height?'':'none';});
+      // ブラウザがCSSの小数を丸めた後の位置で、画面内とまとめの所属を決める。
       const visible=[];
-      siteNodes.forEach(p=>{const xy=project(p.s);Object.assign(p,xy);p.btn.hidden=true;p.btn.style.left=`${xy.x-22}px`;p.btn.style.top=`${xy.y-22}px`;p.dot.setAttribute('x',xy.x);p.dot.setAttribute('y',xy.y);p.dot.style.display=near?'':'none';p.dot.style.fontSize=p.s.id===selected?'20px':near?'12px':'5px';p.dot.classList.toggle('sm-selected-dot',p.s.id===selected);if(xy.x>=24&&xy.x<=width-24&&xy.y>=24&&xy.y<=height-24)visible.push(p);});
+      siteNodes.forEach(p=>{const xy=project(p.s);Object.assign(p,xy);p.btn.hidden=true;p.btn.style.left=`${xy.x-22}px`;p.btn.style.top=`${xy.y-22}px`;p.dot.setAttribute('x',xy.x);p.dot.setAttribute('y',xy.y);p.dot.style.display=near?'':'none';p.dot.style.fontSize=p.s.id===selected?'20px':near?'12px':'5px';p.dot.classList.toggle('sm-selected-dot',p.s.id===selected);const left=parseFloat(p.btn.style.left),top=parseFloat(p.btn.style.top);if(left>=2&&left<=width-46&&top>=2&&top<=height-46)visible.push(p);});
       let clusterMarks=[];q('.sm-entry-leaders').replaceChildren();clusters.replaceChildren();
       if(!near){clusterMarks=renderWardEntries();}else{
       const parents=visible.map((_,i)=>i), root=i=>parents[i]===i?i:(parents[i]=root(parents[i]));
@@ -159,11 +164,13 @@
       cx+=(x-width/2)/scale*(1-1/ratio);cy+=(y-height/2)/scale*(1-1/ratio);scale=next;render();pulse();
     }
     function pulse(){viewport.classList.remove('sm-moving');void viewport.offsetWidth;viewport.classList.add('sm-moving');}
-    function focus(id) {delete el.dataset.focusWard;const s=stations.get(id);if(!s)return;if(selected)closeCard(false);selected=null;cx=s.x;cy=s.y;scale=Math.max(minScale*4,Math.min(450,width/2.6));q('select').value=id;render();pulse();}
+    function focus(id) {delete el.dataset.focusWard;const s=stations.get(id);if(!s)return;if(selected)closeCard(false);selected=null;cx=s.x;cy=s.y;// 閑静な住宅地など駅から離れた候補地も、最初の周辺図に収める。
+      const sites=d.sites.filter(p=>p.st===id),dx=Math.max(.1,...sites.map(p=>Math.abs(p.x-s.x))),dy=Math.max(.1,...sites.map(p=>Math.abs(p.y-s.y)));
+      scale=Math.max(minScale*3.2,Math.min(450,(width-56)/(2*dx),(height-56)/(2*dy)));resetSearch(id);render();pulse();}
     function tier(n){return n>=1000000?'100万人以上':n>=500000?'50万〜100万人':n>=250000?'25万〜50万人':n>=120000?'12万〜25万人':n>=60000?'6万〜12万人':n>=30000?'3万〜6万人':'3万人未満';}
     function openCard(s,btn) {
       selected=s.id;sourceButton=btn;render();el.dataset.level='3';el.querySelectorAll('.sm-picked').forEach(b=>b.classList.remove('sm-picked'));btn.classList.add('sm-picked');const st=stations.get(s.st);
-      card.innerHTML=`<div class="sm-card-content"><button type="button" class="sm-card-close" aria-label="候補地カードを閉じる">×</button><span class="sm-eyebrow">03 / この町で、一杯を。</span><div class="sm-property-art sm-${typeKey(s)}" aria-hidden="true"><span>⌂</span><i>${type(s)[1]}</i></div><p class="sm-type sm-${typeKey(s)}">${type(s)[1]} ${type(s)[0]}</p><h2 tabindex="-1">${esc(s.town)}</h2><p class="sm-address">${esc(s.ward)} / ${esc(st.name)}駅</p><dl><div><dt>駅から歩く距離</dt><dd>${s.walk.toLocaleString()} m</dd></div><div><dt>駅の乗降客数 / 日</dt><dd>${tier(st.riders)}</dd></div><div><dt>地価</dt><dd>${(s.price/10000).toLocaleString()} 万円/㎡</dd></div></dl><p class="sm-description">${esc(s.desc)}</p><div class="sm-estimates"><span>客層 <b>仮</b></span><span>家賃 <b>仮</b></span><span>1日に余計に要る杯数 <b>仮</b></span></div><p class="sm-note">地価の調査地点をもとにした候補地。実在の空き物件ではありません。</p><button type="button" class="sm-pick" ${vacant(s)?'':'disabled'}>${vacant(s)?'ここに出す →':'空きがありません'}</button></div>`;
+      card.innerHTML=`<div class="sm-card-content"><button type="button" class="sm-card-close" aria-label="候補地カードを閉じる">×</button><span class="sm-eyebrow">03 / この町で、一杯を。</span><div class="sm-property-art sm-${typeKey(s)}" aria-hidden="true"><span>⌂</span><i>${type(s)[1]}</i></div><p class="sm-type sm-${typeKey(s)}">${type(s)[1]} ${type(s)[0]}</p>${s.quiet?'<p class="sm-quiet">閑静な住宅地</p>':''}<h2 tabindex="-1">${esc(s.town)}</h2><p class="sm-address">${esc(s.ward)} / ${esc(st.name)}駅</p><dl><div><dt>駅から歩く距離</dt><dd>${s.walk.toLocaleString()} m</dd></div><div><dt>駅の人通り（乗り換えを除く）</dt><dd><span class="sm-foot">${foot(st).toLocaleString()} 人/日</span><span class="sm-foot-tier">${tier(foot(st))}</span><small class="sm-riders">乗降客数の和 ${st.riders.toLocaleString()} 人/日</small></dd></div><div><dt>地価</dt><dd>${(s.price/10000).toLocaleString()} 万円/㎡</dd></div></dl><p class="sm-description">${esc(s.desc)}</p><div class="sm-estimates"><span>客層 <b>仮</b></span><span>家賃 <b>仮</b></span><span>1日に余計に要る杯数 <b>仮</b></span></div><p class="sm-note">地価の調査地点をもとにした候補地。実在の空き物件ではありません。</p><button type="button" class="sm-pick" ${vacant(s)?'':'disabled'}>${vacant(s)?'ここに出す →':'空きがありません'}</button></div>`;
       on(q('.sm-card-close'),'click',closeCard);on(q('.sm-pick'),'click',()=>{if(vacant(s)&&opts.onPick)opts.onPick(s.id);});
       q('.sm-card h2').focus({preventScroll:true});if(matchMedia('(max-width: 760px)').matches)card.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});
     }
@@ -175,8 +182,19 @@
       if(refocus){if(sourceButton&&!sourceButton.hidden)sourceButton.focus({preventScroll:true});else viewport.focus();}
     }
     on(q('.sm-source'),'toggle',()=>render());
-    on(q('select'),'change',e=>focus(e.target.value));
-    el.querySelectorAll('[data-action]').forEach(b=>on(b,'click',()=>{switch(b.dataset.action){case'plus':zoom(1.8);break;case'minus':zoom(1/1.8);break;case'home':delete el.dataset.focusWard;if(selected)closeCard(false);selected=null;cx=17;cy=17;scale=minScale;render();pulse();break;case'group-close':closeGroup(true);render();break;}}));
+    // 入力中は絞り込みだけ。別名を含む完全一致、または候補1駅ならEnterで寄る。
+    const search=q('input[type="search"]');
+    function searchResults(){const query=normalize(search.value);return d.stations.filter(s=>names(s).some(n=>normalize(n).includes(query)));}
+    function updateSearch(id=''){
+      const results=searchResults(),select=q('select');select.replaceChildren(new Option(results.length?'駅を選ぶ':'見つかりません',''));
+      for(const s of results)select.add(new Option(`${s.name} · ${s.ward}${s.aliases?.length?'（別名：'+s.aliases.join('・')+'）':''}`,s.id));
+      select.value=id;q('.sm-search-status').textContent=search.value?`${results.length}駅` : '';
+    }
+    function resetSearch(id=''){if(search.value||!q('select').options.length){search.value='';updateSearch(id);}else q('select').value=id;}
+    on(search,'input',()=>updateSearch());
+    on(search,'keydown',e=>{if(e.key!=='Enter'||e.isComposing)return;e.preventDefault();const results=searchResults(),exact=results.filter(s=>names(s).some(n=>normalize(n)===normalize(search.value)));const matches=exact.length?exact:results;if(matches.length===1)focus(matches[0].id);else q('select').focus();});
+    on(q('select'),'change',e=>focus(e.target.value));resetSearch();
+    el.querySelectorAll('[data-action]').forEach(b=>on(b,'click',()=>{switch(b.dataset.action){case'plus':zoom(1.8);break;case'minus':zoom(1/1.8);break;case'home':resetSearch();delete el.dataset.focusWard;if(selected)closeCard(false);selected=null;cx=17;cy=17;scale=minScale;render();pulse();break;case'group-close':closeGroup(true);render();break;}}));
     on(viewport,'wheel',e=>{e.preventDefault();const r=viewport.getBoundingClientRect();zoom(Math.exp(-e.deltaY*.002),e.clientX-r.left,e.clientY-r.top);},{passive:false});
     let gesture=null;
     on(viewport,'pointerdown',e=>{if(e.target.closest('button'))return;viewport.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});gesture=null;});

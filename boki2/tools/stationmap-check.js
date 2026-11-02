@@ -60,6 +60,24 @@ const out = (n,s) => console.log(`[${n}] ${s}`);
     const palette=await page.locator('[data-line]').evaluateAll(nodes=>nodes.map(n=>({op:n.dataset.op,color:n.getAttribute('stroke')})));const byOp=new Map();for(const p of palette){if(byOp.has(p.op))assert.equal(byOp.get(p.op),p.color);byOp.set(p.op,p.color);}assert.equal(new Set(byOp.values()).size,byOp.size);out('路線色',`事業者=${byOp.size} 各社内の色一致・社ごとの区別: 通過`);
     const shibuya=data.stations.find(s=>s.name==='渋谷'), shibuyaSites=data.sites.filter(s=>s.st===shibuya.id);
     assert.ok(shibuyaSites.length>0);
+    const stationById=new Map(data.stations.map(s=>[s.id,s]));
+    const aliases=data.stations.flatMap(s=>(s.aliases||[]).map(alias=>({alias,station:s})));
+    const quietSites=data.sites.filter(s=>s.quiet);
+    async function assertCard(site){
+      const st=stationById.get(site.st),foot=st.foot??st.riders;
+      assert.equal(await page.locator('.sm-foot').textContent(),`${foot.toLocaleString()} 人/日`);
+      assert.equal(await page.locator('.sm-riders').textContent(),`乗降客数の和 ${st.riders.toLocaleString()} 人/日`);
+      assert.ok((await page.locator('.sm-card dl').textContent()).includes('駅の人通り（乗り換えを除く）'));
+      const band=[[1000000,'100万人以上'],[500000,'50万〜100万人'],[250000,'25万〜50万人'],[120000,'12万〜25万人'],[60000,'6万〜12万人'],[30000,'3万〜6万人'],[0,'3万人未満']].find(([n])=>foot>=n)[1];
+      assert.equal(await page.locator('.sm-foot-tier').textContent(),band);
+      assert.equal(await page.locator('.sm-quiet').count(),site.quiet?1:0);
+      if(site.quiet){assert.equal(await page.locator('.sm-quiet').textContent(),'閑静な住宅地');assert.equal(await page.locator('.sm-type + .sm-quiet').count(),1);}
+    }
+    const circles=await page.locator('[data-station]').evaluateAll(ns=>ns.map(n=>({id:n.dataset.station,r:+n.querySelector('circle').getAttribute('r')})));
+    for(const c of circles){const st=stationById.get(c.id);assert.ok(Math.abs(c.r-Math.max(2.2,Math.min(9,2+Math.sqrt(st.foot??st.riders)/230)))<1e-9,st.name+'の駅の印');}
+    const corrected=data.stations.filter(s=>s.foot!==undefined&&s.foot!==s.riders);
+    out('人通り',`全${circles.length}駅の印はfootで描画（補正あり${corrected.length}駅、旧データのfoot未収録時のみ和）`);
+
     for(const width of [375,1440]) {
       await page.setViewportSize({width,height:1000});await load();
       const entries=await page.locator('.sm-cluster').evaluateAll(ns=>ns.map(n=>({opacity:getComputedStyle(n).opacity,animation:getComputedStyle(n).animationName})));assert.ok(entries.every(e=>e.opacity==='1'&&e.animation==='none'));out('入口',`幅${width} まとめ${entries.length}個: 不透明・登場フェードなし`);
@@ -73,11 +91,30 @@ const out = (n,s) => console.log(`[${n}] ${s}`);
       out('区入口',`幅${width}: ${entrances.length}区・全${data.sites.length}ピンを所属区で網羅、各入口クリックで段②、入口の重なり0・44px未満0。候補地0の区には入口なし`);
 
       await focus('渋谷');await page.screenshot({path:path.join(artifacts,`${width}-2-shibuya.png`),fullPage:true});
-      for(const s of shibuyaSites){await pick(s.id);assert.equal(await page.locator('.sm-card h2').textContent(),s.town);assert.equal(await page.locator('.sm-card .sm-address').textContent(),`${s.ward} / 渋谷駅`);assert.ok((await page.locator('.sm-description').textContent()).includes(s.desc));if(s.id===shibuyaSites[0].id)await page.screenshot({path:path.join(artifacts,`${width}-3-udagawa.png`),fullPage:true});await page.locator('.sm-pick').click();assert.equal(await page.evaluate(()=>window.lastPicked),s.id);await close();}
+      for(const s of shibuyaSites){await pick(s.id);await assertCard(s);assert.equal(await page.locator('.sm-card h2').textContent(),s.town);assert.equal(await page.locator('.sm-card .sm-address').textContent(),`${s.ward} / 渋谷駅`);assert.ok((await page.locator('.sm-description').textContent()).includes(s.desc));if(s.id===shibuyaSites[0].id)await page.screenshot({path:path.join(artifacts,`${width}-3-udagawa.png`),fullPage:true});await page.locator('.sm-pick').click();assert.equal(await page.evaluate(()=>window.lastPicked),s.id);await close();}
       out(2,`幅${width} 渋谷${shibuyaSites.length}本をクリック・カード町名とデータ照合・onPick一致: ${shibuyaSites.map(s=>s.town).join('、')}`);
+      for(const site of quietSites){await page.selectOption('select',site.st);await pick(site.id);await assertCard(site);await close();}
+      out('カード',`幅${width}: 渋谷全${shibuyaSites.length}本のfoot・人数帯・小さい乗降客数の和、quiet全${quietSites.length}本の属性直下表示と非quietでの非表示: 通過`);
+      // 全別名を実際に入力し、選択後に統合先の駅の丸が地図の中央にあることを測る。
+      for(const {alias,station} of aliases){
+        await page.locator('input[type="search"]').fill(alias);
+        const option=page.locator(`select option[value="${station.id}"]`);assert.equal(await option.count(),1,alias);assert.ok((await option.textContent()).includes(station.name));
+        await page.selectOption('select',station.id);
+        assert.equal(await page.locator('.stationmap').getAttribute('data-level'),'2');
+        const center=await page.locator(`[data-station="${station.id}"] circle`).evaluate(n=>{const b=n.getBoundingClientRect(),vp=document.querySelector('.sm-viewport').getBoundingClientRect();return {x:(b.left+b.right-vp.left-vp.right)/2,y:(b.top+b.bottom-vp.top-vp.bottom)/2};});
+        assert.ok(Math.abs(center.x)<1&&Math.abs(center.y)<1,alias+'→'+station.name+JSON.stringify(center));
+      }
+      // Enterでも完全一致の別名から寄れる。見つからない語・入力解除・正式名も確認。
+      for(const {alias,station} of aliases.filter(a=>data.stations.filter(s=>[s.name,...(s.aliases||[])].includes(a.alias)).length===1)){
+        await page.locator('input[type="search"]').fill(alias);await page.locator('input[type="search"]').press('Enter');assert.equal(await page.locator('select').inputValue(),station.id);
+      }
+      await page.locator('input[type="search"]').fill('__存在しない駅__');assert.equal(await page.locator('select option[value]:not([value=""])').count(),0);
+      await page.locator('input[type="search"]').fill('');assert.equal(await page.locator('select option[value]:not([value=""])').count(),data.stations.length);
+      await page.locator('input[type="search"]').fill(shibuya.name);await page.locator('input[type="search"]').press('Enter');assert.equal(await page.locator('select').inputValue(),shibuya.id);
+      out('別名検索',`幅${width}: aliases全${aliases.length}名を入力→統合先の駅に移動し丸が中央、固有の別名はEnterでも移動。正式名・0件・解除: 通過`);
       let allRects=0,overlap=0,small=0,clipped=0,textCount=0,textOverlap=0,textCovered=0;
       // 東京・大手町・日本橋を含む全駅の段②を測る。表示から落ちたピンはまとめに必ず所属する。
-      for(const st of data.stations){await page.evaluate(id=>stationMap.focus(id),st.id);const geo=await geometry(),text=await textGeometry();textCount+=text.labels;textOverlap+=text.overlap;textCovered+=text.covered;assert.equal(text.overlap,0,st.name+JSON.stringify(text));assert.equal(text.covered,0,st.name+JSON.stringify(text));allRects+=geo.rects;overlap+=geo.overlaps;small+=geo.small;clipped+=geo.clipped;assert.equal(geo.overflow,false);const missing=await page.evaluate(()=>{const vp=document.querySelector('.sm-viewport').getBoundingClientRect();const represented=new Set([...document.querySelectorAll('.sm-cluster')].flatMap(b=>b.dataset.members.split(' ')));return [...document.querySelectorAll('.sm-site[hidden]')].filter(b=>{const left=parseFloat(b.style.left),top=parseFloat(b.style.top);return left>=2&&left<=vp.width-46&&top>=2&&top<=vp.height-46&&!represented.has(b.dataset.site);}).length;});assert.equal(missing,0);}
+      for(const st of data.stations){await page.evaluate(id=>stationMap.focus(id),st.id);const geo=await geometry(),text=await textGeometry();textCount+=text.labels;textOverlap+=text.overlap;textCovered+=text.covered;assert.equal(text.overlap,0,st.name+JSON.stringify(text));assert.equal(text.covered,0,st.name+JSON.stringify(text));allRects+=geo.rects;overlap+=geo.overlaps;small+=geo.small;clipped+=geo.clipped;assert.equal(geo.overflow,false);const missing=await page.evaluate(()=>{const vp=document.querySelector('.sm-viewport').getBoundingClientRect();const represented=new Set([...document.querySelectorAll('.sm-cluster')].flatMap(b=>b.dataset.members.split(' ')));return [...document.querySelectorAll('.sm-site[hidden]')].filter(b=>{const left=parseFloat(b.style.left),top=parseFloat(b.style.top);return left>=2&&left<=vp.width-46&&top>=2&&top<=vp.height-46&&!represented.has(b.dataset.site);}).length;});assert.equal(missing,0,st.name+'：画面内なのにまとめにもない候補地');}
       assert.equal(overlap,0);assert.equal(small,0);assert.equal(clipped,0);out(3,`幅${width} 全${data.stations.length}駅の段②（東京・大手町・日本橋を含む）: 操作矩形=${allRects} 重なり=${overlap} 44px未満=${small} 切れ=${clipped} まとめからの脱落=0`);
       assert.equal(textOverlap,0);assert.equal(textCovered,0);out(11,`幅${width} 全${data.stations.length}駅の段②: 文字=${textCount} 文字どうし=${textOverlap} 印に隠れる文字=${textCovered}`);
       await focus('渋谷');const id=shibuyaSites[0].id;let b=page.locator(`[data-site="${id}"]`);if(!await b.isVisible())await page.locator(`.sm-cluster[data-members~="${id}"]`).click();
@@ -94,7 +131,7 @@ const out = (n,s) => console.log(`[${n}] ${s}`);
     const reduced=await monitored({reducedMotion:'reduce'});const rp=await reduced.newPage();await rp.goto(origin+'/boki2/stationmap-demo.html');await rp.waitForFunction(()=>mountPaintMs>0);await rp.evaluate(id=>stationMap.focus(id),shibuya.id);const rc=rp.locator(`.sm-cluster[data-members~="${shibuyaSites[0].id}"]`);if(await rc.count())await rc.click();await rp.locator(`[data-site="${shibuyaSites[0].id}"]`).click();const durations=await rp.evaluate(()=>[...document.querySelectorAll('.stationmap *')].map(e=>{const c=getComputedStyle(e);return [c.animationDuration,c.transitionDuration];}).flat().filter(s=>s.split(',').some(t=>parseFloat(t)!==0)));assert.deepEqual(durations,[]);await reduced.close();out(8,`カードの動き=${motion} reduced-motion: 全要素のanimation/transition=0s`);
     const timing=[];for(let i=0;i<3;i++){await load();timing.push(await page.evaluate(()=>mountPaintMs));}const median=[...timing].sort((a,b)=>a-b)[1];assert.ok(median<=300,`mount中央値 ${median}ms`);out(7,`mount→描画完了 3回=${timing.map(n=>n.toFixed(1)).join(', ')}ms 中央値=${median.toFixed(1)}ms (上限300ms)`);
     // opts の印・空きなし、destroy 後の再mountを確かめる。
-    await focus('新宿');await pick('s002-1');assert.equal(await page.locator('.sm-pick').isDisabled(),true);await page.evaluate(()=>{stationMap.destroy();stationMap=RAMENMAP.mount(document.getElementById('map'),mapOptions);});assert.equal(await page.locator('[data-site]').count(),data.sites.length);assert.equal(await page.locator('.sm-owner').count(),2);assert.equal(await page.locator('.sm-occupied').count(),3);out('API','mine/rivals/vacant・空きなし出店不可・destroy→再mount: 通過');
+    const mineId=await page.evaluate(()=>mapOptions.mine[0]);await page.selectOption('select',data.sites.find(s=>s.id===mineId).st);await pick(mineId);assert.equal(await page.locator('.sm-pick').isDisabled(),true);await page.evaluate(()=>{stationMap.destroy();stationMap=RAMENMAP.mount(document.getElementById('map'),mapOptions);});assert.equal(await page.locator('[data-site]').count(),data.sites.length);assert.equal(await page.locator('.sm-owner').count(),2);assert.equal(await page.locator('.sm-occupied').count(),3);out('API','mine/rivals/vacant・空きなし出店不可・destroy→再mount: 通過');
     assert.deepEqual(errors,[]);assert.deepEqual(external,[]);out(6,`外部通信=${external.length} ブラウザエラー=${errors.length}`);
     const shots=fs.readdirSync(artifacts).filter(f=>/^\d+-[123]-.*\.png$/.test(f));assert.equal(shots.length,6);out(9,`画面写真=${shots.length}枚: ${shots.join(', ')}`);
     // 動きはWebMに記録。書き出し途中のファイルだけworkに置く。
