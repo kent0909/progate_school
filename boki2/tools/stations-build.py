@@ -311,8 +311,8 @@ def add_line_display(line_out, st_out, table):
   """表示項目だけ付加する。駅・候補地・元の正式線・座標は変更しない。"""
   rows = {}
   services = table['services']
-  if table.get('version') != 1:
-    raise ValueError('line-display.json のversionは1が必要')
+  if table.get('version') != 2:
+    raise ValueError('line-display.json のversionは2が必要')
   for row in table['lines']:
     key = row['op'] + ' ' + row['name']
     if key in rows:
@@ -330,6 +330,12 @@ def add_line_display(line_out, st_out, table):
     return out
   def summary(items):
     return {'display': '・'.join(x['display'] for x in items), 'color': items[0]['color']}
+  service_out = {}
+  for ident, item in services.items():
+    sid = item['id']
+    if not re.fullmatch(r'r[0-9]+', sid) or sid in service_out:
+      raise ValueError('路線表示のidが不正・重複：' + sid)
+    service_out[sid] = get_services([ident])[0]
   # 不足や形の変更は黙って正式線名へ戻さず、書き出す前に止める。
   additions, station_additions = [], []
   for line in line_out:
@@ -355,8 +361,8 @@ def add_line_display(line_out, st_out, table):
         raise ValueError('路線表示の要約と区間が違う：' + key)
     display_paths = []
     for i, ids in enumerate(paths):
-      items = get_services(ids)
-      display_paths.append({'pathIndex': i, **summary(items), 'services': items})
+      get_services(ids)  # 空・未定義・不正な色を付加前に検出
+      display_paths.append([services[ident]['id'] for ident in ids])
     additions.append({**summary(get_services(row['services'])), 'displayPaths': display_paths})
   for station in st_out:
     names = []
@@ -374,14 +380,15 @@ def add_line_display(line_out, st_out, table):
     line.update(addition)
   for station, names in zip(st_out, station_additions):
     station['displayLines'] = names
+  return service_out
 
 
 LINE_DISPLAY = json.load(open(os.path.join(ROOT, 'tools', 'data', 'line-display.json'), encoding='utf-8'))
-add_line_display(line_out, st_out, LINE_DISPLAY)
+DISPLAY_SERVICES = add_line_display(line_out, st_out, LINE_DISPLAY)
 
 SRC = ('出典：「国土数値情報（駅別乗降客数データ S12-25・鉄道データ N02-25・行政区域データ N03-2026・地価公示データ L01-26・都道府県地価調査データ L02-26）」（国土交通省）'
        '（https://nlftp.mlit.go.jp/ksj/）をもとに加工して作成。乗降客数は2024年度、各事業者が独自に算出した値（統一の基準ではない）。')
-data = {'src': SRC, 'ops': OPS_MODE, 'year': YEAR, 'origin': ORIGIN, 'pinTiers': PIN_TIERS, 'wards': ward_out, 'lines': line_out, 'stations': st_out, 'sites': sites}
+data = {'src': SRC, 'ops': OPS_MODE, 'year': YEAR, 'origin': ORIGIN, 'pinTiers': PIN_TIERS, 'wards': ward_out, 'lines': line_out, 'stations': st_out, 'sites': sites, 'services': DISPLAY_SERVICES}
 js = ('// 出店の地図（東京23区）のデータ。tools/stations-build.py が作る（手で直さない）。\n// ' + SRC + '\n'
       '(function (g) {\n  const SIM = (g.SIMDATA = g.SIMDATA || {});\n  SIM.tokyo23 = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n})(typeof window !== \'undefined\' ? window : globalThis);\n')
 open(OUT, 'w', encoding='utf-8').write(js)

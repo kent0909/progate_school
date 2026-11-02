@@ -10,8 +10,11 @@ function project(data, table) {
   const errors = [], rows = new Map(), used = new Set(), usage = new Map();
   const fail = s => errors.push(s);
   const services = table.services || {};
-  if (table.version !== 1) fail('表のversionは1が必要');
+  if (table.version !== 2) fail('表のversionは2が必要');
+  const serviceIds = new Set(), serviceResult = {};
   for (const [id, s] of Object.entries(services)) {
+    if (!/^r[0-9]+$/.test(s.id) || serviceIds.has(s.id)) fail(`serviceのidが不正・重複：${id}`);
+    serviceIds.add(s.id); serviceResult[s.id] = {display:s.display, color:s.color};
     if (!s.display || typeof s.display !== 'string') fail(`呼称なし：${id}`);
     if (!/^#[0-9a-f]{6}$/i.test(s.color)) fail(`16進色でない：${id} ${s.color}`);
   }
@@ -59,9 +62,8 @@ function project(data, table) {
       rules = line.paths.map(() => row.services);
     }
     if (rules.some(x => !x.length || x.some(id => !services[id])) || row.services.some(id => !services[id])) continue;
-    const displayPaths = rules.map((list, pathIndex) => {
-      const ss = named(list); return {pathIndex, ...summary(ss), services: ss};
-    });
+    // 配列の位置が元のpaths番号。同じ呼称・色の実体は最上位servicesに一度だけ置く。
+    const displayPaths = rules.map(list => list.map(id => services[id].id));
     lineResult.push({...summary(named(row.services)), displayPaths});
   }
   const stationResult = [];
@@ -99,7 +101,7 @@ function project(data, table) {
   }
   for (const id of Object.keys(services)) if (!used.has(id)) fail(`未使用の呼称：${id}`);
   if (errors.length) throw new Error(unique(errors).join('\n'));
-  return {lines:lineResult, stations:stationResult};
+  return {services:serviceResult, lines:lineResult, stations:stationResult};
 }
 function main(args) {
   const opts = {};
@@ -111,9 +113,10 @@ function main(args) {
   const context = {}; vm.createContext(context);
   vm.runInContext(fs.readFileSync(opts.data || path.join(__dirname,'../js/data/tokyo23.js'),'utf8'), context);
   const data=context.SIMDATA.tokyo23, table=JSON.parse(fs.readFileSync(opts.table || path.join(__dirname,'data/line-display.json'),'utf8'));
-  const result=project(data, table), generated=data.lines.some(l => 'display' in l || 'color' in l || 'displayPaths' in l) || data.stations.some(s => 'displayLines' in s);
+  const result=project(data, table), generated=('services' in data) || data.lines.some(l => 'display' in l || 'color' in l || 'displayPaths' in l) || data.stations.some(s => 'displayLines' in s);
   if (opts.requireGenerated && !generated) throw new Error('未再生成：生成済みデータが必要');
   if (generated) {
+    if (!same(data.services,result.services)) throw new Error('生成結果不一致：最上位services');
     data.lines.forEach((l,i) => { const want=result.lines[i]; if (!same({display:l.display,color:l.color,displayPaths:l.displayPaths},want)) throw new Error(`生成結果不一致：${key(l)}`); });
     data.stations.forEach((s,i) => { if (!same(s.displayLines,result.stations[i])) throw new Error(`生成結果不一致：${s.name}`); });
   }
