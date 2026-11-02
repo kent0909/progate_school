@@ -95,12 +95,31 @@ for (const [nm, [f, key]] of Object.entries(rules)) {
   R.c6[nm] = mean(ratios);
   console.log(`⑥ ${nm}：上から10か所の利益÷本当の上位10${key === 'op' ? '' : '（営業時間も選ぶ）'} ${ratios.map((x) => (100 * x).toFixed(0) + '%').join('/')}（目標85%未満）・規則を満たす所から無作為に選ぶと ${(100 * mean(rnd)).toFixed(0)}%`);
 }
+// 見える情報のボット（検査役が足した物差し。設計書にない）：その世界の候補地を、「同じ候補地で開店の前の軒数が同じだった、ほかの世界のくじの利益の平均」
+// （なければ同じ候補地のほかの世界の平均）で並べて上から10。遊ぶ人が地図とカードで見える数（場所・開店の前の軒数）から当てられる上限の近似。
+if (K >= 2) { const botR = [], ruleVsBot = {};
+  for (let k = 0; k < K; k++) {
+    const w = out.map((o) => ({ o, d: o.draws[k] }));
+    const est = (x) => { const others = x.o.draws.filter((_, j) => j !== k); const same = others.filter((d) => d.n === x.d.n); const a = same.length ? same : others; return mean(a.map((d) => d.op)); };
+    const best = mean(w.map((x) => x.d.op).sort((a, b) => b - a).slice(0, 10));
+    const bot = mean(w.slice().sort((a, b) => est(b) - est(a)).slice(0, 10).map((x) => x.d.op)); botR.push(bot / best);
+    for (const [nm, [f, key]] of Object.entries(rules)) { if (key !== 'op') continue; const pick = w.slice().sort((a, b) => f(b) - f(a)).slice(0, 10); (ruleVsBot[nm] = ruleVsBot[nm] || []).push(mean(pick.map((x) => x.d.op)) / bot); }
+  }
+  R.bot = mean(botR); R.ruleVsBot = Object.fromEntries(Object.entries(ruleVsBot).map(([k, v]) => [k, mean(v)]));
+  console.log(`   見える情報のボット（同じ候補地・同じ開店の前の軒数の、ほかの世界の平均で並べる）：本当の上位10の ${botR.map((x) => (100 * x).toFixed(0) + '%').join('/')}`);
+  console.log('   単純な規則÷見える情報のボット：' + Object.entries(R.ruleVsBot).map(([k, v]) => `${k.replace(/（.*/, '')} ${(100 * v).toFixed(0)}%`).join('・'));
+}
 { const ratios = []; for (let k = 0; k < K; k++) { const w = out.map((o) => o.draws[k]); ratios.push(mean(w.map((d) => d.op).sort((a, b) => b - a).slice(0, 10)) / mean(w.map(best3).sort((a, b) => b - a).slice(0, 10))); }
   console.log(`   参考：通しだけの本当の上位10 ÷ 営業時間も選ぶ本当の上位10 ${ratios.map((x) => (100 * x).toFixed(0) + '%').join('/')}`); }
 // ⑦ 営業時間：オフィス街で昼だけ＞通し、繁華街で夜だけ＞通しの割合（閉めて減る費用はくじごとの saveL・saveN）
 const ofType = (t) => pool.filter((d, j) => out[Math.floor(j / K)].type === t);
 const hours = () => { const f = (t, k) => { const a = ofType(t); return a.filter((d) => (k === 'L' ? d.lunch : d.night) > d.op).length / a.length; }; return { off: f('office', 'L'), hanka: f('hanka', 'N'), offN: f('office', 'N'), hankaL: f('hanka', 'L') }; };
 R.c7 = hours();
+// 参考：閉めて減る費用の形を変えたら（月の差を後から足し直す。sim の中身は同じ）
+const altHours = (mode) => { const P2 = { ...P, saveMode: mode, save: 200000 }; const dL = (L.saveOf(P2, 1, 'night') - L.saveOf(P, 1, 'night')) * 12, dN = (L.saveOf(P2, 1, 'lunch') - L.saveOf(P, 1, 'lunch')) * 12;
+  const f = (t, k) => { const a = ofType(t); return a.filter((d) => (k === 'L' ? d.lunch + dL : d.night + dN) > d.op).length / a.length; }; return { off: f('office', 'L'), hanka: f('hanka', 'N') }; };
+R.c7slot = altHours('slot'); R.c7flat20 = altHours('flat');
+console.log(`   参考 減る費用の形：パート1人でも閉めた時間帯の給料20万が全部減る（slot）なら オフィス ${(100 * R.c7slot.off).toFixed(0)}%・繁華街 ${(100 * R.c7slot.hanka).toFixed(0)}%／どちらを閉めても月20万（版0.5 の上の端）なら ${(100 * R.c7flat20.off).toFixed(0)}%・${(100 * R.c7flat20.hanka).toFixed(0)}%`);
 console.log(`⑦ オフィスで昼だけ＞通し ${(100 * R.c7.off).toFixed(0)}%（目標20%以上）・繁華街で夜だけ＞通し ${(100 * R.c7.hanka).toFixed(0)}%（目標20%以上）｜参考 オフィスで夜だけ＞通し ${(100 * R.c7.offN).toFixed(0)}%・繁華街で昼だけ＞通し ${(100 * R.c7.hankaL).toFixed(0)}%`);
 for (const t of ['office', 'shogyo', 'hanka', 'shoten', 'jutaku', 'kojo']) { const a = ofType(t); if (!a.length) continue; const best = (d) => { const v = { 通し: d.op, 昼だけ: d.lunch, 夜だけ: d.night }; return Object.entries(v).sort((x, y) => y[1] - x[1])[0][0]; }; const c = cnt(a, best); const Ls = out.filter((o) => o.type === t).map((o) => o.L); console.log(`   ${t}（L の中央 ${q(Ls, 0.5).toFixed(2)}・幅 ${q(Ls, 0.1).toFixed(2)}〜${q(Ls, 0.9).toFixed(2)}）くじ${a.length}：いちばん得 ${JSON.stringify(c)}・昼の売れた客の中央 ${q(a.map((d) => d.NL), 0.5).toFixed(1)}・夜 ${q(a.map((d) => d.NN), 0.5).toFixed(1)}・昼だけ−通し の中央 ${(q(a.map((d) => d.lunch - d.op), 0.5) / 12e4).toFixed(1)}万円/月・夜だけ−通し ${(q(a.map((d) => d.night - d.op), 0.5) / 12e4).toFixed(1)}万円/月`); }
 // ⑧ 上限を越えるくじのうち、パート2人で3年目の利益が上がる割合
@@ -125,5 +144,5 @@ console.log('ライバルの軒数（開店の前）ごと', Object.entries(cnt(
 const pass = { '①': R.c1 >= 40 && R.c1 <= 52, '③': R.c3.tiers >= 4 && R.c3.attrs >= 4 && R.c3.js >= 8, '④': R.c4 <= 0.4, '⑤': R.c5 <= 15, '⑥': Object.values(R.c6).every((x) => x < 0.85), '⑦': R.c7.off >= 0.2 && R.c7.hanka >= 0.2, '⑧': R.c8 != null && R.c8 >= 0.3 && R.c8 <= 0.7, '⑨': R.c9 >= 1.3 };
 console.log('判定：' + Object.entries(pass).map(([k, v]) => `${k}${v ? '○' : '×'}`).join(' ') + '（②は目標なし、⑩と効きの向きは dir6.js）');
 const c6max = Math.max(...Object.values(R.c6));
-console.log('SUMMARY ' + JSON.stringify({ over, K, SO, c1: +R.c1.toFixed(1), c2: +(100 * R.c2).toFixed(1), c3: R.c3, c4: Math.round(100 * R.c4), c5: z.end, c5r24: z.r24, c5pre: z.pre, c6max: Math.round(100 * c6max), c6: Object.values(R.c6).map((v) => Math.round(100 * v)), c7: { off: Math.round(100 * R.c7.off), hanka: Math.round(100 * R.c7.hanka) }, c8: R.c8 == null ? null : Math.round(100 * R.c8), c9: +R.c9.toFixed(2), loss: +(100 * loss).toFixed(1), pass, nPass: Object.values(pass).filter(Boolean).length }));
+console.log('SUMMARY ' + JSON.stringify({ over, K, SO, c1: +R.c1.toFixed(1), c2: +(100 * R.c2).toFixed(1), c3: R.c3, c4: Math.round(100 * R.c4), c5: z.end, c5r24: z.r24, c5pre: z.pre, c6max: Math.round(100 * c6max), bot: R.bot == null ? null : Math.round(100 * R.bot), ruleVsBotMax: R.ruleVsBot ? Math.round(100 * Math.max(...Object.values(R.ruleVsBot))) : null, c6: Object.values(R.c6).map((v) => Math.round(100 * v)), c7: { off: Math.round(100 * R.c7.off), hanka: Math.round(100 * R.c7.hanka) }, c7slot: { off: Math.round(100 * R.c7slot.off), hanka: Math.round(100 * R.c7slot.hanka) }, c8: R.c8 == null ? null : Math.round(100 * R.c8), c9: +R.c9.toFixed(2), loss: +(100 * loss).toFixed(1), pass, nPass: Object.values(pass).filter(Boolean).length }));
 if (process.env.SAVE) require('fs').writeFileSync(process.env.SAVE, JSON.stringify(out.map((o) => ({ ...o, draws: o.draws.map(({ entryAt, ...d }) => d) }))));
