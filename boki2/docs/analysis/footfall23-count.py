@@ -285,3 +285,14 @@ print('- 主要10駅の A_adj の順：' + ' ＞ '.join(f"{n}({R[n]['A'] * adj(R
 sp = spearman([x['A'] * adj(x) for x in ok], [x['food5'] for x in ok])
 spm = spearman([x['A'] * adj(x) for x in multi], [x['food5'] for x in multi])
 print(f'- A_adj と宿泊・飲食の事業所数（500m）の順位相関：全 {len(ok)} 駅 {sp:.3f}・複数事業者の {len(multi)} 駅 {spm:.3f}')
+
+# ---- 出口（11/2 取りまとめ役が足した。オーナーの決定「乗り換えを除いた数に切り替える」）：駅ごとの補正の係数を JSON に書く ----
+# 環境変数 FOOTFALL_JSON に書き出し先を渡すと、tools/stations-build.py が読む形（駅名 → adj・gate13・A）で書く。
+# D13 が0か、500m メッシュの値がない駅は adj＝1（A のまま）。報告の出力（標準出力）は変えない
+if os.environ.get('FOOTFALL_JSON'):
+  okset = {id(x) for x in ok}
+  out = {'src': '大都市交通センサス第13回（2021年12月）の改札の出入りの推定 ÷ 乗降客数の和、単独事業者の駅の中央値 %.4f で割り、1で頭打ち（BIZ-FOOTFALL23 9節）' % single,
+         'single': single, 'stations': {}}
+  for s, x in zip(ST, ALL):
+    out['stations'][s['name']] = {'adj': round(adj(x), 4) if id(x) in okset else 1.0, 'gate13': x['gate13'], 'A': x['A'], 'used': id(x) in okset}
+  with open(os.environ['FOOTFALL_JSON'], 'w', encoding='utf-8') as fo: json.dump(out, fo, ensure_ascii=False, indent=0)

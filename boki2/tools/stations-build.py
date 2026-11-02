@@ -171,9 +171,17 @@ _n02s = zip_geojson('N02-25', 'N02-25_Station.geojson')
 N02_NAMES = {f['properties']['N02_005'] for f in _n02s['features']}
 DROPPED = [st['name'] for st in stations if st['all'] == 0 and st['name'] not in N02_NAMES]
 stations = [st for st in stations if not (st['all'] == 0 and st['name'] not in N02_NAMES)]
+# 乗り換えを除いた人通り（11/2 オーナーの決定）：乗降客数の和 × 補正の係数 adj（tools/data/footfall-adj.json。
+# 作り方は docs/analysis/footfall23-count.py の出口、BIZ-FOOTFALL23 9節：センサス第13回の改札の出入り÷和を、単独事業者の駅の中央値で割り1で頭打ち）。
+# 係数のない駅（D13 が0・メッシュの値がない）は 1（和のまま）
+FF_PATH = os.path.join(ROOT, 'tools', 'data', 'footfall-adj.json')
+FF = json.load(open(FF_PATH, encoding='utf-8'))['stations'] if os.path.exists(FF_PATH) and opt('--no-footfall') is None and '--no-footfall' not in args else {}
 for s in stations:
-  s['pins'] = s['tier'] = next(n for th, n in PIN_TIERS if s['all'] >= th)  # tier：乗降客数の段（閑静の枠で pins が増えても変わらない）
-stations.sort(key=lambda s: -s['all'])
+  f = FF.get(s['name'])
+  s['adj'] = f['adj'] if f else 1.0
+  s['foot'] = round(s['all'] * s['adj'])
+  s['pins'] = s['tier'] = next(n for th, n in PIN_TIERS if s['foot'] >= th)  # tier：乗り換えを除いた人通りの段（閑静の枠で pins が増えても変わらない）
+stations.sort(key=lambda s: -s['foot'])
 for i, s in enumerate(stations): s['id'] = f's{i + 1:03d}'
 
 # ---------- 候補地（地価公示） ----------
@@ -213,13 +221,13 @@ def quad(s, q):
 
 used, got = set(), {s['id']: [] for s in stations}
 # 閑静な住宅地の枠（版0.5、オーナーの決定 10/30「その駅に実際にそういうエリアがあるなら入れる」）：
-# ピン6本以上の駅で、重心から QUIET_M 以内に「閑静・大規模住宅・区画整然」と書かれた住宅地の地点があれば、地価のいちばん高い所を1本足す
+# 段5以上の駅（乗り換えを除いて1日25万人以上。11/2 段の数え方を変えたので6→5）で、重心から QUIET_M 以内に「閑静・大規模住宅・区画整然」と書かれた住宅地の地点があれば、地価のいちばん高い所を1本足す
 # （渋谷なら松濤1丁目）。無い駅には足さない。普通のピンの巡回より先に取る（先に取らないと、近くの駅の普通のピンに取られる）
 QUIET_M = 1200
 QUIET_RE = re.compile(r'閑静|大規模住宅|区画整然')
 quiet = []
 for s in stations:
-  if s['pins'] < 6: continue
+  if s['tier'] < 5: continue
   c = [(q['price'], dist_m((q['lat'], q['lon']), s['pt']), i) for i, q in enumerate(pts)
        if i not in used and q['type'] == 'jutaku' and QUIET_RE.search(q['desc'] or '') and dist_m((q['lat'], q['lon']), s['pt']) <= QUIET_M]
   if not c: continue
@@ -290,7 +298,7 @@ line_out = [{'op': short(op), 'name': nm, 'paths': ps} for (op, nm), ps in sorte
 st_out = []
 for s in stations:
   x, y = xy(*s['pt'])
-  st_out.append({'id': s['id'], 'name': s['name'], 'aliases': s.get('aliases', []), 'x': x, 'y': y, 'ward': ward_name[s['wards'].most_common(1)[0][0]], 'riders': s['all'], 'ridersJM': s['jm'], 'pins': s['pins'], 'tier': s['tier'],
+  st_out.append({'id': s['id'], 'name': s['name'], 'aliases': s.get('aliases', []), 'x': x, 'y': y, 'ward': ward_name[s['wards'].most_common(1)[0][0]], 'riders': s['all'], 'foot': s['foot'], 'adj': s['adj'], 'ridersJM': s['jm'], 'pins': s['pins'], 'tier': s['tier'],
                  'lines': [short(op) + ' ' + ln for op, ln in s['lines']], 'byOp': s['by']})
 
 SRC = ('出典：「国土数値情報（駅別乗降客数データ S12-25・鉄道データ N02-25・行政区域データ N03-2026・地価公示データ L01-26・都道府県地価調査データ L02-26）」（国土交通省）'
