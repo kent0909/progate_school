@@ -21,7 +21,7 @@ print(f'# 元の台本の値：421駅 {len(ok)}・複数事業者 {len(multi)}�
 # (a)
 def adjd(x, d): return min(1.0, (x['gate13'] / x['A']) / d) if x['A'] else 1.0
 base = {x['name']: tier(x['A'] * adjd(x, single)) for x in ok}
-print('\n## (a) 割る値を変えたときの段（421駅）')
+print(f'\n## (a) 割る値を変えたときの段（{len(ok)}駅）')
 for d in [0.70, 0.75, single, 0.85, 0.90, 1.00]:
   ch = collections.Counter(('同じ' if tier(x['A'] * adjd(x, d)) == base[x['name']] else ('上がる' if tier(x['A'] * adjd(x, d)) > base[x['name']] else '下がる')) for x in ok)
   big = {n: tier(x['A'] * adjd(x, d)) for x in ok for n in [x['name']] if n in ('新宿', '渋谷', '池袋', '東京', '北千住', '品川')}
@@ -32,7 +32,7 @@ for n in ('渋谷', '池袋', '新宿'):
 # (b)
 print('\n## (b) 飲食店の事業所数（500m）との順位相関の差：A_adj − A（ブートストラップ 2000回、駅を引き直す）')
 random.seed(7)
-for lab, S in [('複数事業者の駅', multi), ('全421駅', ok)]:
+for lab, S in [('複数事業者の駅', multi), (f'全{len(ok)}駅', ok)]:
   a = [x['A'] for x in S]; b = [x['A'] * adjd(x, single) for x in S]; f = [x['food5'] for x in S]
   d0 = sp(b, f) - sp(a, f); ds = []
   for _ in range(2000):
@@ -76,4 +76,4 @@ json.dump(out, open('out/site_L.json', 'w'), ensure_ascii=False)
 byt = collections.defaultdict(list)
 for s in G['SITES']:
   if s['id'] in out: byt[s['type']].append(out[s['id']])
-print(f'\n## (e) 候補地ごとの昼の比（886か所のうち値のある {len(out)}）：' + '・'.join(f'{k} 中央{statistics.median(v):.2f}（{len(v)}）' for k, v in byt.items()))
+print(f'\n## (e) 候補地ごとの昼の比（{len(G["SITES"])}か所のうち値のある {len(out)}）：' + '・'.join(f'{k} 中央{statistics.median(v):.2f}（{len(v)}）' for k, v in byt.items()))
