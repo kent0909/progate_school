@@ -20,6 +20,12 @@ ROOT = os.path.join(os.path.dirname(__file__), '..')
 RAW = os.path.join(ROOT, 'research', 'raw', 'geo', 'geodata')
 args = sys.argv[1:]
 opt = lambda k, d=None: args[args.index(k) + 1] if k in args else d
+# 知らない引数（--help など）で、標準の tokyo23.js を上書きしないように止める（11/2、判定役が --help で上書きした件）
+KNOWN = {'--out': 1, '--report': 1, '--ops': 1, '--xfer': 1, '--no-footfall': 0}
+_i = 0
+while _i < len(args):
+  if args[_i] not in KNOWN: sys.exit(f'知らない引数 {args[_i]}。使えるのは ' + ' '.join(KNOWN) + '（使い方はこのファイルの先頭）')
+  _i += 1 + KNOWN[args[_i]]
 OUT = opt('--out', os.path.join(ROOT, 'js', 'data', 'tokyo23.js'))
 REPORT = opt('--report')
 
