@@ -124,7 +124,7 @@ k	番号	id8	主張と画像	image_seenと画像	所見
 123	Q18	26c5c998	合う	合う	「Replaced ~~son~~ → petit」、理由2行、同じ型の別の例2つ（un petit chat・une petite maison）
 124	Q19	93499943	合う	合う	4択の最後に「I don't know」、選んだ誤り（Expressionism）と正解の説明
 125	Q20	b43fc9b9	合う	合う	「Please try again」…「You're partially correct」
-126	Q21	4da72f80	一部合わない	合う	「Question 1 of 4」「Your Acorns Invest portfolio holds assets called」の下に札「mutual funds」が文末の位置に置かれる（文の途中の穴ではない）。付録Aの判定と同じ。なおこの札は誤答で、下に「The correct answer is ETFs」
+126	Q21	4da72f80	一部合わない	一部合わない	「Question 1 of 4」「Your Acorns Invest portfolio holds assets called」の下に札「mutual funds」が文末の位置に置かれる（文の途中の穴ではない）。付録Aの判定と同じ。なおこの札は誤答で、下に「The correct answer is ETFs」。ノートの image_seen「問いの文の途中に選んだ語…が埋まる」も画像と合わない（札は文の後ろ）
 127	Q23	c63bc528	合う	合う	「Almost there!」「Make sure to pick h1」（場所だけを言う）、Skip と Try again
 128	Q24	433fb29c	合う	合う	Browser のタブを開いた状態で、border の付いた「50% Discount Code」の枠（結果が対象の頁に出る）、「Great job! Let's keep it going.」
 129	Q25	2d8d62b7	合う	合う	Browser に縦の 1・2・3、「Almost there!」と課題の言い直し、紫の小さな「✦ Get help」と Try again。ヒントの入口は合う。「無料で3段」は画面になく PEDAGOGY 5 の決め（素案も括弧で PEDAGOGY を示しているので、画面の主張とは読まない）
@@ -154,7 +154,7 @@ k	番号	id8	主張と画像	image_seenと画像	所見
 153	Q63	7aa235cf	合う	合う	「PAUSED / Productivity」、「Feeling ready to jump back in?」と Resume area、「This area is now paused - take a break and come back anytime!」
 154	Q64	442d1c66	合う	合う	「Continue Listening / Continue from where you left off.」、前回の要約の3行と「Playing 18 min left」の1つのボタン
 155	Q67	d6179aa1	合う	合う	Settings の Account に「Last backup: 9 Jun 2026, 11:12」と Sync（書き出し・読み込みの別の項目は画面にない）
-156	Q68	9ca8e991	一部合わない	合う	Customization：音の種類（Sine・Synth・Bowl・Off）、Vibration On/Off、Voice Guide（Lexi・Max・Off）。2.23 の「音・声」は合う。しかし 4.4 の「強さ3段（控えめ・ふつう・派手）は設定で選ぶ [Q68]」の**強さの段**は画面になく、あるのは種類の選択とオン・オフ
+156	Q68	9ca8e991	一部合わない	一部合わない	Customization：音の種類（Sine・Synth・Bowl・Off）、Vibration On/Off、Voice Guide（Lexi・Max・Off）。2.23 の「音・声」は合う。しかし 4.4 の「強さ3段（控えめ・ふつう・派手）は設定で選ぶ [Q68]」の**強さの段**は画面になく、あるのは種類の選択とオン・オフ。ノートの image_seen の末尾「演出の強さ・音・声を自分で選ぶ」の「強さ」は画像にない
 157	Q69	b26c98e9	合う	合う	Game options：Asteroid speed「Normal」、Number of answers、Game duration「60s」（速さ・時間を本人が選ぶ）
 158	Q70	d1cca038	合う	合う	「You got here first.」と POPULATION 0 の看板の冗談の絵、Add your crew
 159	Q74	5b76071b	合う	合う	To Do List の項目そのものが使い方（Check the box to mark items as do…、Click the due date to change it…）
@@ -169,7 +169,7 @@ k	番号	id8	主張と画像	image_seenと画像	所見
 168	Q79	d99e1da1	合う	合う	「Today's Action / Don't forget why you started」と書き留める行動の文、動画の再生中
 169	Q79	6ec55816	合う	合う	「Finding Your Best Sleep」18 sessions、Part 1〜3 の札、Start Today（Part・Session の構造）
 170	Q80	16fe98e3	合う	合う	「Section 1: Warm-up」、区切り線「QUESTION 1/9」「QUESTION 2/9」、相手が先に「Bonjour ! Moi, c'est Philippe.」、文字を隠す目の印、絵はない
-171	Q80	4a2727b7	合う	合う	同じ相手の1文と「Say, "Nice to meet you!"」、読み込みの輪
+171	Q80	4a2727b7	合う	合う	"同じ相手の1文と「Say, ""Nice to meet you!""」、読み込みの輪"
 172	Q80	67805405	合う	合う	同じ1文と「Speak now...」、マイクの丸と×・キーボード
 173	Q81	7499140f	合う	合う	「What do these terms mean?」と用語の定義の一覧（Total spent = …、Your share = …）
 174	Q83	573f7362	合う	合う	黄と青のブロックの「Company」の一部に吹き出し「Stock — a piece of ownership」
