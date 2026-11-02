@@ -1,7 +1,7 @@
 id	番号	担当	アプリ	mobbin_url	ノートを開いた（書き手）	画像を開いた（書き手）	画像を開いた（判定役）	版0.1の主張と画像（判定役）	image_seenと画像（判定役）	書き手の版0.1の判定	版0.2の扱い・備考
 4dd0e004-24b3-4efa-8e10-2af3b11251b9	X2	MB1	Rocket Money	https://mobbin.com/screens/4dd0e004-24b3-4efa-8e10-2af3b11251b9	はい	いいえ	はい	合う	合う	合う	
 05906c98-edab-4f98-91a9-bbed376ff424	X4	MB1	Copilot	https://mobbin.com/screens/05906c98-edab-4f98-91a9-bbed376ff424	はい	いいえ	はい	合う	合う	合う	
-8e5cbd25-73a0-4d79-8c6b-567c425d6f67	X5	MB1	Wealthfront	https://mobbin.com/screens/8e5cbd25-73a0-4d79-8c6b-567c425d6f67	はい	はい	はい	一部合わない	合う	合う	版0.2：点線・「このペースなら」・前提を押す所は【推論】と印。前提を動かす形は W32
+8e5cbd25-73a0-4d79-8c6b-567c425d6f67	X5	MB1	Wealthfront	https://mobbin.com/screens/8e5cbd25-73a0-4d79-8c6b-567c425d6f67	はい	はい	はい	一部合わない	合う	合う	版0.2：点線・「このペースなら」・前提を押す所は【推論】と印。前提を動かす形は W32。版0.3：星は線の先（軸の途中）と直した
 942b1d25-40c3-42c4-a925-404558f375c9	X6	MB1	Acorns	https://mobbin.com/screens/942b1d25-40c3-42c4-a925-404558f375c9	はい	いいえ	はい	合う	合う	合う	
 2f052065-c5d5-4ccc-93e8-2b38bf67edb0	X6	MB1	Acorns	https://mobbin.com/screens/2f052065-c5d5-4ccc-93e8-2b38bf67edb0	はい	いいえ	はい	合う	合う	合う	（同じ番号のほかの画面）
 ca6407b9-5665-4509-9948-8830b3a0ca61	X7	MB1	ANZ Plus	https://mobbin.com/screens/ca6407b9-5665-4509-9948-8830b3a0ca61	はい	はい	はい	合う	合う	合う	
@@ -10,7 +10,7 @@ ca6407b9-5665-4509-9948-8830b3a0ca61	X7	MB1	ANZ Plus	https://mobbin.com/screens/
 07440204-140d-43b0-822b-1dfb63ebf89b	X12	MB1	Crypto.com	https://mobbin.com/screens/07440204-140d-43b0-822b-1dfb63ebf89b	はい	はい	はい	一部合わない	合う	合う	版0.2：段の条件の例から外した（段は quests completed の数で開く）。特典の札の見せ方だけ
 7279bc2a-9d5f-4c4d-afbe-1e123cba3f01	X13	MB1	Finch	https://mobbin.com/screens/7279bc2a-9d5f-4c4d-afbe-1e123cba3f01	はい	いいえ	はい	合う	合う	合う	
 9f9ad31c-ec4e-4a7c-98a0-764d40835315	X14	MB1	Duolingo	https://mobbin.com/screens/9f9ad31c-ec4e-4a7c-98a0-764d40835315	はい	いいえ	はい	合う	合う	合う	
-d2547f6d-14a5-4c78-ae50-e9be602c4622	X15	MB1	Tolan	https://mobbin.com/screens/d2547f6d-14a5-4c78-ae50-e9be602c4622	はい	はい	はい	一部合わない	合う	合う	版0.2：「押さなければ消える」は設計の決め【推論】
+d2547f6d-14a5-4c78-ae50-e9be602c4622	X15	MB1	Tolan	https://mobbin.com/screens/d2547f6d-14a5-4c78-ae50-e9be602c4622	はい	はい	はい	一部合わない	合う	合う	版0.2：「押さなければ消える」は設計の決め【推論】。版0.3：白い札は画面の高さの約2割と直した
 da51f189-852c-47b1-a096-bcdc16583b5c	X16	MB1	Ten Percent Happier	https://mobbin.com/screens/da51f189-852c-47b1-a096-bcdc16583b5c	はい	いいえ	はい	合う	合う	合う	
 f5c83f4d-eded-4850-ac6a-9675f4b1141f	X17	MB1	Quizlet	https://mobbin.com/screens/f5c83f4d-eded-4850-ac6a-9675f4b1141f	はい	いいえ	はい	合う	合う	合う	MB3 の Q44 と同じ画面。MB1 は数の出し方を書かず、MB3 は数を出さないと書く（3章 C6）
 bfe532d9-62fe-4246-9775-9c8934195bcb	X19	MB1	Oura	https://mobbin.com/screens/bfe532d9-62fe-4246-9775-9c8934195bcb	はい	はい	はい	合う	合う	合う	
@@ -25,7 +25,7 @@ a252fcfd-1c89-43d2-a090-7c70d5af3c5c	X31	MB1	Cleo	https://mobbin.com/screens/a25
 d1d13fc6-5d1c-4250-8b9a-f9b668d06428	X31	MB1	Cleo	https://mobbin.com/screens/d1d13fc6-5d1c-4250-8b9a-f9b668d06428	はい	いいえ	はい	合う	合う	合う	（同じ番号のほかの画面）
 207509eb-1252-49bc-bff4-4524dfc83da3	X32	MB1	Cleo AI	https://mobbin.com/screens/207509eb-1252-49bc-bff4-4524dfc83da3	はい	いいえ	はい	合う	合う	合う	
 b00a6ecc-5e8e-4d63-968e-279012067c1c	X33	MB1	Monarch	https://mobbin.com/screens/b00a6ecc-5e8e-4d63-968e-279012067c1c	はい	いいえ	はい	合う	合う	合う	
-4d946d9e-a904-426c-b36c-0b1782ab3938	X34	MB1	YNAB	https://mobbin.com/screens/4d946d9e-a904-426c-b36c-0b1782ab3938	はい	はい	はい	合う	一部合わない	一部合わない	版0.2：ノートを表の値に訂正 原寸では 09/25 の純資産の点は表の値 -$767.31（MB1・ノートは「-$720 から」）。形（資産と負債の棒の上を純資産の線）は合う
+4d946d9e-a904-426c-b36c-0b1782ab3938	X34	MB1	YNAB	https://mobbin.com/screens/4d946d9e-a904-426c-b36c-0b1782ab3938	はい	はい	はい	合う	一部合わない	一部合わない	版0.2：ノートを表の値に訂正 原寸では 09/25 の純資産の点は表の値 -$767.31、10/25 は $1,117.05（MB1 の文書の「-$720 から $1,200」は読み違い。ノートは版0.2 で訂正済み）。形（資産と負債の棒の上を純資産の線）は合う
 d8cda354-15cc-40eb-912d-35b60580d47a	X34	MB1	YNAB	https://mobbin.com/screens/d8cda354-15cc-40eb-912d-35b60580d47a	はい	いいえ	はい	合う	合う	一部合わない	（同じ番号のほかの画面）
 86d1b223-4450-4f3e-ac66-72a05f9a8ea3	X36	MB1	Mercury	https://mobbin.com/screens/86d1b223-4450-4f3e-ac66-72a05f9a8ea3	はい	はい	はい	合う	合う	合う	
 61123e7a-f3d3-49a7-8f35-f0ee80c5dcf0	X38	MB1	Revolut	https://mobbin.com/screens/61123e7a-f3d3-49a7-8f35-f0ee80c5dcf0	はい	いいえ	はい	合う	合う	合う	
