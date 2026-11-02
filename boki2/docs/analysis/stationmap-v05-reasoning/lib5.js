@@ -76,6 +76,7 @@ function makeWorld(attr, Pabs, rivals, eps, rentPerTsubo, P) {
   a.mix = { ...P.mix[attr] }; a.cal = P.cal[attr];
   a.potentialMul = 1; a.P = Pabs; if (eps) a.epsScale = eps;
   a.pRef = P.pRefFixed ? P.pRef[attr] : C('price0');
+  if (P.V0 != null) a.V0 = P.V0; // 外の選択（2章で「変えないもの」。検査役の試しだけ）
   W.rivals = rivals.map((r) => JSON.parse(JSON.stringify(r))); W.events = [];
   W.otherFixed = C('otherFixed');
   W.rentMul = rentPerTsubo / C('rentPerTsubo')[key];
