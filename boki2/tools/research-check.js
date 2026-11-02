@@ -279,7 +279,9 @@ function checkNote(n, es, tag, indexText, gen, r, isSection) {
   if (body.length < 150) err(tag, `${where} の本文が短すぎる（${body.length} 字）。何を読み取ったかが書かれていない`);
   const anchors = (n.anchors || []).map(norm).filter(Boolean);
   // 画像だけの文書（Mobbin の画面など、2026-11-02）：語句の代わりに見た所の申告（image_seen）で検査する
-  const onlyImages = es.length && es.every((e) => !e.file || /\.(png|jpe?g|webp|gif)$/i.test(e.file));
+  const isImg = (e) => { if (!e.file) return true; if (/\.(png|jpe?g|webp|gif)$/i.test(e.file)) return true; const f = rawFile(e); if (!f) return false; try { const fd = fs.openSync(f, 'r'); const b = Buffer.alloc(12); fs.readSync(fd, b, 0, 12, 0); fs.closeSync(fd); const m = b.toString('latin1'); return m.startsWith('\x89PNG') || m.startsWith('\xff\xd8\xff') || m.startsWith('GIF8') || (m.startsWith('RIFF') && m.slice(8, 12) === 'WEBP'); } catch (x) { return false; } };
+  // 中身で画像かを見る（拡張子が .html のまま残った画像。2026-11-02）
+  const onlyImages = es.length && es.every(isImg);
   if (onlyImages) { if (!n.image_seen || String(n.image_seen).length < 60) err(tag, `${where} は画像だけの文書。見た所（部品・配置・色・文字）を image_seen: に60字以上で書くこと`); else warn(tag, `${where} は画像だけの文書。語句では照合できない（見たと申告：${String(n.image_seen).slice(0, 40)}）`); if (!hashes.includes(n.sha256)) {} r.unverifiable++; return; }
   if (anchors.length < 5) err(tag, `${where} の anchors が ${anchors.length} 個（5個以上）`);
   if (n.read !== 'full' && n.read !== 'partial') err(tag, `${where} の read が full / partial のどちらでもない`);

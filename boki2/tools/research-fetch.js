@@ -100,6 +100,8 @@ const dir = path.join(R, 'raw', src, coll);
 fs.mkdirSync(dir, { recursive: true });
 let file = path.join(dir, `${doc}${part ? '_' + part : ''}.${ext}`);
 if (fs.existsSync(file) && !a.includes('--force')) die(`${path.relative(R, file)} は取得済み（取り直すなら --force）`);
+// 拡張子を中身で直したあとのファイル（.jpg・.pdf など）が残っていても取得済みとして止める（同じ Mobbin の画面を2人が取って .html で重なった。2026-11-02）
+{ const base = `${doc}${part ? '_' + part : ''}.`; const dup = fs.existsSync(dir) ? fs.readdirSync(dir).find((f) => f.startsWith(base) && !/_shot\.png$/.test(f)) : null; if (dup && !a.includes('--force')) die(`${path.relative(R, path.join(dir, dup))} は取得済み（取り直すなら --force）`); }
 // --render：JavaScript で組み立てるページを Chromium で描画してから保存する（2026-10-30 オーナーの承認）。描画後の HTML と、画面写真（PNG、part に _shot を付けた別の記録）を残す
 // --viewport 390x844 で幅と高さ、--full で縦に全部を撮る
 const render = a.includes('--render');

@@ -1,0 +1,27 @@
+1	flows	Copilot Money categorizing a transaction	Copilot（Transaction detail (category) 3、Reviewing a transaction 4、Searching a transaction 3、Tagging a transaction 5）
+2	flows	budgeting app swipe to categorize transactions	Monarch（Customizing categories 9）、Buddy（Browse all categories 4）、Copilot（Spending categories 2）、Cleo（Edit categories 3）、YNAB（Reorder categories 4）— スワイプの仕分けは0
+3	screens deep	finance app swipe card left or right to sort transactions	Cleo, Cleo AI, Cash App
+4	flows	Cleo swipe right to keep a bill swipe left to ditch subscription	Cleo（Confirming bills 4、Reviewing upcoming bills 9、Bills due 3）
+5	flows	Monarch Money reviewing and recategorizing transactions	Monarch（Preferences 3、Customizing categories 9、Filtering transactions 6、Transaction detail 3）
+6	flows	YNAB assigning money to categories	YNAB（Editing amount 4、Assigning money 6、Auto-assigning a category 3、Spotlight 3）
+7	screens deep	drag and drop a card into a bucket or folder to categorize	Numo, Klarna, Weverse, Behance, Character AI, Peloton Strength+, Linktree, SiriusXM, The Weather Channel, Insight Timer, TIDE, Google — 12件すべて「並べ替え」で、箱へ入れる分類は0
+8	flows	swipe through photos to keep or delete cleanup	Google Photos（View a large size photo 6、Deleting a photo (storage) 7）、Apple Photos（Deleting photos 5）、GoPro Quik（Deleting media 5）
+9	screens deep (web)	accounting app categorize bank transaction match to account suggestion	Mercury, QuickBooks, YNAB, Xero, Rocket Money, Midday, Copilot, Quicken, Monarch, Expensify
+10	flows (web)	Xero reconciling a bank statement line	Xero（Importing bank statement 11、Reconciling a transaction 9、Creating a reconcile period 5）
+11	flows	splitting a transaction into multiple categories	Monarch（Adding a split transaction 8）、Quicken（Adding split transaction 4）、Copilot（Splitting a transaction 4）、Origin（Splitting a transaction 5）
+12	flows	flashcards swipe to sort know and still learning	Quizlet（Completing a flashcard set 7、Sorting flashcard sets 3、Deleting a flashcard 3）
+13	screens deep	what-if simulator slider shows projected outcome before deciding	Plum, Redfin, Monzo, Cleo AI（第1回 M14 と同じ画面）, MyFitnessPal, Shopee, Lifesum, Stake, Brilliant, BitePal, Crypto.com, Acorns
+14	flows	comparing two plans side by side before choosing	Unfold（Compare plans 2）、Monzo（Comparing plans 6）、KOHO（Plans 4）、Citizen（Compare plans 2）— 多くは課金の頁
+15	screens deep	restaurant inventory stock levels with low stock warning and reorder	Shopify, alias, Woolworths, Squarespace, Peerspace, Walmart, Thrive Market, Yami, Recime, Swiggy, Bevel, YNAB — 飲食の在庫の画面は0、小売の在庫と再注文
+16	screens deep (web)	create purchase order from supplier with quantities and total cost	Programa, Fresha, Shopify, AWS, Xero, Navan, Deel, QuickBooks, Melio, Contra
+17	screens deep	build your own bowl customization with ingredients and running price（第1回の CHOPT を除く）	sweetgreen, Wonder, CHOPT, Chipotle, Uber Eats, Subway, Skip, Starbucks, Shopee, Keeta, Cal AI, foodpanda
+18	screens deep	event card with unexpected news and choice of how to respond in a game	NFL, Riot Mobile, Duolingo ABC, Google Arts & Culture, Posh, Cleo, Paired, Meta Quest, Tolan, mymind, Discord, Formula 1
+19	flows	undo action from snackbar after deleting or archiving	Gmail（Archiving an email 2）、Matter（Archiving queues 4）、LinkedIn（Archiving a conversation 2）、Google Home（Deleting a message 3）
+20	screens deep	map with pins of nearby restaurants and a store card at the bottom	Resy, Wolt Delivery, Blackbird, TheFork, Apple Maps, DoorDash, Microsoft Copilot, corner, Skip, Zesty
+21	screens deep	isometric room or shop you decorate by placing furniture items	Replika, Google Arts & Culture, Duolingo, Tolan, Philips Hue, Finch, Fi, YouTube, IKEA, Fable, Meta Quest, Airbnb（この結果に Mobbin の AI 利用の知らせ：credits_used 305）
+22	screens deep	leaderboard comparing my business with nearby competitors ranking（第1回のリーグ4枚を除く）	corner, Crypto.com, Forest, Bump, Brilliant, Hevy, Abode, Fetch, Tonal, Vivino
+23	screens deep	Monarch cash flow sankey diagram income to expenses	（0件）
+24	screens standard (web)	sankey flow chart showing where money goes	Snowflake, Meetup, Square, Calendly, Mercury, Klaviyo, Copilot, HoneyBook
+25	flows	approving or rejecting expense requests one by one	Airwallex（Rejecting a spend request 7、Reimbursement item detail 3）、Remote Global HR（Expenses 4）、Revolut Business（Approving a request 2）
+26	screens standard	Uber Eats build your own munchie meal choose your entree（書き手の取り違えの確かめ）	Uber Eats ×3
+27	screens deep	you got paid celebration screen with money received	Ladder, Everyday Rewards, Apple Wallet, Fresha, Cash App, Bloomberg, Zip, Wise

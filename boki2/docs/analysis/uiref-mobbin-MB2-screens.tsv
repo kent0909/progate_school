@@ -1,0 +1,118 @@
+id	app	domain	label	mobbin_url
+8d99b66f-6b36-4994-bce1-49e51c06c9ef	Copilot	家計	Reviewing a transaction 1/4	https://mobbin.com/flows/29c464c7-82f7-4af9-b1c6-2996f535e515
+baeed91c-a61c-42ff-9370-883b755c77ae	Copilot	家計	Reviewing a transaction 2/4	https://mobbin.com/flows/29c464c7-82f7-4af9-b1c6-2996f535e515
+5ebf5abc-02b1-4874-b430-7388635ae074	Copilot	家計	Reviewing a transaction 3/4	https://mobbin.com/flows/29c464c7-82f7-4af9-b1c6-2996f535e515
+0e7388f4-b89e-4806-9a11-5627c7fcf3e1	Copilot	家計	Reviewing a transaction 4/4	https://mobbin.com/flows/29c464c7-82f7-4af9-b1c6-2996f535e515
+e6fe4340-7a37-48d0-bf3a-47638a72bf31	Copilot	家計	Transaction detail (category) 2/3	https://mobbin.com/flows/487aa120-1b3b-49dc-969e-7892b9749096
+f1778c3a-ee4e-4bd7-960b-52db273f15d2	Copilot	家計	Transaction detail (category) 1/3	https://mobbin.com/flows/487aa120-1b3b-49dc-969e-7892b9749096
+89466e6b-d12b-407e-a8ae-2a6bc1fc579a	Cleo	家計	Edit categories 2/3	https://mobbin.com/flows/e7cc3fe9-c50a-410a-adf9-c73f4be7c9fb
+35656b22-a704-4b52-8cd0-9ae4c8addf3d	Cleo	家計	Edit categories 3/3	https://mobbin.com/flows/e7cc3fe9-c50a-410a-adf9-c73f4be7c9fb
+05f44de1-5a20-4bc4-b849-746680f91834	Buddy	家計	Browse all categories 1/4	https://mobbin.com/flows/0da6b259-ff4a-43b6-a24e-daec4d8d2f98
+0e922147-2e98-47e3-a352-e0c2548bb20e	Buddy	家計	Browse all categories 2/4	https://mobbin.com/flows/0da6b259-ff4a-43b6-a24e-daec4d8d2f98
+7a1d7cb1-9eec-4112-bdfc-5b6167ed1feb	Cleo	家計	Reviewing upcoming bills 1/9	https://mobbin.com/flows/4afc2eab-1d7b-4674-acff-d64fe0e63ec9
+b812a2ef-a69f-4a3e-95cf-896bef880cd8	Cleo	家計	Reviewing upcoming bills 2/9	https://mobbin.com/flows/4afc2eab-1d7b-4674-acff-d64fe0e63ec9
+d73f5da7-4c63-4008-8643-f307bd080c02	Cleo	家計	Reviewing upcoming bills 3/9	https://mobbin.com/flows/4afc2eab-1d7b-4674-acff-d64fe0e63ec9
+9d375a82-786e-49bf-b60c-6b07de6bd728	Cleo	家計	Reviewing upcoming bills 4/9	https://mobbin.com/flows/4afc2eab-1d7b-4674-acff-d64fe0e63ec9
+edda1f12-1737-4f6c-8af1-9b9c21609085	Cleo	家計	Reviewing upcoming bills 5/9	https://mobbin.com/flows/4afc2eab-1d7b-4674-acff-d64fe0e63ec9
+0c454f50-2831-4dc0-bf95-9a75b58dcbca	Cleo	家計	Reviewing upcoming bills 6/9	https://mobbin.com/flows/4afc2eab-1d7b-4674-acff-d64fe0e63ec9
+b915a84c-f94d-4d4e-8e0c-f016bdefef4e	Cleo	家計	Reviewing upcoming bills 7/9	https://mobbin.com/flows/4afc2eab-1d7b-4674-acff-d64fe0e63ec9
+39d6b9d5-1a21-4085-bb29-45d0609a5680	Cleo	家計	Reviewing upcoming bills 8/9	https://mobbin.com/flows/4afc2eab-1d7b-4674-acff-d64fe0e63ec9
+2b734396-0b39-4d58-b282-9977d45f623a	Cleo	家計	Reviewing upcoming bills 9/9	https://mobbin.com/flows/4afc2eab-1d7b-4674-acff-d64fe0e63ec9
+a822a300-6318-4db7-8e54-a4a42ab91626	Cleo	家計	Confirming bills 1/4（2月の内訳 In/Out の硬貨の山）	https://mobbin.com/flows/9ff3b17b-4969-4803-9b20-8b03a38f5f77
+a6d10794-203e-4693-ad2c-96e8ce54254b	Cleo AI	家計	Are these all paychecks（スワイプで外す）	https://mobbin.com/screens/a6d10794-203e-4693-ad2c-96e8ce54254b
+79d30b2e-9e94-4d96-889f-08d936562d15	Monarch	家計	Filtering transactions 1/6	https://mobbin.com/flows/7316be7d-a6b8-4cee-985d-d1a6eb49eb08
+10356894-8494-4152-9ddc-e7e676ca0750	Monarch	家計	Filtering transactions 2/6	https://mobbin.com/flows/7316be7d-a6b8-4cee-985d-d1a6eb49eb08
+94b244ab-7c20-4b1f-a752-d9dee4f2775d	Monarch	家計	Filtering transactions 3/6	https://mobbin.com/flows/7316be7d-a6b8-4cee-985d-d1a6eb49eb08
+0e67293e-fade-4311-811f-e3efc8f7b230	Monarch	家計	Filtering transactions 4/6	https://mobbin.com/flows/7316be7d-a6b8-4cee-985d-d1a6eb49eb08
+1c4c8931-47f1-42df-8a6c-2c24b6a6cdc7	Monarch	家計	Filtering transactions 5/6	https://mobbin.com/flows/7316be7d-a6b8-4cee-985d-d1a6eb49eb08
+457e2184-a004-40e9-b75b-77afc37d42d3	Monarch	家計	Filtering transactions 6/6	https://mobbin.com/flows/7316be7d-a6b8-4cee-985d-d1a6eb49eb08
+000a1e05-3de9-4d2c-b54f-5771d0d0e25e	Monarch	家計	Transaction detail 2/3	https://mobbin.com/flows/5733fcee-477f-474d-98f0-6005e1c24280
+efe642f7-5c0f-42d1-bf07-11af2336fcdb	Monarch	家計	Preferences 2/3（Needs Review の決まり）	https://mobbin.com/flows/a740288f-ff16-4d39-adff-f5b1b0d7f53b
+e4798a83-cd7c-444f-8929-0eda37637013	YNAB	家計	Assigning money 1/6	https://mobbin.com/flows/4214291a-a93f-45b9-aa14-c1272861321d
+58dff4a5-ec23-41e0-a22e-fdcc12757579	YNAB	家計	Assigning money 2/6	https://mobbin.com/flows/4214291a-a93f-45b9-aa14-c1272861321d
+2db151ae-64c7-48dd-a696-66ef10d6e774	YNAB	家計	Assigning money 3/6	https://mobbin.com/flows/4214291a-a93f-45b9-aa14-c1272861321d
+8aa01ad2-5822-4a9c-be54-9135a47529be	YNAB	家計	Assigning money 4/6	https://mobbin.com/flows/4214291a-a93f-45b9-aa14-c1272861321d
+6396d7d9-50dc-4b66-aa21-6808e8d37c82	YNAB	家計	Assigning money 5/6	https://mobbin.com/flows/4214291a-a93f-45b9-aa14-c1272861321d
+15747c12-b670-42aa-81b9-d9b4d1998c5a	YNAB	家計	Assigning money 6/6	https://mobbin.com/flows/4214291a-a93f-45b9-aa14-c1272861321d
+2ba4c88c-74f3-4856-8e0b-e6b100c85a19	YNAB	家計	Auto-assigning a category 2/3	https://mobbin.com/flows/2f01d93b-bd65-47e6-a104-f4e384fee4f2
+a29d4250-9d1a-4d95-bb99-6c5f6cb28178	SiriusXM	片づけ・整理	Edit（押して引いて並べ替え）	https://mobbin.com/screens/a29d4250-9d1a-4d95-bb99-6c5f6cb28178
+5b4d61e9-1fd4-469b-8e32-cd9f9f565fcf	The Weather Channel	片づけ・整理	Customize Your Activities（引いて並べ替え）	https://mobbin.com/screens/5b4d61e9-1fd4-469b-8e32-cd9f9f565fcf
+335005bc-aa41-4aa5-995e-112b9af4b4f9	Google Photos	片づけ・整理	View a large size photo（片づけのスワイプ） 1/6	https://mobbin.com/flows/bbf6760f-a1bc-48f8-9bc6-df429d81421e
+ff71c065-00cb-4cf0-afb3-3aaa9a84bca2	Google Photos	片づけ・整理	View a large size photo（片づけのスワイプ） 2/6	https://mobbin.com/flows/bbf6760f-a1bc-48f8-9bc6-df429d81421e
+81e1c9b4-ef1d-4dd6-bf9c-568f63698a61	Google Photos	片づけ・整理	View a large size photo（片づけのスワイプ） 3/6	https://mobbin.com/flows/bbf6760f-a1bc-48f8-9bc6-df429d81421e
+5774ee10-df28-4ff4-8363-9b3688cad2d1	Google Photos	片づけ・整理	View a large size photo（片づけのスワイプ） 4/6	https://mobbin.com/flows/bbf6760f-a1bc-48f8-9bc6-df429d81421e
+812ba62d-7097-4c6b-8be1-65b961a201a9	Google Photos	片づけ・整理	View a large size photo（片づけのスワイプ） 5/6	https://mobbin.com/flows/bbf6760f-a1bc-48f8-9bc6-df429d81421e
+fe08f11d-55f0-43b7-a506-2acc10e4bc26	Google Photos	片づけ・整理	View a large size photo（片づけのスワイプ） 6/6	https://mobbin.com/flows/bbf6760f-a1bc-48f8-9bc6-df429d81421e
+b5b9a184-bd88-48e7-ba5a-f3f151278cc2	Mercury	業務の会計・経費	Transactions（分類と Journal Entry の切り替え, web）	https://mobbin.com/screens/b5b9a184-bd88-48e7-ba5a-f3f151278cc2
+8b515fbd-8bbf-4bc2-b753-c0b62df38fa2	QuickBooks	業務の会計・経費	Bank transactions（Match/Categorise, web）	https://mobbin.com/screens/8b515fbd-8bbf-4bc2-b753-c0b62df38fa2
+325fffea-71f9-4c44-8109-c1476771616f	YNAB	家計	All Accounts（This needs a category, web）	https://mobbin.com/screens/325fffea-71f9-4c44-8109-c1476771616f
+18e0c767-a227-464b-a1a6-856881a7b9fa	Xero	業務の会計・経費	Reconcile（明細の行と Who/What/Why, web）	https://mobbin.com/screens/18e0c767-a227-464b-a1a6-856881a7b9fa
+f5b4a2cc-77d8-4a1c-82db-32dbc9b38374	Expensify	業務の会計・経費	Default Categories（MCC→科目の決まり, web）	https://mobbin.com/screens/f5b4a2cc-77d8-4a1c-82db-32dbc9b38374
+b433257a-a7a0-4249-a4a5-04e2681d1432	Xero	業務の会計・経費	Reconciling a transaction（1）	https://mobbin.com/flows/20b6281b-32f0-4804-bc8e-25782233fa94
+d434009d-5eba-4d42-833b-19e97f3d1fa7	Xero	業務の会計・経費	Reconciling a transaction（2）	https://mobbin.com/flows/20b6281b-32f0-4804-bc8e-25782233fa94
+2b57df0e-4fe6-48ed-af7c-9c2409253c47	Xero	業務の会計・経費	Reconciling a transaction（3）	https://mobbin.com/flows/20b6281b-32f0-4804-bc8e-25782233fa94
+722f15b0-bb7c-4bb3-90b8-0cb41e1cab74	Xero	業務の会計・経費	Reconciling a transaction（4）	https://mobbin.com/flows/20b6281b-32f0-4804-bc8e-25782233fa94
+e194359a-f186-4480-8073-37d9c0390ae5	Xero	業務の会計・経費	Reconciling a transaction（5）	https://mobbin.com/flows/20b6281b-32f0-4804-bc8e-25782233fa94
+85cdec88-2dba-400d-aa56-172760982a9b	Xero	業務の会計・経費	Reconciling a transaction（6）	https://mobbin.com/flows/20b6281b-32f0-4804-bc8e-25782233fa94
+91485894-7e42-497d-949e-bde624d3cd0c	Xero	業務の会計・経費	Reconciling a transaction（7）	https://mobbin.com/flows/20b6281b-32f0-4804-bc8e-25782233fa94
+64f0ada5-9ade-418a-ae10-0f01910461a5	Xero	業務の会計・経費	Reconciling a transaction（8）	https://mobbin.com/flows/20b6281b-32f0-4804-bc8e-25782233fa94
+beb6c16c-ecae-4461-87bd-d95c9d001054	Xero	業務の会計・経費	Creating a reconcile period 5/5（Closed period）	https://mobbin.com/flows/1edad9c0-d75c-409c-8e70-ba77529e6577
+802b848c-9c9c-4f8d-9a56-2392c1163661	Monarch	家計	Adding a split transaction 1	https://mobbin.com/flows/0a0f283a-5b8a-49c1-a107-774992a44de9
+e2878dfd-981d-4019-bea2-b403dbf1efa2	Monarch	家計	Adding a split transaction 2	https://mobbin.com/flows/0a0f283a-5b8a-49c1-a107-774992a44de9
+b0d85ef3-3bb1-4369-924c-6fa501442185	Monarch	家計	Adding a split transaction 3	https://mobbin.com/flows/0a0f283a-5b8a-49c1-a107-774992a44de9
+31f30340-cc9d-4222-bd97-d51611da2f23	Monarch	家計	Adding a split transaction 4	https://mobbin.com/flows/0a0f283a-5b8a-49c1-a107-774992a44de9
+00af44d3-cfd0-4cb1-8b0f-26cf2eda8ee6	Monarch	家計	Adding a split transaction 5	https://mobbin.com/flows/0a0f283a-5b8a-49c1-a107-774992a44de9
+c59cd911-7ee3-4058-8bd7-560348827f87	Monarch	家計	Adding a split transaction 6	https://mobbin.com/flows/0a0f283a-5b8a-49c1-a107-774992a44de9
+bd4785a8-2499-4f95-9ea5-4ff6ab39964c	Monarch	家計	Adding a split transaction 7	https://mobbin.com/flows/0a0f283a-5b8a-49c1-a107-774992a44de9
+2cbade55-1f55-4aea-8daf-90e284b0f2e5	Quicken	家計	Adding split transaction 1	https://mobbin.com/flows/d540e38b-aab2-40c9-ac22-40c6108edc53
+76fa502a-dc67-4b51-9140-d8b091a1d521	Quicken	家計	Adding split transaction 2	https://mobbin.com/flows/d540e38b-aab2-40c9-ac22-40c6108edc53
+3b699b56-4cce-4ad6-8c7e-89ef58dbbe84	Quicken	家計	Adding split transaction 3	https://mobbin.com/flows/d540e38b-aab2-40c9-ac22-40c6108edc53
+b437dd7f-d3ce-4e92-b9d3-8a21e193ed6b	Quicken	家計	Adding split transaction 4	https://mobbin.com/flows/d540e38b-aab2-40c9-ac22-40c6108edc53
+1ae4ac51-0c47-4c59-804f-6ecce7cdaadf	Copilot	家計	Splitting a transaction 1	https://mobbin.com/flows/20c05efa-e379-446c-ba45-d19525a98764
+ea307f13-0255-4b7d-a6ca-18db31407f9d	Copilot	家計	Splitting a transaction 2	https://mobbin.com/flows/20c05efa-e379-446c-ba45-d19525a98764
+b945aba6-956f-47a7-973f-f37c4159e8e0	Copilot	家計	Splitting a transaction 3	https://mobbin.com/flows/20c05efa-e379-446c-ba45-d19525a98764
+98362fa0-3d46-424b-88c8-6805491d7f50	Quizlet	学び	Completing a flashcard set 1	https://mobbin.com/flows/6e6d62b6-eadd-492e-86bc-8e893d074802
+a6fa907d-6b71-4ae5-89d8-0c67e196bd09	Quizlet	学び	Completing a flashcard set 2	https://mobbin.com/flows/6e6d62b6-eadd-492e-86bc-8e893d074802
+80a4c6a5-566b-4005-a227-16ff5eac01e0	Quizlet	学び	Completing a flashcard set 3	https://mobbin.com/flows/6e6d62b6-eadd-492e-86bc-8e893d074802
+5dacac8f-b958-417c-bae8-e70c4ac3273f	Quizlet	学び	Completing a flashcard set 4	https://mobbin.com/flows/6e6d62b6-eadd-492e-86bc-8e893d074802
+818753de-b0a1-4e66-b033-95298fa217c4	Quizlet	学び	Completing a flashcard set 5	https://mobbin.com/flows/6e6d62b6-eadd-492e-86bc-8e893d074802
+f0707e72-e036-47fa-8f58-99e2387ba0ff	Quizlet	学び	Completing a flashcard set 6	https://mobbin.com/flows/6e6d62b6-eadd-492e-86bc-8e893d074802
+20636ebc-0eec-4627-9917-7a9c1dd91f74	Quizlet	学び	Completing a flashcard set 7	https://mobbin.com/flows/6e6d62b6-eadd-492e-86bc-8e893d074802
+af24a9b8-c6eb-4097-ac80-c2f1f2ded4e3	Redfin	銀行・投資	Affordability Calculator	https://mobbin.com/screens/af24a9b8-c6eb-4097-ac80-c2f1f2ded4e3
+a196ebe3-0c04-4b4e-8241-201b961696a7	Monzo	銀行・投資	投資の見込み（幅つき）	https://mobbin.com/screens/a196ebe3-0c04-4b4e-8241-201b961696a7
+75324601-2929-4219-a6fe-3110888e9aeb	Shopee	銀行・投資	Loan Simulation	https://mobbin.com/screens/75324601-2929-4219-a6fe-3110888e9aeb
+7df5c89a-cc35-4e23-9aa6-c26cac73678c	Brilliant	学び	釣り合いの棒（方程式）	https://mobbin.com/screens/7df5c89a-cc35-4e23-9aa6-c26cac73678c
+52067204-a95e-43b0-b8c9-011c736417bb	BitePal	健康・習慣	速さの選び（Recommended）	https://mobbin.com/screens/52067204-a95e-43b0-b8c9-011c736417bb
+56c0f428-eb63-4cb2-8f66-f2a92ab61bc9	Monzo	銀行・投資	Comparing plans 1	https://mobbin.com/flows/7d40e3ff-19c0-47ca-a8f7-9e554d3f78b8
+8248afc0-6363-46a0-b845-fda5e2b05ad9	Monzo	銀行・投資	Comparing plans 2	https://mobbin.com/flows/7d40e3ff-19c0-47ca-a8f7-9e554d3f78b8
+dee30ae9-d5ee-4948-9cfe-7e68c6e4dc07	Monzo	銀行・投資	Comparing plans 3	https://mobbin.com/flows/7d40e3ff-19c0-47ca-a8f7-9e554d3f78b8
+78129b1d-65a8-4e90-907f-b112f819f4f6	Shopify	店の業務（在庫・発注）	Inventory（数の増減）	https://mobbin.com/screens/78129b1d-65a8-4e90-907f-b112f819f4f6
+c9a96ef6-03f8-4122-b08b-117204c2f2a2	Thrive Market	店の業務（在庫・発注）	品切れと代わりの品	https://mobbin.com/screens/c9a96ef6-03f8-4122-b08b-117204c2f2a2
+5528f405-0e95-4df2-90ff-6457bbf9ce15	Shopify	店の業務（在庫・発注）	Create purchase order（web）	https://mobbin.com/screens/5528f405-0e95-4df2-90ff-6457bbf9ce15
+e838b7af-a035-4d7d-944f-5e02a52ce379	Xero	業務の会計・経費	New Bill（行ごとに Account、web）	https://mobbin.com/screens/e838b7af-a035-4d7d-944f-5e02a52ce379
+0d630f70-79ce-485f-a335-ee62fb74d30c	Chipotle	飲食の注文	Build Your Burrito	https://mobbin.com/screens/0d630f70-79ce-485f-a335-ee62fb74d30c
+d58fe905-4961-4f07-a6f5-279a7da50e59	Wonder	飲食の注文	0/2 の数え	https://mobbin.com/screens/d58fe905-4961-4f07-a6f5-279a7da50e59
+05a75920-f79f-4f0a-b953-d91bdb0d98fb	sweetgreen	飲食の注文	具の札	https://mobbin.com/screens/05a75920-f79f-4f0a-b953-d91bdb0d98fb
+5b3c4dd9-00f8-4ca7-847a-2a8f4b6857e1	Google Arts & Culture	部屋・世界の絵	部屋の絵と選択の札	https://mobbin.com/screens/5b3c4dd9-00f8-4ca7-847a-2a8f4b6857e1
+a8c724bd-26fe-4105-a82c-5ebb7fcbcd3a	Formula 1	ゲーム的な予想・順位	予想の札（YES/NO と点）	https://mobbin.com/screens/a8c724bd-26fe-4105-a82c-5ebb7fcbcd3a
+22fa4170-49a0-45b8-bde3-474c27e4492e	mymind	片づけ・整理	Forget/Keep と取り消しの知らせ	https://mobbin.com/screens/22fa4170-49a0-45b8-bde3-474c27e4492e
+d5187615-adaf-4a7d-ba16-c75ac4799634	Gmail	片づけ・整理	Message archived Undo	https://mobbin.com/flows/799af6fc-dfc0-4c73-b3ba-25763a261253
+df93ead5-408c-46ee-8099-40ac61f061da	Matter	片づけ・整理	2 items archived Undo	https://mobbin.com/flows/a5be7aef-c749-4c38-b55b-50023c3d577a
+6869f280-374f-4d61-a7a1-791fe0ea3ab4	TheFork	地図	点数と割引のピン	https://mobbin.com/screens/6869f280-374f-4d61-a7a1-791fe0ea3ab4
+ef125d25-1074-43b1-aa75-d643acc4ffc1	Apple Maps	地図	数つきのまとまりのピン	https://mobbin.com/screens/ef125d25-1074-43b1-aa75-d643acc4ffc1
+a93712a5-9bf3-4459-a59a-004f29b8b0a6	Skip	地図	店の印のピンと点数の札	https://mobbin.com/screens/a93712a5-9bf3-4459-a59a-004f29b8b0a6
+ff560597-4452-4581-9ae3-557360a35206	DoorDash	地図	店の札と来店の印	https://mobbin.com/screens/ff560597-4452-4581-9ae3-557360a35206
+ec23b20f-835e-49d4-aaf6-006299baa54b	Google Arts & Culture	部屋・世界の絵	等角の部屋の断面に物を置く	https://mobbin.com/screens/ec23b20f-835e-49d4-aaf6-006299baa54b
+8461968f-48e3-4870-980c-3c140c07fcdb	Philips Hue	部屋・世界の絵	等角の部屋に明かりを置く	https://mobbin.com/screens/8461968f-48e3-4870-980c-3c140c07fcdb
+7966062b-2480-48b7-abce-d868ca9eb345	Finch	健康・習慣	家具の店とキャラの吹き出し	https://mobbin.com/screens/7966062b-2480-48b7-abce-d868ca9eb345
+acc72465-033d-4339-a896-87295db18b07	Fi	部屋・世界の絵	家の断面の線画	https://mobbin.com/screens/acc72465-033d-4339-a896-87295db18b07
+88393975-8ac9-4b99-bae5-c12a943287b9	Bump	ゲーム的な予想・順位	地域の順位と自分の差	https://mobbin.com/screens/88393975-8ac9-4b99-bae5-c12a943287b9
+1b028e6a-46d9-4a26-8350-73c36ecbf607	corner	ゲーム的な予想・順位	町と全体の切り替えの順位	https://mobbin.com/screens/1b028e6a-46d9-4a26-8350-73c36ecbf607
+10e9460a-1e44-4361-afe6-e0e9d857e6d9	Mercury	業務の会計・経費	Insights（入りと出の流れの図, web）	https://mobbin.com/screens/10e9460a-1e44-4361-afe6-e0e9d857e6d9
+9a34e3c2-65fa-49e0-9a6f-5833c749d333	Revolut Business	業務の会計・経費	Approving a request 1/2	https://mobbin.com/flows/1ab1004a-0d7a-4b2f-bfed-8101a3c6d8a5
+92523bcc-943b-4b63-b82b-01106b6ea268	Revolut Business	業務の会計・経費	Approving a request 2/2	https://mobbin.com/flows/1ab1004a-0d7a-4b2f-bfed-8101a3c6d8a5
+06b8c573-c826-44a5-9311-a1075fd57308	Airwallex	業務の会計・経費	Rejecting a spend request 7/7	https://mobbin.com/flows/a46f488f-dda2-4906-ac3b-406215df86a1
+29b835da-3f61-49a1-b3a6-448b5e23d949	Airwallex	業務の会計・経費	Reimbursement item detail 2/3	https://mobbin.com/flows/05c01e8d-c8bf-43fb-b270-a64553fe7679
+df9e20e9-2391-4de2-a795-25bbbad0f089	Uber Eats	飲食の注文	Build Your Own Munchie Meal（必須の数と合計）	https://mobbin.com/screens/df9e20e9-2391-4de2-a795-25bbbad0f089
+25fc692d-19a1-4de4-a63f-b0a6ecca0bd6	Apple Wallet	銀行・投資	支払いの完了と反映の予告	https://mobbin.com/screens/25fc692d-19a1-4de4-a63f-b0a6ecca0bd6
+d92c0617-9f5c-4a0e-9b13-03084bf3157f	Cash App	銀行・投資	はじめての購入の祝い	https://mobbin.com/screens/d92c0617-9f5c-4a0e-9b13-03084bf3157f
