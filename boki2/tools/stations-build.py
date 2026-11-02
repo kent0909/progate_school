@@ -24,8 +24,8 @@ OUT = opt('--out', os.path.join(ROOT, 'js', 'data', 'tokyo23.js'))
 REPORT = opt('--report')
 
 JM = ('東日本旅客鉄道', '東京地下鉄')
-# --ops jm（JR とメトロだけ）／all（23区の中の全事業者の駅。判定 H3：JR とメトロだけだと世田谷区に駅が0）
-OPS_MODE = opt('--ops', 'jm')
+# --ops all（23区の中の全事業者の駅。標準）／jm（JR とメトロだけ。判定 H3：世田谷区に駅が0）
+OPS_MODE = opt('--ops', 'all')  # 版0.3：オーナーの決定（10/30）で全事業者が標準
 OPS = JM if OPS_MODE == 'jm' else None
 inops = lambda op: OPS is None or op in OPS
 SHORT = {'東日本旅客鉄道': 'JR', '東京地下鉄': 'メトロ', '東京都': '都営', '東急電鉄': '東急', '小田急電鉄': '小田急', '京王電鉄': '京王', '西武鉄道': '西武', '東武鉄道': '東武', '京成電鉄': '京成', '京浜急行電鉄': '京急', '首都圏新都市鉄道': 'TX', '東京臨海高速鉄道': 'りんかい', 'ゆりかもめ': 'ゆりかもめ', '東京モノレール': 'モノレール', '東海旅客鉄道': 'JR東海', '北総鉄道': '北総', '埼玉高速鉄道': '埼玉高速'}
@@ -139,8 +139,49 @@ for s in stations:
   s['by'] = dict(by)
   s['all'] = sum(by.values())
   s['jm'] = sum(v for k, v in by.items() if k in JM)
-  s['pins'] = next(n for th, n in PIN_TIERS if s['all'] >= th)
-stations.sort(key=lambda s: -s['all'])
+# 名前の違う同じ乗り換え駅（浜松町・モノレール浜松町・大門、など）を1駅にまとめる（版0.3、判定 v02 N2）。
+# 中心の駅（乗降客数の多い順）の重心から XFER_M 以内の駅を1つにする。名前は乗降客数のいちばん多い駅、ほかは別名（aliases）に残す
+XFER_M = int(opt('--xfer', '300'))
+merged = []
+if XFER_M > 0:
+  # 鎖のようにつなげると別の駅まで1つになる（湯島が御徒町に入る）ので、乗降客数の多い駅を中心にして、中心から XFER_M 以内だけを入れる
+  hubs, groups = [], collections.OrderedDict()
+  for st in sorted(stations, key=lambda st: -st['all']):
+    h = next((h for h in hubs if dist_m(st['pt'], h['pt']) < XFER_M), None)
+    if h is None: hubs.append(st); groups[id(st)] = [st]
+    else: groups[id(h)].append(st)
+  out = []
+  for g in groups.values():
+    g.sort(key=lambda st: -st['all'])
+    m = g[0]
+    if len(g) > 1:
+      m['aliases'] = [st['name'] for st in g[1:]]
+      for st in g[1:]:
+        m['pts'] += st['pts']; m['ops'] |= st['ops']; m['wards'] += st['wards']
+        for k in st['lines']: m['lines'][k] = 1
+        for k, v in st['by'].items(): m['by'][k] = m['by'].get(k, 0) + v
+      m['pt'] = (sum(q[0] for q in m['pts']) / len(m['pts']), sum(q[1] for q in m['pts']) / len(m['pts']))
+      m['all'] = sum(m['by'].values()); m['jm'] = sum(v for k, v in m['by'].items() if k in JM)
+      merged.append([st['name'] for st in g])
+    out.append(m)
+  stations = out
+# 2025年の鉄道データ（N02-25）に駅がなく、乗降客数も0の駅（廃止。上野懸垂線の上野動物園東園・西園）は除く（判定 v04 の中の指摘）。
+# 乗降客数0でも駅が残るもの（とうきょうスカイツリー：数が押上の側に入る）は残す
+_n02s = zip_geojson('N02-25', 'N02-25_Station.geojson')
+N02_NAMES = {f['properties']['N02_005'] for f in _n02s['features']}
+DROPPED = [st['name'] for st in stations if st['all'] == 0 and st['name'] not in N02_NAMES]
+stations = [st for st in stations if not (st['all'] == 0 and st['name'] not in N02_NAMES)]
+# 乗り換えを除いた人通り（11/2 オーナーの決定）：乗降客数の和 × 補正の係数 adj（tools/data/footfall-adj.json。
+# 作り方は docs/analysis/footfall23-count.py の出口、BIZ-FOOTFALL23 9節：センサス第13回の改札の出入り÷和を、単独事業者の駅の中央値で割り1で頭打ち）。
+# 係数のない駅（D13 が0・メッシュの値がない）は 1（和のまま）
+FF_PATH = os.path.join(ROOT, 'tools', 'data', 'footfall-adj.json')
+FF = json.load(open(FF_PATH, encoding='utf-8'))['stations'] if os.path.exists(FF_PATH) and opt('--no-footfall') is None and '--no-footfall' not in args else {}
+for s in stations:
+  f = FF.get(s['name'])
+  s['adj'] = f['adj'] if f else 1.0
+  s['foot'] = round(s['all'] * s['adj'])
+  s['pins'] = s['tier'] = next(n for th, n in PIN_TIERS if s['foot'] >= th)  # tier：乗り換えを除いた人通りの段（閑静の枠で pins が増えても変わらない）
+stations.sort(key=lambda s: -s['foot'])
 for i, s in enumerate(stations): s['id'] = f's{i + 1:03d}'
 
 # ---------- 候補地（地価公示） ----------
@@ -179,9 +220,25 @@ def quad(s, q):
 
 
 used, got = set(), {s['id']: [] for s in stations}
+# 閑静な住宅地の枠（版0.5、オーナーの決定 10/30「その駅に実際にそういうエリアがあるなら入れる」）：
+# 段5以上の駅（乗り換えを除いて1日25万人以上。11/2 段の数え方を変えたので6→5）で、重心から QUIET_M 以内に「閑静・大規模住宅・区画整然」と書かれた住宅地の地点があれば、地価のいちばん高い所を1本足す
+# （渋谷なら松濤1丁目）。無い駅には足さない。普通のピンの巡回より先に取る（先に取らないと、近くの駅の普通のピンに取られる）
+QUIET_M = 1200
+QUIET_RE = re.compile(r'閑静|大規模住宅|区画整然')
+quiet = []
+for s in stations:
+  if s['tier'] < 5: continue
+  c = [(q['price'], dist_m((q['lat'], q['lon']), s['pt']), i) for i, q in enumerate(pts)
+       if i not in used and q['type'] == 'jutaku' and QUIET_RE.search(q['desc'] or '') and dist_m((q['lat'], q['lon']), s['pt']) <= QUIET_M]
+  if not c: continue
+  pr, d, i = max(c)
+  used.add(i); got[s['id']].append((d, i)); pts[i]['quiet'] = True; s['pins'] += 1
+  quiet.append(f"{s['name']}:{pts[i]['town']}")
+
 for k in range(max(s['pins'] for s in stations)):
   for s in stations:
-    if s['pins'] <= k: continue
+    n = len(got[s['id']])
+    if n >= s['pins'] or n > k: continue  # 持っている本数で数える（閑静の枠を先に持つ駅がある）。1巡に1本
     free = [(d, i) for d, i in cand[s['id']] if i not in used]
     if not free: continue
     have = {pts[i]['type'] for _, i in got[s['id']]}
@@ -212,7 +269,7 @@ for s in stations:
   for k, q in enumerate(chosen):
     ward, town = q['ward'], q['town']
     x, y = xy(q['lat'], q['lon'])
-    sites.append({'id': f"{s['id']}-{k + 1}", 'st': s['id'], 'town': town, 'ward': ward, 'type': q['type'], 'x': x, 'y': y, 'walk': q['walkm'], 'price': q['price'], 'zone': q['zone'], 'desc': q['desc'], 'l01': q['no']})
+    sites.append({'id': f"{s['id']}-{k + 1}", 'st': s['id'], 'town': town, 'ward': ward, 'type': q['type'], 'x': x, 'y': y, 'walk': q['walkm'], 'price': q['price'], 'zone': q['zone'], 'desc': q['desc'], 'l01': q['no'], **({'quiet': True} if q.get('quiet') else {})})
 
 # ---------- 地図の線 ----------
 def coords(geom, tol):
@@ -241,7 +298,7 @@ line_out = [{'op': short(op), 'name': nm, 'paths': ps} for (op, nm), ps in sorte
 st_out = []
 for s in stations:
   x, y = xy(*s['pt'])
-  st_out.append({'id': s['id'], 'name': s['name'], 'x': x, 'y': y, 'ward': ward_name[s['wards'].most_common(1)[0][0]], 'riders': s['all'], 'ridersJM': s['jm'], 'pins': s['pins'],
+  st_out.append({'id': s['id'], 'name': s['name'], 'aliases': s.get('aliases', []), 'x': x, 'y': y, 'ward': ward_name[s['wards'].most_common(1)[0][0]], 'riders': s['all'], 'foot': s['foot'], 'adj': s['adj'], 'ridersJM': s['jm'], 'pins': s['pins'], 'tier': s['tier'],
                  'lines': [short(op) + ' ' + ln for op, ln in s['lines']], 'byOp': s['by']})
 
 SRC = ('出典：「国土数値情報（駅別乗降客数データ S12-25・鉄道データ N02-25・行政区域データ N03-2026・地価公示データ L01-26・都道府県地価調査データ L02-26）」（国土交通省）'
@@ -254,6 +311,8 @@ open(OUT, 'w', encoding='utf-8').write(js)
 tc = collections.Counter(x['type'] for x in sites)
 print(f"駅 {len(st_out)}（--ops {OPS_MODE}。JRとメトロ両方 {sum(1 for s in stations if set(JM) <= s['ops'])}・JRあり {sum(1 for s in stations if JM[0] in s['ops'])}・メトロあり {sum(1 for s in stations if JM[1] in s['ops'])}・JRもメトロもない {sum(1 for s in stations if not (s['ops'] & set(JM)))}）／区ごとの駅 {dict(collections.Counter(ward_name[s['wards'].most_common(1)[0][0]] for s in stations).most_common())}")
 print(f"ピン 求めた数 {sum(s['pins'] for s in stations)}・置けた数 {len(sites)}・足りない駅 {sum(1 for s in stations if s['short'] > 0)}（足りない数の合計 {sum(s['short'] for s in stations)}）・候補地0の駅 {sum(1 for s in stations if not got[s['id']])}")
+print(f'乗り換え駅のまとめ（{XFER_M}m 以内）{len(merged)}組：' + '／'.join('・'.join(g) for g in merged))
+print(f'閑静な住宅地の枠 {len(quiet)}駅：' + '・'.join(quiet) + f'／乗降客数0で除いた駅：' + '・'.join(DROPPED))
 print(f'地価公示と地価調査の同じ地点 {DUP} をまとめた（候補の地点 {len(pts)}）')
 print('属性', dict(tc), '／路線', len(line_out), '／出力', OUT, f'{len(js) // 1024}KB')
 if REPORT:
