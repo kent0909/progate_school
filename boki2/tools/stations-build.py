@@ -181,7 +181,8 @@ stations = [st for st in stations if not (st['all'] == 0 and st['name'] not in N
 # 作り方は docs/analysis/footfall23-count.py の出口、BIZ-FOOTFALL23 9節：センサス第13回の改札の出入り÷和を、単独事業者の駅の中央値で割り1で頭打ち）。
 # 係数のない駅（D13 が0・メッシュの値がない）は 1（和のまま）
 FF_PATH = os.path.join(ROOT, 'tools', 'data', 'footfall-adj.json')
-FF = json.load(open(FF_PATH, encoding='utf-8'))['stations'] if os.path.exists(FF_PATH) and opt('--no-footfall') is None and '--no-footfall' not in args else {}
+FFALL = json.load(open(FF_PATH, encoding='utf-8')) if os.path.exists(FF_PATH) else {}
+FF = FFALL['stations'] if os.path.exists(FF_PATH) and opt('--no-footfall') is None and '--no-footfall' not in args else {}
 for s in stations:
   f = FF.get(s['name'])
   s['adj'] = f['adj'] if f else 1.0
@@ -227,13 +228,12 @@ def quad(s, q):
 
 used, got = set(), {s['id']: [] for s in stations}
 # 閑静な住宅地の枠（版0.5、オーナーの決定 10/30「その駅に実際にそういうエリアがあるなら入れる」）：
-# 段5以上の駅（乗り換えを除いて1日25万人以上。11/2 段の数え方を変えたので6→5）で、重心から QUIET_M 以内に「閑静・大規模住宅・区画整然」と書かれた住宅地の地点があれば、地価のいちばん高い所を1本足す
+# すべての駅で（11/2 オーナーの決定「なくす」：段の下限をなくした）、重心から QUIET_M 以内に「閑静・大規模住宅・区画整然」と書かれた住宅地の地点があれば、地価のいちばん高い所を1本足す
 # （渋谷なら松濤1丁目）。無い駅には足さない。普通のピンの巡回より先に取る（先に取らないと、近くの駅の普通のピンに取られる）
 QUIET_M = 1200
 QUIET_RE = re.compile(r'閑静|大規模住宅|区画整然')
 quiet = []
 for s in stations:
-  if s['tier'] < 5: continue
   c = [(q['price'], dist_m((q['lat'], q['lon']), s['pt']), i) for i, q in enumerate(pts)
        if i not in used and q['type'] == 'jutaku' and QUIET_RE.search(q['desc'] or '') and dist_m((q['lat'], q['lon']), s['pt']) <= QUIET_M]
   if not c: continue
@@ -275,7 +275,7 @@ for s in stations:
   for k, q in enumerate(chosen):
     ward, town = q['ward'], q['town']
     x, y = xy(q['lat'], q['lon'])
-    sites.append({'id': f"{s['id']}-{k + 1}", 'st': s['id'], 'town': town, 'ward': ward, 'type': q['type'], 'x': x, 'y': y, 'walk': q['walkm'], 'price': q['price'], 'zone': q['zone'], 'desc': q['desc'], 'l01': q['no'], **({'quiet': True} if q.get('quiet') else {})})
+    sites.append({'id': f"{s['id']}-{k + 1}", 'st': s['id'], 'town': town, 'ward': ward, 'type': q['type'], 'x': x, 'y': y, 'walk': q['walkm'], 'price': q['price'], 'zone': q['zone'], 'desc': q['desc'], 'l01': q['no'], **({'quiet': True} if q.get('quiet') else {}), **(FFALL.get('sites', {}).get(q['no']) or {'day': None, 'food': None})})
 
 # ---------- 地図の線 ----------
 def coords(geom, tol):
