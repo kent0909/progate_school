@@ -1,8 +1,8 @@
 {
   "index.html": "4b4b115b1bcda8b0f766dbfc1b61d5e639cdee4094d4b587d981936c0bed0ef9",
   "desk.css": "da983280d0154c371e68884fedf7d284a8fa6029b89e14e537391fbca0ad87ee",
-  "desk.js": "457e70ddcb3fb49ef70792a1abd858dc13243694fd473ca00228e5af1381d68c",
-  "check/run.cjs": "7af154e9f1ad118d7e1972ea2eabfbbcf47f8f3f5e4dd597d8aa0fe68fde3fae",
+  "desk.js": "6a8163c0665c8fa68e972851f64b6cb433361324fe02252930331660ea46fe6a",
+  "check/run.cjs": "cf9b59d3a1923397099be5fadd6eadadd0e3560c8def6fba72227d0c7987f69a",
   "check/inputs.cjs": "3b225b8796c80dd6184ac12ab926445b2e14479efa0a8698b3e84e7fe754ef38",
   "check/gestures.cjs": "75db9c4f2e1b1b3b73f87346c990a42585a8a15d2ea0904498c1b00c8721b246"
 }
