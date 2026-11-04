@@ -177,3 +177,4 @@ QUALITY.md 4.1-1：依頼文にはオーナーの言葉を要約せずに入れ�
 
 ## 2026-11-04 Coffee Inc 2 がベンチマーク
 - 「Coffee inc2がベンチマーク、他のAIに調べさせた。熟読して。」（他のAIの「全9画面のワイヤーフレーム」を貼った）→ 資料42本と突き合わせた確かめ `docs/analysis/coffeeinc2-wireframe-otherAI.md`。UI の設計（DESIGN-UI-IDEAL）がまだ BIZ-COFFEEINC2 を直接読んでいなかったことも報告した
+- 「こんな感じ。写真」（11/04、Coffee Inc 2 の画面写真12枚：週の業績と新聞・週の確かめ・店の経理・宣伝・店長・店の表・口コミ・支社の経理・会社の全店・町の地図・セーブ・タイトル）→ r7-cinc-owner-s01〜s12 に登録、`docs/analysis/coffeeinc2-owner-screens.md`
