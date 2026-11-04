@@ -10,5 +10,25 @@
   "v06DataBlob": "9ca42219913900bf7340cf2cef0d0cd97489598d",
   "definitionsComment": 6570645286,
   "costModeComment": 6619705662,
-  "testedToolSha256": "7a90ed016f2d235d938a0925dd4b2b6de60afd8b40d66e6be95ecda2c69d3568"
+  "frozenStationToolSha256": "7a90ed016f2d235d938a0925dd4b2b6de60afd8b40d66e6be95ecda2c69d3568",
+  "endpointToolSha256": "25a8f51682c51ccc996f6d378f54b4aff30d2ac61ae2200a5f9a25ef9fef3015",
+  "endpointSelfTestExit": 0,
+  "endpointIndependentPinJSONAndCSVByteEqual": true,
+  "endpointPinRecalculation": {
+    "K": 2,
+    "N": 3,
+    "sites": 12,
+    "workers": [
+      2,
+      1
+    ],
+    "memoize": [
+      true,
+      false
+    ],
+    "separateCache": true
+  },
+  "stationEndpointVsFrozenAllSummariesAndExistingCSVEqual": true,
+  "entryModeComment": 6620053704,
+  "rentProjectionDirectMaxTolerance": 1e-06
 }

@@ -1,15 +1,41 @@
 {
   "mode": "random",
-  "trials": 3,
+  "trials": 20,
   "fields": {
-    "rent.R0": [25000, 40000],
-    "rent.b": [0.15, 0.7],
-    "rival.lambdaMultiplier": [0.5, 2.0],
-    "regular.retain.jutaku": [1.1, 1.5],
-    "regular.retain.hanka": [0.5, 0.9],
-    "rival.entryBase": [0.005, 0.02],
-    "rival.entrySuccess": [0.03, 0.15],
-    "hours.kappa": [0.3, 1.0]
+    "rival.lambdaMultiplier": [
+      0.5,
+      2.0
+    ],
+    "regular.retain.jutaku": [
+      1.1,
+      1.5
+    ],
+    "regular.retain.hanka": [
+      0.5,
+      0.9
+    ],
+    "rival.entryBase": [
+      0.005,
+      0.02
+    ],
+    "rival.entrySuccess": [
+      0.03,
+      0.15
+    ],
+    "hours.kappa": [
+      0.3,
+      1.0
+    ]
   },
-  "mandatoryValues": { "rent.b": [0.25, 0.4, 0.55] }
+  "gridFields": {
+    "rent.R0": [
+      25000,
+      40000
+    ],
+    "rent.b": [
+      0.25,
+      0.4,
+      0.55
+    ]
+  }
 }

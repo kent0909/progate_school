@@ -233,18 +233,24 @@ function median(a) {
 }
 function prepareSites(D, p) {
   const st = Object.fromEntries(D.tokyo23.stations.map(s => [s.id, s]));
+  const pins = Object.fromEntries(D.tokyo23.stations.map(t => [t.id, D.tokyo23.sites.filter(s => s.st === t.id).map(s => s.id)]));
   const days = Object.fromEntries(Object.keys(KEY).map(a => [a, median(D.tokyo23.sites.filter(s => s.type === a && s.day != null).map(s => s.day))]));
   return D.tokyo23.sites.map(s => {
     const day = s.day == null ? days[s.type] : s.day;
     if (!Number.isFinite(day) || !Number.isFinite(s.food)) throw Error('day/foodが不正: ' + s.id);
     const night = Math.max(p['hours.nightFloor'], (1 - day) + p['hours.kappa'] * (s.food / p['hours.foodMedian'] - 1));
-    return { ...s, tier: st[s.st].tier, day, dayFilled: s.day == null, lunchWeight: day / (day + night) };
+    return { ...s, stationPins: pins[s.st], tier: st[s.st].tier, day, dayFilled: s.day == null, lunchWeight: day / (day + night) };
   });
 }
 function entryProbability(W, p) {
   const m = W.stationmap, average = m.history.length ? mean(m.history) : 0;
   const success = Math.max(0, Math.min(1, (average - p['rival.successTarget']) / p['rival.successTarget'])) * (W.stores[0].R / 3);
   return Math.min(1, p['rival.entryBase'] * m.lambda + p['rival.entrySuccess'] * success);
+}
+
+function entryPin(site, seed) {
+  const pins = site.stationPins || [site.id];
+  return pins[Math.floor(global.SIMDATA.rng(seed)() * pins.length)];
 }
 
 function siteFactors(s, p) {
@@ -276,26 +282,27 @@ function makeWorld(D, site, open, cal, seed, p, parts = 1, hours = 'both') {
   W.stores[0].R = p['reference.reputation']; W.stores[0].price = p['reference.price']; W.stores[0].parts = parts;
   W.stores[0].regularBands = [0, 0];
   W.stationmap = { attribute: site.type, lunchWeight: site.lunchWeight, hours, previousHours: 'both', lambda: open.lambda, pending: [], nextRival: open.rivals.length, events: [], history: [], station: site.st };
-  // 初期キャッシュの未指定を営業利益で代用しない。
+  // 初期キャッシュを営業利益で代用しない。
   return W;
 }
 function run36(D, site, open, cal, p, opt = {}) {
   const parts = opt.parts || 1, hours = opt.hours || 'both', seed = opt.seed || 0;
   let W = makeWorld(D, site, open, cal, seed, p, parts, hours);
-  const y = { N: 0, demand: 0, profit: 0, rent: 0, year1N: 0, cutWindowN: 0, cumulativeProfit: 0, overflowMonths: 0, entries: 0, lunchN: 0, nightN: 0, closedSaving: 0 };
+  const y = { N: 0, demand: 0, profit: 0, rent: 0, year1N: 0, cutWindowN: 0, cumulativeProfit: 0, overflowMonths: 0, entries: 0, lunchN: 0, nightN: 0, closedSaving: 0, offPinEntries: 0 };
   for (let t = 0; t < 36; t++) {
     const m = W.stationmap;
     m.changed = m.hours !== m.previousHours; m.previousHours = m.hours;
     // 予兆と参入の乱数は天気・仕込みと独立。方策の比較にも同じ将来列を使う。
     if (!opt.noEntry) {
       for (const e of m.pending.filter(e => e.at === t)) if (W.rivals.filter(r => r.open !== false).length < p['rival.cap']) {
+        if (p['rival.entryMode'] === 'pin' && e.pin !== site.id) { y.offPinEntries++; continue; }
         const r = makeRival(D, e.type, m.nextRival++, site.type, e.seed, p, m.lunchWeight); W.rivals.push(r); y.entries++;
       }
       m.pending = m.pending.filter(e => e.at > t);
       if (W.rivals.filter(r => r.open !== false).length < p['rival.cap'] && D.rng(seedFor(seed, t, 'entry'))() < entryProbability(W, p)) {
         const entrySeed = seedFor(seed, t, 'entry-type');
         const own = D.world.typeOf(W.stores[0]), same = D.rng(seedFor(seed, t, 'entry-copy'))() < p['rival.sameTypeProbability'];
-        m.pending.push({ at: t + p['rival.entryDelay'], type: same ? (own === 'normal' ? 'shinise' : own) : pickType(D, site.type, entrySeed, p), seed: entrySeed, station: site.st });
+        m.pending.push({ at: t + p['rival.entryDelay'], type: same ? (own === 'normal' ? 'shinise' : own) : pickType(D, site.type, entrySeed, p), seed: entrySeed, station: site.st, pin: entryPin(site, seedFor(seed, t, 'entry-pin')) });
       }
     }
     if (t === 24) y.rivalsYear3Start = W.rivals.filter(r => r.open !== false).length;
@@ -437,7 +444,8 @@ function gameEvidence() {
 }
 function toMarkdown(report) {
   let s = '# 出店の地図 測定結果\n\n' + `seed=${report.input.seed} / K=${report.input.K} / N=${report.input.N} / 候補地=${report.siteCount}\n\n`;
-  s += `条件: ${report.designStatus}\n\n`;
+  s += `参入: ${report.input.entryMode} / 条件: ${report.designStatus}\n\n`;
+  s += `${report.assessmentScope}\n\n`;
   s += `較正: P_ref=${report.calibration.Pref}、基準のN周中央値=${report.calibration.median}人/日\n\n`;
   if (report.pending.length) s += '未決定: ' + report.pending.join('、') + '。関連する判定は確定していない。\n\n';
   for (const r of report.summaries) {
@@ -456,11 +464,11 @@ function writeReport(report, sites, out) {
   fs.mkdirSync(out, { recursive: true });
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 2) + '\n');
   fs.writeFileSync(path.join(out, 'report.md'), toMarkdown(report));
-  const headers = ['site', 'station', 'tier', 'attribute', 'draw', 'mode', 'N', 'customers', 'demand', 'annualProfit', 'monthlyRent', 'rentPerTsubo', 'rivals', 'rivalHours', 'overflow70', 'entries', 'finalRivals', 'year1Customers', 'lunchCustomers', 'nightCustomers', 'extraProfit', 'lunchProfit', 'nightProfit', 'lunchWeight', 'day', 'food', 'quiet'];
+  const headers = ['site', 'station', 'tier', 'attribute', 'draw', 'mode', 'N', 'customers', 'demand', 'annualProfit', 'monthlyRent', 'rentPerTsubo', 'rivals', 'rivalHours', 'overflow70', 'entries', 'finalRivals', 'year1Customers', 'lunchCustomers', 'nightCustomers', 'extraProfit', 'lunchProfit', 'nightProfit', 'lunchWeight', 'day', 'food', 'quiet', 'offPinEntries'];
   const csv = x => x == null ? '' : typeof x === 'string' ? '"' + x.replace(/"/g, '""') + '"' : String(x);
   const rows = [headers.join(',')];
   for (const s of sites) for (const d of s.draws) for (const mode of ['expected', 'monteCarlo']) {
-    const v = d[mode]; rows.push([s.id, s.station, s.tier, s.type, d.k, mode, mode === 'expected' ? 1 : report.input.N, v.N, v.demand, v.profit, v.rent, d.rentPerTsubo, d.rivals.map(r => r.type).join('+') || '0', d.rivals.map(r => r.lunchOnly ? 'lunch' : 'both').join('+'), v.demand > 70, v.entries, v.finalRivals, v.year1N, v.lunchN, v.nightN, v.extraProfit, v.lunchProfit, v.nightProfit, s.lunchWeight, s.day, s.food, s.quiet].map(csv).join(','));
+    const v = d[mode]; rows.push([s.id, s.station, s.tier, s.type, d.k, mode, mode === 'expected' ? 1 : report.input.N, v.N, v.demand, v.profit, v.rent, d.rentPerTsubo, d.rivals.map(r => r.type).join('+') || '0', d.rivals.map(r => r.lunchOnly ? 'lunch' : 'both').join('+'), v.demand > 70, v.entries, v.finalRivals, v.year1N, v.lunchN, v.nightN, v.extraProfit, v.lunchProfit, v.nightProfit, s.lunchWeight, s.day, s.food, s.quiet, v.offPinEntries].map(csv).join(','));
   }
   fs.writeFileSync(path.join(out, 'sites.csv'), rows.join('\n') + '\n');
 }
@@ -481,9 +489,31 @@ function projectPartFull(site, D, p) {
   return out;
 }
 
+function projectRent(site, D, p) {
+  const out = clone(site), C = D.coef;
+  const months = Math.max(0, 36 - Math.max(0, Math.ceil(C('freeRent'))));
+  for (const d of out.draws) {
+    const next = opening(D, site, d.k, p.__seed, p).rent;
+    const base = C('rentPerTsubo')[KEY[site.type]];
+    const monthly = rent => Math.round(base * C('tsubo') * (rent / base));
+    if (next === d.rentPerTsubo) continue;
+    const old = monthly(d.rentPerTsubo), target = monthly(next), delta = old - target;
+    d.rentPerTsubo = next; d.selectionScore += months * delta;
+    d.profitSamples = d.profitSamples.map(x => x + 12 * delta);
+    for (const mode of ['expected', 'monteCarlo']) {
+      const v = d[mode];
+      for (const key of ['profit', 'extraProfit', 'lunchProfit', 'nightProfit']) if (v[key] != null) v[key] += 12 * delta;
+      v.cumulativeProfit += months * delta;
+      v.rent = Array.from({ length: 12 }, () => target / 12).reduce((a, b) => a + b, 0);
+    }
+  }
+  return out;
+}
+
 async function measure(opts, override = {}) {
   const { schema, values: p } = readParams(opts.params, override);
   p['hours.costMode'] = opts.costMode || p['hours.costMode'];
+  p['rival.entryMode'] = opts.entryMode || p['rival.entryMode'];
   const pending = Object.entries(p).filter(([k, v]) => k.startsWith('decision.') && v == null).map(([k]) => k);
   // 指定のない機構を黙って採用しない。相談中の実装は走らせず、その理由を明示する。
   const required = ['decision.entryTiming', 'decision.regularClosed', 'decision.partSaving', 'decision.referenceHours', 'decision.calibrationEntry'];
@@ -497,6 +527,7 @@ async function measure(opts, override = {}) {
   }
   const evidence = gameEvidence();
   const trajectoryParams = { ...p, 'hours.costMode': 'design' };
+  for (const key of ['rent.R0', 'rent.b', 'rent.floor', 'rent.spread']) trajectoryParams[key] = schema[key].v;
   const cacheKey = hash(JSON.stringify({ p: trajectoryParams, K: opts.K, N: opts.N, seed: opts.seed, evidence, tool: hash(fs.readFileSync(__filename)) }));
   const cache = path.resolve(opts.cache || path.join('work', 'stationmap-cache'), cacheKey); fs.mkdirSync(cache, { recursive: true });
   const calPath = path.join(cache, 'calibration.json');
@@ -508,19 +539,21 @@ async function measure(opts, override = {}) {
   if (opts.limit) sites = sites.slice(0, opts.limit);
   const chunks = Array.from({ length: Math.min(opts.workers, sites.length) }, (_, i) => sites.filter((_, n) => n % opts.workers === i));
   let values = (await Promise.all(chunks.map(sites => workerRun({ action: 'sites', sites, p: trajectoryParams, cal, opts, cache })))).flat();
+  values = values.map(s => projectRent(s, D, { ...p, __seed: opts.seed }));
   if (p['hours.costMode'] === 'part-full') values = values.map(s => projectPartFull(s, D, p));
   const order = new Map(sites.map((s, i) => [s.id, i])); values.sort((a, b) => order.get(a.id) - order.get(b.id));
   const direction = await workerRun({ action: 'direction', p, cal, opts });
-  const input = { K: opts.K, N: opts.N, seed: opts.seed, overrides: override, parameters: p };
+  const input = { entryMode: p['rival.entryMode'], K: opts.K, N: opts.N, seed: opts.seed, overrides: override, parameters: p };
   const summaries = ['expected', 'monteCarlo'].map(mode => summarize(values, mode, direction, p, opts));
-  const report = { input, designStatus: p['hours.costMode'] === 'design' ? '設計書の式' : '設計書の外・参考値（合格に使わない）', parameterSchemaSha256: hash(JSON.stringify(schema)), gameSha256: evidence, toolSha256: hash(fs.readFileSync(__filename)), siteCount: values.length, calibration: cal, pending, summaries, limitations: ['天気・仕込みの条件付き期待値とN周の乱数込みは別の推定量', '保証金と造作の分布が未定の場合は初期キャッシュ・倒産率は未測定', 'ランダム札と町の行事は回帰台本と同様に無効。参入は別の独立した抽選', ...(opts.limit ? ['--limit の試運転。全候補地の受入判定には使えない'] : [])] };
+  const report = { input, assessmentScope: '版0.6の未定の参入場所を両端で挟む測定。目標との比較は仮判定で、設計の最終合否・採用候補ではない', adoptionEligible: false, designStatus: p['hours.costMode'] === 'design' ? '設計書の式' : '設計書の外・参考値（合格に使わない）', parameterSchemaSha256: hash(JSON.stringify(schema)), gameSha256: evidence, toolSha256: hash(fs.readFileSync(__filename)), siteCount: values.length, calibration: cal, pending, summaries, limitations: ['天気・仕込みの条件付き期待値とN周の乱数込みは別の推定量', '保証金と造作は初期キャッシュ項目であり、営業利益で測定したことにはしない', 'ランダム札と町の行事は回帰台本と同様に無効。参入は別の独立した抽選', ...(opts.limit ? ['--limit の試運転。全候補地の受入判定には使えない'] : [])] };
   if (hash(JSON.stringify(gameEvidence())) !== hash(JSON.stringify(evidence))) throw Error('ゲームのファイルが測定中に変わった');
   writeReport(report, values, opts.out); return report;
 }
 function searchCombinations(schema, spec, seed) {
   const entries = Object.entries(spec.fields || {});
+  const gridEntries = Object.entries(spec.gridFields || {});
   if (!entries.length) throw Error('探索する項目を fields に指定する');
-  for (const [k, vals] of entries) {
+  for (const [k, vals] of [...entries, ...gridEntries]) {
     const s = schema[k]; if (['foot.tierRatio', 'foot.distRatio'].includes(k)) throw Error(`比の制約は探索する係数ではない: ${k}`); if (!s || s.lo == null || s.hi == null) throw Error(`探索幅が未指定: ${k}`);
     if (!Array.isArray(vals) || !vals.length || vals.some(v => typeof v !== 'number' || !Number.isFinite(v) || v < s.lo || v > s.hi)) throw Error(`探索値が幅の外: ${k}`);
   }
@@ -533,7 +566,7 @@ function searchCombinations(schema, spec, seed) {
       if (!spec.fields[key] || values.length > combinations.length || values.some(v => v < schema[key].lo || v > schema[key].hi)) throw Error('必須の探索値が不正: ' + key);
       values.forEach((v, i) => { combinations[i][key] = v; });
     }
-    return combinations;
+    return gridEntries.reduce((all, [key, vals]) => all.flatMap(o => vals.map(v => ({ ...o, [key]: v }))), combinations);
   }
   if (spec.mode !== 'grid') throw Error('探索modeはgridまたはrandom');
   return entries.reduce((all, [key, vals]) => all.flatMap(o => vals.map(v => ({ ...o, [key]: v }))), [{}]);
@@ -556,20 +589,21 @@ async function search(opts, override) {
     const modes = r.summaries.map(s => ({ mode: s.mode, allPass: s.allPass, failures: s.rows.filter(r => !['合格', '報告のみ'].includes(r.status)), parameterRangeFailure: s.admissible ? null : '4.4: 赤字のくじが50%を越える', rivalAdditionFailure: s.rivalAdditionPass ? null : s.rivalAddition }));
     results.push({ trial, overrides: p, modes, allPass: modes.every(m => m.allPass) && r.pending.length === 0, failedCount: modes.reduce((n, m) => n + m.failures.length, 0) });
   }
-  const result = { mode: spec.mode, seed: opts.seed, K: opts.K, N: opts.N, mandatoryBTested: [.25, .4, .55].map(b => ({ b, tested: bValues.includes(b) })), passing: results.filter(r => r.allPass), trials: results };
+  const result = { assessmentScope: '未定の参入場所の端条件。仮の目標適合組であり最終合否・採用候補ではない', adoptionEligible: false, entryMode: opts.entryMode, mode: spec.mode, seed: opts.seed, K: opts.K, N: opts.N, mandatoryBTested: [.25, .4, .55].map(b => ({ b, tested: bValues.includes(b) })), passing: results.filter(r => r.allPass), trials: results };
   fs.writeFileSync(path.join(opts.out, 'search.json'), JSON.stringify(result, null, 2) + '\n');
-  fs.writeFileSync(path.join(opts.out, 'search.md'), '# 探索結果\n\n通過組数: ' + result.passing.length + '\n\n' + results.map(r => `- ${r.trial}: ${JSON.stringify(r.overrides)} / 外れ・測定不能の検査数=${r.failedCount}`).join('\n') + '\n');
+  fs.writeFileSync(path.join(opts.out, 'search.md'), '# 探索結果\n\n条件下での仮の目標適合組数: ' + result.passing.length + '\n\n' + results.map(r => `- ${r.trial}: ${JSON.stringify(r.overrides)} / 外れ・測定不能の検査数=${r.failedCount}`).join('\n') + '\n');
   return result;
 }
 function parseArgs(argv) {
-  const opts = { params: PARAMS, K: 8, N: 300, seed: 0, workers: 4, costMode: 'design', out: path.join(ROOT, 'docs/analysis/stationmap-sim/latest') };
-  const map = { '--params': 'params', '--override': 'override', '--K': 'K', '--N': 'N', '--seed': 'seed', '--workers': 'workers', '--out': 'out', '--search': 'search', '--limit': 'limit', '--cache': 'cache', '--data': 'data', '--legacy-override': 'legacyOverride', '--cost-mode': 'costMode' };
+  const opts = { params: PARAMS, K: 8, N: 300, seed: 0, workers: 4, entryMode: 'station', costMode: 'design', out: path.join(ROOT, 'docs/analysis/stationmap-sim/latest') };
+  const map = { '--params': 'params', '--override': 'override', '--K': 'K', '--N': 'N', '--seed': 'seed', '--workers': 'workers', '--out': 'out', '--search': 'search', '--limit': 'limit', '--cache': 'cache', '--data': 'data', '--legacy-override': 'legacyOverride', '--cost-mode': 'costMode', '--entry-mode': 'entryMode' };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i]; if (a === '--no-memo') opts.memoize = false;
     else if (a === '--regression' || a === '--self-test' || a === '--help') opts[a.slice(2)] = true;
     else if (map[a] && argv[i + 1] != null) opts[map[a]] = ['K', 'N', 'seed', 'workers', 'limit'].includes(map[a]) ? Number(argv[++i]) : argv[++i];
     else throw Error('未知の引数、または値がない: ' + a);
   }
+  if (!['station', 'pin'].includes(opts.entryMode)) throw Error('entry-modeはstationまたはpin');
   if (!['design', 'part-full'].includes(opts.costMode)) throw Error('cost-modeはdesignまたはpart-full');
   for (const k of ['K', 'N', 'workers']) if (!Number.isInteger(opts[k]) || opts[k] < 1) throw Error(k + 'は正の整数');
   if (!Number.isInteger(opts.seed) || opts.seed < 0 || opts.seed > 0xffffffff) throw Error('seedは0〜2^32-1の整数');
@@ -578,12 +612,12 @@ function parseArgs(argv) {
 }
 async function main() {
   const opts = parseArgs(process.argv.slice(2));
-  if (opts.help) { console.log('node boki2/tools/stationmap-sim.js [--params file] [--override JSON|file] [--K 8] [--N 300] [--seed 0] [--workers 4] [--out dir] [--search file] [--regression --data file --legacy-override JSON] [--self-test] [--cost-mode design|part-full]'); return; }
+  if (opts.help) { console.log('node boki2/tools/stationmap-sim.js [--params file] [--override JSON|file] [--K 8] [--N 300] [--seed 0] [--workers 4] [--out dir] [--search file] [--regression --data file --legacy-override JSON] [--self-test] [--cost-mode design|part-full] [--entry-mode station|pin]'); return; }
   if (opts['self-test']) return selfTest();
   if (opts.regression) { opts.legacyOverride = opts.legacyOverride ? JSON.parse(opts.legacyOverride) : {}; return regression(opts); }
   const over = opts.override ? JSON.parse(opts.override.trim().startsWith('{') ? opts.override : fs.readFileSync(opts.override, 'utf8')) : {};
   const r = opts.search ? await search(opts, over) : await measure(opts, over);
-  console.log(opts.search ? `探索${r.trials.length}組、合格${r.passing.length}組` : toMarkdown(r));
+  console.log(opts.search ? `探索${r.trials.length}組、条件下の仮の目標適合${r.passing.length}組` : toMarkdown(r));
 }
 if (!isMainThread) {
   try {
@@ -638,6 +672,13 @@ async function selfTest() {
   p['hours.costMode'] = 'part-full'; const fullCost = run36(D, site, open, cal, p, { seed: 1234, hours: 'lunch' }); p['hours.costMode'] = 'design';
   assert.ok(Math.abs(fullCost.profit - regularCost.profit - 12 * 88889) < 1e-7);
   for (const key of ['N', 'demand', 'year1N', 'entries', 'finalRivals']) assert.equal(regularCost[key], fullCost[key]);
+  const rentSite = evaluateSite(D, site, p, cal, { K: 2, N: 2, seed: 1234 });
+  const rentParams = { ...p, 'rent.R0': 25000, 'rent.b': .55 };
+  const directRent = evaluateSite(D, site, rentParams, cal, { K: 2, N: 2, seed: 1234 });
+  const projectedRent = projectRent(rentSite, D, { ...rentParams, __seed: 1234 });
+  const close = (a, b) => { if (typeof a === 'number') assert.ok(Math.abs(a-b) < 1e-6, `${a} != ${b}`); else if (a && typeof a === 'object') for (const key of Object.keys(a)) close(a[key], b[key]); else assert.equal(a, b); };
+  close(projectedRent, directRent);
+  assert.equal(searchCombinations(schema, { mode: 'random', trials: 20, fields: { 'hours.kappa': [.3, 1] }, gridFields: { 'rent.R0': [25000, 40000], 'rent.b': [.25, .4, .55] } }, 0).length, 120);
   const prices = [];
   run36(D, site, open, cal, p, { noEntry: true, rivalCut: true, fixedRoster: true, trace: (t, W) => { if (t >= 24 && t <= 27) prices.push(W.rivals[0].price); } });
   assert.deepEqual(prices, [800, 800, 800, 850]);
@@ -645,6 +686,15 @@ async function selfTest() {
   const empty = { ...open, rivals: [] }, timeline = [];
   run36(D, site, empty, cal, forced, { trace: (t, W) => { if (t < 3) timeline.push(W.rivals.filter(r => r.open !== false).length); } });
   assert.deepEqual(timeline, [0, 0, 1]);
+  const pinSite = { ...site, stationPins: ['parity', 'other'] };
+  const picks = Array.from({ length: 1000 }, (_, i) => entryPin(pinSite, seedFor(i, 'pin-test')));
+  assert.ok(picks.includes('parity') && picks.includes('other'));
+  const pinForced = { ...forced, 'rival.entryMode': 'pin' };
+  const ignored = run36(D, { ...site, stationPins: ['other'] }, empty, cal, pinForced);
+  assert.equal(ignored.entries, 0); assert.equal(ignored.finalRivals, 0); assert.ok(ignored.offPinEntries > 0);
+  const ownPin = run36(D, { ...site, stationPins: [site.id] }, empty, cal, pinForced);
+  const stationOnly = run36(D, site, empty, cal, forced);
+  assert.deepEqual(ownPin, stationOnly);
   // ライバルが昼だけなら夜の需要の分母から消える。元の需要式を両側で使って確かめる。
   const W = makeWorld(D, site, open, cal, 0, p), list = [W.stores[0], ...W.rivals.map(r => ({ ...r, rival: true }))], comp = { ramp: 1, cal: 1, ev: 1, rain: 1 };
   const full = D.stationmap.expected(W, list, comp, D.world.expected)[0];
@@ -668,5 +718,5 @@ async function selfTest() {
     for (const mode of ['expected', 'monteCarlo']) assert.equal(summarize(one, mode, direction, fixture, opts).rows.length, 10);
     const again = await workerRun({ action: 'sites', p: fixture, cal, opts, sites: fake, cache: cache1 }); assert.equal(JSON.stringify(one), JSON.stringify(again));
   } finally { fs.rmSync(temp, { recursive: true, force: true }); }
-  console.log('OK：入力の制約・探索の再現・同順位・較正・参入2か月予兆・時間別費用・3か月値下げと復元・差し込みなしとの36か月同値・決定論・昼だけライバルの夜の取り合い・架空6属性の10行出力・worker数1/2と保存再開のバイト一致');
+  console.log('OK：入力の制約・探索の再現・同順位・較正・参入2か月予兆・時間別費用・3か月値下げと復元・差し込みなしとの36か月同値・決定論・昼だけライバルの夜の取り合い・pinの等確率選択と他ピン無効・家賃投影と直接計算の一致・架空6属性の10行出力・worker数1/2と保存再開のバイト一致');
 }

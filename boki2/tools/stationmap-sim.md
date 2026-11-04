@@ -5,19 +5,21 @@
 
 ## 起動
 
+`--entry-mode pin`でも同じ3コマンドを回し、出力先の末尾をpinにする。
+
 Node.js 18以上。検証環境はNode.js v24.19.0。外部パッケージ・通信は不要。
 リポジトリの根から実行する。
 
 ```sh
 node boki2/tools/stationmap-sim.js --self-test
 node boki2/tools/stationmap-sim.js --K 2 --N 300 --seed 0 --workers 4 \
-  --cost-mode design --out boki2/docs/analysis/stationmap-sim/v06-initial
+  --entry-mode station --cost-mode design --out boki2/docs/analysis/stationmap-sim/v06-initial-station
 node boki2/tools/stationmap-sim.js --K 2 --N 300 --seed 0 --workers 4 \
-  --cost-mode part-full --out boki2/docs/analysis/stationmap-sim/v06-part-full
+  --entry-mode station --cost-mode part-full --out boki2/docs/analysis/stationmap-sim/v06-part-full-station
 node boki2/tools/stationmap-sim.js \
   --search boki2/docs/analysis/stationmap-sim/v06-search-spec.json \
-  --K 2 --N 300 --seed 20261104 --workers 4 \
-  --out boki2/docs/analysis/stationmap-sim/v06-search
+  --K 2 --N 3 --seed 20261104 --entry-mode station --workers 4 \
+  --out boki2/docs/analysis/stationmap-sim/v06-search-station
 ```
 
 - `--params` は置き値のファイル。既定は `tools/data/stationmap-params.json`。
@@ -25,6 +27,7 @@ node boki2/tools/stationmap-sim.js \
 - `--K` は開店前の軒数・型・営業時間・家賃のくじの回数。④には2回以上必要。
 - `--N` は各候補地×開店くじの評価用の乱数周回数。較正とボットの学習用にもN周を使う。
 - `--seed` は0〜2^32−1。開店・参入・天気と仕込み・ボット学習用の将来を別の列にする。
+- `--entry-mode station|pin` は未定の参入場所の強い/弱い両端（6620053704）。最終合否・採用候補ではない。
 - `--workers` はNodeのworker数。並列数で乱数・出力の順は変わらない。
 - `--limit` は試運転用の候補地数。全候補地の合格の根拠には使わない。
 - `--cache` は途中結果の置き場。既定 `work/stationmap-cache/`。入力・道具・ゲームのハッシュで
@@ -55,7 +58,11 @@ node boki2/tools/stationmap-sim.js \
 営業中の軒数が5なら開けず、撤退枠には再参入できる。確率0.5で自店と同じ型、
 残りは属性の重み。ゲームのnormal型はライバルの老舗に対応する。
 各候補地は「そこへ1店出した場合」の反実仮想。参入はその駅の競争として需要の分母に加える。
-同じ駅の候補地間の距離で競争を減衰させる式は追加していない。
+`station`は同駅の参入すべてが分母に入る。`pin`は駅の全ピン（自店を含む）から
+1本を等確率で選び、自店のピンに入ったときだけ分母に入る。他ピンへの参入は件数を別記し、
+自店の5軒にも数えない。他ピン店の損益・撤退・枠は測らない。初期競合は両方とも候補地別に引く。
+この両端は版0.6の未定の所を挟む測定で、最終合否・採用候補ではない。
+ピン間の競争の中間の減衰係数は追加していない。
 
 新規・常連・容量を昼夜に分け、評判は同じ1店舗のものを使う。閉めた帯の常連は通常のchurnで
 減り、切替月だけ閉めた帯に+1%。自店だけretain/churnの属性倍率を使い、ライバルの決算は
@@ -106,13 +113,25 @@ part-fullは同じ乱数経路を使う。札・要因分解を止めた本測�
 
 ## 探索
 
-`v06-search-spec.json`は幅の中の無作為探索3組。R₀・b・λ倍率・常連倍率・p0/p1・κを
-動かす。`mandatoryValues`でb=0.25/0.4/0.55を必ず試す。費用は式に置換されたので
-16〜20万円という独立の探索軸は残さない。格子は `mode: "grid"` と値の配列の直積。
-無作為は `mode: "random", trials: 回数` で各配列の最初と最後の間の一様分布。
+`v06-search-spec.json`は需要側6係数の乱数20組と、家賃R₀2通り×b3通りの
+格子6組との直積、合計120組。station/pinそれぞれ同じ組を測る。K=2・N=3の探索用設定で、
+N300の初期値より将来の推定誤差が大きい。仮の目標適合組があればN300で追加確認する。
+費用は設計の式へ置換されたので16〜20万円の独立した探索軸は残さない。
 
-各組の全出力はtrial-0000等、一覧はsearch.json/md。
-通過組が0でも、試した組数と外れた検査・値・件数を出し、幅全体に解なしとは結論しない。
+格子は `mode: "grid"` と `fields` の値の配列の直積。乱数は `mode: "random", trials: 回数` で
+各配列の最初と最後の間の一様分布。`gridFields`は乱数組それぞれに直積する格子。
+`mandatoryValues`は先頭から指定する乱数組へ必須値を代入する。探索幅外は停止する。
+
+家賃だけの差は需要・評判・参入・他店の損益に影響しない（札・要因分解なしの条件）。
+道具は同一の需要経路に元ゲームと同じ丸めの家賃差を投影する。3年目利益・36か月累計利益・
+学習用の利益・周ごとの利益をそれぞれ補正し、全120組のランキングと検査を取り直す。
+直接36か月を計算した結果と全フィールドが1e-6未満で一致する自己検査を持つ。
+この計算再利用で、試した家賃の組や候補地を省略していない。
+
+各組の全入力・出力はtrial-0000等、一覧はsearch.json/md。
+`passing` / `allPass`はその端条件の目標適合という仮判定であり、採用候補ではない。
+`adoptionEligible`は常にfalse、`assessmentScope`に未確定の両端である旨を保存する。
+通過組が0でも試した組数と外れた検査・値・件数を出し、幅全体に解なしとは結論しない。
 見つかった組をゲームに採用する操作はしない。
 
 ## 回帰と再現
@@ -139,5 +158,5 @@ part-fullの費用差、昼だけライバルの夜の分母、架空6属性の�
 - 初期キャッシュ・保証金・造作・倒産率を営業利益の物差しで代用していない。
 - 昼夜に別の評判を持つ比較台本とは違い、同じ店舗の評判を使う。
 - 比較台本の即月参入・固定光熱だけの削減・未来の実現利益順の⑥・くじ単位の⑧とは条件が違う。
-- 探索は3組であり、範囲の全数検査でも解なしの証明でもない。
+- 探索は120組（需要側20組×家賃6組）であり、範囲の全数検査でも解なしの証明でもない。
 - 期待値列は条件付き経路。通常の札や行事を含む経営全体の期待値ではない。

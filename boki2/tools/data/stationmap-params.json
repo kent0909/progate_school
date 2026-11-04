@@ -890,5 +890,11 @@
     "lo": null,
     "hi": null,
     "src": "PR #11 6619705662。part-fullは設計書の外の参考条件、探索変数にしない"
+  },
+  "rival.entryMode": {
+    "v": "station",
+    "lo": null,
+    "hi": null,
+    "src": "PR #11 6620053704: 版0.6未定の場所の両端。CLI station/pin、探索の係数ではない"
   }
 }
