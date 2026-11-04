@@ -13,7 +13,7 @@ const responses=[
  '指定された仕訳の机だけを独立して実装。check/run.cjs が打ち手・測り・写真、inputs.cjs と gestures.cjs が入力の確認を担う。',
  '札の右に反映先の帯名だけを予告し、正解確定で棚を更新。棚なしでは店の小札＋帳簿の赤点。札ごとの左/右/棚へ戻す、金額の選び直し。押す・払う・引く・キーの各経路。'
 ];
-let body=`同じ4枚の取引で、差の帯・B/Sの棚・入力を切り替えて比較する独立した試作を追加した。ゲームのコードは変更していない。ドラフトのまま、取り込みはしない。\n\n**高さの約束には未達がある。** 390×844、取引3、band=diff/scale・shelf=on・input両方の ${heightFailures.length} 条件で、確定の下端が862px（18px超過）。字や押せる面積を縮めず、そのまま記録した。\n\n## 依頼の対応表\n\n|原文（依頼書の各行）|対応|\n|---|---|\n`;
+let body=`同じ4枚の取引で、差の帯・B/Sの棚・入力を切り替えて比較する独立した試作を追加した。ゲームのコードは変更していない。ドラフトのまま、取り込みはしない。\n\n**高さの約束の未達は ${heightFailures.length} 条件。** 各条件の確定の位置と超過量を「仕様どおりにできなかった所」に、測定出力から記載した。字や押せる面積を縮めず、そのまま記録した。\n\n## 依頼の対応表\n\n|原文（依頼書の各行）|対応|\n|---|---|\n`;
 originals.forEach((line,i)=>body+=`|${line.slice(2).replaceAll('|','\\|')}|${responses[i]}|\n`);
 body+='\n|仕様7章|対応と証拠|\n|---|---|\n';
 body+=`|1. 全12通りで4枚を最後まで|autoplay.json：${autoplay.passed}/${autoplay.total}。12条件×2幅×正答/誤答の2周×4枚。gestures.json：${pass(gestures)}/${gestures.length}（390幅、払い/引くで4枚完走）|\n`;
@@ -25,7 +25,7 @@ body+=`- 正答/典型誤答：**${autoplay.passed}/${autoplay.total}**。落ち
 body+='\n## 測りの条件と表\n\n管理Chromiumはfile://をERR_BLOCKED_BY_ADMINISTRATORで拒否するため、**ファイルを直接開く実機確認は未了**。同一HTML/CSS/JSを一時的なlocalhostで配信し、他の要求は全拒否した。試作自体は外部依存・通信なし。実行コマンドと既定パスからの変更はREADME.md。\n\n値は check/results/measurements.md から転記。高さはフッターを含む全高、確定上端/下端はページ座標。「画面スクロール」はページ全体、「確定にスクロール」は確定ボタン下端までを分ける。入力済み96行。空の状態もJSONに保持。\n\n';
 body+=fs.readFileSync(path.join(base,'measurements.md'),'utf8');
 body+='\n## 仕様どおりにできなかった所\n\n';
-for(const r of heightFailures)body+=`- ${Object.values(r.config).join('/')}・${r.viewport.width}×${r.viewport.height}・取引${r.transaction}：確定の下端${r.confirmBottom}px。縦スクロールが必要。\n`;
+for(const r of heightFailures)body+=`- ${Object.values(r.config).join('/')}・${r.viewport.width}×${r.viewport.height}・取引${r.transaction}：確定の下端${r.confirmBottom}px（${r.confirmBottom-r.viewport.height}px超過）。縦スクロールが必要。\n`;
 body+=`- 取引4は全${filled.filter(r=>r.transaction===4&&r.scroll).length}条件でページ全体の縦スクロールが必要（仕様で許容）。確定までの要否は各行の表のとおり。\n- 14px未満への縮小や44px未満への縮小で収めていない。file://での実機確認の未了は上記。\n`;
 body+='\n## 既存ゲームの回帰検査（出力の最終行）\n\n';
 for(const r of regression)body+=`- \`${r.command}\`：exit ${r.exitCode}\n\n  \`${r.lastLine}\`\n`;
@@ -33,6 +33,7 @@ if(regression.length<6)body+='\n**残りの回帰検査は実行中。完了報�
 const scope=fs.readFileSync(path.join(base,'scope.txt'),'utf8');
 body+='\n## 変更範囲\n\n```text\ngit diff --stat claude/keen-hawking-sfeg6f...\n'+scope+'```\n';
 body+='\n## やっていないこと\n\n- 本番ゲームへの組み込み、外部サイト/Mobbinの再調査、完成した絵・音、マージ。\n- 人による学習効果・操作の好みの評価、実機スマホと読み上げソフトの確認。\n- file://での実機確認（管理ブラウザが拒否）。\n- 高さ未達の4条件を、文字や操作面を縮めて解消すること。\n- 確定後の取り消しによる再記帳（試作の範囲は確定前の1枚ずつの修正と誤答からの選び直し）。\n';
+body=body.replace('高さ未達の4条件を','高さ未達の'+heightFailures.length+'条件を');
 fs.writeFileSync(path.join(base,'report.md'),body);
 const files=['index.html','desk.css','desk.js','check/run.cjs','check/inputs.cjs','check/gestures.cjs'];
 fs.writeFileSync(path.join(base,'source-hashes.json'),JSON.stringify(Object.fromEntries(files.map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(path.resolve(__dirname,'..',f))).digest('hex')])),null,2)+'\n');
