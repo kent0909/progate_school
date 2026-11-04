@@ -117,18 +117,18 @@
     let gesture=null,suppress=false;
     b.addEventListener('click',e=>{if(suppress){e.preventDefault();e.stopImmediatePropagation();suppress=false;}},true);
     b.addEventListener('pointerdown',e=>{
-      if(solved||e.button!==0)return;gesture={x:e.clientX,y:e.clientY,time:performance.now(),moved:false,ghost:null};b.setPointerCapture(e.pointerId);
+      if(solved||e.button!==0)return;gesture={x:e.clientX,y:e.clientY,time:performance.now(),moved:false,ghost:null,clientY:e.clientY,frame:null};b.setPointerCapture(e.pointerId);
     });
     b.addEventListener('pointermove',e=>{
-      if(!gesture)return;const dx=e.clientX-gesture.x,dy=e.clientY-gesture.y;
+      if(!gesture)return;gesture.clientY=e.clientY;const dx=e.clientX-gesture.x,dy=e.clientY-gesture.y;
       if(Math.hypot(dx,dy)<3)return;gesture.moved=true;
       if(config.input==='swipe'&&kind==='card'&&Math.abs(dy)>Math.abs(dx)*1.5){gesture.vertical=true;return;}
       if(!gesture.ghost){const g=document.createElement('div');g.className='ghost';g.textContent=account;document.body.append(g);gesture.ghost=g;}
       gesture.ghost.style.left=(e.clientX+10)+'px';gesture.ghost.style.top=(e.clientY-25)+'px';
-      if(config.input==='drag'){document.body.classList.add('dragging');const target=document.elementFromPoint(e.clientX,e.clientY)?.closest('[data-drop]');document.querySelectorAll('[data-drop]').forEach(t=>t.classList.toggle('active',t===target));if(target)gesture.ghost.textContent=account+' → '+(target.getAttribute('aria-label')||target.textContent);}
+      if(config.input==='drag'){if(!gesture.frame){const tick=()=>{if(!gesture)return;const edge=gesture.clientY<48?-10:gesture.clientY>innerHeight-48?10:0;if(edge)scrollBy(0,edge);gesture.frame=requestAnimationFrame(tick);};gesture.frame=requestAnimationFrame(tick);}document.body.classList.add('dragging');const target=document.elementFromPoint(e.clientX,e.clientY)?.closest('[data-drop]');document.querySelectorAll('[data-drop]').forEach(t=>t.classList.toggle('active',t===target));if(target)gesture.ghost.textContent=account+' → '+(target.getAttribute('aria-label')||target.textContent);}
       else if(Math.abs(dx)>b.offsetWidth*.35){document.querySelectorAll('[data-drop]').forEach(t=>t.classList.toggle('active',t.dataset.drop===(dx<0?'left':'right')));gesture.ghost.textContent=account+' → '+(dx<0?'左の列':'右の列');}
     });
-    const cleanup=()=>{gesture?.ghost?.remove();document.body.classList.remove('dragging');document.querySelectorAll('.active,.drag-target').forEach(t=>t.classList.remove('active','drag-target'));};
+    const cleanup=()=>{if(gesture?.frame)cancelAnimationFrame(gesture.frame);gesture?.ghost?.remove();document.body.classList.remove('dragging');document.querySelectorAll('.active,.drag-target').forEach(t=>t.classList.remove('active','drag-target'));};
     b.addEventListener('pointercancel',()=>{if(gesture?.moved){record.cancelled[config.input]++;persist();}cleanup();gesture=null;});
     b.addEventListener('pointerup',e=>{
       if(!gesture)return;const g=gesture,dx=e.clientX-g.x,dy=e.clientY-g.y;const dropTarget=document.elementFromPoint(e.clientX,e.clientY)?.closest('[data-drop]');cleanup();gesture=null;if(!g.moved)return;suppress=true;

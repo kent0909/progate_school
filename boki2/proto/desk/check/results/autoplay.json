@@ -1,0 +1,2696 @@
+{
+  "results": [
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "correct",
+      "transaction": 4,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 1,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 2,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 3,
+      "pass": true
+    },
+    {
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "scenario": "error",
+      "transaction": 4,
+      "pass": true
+    }
+  ],
+  "extras": [],
+  "passed": 192,
+  "total": 192,
+  "failed": []
+}

@@ -1,0 +1,698 @@
+[
+  {
+    "band": "diff",
+    "shelf": "on",
+    "input": "swipe",
+    "pass": true,
+    "record": {
+      "id": "mw1fk81r-fid6sm-1",
+      "session": "mw1fk81r-fid6sm",
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 1033,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 2,
+      "inputs": {
+        "tap": 1,
+        "swipe": 1,
+        "drag": 0,
+        "key": 3
+      },
+      "cancelled": {
+        "swipe": 1,
+        "drag": 0
+      },
+      "wrongColumnDrops": 0,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 1033
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "diff",
+    "shelf": "on",
+    "input": "drag",
+    "pass": true,
+    "record": {
+      "id": "mw1fk9a3-fjtfe0-1",
+      "session": "mw1fk9a3-fjtfe0",
+      "config": {
+        "band": "diff",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 1548,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 3,
+      "inputs": {
+        "tap": 0,
+        "swipe": 1,
+        "drag": 2,
+        "key": 4
+      },
+      "cancelled": {
+        "swipe": 0,
+        "drag": 1
+      },
+      "wrongColumnDrops": 1,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 1548
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "diff",
+    "shelf": "off",
+    "input": "swipe",
+    "pass": true,
+    "record": {
+      "id": "mw1fkatv-itgpcq-1",
+      "session": "mw1fkatv-itgpcq",
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 913,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 2,
+      "inputs": {
+        "tap": 1,
+        "swipe": 1,
+        "drag": 0,
+        "key": 3
+      },
+      "cancelled": {
+        "swipe": 1,
+        "drag": 0
+      },
+      "wrongColumnDrops": 0,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 913
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "diff",
+    "shelf": "off",
+    "input": "drag",
+    "pass": true,
+    "record": {
+      "id": "mw1fkbwr-lupw5t-1",
+      "session": "mw1fkbwr-lupw5t",
+      "config": {
+        "band": "diff",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 1428,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 3,
+      "inputs": {
+        "tap": 0,
+        "swipe": 1,
+        "drag": 2,
+        "key": 4
+      },
+      "cancelled": {
+        "swipe": 0,
+        "drag": 1
+      },
+      "wrongColumnDrops": 1,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 1428
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "scale",
+    "shelf": "on",
+    "input": "swipe",
+    "pass": true,
+    "record": {
+      "id": "mw1fkdf9-pmhqp1-1",
+      "session": "mw1fkdf9-pmhqp1",
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 1085,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 2,
+      "inputs": {
+        "tap": 1,
+        "swipe": 1,
+        "drag": 0,
+        "key": 3
+      },
+      "cancelled": {
+        "swipe": 1,
+        "drag": 0
+      },
+      "wrongColumnDrops": 0,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 1085
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "scale",
+    "shelf": "on",
+    "input": "drag",
+    "pass": true,
+    "record": {
+      "id": "mw1fkepw-4l119c-1",
+      "session": "mw1fkepw-4l119c",
+      "config": {
+        "band": "scale",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 1372,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 3,
+      "inputs": {
+        "tap": 0,
+        "swipe": 1,
+        "drag": 2,
+        "key": 4
+      },
+      "cancelled": {
+        "swipe": 0,
+        "drag": 1
+      },
+      "wrongColumnDrops": 1,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 1372
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "scale",
+    "shelf": "off",
+    "input": "swipe",
+    "pass": true,
+    "record": {
+      "id": "mw1fkg4i-xzaul9-1",
+      "session": "mw1fkg4i-xzaul9",
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 978,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 2,
+      "inputs": {
+        "tap": 1,
+        "swipe": 1,
+        "drag": 0,
+        "key": 3
+      },
+      "cancelled": {
+        "swipe": 1,
+        "drag": 0
+      },
+      "wrongColumnDrops": 0,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 978
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "scale",
+    "shelf": "off",
+    "input": "drag",
+    "pass": true,
+    "record": {
+      "id": "mw1fkh83-rbx6bb-1",
+      "session": "mw1fkh83-rbx6bb",
+      "config": {
+        "band": "scale",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 1388,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 3,
+      "inputs": {
+        "tap": 0,
+        "swipe": 1,
+        "drag": 2,
+        "key": 4
+      },
+      "cancelled": {
+        "swipe": 0,
+        "drag": 1
+      },
+      "wrongColumnDrops": 1,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 1388
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "none",
+    "shelf": "on",
+    "input": "swipe",
+    "pass": true,
+    "record": {
+      "id": "mw1fkiur-jshz52-1",
+      "session": "mw1fkiur-jshz52",
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "swipe"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 1029,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 2,
+      "inputs": {
+        "tap": 1,
+        "swipe": 1,
+        "drag": 0,
+        "key": 3
+      },
+      "cancelled": {
+        "swipe": 1,
+        "drag": 0
+      },
+      "wrongColumnDrops": 0,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 1029
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "none",
+    "shelf": "on",
+    "input": "drag",
+    "pass": true,
+    "record": {
+      "id": "mw1fkk1a-ghddrf-1",
+      "session": "mw1fkk1a-ghddrf",
+      "config": {
+        "band": "none",
+        "shelf": "on",
+        "input": "drag"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 1340,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 3,
+      "inputs": {
+        "tap": 0,
+        "swipe": 1,
+        "drag": 2,
+        "key": 4
+      },
+      "cancelled": {
+        "swipe": 0,
+        "drag": 1
+      },
+      "wrongColumnDrops": 1,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 1340
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "none",
+    "shelf": "off",
+    "input": "swipe",
+    "pass": true,
+    "record": {
+      "id": "mw1fklj0-cf2vjc-1",
+      "session": "mw1fklj0-cf2vjc",
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "swipe"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 900,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 2,
+      "inputs": {
+        "tap": 1,
+        "swipe": 1,
+        "drag": 0,
+        "key": 3
+      },
+      "cancelled": {
+        "swipe": 1,
+        "drag": 0
+      },
+      "wrongColumnDrops": 0,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 900
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  },
+  {
+    "band": "none",
+    "shelf": "off",
+    "input": "drag",
+    "pass": true,
+    "record": {
+      "id": "mw1fkmmi-rmzwtr-1",
+      "session": "mw1fkmmi-rmzwtr",
+      "config": {
+        "band": "none",
+        "shelf": "off",
+        "input": "drag"
+      },
+      "transaction": 1,
+      "firstConfirmMs": 1408,
+      "confirmCount": 1,
+      "firstCorrect": true,
+      "wrongRows": [],
+      "fixes": 3,
+      "inputs": {
+        "tap": 0,
+        "swipe": 1,
+        "drag": 2,
+        "key": 4
+      },
+      "cancelled": {
+        "swipe": 0,
+        "drag": 1
+      },
+      "wrongColumnDrops": 1,
+      "calculatorOpened": false,
+      "attempts": [
+        {
+          "number": 1,
+          "correct": true,
+          "rows": [
+            {
+              "side": "left",
+              "account": "現金",
+              "amount": 10000
+            },
+            {
+              "side": "right",
+              "account": "借入金",
+              "amount": 10000
+            }
+          ],
+          "wrongRows": [],
+          "elapsedMs": 1408
+        }
+      ],
+      "completed": true
+    },
+    "reducedMotion": {
+      "animation": "none",
+      "transition": "0s"
+    }
+  }
+]

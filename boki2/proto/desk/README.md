@@ -24,6 +24,7 @@ URL の例：`index.html?band=diff&shelf=on&input=drag&lock=1`
 ```sh
 node boki2/proto/desk/check/run.cjs
 node boki2/proto/desk/check/inputs.cjs
+node boki2/proto/desk/check/gestures.cjs
 ```
 
 既定の検査用依存は `/opt/node-tools/node_modules/playwright`、ブラウザは `/opt/pw-browsers/chromium`。`--playwright MODULE --chromium PATH` または `PIYO_PLAYWRIGHT` / `PIYO_CHROMIUM` で上書きできる。依存は試作ページでは使わない。
@@ -41,6 +42,7 @@ node boki2/proto/desk/check/inputs.cjs --playwright /opt/codex/cua_node/lib/node
 - `check/results/measurements.json`：12条件×2幅×4取引の空/入力済みの192測定。`measurements.md` は入力済み96行。ページ全高（フッターを含む）、確定の上端/下端（ページ座標）、全画面/確定ボタンそれぞれのスクロール要否を分けて記録。可視の本文から最小字、可視の操作部品から最小幅/高さを計測。横はみ出しもJSONに記録。
 - `check/results/screenshots/`：12条件×2幅×取引1/4の48枚。入力済み・確定前、jpg品質60、全高。
 - `check/results/inputs.json`：12条件の実タッチ払い・キーで持つ/移動/戻す・しきい値未満の戻り・誤った列へのドラッグ・棚/列へのドラッグ・設定の表示・動きを減らす設定。
+- `check/results/gestures.json`：12条件×4取引を払い/引く操作で通す48行。取引4の評価勘定の減少・費用の増加の口、画面端での自動スクロール、diffだけ差額10,000円が見えることも確認。
 - `check/results/regression*.log` と `regression.json`：既存ゲームの6つの検査と終了コード・最終行。
 
 ## やっていないこと
