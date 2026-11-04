@@ -172,12 +172,21 @@ git diff --stat claude/keen-hawking-sfeg6f...
  boki2/proto/desk/README.md                         |   50 +
  boki2/proto/desk/check/gestures.cjs                |   48 +
  boki2/proto/desk/check/inputs.cjs                  |   39 +
- boki2/proto/desk/check/report.cjs                  |   39 +
+ boki2/proto/desk/check/report.cjs                  |   40 +
  boki2/proto/desk/check/results/autoplay.json       | 3080 +++++++++++++
  boki2/proto/desk/check/results/gestures.json       |  338 ++
  boki2/proto/desk/check/results/inputs.json         |  698 +++
  boki2/proto/desk/check/results/measurements.json   | 4610 ++++++++++++++++++++
  boki2/proto/desk/check/results/measurements.md     |   98 +
+ boki2/proto/desk/check/results/regression-1.log    |    1 +
+ boki2/proto/desk/check/results/regression-2.log    |  107 +
+ boki2/proto/desk/check/results/regression-3.log    |   13 +
+ boki2/proto/desk/check/results/regression-4.log    |   26 +
+ boki2/proto/desk/check/results/regression-5.log    |   79 +
+ boki2/proto/desk/check/results/regression-6.log    |    1 +
+ boki2/proto/desk/check/results/regression.json     |   32 +
+ boki2/proto/desk/check/results/report.md           |  243 ++
+ boki2/proto/desk/check/results/scope.txt           |   63 +
  .../results/screenshots/diff-off-drag-1280-tx1.jpg |  Bin 0 -> 44116 bytes
  .../results/screenshots/diff-off-drag-1280-tx4.jpg |  Bin 0 -> 54738 bytes
  .../results/screenshots/diff-off-drag-390-tx1.jpg  |  Bin 0 -> 33231 bytes
@@ -231,7 +240,7 @@ git diff --stat claude/keen-hawking-sfeg6f...
  boki2/proto/desk/desk.css                          |    5 +
  boki2/proto/desk/desk.js                           |  173 +
  boki2/proto/desk/index.html                        |   29 +
- 62 files changed, 9303 insertions(+)
+ 71 files changed, 9869 insertions(+)
 ```
 
 ## やっていないこと
