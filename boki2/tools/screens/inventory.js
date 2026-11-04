@@ -191,7 +191,7 @@ async function run(options={}) {
           if(!process.env.SCREEN_SUPPLEMENT)await extras(p,s);
           if(n%100===0)console.log('進行',current.name,n,s.label);
         },onAction:async a=>actions.push(compactAction({profile:current.name,...a})),shot:async label=>{const s=await state(p);await shot(p,kind(s),'auto:'+label);}});
-      }catch(e){errors.push({profile:current.name,error:e.stack});await shot(p,'進行停止','stuck');result={stuck:true};}
+      }catch(e){errors.push({profile:current.name,error:e.stack});await shot(p,'進行停止','stuck',{captureNote:'撮影停止：自動操作の例外（errors参照）'});result={stuck:true};}
       journeys.push({profile:current.name,style:current.style||STYLE,adverseAt:(current.adverse||process.env.SCREEN_DISASTER)?36:null,seed:SEED,resume:process.env.SCREEN_RESUME?{method:'画面のファイル入力',file:path.basename(process.env.SCREEN_RESUME),sha256:sha(fs.readFileSync(process.env.SCREEN_RESUME))}:null,result,final:await state(p)});persist();await context.close();
     }
   }finally{await browser.close();await new Promise(r=>server.close(r));persist();}

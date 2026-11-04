@@ -1,16 +1,22 @@
 {
-  "screens": 337,
-  "indexRows": 337,
+  "screens": 338,
+  "indexRows": 338,
   "byViewport": {
     "390-light": 117,
     "1280-light": 115,
-    "390-dark": 105
+    "390-dark": 106
   },
-  "photosBytes": 27598875,
-  "sheetsBytes": 4905797,
-  "totalImageBytes": 32504672,
+  "photosBytes": 27647118,
+  "sheetsBytes": 4929201,
+  "totalImageBytes": 32576319,
   "darkKinds": 62,
   "missing": [],
   "missingTimes": [],
+  "typography": {
+    "under14": 338,
+    "markdownUnder14": 338,
+    "under12": 323,
+    "markdownColumn": 11
+  },
   "errors": []
 }

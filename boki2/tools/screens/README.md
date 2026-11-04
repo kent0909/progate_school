@@ -13,6 +13,7 @@ Node.js、Playwright、Chromium、sharpを使う。既存ツールと同様、Pl
 ```sh
 PIYO_CHROMIUM=/usr/bin/chromium node boki2/tools/screens/inventory.js
 node boki2/tools/screens/catalog.js
+node boki2/tools/screens/verify.js
 ```
 
 `inventory.js` が、固定seed=0・skilled・strategy=1で既存 `../playtest/auto.js` を呼ぶ。
@@ -23,6 +24,7 @@ localhostのHTTPサーバー以外のブラウザ要求を全て拒否し、外�
 右のタブはPCで常設、スマホでは上部のボタンから開く。SVGの地区は、物件に重ならない地区名の文字をクリックする。
 
 - `inventory.json`: 画面ごとの測定値・全文・画像SHA256・画面位置、操作と到達地点、ページエラー。
+- `verify.js`: 実画像の形式・幅・SHA・容量・行数を照合する。14px未満の数はJSONとINDEXの「最小px」列で別々に数える。
 - `compare.js`: 同一設定の2つのinventory.jsonを引数に渡すと、目録の列・本文・並びの差を検査する。写真自体の差は別に数える。
 - `merge.js`: 分けて撮影した場合、撮影フォルダを引数の順に統合する。画像のSHA256を検査する。
 - `catalog.js`: 最初の出現と指定4時点を残し、連番を付け直し、INDEX.md・summary.json・一覧画像を生成する。
