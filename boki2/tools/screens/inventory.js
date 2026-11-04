@@ -10,6 +10,7 @@ const { initialSave } = require('../playtest/bot-runs.js');
 const ROOT = path.resolve(__dirname, '../..');
 const OUT = process.env.SCREEN_OUTPUT || path.join(ROOT, 'docs/screens');
 const SEED = 0;
+const STYLE = process.env.SCREEN_STYLE || 'skilled';
 const sha = x => crypto.createHash('sha256').update(x).digest('hex');
 
 // 全文のinnerText、表示中（画面外のスクロール領域も含む）の操作部品とテキストを測定。
@@ -51,7 +52,7 @@ function kind(s) {
   if(s.sort)return s.mi===0?'プロローグ・sort/tap':'発見・sort/tap';
   if(s.plan)return '作戦の机';if(s.bowl)return '一杯の組み立て';
   if(s.report)return '月報';if(s.band)return '締めの帯';
-  if(s.doc)return '書類・docScreen';
+  if(s.doc&&s.classes.includes('s-docscreen'))return '書類・docScreen';
   if(s.markers.includes('data-reason'))return '発見・理由';
   if(s.markers.split(',').includes('data-o'))return '名前の札';
   if(s.markers.split(',').includes('data-guess'))return '予想';
@@ -86,7 +87,7 @@ async function run(options={}) {
     const s=await state(page), m=await measure(page), id='S'+String(rows.length+1).padStart(3,'0');
     const file=`images/${id}-${current.name}.jpg`;
     await page.screenshot({path:path.join(OUT,file),type:'jpeg',quality:55,fullPage:true,animations:'disabled'});
-    rows.push({id,file,width:current.width,height:current.height,color:current.color,seed:SEED,kind:k,stage:stage(k),...s,...m,...extra,imageSha:sha(fs.readFileSync(path.join(OUT,file)))});
+    rows.push({id,file,width:current.width,height:current.height,color:current.color,seed:SEED,style:current.style||STYLE,kind:k,stage:stage(k),...s,...m,...extra,imageSha:sha(fs.readFileSync(path.join(OUT,file)))});
     persist();console.log(id,current.name,k,s.label,s.ei);
   }
   const click=async(p,sel)=>{await p.locator(sel).first().click();actions.push({profile:current.name,selector:sel});};
@@ -106,7 +107,7 @@ async function run(options={}) {
         for(const [attr,k] of [['data-rival','ライバル'],['data-lot','空き物件'],['data-area','町の地区']]){
           const loc=p.locator(`${root} [${attr}]`).first();
           if(await loc.count()){
-            // 地区のSVG中央には物件が重なる。ラベルをキーボードで押す。
+            // 地区のSVG中央には物件が重なる。地区名の文字を通常クリックする。
             if(attr==='data-area')await loc.locator('text').first().click();else await loc.click();
             await shot(p,k,`${k}:${time}`);await p.locator('.s-ov').last().locator('[data-close]').click();
           }
@@ -135,28 +136,37 @@ async function run(options={}) {
     for(current of (options.profiles||[
       {name:'mobile-light',width:390,height:844,color:'light'},
       {name:'desktop-light',width:1280,height:800,color:'light'},
-      {name:'mobile-dark',width:390,height:844,color:'dark'}])){
+      {name:'mobile-dark',width:390,height:844,color:'dark'},
+      {name:'idle-mobile-light',width:390,height:844,color:'light',style:'idle'},
+      {name:'idle-desktop-light',width:1280,height:800,color:'light',style:'idle'}])){
       if(process.env.SCREEN_PROFILE&&current.name!==process.env.SCREEN_PROFILE)continue;
       const context=await browser.newContext({viewport:{width:current.width,height:current.height},hasTouch:current.width===390,isMobile:current.width===390,deviceScaleFactor:1,colorScheme:current.color,reducedMotion:'reduce',serviceWorkers:'block',locale:'ja-JP',timezoneId:'Asia/Tokyo'});
       await context.route('**/*',r=>r.request().url().startsWith(origin+'/')?r.continue():r.abort());
       await context.addInitScript(({save,seed})=>{localStorage.setItem('boki2sim.v4',JSON.stringify(save));let n=seed;Math.random=()=>{n=(Math.imul(n,1664525)+1013904223)>>>0;return n/4294967296;};}, {save:initialSave(SEED),seed:SEED});
-      const p=await context.newPage();p.setDefaultTimeout(12000);p.on('pageerror',e=>errors.push({profile:current.name,error:e.message}));p.on('dialog',d=>d.accept());
+      const p=await context.newPage();p.setDefaultTimeout(60000);p.on('pageerror',e=>errors.push({profile:current.name,error:e.message}));p.on('dialog',d=>d.accept());
       await p.goto(origin+'/ramen.html');
       await shot(p,'タイトル・セーブ枠','title');await click(p,'.s-more > summary');await shot(p,'ゲームの設定','settings');await click(p,'.s-more > summary');
-      let last='',repeated=0;
+      let last='',repeated=0,supplementDone=false;
       let result;
       try{
-        result=await auto(p,{style:'skilled',seed:SEED,strategy:1,maxSteps:5500,endMode:'y2',onStep:async n=>{
+        result=await auto(p,{style:current.style||STYLE,choose:(current.style||STYLE)==='idle'?{site:'ekimae',form:'part2',sign:'large',supplier:'high'}:{},seed:SEED,strategy:1,maxSteps:5500,endMode:'y2',stopWhen:async()=>supplementDone,onClickTiming:async info=>{
+          if(/data-pick=|data-sort=/.test(info.selector)&&await p.locator('[data-reason]:visible').count())await shot(p,'発見・理由','reason');
+        },onStep:async n=>{
           const s=await state(p), k=kind(s), key=`${s.type}:${s.markers}:${s.classes}`;
           const stamp=`${s.mi}:${s.ei}:${s.markers}:${(await p.locator('#sim').innerText()).slice(-500)}`;
           repeated=stamp===last?repeated+1:0;last=stamp;if(repeated>12)throw Error('同じ画面で13回停止');
           await shot(p,k,key);
           if((s.report||s.band||s.plan)&&['1-4','1-9','1-3','2-4'].includes(`${s.year}-${s.month}`))await shot(p,k,`${k}:${s.year}:${s.month}`);
-          await extras(p,s);
+          if(s.plan&&s.year>=2&&await p.locator('[data-plan-more] > summary').count()&&!seen.has(current.name+':expanded-plan')){
+            seen.add(current.name+':expanded-plan');
+            if(await p.locator('[data-plan-more] > summary').count()){await click(p,'[data-plan-more] > summary');await shot(p,'作戦の机・すべての手','plan-expanded');await click(p,'[data-plan-more] > summary');}
+            if(process.env.SCREEN_SUPPLEMENT)supplementDone=true;
+          }
+          if(!process.env.SCREEN_SUPPLEMENT)await extras(p,s);
           if(n%100===0)console.log('進行',current.name,n,s.label);
         },onAction:async a=>actions.push({profile:current.name,...a}),shot:async label=>{const s=await state(p);await shot(p,kind(s),'auto:'+label);}});
       }catch(e){errors.push({profile:current.name,error:e.stack});await shot(p,'進行停止','stuck');result={stuck:true};}
-      journeys.push({profile:current.name,result,final:await state(p)});persist();await context.close();
+      journeys.push({profile:current.name,style:current.style||STYLE,seed:SEED,result,final:await state(p)});persist();await context.close();
     }
   }finally{await browser.close();await new Promise(r=>server.close(r));persist();}
   return {rows,journeys,errors};
