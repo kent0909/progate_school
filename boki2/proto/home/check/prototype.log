@@ -50,6 +50,7 @@
 |1280×800|e|1|end|504.00|480.00|46.80|—|14|117.59×44.39|
 PASS: 48/48 完走（6版×stale 0/1×2幅×チラシ2択）、画面写真36枚、実測48行、JSON書き出し48/48、外部通信0、ブラウザエラー0
 seeded-quiz: 128 seeds deterministic, all 4 answer positions reached: PASS
+file:// e stale=1: errors 0, next document visible, posting and advance: PASS
 stale timer excludes dialog and hidden tab; advance receipt/clear times retained: PASS
 reduced-motion / switches / restart-preserves-records / quiz-order-resume / incorrect-answers: PASS
 storage-unavailable-export: PASS

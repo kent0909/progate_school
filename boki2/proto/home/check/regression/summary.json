@@ -1,6 +1,5 @@
 {
   "completedAt": "2026-11-04T02:27:35.630353+00:00",
-  "testedAppCommit": "15a13505793397a631a892781f1ca0282f59418e",
   "baseCommit": "ceed5380b3085073436eb906a5ed38d831374f52",
   "allPassed": true,
   "tests": [
@@ -75,5 +74,17 @@
   "prototypeRuns": 48,
   "measurements": 48,
   "screenshots": 36,
-  "outsideScopeFiles": []
+  "outsideScopeFiles": [],
+  "gameChecksRecordedAtCommit": "15a13505793397a631a892781f1ca0282f59418e",
+  "prototypeChecksRecordedAtCommit": "c9a85a89affdd96c4e6c43bab822ddc3a75d7d83",
+  "prototypeChecksCompletedAt": "2026-11-04T02:37:50.581306+00:00",
+  "fileCheck": {
+    "protocol": "file:",
+    "variant": "e",
+    "stale": 1,
+    "browserVersion": "143.0.7499.0",
+    "errors": 0,
+    "nextDocumentVisible": true,
+    "postingAndAdvance": true
+  }
 }

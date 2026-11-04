@@ -75,7 +75,7 @@ PlaywrightとChromiumを使える環境で `node boki2/proto/home/check/run.cjs`
 - 新しいMobbin検索や外部資料の取得。指定された設計書を利用した。
 - 本番ゲームへの接続、120か月の経営、自由な仕訳入力、町・帳簿・成長の各画面。机は正しい仕訳の確認と記帳だけ。
 - 絵の本制作。全版で同じ仮のSVGを使い、描き込みの差で比較が歪まないようにした。
-- 実機のタッチ操作、Safari・Firefoxの検査。Chromiumで確認する。`file://` でe・stale=1を直接開き、エラー0・書類の表示・記帳と次の日への移動を確認する検査を含む。
+- 実機のタッチ操作、Safari・Firefoxの検査。Chromiumで確認する。`file://` でe・stale=1を直接開き、Chromium 143でエラー0・書類の表示・記帳と次の日への移動を確認済み。HTTPの48通りは通常のChromiumで再実行した。
 
 ## 既知の傷
 
