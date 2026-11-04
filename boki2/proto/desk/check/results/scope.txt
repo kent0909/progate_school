@@ -14,8 +14,8 @@
  boki2/proto/desk/check/results/regression-5.log    |   79 +
  boki2/proto/desk/check/results/regression-6.log    |    1 +
  boki2/proto/desk/check/results/regression.json     |   32 +
- boki2/proto/desk/check/results/report.md           |  243 ++
- boki2/proto/desk/check/results/scope.txt           |   63 +
+ boki2/proto/desk/check/results/report.md           |  252 ++
+ boki2/proto/desk/check/results/scope.txt           |   72 +
  .../results/screenshots/diff-off-drag-1280-tx1.jpg |  Bin 0 -> 44116 bytes
  .../results/screenshots/diff-off-drag-1280-tx4.jpg |  Bin 0 -> 54738 bytes
  .../results/screenshots/diff-off-drag-390-tx1.jpg  |  Bin 0 -> 33231 bytes
@@ -69,4 +69,4 @@
  boki2/proto/desk/desk.css                          |    5 +
  boki2/proto/desk/desk.js                           |  173 +
  boki2/proto/desk/index.html                        |   29 +
- 71 files changed, 9869 insertions(+)
+ 71 files changed, 9887 insertions(+)
