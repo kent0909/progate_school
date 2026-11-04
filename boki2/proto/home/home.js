@@ -19,7 +19,9 @@ function save() {
   try { localStorage.setItem(KEY, JSON.stringify(store)); }
   catch { status.textContent = '端末に保存できません。終了前に記録を書き出してください。'; }
 }
-function showDialog(title, body, after) {
+function showDialog(title, body, after, kind = 'standard') {
+  home.hidden = kind === 'quiz';
+  dialog.classList.toggle('quiz', kind === 'quiz');
   content.innerHTML = `<h2 id="dialog-title">${title}</h2>${body}`;
   if (!dialog.open) dialog.showModal();
   after?.();
@@ -68,6 +70,8 @@ function render(changed = false) {
   save();
 }
 function openHome(changed = false) {
+  home.hidden=false;
+  dialog.classList.remove('quiz');
   session.homeOpens++; log(session,'home'); render(changed);
   if (changed) window.setTimeout(()=>home.classList.remove('changed'),500);
 }
@@ -105,7 +109,7 @@ function showQuiz() {
     save();
   }
   const choices=session.quizOrder[q].choices;
-  showDialog('今月のふりかえり',`<p>${q===0?'いまお店の口座のお金はいくら？':'1億まであとどれくらい？'}</p><div class="quiz-options">${choices.map(n=>`<button data-answer="${n}">${yen(n)}</button>`).join('')}</div>`);
+  showDialog('今月のふりかえり',`<p>${q===0?'いまお店の口座のお金はいくら？':'1億まであとどれくらい？'}</p><div class="quiz-options">${choices.map(n=>`<button data-answer="${n}">${yen(n)}</button>`).join('')}</div>`, undefined, 'quiz');
 }
 function exportRecords() {
   log(session,'export'); save();

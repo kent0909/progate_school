@@ -295,7 +295,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1333,
+      "elapsedMs": 1357,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -313,7 +313,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1011,
+      "elapsedMs": 967,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -331,7 +331,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1131,
+      "elapsedMs": 1833,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -349,7 +349,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1125,
+      "elapsedMs": 1058,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -367,7 +367,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1143,
+      "elapsedMs": 1083,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -385,7 +385,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1060,
+      "elapsedMs": 1120,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -403,7 +403,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1212,
+      "elapsedMs": 1505,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -421,7 +421,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1092,
+      "elapsedMs": 1097,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -439,7 +439,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1059,
+      "elapsedMs": 1169,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -457,7 +457,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1205,
+      "elapsedMs": 1162,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -475,7 +475,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1081,
+      "elapsedMs": 1128,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -493,7 +493,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1586,
+      "elapsedMs": 1235,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -511,7 +511,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1327,
+      "elapsedMs": 1301,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -529,7 +529,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1111,
+      "elapsedMs": 5663,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -547,7 +547,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1347,
+      "elapsedMs": 2609,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -565,7 +565,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1109,
+      "elapsedMs": 1403,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -583,7 +583,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1099,
+      "elapsedMs": 1416,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -601,7 +601,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1177,
+      "elapsedMs": 1162,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -619,7 +619,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1197,
+      "elapsedMs": 1322,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -637,7 +637,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1306,
+      "elapsedMs": 1234,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"

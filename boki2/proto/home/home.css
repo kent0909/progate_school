@@ -641,3 +641,8 @@ textarea {
     scroll-behavior:auto!important
   }
 }
+
+/* PR #14・6620172504：想起の問いの間だけ、店の数と絵を透かさない。 */
+dialog.quiz::backdrop {
+  background:var(--paper)
+}

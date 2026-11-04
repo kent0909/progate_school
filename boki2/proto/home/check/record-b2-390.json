@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "exportedAt": "2026-11-04T01:29:06.286Z",
+  "exportedAt": "2026-11-04T01:40:25.357Z",
   "sessions": [
     {
-      "id": "daca1ce1-7b64-4ba7-b466-91c7fda5fafd",
+      "id": "e2239044-1e08-4703-a6f4-bf25db923d42",
       "variant": "b2",
-      "startedAt": 1793755744458,
-      "finishedAt": 1793755745601,
-      "elapsedMs": 1143,
+      "startedAt": 1793756423559,
+      "finishedAt": 1793756424642,
+      "elapsedMs": 1083,
       "homeOpens": 11,
       "numberClicks": 0,
       "lineClicks": 1,
@@ -19,198 +19,198 @@
           "answer": 2920000,
           "selectedIndex": 2,
           "correct": true,
-          "at": 1793755745667
+          "at": 1793756424708
         },
         {
           "question": "remaining",
           "answer": 96945000,
-          "selectedIndex": 0,
+          "selectedIndex": 2,
           "correct": true,
-          "at": 1793755745701
+          "at": 1793756424761
         }
       ],
       "quizOrder": [
         {
           "question": "account",
           "choices": [
-            2940000,
             3920000,
+            2940000,
             2920000,
             2910000
           ],
-          "at": 1793755745601
+          "at": 1793756424642
         },
         {
           "question": "remaining",
           "choices": [
-            96945000,
-            96965000,
             96935000,
+            96965000,
+            96945000,
             97945000
           ],
-          "at": 1793755745667
+          "at": 1793756424708
         }
       ],
       "events": [
         {
           "type": "home",
-          "at": 1793755744459,
+          "at": 1793756423561,
           "posted": 0
         },
         {
           "type": "line_click",
-          "at": 1793755744756,
+          "at": 1793756423801,
           "posted": 0,
           "target": "outlook"
         },
         {
           "type": "home",
-          "at": 1793755744839,
+          "at": 1793756423897,
           "posted": 0
         },
         {
           "type": "document_open",
-          "at": 1793755744884,
+          "at": 1793756423944,
           "posted": 0,
           "document": "cash-sales"
         },
         {
           "type": "posted",
-          "at": 1793755744934,
+          "at": 1793756423991,
           "posted": 0,
           "document": "cash-sales"
         },
         {
           "type": "home",
-          "at": 1793755744935,
+          "at": 1793756423992,
           "posted": 1
         },
         {
           "type": "document_open",
-          "at": 1793755744969,
+          "at": 1793756424041,
           "posted": 1,
           "document": "credit-purchase"
         },
         {
           "type": "posted",
-          "at": 1793755745017,
+          "at": 1793756424096,
           "posted": 1,
           "document": "credit-purchase"
         },
         {
           "type": "home",
-          "at": 1793755745018,
+          "at": 1793756424097,
           "posted": 2
         },
         {
           "type": "document_open",
-          "at": 1793755745069,
+          "at": 1793756424140,
           "posted": 2,
           "document": "rent"
         },
         {
           "type": "posted",
-          "at": 1793755745118,
+          "at": 1793756424190,
           "posted": 2,
           "document": "rent"
         },
         {
           "type": "home",
-          "at": 1793755745119,
+          "at": 1793756424190,
           "posted": 3
         },
         {
           "type": "decision",
-          "at": 1793755745168,
+          "at": 1793756424241,
           "posted": 3,
           "choice": "flyer"
         },
         {
           "type": "home",
-          "at": 1793755745168,
+          "at": 1793756424241,
           "posted": 3
         },
         {
           "type": "document_open",
-          "at": 1793755745218,
+          "at": 1793756424275,
           "posted": 3,
           "document": "salary"
         },
         {
           "type": "posted",
-          "at": 1793755745268,
+          "at": 1793756424326,
           "posted": 3,
           "document": "salary"
         },
         {
           "type": "home",
-          "at": 1793755745269,
+          "at": 1793756424327,
           "posted": 4
         },
         {
           "type": "home",
-          "at": 1793755745337,
+          "at": 1793756424374,
           "posted": 4
         },
         {
           "type": "document_open",
-          "at": 1793755745404,
+          "at": 1793756424445,
           "posted": 4,
           "document": "card-sales"
         },
         {
           "type": "posted",
-          "at": 1793755745451,
+          "at": 1793756424490,
           "posted": 4,
           "document": "card-sales"
         },
         {
           "type": "home",
-          "at": 1793755745452,
+          "at": 1793756424490,
           "posted": 5
         },
         {
           "type": "document_open",
-          "at": 1793755745502,
+          "at": 1793756424542,
           "posted": 5,
           "document": "equipment"
         },
         {
           "type": "posted",
-          "at": 1793755745551,
+          "at": 1793756424592,
           "posted": 5,
           "document": "equipment"
         },
         {
           "type": "home",
-          "at": 1793755745551,
+          "at": 1793756424594,
           "posted": 6
         },
         {
           "type": "month_closed",
-          "at": 1793755745601,
+          "at": 1793756424642,
           "posted": 6
         },
         {
           "type": "quiz_answer",
-          "at": 1793755745667,
+          "at": 1793756424708,
           "posted": 6,
           "question": 0
         },
         {
           "type": "quiz_answer",
-          "at": 1793755745701,
+          "at": 1793756424761,
           "posted": 6,
           "question": 1
         },
         {
           "type": "home",
-          "at": 1793755745702,
+          "at": 1793756424762,
           "posted": 6
         },
         {
           "type": "export",
-          "at": 1793755746286,
+          "at": 1793756425357,
           "posted": 6
         }
       ],

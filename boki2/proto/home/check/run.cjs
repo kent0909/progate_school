@@ -69,7 +69,7 @@ async function main(){
       if(variant==='b1'||variant==='b2') await page.locator('[data-action=outlook]').click();
       if(variant==='c') await page.locator('[data-action=sales]').click();
       if(variant==='d') await page.locator('[data-action=account]').click();
-      if(variant!=='a') {await measureDialog(page);await page.locator('[data-action=back]').click();}
+      if(variant!=='a') {assert.equal(await page.locator('#dialog').evaluate(el=>getComputedStyle(el,'::backdrop').backgroundColor),'rgba(51, 45, 38, 0.44)');await measureDialog(page);await page.locator('[data-action=back]').click();}
       const forecasts=[];
       for(let i=0;i<6;i++) {
         forecasts.push(await page.locator('.metrics').textContent());
@@ -81,12 +81,17 @@ async function main(){
         if(i===3){await page.reload();assert.equal((await currentSession(page)).posted,4);}
       }
       await page.locator('[data-next-doc]').click();
-      // 問いの間、ホームの数を見られないことを dialog の modal 状態で確認。
+      // 問いの間、背景ホームを操作できないことを dialog の modal 状態で確認。
       assert(await page.locator('#dialog').evaluate(el=>el.matches(':modal')));
+      assert.equal(await page.locator('#home').isVisible(),false);
+      assert.equal(await page.locator('.stage').isVisible(),false);
+      assert.equal(await page.locator('.metrics').isVisible(),false);
+      assert.equal(await page.locator('#dialog').evaluate(el=>getComputedStyle(el,'::backdrop').backgroundColor),'rgb(246, 240, 230)');
       assert.match(await page.locator('#dialog').textContent(),/口座のお金/);await measureDialog(page);
       await page.keyboard.press('Escape');assert(await page.locator('#dialog').isVisible());
-      await page.locator('[data-answer="2920000"]').click();
+      await page.locator('[data-answer="2920000"]').click();assert.equal(await page.locator('#home').isVisible(),false);
       await page.locator(`[data-answer="${choice==='flyer'?96945000:96925000}"]`).click();
+      assert.equal(await page.locator('#home').isVisible(),true);
       const session=await currentSession(page);
       assert.equal(session.posted,6);assert.equal(session.decision,choice);assert.equal(session.phase,'done');assert.equal(session.answers.length,2);assert.equal(session.quizOrder.length,2);assert(session.quizOrder.every(o=>new Set(o.choices).size===4));assert(session.answers.every(a=>a.correct));assert(session.elapsedMs>=0);
       assert.equal(session.events.filter(e=>e.type==='decision').length,1);
