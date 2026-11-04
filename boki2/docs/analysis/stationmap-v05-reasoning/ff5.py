@@ -21,7 +21,7 @@ print(f'# 元の台本の値：421駅 {len(ok)}・複数事業者 {len(multi)}�
 # (a)
 def adjd(x, d): return min(1.0, (x['gate13'] / x['A']) / d) if x['A'] else 1.0
 base = {x['name']: tier(x['A'] * adjd(x, single)) for x in ok}
-print('\n## (a) 割る値を変えたときの段（421駅）')
+print(f'\n## (a) 割る値を変えたときの段（{len(ok)}駅）')
 for d in [0.70, 0.75, single, 0.85, 0.90, 1.00]:
   ch = collections.Counter(('同じ' if tier(x['A'] * adjd(x, d)) == base[x['name']] else ('上がる' if tier(x['A'] * adjd(x, d)) > base[x['name']] else '下がる')) for x in ok)
   big = {n: tier(x['A'] * adjd(x, d)) for x in ok for n in [x['name']] if n in ('新宿', '渋谷', '池袋', '東京', '北千住', '品川')}
@@ -32,7 +32,7 @@ for n in ('渋谷', '池袋', '新宿'):
 # (b)
 print('\n## (b) 飲食店の事業所数（500m）との順位相関の差：A_adj − A（ブートストラップ 2000回、駅を引き直す）')
 random.seed(7)
-for lab, S in [('複数事業者の駅', multi), ('全421駅', ok)]:
+for lab, S in [('複数事業者の駅', multi), (f'全{len(ok)}駅', ok)]:
   a = [x['A'] for x in S]; b = [x['A'] * adjd(x, single) for x in S]; f = [x['food5'] for x in S]
   d0 = sp(b, f) - sp(a, f); ds = []
   for _ in range(2000):
@@ -63,7 +63,7 @@ print(f'- 複数事業者の駅 {len(mg)}：D13/A と昼の比の順位相関 {s
 ALL = G['ALL']; okn = {x['name'] for x in ok}
 miss = [x for x in ALL if x['name'] not in okn]
 why = collections.Counter(('D13が0' if not x['gate13'] else '') + ('・' if not x['gate13'] and x['food5'] is None else '') + ('500mの飲食店の値なし' if x['food5'] is None else '') for x in miss)
-print(f'\n## (d) 係数が1のままの駅 {len(miss)}：理由 {dict(why)}')
+print(f'\n## (d) 係数が1のままの駅 {len(miss)}：理由 {dict(why)}。補正のある {len(ok)} 駅のうち1で頭打ち {sum(1 for x in ok if adjd(x, single) >= 1)}')
 print('  D13 はあるが飲食店の値がないので係数1：' + '、'.join(f'{x["name"]}(D13/A {x["gate13"] / x["A"]:.2f}→係数ならば {min(1, x["gate13"] / x["A"] / single):.2f})' for x in miss if x['gate13'] and x['food5'] is None and x['A']))
 # (e) 候補地ごとの 500m メッシュの 従業者/(従業者+夜間)（BIZ-FOOTFALL23 5.2 の値の作り方。all5.js の Lsite で使う）
 import json, os
@@ -76,4 +76,11 @@ json.dump(out, open('out/site_L.json', 'w'), ensure_ascii=False)
 byt = collections.defaultdict(list)
 for s in G['SITES']:
   if s['id'] in out: byt[s['type']].append(out[s['id']])
-print(f'\n## (e) 候補地ごとの昼の比（886か所のうち値のある {len(out)}）：' + '・'.join(f'{k} 中央{statistics.median(v):.2f}（{len(v)}）' for k, v in byt.items()))
+print(f'\n## (e) 候補地ごとの昼の比（{len(G["SITES"])}か所のうち値のある {len(out)}）：' + '・'.join(f'{k} 中央{statistics.median(v):.2f}（{len(v)}）' for k, v in byt.items()))
+# (f) 「2つの独立した資料が同じ向き」：D13 からの乗り換えの割合の見積もり 1−(D13/A)÷中央値 と、第12回の乗換え÷合計 の順位相関
+both = [x for x in ok if x.get('t12_x') and x.get('t12_all')]
+est = [1 - (x['gate13'] / x['A']) / single for x in both]; d12 = [x['t12_x'] / x['t12_all'] for x in both]
+KEYS = set(G['KEY'])
+k10 = [i for i, x in enumerate(both) if x['name'] in KEYS]
+mb = [i for i, x in enumerate(both) if x['ops'] >= 2]; sb = [i for i, x in enumerate(both) if x['ops'] == 1]
+print(f'\n## (f) 乗り換えの割合の2つの見積もり（D13 から・第12回）の順位相関：両方ある {len(both)}駅 {sp(est, d12):.3f}・主要10駅 {sp([est[i] for i in k10], [d12[i] for i in k10]):.3f}・複数事業者 {len(mb)}駅 {sp([est[i] for i in mb], [d12[i] for i in mb]):.3f}・単独事業者 {len(sb)}駅 {sp([est[i] for i in sb], [d12[i] for i in sb]):.3f}')

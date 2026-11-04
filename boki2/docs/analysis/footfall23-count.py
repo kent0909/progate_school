@@ -304,4 +304,11 @@ if os.environ.get('FOOTFALL_JSON'):
          'single': single, 'stations': {}}
   for s, x in zip(ST, ALL):
     out['stations'][s['name']] = {'adj': round(adj(x), 4) if id(x) in okset else 1.0, 'gate13': x['gate13'], 'A': x['A'], 'used': id(x) in okset}
+  # 候補地ごとの500mメッシュの値（11/2 オーナーの決定「夜の強さを駅のまわりで飲食業に勤める人の割合で置く」）：
+  # day＝従業者÷(従業者＋夜間人口)（昼の働き手の比）、food＝宿泊・飲食サービス業の従業者÷全従業者。キーは地価の地点の番号 l01（作り直しで変わらない）
+  out['sites'] = {}
+  for st_ in SITES:
+    lat, lon = latlon(st_['x'], st_['y']); m = meshvals(lat, lon)
+    day = (m['emp5'] / (m['emp5'] + m['pop5'])) if (m['emp5'] is not None and m['pop5'] is not None and m['emp5'] + m['pop5'] > 0) else None
+    out['sites'][st_['l01']] = {'day': None if day is None else round(day, 4), 'food': None if foodshare(lat, lon) is None else round(foodshare(lat, lon), 4)}
   with open(os.environ['FOOTFALL_JSON'], 'w', encoding='utf-8') as fo: json.dump(out, fo, ensure_ascii=False, indent=0)
