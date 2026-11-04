@@ -21,5 +21,6 @@
 |1280×800|d|start|232.78|240.00|208.78|はい|14|60.00×44.39|
 |1280×800|d|end|232.78|240.00|208.78|はい|14|117.59×44.39|
 PASS: 20/20 完走、画面写真20枚、実測20行、JSON書き出し20/20、外部通信0、ブラウザエラー0
+seeded-quiz: 128 seeds deterministic, all 4 answer positions reached: PASS
 reduced-motion / switch / restart-preserves-records / invalid-storage / quiz-resume / incorrect-answers: PASS
 storage-unavailable-export: PASS

@@ -5,7 +5,7 @@ export const yen = value => `${Math.round(value).toLocaleString('ja-JP')}円`;
 export function initialSession(variant, now = Date.now()) {
   return {id:globalThis.crypto.randomUUID(), variant, startedAt:now, finishedAt:null,
     elapsedMs:null, homeOpens:0, numberClicks:0, lineClicks:0, decision:null,
-    posted:0, answers:[], events:[], phase:'home'};
+    posted:0, answers:[], quizOrder:[], events:[], phase:'home'};
 }
 export function financials(session, scenario) {
   const result = {...scenario.opening};
@@ -40,7 +40,23 @@ export function outlook(finance, scenario) {
 export function log(session, type, detail = {}) {
   session.events.push({type, at:Date.now(), posted:session.posted, ...detail});
 }
-export function quizChoices(correct) {
-  // 4つとも異なる円額。毎回同じ並びで、正解の位置だけを目印にできないよう問いごとに回す。
-  return [correct + 20_000, Math.max(0,correct - 10_000), correct, correct + 1_000_000];
+export function quizChoices(correct, seed) {
+  // PR #14・6620016898：記録id＋問いを種にFisher–Yatesで並べ替える。
+  // 正解の位置を固定せず、同じ記録・問いでは再読み込みしても同じ順になる。
+  // FNV-1aで文字列を32bit化し、Mulberry32の乱数列で各交換先を選ぶ。
+  // 実際に出した4択は session.quizOrder に保存する（home.js）。
+  const choices = [correct + 20_000, Math.max(0,correct - 10_000), correct, correct + 1_000_000];
+  let state = 2166136261;
+  for (const character of seed) state = Math.imul(state ^ character.charCodeAt(0), 16777619) >>> 0;
+  function random() {
+    state = (state + 0x6D2B79F5) >>> 0;
+    let value = Math.imul(state ^ (state >>> 15), state | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+  }
+  for (let i = choices.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [choices[i], choices[j]] = [choices[j], choices[i]];
+  }
+  return choices;
 }

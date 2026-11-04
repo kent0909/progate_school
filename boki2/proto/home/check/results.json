@@ -295,7 +295,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 2433,
+      "elapsedMs": 1333,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -313,7 +313,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1004,
+      "elapsedMs": 1011,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -331,7 +331,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1898,
+      "elapsedMs": 1131,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -349,7 +349,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1076,
+      "elapsedMs": 1125,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -367,7 +367,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1138,
+      "elapsedMs": 1143,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -385,7 +385,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1124,
+      "elapsedMs": 1060,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -403,7 +403,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1147,
+      "elapsedMs": 1212,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -421,7 +421,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1106,
+      "elapsedMs": 1092,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -439,7 +439,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1207,
+      "elapsedMs": 1059,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -457,7 +457,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1107,
+      "elapsedMs": 1205,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -475,7 +475,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1068,
+      "elapsedMs": 1081,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -493,7 +493,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1034,
+      "elapsedMs": 1586,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -511,7 +511,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1152,
+      "elapsedMs": 1327,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -529,7 +529,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1186,
+      "elapsedMs": 1111,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -547,7 +547,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1123,
+      "elapsedMs": 1347,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -565,7 +565,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1167,
+      "elapsedMs": 1109,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -583,7 +583,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1110,
+      "elapsedMs": 1099,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -601,7 +601,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1174,
+      "elapsedMs": 1177,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -619,7 +619,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1231,
+      "elapsedMs": 1197,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -637,13 +637,14 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1113,
+      "elapsedMs": 1306,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
     }
   ],
   "extra": [
+    "seeded-quiz: 128 seeds deterministic, all 4 answer positions reached: PASS",
     "reduced-motion / switch / restart-preserves-records / invalid-storage / quiz-resume / incorrect-answers: PASS",
     "storage-unavailable-export: PASS"
   ]

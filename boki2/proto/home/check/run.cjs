@@ -42,6 +42,14 @@ async function measureDialog(page, selector = '#dialog') {
 async function main(){
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const origin=`http://127.0.0.1:${server.address().port}`;
+  const {quizChoices}=await import('../model.js');
+  const positions=new Set();
+  for(let i=0;i<128;i++) {
+    const seed=`session-${i}:account`, choices=quizChoices(2_920_000,seed);
+    assert.deepEqual(choices,quizChoices(2_920_000,seed));assert.equal(new Set(choices).size,4);
+    positions.add(choices.indexOf(2_920_000));
+  }
+  assert.equal(positions.size,4);results.extra.push('seeded-quiz: 128 seeds deterministic, all 4 answer positions reached: PASS');
   const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
   try {
     for(const viewport of [{width:390,height:844},{width:1280,height:800}]) for(const variant of ['a','b1','b2','c','d']) for(const choice of ['flyer','skip']) {
@@ -80,7 +88,7 @@ async function main(){
       await page.locator('[data-answer="2920000"]').click();
       await page.locator(`[data-answer="${choice==='flyer'?96945000:96925000}"]`).click();
       const session=await currentSession(page);
-      assert.equal(session.posted,6);assert.equal(session.decision,choice);assert.equal(session.phase,'done');assert.equal(session.answers.length,2);assert(session.answers.every(a=>a.correct));assert(session.elapsedMs>=0);
+      assert.equal(session.posted,6);assert.equal(session.decision,choice);assert.equal(session.phase,'done');assert.equal(session.answers.length,2);assert.equal(session.quizOrder.length,2);assert(session.quizOrder.every(o=>new Set(o.choices).size===4));assert(session.answers.every(a=>a.correct));assert(session.elapsedMs>=0);
       assert.equal(session.events.filter(e=>e.type==='decision').length,1);
       assert.equal(session.events.filter(e=>e.type==='posted').length,6);
       assert.equal(session.numberClicks,['c','d'].includes(variant)?1:0);assert.equal(session.lineClicks,['b1','b2'].includes(variant)?1:0);
@@ -94,7 +102,7 @@ async function main(){
       }
       await page.locator('#export').click();await measureDialog(page);
       const exported=JSON.parse(await page.locator('#export-json').inputValue());
-      assert.deepEqual(exported.sessions[0].answers,session.answers);
+      assert.deepEqual(exported.sessions[0].answers,session.answers);assert.deepEqual(exported.sessions[0].quizOrder,session.quizOrder);
       const downloadPromise=page.waitForEvent('download');await page.locator('[data-action=download]').click();const download=await downloadPromise;
       assert.match(download.suggestedFilename(),/\.json$/);
       const downloadPath=await download.path();assert.equal(JSON.parse(fs.readFileSync(downloadPath,'utf8')).sessions[0].id,session.id);
@@ -117,8 +125,14 @@ async function main(){
     await page.evaluate(()=>{localStorage.setItem('boki2.proto.home.v1','broken json');});await page.reload();assert.equal((await currentSession(page)).posted,0);
     await page.goto(`${origin}/?v=a&lock=1`);
     for(let i=0;i<6;i++) {await page.locator('[data-next-doc]').click();await page.locator('[data-action=post]').click();if(i===2) await page.locator('.decision [data-action=skip]').click();}
-    await page.locator('[data-next-doc]').click();await page.locator('[data-answer]').first().click();await page.reload();
-    assert.match(await page.locator('#dialog').textContent(),/1億まで/);await page.locator('[data-answer]').first().click();
+    await page.locator('[data-next-doc]').click();
+    await page.locator('[data-answer]:not([data-answer="2920000"])').first().click();
+    const orderBeforeReload=(await currentSession(page)).quizOrder;
+    await page.reload();
+    assert.match(await page.locator('#dialog').textContent(),/1億まで/);
+    assert.deepEqual((await currentSession(page)).quizOrder,orderBeforeReload);
+    assert.deepEqual(await page.locator('[data-answer]').evaluateAll(els=>els.map(el=>Number(el.dataset.answer))),orderBeforeReload[1].choices);
+    await page.locator('[data-answer]:not([data-answer="96925000"])').first().click();
     const wrongSession=await currentSession(page);assert.equal(wrongSession.phase,'done');assert.equal(wrongSession.answers[0].correct,false);assert.equal(wrongSession.answers[1].correct,false);
     await context.close();results.extra.push('reduced-motion / switch / restart-preserves-records / invalid-storage / quiz-resume / incorrect-answers: PASS');
     const blocked=await browser.newContext();await blocked.addInitScript(()=>{Storage.prototype.setItem=()=>{throw new Error('blocked');};});const blockedPage=await blocked.newPage();await blockedPage.goto(`${origin}/?v=a&lock=1`);assert.match(await blockedPage.locator('#storage-status').textContent(),/保存できません/);await blockedPage.locator('#export').click();assert.equal(JSON.parse(await blockedPage.locator('#export-json').inputValue()).sessions.length,1);await blocked.close();results.extra.push('storage-unavailable-export: PASS');

@@ -99,7 +99,12 @@ function closeMonth() {
 function showQuiz() {
   const f=financials(session,scenario),o=outlook(f,scenario), q=session.answers.length;
   const correct=q===0?f.account:o.remaining;
-  const choices=quizChoices(correct); if(q===1) choices.push(choices.shift());
+  session.quizOrder ||= [];
+  if (!session.quizOrder[q]) {
+    session.quizOrder[q] = {question:q===0?'account':'remaining', choices:quizChoices(correct, `${session.id}:${q}`), at:Date.now()};
+    save();
+  }
+  const choices=session.quizOrder[q].choices;
   showDialog('今月のふりかえり',`<p>${q===0?'いまお店の口座のお金はいくら？':'1億まであとどれくらい？'}</p><div class="quiz-options">${choices.map(n=>`<button data-answer="${n}">${yen(n)}</button>`).join('')}</div>`);
 }
 function exportRecords() {
@@ -132,7 +137,7 @@ for(const container of [home,dialog]) container.addEventListener('click',event=>
   const answer=event.target.closest('[data-answer]');
   if(answer && session.phase==='quiz' && session.answers.length<2) {
     const f=financials(session,scenario), q=session.answers.length, correct=q===0?f.account:outlook(f,scenario).remaining;
-    session.answers.push({question:q===0?'account':'remaining',answer:Number(answer.dataset.answer),correct:Number(answer.dataset.answer)===correct,at:Date.now()});
+    session.answers.push({question:q===0?'account':'remaining',answer:Number(answer.dataset.answer),selectedIndex:session.quizOrder[q].choices.indexOf(Number(answer.dataset.answer)),correct:Number(answer.dataset.answer)===correct,at:Date.now()});
     log(session,'quiz_answer',{question:q});save();
     if(session.answers.length===2){session.phase='done';save();dialog.close();openHome();home.focus();}else showQuiz();
     return;
