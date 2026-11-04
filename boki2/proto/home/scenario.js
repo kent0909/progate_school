@@ -1,6 +1,8 @@
+(function (root) {
+'use strict';
 // PROTO-SPEC-home.md 3章（43ac7d0）、PR #14 の回答 6619786282。
 // 本番の会計・経営シミュレーションには接続しない、全版共通の仮の1か月。
-export const scenario = {
+const scenario = {
   startYear:1, startMonth:5, elapsedMonths:1, deadlineMonths:119, previousPace:40_000,
   policy:'店を知ってもらう',
   opening:{account:3_000_000,cash:100_000,loan:0,sales:0},
@@ -15,3 +17,6 @@ export const scenario = {
     {id:'equipment',person:'道具屋',kind:'領収書',sentence:'お玉、5,000円。現金で。',amount:5_000,debit:[['備品',5_000]],credit:[['現金',5_000]],effect:{cash:-5_000}}
   ]
 };
+
+root.BOKI_HOME.scenario = scenario;
+})(globalThis);

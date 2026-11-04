@@ -1,5 +1,6 @@
-import {VARIANTS, yen, initialSession, financials, outlook, log, quizChoices, pendingCount, hasStamp, delivery} from './model.js';
-import {scenario} from './scenario.js';
+(function () {
+'use strict';
+const {VARIANTS, yen, initialSession, financials, outlook, log, quizChoices, pendingCount, hasStamp, delivery, scenario} = window.BOKI_HOME;
 const params = new URLSearchParams(location.search);
 const variant = VARIANTS.includes(params.get('v')) ? params.get('v') : 'a';
 const stale = params.get('stale') === '1' ? 1 : 0;
@@ -173,3 +174,4 @@ nav.innerHTML=VARIANTS.map(v=>`<a href="?v=${v}&stale=${stale}" ${v===variant?'a
 const options=document.querySelector('#stale-options');options.hidden=locked;
 options.innerHTML=[0,1].map(s=>`<a href="?v=${variant}&stale=${s}" ${s===stale?'aria-current="page"':''}>帳簿の遅れ ${s?'あり':'なし'}</a>`).join('');
 openHome();if(session.phase==='quiz')showQuiz();
+})();

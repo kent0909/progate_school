@@ -4,7 +4,7 @@
 
 ## 開き方
 
-リポジトリのルートで `python3 -m http.server 8000` を起動し、`http://localhost:8000/boki2/proto/home/?v=a&stale=0&lock=1` を開く。素のHTML・CSS・JavaScriptだけで、ビルド不要。モジュールを使うため `file://` では開かない。
+`index.html` をファイルとして直接開く。サーバーやビルドは不要。通常のscriptをmodel・scenario・homeの順に読み、グローバルは `BOKI_HOME` の1つにまとめている。URL末尾の `?v=a&stale=0&lock=1` で試遊条件を指定できる。HTTPで配信して開く形でも動く。
 
 |v|ホーム|
 |---|---|
@@ -48,7 +48,7 @@ localStorageの `boki2.proto.home.v1` に保存する。追加仕様の試遊は
 
 ## 自動検査と画面写真
 
-PlaywrightとChromiumを使える環境で `node boki2/proto/home/check/run.cjs` を実行する。本体の依存ではない。検査時だけローカルHTTPサーバーを起動し、終われば閉じる。Chromiumの既定は `/usr/bin/chromium`、別のパスは `CHROMIUM_PATH` で指定する。
+PlaywrightとChromiumを使える環境で `node boki2/proto/home/check/run.cjs` を実行する。本体の依存ではない。検査時だけローカルHTTPサーバーを起動し、終われば閉じる。Chromiumの既定は `/usr/bin/chromium`、別のパスは `CHROMIUM_PATH` で指定する。管理のブラウザがファイルを直接開くことを禁止している環境では、`FILE_CHROMIUM_PATH` に検査用Chromiumのパスを指定して、fileの検査だけ別のブラウザで実行できる。管理設定は変更しない。
 
 - `check/results.json`：6版×stale 0/1×2画面サイズ×チラシ2択＝48通りの打ち手と、実測の生データ。
 - `check/measurements.md`：24条件の月初・月末、計48行。stale=1の月初は5月7日に2枚届き、印が出ている状態。
@@ -75,7 +75,7 @@ PlaywrightとChromiumを使える環境で `node boki2/proto/home/check/run.cjs`
 - 新しいMobbin検索や外部資料の取得。指定された設計書を利用した。
 - 本番ゲームへの接続、120か月の経営、自由な仕訳入力、町・帳簿・成長の各画面。机は正しい仕訳の確認と記帳だけ。
 - 絵の本制作。全版で同じ仮のSVGを使い、描き込みの差で比較が歪まないようにした。
-- 実機のタッチ操作、Safari・Firefoxの検査。Chromiumで確認する。
+- 実機のタッチ操作、Safari・Firefoxの検査。Chromiumで確認する。`file://` でe・stale=1を直接開き、エラー0・書類の表示・記帳と次の日への移動を確認する検査を含む。
 
 ## 既知の傷
 

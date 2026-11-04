@@ -1,13 +1,15 @@
+(function (root) {
+'use strict';
 // ホーム試作だけの状態。ゲーム本体・外部のデータは読み込まない。
-export const VARIANTS = ['a', 'b1', 'b2', 'c', 'd', 'e'];
-export const GOAL = 100_000_000;
-export const yen = value => `${Math.round(value).toLocaleString('ja-JP')}円`;
-export function initialSession(variant, now = Date.now(), stale = 0) {
+const VARIANTS = ['a', 'b1', 'b2', 'c', 'd', 'e'];
+const GOAL = 100_000_000;
+const yen = value => `${Math.round(value).toLocaleString('ja-JP')}円`;
+function initialSession(variant, now = Date.now(), stale = 0) {
   return {id:globalThis.crypto.randomUUID(), variant, scenarioVersion:2, stale, received:stale?2:1, stampClicks:0, staleVisibleMs:0, staleHomeOpens:0, batchTimings:stale?[{day:7,receivedAt:now,clearedAt:null,advancedAt:null}]:[], startedAt:now, finishedAt:null,
     elapsedMs:null, homeOpens:0, numberClicks:0, lineClicks:0, decision:null,
     posted:0, answers:[], quizOrder:[], events:[], phase:'home'};
 }
-export function financials(session, scenario) {
+function financials(session, scenario) {
   const result = {...scenario.opening};
   for (const doc of scenario.documents.slice(0, session.posted)) {
     for (const [key, amount] of Object.entries(doc.effect)) result[key] += amount;
@@ -25,7 +27,7 @@ export function financials(session, scenario) {
   result.unposted = session.posted === 0;
   return result;
 }
-export function outlook(finance, scenario) {
+function outlook(finance, scenario) {
   // PROTO-SPEC-home 3章：ネットキャッシュ = 現金 + 普通預金 − 借入金。
   // b1: 残額 = max(0, 1億 − いまのネットキャッシュ)。
   // ペース = 記帳後のネットキャッシュ − 月初のネットキャッシュ。
@@ -43,10 +45,10 @@ export function outlook(finance, scenario) {
     month:index === null ? null : index % 12 + 1, requiredMonthly,
     progress:Math.max(0,Math.min(1,finance.net / GOAL))};
 }
-export function log(session, type, detail = {}) {
+function log(session, type, detail = {}) {
   session.events.push({type, at:Date.now(), posted:session.posted, ...detail});
 }
-export function quizChoices(correct, seed) {
+function quizChoices(correct, seed) {
   // PR #14・6620016898：記録id＋問いを種にFisher–Yatesで並べ替える。
   // 正解の位置を固定せず、同じ記録・問いでは再読み込みしても同じ順になる。
   // FNV-1aで文字列を32bit化し、Mulberry32の乱数列で各交換先を選ぶ。
@@ -68,12 +70,17 @@ export function quizChoices(correct, seed) {
 }
 
 // 6620500448：2枚の間には印なしのホームを挟み、進む札で次の日付へ。
-export const pendingCount = session => Math.max(0,session.received-session.posted);
-export const hasStamp = session => session.stale === 1 && pendingCount(session)>0;
-export function delivery(session) {
+const pendingCount = session => Math.max(0,session.received-session.posted);
+const hasStamp = session => session.stale === 1 && pendingCount(session)>0;
+function delivery(session) {
   const days=[7,14,21];
   return {day:session.posted===6?31:days[Math.floor((session.received-1)/2)],
     bookMonth:session.posted===0?4:5,
     bookDay:session.posted===0?30:days[Math.floor((session.posted-1)/2)],
     pending:pendingCount(session), waiting:session.stale===1&&pendingCount(session)===0&&session.posted<6};
 }
+
+const api = root.BOKI_HOME || (root.BOKI_HOME = {});
+Object.assign(api, {VARIANTS, GOAL, yen, initialSession, financials, outlook, log, quizChoices, pendingCount, hasStamp, delivery});
+if (typeof module !== 'undefined' && module.exports) module.exports = api;
+})(globalThis);
