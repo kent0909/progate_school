@@ -307,9 +307,88 @@ for s in stations:
   st_out.append({'id': s['id'], 'name': s['name'], 'aliases': s.get('aliases', []), 'x': x, 'y': y, 'ward': ward_name[s['wards'].most_common(1)[0][0]], 'riders': s['all'], 'foot': s['foot'], 'adj': s['adj'], 'ridersJM': s['jm'], 'pins': s['pins'], 'tier': s['tier'],
                  'lines': [short(op) + ' ' + ln for op, ln in s['lines']], 'byOp': s['by']})
 
+def add_line_display(line_out, st_out, table):
+  """表示項目だけ付加する。駅・候補地・元の正式線・座標は変更しない。"""
+  rows = {}
+  services = table['services']
+  if table.get('version') != 2:
+    raise ValueError('line-display.json のversionは2が必要')
+  for row in table['lines']:
+    key = row['op'] + ' ' + row['name']
+    if key in rows:
+      raise ValueError('路線表示の組が重複：' + key)
+    rows[key] = row
+  def get_services(ids):
+    if not ids or len(ids) != len(set(ids)):
+      raise ValueError('路線表示の呼称が空または重複')
+    out = []
+    for ident in ids:
+      item = services[ident]
+      if not item['display'] or not re.fullmatch(r'#[0-9a-fA-F]{6}', item['color']):
+        raise ValueError('路線表示の呼称・色が不正：' + ident)
+      out.append({'display': item['display'], 'color': item['color']})
+    return out
+  def summary(items):
+    return {'display': '・'.join(x['display'] for x in items), 'color': items[0]['color']}
+  service_out = {}
+  for ident, item in services.items():
+    sid = item['id']
+    if not re.fullmatch(r'r[0-9]+', sid) or sid in service_out:
+      raise ValueError('路線表示のidが不正・重複：' + sid)
+    service_out[sid] = get_services([ident])[0]
+  # 不足や形の変更は黙って正式線名へ戻さず、書き出す前に止める。
+  additions, station_additions = [], []
+  for line in line_out:
+    key = line['op'] + ' ' + line['name']
+    row = rows[key]
+    rules = row.get('pathRules')
+    if rules is None:
+      if len(row['services']) != 1:
+        raise ValueError('複数呼称に区間の表がない：' + key)
+      paths = [row['services'] for _ in line['paths']]
+    else:
+      by_index = {r['pathIndex']: r for r in rules}
+      if len(by_index) != len(rules) or set(by_index) != set(range(len(line['paths']))):
+        raise ValueError('路線表示の区間数・番号が違う：' + key)
+      paths = []
+      for i, points in enumerate(line['paths']):
+        rule = by_index[i]
+        # xy()はtuple、JSONはlistなので型をそろえて全座標を比較する。
+        if rule['points'] != [list(p) for p in points] or not rule.get('via'):
+          raise ValueError(f'路線表示の区間座標・根拠が違う：{key} paths[{i}]。表を再判定すること')
+        paths.append(rule['services'])
+      if set(x for ids in paths for x in ids) != set(row['services']):
+        raise ValueError('路線表示の要約と区間が違う：' + key)
+    display_paths = []
+    for i, ids in enumerate(paths):
+      get_services(ids)  # 空・未定義・不正な色を付加前に検出
+      display_paths.append([services[ident]['id'] for ident in ids])
+    additions.append({**summary(get_services(row['services'])), 'displayPaths': display_paths})
+  for station in st_out:
+    names = []
+    for key in station['lines']:
+      row = rows[key]
+      ids = row['services']
+      if 'stationRules' in row:
+        matches = [r for r in row['stationRules'] if r['station'] == station['name']]
+        if len(matches) != 1:
+          raise ValueError('駅の路線表示が1行でない：' + station['name'] + ' ' + key)
+        ids = matches[0]['services']
+      names.extend(item['display'] for item in get_services(ids))
+    station_additions.append(list(dict.fromkeys(names)))
+  for line, addition in zip(line_out, additions):
+    line.update(addition)
+  for station, names in zip(st_out, station_additions):
+    station['displayLines'] = names
+  return service_out
+
+
+LINE_DISPLAY = json.load(open(os.path.join(ROOT, 'tools', 'data', 'line-display.json'), encoding='utf-8'))
+DISPLAY_SERVICES = add_line_display(line_out, st_out, LINE_DISPLAY)
+
 SRC = ('出典：「国土数値情報（駅別乗降客数データ S12-25・鉄道データ N02-25・行政区域データ N03-2026・地価公示データ L01-26・都道府県地価調査データ L02-26）」（国土交通省）'
        '（https://nlftp.mlit.go.jp/ksj/）をもとに加工して作成。乗降客数は2024年度、各事業者が独自に算出した値（統一の基準ではない）。')
-data = {'src': SRC, 'ops': OPS_MODE, 'year': YEAR, 'origin': ORIGIN, 'pinTiers': PIN_TIERS, 'wards': ward_out, 'lines': line_out, 'stations': st_out, 'sites': sites}
+data = {'src': SRC, 'ops': OPS_MODE, 'year': YEAR, 'origin': ORIGIN, 'pinTiers': PIN_TIERS, 'wards': ward_out, 'lines': line_out, 'stations': st_out, 'sites': sites, 'services': DISPLAY_SERVICES}
 js = ('// 出店の地図（東京23区）のデータ。tools/stations-build.py が作る（手で直さない）。\n// ' + SRC + '\n'
       '(function (g) {\n  const SIM = (g.SIMDATA = g.SIMDATA || {});\n  SIM.tokyo23 = ' + json.dumps(data, ensure_ascii=False, separators=(',', ':')) + ';\n})(typeof window !== \'undefined\' ? window : globalThis);\n')
 open(OUT, 'w', encoding='utf-8').write(js)
@@ -326,3 +405,4 @@ if REPORT:
     fo.write('id\t駅\t区\t乗降(全)\t乗降(JR+メトロ)\tピン\t置けた\t候補地の数\t属性\n')
     for s in stations:
       fo.write(f"{s['id']}\t{s['name']}\t{ward_name[s['wards'].most_common(1)[0][0]]}\t{s['all']}\t{s['jm']}\t{s['pins']}\t{s['pins'] - s['short']}\t{len(cand[s['id']])}\t{','.join(x['type'] for x in sites if x['st'] == s['id'])}\n")
+
