@@ -1,0 +1,650 @@
+{
+  "measurements": [
+    {
+      "variant": "a",
+      "width": 390,
+      "height": 844,
+      "phase": "start",
+      "cardTop": 434,
+      "stageHeight": 334,
+      "metricsHeight": 0,
+      "minFont": 14,
+      "minTargetWidth": 60,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "a",
+      "width": 390,
+      "height": 844,
+      "phase": "end",
+      "cardTop": 434,
+      "stageHeight": 334,
+      "metricsHeight": 0,
+      "minFont": 14,
+      "minTargetWidth": 117.59375,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "b1",
+      "width": 390,
+      "height": 844,
+      "phase": "start",
+      "cardTop": 520.59375,
+      "stageHeight": 334,
+      "metricsHeight": 66.59375,
+      "minFont": 14,
+      "minTargetWidth": 60,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "b1",
+      "width": 390,
+      "height": 844,
+      "phase": "end",
+      "cardTop": 520.59375,
+      "stageHeight": 334,
+      "metricsHeight": 66.59375,
+      "minFont": 14,
+      "minTargetWidth": 117.59375,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "b2",
+      "width": 390,
+      "height": 844,
+      "phase": "start",
+      "cardTop": 546.1875,
+      "stageHeight": 334,
+      "metricsHeight": 92.1875,
+      "minFont": 14,
+      "minTargetWidth": 60,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "b2",
+      "width": 390,
+      "height": 844,
+      "phase": "end",
+      "cardTop": 546.1875,
+      "stageHeight": 334,
+      "metricsHeight": 92.1875,
+      "minFont": 14,
+      "minTargetWidth": 117.59375,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "c",
+      "width": 390,
+      "height": 844,
+      "phase": "start",
+      "cardTop": 214.78125,
+      "stageHeight": 220,
+      "metricsHeight": 114.78125,
+      "minFont": 14,
+      "minTargetWidth": 60,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "c",
+      "width": 390,
+      "height": 844,
+      "phase": "end",
+      "cardTop": 214.78125,
+      "stageHeight": 220,
+      "metricsHeight": 114.78125,
+      "minFont": 14,
+      "minTargetWidth": 117.59375,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "d",
+      "width": 390,
+      "height": 844,
+      "phase": "start",
+      "cardTop": 287.171875,
+      "stageHeight": 220,
+      "metricsHeight": 187.171875,
+      "minFont": 14,
+      "minTargetWidth": 60,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": true
+    },
+    {
+      "variant": "d",
+      "width": 390,
+      "height": 844,
+      "phase": "end",
+      "cardTop": 287.171875,
+      "stageHeight": 220,
+      "metricsHeight": 187.171875,
+      "minFont": 14,
+      "minTargetWidth": 117.59375,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": true
+    },
+    {
+      "variant": "a",
+      "width": 1280,
+      "height": 800,
+      "phase": "start",
+      "cardTop": 472,
+      "stageHeight": 360,
+      "metricsHeight": 0,
+      "minFont": 14,
+      "minTargetWidth": 60,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "a",
+      "width": 1280,
+      "height": 800,
+      "phase": "end",
+      "cardTop": 472,
+      "stageHeight": 360,
+      "metricsHeight": 0,
+      "minFont": 14,
+      "minTargetWidth": 117.59375,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "b1",
+      "width": 1280,
+      "height": 800,
+      "phase": "start",
+      "cardTop": 562.59375,
+      "stageHeight": 360,
+      "metricsHeight": 66.59375,
+      "minFont": 14,
+      "minTargetWidth": 60,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "b1",
+      "width": 1280,
+      "height": 800,
+      "phase": "end",
+      "cardTop": 562.59375,
+      "stageHeight": 360,
+      "metricsHeight": 66.59375,
+      "minFont": 14,
+      "minTargetWidth": 117.59375,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "b2",
+      "width": 1280,
+      "height": 800,
+      "phase": "start",
+      "cardTop": 562.59375,
+      "stageHeight": 360,
+      "metricsHeight": 66.59375,
+      "minFont": 14,
+      "minTargetWidth": 60,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "b2",
+      "width": 1280,
+      "height": 800,
+      "phase": "end",
+      "cardTop": 562.59375,
+      "stageHeight": 360,
+      "metricsHeight": 66.59375,
+      "minFont": 14,
+      "minTargetWidth": 117.59375,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "c",
+      "width": 1280,
+      "height": 800,
+      "phase": "start",
+      "cardTop": 248.78125,
+      "stageHeight": 240,
+      "metricsHeight": 136.78125,
+      "minFont": 14,
+      "minTargetWidth": 60,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "c",
+      "width": 1280,
+      "height": 800,
+      "phase": "end",
+      "cardTop": 248.78125,
+      "stageHeight": 240,
+      "metricsHeight": 136.78125,
+      "minFont": 14,
+      "minTargetWidth": 117.59375,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": null
+    },
+    {
+      "variant": "d",
+      "width": 1280,
+      "height": 800,
+      "phase": "start",
+      "cardTop": 238.78125,
+      "stageHeight": 240,
+      "metricsHeight": 126.78125,
+      "minFont": 14,
+      "minTargetWidth": 60,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": true
+    },
+    {
+      "variant": "d",
+      "width": 1280,
+      "height": 800,
+      "phase": "end",
+      "cardTop": 238.78125,
+      "stageHeight": 240,
+      "metricsHeight": 126.78125,
+      "minFont": 14,
+      "minTargetWidth": 117.59375,
+      "minTargetHeight": 44.390625,
+      "horizontalOverflow": false,
+      "dWithin211": true
+    }
+  ],
+  "runs": [
+    {
+      "variant": "a",
+      "width": 390,
+      "height": 844,
+      "choice": "flyer",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 0,
+      "homeOpens": 10,
+      "elapsedMs": 1083,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "a",
+      "width": 390,
+      "height": 844,
+      "choice": "skip",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 0,
+      "homeOpens": 10,
+      "elapsedMs": 1049,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "b1",
+      "width": 390,
+      "height": 844,
+      "choice": "flyer",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 1,
+      "homeOpens": 11,
+      "elapsedMs": 2344,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "b1",
+      "width": 390,
+      "height": 844,
+      "choice": "skip",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 1,
+      "homeOpens": 11,
+      "elapsedMs": 1729,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "b2",
+      "width": 390,
+      "height": 844,
+      "choice": "flyer",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 1,
+      "homeOpens": 11,
+      "elapsedMs": 1214,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "b2",
+      "width": 390,
+      "height": 844,
+      "choice": "skip",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 1,
+      "homeOpens": 11,
+      "elapsedMs": 1179,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "c",
+      "width": 390,
+      "height": 844,
+      "choice": "flyer",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 1,
+      "lineClicks": 0,
+      "homeOpens": 11,
+      "elapsedMs": 2988,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "c",
+      "width": 390,
+      "height": 844,
+      "choice": "skip",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 1,
+      "lineClicks": 0,
+      "homeOpens": 11,
+      "elapsedMs": 2617,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "d",
+      "width": 390,
+      "height": 844,
+      "choice": "flyer",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 1,
+      "lineClicks": 0,
+      "homeOpens": 11,
+      "elapsedMs": 1527,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "d",
+      "width": 390,
+      "height": 844,
+      "choice": "skip",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 1,
+      "lineClicks": 0,
+      "homeOpens": 11,
+      "elapsedMs": 1487,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "a",
+      "width": 1280,
+      "height": 800,
+      "choice": "flyer",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 0,
+      "homeOpens": 10,
+      "elapsedMs": 1489,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "a",
+      "width": 1280,
+      "height": 800,
+      "choice": "skip",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 0,
+      "homeOpens": 10,
+      "elapsedMs": 1007,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "b1",
+      "width": 1280,
+      "height": 800,
+      "choice": "flyer",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 1,
+      "homeOpens": 11,
+      "elapsedMs": 1566,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "b1",
+      "width": 1280,
+      "height": 800,
+      "choice": "skip",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 1,
+      "homeOpens": 11,
+      "elapsedMs": 1308,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "b2",
+      "width": 1280,
+      "height": 800,
+      "choice": "flyer",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 1,
+      "homeOpens": 11,
+      "elapsedMs": 1736,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "b2",
+      "width": 1280,
+      "height": 800,
+      "choice": "skip",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 0,
+      "lineClicks": 1,
+      "homeOpens": 11,
+      "elapsedMs": 1343,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "c",
+      "width": 1280,
+      "height": 800,
+      "choice": "flyer",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 1,
+      "lineClicks": 0,
+      "homeOpens": 11,
+      "elapsedMs": 1665,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "c",
+      "width": 1280,
+      "height": 800,
+      "choice": "skip",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 1,
+      "lineClicks": 0,
+      "homeOpens": 11,
+      "elapsedMs": 2027,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "d",
+      "width": 1280,
+      "height": 800,
+      "choice": "flyer",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 1,
+      "lineClicks": 0,
+      "homeOpens": 11,
+      "elapsedMs": 1242,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    },
+    {
+      "variant": "d",
+      "width": 1280,
+      "height": 800,
+      "choice": "skip",
+      "posted": 6,
+      "answers": [
+        true,
+        true
+      ],
+      "numberClicks": 1,
+      "lineClicks": 0,
+      "homeOpens": 11,
+      "elapsedMs": 1132,
+      "externalRequests": 0,
+      "errors": 0,
+      "result": "PASS"
+    }
+  ],
+  "extra": [
+    "reduced-motion / switch / restart-preserves-records / invalid-storage: PASS",
+    "storage-unavailable-export: PASS"
+  ]
+}

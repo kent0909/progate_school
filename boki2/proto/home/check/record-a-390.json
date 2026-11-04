@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "exportedAt": "2026-11-04T01:19:41.875Z",
+  "sessions": [
+    {
+      "id": "f453ce45-630d-4fb5-893e-9403918e160a",
+      "variant": "a",
+      "startedAt": 1793755180107,
+      "finishedAt": 1793755181190,
+      "elapsedMs": 1083,
+      "homeOpens": 10,
+      "numberClicks": 0,
+      "lineClicks": 0,
+      "decision": "flyer",
+      "posted": 6,
+      "answers": [
+        {
+          "question": "account",
+          "answer": 2920000,
+          "correct": true,
+          "at": 1793755181257
+        },
+        {
+          "question": "remaining",
+          "answer": 96945000,
+          "correct": true,
+          "at": 1793755181289
+        }
+      ],
+      "events": [
+        {
+          "type": "home",
+          "at": 1793755180109,
+          "posted": 0
+        },
+        {
+          "type": "document_open",
+          "at": 1793755180338,
+          "posted": 0,
+          "document": "cash-sales"
+        },
+        {
+          "type": "posted",
+          "at": 1793755180444,
+          "posted": 0,
+          "document": "cash-sales"
+        },
+        {
+          "type": "home",
+          "at": 1793755180446,
+          "posted": 1
+        },
+        {
+          "type": "document_open",
+          "at": 1793755180492,
+          "posted": 1,
+          "document": "credit-purchase"
+        },
+        {
+          "type": "posted",
+          "at": 1793755180576,
+          "posted": 1,
+          "document": "credit-purchase"
+        },
+        {
+          "type": "home",
+          "at": 1793755180577,
+          "posted": 2
+        },
+        {
+          "type": "document_open",
+          "at": 1793755180624,
+          "posted": 2,
+          "document": "rent"
+        },
+        {
+          "type": "posted",
+          "at": 1793755180675,
+          "posted": 2,
+          "document": "rent"
+        },
+        {
+          "type": "home",
+          "at": 1793755180676,
+          "posted": 3
+        },
+        {
+          "type": "decision",
+          "at": 1793755180726,
+          "posted": 3,
+          "choice": "flyer"
+        },
+        {
+          "type": "home",
+          "at": 1793755180726,
+          "posted": 3
+        },
+        {
+          "type": "document_open",
+          "at": 1793755180773,
+          "posted": 3,
+          "document": "salary"
+        },
+        {
+          "type": "posted",
+          "at": 1793755180826,
+          "posted": 3,
+          "document": "salary"
+        },
+        {
+          "type": "home",
+          "at": 1793755180827,
+          "posted": 4
+        },
+        {
+          "type": "home",
+          "at": 1793755180890,
+          "posted": 4
+        },
+        {
+          "type": "document_open",
+          "at": 1793755180961,
+          "posted": 4,
+          "document": "card-sales"
+        },
+        {
+          "type": "posted",
+          "at": 1793755181043,
+          "posted": 4,
+          "document": "card-sales"
+        },
+        {
+          "type": "home",
+          "at": 1793755181045,
+          "posted": 5
+        },
+        {
+          "type": "document_open",
+          "at": 1793755181091,
+          "posted": 5,
+          "document": "equipment"
+        },
+        {
+          "type": "posted",
+          "at": 1793755181142,
+          "posted": 5,
+          "document": "equipment"
+        },
+        {
+          "type": "home",
+          "at": 1793755181143,
+          "posted": 6
+        },
+        {
+          "type": "month_closed",
+          "at": 1793755181190,
+          "posted": 6
+        },
+        {
+          "type": "quiz_answer",
+          "at": 1793755181257,
+          "posted": 6,
+          "question": 0
+        },
+        {
+          "type": "quiz_answer",
+          "at": 1793755181289,
+          "posted": 6,
+          "question": 1
+        },
+        {
+          "type": "home",
+          "at": 1793755181290,
+          "posted": 6
+        },
+        {
+          "type": "export",
+          "at": 1793755181875,
+          "posted": 6
+        }
+      ],
+      "phase": "done"
+    }
+  ]
+}
