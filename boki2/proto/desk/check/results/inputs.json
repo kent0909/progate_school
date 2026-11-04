@@ -5,15 +5,15 @@
     "input": "swipe",
     "pass": true,
     "record": {
-      "id": "mw1fk81r-fid6sm-1",
-      "session": "mw1fk81r-fid6sm",
+      "id": "mw1fv3ni-gh86ws-1",
+      "session": "mw1fv3ni-gh86ws",
       "config": {
         "band": "diff",
         "shelf": "on",
         "input": "swipe"
       },
       "transaction": 1,
-      "firstConfirmMs": 1033,
+      "firstConfirmMs": 1228,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -47,7 +47,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 1033
+          "elapsedMs": 1228
         }
       ],
       "completed": true
@@ -63,15 +63,15 @@
     "input": "drag",
     "pass": true,
     "record": {
-      "id": "mw1fk9a3-fjtfe0-1",
-      "session": "mw1fk9a3-fjtfe0",
+      "id": "mw1fv4y1-jpapzz-1",
+      "session": "mw1fv4y1-jpapzz",
       "config": {
         "band": "diff",
         "shelf": "on",
         "input": "drag"
       },
       "transaction": 1,
-      "firstConfirmMs": 1548,
+      "firstConfirmMs": 1379,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -105,7 +105,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 1548
+          "elapsedMs": 1379
         }
       ],
       "completed": true
@@ -121,15 +121,15 @@
     "input": "swipe",
     "pass": true,
     "record": {
-      "id": "mw1fkatv-itgpcq-1",
-      "session": "mw1fkatv-itgpcq",
+      "id": "mw1fv6cg-wmvowa-1",
+      "session": "mw1fv6cg-wmvowa",
       "config": {
         "band": "diff",
         "shelf": "off",
         "input": "swipe"
       },
       "transaction": 1,
-      "firstConfirmMs": 913,
+      "firstConfirmMs": 1018,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -163,7 +163,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 913
+          "elapsedMs": 1018
         }
       ],
       "completed": true
@@ -179,15 +179,15 @@
     "input": "drag",
     "pass": true,
     "record": {
-      "id": "mw1fkbwr-lupw5t-1",
-      "session": "mw1fkbwr-lupw5t",
+      "id": "mw1fv7go-3uy7hz-1",
+      "session": "mw1fv7go-3uy7hz",
       "config": {
         "band": "diff",
         "shelf": "off",
         "input": "drag"
       },
       "transaction": 1,
-      "firstConfirmMs": 1428,
+      "firstConfirmMs": 1203,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -221,7 +221,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 1428
+          "elapsedMs": 1203
         }
       ],
       "completed": true
@@ -237,15 +237,15 @@
     "input": "swipe",
     "pass": true,
     "record": {
-      "id": "mw1fkdf9-pmhqp1-1",
-      "session": "mw1fkdf9-pmhqp1",
+      "id": "mw1fv8q1-k2jr3h-1",
+      "session": "mw1fv8q1-k2jr3h",
       "config": {
         "band": "scale",
         "shelf": "on",
         "input": "swipe"
       },
       "transaction": 1,
-      "firstConfirmMs": 1085,
+      "firstConfirmMs": 975,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -279,7 +279,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 1085
+          "elapsedMs": 975
         }
       ],
       "completed": true
@@ -295,15 +295,15 @@
     "input": "drag",
     "pass": true,
     "record": {
-      "id": "mw1fkepw-4l119c-1",
-      "session": "mw1fkepw-4l119c",
+      "id": "mw1fv9wt-fs4j1s-1",
+      "session": "mw1fv9wt-fs4j1s",
       "config": {
         "band": "scale",
         "shelf": "on",
         "input": "drag"
       },
       "transaction": 1,
-      "firstConfirmMs": 1372,
+      "firstConfirmMs": 1513,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -337,7 +337,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 1372
+          "elapsedMs": 1513
         }
       ],
       "completed": true
@@ -353,15 +353,15 @@
     "input": "swipe",
     "pass": true,
     "record": {
-      "id": "mw1fkg4i-xzaul9-1",
-      "session": "mw1fkg4i-xzaul9",
+      "id": "mw1fvbge-1c427r-1",
+      "session": "mw1fvbge-1c427r",
       "config": {
         "band": "scale",
         "shelf": "off",
         "input": "swipe"
       },
       "transaction": 1,
-      "firstConfirmMs": 978,
+      "firstConfirmMs": 1031,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -395,7 +395,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 978
+          "elapsedMs": 1031
         }
       ],
       "completed": true
@@ -411,15 +411,15 @@
     "input": "drag",
     "pass": true,
     "record": {
-      "id": "mw1fkh83-rbx6bb-1",
-      "session": "mw1fkh83-rbx6bb",
+      "id": "mw1fvcjz-ujqigx-1",
+      "session": "mw1fvcjz-ujqigx",
       "config": {
         "band": "scale",
         "shelf": "off",
         "input": "drag"
       },
       "transaction": 1,
-      "firstConfirmMs": 1388,
+      "firstConfirmMs": 1217,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -453,7 +453,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 1388
+          "elapsedMs": 1217
         }
       ],
       "completed": true
@@ -469,15 +469,15 @@
     "input": "swipe",
     "pass": true,
     "record": {
-      "id": "mw1fkiur-jshz52-1",
-      "session": "mw1fkiur-jshz52",
+      "id": "mw1fvdsk-th6i6y-1",
+      "session": "mw1fvdsk-th6i6y",
       "config": {
         "band": "none",
         "shelf": "on",
         "input": "swipe"
       },
       "transaction": 1,
-      "firstConfirmMs": 1029,
+      "firstConfirmMs": 1179,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -511,7 +511,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 1029
+          "elapsedMs": 1180
         }
       ],
       "completed": true
@@ -527,15 +527,15 @@
     "input": "drag",
     "pass": true,
     "record": {
-      "id": "mw1fkk1a-ghddrf-1",
-      "session": "mw1fkk1a-ghddrf",
+      "id": "mw1fvf22-i1hyia-1",
+      "session": "mw1fvf22-i1hyia",
       "config": {
         "band": "none",
         "shelf": "on",
         "input": "drag"
       },
       "transaction": 1,
-      "firstConfirmMs": 1340,
+      "firstConfirmMs": 1295,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -569,7 +569,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 1340
+          "elapsedMs": 1295
         }
       ],
       "completed": true
@@ -585,15 +585,15 @@
     "input": "swipe",
     "pass": true,
     "record": {
-      "id": "mw1fklj0-cf2vjc-1",
-      "session": "mw1fklj0-cf2vjc",
+      "id": "mw1fvgd7-ilyzwp-1",
+      "session": "mw1fvgd7-ilyzwp",
       "config": {
         "band": "none",
         "shelf": "off",
         "input": "swipe"
       },
       "transaction": 1,
-      "firstConfirmMs": 900,
+      "firstConfirmMs": 1061,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -627,7 +627,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 900
+          "elapsedMs": 1061
         }
       ],
       "completed": true
@@ -643,15 +643,15 @@
     "input": "drag",
     "pass": true,
     "record": {
-      "id": "mw1fkmmi-rmzwtr-1",
-      "session": "mw1fkmmi-rmzwtr",
+      "id": "mw1fvhks-vvfd0y-1",
+      "session": "mw1fvhks-vvfd0y",
       "config": {
         "band": "none",
         "shelf": "off",
         "input": "drag"
       },
       "transaction": 1,
-      "firstConfirmMs": 1408,
+      "firstConfirmMs": 3530,
       "confirmCount": 1,
       "firstCorrect": true,
       "wrongRows": [],
@@ -685,7 +685,7 @@
             }
           ],
           "wrongRows": [],
-          "elapsedMs": 1408
+          "elapsedMs": 3530
         }
       ],
       "completed": true

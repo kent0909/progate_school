@@ -129,7 +129,7 @@
       else if(Math.abs(dx)>b.offsetWidth*.35){document.querySelectorAll('[data-drop]').forEach(t=>t.classList.toggle('active',t.dataset.drop===(dx<0?'left':'right')));gesture.ghost.textContent=account+' → '+(dx<0?'左の列':'右の列');}
     });
     const cleanup=()=>{if(gesture?.frame)cancelAnimationFrame(gesture.frame);gesture?.ghost?.remove();document.body.classList.remove('dragging');document.querySelectorAll('.active,.drag-target').forEach(t=>t.classList.remove('active','drag-target'));};
-    b.addEventListener('pointercancel',()=>{if(gesture?.moved){record.cancelled[config.input]++;persist();}cleanup();gesture=null;});
+    b.addEventListener('pointercancel',()=>{if(gesture?.moved&&!gesture.vertical){record.cancelled[config.input]++;persist();}cleanup();gesture=null;});
     b.addEventListener('pointerup',e=>{
       if(!gesture)return;const g=gesture,dx=e.clientX-g.x,dy=e.clientY-g.y;const dropTarget=document.elementFromPoint(e.clientX,e.clientY)?.closest('[data-drop]');cleanup();gesture=null;if(!g.moved)return;suppress=true;
       if(g.vertical)return;selected={account,kind};
