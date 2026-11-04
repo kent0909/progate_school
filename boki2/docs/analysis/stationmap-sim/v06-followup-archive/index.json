@@ -1,0 +1,51 @@
+{
+  "source": "v06-followup-plan.json",
+  "metadata": {
+    "definition": "期待値と乱数込みの両方で、全ての数の目標の逸脱が境界値の10%以内（赤字は.55以下も要求）。向きの判定は数の距離で除外しない。未測定は別一覧。全通過と近い組をN300で再確認。端条件の仮判定で、採用ではない。",
+    "source": {
+      "K": 2,
+      "N": 3,
+      "seed": 20261104
+    },
+    "followup": {
+      "K": 2,
+      "N": 300,
+      "seed": 20261104
+    }
+  },
+  "parts": [
+    "part-000.json",
+    "part-001.json",
+    "part-002.json",
+    "part-003.json",
+    "part-004.json",
+    "part-005.json",
+    "part-006.json",
+    "part-007.json",
+    "part-008.json",
+    "part-009.json",
+    "part-010.json",
+    "part-011.json",
+    "part-012.json",
+    "part-013.json",
+    "part-014.json",
+    "part-015.json",
+    "part-016.json",
+    "part-017.json",
+    "part-018.json",
+    "part-019.json",
+    "part-020.json",
+    "part-021.json",
+    "part-022.json",
+    "part-023.json",
+    "part-024.json",
+    "part-025.json",
+    "part-026.json",
+    "part-027.json",
+    "part-028.json",
+    "part-029.json"
+  ],
+  "sha256": "476ef99f159a279f096fcbce0937dca79f822ba82a9468301aaf77f214136df0",
+  "rows": 240,
+  "reassembledBytesEqual": true
+}

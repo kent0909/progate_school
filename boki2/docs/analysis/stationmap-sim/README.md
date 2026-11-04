@@ -1,17 +1,17 @@
 # 出店地図の測定記録
 
-PR #11。版0.6の定義は6570645286、較正Lと費用式切替は6619705662。参入場所は未確定のため6620053704指定のstation/pin両端で測り、最終合否・採用候補にはしない。
+PR #11、版0.6。参入場所は未確定のため6620053704/6620188403のstation/pin両端を測った。最終合否・採用候補ではない。
 
-- v06-initial: K=2・N=300・seed=0・designの全981候補地。本測定を実行中。
-- v06-part-full: 同じ乱数経路の設計書外の参考条件。合格の根拠にしない。
-- v06-search-spec.json: 需要条件の乱数20組×家賃格子6組＝120組。station/pinの両端で探索する。
-- tokyo23-v06.js: 元ブランチの981候補地のデータをblobのまま固定。
-- v06-verification.json / checks/v06-self-test.txt: 新しい仕組みと出力一致の自己検査。
-- checks/: ゲーム本体の6検査はすべてexit0。ramen 300周は1928.5秒。
-- regression-v04 / regression-reference.json: 当時の965候補地による旧回帰。未丸め相関まで一致。
-- regression-current: 前回の版0.5・889候補地に旧機構を適用した記録。版0.6の結果ではない。
-- initial/pending.* / search/search-pending.json: 版0.5当時の回答待ちの記録。今回の測定結果ではない。
+- v06-results.md: 両端の初期値10検査、費用式参考比較、探索120組ずつと追加確認の結果。
+- v06-initial-station/pin: K2/N300/seed0、全981候補地のreport.json/mdと分割CSV3924行ずつ。
+- v06-part-full-station/pin: 設計書の外の費用式。合格に使わない。
+- v06-search-station/pin: K2/N3、各120組、全report.jsonとsearch.md。search.jsonはarchiveから復元できる。
+- v06-followup-rule.md / v06-followup-archive: 通過組と全数値目標の逸脱10%以内をN300再確認する選択理由。対象0組。
+- v06-cache-migration.json / v06-verification.json: 計算再利用・独立試運転・N300再出力の一致。
+- v06-provenance.json / tokyo23-v06.js: ゲーム本体を変えず981候補地のblobを固定。
+- v06-comparison.md: 別検査役との条件差。
+- checks/: ゲーム本体6検査と道具の自己検査、すべてexit0。
+- regression-v04: 当時の965候補地の旧回帰。未丸め相関まで再現。
+- regression-current / initial/pending.* / search/search-pending.json: 版0.5当時の履歴で、今回の測定結果ではない。
 
-較正は商店街274候補地のL中央値を使用し、参入なし・通しの老舗1軒を固定する。
-N=300の基準中央値は43.99999541594629人/日、P_refは163.1493804603815。
-使い方と各物差しは../../../tools/stationmap-sim.md。
+使い方は../../../tools/stationmap-sim.md。archiveの復元方法はjoin-archives.jsの冒頭を参照。

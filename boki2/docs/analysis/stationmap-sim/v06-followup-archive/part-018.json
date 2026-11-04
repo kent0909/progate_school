@@ -1,0 +1,1060 @@
+{
+  "trials": [
+    {
+      "entryMode": "pin",
+      "trial": "0024",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.175254269153811,
+        "regular.retain.jutaku": 1.3577240550890566,
+        "regular.retain.hanka": 0.7272243008948862,
+        "rival.entryBase": 0.013395284363068641,
+        "rival.entrySuccess": 0.1439636513683945,
+        "hours.kappa": 0.8548791125882416,
+        "rent.R0": 25000,
+        "rent.b": 0.25
+      },
+      "allPass": false,
+      "measured": true,
+      "near": false,
+      "selected": false,
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 0.6
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.44444444444444453
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.07181751498939591
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 1
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.5833333333333334
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.06153043241990286
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        }
+      ]
+    },
+    {
+      "entryMode": "pin",
+      "trial": "0025",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.175254269153811,
+        "regular.retain.jutaku": 1.3577240550890566,
+        "regular.retain.hanka": 0.7272243008948862,
+        "rival.entryBase": 0.013395284363068641,
+        "rival.entrySuccess": 0.1439636513683945,
+        "hours.kappa": 0.8548791125882416,
+        "rent.R0": 25000,
+        "rent.b": 0.4
+      },
+      "allPass": false,
+      "measured": true,
+      "near": false,
+      "selected": false,
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 0.6
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.44444444444444453
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.07181751498939591
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 0.8666666666666667
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.5833333333333334
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.06153043241990286
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        }
+      ]
+    },
+    {
+      "entryMode": "pin",
+      "trial": "0026",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.175254269153811,
+        "regular.retain.jutaku": 1.3577240550890566,
+        "regular.retain.hanka": 0.7272243008948862,
+        "rival.entryBase": 0.013395284363068641,
+        "rival.entrySuccess": 0.1439636513683945,
+        "hours.kappa": 0.8548791125882416,
+        "rent.R0": 25000,
+        "rent.b": 0.55
+      },
+      "allPass": false,
+      "measured": true,
+      "near": false,
+      "selected": false,
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 0.5333333333333333
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.44444444444444453
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.07181751498939609
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 0.8
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.5833333333333334
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.061530432419902685
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        }
+      ]
+    },
+    {
+      "entryMode": "pin",
+      "trial": "0027",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.175254269153811,
+        "regular.retain.jutaku": 1.3577240550890566,
+        "regular.retain.hanka": 0.7272243008948862,
+        "rival.entryBase": 0.013395284363068641,
+        "rival.entrySuccess": 0.1439636513683945,
+        "hours.kappa": 0.8548791125882416,
+        "rent.R0": 40000,
+        "rent.b": 0.25
+      },
+      "allPass": false,
+      "measured": true,
+      "near": false,
+      "selected": false,
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 0.8666666666666667
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.44444444444444453
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.07181751498939626
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0.3496432212028542
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 1.0666666666666667
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.5833333333333334
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.06153043241990217
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0.4291539245667686
+        }
+      ]
+    },
+    {
+      "entryMode": "pin",
+      "trial": "0028",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.175254269153811,
+        "regular.retain.jutaku": 1.3577240550890566,
+        "regular.retain.hanka": 0.7272243008948862,
+        "rival.entryBase": 0.013395284363068641,
+        "rival.entrySuccess": 0.1439636513683945,
+        "hours.kappa": 0.8548791125882416,
+        "rent.R0": 40000,
+        "rent.b": 0.4
+      },
+      "allPass": false,
+      "measured": true,
+      "near": false,
+      "selected": false,
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 1
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.44444444444444453
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.07181751498939558
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0.023445463812436396
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 1.2666666666666666
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.5833333333333334
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.061530432419902685
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0.1056744818212707
+        }
+      ]
+    },
+    {
+      "entryMode": "pin",
+      "trial": "0029",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.175254269153811,
+        "regular.retain.jutaku": 1.3577240550890566,
+        "regular.retain.hanka": 0.7272243008948862,
+        "rival.entryBase": 0.013395284363068641,
+        "rival.entrySuccess": 0.1439636513683945,
+        "hours.kappa": 0.8548791125882416,
+        "rent.R0": 40000,
+        "rent.b": 0.55
+      },
+      "allPass": false,
+      "measured": true,
+      "near": false,
+      "selected": false,
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 0.8666666666666667
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.44444444444444453
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.07181751498939591
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 1
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.5833333333333334
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.06153043241990337
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        }
+      ]
+    },
+    {
+      "entryMode": "pin",
+      "trial": "0030",
+      "overrides": {
+        "rival.lambdaMultiplier": 0.971703980001621,
+        "regular.retain.jutaku": 1.2123771086335182,
+        "regular.retain.hanka": 0.7011753960512579,
+        "rival.entryBase": 0.018895227841567247,
+        "rival.entrySuccess": 0.09131203453056513,
+        "hours.kappa": 0.31519668316468596,
+        "rent.R0": 25000,
+        "rent.b": 0.25
+      },
+      "allPass": false,
+      "measured": true,
+      "near": false,
+      "selected": false,
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 0.9333333333333333
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.861111111111111
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.04104196072745822
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 1.1333333333333333
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.861111111111111
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.022772696809038637
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        }
+      ]
+    },
+    {
+      "entryMode": "pin",
+      "trial": "0031",
+      "overrides": {
+        "rival.lambdaMultiplier": 0.971703980001621,
+        "regular.retain.jutaku": 1.2123771086335182,
+        "regular.retain.hanka": 0.7011753960512579,
+        "rival.entryBase": 0.018895227841567247,
+        "rival.entrySuccess": 0.09131203453056513,
+        "hours.kappa": 0.31519668316468596,
+        "rent.R0": 25000,
+        "rent.b": 0.4
+      },
+      "allPass": false,
+      "measured": true,
+      "near": false,
+      "selected": false,
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 0.9333333333333333
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.861111111111111
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.04104196072745754
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "gaps": [
+            {
+              "number": 1,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 2,
+              "status": "報告のみ",
+              "gap": 0
+            },
+            {
+              "number": 3,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 4,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 5,
+              "status": "不合格",
+              "gap": 1.1333333333333333
+            },
+            {
+              "number": 6,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 7,
+              "status": "不合格",
+              "gap": 0.861111111111111
+            },
+            {
+              "number": 8,
+              "status": "合格",
+              "gap": 0
+            },
+            {
+              "number": 9,
+              "status": "不合格",
+              "gap": 0.022772696809038467
+            },
+            {
+              "number": 10,
+              "status": "合格",
+              "gap": 0
+            }
+          ],
+          "lossGap": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "source": "v06-search-station/search.json",
+  "metadata": {
+    "assessmentScope": "未定の参入場所の端条件。仮の目標適合組であり最終合否・採用候補ではない",
+    "adoptionEligible": false,
+    "entryMode": "station",
+    "mode": "random",
+    "seed": 20261104,
+    "K": 2,
+    "N": 3,
+    "mandatoryBTested": [
+      {
+        "b": 0.25,
+        "tested": true
+      },
+      {
+        "b": 0.4,
+        "tested": true
+      },
+      {
+        "b": 0.55,
+        "tested": true
+      }
+    ],
+    "passing": []
+  },
+  "parts": [
+    "part-000.json",
+    "part-001.json",
+    "part-002.json",
+    "part-003.json",
+    "part-004.json",
+    "part-005.json",
+    "part-006.json",
+    "part-007.json",
+    "part-008.json",
+    "part-009.json",
+    "part-010.json",
+    "part-011.json",
+    "part-012.json",
+    "part-013.json",
+    "part-014.json",
+    "part-015.json",
+    "part-016.json",
+    "part-017.json",
+    "part-018.json",
+    "part-019.json"
+  ],
+  "sha256": "f2d9e51a3743d1ba9082bd9b27927cfc310d92d5f89a35a62a0e85184c0f38f5",
+  "rows": 120,
+  "reassembledBytesEqual": true
+}

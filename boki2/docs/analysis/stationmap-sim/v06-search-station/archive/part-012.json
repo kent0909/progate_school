@@ -1,0 +1,770 @@
+{
+  "trials": [
+    {
+      "trial": "0076",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.8750056034186855,
+        "regular.retain.jutaku": 1.1149686524644495,
+        "regular.retain.hanka": 0.6906705767847597,
+        "rival.entryBase": 0.006359369051642716,
+        "rival.entrySuccess": 0.04849364147521555,
+        "hours.kappa": 0.5152773578185588,
+        "rent.R0": 40000,
+        "rent.b": 0.4
+      },
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 1,
+              "label": "3年目の客数中央値",
+              "value": 39.901438403798885,
+              "status": "不合格",
+              "target": "40〜52人/日",
+              "reason": null
+            },
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 18,
+                "max": 19,
+                "mean": 18.5,
+                "worlds": 2,
+                "over15": 2
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5566037735849056,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.1678704620446114,
+                "jutaku": 1.5893762874001471,
+                "hanka": 1.360918303060425
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": "4.4: 赤字のくじが50%を越える",
+          "rivalAdditionFailure": {
+            "cheap": -0.25221025058271196,
+            "kodawari": -0.08468558686801142,
+            "shinise": -0.1959541417624917
+          }
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 1,
+              "label": "3年目の客数中央値",
+              "value": 38.105405815680285,
+              "status": "不合格",
+              "target": "40〜52人/日",
+              "reason": null
+            },
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 16,
+                "max": 24,
+                "mean": 21.166666666666668,
+                "worlds": 6,
+                "over15": 6
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5566037735849056,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.1699857475679598,
+                "jutaku": 1.6283014247550698,
+                "hanka": 1.3917275728698466
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": "4.4: 赤字のくじが50%を越える",
+          "rivalAdditionFailure": {
+            "cheap": -0.2618369742946469,
+            "kodawari": -0.08737374381170064,
+            "shinise": -0.20144958292560408
+          }
+        }
+      ],
+      "allPass": false,
+      "failedCount": 8
+    },
+    {
+      "trial": "0077",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.8750056034186855,
+        "regular.retain.jutaku": 1.1149686524644495,
+        "regular.retain.hanka": 0.6906705767847597,
+        "rival.entryBase": 0.006359369051642716,
+        "rival.entrySuccess": 0.04849364147521555,
+        "hours.kappa": 0.5152773578185588,
+        "rent.R0": 40000,
+        "rent.b": 0.55
+      },
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 1,
+              "label": "3年目の客数中央値",
+              "value": 39.901438403798885,
+              "status": "不合格",
+              "target": "40〜52人/日",
+              "reason": null
+            },
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 16,
+                "max": 18,
+                "mean": 17,
+                "worlds": 2,
+                "over15": 2
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5566037735849056,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.1678704620446114,
+                "jutaku": 1.5893762874001471,
+                "hanka": 1.360918303060425
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": "4.4: 赤字のくじが50%を越える",
+          "rivalAdditionFailure": {
+            "cheap": -0.25221025058271196,
+            "kodawari": -0.08468558686801142,
+            "shinise": -0.1959541417624917
+          }
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 1,
+              "label": "3年目の客数中央値",
+              "value": 38.105405815680285,
+              "status": "不合格",
+              "target": "40〜52人/日",
+              "reason": null
+            },
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 14,
+                "max": 24,
+                "mean": 19,
+                "worlds": 6,
+                "over15": 4
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5566037735849056,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.1699857475679596,
+                "jutaku": 1.6283014247550693,
+                "hanka": 1.3917275728698466
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": "4.4: 赤字のくじが50%を越える",
+          "rivalAdditionFailure": {
+            "cheap": -0.2618369742946469,
+            "kodawari": -0.08737374381170064,
+            "shinise": -0.20144958292560408
+          }
+        }
+      ],
+      "allPass": false,
+      "failedCount": 8
+    },
+    {
+      "trial": "0078",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.5912939662812278,
+        "regular.retain.jutaku": 1.4848869919776917,
+        "regular.retain.hanka": 0.614748856332153,
+        "rival.entryBase": 0.0062942549842409795,
+        "rival.entrySuccess": 0.09654930646531283,
+        "hours.kappa": 0.6072552676312626,
+        "rent.R0": 25000,
+        "rent.b": 0.25
+      },
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 29,
+                "max": 29,
+                "mean": 29,
+                "worlds": 2,
+                "over15": 2
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5754716981132075,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 8,
+              "label": "上限越えで増員が得な候補地",
+              "value": {
+                "share": 0.14285714285714285,
+                "denominator": 14
+              },
+              "status": "不合格",
+              "target": "上限越え候補地の30〜70%",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.205311032782143,
+                "jutaku": 1.5842945488125126,
+                "hanka": 1.314427982257481
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": null,
+          "rivalAdditionFailure": {
+            "cheap": -0.2522855416193259,
+            "kodawari": -0.08470134638766091,
+            "shinise": -0.19598183294194427
+          }
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 24,
+                "max": 36,
+                "mean": 31,
+                "worlds": 6,
+                "over15": 6
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5849056603773585,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.2218016875706168,
+                "jutaku": 1.6345166843240369,
+                "hanka": 1.3377921318590145
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": null,
+          "rivalAdditionFailure": {
+            "cheap": -0.26195339322931255,
+            "kodawari": -0.08739853382728868,
+            "shinise": -0.2014841749720799
+          }
+        }
+      ],
+      "allPass": false,
+      "failedCount": 7
+    },
+    {
+      "trial": "0079",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.5912939662812278,
+        "regular.retain.jutaku": 1.4848869919776917,
+        "regular.retain.hanka": 0.614748856332153,
+        "rival.entryBase": 0.0062942549842409795,
+        "rival.entrySuccess": 0.09654930646531283,
+        "hours.kappa": 0.6072552676312626,
+        "rent.R0": 25000,
+        "rent.b": 0.4
+      },
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 27,
+                "max": 27,
+                "mean": 27,
+                "worlds": 2,
+                "over15": 2
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5754716981132075,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 8,
+              "label": "上限越えで増員が得な候補地",
+              "value": {
+                "share": 0.14285714285714285,
+                "denominator": 14
+              },
+              "status": "不合格",
+              "target": "上限越え候補地の30〜70%",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.2053110327821428,
+                "jutaku": 1.5842945488125124,
+                "hanka": 1.314427982257481
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": null,
+          "rivalAdditionFailure": {
+            "cheap": -0.2522855416193259,
+            "kodawari": -0.08470134638766091,
+            "shinise": -0.19598183294194427
+          }
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 25,
+                "max": 36,
+                "mean": 29.166666666666668,
+                "worlds": 6,
+                "over15": 6
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5849056603773585,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.221801687570617,
+                "jutaku": 1.6345166843240373,
+                "hanka": 1.3377921318590145
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": null,
+          "rivalAdditionFailure": {
+            "cheap": -0.26195339322931255,
+            "kodawari": -0.08739853382728868,
+            "shinise": -0.2014841749720799
+          }
+        }
+      ],
+      "allPass": false,
+      "failedCount": 7
+    },
+    {
+      "trial": "0080",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.5912939662812278,
+        "regular.retain.jutaku": 1.4848869919776917,
+        "regular.retain.hanka": 0.614748856332153,
+        "rival.entryBase": 0.0062942549842409795,
+        "rival.entrySuccess": 0.09654930646531283,
+        "hours.kappa": 0.6072552676312626,
+        "rent.R0": 25000,
+        "rent.b": 0.55
+      },
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 27,
+                "max": 27,
+                "mean": 27,
+                "worlds": 2,
+                "over15": 2
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5754716981132075,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 8,
+              "label": "上限越えで増員が得な候補地",
+              "value": {
+                "share": 0.14285714285714285,
+                "denominator": 14
+              },
+              "status": "不合格",
+              "target": "上限越え候補地の30〜70%",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.2053110327821424,
+                "jutaku": 1.5842945488125117,
+                "hanka": 1.314427982257481
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": null,
+          "rivalAdditionFailure": {
+            "cheap": -0.2522855416193259,
+            "kodawari": -0.08470134638766091,
+            "shinise": -0.19598183294194427
+          }
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 22,
+                "max": 36,
+                "mean": 28,
+                "worlds": 6,
+                "over15": 6
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5849056603773585,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.221801687570617,
+                "jutaku": 1.6345166843240373,
+                "hanka": 1.3377921318590145
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": null,
+          "rivalAdditionFailure": {
+            "cheap": -0.26195339322931255,
+            "kodawari": -0.08739853382728868,
+            "shinise": -0.2014841749720799
+          }
+        }
+      ],
+      "allPass": false,
+      "failedCount": 7
+    },
+    {
+      "trial": "0081",
+      "overrides": {
+        "rival.lambdaMultiplier": 1.5912939662812278,
+        "regular.retain.jutaku": 1.4848869919776917,
+        "regular.retain.hanka": 0.614748856332153,
+        "rival.entryBase": 0.0062942549842409795,
+        "rival.entrySuccess": 0.09654930646531283,
+        "hours.kappa": 0.6072552676312626,
+        "rent.R0": 40000,
+        "rent.b": 0.25
+      },
+      "modes": [
+        {
+          "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 32,
+                "max": 33,
+                "mean": 32.5,
+                "worlds": 2,
+                "over15": 2
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5754716981132075,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 8,
+              "label": "上限越えで増員が得な候補地",
+              "value": {
+                "share": 0.14285714285714285,
+                "denominator": 14
+              },
+              "status": "不合格",
+              "target": "上限越え候補地の30〜70%",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.2053110327821426,
+                "jutaku": 1.5842945488125122,
+                "hanka": 1.314427982257481
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": "4.4: 赤字のくじが50%を越える",
+          "rivalAdditionFailure": {
+            "cheap": -0.2522855416193259,
+            "kodawari": -0.08470134638766091,
+            "shinise": -0.19598183294194427
+          }
+        },
+        {
+          "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+          "allPass": false,
+          "failures": [
+            {
+              "number": 5,
+              "label": "各世界上位50の0軒",
+              "value": {
+                "min": 26,
+                "max": 39,
+                "mean": 32.5,
+                "worlds": 6,
+                "over15": 6
+              },
+              "status": "不合格",
+              "target": "すべての世界で15以下",
+              "reason": null
+            },
+            {
+              "number": 7,
+              "label": "昼だけ・夜だけが得な候補地",
+              "value": {
+                "office": 0.5849056603773585,
+                "hanka": 0.08333333333333333
+              },
+              "status": "不合格",
+              "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+              "reason": null
+            },
+            {
+              "number": 9,
+              "label": "住宅地/繁華街の客数成長比",
+              "value": {
+                "ratio": 1.2218016875706166,
+                "jutaku": 1.6345166843240366,
+                "hanka": 1.3377921318590145
+              },
+              "status": "不合格",
+              "target": "住宅地/繁華街の成長比1.3倍以上",
+              "reason": null
+            }
+          ],
+          "parameterRangeFailure": "4.4: 赤字のくじが50%を越える",
+          "rivalAdditionFailure": {
+            "cheap": -0.26195339322931255,
+            "kodawari": -0.08739853382728868,
+            "shinise": -0.2014841749720799
+          }
+        }
+      ],
+      "allPass": false,
+      "failedCount": 7
+    }
+  ]
+}

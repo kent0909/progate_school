@@ -30,5 +30,31 @@
   },
   "stationEndpointVsFrozenAllSummariesAndExistingCSVEqual": true,
   "entryModeComment": 6620053704,
-  "rentProjectionDirectMaxTolerance": 1e-06
+  "rentProjectionDirectMaxTolerance": 0.000001,
+  "fullN300": {
+    "station": {
+      "sites": 981,
+      "K": 2,
+      "N": 300,
+      "repeatJSON": true,
+      "repeatCSV": true
+    },
+    "pin": {
+      "sites": 981,
+      "K": 2,
+      "N": 300,
+      "repeatJSON": true,
+      "repeatCSV": true
+    }
+  },
+  "pinEqualityToolSha256": "ceedd1831922b5b8293bc0c70d13f5a2e189f627b26c6a7f3ba4ec3f07959288",
+  "search": {
+    "station": 120,
+    "pin": 120,
+    "K": 2,
+    "N": 3,
+    "passing": 0,
+    "near": 0,
+    "additionalN300": 0
+  }
 }
