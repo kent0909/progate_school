@@ -14,9 +14,10 @@
     {type:'引取書・台帳の写し',speech:'業者「この券売機、60,000円で引き取るよ」',amounts:[60000,120000,50000],amountLabels:['引取額','取得原価','減価償却累計額'],cards:['減価償却累計額','現金','備品','固定資産売却損','固定資産売却益'],answer:[['left','減価償却累計額',50000],['left','現金',60000],['left','固定資産売却損',10000],['right','備品',120000]],reply:'業者「確かに。券売機を引き取ったよ」',note:'券売機がなくなり、小銭を受け取った'}
   ];
   // 取引4の5枚と棚の増減の口：仕様2・3章、PR #13 承認6619763389。
+  // 資産は控除前、評価勘定は直下に△で示す：取りまとめ役の指示6620110518。
   let index=0, rows=[], selected=null, selectedSide=null, picked=null, calcValue=null, expression='', solved=false;
   const session=Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);
-  const ledger=[], balances={asset:170000,liability:50000,equity:120000,revenue:0,expense:0,contra:50000};
+  const ledger=[], balances={asset:220000,liability:50000,equity:120000,revenue:0,expense:0,contra:50000};
   names.contra='もっているもののマイナス';
   accounts.減価償却累計額='contra';
   const key='boki2.proto.desk.v1';
@@ -90,8 +91,8 @@
   }
   function renderShelf(){
     $('shelf').hidden=config.shelf==='off';if(config.shelf==='off')return;
-    if(!$('shelf').children.length){for(const [category,name]of Object.entries(names)){const div=document.createElement('div');div.className='shelf-band';div.dataset.category=category;div.setAttribute('aria-label',name);const title=document.createElement('span');title.textContent=name;const track=document.createElement('div');track.className='shelf-track';const fill=document.createElement('div');fill.className='shelf-fill';track.append(fill);const balance=document.createElement('span');balance.className='balance';const mouths=document.createElement('div');mouths.className='mouths';mouths.dataset.title=name;for(const change of ['increase','decrease']){if(['revenue','expense'].includes(category)&&change==='decrease')continue;const side=(['asset','expense'].includes(category)?change==='increase':change==='decrease')?'left':'right';const mouth=button(change==='increase'?'増えた':'減った',{'data-mouth':category+'-'+change,'data-drop':side,'aria-label':name+'・'+(change==='increase'?'増えた':'減った')});mouths.append(mouth);}div.append(title,track,balance,mouths);$('shelf').append(div);}}
-    for(const div of $('shelf').children){const cat=div.dataset.category;div.hidden=index<3&&['revenue','expense','contra'].includes(cat);div.querySelector('.shelf-fill').style.width=Math.max(0,Math.min(100,balances[cat]/250000*100))+'%';div.querySelector('.balance').textContent=yen(balances[cat]);}
+    if(!$('shelf').children.length){for(const category of ['asset','contra','liability','equity','revenue','expense']){const name=names[category];const div=document.createElement('div');div.className='shelf-band';div.dataset.category=category;div.setAttribute('aria-label',name);const title=document.createElement('span');title.textContent=name;const track=document.createElement('div');track.className='shelf-track';const fill=document.createElement('div');fill.className='shelf-fill';track.append(fill);const balance=document.createElement('span');balance.className='balance';const mouths=document.createElement('div');mouths.className='mouths';mouths.dataset.title=name;for(const change of ['increase','decrease']){if(['revenue','expense'].includes(category)&&change==='decrease')continue;const side=(['asset','expense'].includes(category)?change==='increase':change==='decrease')?'left':'right';const mouth=button(change==='increase'?'増えた':'減った',{'data-mouth':category+'-'+change,'data-drop':side,'aria-label':name+'・'+(change==='increase'?'増えた':'減った')});mouths.append(mouth);}div.append(title,track,balance,mouths);$('shelf').append(div);}}
+    for(const div of $('shelf').children){const cat=div.dataset.category;div.hidden=index<3&&['revenue','expense','contra'].includes(cat);div.querySelector('.shelf-fill').style.width=Math.max(0,Math.min(100,balances[cat]/250000*100))+'%';div.querySelector('.balance').textContent=(cat==='contra'?'△':'')+yen(balances[cat]);}
   }
   function confirm(){
     if(solved||$('confirm').disabled)return;
@@ -101,7 +102,7 @@
     $('feedback').dataset.result=ok?'correct':'incorrect';
     if(ok){
       solved=true;record.completed=true;$('feedback').textContent='正しい。'+txs[index].reply;
-      for(const r of rows){const cat=accounts[r.account],sign=(['asset','expense'].includes(cat)?r.side==='left':r.side==='right')?1:-1;balances[cat]+=sign*r.amount;if(cat==='contra')balances.asset-=sign*r.amount;}
+      for(const r of rows){const cat=accounts[r.account],sign=(['asset','expense'].includes(cat)?r.side==='left':r.side==='right')?1:-1;balances[cat]+=sign*r.amount;}
       ledger.push({transaction:index+1,rows:rows.map(r=>({...r}))});renderShelf();
       if(config.shelf==='off'){$('shop-note').textContent=txs[index].note;$('ledger-dot').hidden=false;}
       $('confirm').hidden=true;$('next').hidden=false;$('next').textContent=index===3?'4枚おしまい・記録を見る':'次の書類へ';render();

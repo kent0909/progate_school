@@ -53,6 +53,7 @@ function save(){
         const result={config,viewport,scenario,transaction:tx+1,pass:false};results.push(result);
         try{
           assert.equal(await page.locator('#progress').textContent(),`書類 ${tx+1} / 4`);
+          if(tx===3&&shelf==='on'){result.shelfBefore=await page.locator('#shelf .balance').allTextContents();assert.equal(await page.locator('[data-category=asset] .balance').textContent(),'220,000円');assert.equal(await page.locator('[data-category=contra] .balance').textContent(),'△50,000円');assert.equal(await page.locator('[data-category=asset]').evaluate(e=>e.nextElementSibling.dataset.category),'contra');}
           if(scenario==='correct')measurements.push(await metrics(page,config,viewport,tx+1,'empty'));
           const rows=answers[tx].map(r=>[...r]);if(scenario==='error')rows[replaceIndices[tx]][1]=wrongAccounts[tx];
           for(const row of rows)await put(page,row,tx);
@@ -68,6 +69,7 @@ function save(){
             await put(page,answers[tx][replaceIndices[tx]],tx);await page.locator('#confirm').click();
           }
           assert.equal(await page.locator('#feedback').getAttribute('data-result'),'correct');assert.match(await page.locator('#feedback').textContent(),/正しい。.*確かに/);
+          if(tx===3&&shelf==='on'){result.shelfAfter=await page.locator('#shelf .balance').allTextContents();assert.equal(await page.locator('[data-category=asset] .balance').textContent(),'160,000円');assert.equal(await page.locator('[data-category=contra] .balance').textContent(),'△0円');}
           if(shelf==='off'){assert.equal(await page.locator('#ledger-dot').isVisible(),true);assert.ok(await page.locator('#shop-note').textContent());}
           result.pass=true;
         }catch(e){result.error=e.message;throw e;}
