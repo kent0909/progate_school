@@ -39,11 +39,11 @@
 .sm-occupied{opacity:.38}
 .sm-cluster{background:#244f45;color:#fff8e5!important;border:3px solid #fff8e0;box-shadow:0 4px 10px #223b4238;font-size:13px!important;font-weight:750}
 .sm-cluster:hover{background:#457966}
-.sm-compass{position:absolute;right:20px;top:16px;text-align:center;font-family:serif;font-size:18px;pointer-events:none;color:#59786b}
-.sm-zoom{position:absolute;right:16px;bottom:64px;display:grid;background:#fffdf3;border:1px solid #afc1b4;border-radius:10px;overflow:hidden;box-shadow:0 4px 12px #28483e20}
+.sm-compass{text-align:center;font-family:serif;font-size:18px;pointer-events:none;color:#59786b}
+.sm-zoom{margin-left:auto;display:flex;background:#fffdf3;border:1px solid #afc1b4;border-radius:10px;overflow:hidden;box-shadow:0 4px 12px #28483e20}
 .sm-zoom button{background:transparent;border:0;width:44px;height:44px;font-size:24px}
-.sm-zoom button+button{border-top:1px solid #d5dfd0}
-.sm-source{position:absolute;bottom:10px;left:12px;max-width:calc(100% - 24px);background:#f8faefed;border-radius:6px;font-size:9px;padding:6px 9px;z-index:7}
+.sm-zoom button+button{border-left:1px solid #d5dfd0}
+.sm-source{position:relative;margin:10px 12px;max-width:calc(100% - 24px);background:#f8faefed;border-radius:6px;font-size:9px;padding:6px 9px;z-index:7}
 .sm-source summary{cursor:pointer;min-height:28px;display:flex;align-items:center}
 .sm-source p{max-width:500px;overflow-wrap:anywhere;line-height:1.6}
 .sm-group{position:absolute;inset:16px 16px 60px;background:#faf8eff7;backdrop-filter:blur(8px);border:1px solid #afbeab;border-radius:16px;z-index:6;padding:16px;box-shadow:0 12px 30px #2c50382b;display:flex;flex-direction:column;animation:sm-appear .24s both}
@@ -152,3 +152,6 @@ to{transform:translateY(0)}
 .sm-foot-tier{font-size:10px;color:var(--muted);margin-top:3px}
 .sm-riders{font-size:9px;color:var(--muted);font-weight:400;margin-top:6px}
 .sm-quiet{font-size:11px;color:#3c8760;margin:5px 0 0}
+
+/* 操作と出典は地図の外側の帯へ。投影・ドラッグ位置にかかわらずピンを覆わない。 */
+.sm-map-controls{display:flex;align-items:center;gap:12px;padding:4px 12px;background:#edf1e5;border-bottom:1px solid #bdcec0}
