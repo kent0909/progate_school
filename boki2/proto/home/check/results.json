@@ -117,9 +117,9 @@
       "width": 390,
       "height": 844,
       "phase": "start",
-      "cardTop": 287.171875,
+      "cardTop": 228.171875,
       "stageHeight": 220,
-      "metricsHeight": 187.171875,
+      "metricsHeight": 208.171875,
       "minFont": 14,
       "minTargetWidth": 60,
       "minTargetHeight": 44.390625,
@@ -131,11 +131,11 @@
       "width": 390,
       "height": 844,
       "phase": "end",
-      "cardTop": 287.171875,
+      "cardTop": 228.171875,
       "stageHeight": 220,
-      "metricsHeight": 187.171875,
+      "metricsHeight": 208.171875,
       "minFont": 14,
-      "minTargetWidth": 117.59375,
+      "minTargetWidth": 101.328125,
       "minTargetHeight": 44.390625,
       "horizontalOverflow": false,
       "dWithin211": true
@@ -257,9 +257,9 @@
       "width": 1280,
       "height": 800,
       "phase": "start",
-      "cardTop": 238.78125,
+      "cardTop": 232.78125,
       "stageHeight": 240,
-      "metricsHeight": 126.78125,
+      "metricsHeight": 208.78125,
       "minFont": 14,
       "minTargetWidth": 60,
       "minTargetHeight": 44.390625,
@@ -271,9 +271,9 @@
       "width": 1280,
       "height": 800,
       "phase": "end",
-      "cardTop": 238.78125,
+      "cardTop": 232.78125,
       "stageHeight": 240,
-      "metricsHeight": 126.78125,
+      "metricsHeight": 208.78125,
       "minFont": 14,
       "minTargetWidth": 117.59375,
       "minTargetHeight": 44.390625,
@@ -295,7 +295,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1083,
+      "elapsedMs": 2433,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -313,7 +313,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1049,
+      "elapsedMs": 1004,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -331,7 +331,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 2344,
+      "elapsedMs": 1898,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -349,7 +349,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1729,
+      "elapsedMs": 1076,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -367,7 +367,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1214,
+      "elapsedMs": 1138,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -385,7 +385,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1179,
+      "elapsedMs": 1124,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -403,7 +403,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 2988,
+      "elapsedMs": 1147,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -421,7 +421,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 2617,
+      "elapsedMs": 1106,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -439,7 +439,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1527,
+      "elapsedMs": 1207,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -457,7 +457,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1487,
+      "elapsedMs": 1107,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -475,7 +475,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1489,
+      "elapsedMs": 1068,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -493,7 +493,7 @@
       "numberClicks": 0,
       "lineClicks": 0,
       "homeOpens": 10,
-      "elapsedMs": 1007,
+      "elapsedMs": 1034,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -511,7 +511,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1566,
+      "elapsedMs": 1152,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -529,7 +529,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1308,
+      "elapsedMs": 1186,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -547,7 +547,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1736,
+      "elapsedMs": 1123,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -565,7 +565,7 @@
       "numberClicks": 0,
       "lineClicks": 1,
       "homeOpens": 11,
-      "elapsedMs": 1343,
+      "elapsedMs": 1167,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -583,7 +583,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1665,
+      "elapsedMs": 1110,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -601,7 +601,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 2027,
+      "elapsedMs": 1174,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -619,7 +619,7 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1242,
+      "elapsedMs": 1231,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
@@ -637,14 +637,14 @@
       "numberClicks": 1,
       "lineClicks": 0,
       "homeOpens": 11,
-      "elapsedMs": 1132,
+      "elapsedMs": 1113,
       "externalRequests": 0,
       "errors": 0,
       "result": "PASS"
     }
   ],
   "extra": [
-    "reduced-motion / switch / restart-preserves-records / invalid-storage: PASS",
+    "reduced-motion / switch / restart-preserves-records / invalid-storage / quiz-resume / incorrect-answers: PASS",
     "storage-unavailable-export: PASS"
   ]
 }

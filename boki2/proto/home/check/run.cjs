@@ -16,21 +16,21 @@ const server=http.createServer((req,res)=>{
 });
 function currentSession(page){return page.evaluate(()=>JSON.parse(localStorage.getItem('boki2.proto.home.v1')).sessions.at(-1));}
 async function measure(page,variant,width,height,phase){
-  const row=await page.evaluate(()=>{
+  const row=await page.evaluate((variant)=>{
     const rect=selector=>document.querySelector(selector)?.getBoundingClientRect();
     const visible=el=>el.getClientRects().length>0&&getComputedStyle(el).visibility!=='hidden';
     const textEls=[...document.querySelectorAll('body *')].filter(el=>visible(el)&&[...el.childNodes].some(n=>n.nodeType===3&&n.textContent.trim()));
     const targets=[...document.querySelectorAll('button,a,textarea,select,input')].filter(visible).map(el=>{const r=el.getBoundingClientRect();return {label:el.textContent.trim().slice(0,30),width:r.width,height:r.height};});
-    return {cardTop:rect('[data-next-doc]').top,stageHeight:rect('.stage').height,metricsHeight:rect('.metrics')?.height||0,
+    return {cardTop:rect('[data-next-doc]').top,stageHeight:rect('.stage').height,metricsHeight:variant==='d'?rect('.metrics').bottom:(rect('.metrics')?.height||0),
       minFont:Math.min(...textEls.map(el=>parseFloat(getComputedStyle(el).fontSize))),minTargetWidth:Math.min(...targets.map(t=>t.width)),minTargetHeight:Math.min(...targets.map(t=>t.height)),
       horizontalOverflow:document.documentElement.scrollWidth>innerWidth, targets};
-  });
+  },variant);
   assert(row.minFont>=14,JSON.stringify(row));assert(row.minTargetWidth>=44,JSON.stringify(row));assert(row.minTargetHeight>=44,JSON.stringify(row));assert(!row.horizontalOverflow,JSON.stringify(row));
   const {targets,...metrics}=row;
   results.measurements.push({variant,width,height,phase,...metrics,dWithin211:variant==='d'?row.metricsHeight<=211:null});
 }
-async function measureDialog(page) {
-  const row=await page.locator('#dialog').evaluate(dialog=>{
+async function measureDialog(page, selector = '#dialog') {
+  const row=await page.locator(selector).evaluate(dialog=>{
     const visible=el=>el.getClientRects().length>0;
     const elements=[...dialog.querySelectorAll('*')].filter(visible);
     const fonts=elements.filter(el=>[...el.childNodes].some(n=>n.nodeType===3&&n.textContent.trim())).map(el=>parseFloat(getComputedStyle(el).fontSize));
@@ -61,7 +61,7 @@ async function main(){
       if(variant==='b1'||variant==='b2') await page.locator('[data-action=outlook]').click();
       if(variant==='c') await page.locator('[data-action=sales]').click();
       if(variant==='d') await page.locator('[data-action=account]').click();
-      if(variant!=='a') await page.locator('[data-action=back]').click();
+      if(variant!=='a') {await measureDialog(page);await page.locator('[data-action=back]').click();}
       const forecasts=[];
       for(let i=0;i<6;i++) {
         forecasts.push(await page.locator('.metrics').textContent());
@@ -69,7 +69,7 @@ async function main(){
         await page.locator(i===0?'[data-action=document].visitor':'[data-next-doc]').click();
         assert.equal(await page.locator('.journal').count(),1);await measureDialog(page);
         await page.locator('[data-action=post]').click();
-        if(i===2){assert.equal(await page.locator('#dialog').isVisible(),false);await page.locator(`.decision [data-action=${choice}]`).click();}
+        if(i===2){assert.equal(await page.locator('#dialog').isVisible(),false);await measureDialog(page,'.decision');await page.locator(`.decision [data-action=${choice}]`).click();}
         if(i===3){await page.reload();assert.equal((await currentSession(page)).posted,4);}
       }
       await page.locator('[data-next-doc]').click();
@@ -120,7 +120,7 @@ async function main(){
     await page.locator('[data-next-doc]').click();await page.locator('[data-answer]').first().click();await page.reload();
     assert.match(await page.locator('#dialog').textContent(),/1億まで/);await page.locator('[data-answer]').first().click();
     const wrongSession=await currentSession(page);assert.equal(wrongSession.phase,'done');assert.equal(wrongSession.answers[0].correct,false);assert.equal(wrongSession.answers[1].correct,false);
-    await context.close();results.extra.push('reduced-motion / switch / restart-preserves-records / invalid-storage: PASS');
+    await context.close();results.extra.push('reduced-motion / switch / restart-preserves-records / invalid-storage / quiz-resume / incorrect-answers: PASS');
     const blocked=await browser.newContext();await blocked.addInitScript(()=>{Storage.prototype.setItem=()=>{throw new Error('blocked');};});const blockedPage=await blocked.newPage();await blockedPage.goto(`${origin}/?v=a&lock=1`);assert.match(await blockedPage.locator('#storage-status').textContent(),/保存できません/);await blockedPage.locator('#export').click();assert.equal(JSON.parse(await blockedPage.locator('#export-json').inputValue()).sessions.length,1);await blocked.close();results.extra.push('storage-unavailable-export: PASS');
   } finally {await browser.close();server.close();}
   fs.writeFileSync(path.join(__dirname,'results.json'),JSON.stringify(results,null,2)+'\n');

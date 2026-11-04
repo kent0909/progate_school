@@ -46,7 +46,7 @@ node boki2/proto/home/check/run.cjs
 - `check/prototype.log`：検査の出力。
 - `check/regression/`：既存ゲームの必須検査の出力と終了コード。
 
-測りは DOM の `getBoundingClientRect()` と `getComputedStyle()` による。字は見える文字ノード、押す所は見えるボタン・リンク・入力欄が対象。44pxの条件は各要素の幅と高さの両方で判定する。記帳・判断・月末の問い・書き出しの窓も検査する。画像の高さは `.stage`（店の絵の領域）を測る。
+測りは DOM の `getBoundingClientRect()` と `getComputedStyle()` による。字は見える文字ノード、押す所は見えるボタン・リンク・入力欄が対象。44pxの条件は各要素の幅と高さの両方で判定する。記帳・判断・月末の問い・書き出しの窓も検査する。画像の高さは `.stage`（店の絵の領域）を測る。dの帯の高さは店名のヘッダーも含め、画面上端から帯の下端までを測る（a〜cの数の領域の高さはヘッダーを含めない）。
 
 ## やっていないこと
 
