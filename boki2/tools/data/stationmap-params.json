@@ -151,9 +151,9 @@
   },
   "rival.lambdaMultiplier": {
     "v": 1,
-    "lo": null,
-    "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.3（倍率の探索幅は未記載）"
+    "lo": 0.5,
+    "hi": 2,
+    "src": "PR #11 6570645286"
   },
   "rival.lambdaAttr.hanka": {
     "v": 1.4,
@@ -211,12 +211,6 @@
   },
   "rival.cap": {
     "v": 5,
-    "lo": null,
-    "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.3"
-  },
-  "rival.entryRate": {
-    "v": 0.01,
     "lo": null,
     "hi": null,
     "src": "DESIGN-STATIONMAP.md 4.3"
@@ -364,42 +358,6 @@
     "lo": null,
     "hi": null,
     "src": "DESIGN-STATIONMAP.md 4.1・4.3"
-  },
-  "hours.lunchWeight.hanka": {
-    "v": 0.3,
-    "lo": null,
-    "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
-  },
-  "hours.lunchWeight.shogyo": {
-    "v": 0.55,
-    "lo": null,
-    "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
-  },
-  "hours.lunchWeight.office": {
-    "v": 0.75,
-    "lo": null,
-    "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
-  },
-  "hours.lunchWeight.shoten": {
-    "v": 0.5,
-    "lo": null,
-    "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
-  },
-  "hours.lunchWeight.jutaku": {
-    "v": 0.35,
-    "lo": null,
-    "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
-  },
-  "hours.lunchWeight.kojo": {
-    "v": 0.85,
-    "lo": null,
-    "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.1・4.5"
   },
   "mix.hanka.office": {
     "v": 0.35,
@@ -616,10 +574,14 @@
     "src": "DESIGN-STATIONMAP.md 4.4"
   },
   "deposit.probabilities": {
-    "v": null,
+    "v": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
     "lo": null,
     "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.4（確率は未記載）"
+    "src": "PR #11 6570645286"
   },
   "fitout.ratio": {
     "v": 0.3,
@@ -634,16 +596,10 @@
     "src": "DESIGN-STATIONMAP.md 4.4"
   },
   "fitout.distribution": {
-    "v": null,
+    "v": "zero10pct_else_ratio",
     "lo": null,
     "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.4（0円を含む分布は未記載）"
-  },
-  "hours.closedSaving": {
-    "v": null,
-    "lo": 160000,
-    "hi": 200000,
-    "src": "DESIGN-STATIONMAP.md 4.5（初期値は未記載）"
+    "src": "PR #11 6570645286"
   },
   "hours.lunchCapacity": {
     "v": 0.45,
@@ -810,51 +766,129 @@
     "src": "DESIGN-STATIONMAP.md 4.2"
   },
   "decision.simpleSelection": {
-    "v": null,
+    "v": "uniform_eligible",
     "lo": null,
     "hi": null,
-    "src": "DESIGN-STATIONMAP.md 6⑥（単純規則の中の選び方）"
+    "src": "PR #11 6570645286"
   },
   "decision.skilledBot": {
-    "v": null,
+    "v": "independent_training_max36",
     "lo": null,
     "hi": null,
-    "src": "DESIGN-STATIONMAP.md 6⑥（上手の方策・情報の範囲）"
+    "src": "PR #11 6570645286"
   },
   "decision.entryTiming": {
-    "v": null,
+    "v": "delay2_active_cap5",
     "lo": null,
     "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.3（予兆から参入までの期間）"
+    "src": "PR #11 6570645286"
   },
   "decision.regularClosed": {
-    "v": null,
+    "v": "normal_churn_plus_switch1pct",
     "lo": null,
     "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.5（閉店帯の常連の離れ方）"
+    "src": "PR #11 6570645286"
   },
   "decision.partSaving": {
-    "v": null,
+    "v": "hours1_worker2",
     "lo": null,
     "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.5（増員時の閉店削減費）"
+    "src": "PR #11 6570645286"
   },
   "decision.referenceHours": {
-    "v": null,
+    "v": "both",
     "lo": null,
     "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.2・4.5（基準の老舗の営業時間）"
+    "src": "PR #11 6570645286"
   },
   "decision.calibrationEntry": {
-    "v": null,
+    "v": "none",
     "lo": null,
     "hi": null,
-    "src": "DESIGN-STATIONMAP.md 4.2・4.3（較正中の参入）"
+    "src": "PR #11 6570645286"
   },
   "decision.rivalCut": {
-    "v": null,
+    "v": "shinise_minus50_t24_to26",
     "lo": null,
     "hi": null,
-    "src": "DESIGN-STATIONMAP.md 6⑩（値下げの札・金額・時点は未記載）"
+    "src": "PR #11 6570645286"
+  },
+  "rival.entryBase": {
+    "v": 0.01,
+    "lo": 0.005,
+    "hi": 0.02,
+    "src": "DESIGN-STATIONMAP.md 版0.6 4.3"
+  },
+  "rival.entrySuccess": {
+    "v": 0.08,
+    "lo": 0.03,
+    "hi": 0.15,
+    "src": "DESIGN-STATIONMAP.md 版0.6 4.3"
+  },
+  "rival.sameTypeProbability": {
+    "v": 0.5,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 版0.6 4.3"
+  },
+  "rival.entryDelay": {
+    "v": 2,
+    "lo": null,
+    "hi": null,
+    "src": "PR #11 6570645286"
+  },
+  "rival.successTarget": {
+    "v": 44,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 版0.6 4.3"
+  },
+  "hours.kappa": {
+    "v": 0.6,
+    "lo": 0.3,
+    "hi": 1,
+    "src": "DESIGN-STATIONMAP.md 版0.6 4.5"
+  },
+  "hours.foodMedian": {
+    "v": 0.0708,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 版0.6 4.5"
+  },
+  "hours.nightFloor": {
+    "v": 0.05,
+    "lo": null,
+    "hi": null,
+    "src": "DESIGN-STATIONMAP.md 版0.6 4.5"
+  },
+  "hours.lunchHours": {
+    "v": 4,
+    "lo": null,
+    "hi": null,
+    "src": "PR #11 6570645286"
+  },
+  "hours.nightHours": {
+    "v": 5,
+    "lo": null,
+    "hi": null,
+    "src": "PR #11 6570645286"
+  },
+  "fitout.zeroProbability": {
+    "v": 0.1,
+    "lo": null,
+    "hi": null,
+    "src": "PR #11 6570645286"
+  },
+  "reference.lunchWeightMode": {
+    "v": "median_shoten_sites",
+    "lo": null,
+    "hi": null,
+    "src": "較正用のデータ推定。比較台本lib6.js・測定書第1章。設計値の追加ではない"
+  },
+  "hours.costMode": {
+    "v": "design",
+    "lo": null,
+    "hi": null,
+    "src": "PR #11 6619705662。part-fullは設計書の外の参考条件、探索変数にしない"
   }
 }
