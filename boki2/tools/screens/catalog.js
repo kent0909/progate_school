@@ -68,23 +68,7 @@ async function main(){
  }
  fs.rmSync(path.join(OUT,'images'),{recursive:true});fs.renameSync(tmp,path.join(OUT,'images'));
  inv.rows=rows;fs.writeFileSync(path.join(OUT,'inventory.json'),JSON.stringify(inv,null,2)+'\n');
- process.env.XDG_CACHE_HOME=process.env.XDG_CACHE_HOME||path.resolve(__dirname,'../../../work/.cache');fs.mkdirSync(process.env.XDG_CACHE_HOME,{recursive:true});
- const sharp=require('sharp');const sheets=[];fs.mkdirSync(path.join(OUT,'sheets'),{recursive:true});
- const mobile=rows.filter(r=>r.width===390).sort((a,b)=>a.kind.localeCompare(b.kind,'ja')||a.id.localeCompare(b.id));
- for(let i=0;i<mobile.length;i+=12){
-   const group=mobile.slice(i,i+12),tiles=[];
-   for(let j=0;j<group.length;j++){
-     const r=group[j];
-     // 長い画面は先頭844px。全文は原寸JPEGにある。
-     const meta=await sharp(path.join(OUT,r.file)).metadata();
-     const b=await sharp(path.join(OUT,r.file)).extract({left:0,top:0,width:390,height:Math.min(844,meta.height)}).resize(280,606,{fit:'contain',background:'#eeeeee'}).toBuffer();
-     const label=Buffer.from(`<svg width="280" height="24"><rect width="280" height="24" fill="white"/><text x="6" y="17" font-size="14" fill="black">${r.id} / ${r.color} / ${r.year}-${r.month}</text></svg>`);
-     tiles.push({input:b,left:(j%4)*294+7,top:Math.floor(j/4)*644+30},{input:label,left:(j%4)*294+7,top:Math.floor(j/4)*644+6});
-   }
-   const file='sheets/sheet-'+String(sheets.length+1).padStart(2,'0')+'.jpg';
-   await sharp({create:{width:1176,height:1932,channels:3,background:'#ddd'}}).composite(tiles).jpeg({quality:55}).toFile(path.join(OUT,file));
-   sheets.push({file,ids:group.map(r=>r.id)});
- }
+ const sheets=await require('./contact-sheets.js')(rows,OUT);
  // 前回生成された余りの一覧画像は消す。
  for(const file of fs.readdirSync(path.join(OUT,'sheets')))if(!sheets.some(s=>path.basename(s.file)===file))fs.unlinkSync(path.join(OUT,'sheets',file));
  const photos=rows.reduce((n,r)=>n+fs.statSync(path.join(OUT,r.file)).size,0),sheetBytes=sheets.reduce((n,s)=>n+fs.statSync(path.join(OUT,s.file)).size,0);

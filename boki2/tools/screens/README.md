@@ -8,7 +8,7 @@
 
 ## 再生成
 
-Node.js、Playwright、Chromium、sharpを使う。既存ツールと同様、Playwrightは `PIYO_PLAYWRIGHT`、Chromiumは `PIYO_CHROMIUM` で場所を指定できる。
+撮影と一覧生成にはNode.js、Playwright、Chromiumを使う。検証の `verify.js` はNode.jsの標準部品と同梱のJPEG見出し読取だけで動く。既存ツールと同様、Playwrightは `PIYO_PLAYWRIGHT`、Chromiumは `PIYO_CHROMIUM` で場所を指定できる。Sharpは不要。部品の出所とツール別の依存は [DEPENDENCIES.md](DEPENDENCIES.md) を参照。
 
 ```sh
 PIYO_CHROMIUM=/usr/bin/chromium node boki2/tools/screens/inventory.js

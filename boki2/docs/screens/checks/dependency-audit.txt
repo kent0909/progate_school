@@ -1,0 +1,18 @@
+boki2/tools/screens/merge.js:4:const fs=require('fs'),path=require('path'),crypto=require('crypto');
+boki2/tools/screens/merge.js:5:const {compactAction}=require('./inventory.js');
+boki2/tools/screens/merge.js:6:const {sourceHash}=require('../playtest/bot-runs.js');
+boki2/tools/screens/compare.js:4:const fs=require('fs'),path=require('path');
+boki2/tools/screens/compare.js:5:const {classify}=require('./catalog.js');
+boki2/tools/screens/catalog.js:4:const fs=require('fs'),path=require('path'),crypto=require('crypto');
+boki2/tools/screens/catalog.js:5:const {stage}=require('./inventory.js');
+boki2/tools/screens/catalog.js:71: const sheets=await require('./contact-sheets.js')(rows,OUT);
+boki2/tools/screens/verify.js:4:const fs=require('fs'),path=require('path'),crypto=require('crypto'),jpegSize=require('./jpeg.js');
+boki2/tools/screens/inventory.js:4:const fs = require('fs');
+boki2/tools/screens/inventory.js:5:const path = require('path');
+boki2/tools/screens/inventory.js:6:const http = require('http');
+boki2/tools/screens/inventory.js:7:const crypto = require('crypto');
+boki2/tools/screens/inventory.js:8:const auto = require('../playtest/auto.js');
+boki2/tools/screens/inventory.js:9:const { initialSave, sourceHash } = require('../playtest/bot-runs.js');
+boki2/tools/screens/inventory.js:68:  const { chromium }=require(process.env.PIYO_PLAYWRIGHT||'playwright');
+boki2/tools/screens/contact-sheets.js:3:const fs=require('fs'),path=require('path');
+boki2/tools/screens/contact-sheets.js:5: const {chromium}=require(process.env.PIYO_PLAYWRIGHT||'playwright');

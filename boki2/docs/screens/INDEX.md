@@ -48,7 +48,7 @@
 - 取得元：`claude/keen-hawking-sfeg6f` の `37135cbc99cd4daa78913b9ee59bf1bdd42ea7ce`。後続の変更は試作仕様のみで、取りまとめ役が固定を了承（PR #8 コメント6619794392）。
 - seed=0、通常はskilled・strategy=1。倒産の探索はidle（駅前・パート2人・大きい看板・高い問屋、その後は前月のまま）。さらに4年目4月から、画面で毎月パートを1人増やし・値段を100円下げ・仕込み多め・高い問屋・チラシ10万円・クーポンを選んだ（上限・無効な手は画面の制約どおり）。既存の auto.js を呼ぶ。localStorageへ開始前にseedだけを置く既存ツールの方式。開始後の__sim書き込み・進行位置の直接設定なし。閲覧メニューは取っ手をクリック／SVG地区は地区名の文字をクリック。
 - スマホ390×844（hasTouch・isMobile）、PC1280×800、deviceScaleFactor=1。スマホのlightとdark、PCのlight。外部リクエストはすべて拒否し、ローカルの既存フォントで描画。
-- JPEG品質55。原寸の全縦画面を撮影。一覧は先頭844pxのサムネイル、種類順・12枚ずつ・幅1176px。結末の各段階は、実プレイの標準保存を画面から開き直した写真も併記。スマホの通常終端1枚はPCで完走した同一seedの保存を標準入力から読み込んだ。原寸と一覧の合計32576319 bytes（上限40,000,000）。
+- JPEG品質55。原寸の全縦画面を撮影。一覧は先頭844pxのサムネイル、種類順・12枚ずつ・幅1176px。結末の各段階は、実プレイの標準保存を画面から開き直した写真も併記。スマホの通常終端1枚はPCで完走した同一seedの保存を標準入力から読み込んだ。原寸と一覧の合計32458180 bytes（上限40,000,000）。
 - 文字数はbody.innerText.length（UTF-16、改行とルビを含む）。非表示要素はinnerTextの挙動に従う。文字サイズは表示されたTextノードと入力欄の計算値。操作部品は表示され、disabledでないbutton/link/input/select/textarea/summary/role=button/tabを数える。画面外でもスクロールで読める要素を含む。
 - 縦画面数はdocumentElement.scrollHeight÷viewport高さ。オーバーレイは背景も画面に見えるため背景の文字・部品も測定に含む。見た目の判定の代用ではない。
 - 時期は画面の月表示を優先（翌年4月は2年目4月、実装の終端は直前の営業月）。数値の原本は[inventory.json](inventory.json)、種類別集計と到達地点は[summary.json](summary.json)。再生成は`node boki2/tools/screens/inventory.js`、続いて`node boki2/tools/screens/catalog.js`。
