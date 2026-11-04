@@ -59,7 +59,7 @@ function kind(s) {
   if(s.classes.split('|').includes('debrief'))return 'ふりかえり';
   if(s.classes.split('|').includes('fork'))return '分かれ道の図';
   if(s.classes.split('|').includes('intro'))return '月はじめ・開店';
-  if(s.bankrupt)return '倒産';
+  if(s.bankrupt&&s.classes.includes('s-ending'))return '倒産';
   return ({talk:'会話',board:'プロローグ・会話と操作',choice:'選択肢',decision:'判断・card',discover:'発見',closing:'締め',opening:'開始記入',sheet:'決算書・精算表',report:'決算書',doc:'書類・docScreen',calc:'計算の作業台',end:'結末',ending:'結末',rreport:'月報',debrief:'ふりかえり',recall:'思い出す',predict:'予想',bowl:'一杯の組み立て',plan:'作戦の机'})[s.type]||s.type;
 }
 function stage(k){if(/note/.test(k))return '①';if(/docScreen/.test(k))return '②';if(/sort\/tap/.test(k))return '③';if(/選択|判断|理由|予想|名前の札|発見/.test(k))return '④';if(/月報|締め|開始記入|決算/.test(k))return '⑤';return '';}
@@ -82,6 +82,9 @@ async function run(options={}) {
     const now=await state(page);
     const timed=/^(上部の情報|タブ・town|町の地区|ライバル|月報|締めの帯)$/.test(k)&&['1-4','1-9','1-3','2-4'].includes(`${now.year}-${now.month}`);
     key=k+':'+(/^(タブ・|練習室|検定会場|上部の情報|ゲームの設定|ライバル|空き物件|町の地区|考え方の地図|成長の記録|会社の棚)/.test(k)?'':now.markers)+(timed?':'+now.year+'-'+now.month:'');
+    const endingNode=page.locator('.s-ending > small').first();
+    const endingStep=await endingNode.count()?await endingNode.innerText():null;
+    if(endingStep)key+=':ending:'+endingStep;
     const sig=current.name+':'+key;if(seen.has(sig))return;
     seen.add(sig);
     // 直前の記帳の一時通知（2.8秒）を自然に閉じてから測る。ゲームのDOMは変えない。
@@ -91,7 +94,7 @@ async function run(options={}) {
     const s=await state(page), m=await measure(page), id='S'+String(rows.length+1).padStart(3,'0');
     const file=`images/${id}-${current.name}.jpg`;
     await page.screenshot({path:path.join(OUT,file),type:'jpeg',quality:55,fullPage:true,animations:'disabled'});
-    rows.push({id,file,width:current.width,height:current.height,color:current.color,seed:SEED,style:current.style||STYLE,kind:k,stage:stage(k),...s,...m,...extra,imageSha:sha(fs.readFileSync(path.join(OUT,file)))});
+    rows.push({id,file,width:current.width,height:current.height,color:current.color,seed:SEED,style:current.style||STYLE,resumed:!!process.env.SCREEN_RESUME,endingStep,kind:k,stage:stage(k),...s,...m,...extra,imageSha:sha(fs.readFileSync(path.join(OUT,file)))});
     persist();console.log(id,current.name,k,s.label,s.ei);
   }
   const click=async(p,sel)=>{await p.locator(sel).first().click();actions.push({profile:current.name,selector:sel});};
@@ -141,8 +144,8 @@ async function run(options={}) {
       {name:'mobile-light',width:390,height:844,color:'light'},
       {name:'desktop-light',width:1280,height:800,color:'light'},
       {name:'mobile-dark',width:390,height:844,color:'dark'},
-      {name:'idle-mobile-light',width:390,height:844,color:'light',style:'idle'},
-      {name:'idle-desktop-light',width:1280,height:800,color:'light',style:'idle'}])){
+      {name:'idle-mobile-light',width:390,height:844,color:'light',style:'idle',adverse:true},
+      {name:'idle-desktop-light',width:1280,height:800,color:'light',style:'idle',adverse:true}])){
       if(process.env.SCREEN_PROFILE&&current.name!==process.env.SCREEN_PROFILE)continue;
       const context=await browser.newContext({viewport:{width:current.width,height:current.height},hasTouch:current.width===390,isMobile:current.width===390,deviceScaleFactor:1,colorScheme:current.color,reducedMotion:'reduce',serviceWorkers:'block',locale:'ja-JP',timezoneId:'Asia/Tokyo'});
       await context.route('**/*',r=>r.request().url().startsWith(origin+'/')?r.continue():r.abort());
@@ -170,6 +173,15 @@ async function run(options={}) {
           const stamp=`${s.mi}:${s.ei}:${s.markers}:${(await p.locator('#sim').innerText()).slice(-500)}`;
           repeated=stamp===last?repeated+1:0;last=stamp;if(repeated>12)throw Error('同じ画面で13回停止');
           await shot(p,k,key);
+          if((current.adverse||process.env.SCREEN_DISASTER)&&s.plan&&s.worldT>=36){
+            const more=p.locator('[data-plan-more]');if(await more.count()&&await more.getAttribute('open')===null)await click(p,'[data-plan-more] > summary');
+            for(const [hand,value] of [['staff','1'],['price','-100'],['prep','high'],['supplier','high'],['flyer','100000'],['coupon','true'],['haccp','false']]){
+              const sel=`[data-plan="${hand}"][data-opt="${value}"]:not([disabled])`;const loc=p.locator(sel);
+              if(await loc.count()&&!/(^| )on( |$)/.test(await loc.getAttribute('class')||''))await click(p,sel);
+            }
+            actions.push({profile:current.name,kind:'adverse-plan',at:s.worldT,hands:await p.locator('[data-plan].on').evaluateAll(xs=>xs.map(x=>({hand:x.dataset.plan,value:x.dataset.opt})))});
+            await shot(p,'倒産探索・作戦','adverse');await click(p,'[data-plan-ok]');return;
+          }
           if((s.report||s.band||s.plan)&&['1-4','1-9','1-3','2-4'].includes(`${s.year}-${s.month}`))await shot(p,k,`${k}:${s.year}:${s.month}`);
           if(s.plan&&s.year>=2&&await p.locator('[data-plan-more] > summary').count()&&!seen.has(current.name+':expanded-plan')){
             seen.add(current.name+':expanded-plan');
@@ -180,7 +192,7 @@ async function run(options={}) {
           if(n%100===0)console.log('進行',current.name,n,s.label);
         },onAction:async a=>actions.push(compactAction({profile:current.name,...a})),shot:async label=>{const s=await state(p);await shot(p,kind(s),'auto:'+label);}});
       }catch(e){errors.push({profile:current.name,error:e.stack});await shot(p,'進行停止','stuck');result={stuck:true};}
-      journeys.push({profile:current.name,style:current.style||STYLE,seed:SEED,result,final:await state(p)});persist();await context.close();
+      journeys.push({profile:current.name,style:current.style||STYLE,adverseAt:(current.adverse||process.env.SCREEN_DISASTER)?36:null,seed:SEED,resume:process.env.SCREEN_RESUME?{method:'画面のファイル入力',file:path.basename(process.env.SCREEN_RESUME),sha256:sha(fs.readFileSync(process.env.SCREEN_RESUME))}:null,result,final:await state(p)});persist();await context.close();
     }
   }finally{await browser.close();await new Promise(r=>server.close(r));persist();}
   return {rows,journeys,errors};

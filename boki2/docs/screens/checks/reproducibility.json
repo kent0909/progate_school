@@ -1,0 +1,91 @@
+{
+  "seed": 0,
+  "firstScreens": 128,
+  "repeatScreens": 128,
+  "fields": [
+    "width",
+    "height",
+    "color",
+    "year",
+    "month",
+    "mi",
+    "ei",
+    "chars",
+    "controls",
+    "fontKinds",
+    "minFont",
+    "pages",
+    "fontSizes",
+    "text"
+  ],
+  "measuredDifferences": [],
+  "pixelDifferences": 2,
+  "firstJourneys": [
+    {
+      "profile": "desktop-light",
+      "style": "skilled",
+      "seed": 0,
+      "result": {
+        "steps": 1446,
+        "end": true,
+        "overflow": []
+      },
+      "final": {
+        "mi": 57,
+        "ei": 0,
+        "year": 1,
+        "month": null,
+        "label": "",
+        "phase": "event",
+        "type": "none",
+        "event": "",
+        "worldT": 39,
+        "bankrupt": false,
+        "markers": "data-again",
+        "classes": "s-main r-main|s-card",
+        "note": false,
+        "sort": false,
+        "doc": false,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      }
+    }
+  ],
+  "repeatJourneys": [
+    {
+      "profile": "desktop-light",
+      "style": "skilled",
+      "seed": 0,
+      "result": {
+        "steps": 1446,
+        "end": true,
+        "overflow": []
+      },
+      "final": {
+        "mi": 57,
+        "ei": 0,
+        "year": 1,
+        "month": null,
+        "label": "",
+        "phase": "event",
+        "type": "none",
+        "event": "",
+        "worldT": 39,
+        "bankrupt": false,
+        "markers": "data-again",
+        "classes": "s-main r-main|s-card",
+        "note": false,
+        "sort": false,
+        "doc": false,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "screens": 337,
+  "indexRows": 337,
+  "byViewport": {
+    "390-light": 117,
+    "1280-light": 115,
+    "390-dark": 105
+  },
+  "photosBytes": 27598875,
+  "sheetsBytes": 4905844,
+  "totalImageBytes": 32504719,
+  "darkKinds": 61,
+  "missing": [],
+  "missingTimes": [],
+  "errors": []
+}
