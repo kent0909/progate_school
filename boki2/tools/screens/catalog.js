@@ -8,7 +8,7 @@ const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 function classify(r){
   const m=new Set(r.markers.split(',')),screens=r.classes.split('|');
   if(/^(タブ・|練習室|検定会場|上部の情報|ゲームの設定|ライバル|空き物件|町の地区|考え方の地図|成長の記録|会社の棚)/.test(r.kind))return r.kind;
-  if(r.kind==='書類・docScreen'&&r.type==='discover')return '発見・書類と会話';
+  if(r.kind!=='発見・理由'&&r.doc&&!r.classes.includes('s-docscreen')&&r.type==='discover')return '発見・書類と会話';
   if(r.bankrupt)return '倒産';
   if(m.has('data-restart')||r.type==='ending')return '結末';
   if(screens.includes('debrief'))return 'ふりかえり';

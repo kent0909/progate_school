@@ -26,6 +26,7 @@ localhostのHTTPサーバー以外のブラウザ要求を全て拒否し、外�
 - `merge.js`: 分けて撮影した場合、撮影フォルダを引数の順に統合する。画像のSHA256を検査する。
 - `catalog.js`: 最初の出現と指定4時点を残し、連番を付け直し、INDEX.md・summary.json・一覧画像を生成する。
 - スクリーンショットはJPEG品質55・全縦。一覧は12枚ずつ、幅1176px、品質55。
+- 一時的な記帳通知が自然に消えてから測定し、ゲームのDOMを撮影のために書き換えない。
 - 文字数はbody.innerText.length。文字サイズは表示Textノードと入力欄の計算値。スクロールで読める範囲を含み、disabledの操作部品は数えない。
 - `SCREEN_PROFILE` で `mobile-light` / `desktop-light` / `mobile-dark` の1本だけにできる。`SCREEN_OUTPUT` で作業用の出力先を指定できる。通常の再生成には不要。
 
