@@ -4,7 +4,7 @@
 `source-hashes.json` は対象92ファイルのGit blob SHAで、取得元のtreeと全数を機械で照合し相違0。
 
 - `sim-check.log`: `node boki2/tools/sim-check.js`
-- `ramen300.log`: `node boki2/tools/sim-check.js --ramen --runs 300`（完了後に格納）
+- `ramen300.log`: `node boki2/tools/sim-check.js --ramen --runs 300`（通過）
 - `validate.log`: `node boki2/tools/validate.js`
 - `lexicon-check.log`: `node boki2/tools/lexicon-check.js --ramen`
 - `coverage.log`: `node boki2/tools/coverage.js --ramen --stage 1`

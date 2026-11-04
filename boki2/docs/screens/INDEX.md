@@ -481,7 +481,7 @@
 |コマンド|結果|出力の最後の行|
 |---|---|---|
 |node boki2/tools/sim-check.js|通過|OK：12692 本の分かれ道で検算した（会社の書き方 alt 86548 件も検算。結末：be5-warn 6684・be10-warn 4・be5-final 1300・be3-warn 1300・be1-warn 228・be1-final 228・be5-quit 76・be3-final 1296）|
-|node boki2/tools/sim-check.js --ramen --runs 300|実行中|未完了|
+|node boki2/tools/sim-check.js --ramen --runs 300|通過|OK：ラーメン版の無作為の通し試験（1・3・5年版）300周（4242.7秒）|
 |node boki2/tools/validate.js|通過|OK|
 |node boki2/tools/lexicon-check.js --ramen|通過|OK：教えた語 113・札の兄弟 7/22|
 |node boki2/tools/coverage.js --ramen --stage 1|通過|OK：段 1（累計 26/77）|

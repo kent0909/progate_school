@@ -7,8 +7,8 @@
   },
   {
     "command": "node boki2/tools/sim-check.js --ramen --runs 300",
-    "status": "実行中",
-    "lastLine": "未完了",
+    "status": "通過",
+    "lastLine": "OK：ラーメン版の無作為の通し試験（1・3・5年版）300周（4242.7秒）",
     "log": "ramen300.log"
   },
   {
