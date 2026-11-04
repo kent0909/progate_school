@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>仕訳の机｜比較試作</title><link rel="stylesheet" href="desk.css"><script src="desk.js" defer></script>
+</head>
+<body>
+<main id="desk">
+<header><div><span class="eyebrow">仕訳の机 · 比較試作</span><h1 id="progress">書類 1 / 4</h1></div><button id="settings-open" aria-label="比較の設定"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2h4l1 3 3 1 3 3-2 3 1 3-3 3-3-1-2 3-3-1-1-3-3-1-1-4 3-2V7l3-2z" fill="none" stroke="currentColor"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor"/></svg></button></header>
+<section id="band" aria-label="左右の状態" aria-live="polite"></section>
+<section class="document" aria-labelledby="doc-type"><div class="doc-top"><strong id="doc-type"></strong><span>何が増え、何がへった？</span></div><p id="speech"></p><div id="amounts" aria-label="書類の金額"></div></section>
+<section id="columns" aria-label="仕訳の左右の列">
+<div class="column" data-side="left"><h2>何があるか<span>もっているもの・増えた費用</span></h2><button class="drop" data-drop="left">左の列へ</button><div id="left-rows"></div></div>
+<div class="column" data-side="right"><h2>どこから来たか<span>返すお金・返さないお金・増えた収益</span></h2><button class="drop" data-drop="right">右の列へ</button><div id="right-rows"></div></div>
+</section>
+<section id="shelf" aria-label="いまの店の棚"></section>
+<section id="hand" aria-label="科目の棚"><div class="section-head"><strong>科目の棚</strong><span id="picked">書類の金額を押して拾う</span></div><div id="cards"></div><button id="all-open">全部の棚</button><div id="actions" hidden><span id="selection"></span><div class="action-buttons"><button data-place="left">左へ</button><button data-place="right">右へ</button><button id="return">棚へ戻す</button><button id="cancel">閉じる</button></div></div><p class="help">押す → 左右を選ぶ ／ 左右へ払う<br>キー：Enterで持つ、← →で列、Enterで置く、Escで戻る</p></section>
+<section id="feedback" role="status" aria-live="polite"></section><div id="answer" hidden></div>
+<button id="confirm" class="primary">帳簿に書く</button><button id="next" class="primary" hidden>次の書類へ</button>
+<section id="shop" hidden aria-label="店の絵"><div class="shop-sign">ラーメンの店</div><span id="shop-note"></span></section>
+<footer><button id="ledger-open">帳簿<span id="ledger-dot" hidden aria-label="新しい記帳あり"></span></button><button id="export-open">記録を書き出す</button></footer><p id="storage-status" role="status"></p>
+</main>
+<dialog id="settings"><h2>比較の設定</h2><label>差の帯<select id="band-setting"><option value="diff">差の額</option><option value="scale">てんびん</option><option value="none">なし</option></select></label><label>店の棚<select id="shelf-setting"><option value="on">あり</option><option value="off">なし</option></select></label><label>入力<select id="input-setting"><option value="swipe">押す・払う・キー</option><option value="drag">上に加えて引く</option></select></label><p>変えると書類1から。記録は残ります。</p><button id="settings-apply">この条件で始める</button><button data-close>閉じる</button></dialog>
+<dialog id="all"><h2>全部の棚</h2><div id="all-cards"></div><button data-close>閉じる</button></dialog>
+<dialog id="calculator"><h2>差額の計算パッド</h2><p>台帳と引取額から計算する。数字・演算を押してください。</p><output id="calculation">0</output><div id="pad"></div><button id="use-result">この額を拾う</button><button data-close>閉じる</button></dialog>
+<dialog id="ledger"><h2>帳簿</h2><div id="ledger-entries"></div><button data-close>閉じる</button></dialog>
+<dialog id="export"><h2>試遊の記録（JSON）</h2><p>この端末だけに保存。下のテキストを選択してコピーできます。</p><textarea id="export-json" rows="12" readonly aria-label="記録のJSON"></textarea><button id="copy">全選択してコピー</button><span id="copy-status" role="status"></span><button data-close>閉じる</button></dialog>
+</body></html>
