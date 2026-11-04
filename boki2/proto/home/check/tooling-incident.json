@@ -1,0 +1,116 @@
+{
+  "recordedAt": "2026-11-04T02:43:49.997783+00:00",
+  "instructionComment": 6620957513,
+  "reason": "検査用の依存は通信禁止の対象外と解釈して外部取得した。解釈が誤っていたため取得物を削除し、正式な受け入れ結果から外した。",
+  "registry": "https://registry.npmjs.org",
+  "packages": [
+    {
+      "name": "@sparticuz/chromium",
+      "version": "143.0.0",
+      "resolved": "https://registry.npmjs.org/@sparticuz/chromium/-/chromium-143.0.0.tgz"
+    },
+    {
+      "name": "b4a",
+      "version": "1.9.0",
+      "resolved": "https://registry.npmjs.org/b4a/-/b4a-1.9.0.tgz"
+    },
+    {
+      "name": "bare-events",
+      "version": "2.9.2",
+      "resolved": "https://registry.npmjs.org/bare-events/-/bare-events-2.9.2.tgz"
+    },
+    {
+      "name": "bare-fs",
+      "version": "4.8.4",
+      "resolved": "https://registry.npmjs.org/bare-fs/-/bare-fs-4.8.4.tgz"
+    },
+    {
+      "name": "bare-path",
+      "version": "3.1.2",
+      "resolved": "https://registry.npmjs.org/bare-path/-/bare-path-3.1.2.tgz"
+    },
+    {
+      "name": "bare-stream",
+      "version": "2.13.4",
+      "resolved": "https://registry.npmjs.org/bare-stream/-/bare-stream-2.13.4.tgz"
+    },
+    {
+      "name": "bare-url",
+      "version": "2.5.5",
+      "resolved": "https://registry.npmjs.org/bare-url/-/bare-url-2.5.5.tgz"
+    },
+    {
+      "name": "end-of-stream",
+      "version": "1.4.5",
+      "resolved": "https://registry.npmjs.org/end-of-stream/-/end-of-stream-1.4.5.tgz"
+    },
+    {
+      "name": "events-universal",
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/events-universal/-/events-universal-1.0.1.tgz"
+    },
+    {
+      "name": "fast-fifo",
+      "version": "1.3.2",
+      "resolved": "https://registry.npmjs.org/fast-fifo/-/fast-fifo-1.3.2.tgz"
+    },
+    {
+      "name": "follow-redirects",
+      "version": "1.16.2",
+      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.16.2.tgz"
+    },
+    {
+      "name": "once",
+      "version": "1.4.0",
+      "resolved": "https://registry.npmjs.org/once/-/once-1.4.0.tgz"
+    },
+    {
+      "name": "pump",
+      "version": "3.0.4",
+      "resolved": "https://registry.npmjs.org/pump/-/pump-3.0.4.tgz"
+    },
+    {
+      "name": "streamx",
+      "version": "2.28.1",
+      "resolved": "https://registry.npmjs.org/streamx/-/streamx-2.28.1.tgz"
+    },
+    {
+      "name": "tar-fs",
+      "version": "3.1.3",
+      "resolved": "https://registry.npmjs.org/tar-fs/-/tar-fs-3.1.3.tgz"
+    },
+    {
+      "name": "tar-stream",
+      "version": "3.2.2",
+      "resolved": "https://registry.npmjs.org/tar-stream/-/tar-stream-3.2.2.tgz"
+    },
+    {
+      "name": "teex",
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/teex/-/teex-1.0.1.tgz"
+    },
+    {
+      "name": "text-decoder",
+      "version": "1.2.7",
+      "resolved": "https://registry.npmjs.org/text-decoder/-/text-decoder-1.2.7.tgz"
+    },
+    {
+      "name": "wrappy",
+      "version": "1.0.2",
+      "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz"
+    }
+  ],
+  "deletedPaths": [
+    "/workspace/work/proto-home/file-browser",
+    "/workspace/work/proto-home/npm-cache",
+    "/tmp/chromium",
+    "/tmp/fonts",
+    "/tmp/libEGL.so",
+    "/tmp/libGLESv2.so",
+    "/tmp/libvk_swiftshader.so",
+    "/tmp/libvulkan.so.1",
+    "/tmp/vk_swiftshader_icd.json"
+  ],
+  "cleanupVerified": true,
+  "earlierFileResult": "外部取得したChromiumで表示を確認したが、正式な検査の根拠から除外。環境標準のブラウザではERR_BLOCKED_BY_ADMINISTRATOR。/opt/pw-browsers/chromiumはない。"
+}

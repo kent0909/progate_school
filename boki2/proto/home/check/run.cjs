@@ -82,6 +82,10 @@ async function quiz(page,choice){
 }
 async function main(){
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin=`http://127.0.0.1:${server.address().port}`;
+  const patterns=[/type\s*=\s*["']module/i,/\b(import|export)\s/,/\bimport\s*\(/,/\bfetch\s*\(/];
+  const checkedFiles=['index.html','model.js','scenario.js','home.js'];
+  for(const file of checkedFiles){const source=fs.readFileSync(path.join(root,file),'utf8');for(const pattern of patterns)assert(!pattern.test(source),file+': '+pattern);}
+  results.staticFileCheck={files:checkedFiles,esModulesAndFetchMatches:0};results.extra.push('static file compatibility: type=module / import / export / fetch matches 0: PASS');
   const {quizChoices}=require('../model.js');const positions=new Set();
   for(let i=0;i<128;i++){const seed=`session-${i}:account`,options=quizChoices(2920000,seed);assert.deepEqual(options,quizChoices(2920000,seed));assert.equal(new Set(options).size,4);positions.add(options.indexOf(2920000));}
   assert.equal(positions.size,4);results.extra.push('seeded-quiz: 128 seeds deterministic, all 4 answer positions reached: PASS');
@@ -141,18 +145,27 @@ async function main(){
       results.runs.push({variant:v,stale:mode,...viewport,choice,posted:6,answers:session.answers.map(a=>a.correct),homeOpens:session.homeOpens,numberClicks:session.numberClicks,lineClicks:session.lineClicks,stampClicks:session.stampClicks,staleVisibleMs:session.staleVisibleMs,staleHomeOpens:session.staleHomeOpens,batchTimings:session.batchTimings,externalRequests:0,errors:0,result:'PASS'});
       await context.close();
     }
-    // 所有者の試遊と同じく、サーバーなしでファイルを直接開く。
-    const fileBrowser=process.env.FILE_CHROMIUM_PATH?await chromium.launch({executablePath:process.env.FILE_CHROMIUM_PATH,headless:true,args:['--no-sandbox']}):browser;
+    // 環境が許す場合だけファイルを開く。管理ポリシーの拒否は理由を記録して引き継ぐ。
+    const fileExecutable=process.env.FILE_CHROMIUM_PATH||(fs.existsSync('/opt/pw-browsers/chromium')?'/opt/pw-browsers/chromium':null);
+    const fileBrowser=fileExecutable?await chromium.launch({executablePath:fileExecutable,headless:true,args:['--no-sandbox']}):browser;
+    let localContext;
     try {
-    const localContext=await fileBrowser.newContext({viewport:{width:390,height:844}}),localPage=await localContext.newPage(),localErrors=[];
-    localPage.on('pageerror',e=>localErrors.push(e.message));localPage.on('console',m=>{if(m.type()==='error')localErrors.push(m.text());});
-    const fileUrl=require('node:url').pathToFileURL(path.join(root,'index.html')).href;
-    await localPage.goto(fileUrl+'?v=e&stale=1&lock=1');
-    assert(await localPage.locator('[data-next-doc]').isVisible());await stamp(localPage,'e',1,2,'4-30',7);await numbers(localPage,'e',0,false);
-    await post(localPage);await post(localPage);assert.equal(await localPage.locator('[data-stale]').count(),0);
-    await localPage.locator('[data-action=advance]').click();await stamp(localPage,'e',1,2,'5-7',14);await numbers(localPage,'e',2,false);
-    assert.deepEqual(localErrors,[]);results.fileCheck={protocol:'file:',variant:'e',stale:1,browserVersion:await fileBrowser.version(),errors:0,nextDocumentVisible:true,postingAndAdvance:true};await localContext.close();results.extra.push('file:// e stale=1: errors 0, next document visible, posting and advance: PASS');
-    } finally { if(fileBrowser!==browser)await fileBrowser.close(); }
+      localContext=await fileBrowser.newContext({viewport:{width:390,height:844}});
+      const localPage=await localContext.newPage(),localErrors=[];
+      localPage.on('pageerror',e=>localErrors.push(e.message));localPage.on('console',m=>{if(m.type()==='error')localErrors.push(m.text());});
+      const fileUrl=require('node:url').pathToFileURL(path.join(root,'index.html')).href;
+      await localPage.goto(fileUrl+'?v=e&stale=1&lock=1');
+      assert(await localPage.locator('[data-next-doc]').isVisible());await stamp(localPage,'e',1,2,'4-30',7);await numbers(localPage,'e',0,false);
+      await post(localPage);await post(localPage);assert.equal(await localPage.locator('[data-stale]').count(),0);
+      await localPage.locator('[data-action=advance]').click();await stamp(localPage,'e',1,2,'5-7',14);await numbers(localPage,'e',2,false);
+      assert.deepEqual(localErrors,[]);
+      results.fileCheck={status:'passed',protocol:'file:',variant:'e',stale:1,browserVersion:await fileBrowser.version(),errors:0,nextDocumentVisible:true,postingAndAdvance:true};
+      results.extra.push('file:// e stale=1: errors 0, next document visible, posting and advance: PASS');
+    } catch(error) {
+      if(!String(error.message).includes('ERR_BLOCKED_BY_ADMINISTRATOR'))throw error;
+      results.fileCheck={status:'skipped',reason:'ERR_BLOCKED_BY_ADMINISTRATOR',alternativePath:'/opt/pw-browsers/chromium',alternativeAvailable:fs.existsSync('/opt/pw-browsers/chromium')};
+      results.extra.push('file://: SKIP (ERR_BLOCKED_BY_ADMINISTRATOR; /opt/pw-browsers/chromium unavailable); coordinator verification required');
+    } finally {if(localContext)await localContext.close();if(fileBrowser!==browser)await fileBrowser.close();}
     const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'}),page=await context.newPage();
     await page.goto(`${origin}/?v=b1&stale=1`);assert.equal(await page.locator('#variants a').count(),6);assert.equal(await page.locator('#stale-options a').count(),2);
     assert.equal(await page.locator('.progress-track i').evaluate(el=>getComputedStyle(el).transitionDuration),'0s');
