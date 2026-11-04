@@ -4,7 +4,7 @@ export const scenario = {
   startYear:1, startMonth:5, elapsedMonths:1, deadlineMonths:119, previousPace:40_000,
   policy:'店を知ってもらう',
   opening:{account:3_000_000,cash:100_000,loan:0,sales:0},
-  previous:{sales:180_000,net:3_100_000},
+  previous:{sales:180_000,net:3_100_000,profit:40_000},
   assumption:'1年目の5月、経過1か月。期限は10期（120か月）、残り119か月。まだ記帳がないときは先月の増え方40,000円、記帳後は今月のネットキャッシュの増え方をペースとします。',
   documents:[
     {id:'cash-sales',person:'レジ',kind:'売上の書類',sentence:'今週の売上、現金で120,000円。',amount:120_000,debit:[['現金',120_000]],credit:[['売上',120_000]],effect:{cash:120_000,sales:120_000}},

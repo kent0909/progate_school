@@ -646,3 +646,27 @@ textarea {
 dialog.quiz::backdrop {
   background:var(--paper)
 }
+
+/* 全版の未記帳の印。印の字は薄くせず、記帳済みの数・線だけを薄くする。 */
+.metrics.is-stale > button:not(.stale-stamp), .metrics.is-stale .cash-change { opacity:.5; }
+.stale-stamp { font-size:14px; min-height:44px; color:var(--ink); }
+.metrics > .stale-stamp { grid-column:1/-1; padding:0; text-align:left; background:var(--paper); }
+.progress-metrics > .stale-stamp { padding:8px 16px; }
+.inbox > .stale-stamp { display:block; margin:8px 0 0 auto; }
+.cash-change { grid-column:1/-1; margin:0; padding:10px 14px; border-top:1px solid var(--line); font-size:14px; }
+.kpis > .stale-stamp { padding:8px 14px; }
+body.variant-d .masthead { height:68px; padding-top:6px; padding-bottom:6px; }
+.band { padding:8px 14px; gap:6px 8px; }
+body.variant-e .masthead { display:none; }
+.variant-e .stage { height:60vh; order:0; }
+.variant-e .stage-caption { display:none; }
+.variant-e .inbox { order:1; }
+.variant-e .next-card { min-height:112px; padding:12px; }
+.money-overlay { position:absolute; top:12px; left:12px; right:12px; z-index:2; display:flex; flex-wrap:wrap; gap:8px; align-items:start; border:0; border-radius:0; background:transparent; overflow:visible; }
+.money-overlay > button[data-action=money] { width:auto; min-height:44px; padding:8px 10px; background:var(--card); border:1px solid var(--line); border-radius:8px; font-size:18px; white-space:nowrap; }
+.money-overlay .date-badge { margin-left:auto; font-size:14px; padding:10px 8px; background:var(--card); border:1px solid var(--line); border-radius:8px; white-space:nowrap; }
+.money-overlay > .stale-stamp { flex-basis:100%; border:1px solid var(--line); border-radius:8px; padding:6px 10px; background:var(--card); }
+.changed .money-number { animation:ink-change .48s ease; }
+.band button.stale-stamp:last-child { grid-column:1/-1; min-height:44px; padding:0; }
+.stack { pointer-events:none; }
+.inbox > .stale-stamp { position:relative; z-index:1; }

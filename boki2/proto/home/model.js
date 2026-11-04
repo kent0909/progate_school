@@ -1,9 +1,9 @@
 // ホーム試作だけの状態。ゲーム本体・外部のデータは読み込まない。
-export const VARIANTS = ['a', 'b1', 'b2', 'c', 'd'];
+export const VARIANTS = ['a', 'b1', 'b2', 'c', 'd', 'e'];
 export const GOAL = 100_000_000;
 export const yen = value => `${Math.round(value).toLocaleString('ja-JP')}円`;
-export function initialSession(variant, now = Date.now()) {
-  return {id:globalThis.crypto.randomUUID(), variant, startedAt:now, finishedAt:null,
+export function initialSession(variant, now = Date.now(), stale = 0) {
+  return {id:globalThis.crypto.randomUUID(), variant, scenarioVersion:2, stale, received:stale?2:1, stampClicks:0, staleVisibleMs:0, staleHomeOpens:0, batchTimings:stale?[{day:7,receivedAt:now,clearedAt:null,advancedAt:null}]:[], startedAt:now, finishedAt:null,
     elapsedMs:null, homeOpens:0, numberClicks:0, lineClicks:0, decision:null,
     posted:0, answers:[], quizOrder:[], events:[], phase:'home'};
 }
@@ -15,7 +15,13 @@ export function financials(session, scenario) {
   if (session.decision === 'flyer') {
     result.cash -= 20_000;
   }
-  result.net = result.cash + result.account - result.loan;
+  result.money = result.cash + result.account;
+  result.net = result.money - result.loan;
+  // PROTO-SPEC-home 3章・6620341537：純利益は売上−仕入−家賃−給料−広告。
+  // 備品は持ち物なので費用に含めない。記帳した仕訳の借方の費用だけを集計する。
+  const expenses = new Set(['仕入','支払家賃','給料','広告宣伝費']);
+  result.profit = result.sales - scenario.documents.slice(0,session.posted).flatMap(d=>d.debit).reduce((sum,[name,amount])=>sum+(expenses.has(name)?amount:0),0) - (session.decision==='flyer'?20_000:0);
+  result.cashChange = result.money - scenario.opening.cash - scenario.opening.account;
   result.unposted = session.posted === 0;
   return result;
 }
@@ -59,4 +65,15 @@ export function quizChoices(correct, seed) {
     [choices[i], choices[j]] = [choices[j], choices[i]];
   }
   return choices;
+}
+
+// 6620500448：2枚の間には印なしのホームを挟み、進む札で次の日付へ。
+export const pendingCount = session => Math.max(0,session.received-session.posted);
+export const hasStamp = session => session.stale === 1 && pendingCount(session)>0;
+export function delivery(session) {
+  const days=[7,14,21];
+  return {day:session.posted===6?31:days[Math.floor((session.received-1)/2)],
+    bookMonth:session.posted===0?4:5,
+    bookDay:session.posted===0?30:days[Math.floor((session.posted-1)/2)],
+    pending:pendingCount(session), waiting:session.stale===1&&pendingCount(session)===0&&session.posted<6};
 }
