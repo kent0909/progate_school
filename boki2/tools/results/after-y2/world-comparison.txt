@@ -1,0 +1,9 @@
+sim-check.js --ramen --runs 300 --info
+前：終了0、107行
+後：終了0、107行
+strategy 0/1/2：呼び名の変更は各8箇所、合計24箇所
+実行時間だけを除き、呼び名を置換すると差分0
+正規化後SHA256：afd7a75ccd61d315b9264c76264ccf5451a1849e2414d91bf6dc657503f7ea1e
+変更前生ログSHA256：95a865d804900c3dfa0fb600d809ba7a496dc0ab2f1fed1ba458dc6b3f66a1d0
+変更後生ログSHA256：7a5609f8369451e5facd59b27476e738597f4e43770dc580233c3837723a090e
+生の前後差分はPR #6の検査結果コメントへ全文を貼付。変更後の全出力はsim-check-ramen-after.log。

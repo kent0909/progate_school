@@ -395,7 +395,8 @@ function verifyFirstYearBridge(){
   assert.equal(checked,7200);console.log('OK：年1の画面と同じ橋・300経路×12月×一括確定の前後、rest0/unknown0・誤記/未知の対照検査：'+JSON.stringify(totals));
 }
 
-if (!process.argv.includes('--world')) {
+module.exports={story,economicStory,forcedStory};
+if (require.main === module && !process.argv.includes('--world')) {
   if(process.argv.includes('--bridge-only')){verifyFirstYearBridge();process.exit(0);}
   verifyClassification();
   if(!process.argv.includes('--save-only')&&!process.argv.includes('--classification-only'))verifyFirstYearBridge();
