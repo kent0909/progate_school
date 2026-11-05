@@ -1,0 +1,55 @@
+# J-B 走らせ直しの突き合わせ（cinc-rebuild-B-fact-rerun-compare.js の出力。rerun は scratchpad の出力）
+{"rerun":"/tmp/claude-0/-home-user-progate-school/2ed2d185-9667-561f-833a-47fa8a0986df/scratchpad/rerun/idle-4-1.json","saved":"../analysis/cinc-rebuild-B/out/idle-4-1.json.gz","args":true,"outcomeSteps":[1384,1384],"resMonths":[39,39],"resMonthsDiffering":[],"decisions":[],"dealt":[],"cardOutcomes":true,"W":true,"actions":[391,391,true],"screensKeys":[567,567,true],"rreportTextSame":"39/39","decisionMoneySame":"74/74","errors":[0,0]}
+{"rerun":"/tmp/claude-0/-home-user-progate-school/2ed2d185-9667-561f-833a-47fa8a0986df/scratchpad/rerun/random-7-2.json","saved":"../analysis/cinc-rebuild-B/out/random-7-2.json.gz","args":true,"outcomeSteps":[934,934],"resMonths":[21,21],"resMonthsDiffering":[],"decisions":[],"dealt":[],"cardOutcomes":true,"W":true,"actions":[414,414,true],"screensKeys":[353,353,true],"rreportTextSame":"21/21","decisionMoneySame":"44/44","errors":[0,0]}
+{"rerun":"/tmp/claude-0/-home-user-progate-school/2ed2d185-9667-561f-833a-47fa8a0986df/scratchpad/rerun/skilled-8-2.json","saved":"../analysis/cinc-rebuild-B/out/skilled-8-2.json.gz","args":true,"outcomeSteps":[1517,1517],"resMonths":[39,39],"resMonthsDiffering":[],"decisions":[],"dealt":[],"cardOutcomes":true,"W":true,"actions":[485,485,true],"screensKeys":[659,659,true],"rreportTextSame":"39/39","decisionMoneySame":"77/77","errors":[0,0]}
+{"rerun":"/tmp/claude-0/-home-user-progate-school/2ed2d185-9667-561f-833a-47fa8a0986df/scratchpad/rerun/skilled-site2-jutaku-4-1.json","saved":"../analysis/cinc-rebuild-B/out/skilled-site2-jutaku-4-1.json.gz","args":true,"outcomeSteps":[1505,1505],"resMonths":[39,39],"resMonthsDiffering":[],"decisions":[],"dealt":[],"cardOutcomes":true,"W":true,"actions":[512,512,true],"screensKeys":[616,616,true],"rreportTextSame":"39/39","decisionMoneySame":"76/76","errors":[0,0]}
+# 止まる不具合の再現 run-full.js --style skilled --seed 0 --choose site2@17=ekimae:part1（finance_asset の指定なし）
+{"out":"stall-ekimae-0.json","style":"skilled","seed":0,"strategy":0,"outcome":{"error":"page.click: Timeout 30000ms exceeded."},"errors":0,"reached":"3年目 5月","bankrupt":false,"screens":438}
+exit 0
+# 3年目6月の札を choose で渡した3周（stick0・renov0・stick4）
+{"out":"site2-jutaku-0-stick.json","style":"skilled","seed":0,"strategy":0,"outcome":{"steps":1569,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":681}
+{"out":"site2-jutaku-0-renov.json","style":"skilled","seed":0,"strategy":0,"outcome":{"steps":1579,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":686}
+{"out":"site2-jutaku-4-stick.json","style":"skilled","seed":4,"strategy":1,"outcome":{"steps":1507,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":617}
+# 詰みの数え直し cinc-rebuild-B-fact-stuck.js --runs 300
+{
+ "runs": 300,
+ "stuckWithBorrow": [
+  34,
+  154
+ ],
+ "stuckNoBorrow": [
+  2,
+  34,
+  96,
+  138,
+  144,
+  154,
+  184
+ ],
+ "realCheckIsSameAsMine": "3672/3672",
+ "firstStuck": {
+  "34": {
+   "k": 9,
+   "cash": 185972,
+   "parts": 2,
+   "price": 850,
+   "short": 2000000,
+   "bankruptAtEnd": true,
+   "endT": 13
+  },
+  "154": {
+   "k": 8,
+   "cash": 407749,
+   "parts": 3,
+   "price": 700,
+   "short": 2000000,
+   "bankruptAtEnd": true,
+   "endT": 12
+  }
+ },
+ "pctWithBorrow": 0.7,
+ "pctNoBorrow": 2.3,
+ "first60WithBorrow": [
+  34
+ ]
+}
