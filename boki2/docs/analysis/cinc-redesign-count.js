@@ -97,7 +97,7 @@ for (let n = 1; n <= 10; n++) {
 }
 out.push(`5列の表の行の合計：${fiveRowsTotal}`);
 // ---- 3. オーナーへの問い ----
-const qs = []; lines.forEach((l, i) => { if (/^### Q\d+ /.test(l)) qs.push(i); });
+const qs = []; lines.forEach((l, i) => { if (/^### Q\d+[a-z]? /.test(l)) qs.push(i); });
 qs.forEach((qi, j) => {
   const end = j + 1 < qs.length ? qs[j + 1] : lines.findIndex((l, i) => i > qi && /^## /.test(l));
   const body = lines.slice(qi, end).join('\n');
@@ -158,6 +158,50 @@ if (xr) {
   out.push(`(a-2)・g.6 の X の突き合わせ：${xr.length} 行（欠け ${miss.length}${miss.length ? '：' + miss.join(' ') : ''}）、K のある行 ${xr.filter((r) => /K\d+/.test(r[3])).length}`);
   if (miss.length || xr.length !== 42) err('X の突き合わせが42行そろわない');
 } else err('XROWS の表がない');
+// ---- 6. （版0.3）別々の、小さくしていない大胆な形の数（R-D D61・J-D の要点）----
+//  大胆の行から、L小（L大 の土台）・中身に【二度数え】の印がある行・簡略化の台帳で一部を小さくした ID（取り下げの行を除く）を引く
+{
+  const bold = trows.filter((r) => r[3] === '大胆な形を採る');
+  const lsmall = bold.filter((r) => /^L\d+小$/.test(r[0]));
+  const dbl = bold.filter((r) => /【二度数え/.test(r[5]));
+  const reducedIds = new Set(ledgerRows.filter((r) => want.includes(r[1]) && !/取り下げ/.test(r[5] || '')).map((r) => r[1]));
+  const reduced = bold.filter((r) => reducedIds.has(r[0]) && !/^L\d+小$/.test(r[0]) && !/【二度数え/.test(r[5]));
+  const rest = bold.length - lsmall.length - dbl.length - reduced.length;
+  out.push(`別々の、小さくしていない大胆な形：${rest}（大胆 ${bold.length} − L小の土台 ${lsmall.length} − 二度数え ${dbl.length}（${dbl.map((r) => r[0]).join(' ')}） − 台帳で一部を小さくした ${reduced.length}（${reduced.map((r) => r[0]).join(' ')}））`);
+}
+// ---- 7. （版0.3）判定と検査への対応表が、判定書の指摘とちょうどそろうか ----
+{
+  const auditDir = path.join(path.dirname(file), 'audit');
+  const rd = path.join(auditDir, 'cinc-redesign-reasoning.md'), jd = path.join(auditDir, 'cinc-redesign-fact.md');
+  const between = (t, tag) => { const i = t.indexOf(`<!-- ${tag} -->`), j = t.indexOf(`<!-- /${tag} -->`); return i < 0 || j < 0 ? null : t.slice(i, j).split('\n').filter((l) => /^\|/.test(l)).slice(2).map(cells); };
+  const cmp = (name, wantIds, rows) => {
+    if (!rows) { err(`${name} の対応表がない`); return; }
+    const got = rows.map((r) => r[0]); const miss = wantIds.filter((x) => !got.includes(x)), extra = got.filter((x) => !wantIds.includes(x)), dupe = got.filter((x, i) => got.indexOf(x) !== i);
+    const empty = rows.filter((r) => !r[2] || !r[3]).map((r) => r[0]);
+    const kinds = {}; rows.forEach((r) => { const k = (r[2] || '').replace(/（.*$/, ''); kinds[k] = (kinds[k] || 0) + 1; });
+    out.push(`${name} の対応表：${rows.length} 行／指摘 ${wantIds.length}。欠け ${miss.length}${miss.length ? '（' + miss.join(' ') + '）' : ''}・余分 ${extra.length}${extra.length ? '（' + extra.join(' ') + '）' : ''}・重複 ${dupe.length}・扱いか場所が空 ${empty.length}。扱い ${JSON.stringify(kinds)}`);
+    if (miss.length || extra.length || dupe.length || empty.length) err(`${name} の対応表が指摘とそろわない`);
+  };
+  if (fs.existsSync(rd)) {
+    const t = fs.readFileSync(rd, 'utf8'); const v = between(t, 'VERDICTS') || [];
+    const ids = v.filter((r) => r[4] && r[4] !== '妥当').map((r) => r[0]);
+    const mine = between(s, 'RD');
+    cmp('R-D（弱い・不当）', ids, mine);
+    if (mine) for (const r of mine) { const vv = v.find((x) => x[0] === r[0]); if (vv && vv[4] !== r[1]) err(`R-D ${r[0]} の判定の写しが違う（${r[1]}／${vv[4]}）`); }
+  } else err('R-D の検査書が読めない');
+  if (fs.existsSync(jd)) {
+    const t = fs.readFileSync(jd, 'utf8'); const tl = t.split('\n');
+    const F = tl.filter((l) => /^\| F\d+ \|/.test(l)).map((l) => cells(l)[0]);
+    const j79 = (between(t, 'J79') || []).filter((r) => /弱い|違う/.test(r[3])).map((r) => 'J79-' + r[0]);
+    const jk = (between(t, 'JK') || []).filter((r) => /弱い|違う/.test(r[2])).map((r) => 'JK-' + r[0]);
+    const jr = (between(t, 'JREAD') || []).filter((r) => /^見落とし/.test(r[3])).map((r) => 'JREAD-' + r[1]);
+    const sec = (h) => { const a = tl.findIndex((l) => l.startsWith(h)); const b = tl.findIndex((l, i) => i > a && /^## /.test(l)); return a < 0 ? [] : tl.slice(a, b < 0 ? tl.length : b); };
+    const led = sec('## 6. 簡略化の台帳と言い換え').filter((l) => /^\d+\. /.test(l)).map((l, i) => '台帳-' + (i + 1));
+    const kizu = sec('## 既知の傷').filter((l) => /^\d+\. /.test(l)).map((l, i) => '傷-' + (i + 1));
+    const extraIds = ['深み', '問い-K3', '問い-K21', '問い-V22', '問い-科目', '問い-案F']; // 判定書の本文の「深みが出る」型の段落（1つ）と【問い】5つ（K3・K21・V22・5章の科目・5章の案F）
+    cmp('J-D', [...F, ...j79, ...jk, ...jr, ...led, ...kizu, ...extraIds], between(s, 'JD'));
+  } else err('J-D の判定書が読めない');
+}
 out.push(`エラー ${errs}`);
 console.log(out.join('\n'));
 process.exit(errs ? 1 : 0);
