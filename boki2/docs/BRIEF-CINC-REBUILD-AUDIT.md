@@ -1,4 +1,3 @@
-<!-- quality:v2 -->
 # 依頼書：担当 A・B の「差の表」の判定と論証の検査（BRIEF-CINC-REBUILD-AUDIT）
 
 2026-11-05、取りまとめ役。型は `docs/BRIEF-TEMPLATE.md`、決まりは `docs/QUALITY.md` の 2.3・4・5・6 章。担当は3人（J-A：A の事実の判定、J-B：B の事実の判定、R：A・B 両方の論証の検査）。3人は互いの成果を見ない。A・B の書き手とも別の担当。
