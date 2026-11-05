@@ -1,0 +1,29 @@
+家族を除く組：60
+[1] 1号店 開店から8か月の赤字の月：72/80
+[1] 2号店（何もしない） 開いて8か月の赤字の月：391/480
+[1] 2号店（何もしない） 8か月全部赤字の組：38/60
+[1] 1号店 8か月全部赤字の seed：7/10
+[2] 組ごとに会社の累計（72か月）が最大の手の種類：{"format":60}（何もしない・粘るが最大の組 0/60）
+[2] 最大の一杯と看板の組み合わせの内訳（9通りのうちどれが最良か）：{"tonkotsu:small":25,"tonkotsu:large":19,"miso:small":9,"miso:large":7}
+[2] 組ごとの手の最良と最悪の会社の累計の差 中央値 5092327円
+[2] 何もしないと会社の取り戻しが来ないが、どれかの手で来る組：13/60
+[2] 同じ手を4か月目の末と8か月目の末に打ったときの会社の累計の差（4か月−8か月）中央値 -397160円、正の割合 88/660
+[3] 何もしない：来た組 31/60、来た組だけの中央値 27、来ない組を73と置いた中央値 45.5
+[3] 改装@8：来た組 35/60、来た組だけの中央値 31、来ない組を73と置いた中央値 44
+[3] 改装@4：来た組 35/60、来た組だけの中央値 30、来ない組を73と置いた中央値 42
+[3] 一杯と看板の最良@4か月目：来た組 44/60、来ない組を73と置いた中央値 35.5
+[3] 一杯と看板の最良@6か月目：来た組 44/60、来ない組を73と置いた中央値 36
+[3] 一杯と看板の最良@8か月目：来た組 43/60、来ない組を73と置いた中央値 36.5
+[4] seed 0：組ごとの最良の手 format:tonkotsu:small@26 / format:tonkotsu:large@24 / format:tonkotsu:large@22 / format:tonkotsu:large@22 / format:miso:small@26 / format:miso:large@26
+[4] seed 1：組ごとの最良の手 format:tonkotsu:small@26 / format:tonkotsu:large@22 / format:tonkotsu:small@26 / format:tonkotsu:large@22 / format:miso:small@26 / format:miso:large@26
+[4] seed 2：組ごとの最良の手 format:tonkotsu:small@26 / format:tonkotsu:small@26 / format:tonkotsu:small@26 / format:tonkotsu:small@22 / format:miso:small@26 / format:tonkotsu:small@26
+[4] seed 3：組ごとの最良の手 format:tonkotsu:small@26 / format:tonkotsu:small@22 / format:tonkotsu:small@26 / format:tonkotsu:large@22 / format:miso:large@26 / format:miso:large@26
+[4] seed 4：組ごとの最良の手 format:tonkotsu:small@22 / format:tonkotsu:large@24 / format:tonkotsu:small@22 / format:tonkotsu:large@24 / format:miso:small@26 / format:tonkotsu:large@22
+[4] seed 5：組ごとの最良の手 format:tonkotsu:small@26 / format:tonkotsu:small@22 / format:tonkotsu:large@26 / format:tonkotsu:large@22 / format:miso:large@26 / format:miso:large@26
+[4] seed 6：組ごとの最良の手 format:tonkotsu:small@26 / format:tonkotsu:small@22 / format:tonkotsu:small@26 / format:tonkotsu:large@26 / format:miso:small@26 / format:miso:small@26
+[4] seed 7：組ごとの最良の手 format:tonkotsu:small@26 / format:tonkotsu:large@22 / format:tonkotsu:small@22 / format:tonkotsu:large@26 / format:miso:small@26 / format:miso:large@26
+[4] seed 8：組ごとの最良の手 format:tonkotsu:small@26 / format:tonkotsu:large@26 / format:tonkotsu:small@26 / format:tonkotsu:large@26 / format:miso:small@26 / format:tonkotsu:small@26
+[4] seed 9：組ごとの最良の手 format:tonkotsu:small@26 / format:tonkotsu:large@26 / format:tonkotsu:small@26 / format:tonkotsu:large@26 / format:miso:small@26 / format:tonkotsu:large@26
+[5] 組ごとの最良の手と何もしないの会社の累計（72か月）の差 中央値 4904291円（正 60/60）
+[5] 8か月目の末の改装と何もしないの差 中央値 1709118円（正 60/60）
+[5] 最良の手の一杯（看板と時点を問わず）：{"tonkotsu":44,"miso":16}。最も多い一杯の割合 44/60
