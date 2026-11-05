@@ -117,7 +117,7 @@ function play(seed, o = {}) {
 }
 
 // 1号店で実装済みの手だけを使う3方針。多店舗・工場＋卸・FC＋通販は未実装で別の検査が必要。
-const SMART = ['常連と地図', '一杯と衛生', '集客と席'];
+const SMART = ['常連づくり', '味で勝負', '客を呼んでたくさん売る'];
 const median = (xs) => { const a = xs.slice().sort((a,b)=>a-b); return a.length ? a[Math.floor(a.length/2)] : NaN; };
 function smartBase(W, strategy, price, o = {}) {
   const p = Wd.policy0(W, null, { neutral: true });

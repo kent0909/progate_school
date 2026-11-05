@@ -9,6 +9,9 @@ const { performance } = require('perf_hooks');
 const autoRun = require('./auto.js');
 const ROOT = path.resolve(__dirname, '../..');
 const STYLES = ['idle', 'random', 'skilled'];
+// 表示だけ。strategyとjsonlの0/1/2は保存のまま。
+const STRATEGY_NAMES = ['常連づくり', '味で勝負', '客を呼んでたくさん売る'];
+const strategyName = strategy => STRATEGY_NAMES[strategy];
 const sha = x => crypto.createHash('sha256').update(x).digest('hex');
 function loadChromium(modulePath = process.env.PIYO_PLAYWRIGHT || '/opt/node-tools/node_modules/playwright') { return require(modulePath).chromium; }
 function browserPath() { return process.env.PIYO_CHROMIUM || '/opt/pw-browsers/chromium'; }
@@ -87,7 +90,7 @@ async function one(browser,origin,o,job,configHash,actionsDir) {
     if(!init)throw new Error('seedだけのv4初期化検査に失敗');
     let last='',same=0;
     outcome=await autoRun(p,{style,seed,strategy,errorRate:o.errorRate,maxSteps:o.maxSteps,endMode:'slice',onClickTiming:async t=>{clickTimings.push(t);},onAction:async a=>{actions.push(a); if(a.sel==='[data-plan-ok]'||a.sel==='[data-plan-same]') everDeadEnd ||= await p.evaluate(()=>window.SIMDATA.world.rescueFails(JSON.parse(JSON.stringify(window.__sim.S.W)),3));},onStep:async n=>{
-      steps=n; if(n%100===0)console.error(`[進行] ${style}/${seed} ${n}手`);
+      steps=n; if(n%100===0)console.error(`[進行] ${style}${style==='skilled'?'（'+strategyName(strategy)+'）':''}/${seed} ${n}手`);
       const ov=await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1?`${window.__sim.S.mi}:${window.__sim.S.ei}`:null);if(ov)overflow.add(ov);
       const sig=await p.evaluate(()=>`${window.__sim.S.mi}:${window.__sim.S.ei}:`+document.querySelector('#sim').innerText);
       same=sig===last?same+1:0;last=sig;
@@ -141,7 +144,7 @@ function summary(rows,times,parallel) {
     clicks:{...clickSummary(measured.flatMap(t=>t.clickTimings || [])),byParallel:Object.fromEntries(Object.entries(byParallel).map(([k,xs])=>[k,clickSummary(xs)]))}};
 }
 async function main(argv) {
-  const o=args(argv);if(o.help){console.log('node bot-runs.js --style idle,random,skilled --seeds 0-29 --width 1280 [--parallel 4 --output work/bots.jsonl --error-rate 0 --strategy 0 --chromium PATH --playwright MODULE]');return;}
+  const o=args(argv);if(o.help){console.log('node bot-runs.js --style idle,random,skilled --seeds 0-29 --width 1280 [--parallel 4 --output work/bots.jsonl --error-rate 0 --strategy 0 --chromium PATH --playwright MODULE]');console.log(STRATEGY_NAMES.map((name,id)=>`strategy ${id}：${name}`).join('\n'));return;}
   fs.mkdirSync(path.dirname(o.output),{recursive:true});
   const lock=o.output+'.lock';let fd;
   try {fd=fs.openSync(lock,'wx');}catch(e){throw new Error(`同じ出力を別プロセスが使用中。停止済みなら ${lock} を確認して除去：${e.code}`);}
@@ -174,5 +177,5 @@ async function main(argv) {
     else if(requested.some(r=>r.stuck||r.errors.length||!r.ended||!r.initialSaveValid))process.exitCode=1;
   }finally{if(browser)await browser.close();if(server)await new Promise(r=>server.close(r));fs.closeSync(fd);fs.unlinkSync(lock);process.off('SIGINT',signal);process.off('SIGTERM',signal);}
 }
-module.exports={loadChromium,browserPath,seedList,initialSave,readRows,summary,clickSummary,sourceHash,main};
+module.exports={strategyName,loadChromium,browserPath,seedList,initialSave,readRows,summary,clickSummary,sourceHash,main};
 if(require.main===module)main(process.argv.slice(2)).catch(e=>{console.error(e.stack);process.exitCode=1;});

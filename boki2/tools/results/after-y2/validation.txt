@@ -1,0 +1,18 @@
+Node.js v24.19.0／PR #6、ead4ccfの検査コードと指定の教材1行修正
+
+node boki2/tools/sim-check.js：終了0（sim-check-lemon.log）
+node boki2/tools/sim-check.js --ramen --runs 300 --info：前後とも終了0（world-comparison.txt・sim-check-ramen-after.log）
+node boki2/tools/validate.js：終了0（validate.log）
+node boki2/tools/lexicon-check.js --ramen --account-report …：終了0（lexicon.log・summary.json）
+node boki2/tools/coverage.js --ramen --stage 1：終了0（coverage.log）
+node boki2/tools/law-check.js：終了0（law.log）
+node boki2/tools/lexicon-screen-check.js：終了0（screen-controls.log）。対照はthree=1、two=0、month-three=0。
+ramen-y2-checkのexport/mainガード単独の前後：通常/integration-only/bridge-only/baseline-reportの4種類とも終了0、diff空（runner-cli-comparison.txt）
+
+通常217経路・4226画面、近道868表示経路・4202画面、各41月区分。
+1画面3科目以上：通常0、近道0。
+月の注意：通常9、近道7（内訳はそれぞれmonths.tsv）。注意による終了失敗なし。
+新札30枚・67選択肢・131結果の全結果へ到達。札以外の判断は61のモード別選択肢へ到達。
+売掛金は現行の範囲で初teach/teach前表示とも0（receivables-note.md）。台本外の入口の確認には表示あり。
+
+これは世界・台本の検査と表示の投影であり、人による面白さの試遊・全操作のブラウザ再現の検査ではない。
