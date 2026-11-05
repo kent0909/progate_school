@@ -1,0 +1,6 @@
+{"out":"skilled-site2-shotengai-4-1.json","style":"skilled","seed":4,"strategy":1,"outcome":{"error":"page.click: Timeout 30000ms exceeded."},"errors":0,"reached":"3年目 5月","bankrupt":false,"screens":396}
+{"out":"skilled-site2-ekimae-0-0.json","style":"skilled","seed":0,"strategy":0,"outcome":{"error":"page.click: Timeout 30000ms exceeded."},"errors":0,"reached":"3年目 5月","bankrupt":false,"screens":438}
+{"out":"skilled-site2-shotengai-0-0.json","style":"skilled","seed":0,"strategy":0,"outcome":{"error":"page.click: Timeout 30000ms exceeded."},"errors":0,"reached":"3年目 5月","bankrupt":false,"screens":438}
+{"out":"skilled-site2-ekimae-4-1.json","style":"skilled","seed":4,"strategy":1,"outcome":{"error":"page.click: Timeout 30000ms exceeded."},"errors":0,"reached":"3年目 5月","bankrupt":false,"screens":396}
+{"out":"skilled-site2-jutaku-4-1.json","style":"skilled","seed":4,"strategy":1,"outcome":{"error":"page.click: Timeout 30000ms exceeded."},"errors":0,"reached":"3年目 5月","bankrupt":false,"screens":396}
+done

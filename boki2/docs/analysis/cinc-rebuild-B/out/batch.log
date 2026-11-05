@@ -1,0 +1,36 @@
+{"out":"idle-1-0.json","style":"idle","seed":1,"strategy":0,"outcome":{"steps":1399,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":571}
+{"out":"idle-3-1.json","style":"idle","seed":3,"strategy":1,"outcome":{"steps":1398,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":571}
+{"out":"idle-2-0.json","style":"idle","seed":2,"strategy":0,"outcome":{"steps":1400,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":574}
+{"out":"idle-0-0.json","style":"idle","seed":0,"strategy":0,"outcome":{"steps":1390,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":569}
+{"out":"idle-4-1.json","style":"idle","seed":4,"strategy":1,"outcome":{"steps":1384,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":567}
+{"out":"idle-5-1.json","style":"idle","seed":5,"strategy":1,"outcome":{"steps":1392,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":568}
+{"out":"idle-6-2.json","style":"idle","seed":6,"strategy":2,"outcome":{"steps":1378,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":563}
+{"out":"idle-7-2.json","style":"idle","seed":7,"strategy":2,"outcome":{"steps":1380,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":565}
+{"out":"random-0-0.json","style":"random","seed":0,"strategy":0,"outcome":{"steps":1002,"end":true,"overflow":[]},"errors":0,"reached":"2年目 3月","bankrupt":true,"screens":390}
+{"out":"random-1-0.json","style":"random","seed":1,"strategy":0,"outcome":{"steps":996,"end":true,"overflow":[]},"errors":0,"reached":"2年目 3月","bankrupt":true,"screens":391}
+{"out":"random-2-0.json","style":"random","seed":2,"strategy":0,"outcome":{"steps":479,"end":true,"overflow":[]},"errors":0,"reached":"3月","bankrupt":true,"screens":179}
+{"out":"idle-8-2.json","style":"idle","seed":8,"strategy":2,"outcome":{"steps":1394,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":571}
+{"out":"idle-9-0.json","style":"idle","seed":9,"strategy":0,"outcome":{"steps":1398,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":571}
+{"out":"random-3-1.json","style":"random","seed":3,"strategy":1,"outcome":{"steps":954,"end":true,"overflow":[]},"errors":0,"reached":"2年目 1月","bankrupt":true,"screens":361}
+{"out":"random-4-1.json","style":"random","seed":4,"strategy":1,"outcome":{"steps":906,"end":true,"overflow":[]},"errors":0,"reached":"2年目 12月","bankrupt":true,"screens":347}
+{"out":"random-6-2.json","style":"random","seed":6,"strategy":2,"outcome":{"steps":899,"end":true,"overflow":[]},"errors":0,"reached":"2年目 12月","bankrupt":true,"screens":338}
+{"out":"random-7-2.json","style":"random","seed":7,"strategy":2,"outcome":{"steps":934,"end":true,"overflow":[]},"errors":0,"reached":"2年目 12月","bankrupt":true,"screens":353}
+{"out":"random-8-2.json","style":"random","seed":8,"strategy":2,"outcome":{"steps":931,"end":true,"overflow":[]},"errors":0,"reached":"2年目 12月","bankrupt":true,"screens":354}
+{"out":"random-9-0.json","style":"random","seed":9,"strategy":0,"outcome":{"steps":815,"end":true,"overflow":[]},"errors":0,"reached":"2年目 8月","bankrupt":true,"screens":288}
+{"out":"random-5-1.json","style":"random","seed":5,"strategy":1,"outcome":{"steps":1574,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":664}
+{"out":"skilled-0-0.json","style":"skilled","seed":0,"strategy":0,"outcome":{"steps":1516,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":657}
+{"out":"skilled-2-0.json","style":"skilled","seed":2,"strategy":0,"outcome":{"steps":1522,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":662}
+{"out":"skilled-1-0.json","style":"skilled","seed":1,"strategy":0,"outcome":{"steps":1536,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":663}
+{"out":"skilled-3-1.json","style":"skilled","seed":3,"strategy":1,"outcome":{"steps":1450,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":591}
+{"out":"skilled-4-1.json","style":"skilled","seed":4,"strategy":1,"outcome":{"steps":1441,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":586}
+{"out":"skilled-5-1.json","style":"skilled","seed":5,"strategy":1,"outcome":{"steps":1445,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":587}
+{"out":"skilled-6-2.json","style":"skilled","seed":6,"strategy":2,"outcome":{"steps":1498,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":651}
+{"out":"skilled-7-2.json","style":"skilled","seed":7,"strategy":2,"outcome":{"steps":1512,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":657}
+{"out":"skilled-8-2.json","style":"skilled","seed":8,"strategy":2,"outcome":{"steps":1517,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":659}
+{"out":"idle-risky-0-0.json","style":"idle","seed":0,"strategy":0,"outcome":{"steps":1404,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":573}
+{"out":"skilled-9-0.json","style":"skilled","seed":9,"strategy":0,"outcome":{"steps":1535,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":664}
+{"out":"idle-risky-1-0.json","style":"idle","seed":1,"strategy":0,"outcome":{"steps":1403,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":573}
+{"out":"idle-risky-4-1.json","style":"idle","seed":4,"strategy":1,"outcome":{"steps":995,"end":true,"overflow":[]},"errors":0,"reached":"3年目 4月","bankrupt":true,"screens":371}
+{"out":"idle-risky-2-0.json","style":"idle","seed":2,"strategy":0,"outcome":{"steps":1410,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":580}
+{"out":"idle-risky-3-1.json","style":"idle","seed":3,"strategy":1,"outcome":{"steps":1402,"end":true,"overflow":[]},"errors":0,"bankrupt":false,"screens":573}
+done
