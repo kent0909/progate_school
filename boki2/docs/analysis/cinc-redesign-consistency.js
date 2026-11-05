@@ -30,15 +30,16 @@ const STALE = [
   { key: '大胆の数', note: 'オーナーに見せる数は名のとおりに数え直した', words: ['大胆な形」36', '形」36', '大胆な形 36'] },
   { key: 'V17', note: '最小に戻した', words: ['版0.3 で「最小」から変えた'] },
 ];
-// 章の見出しで、古い語を許す章（変更の一覧・対応表）
-const isHistory = (title) => /^## (17|18|19|20)\./.test(title);
+// 古い語を許す所：17〜20章（変更の一覧・対応表）と、14章のうち古い版への依頼の対応表（### の見出しに「版0.x→0.y」で y≦3）
+const histOf = (lines) => { let top = '', sub = ''; return lines.map((l) => { if (/^## /.test(l)) { top = l; sub = ''; } else if (/^### /.test(l)) sub = l; return /^## (17|18|19|20)\./.test(top) || (/^## 14\./.test(top) && /版0\.[0-2]→0\.[1-3]/.test(sub)); }); };
+const HIST = histOf(doc);
 let sec = '', errors = 0; const out = [];
 const quoted = (line, w) => { const i = line.indexOf(w); const a = line.lastIndexOf('「', i), b = line.lastIndexOf('」', i); return a >= 0 && a > b && /版0\.[0-3][^「]{0,12}$/.test(line.slice(Math.max(0, a - 14), a)); };
 out.push('[1] 古い語（本文に残っていればエラー。18〜20章と「版0.x の「…」」の引用は除く）');
 const hits = {};
 doc.forEach((line, i) => {
   if (/^## /.test(line)) sec = line;
-  if (isHistory(sec)) return;
+  if (HIST[i]) return;
   for (const s of STALE) for (const w of s.words) if (line.includes(w) && !quoted(line, w)) { (hits[s.key] = hits[s.key] || []).push(`L${i + 1}（${sec.slice(3, 20)}）「${w}」`); }
 });
 for (const s of STALE) { const h = hits[s.key] || []; if (h.length) errors += h.length; out.push(`  ${s.key}：${h.length ? 'エラー ' + h.length + '：' + h.join('、') : 'なし'}　（今の形：${s.note}）`); }
@@ -48,7 +49,7 @@ out.push('[2] 同じ ID・同じ決定の語の出る行（読み比べ用。18�
 for (const id of IDS) {
   const re = new RegExp(`(^|[^A-Za-z0-9#])${id.replace('#', '\\#')}([^0-9a-z]|$)`);
   const rows = []; sec = '';
-  doc.forEach((line, i) => { if (/^## /.test(line)) sec = line; if (!isHistory(sec) && re.test(line)) rows.push(`L${i + 1}`); });
+  doc.forEach((line, i) => { if (!HIST[i] && re.test(line)) rows.push(`L${i + 1}`); });
   out.push(`  ${id}：${rows.length} 行（${rows.join(' ')}）`);
 }
 // [3] 割合の出どころ
@@ -57,8 +58,7 @@ for (const d of ['docs/analysis', 'docs/audit']) for (const f of fs.readdirSync(
 const all = outs.join('\n');
 const missing = []; sec = '';
 doc.forEach((line, i) => {
-  if (/^## /.test(line)) sec = line;
-  if (isHistory(sec)) return;
+  if (HIST[i]) return;
   for (const m of line.matchAll(/(\d+)\/(60|40)（(\d+)%）/g)) if (!all.includes(m[0])) missing.push(`L${i + 1}「${m[0]}」`);
 });
 out.push(`[3] 割合「N/60（P%）」「N/40（P%）」で、出力のどれにも同じ形で無いもの：${missing.length ? missing.join('、') : 'なし'}（警告）`);
