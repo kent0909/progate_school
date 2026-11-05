@@ -45,4 +45,38 @@ for (const set of ['A', 'B', 'C', 'D']) {
 }
 // 年ごとの1か月の分が PEDAGOGY 1.1 の5〜10分に入るか
 for (const set of ['A', 'B', 'C', 'D']) out.push(`組 ${set}：10分を越える年 ${Y.filter((y) => month(y, set) > 10).join('・') || 'なし'}`);
-console.log(out.join('\n'));
+if (process.argv[2] !== 'v04') { console.log(out.join('\n')); process.exit(0); }
+// ■ 版0.4（J-D G4・G5、R-D Q2・Y7・T1-3）。置き値は回す前に決めた（この節を書いてから回した）：
+//   SCAN 一括確定の点検：PEDAGOGY 1.6「監査が条件の外の取引を仕込む」を見つけるには一括確定の一覧を目で追う。1枚 3秒【置き値】（組 D の「1回の押下15秒」に足す）
+//   H120 重い判断を 60秒→120秒（版0.3 は暗算で約16時間と書いた所を回す）
+//   OVS  海外の1店を本編に（Q3b (b)）：9・10年目に、手で書く書類 +1（外貨建の換算）・一括確定 +1・新聞 +20秒・任せた店 +1【置き値】
+//   静かな月は、骨のほかの7か月がそれぞれ重み w で静かになる（年に Bin(7, w) 回）。w ごとに、1周の時間の分布を年ごとの二項分布の畳み込みで出す
+const out4 = [];
+function month4(y, o) {
+  const d = docsMeasured(y), hand = Math.min(d, y <= 3 ? 5 : y === 4 ? 4 : 3) + (o.ovs && y >= 9 ? 1 : 0), bulk = d - Math.min(d, y <= 3 ? 5 : y === 4 ? 4 : 3) + (o.ovs && y >= 9 ? 1 : 0);
+  const framed = (y >= 3 ? Math.max(0, stores(y) - 1) : 0) + (o.ovs && y >= 9 ? 1 : 0);
+  const hv = o.h120 ? 120 : 60;
+  return (hand * 45 + (bulk > 0 ? 15 : 0) + (o.scan ? 3 * bulk : 0) + heavy(y) * hv + light(y) * 15 + 90 + news(y) + (o.ovs && y >= 9 ? 20 : 0) + framed * 0.3 * 10) / 60;
+}
+const total4 = (o, qOf) => { let m = 0; for (const y of Y) { const q = y >= 4 ? qOf(y) : 0; m += (12 - q) * month4(y, o) + q * QUIET + KESSAN; } return m / 60; };
+const binom = (n, k, p) => { let c = 1; for (let i = 0; i < k; i++) c = (c * (n - i)) / (i + 1); return c * Math.pow(p, k) * Math.pow(1 - p, n - k); };
+function dist(o, w) {
+  // 分（時間×60）の分布を年ごとに畳み込む。静かでない月の分の合計から、静かな月1回で減る分を引く
+  let pd = new Map([[0, 1]]);
+  for (const y of Y) {
+    const base = 12 * month4(y, o) + KESSAN, save = month4(y, o) - QUIET; const nx = new Map();
+    for (const [v, p] of pd) for (let k = 0; k <= (y >= 4 ? 7 : 0); k++) { const pk = y >= 4 ? binom(7, k, w) : 1; const key = Math.round((v + base - k * save) * 100) / 100; nx.set(key, (nx.get(key) || 0) + p * pk); }
+    pd = nx;
+  }
+  const arr = [...pd.entries()].map(([v, p]) => [v / 60, p]).sort((a, b) => a[0] - b[0]);
+  const mean = arr.reduce((s, [v, p]) => s + v * p, 0), le15 = arr.filter(([v]) => v <= 15).reduce((s, [, p]) => s + p, 0);
+  let acc = 0, p10 = null, p90 = null; for (const [v, p] of arr) { acc += p; if (p10 == null && acc >= 0.1) p10 = v; if (p90 == null && acc >= 0.9) p90 = v; }
+  return { mean, le15, p10, p90 };
+}
+const SETS4 = [['D（版0.3 の推奨の組）', {}], ['D＋一括確定の点検 3秒/枚', { scan: 1 }], ['D＋点検＋重い判断120秒', { scan: 1, h120: 1 }], ['D＋点検＋海外の1店（Q3b (b)）', { scan: 1, ovs: 1 }], ['D＋点検＋重い判断120秒＋海外', { scan: 1, h120: 1, ovs: 1 }]];
+out4.push('版0.4：1周の時間（4年目から静かな月 q 回/年、整数で）');
+for (const [name, o] of SETS4) out4.push(`  ${name}：${[0, 3, 4, 5, 6, 7].map((q) => `q=${q} ${total4(o, () => q).toFixed(2)}`).join('、')}時間　10年目の1か月 ${month4(10, o).toFixed(2)}分`);
+out4.push('版0.4：静かな月の重み w（骨のほかの7か月がそれぞれ w で静か。年に平均 7w 回）ごとの1周の時間の分布（平均・下10%・上10%・15時間以内に入る割合）');
+for (const [name, o] of SETS4) out4.push(`  ${name}：` + [0.6, 0.65, 0.7, 0.72, 0.8, 0.9].map((w) => { const r = dist(o, w); return `w=${w}（年${(7 * w).toFixed(1)}回）平均 ${r.mean.toFixed(2)}・${r.p10.toFixed(2)}〜${r.p90.toFixed(2)}・15時間以内 ${Math.round(100 * r.le15)}%`; }).join('／'));
+out4.push(`海外の1店で増える分（D＋点検、q=5）：${(total4({ scan: 1, ovs: 1 }, () => 5) - total4({ scan: 1 }, () => 5)).toFixed(2)}時間`);
+console.log(out4.join('\n'));
