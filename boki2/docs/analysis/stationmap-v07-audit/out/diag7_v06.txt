@@ -1,0 +1,9 @@
+  元 0軒 札 shinise: 需要の差 -33.7%  閉店 なし  値段 850  Q 3.2  評判 k0 3.8→k35 2.88  昼の型 shinise 夜の型 shinise
+  元 0軒 札 cheap: 需要の差 -18.9%  閉店 なし  値段 850  Q 3.2  評判 k0 3.8→k35 2.88  昼の型 cheap 夜の型 cheap
+  元 0軒 札 kodawari: 需要の差 -19.2%  閉店 なし  値段 850  Q 3.2  評判 k0 3.8→k35 2.96  昼の型 kodawari 夜の型 kodawari
+  元 shinise 札 shinise: 需要の差 -20.1%  閉店 なし  値段 850  Q 3.2  評判 k0 3.8→k35 2.88  昼の型 shinise 夜の型 shinise
+  元 shinise 札 cheap: 需要の差 -17.2%  閉店 なし  値段 850  Q 3.2  評判 k0 3.8→k35 2.88  昼の型 cheap 夜の型 cheap
+  元 shinise 札 kodawari: 需要の差 -17.4%  閉店 なし  値段 850  Q 3.2  評判 k0 3.8→k35 2.96  昼の型 kodawari 夜の型 kodawari
+  元 shinise 札 shinise: 需要の差 -20.1%  閉店 なし  値段 850  Q 3.2  評判 k0 3.8→k35 2.88  昼の型 shinise 夜の型 shinise
+  元 shinise 札 cheap: 需要の差 -17.2%  閉店 なし  値段 850  Q 3.2  評判 k0 3.8→k35 2.88  昼の型 cheap 夜の型 cheap
+  元 shinise 札 kodawari: 需要の差 -17.4%  閉店 なし  値段 850  Q 3.2  評判 k0 3.8→k35 2.96  昼の型 kodawari 夜の型 kodawari
