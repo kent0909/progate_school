@@ -99,6 +99,7 @@ const g = (kind) => rows.filter((r) => r.kind === kind);
 const fmtGroup = (label, rs) => {
   lines.push(`${label}：組 ${rs.length}。最初の8か月が全部赤字 ${share(rs, (r) => r.loss8 === 8)}。初めて黒字の月 中央値 ${med(rs.map((r) => r.firstBlack))}（${HORIZON}か月で来ない ${share(rs, (r) => r.firstBlack == null)}）。3か月続く黒字 中央値 ${med(rs.map((r) => r.black3From))}（来ない ${share(rs, (r) => r.black3From == null)}）。出店のお金を取り戻す月 中央値 ${med(rs.map((r) => r.paybackMonth))}（来ない ${share(rs, (r) => r.paybackMonth == null)}）`);
 };
+lines.push('（中央値は、その月が来た組だけで数える。来ない組の数は括弧の中）');
 fmtGroup('何もしない（札を打たず続ける）', g('none'));
 fmtGroup('3年目6月に「粘る」', g('stick'));
 fmtGroup('3年目6月に「改装（品質）」', g('renovate'));
