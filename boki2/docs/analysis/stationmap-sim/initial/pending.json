@@ -1,0 +1,321 @@
+{
+  "status": "回答待ち・未測定",
+  "input": {
+    "K": 8,
+    "N": 300,
+    "seed": 0,
+    "parameters": {
+      "foot.tier.1": 0.7,
+      "foot.tier.2": 0.8,
+      "foot.tier.3": 0.9,
+      "foot.tier.4": 1,
+      "foot.tier.5": 1.15,
+      "foot.tier.6": 1.3,
+      "foot.tier.8": 1.5,
+      "foot.tierRatio": null,
+      "foot.dist.near": 1.15,
+      "foot.dist.mid": 1,
+      "foot.dist.far": 0.8,
+      "foot.distRatio": null,
+      "foot.attr.hanka": 1.15,
+      "foot.attr.shogyo": 1.1,
+      "foot.attr.office": 1,
+      "foot.attr.shoten": 1,
+      "foot.attr.jutaku": 0.8,
+      "foot.attr.kojo": 0.6,
+      "rival.lambdaTier.1": 0.3,
+      "rival.lambdaTier.2": 0.5,
+      "rival.lambdaTier.3": 0.8,
+      "rival.lambdaTier.4": 1.1,
+      "rival.lambdaTier.5": 1.5,
+      "rival.lambdaTier.6": 2,
+      "rival.lambdaTier.8": 2.6,
+      "rival.lambdaMultiplier": 1,
+      "rival.lambdaAttr.hanka": 1.4,
+      "rival.lambdaAttr.shogyo": 1.2,
+      "rival.lambdaAttr.office": 1,
+      "rival.lambdaAttr.shoten": 1,
+      "rival.lambdaAttr.jutaku": 0.6,
+      "rival.lambdaAttr.kojo": 0.4,
+      "rival.countProb.minus": 0.2,
+      "rival.countProb.center": 0.6,
+      "rival.countProb.plus": 0.2,
+      "rival.cap": 5,
+      "rival.entryRate": 0.01,
+      "rival.typeWeight.hanka.cheap": 0.4,
+      "rival.typeWeight.hanka.kodawari": 0.4,
+      "rival.typeWeight.hanka.shinise": 0.2,
+      "rival.typeWeight.shogyo.cheap": 0.5,
+      "rival.typeWeight.shogyo.kodawari": 0.3,
+      "rival.typeWeight.shogyo.shinise": 0.2,
+      "rival.typeWeight.office.cheap": 0.5,
+      "rival.typeWeight.office.kodawari": 0.3,
+      "rival.typeWeight.office.shinise": 0.2,
+      "rival.typeWeight.shoten.cheap": 0.3,
+      "rival.typeWeight.shoten.kodawari": 0.3,
+      "rival.typeWeight.shoten.shinise": 0.4,
+      "rival.typeWeight.jutaku.cheap": 0.3,
+      "rival.typeWeight.jutaku.kodawari": 0.3,
+      "rival.typeWeight.jutaku.shinise": 0.4,
+      "rival.typeWeight.kojo.cheap": 0.3,
+      "rival.typeWeight.kojo.kodawari": 0.3,
+      "rival.typeWeight.kojo.shinise": 0.4,
+      "market.price.hanka": 950,
+      "market.price.shogyo": 900,
+      "market.price.office": 900,
+      "market.price.shoten": 850,
+      "market.price.jutaku": 850,
+      "market.price.kojo": 800,
+      "hours.lunchWeight.hanka": 0.3,
+      "hours.lunchWeight.shogyo": 0.55,
+      "hours.lunchWeight.office": 0.75,
+      "hours.lunchWeight.shoten": 0.5,
+      "hours.lunchWeight.jutaku": 0.35,
+      "hours.lunchWeight.kojo": 0.85,
+      "mix.hanka.office": 0.35,
+      "mix.hanka.family": 0.15,
+      "mix.hanka.student": 0.2,
+      "mix.hanka.tourist": 0.3,
+      "mix.shogyo.office": 0.5,
+      "mix.shogyo.family": 0.25,
+      "mix.shogyo.student": 0.1,
+      "mix.shogyo.tourist": 0.15,
+      "mix.office.office": 0.7,
+      "mix.office.family": 0.1,
+      "mix.office.student": 0.05,
+      "mix.office.tourist": 0.15,
+      "mix.shoten.office": 0.3,
+      "mix.shoten.family": 0.55,
+      "mix.shoten.student": 0.1,
+      "mix.shoten.tourist": 0.05,
+      "mix.jutaku.office": 0.15,
+      "mix.jutaku.family": 0.75,
+      "mix.jutaku.student": 0.1,
+      "mix.jutaku.tourist": 0,
+      "mix.kojo.office": 0.6,
+      "mix.kojo.family": 0.3,
+      "mix.kojo.student": 0.1,
+      "mix.kojo.tourist": 0,
+      "calendar.hanka": "kanko",
+      "calendar.shogyo": "shoten",
+      "calendar.office": "office",
+      "calendar.shoten": "shoten",
+      "calendar.jutaku": "jutaku",
+      "calendar.kojo": "office",
+      "rent.R0": 28000,
+      "rent.b": 0.25,
+      "rent.floor": 13000,
+      "rent.spread": 0.2,
+      "deposit.months": [
+        6,
+        8,
+        10
+      ],
+      "deposit.probabilities": null,
+      "fitout.ratio": 0.3,
+      "fitout.cap": 3000000,
+      "fitout.distribution": null,
+      "hours.closedSaving": null,
+      "hours.lunchCapacity": 0.45,
+      "hours.switchChurn": 0.01,
+      "hours.rivalLunchOnly.cheap": 0,
+      "hours.rivalLunchOnly.kodawari": 0,
+      "hours.rivalLunchOnly.shinise": 0.3,
+      "regular.retain.hanka": 0.7,
+      "regular.churn.hanka": 1.25,
+      "regular.retain.shogyo": 1,
+      "regular.churn.shogyo": 1,
+      "regular.retain.office": 0.9,
+      "regular.churn.office": 1.1,
+      "regular.retain.shoten": 1.2,
+      "regular.churn.shoten": 0.85,
+      "regular.retain.jutaku": 1.3,
+      "regular.churn.jutaku": 0.8,
+      "regular.retain.kojo": 1.1,
+      "regular.churn.kojo": 0.9,
+      "reference.tier": 3,
+      "reference.distance": "mid",
+      "reference.attribute": "shoten",
+      "reference.rivals": [
+        "shinise"
+      ],
+      "reference.target": 44,
+      "reference.reputation": 3,
+      "reference.quality": 3,
+      "reference.price": 850,
+      "reference.parts": 1,
+      "reference.advertising": 0,
+      "decision.simpleSelection": null,
+      "decision.skilledBot": null,
+      "decision.entryTiming": null,
+      "decision.regularClosed": null,
+      "decision.partSaving": null,
+      "decision.referenceHours": null,
+      "decision.calibrationEntry": null,
+      "decision.rivalCut": null
+    }
+  },
+  "missing": [
+    "decision.entryTiming",
+    "decision.regularClosed",
+    "decision.partSaving",
+    "decision.referenceHours",
+    "decision.calibrationEntry"
+  ],
+  "comments": [
+    6569301272,
+    6569400310
+  ],
+  "tables": [
+    {
+      "mode": "期待値（未測定）",
+      "rows": [
+        {
+          "number": 1,
+          "label": "3年目の客数中央値",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 2,
+          "label": "上限70人を越える候補地",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 3,
+          "label": "利益上位50の多様さ",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 4,
+          "label": "候補地内のくじの分散比",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 5,
+          "label": "各世界上位50の0軒",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 6,
+          "label": "単純規則3つ/上手な選択",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 7,
+          "label": "昼だけ・夜だけが得な候補地",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 8,
+          "label": "上限越えで増員が得な候補地",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 9,
+          "label": "住宅地/繁華街の客数成長比",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 10,
+          "label": "ライバルの値下げで自店客数減",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        }
+      ]
+    },
+    {
+      "mode": "乱数込み（未測定）",
+      "rows": [
+        {
+          "number": 1,
+          "label": "3年目の客数中央値",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 2,
+          "label": "上限70人を越える候補地",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 3,
+          "label": "利益上位50の多様さ",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 4,
+          "label": "候補地内のくじの分散比",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 5,
+          "label": "各世界上位50の0軒",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 6,
+          "label": "単純規則3つ/上手な選択",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 7,
+          "label": "昼だけ・夜だけが得な候補地",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 8,
+          "label": "上限越えで増員が得な候補地",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 9,
+          "label": "住宅地/繁華街の客数成長比",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        },
+        {
+          "number": 10,
+          "label": "ライバルの値下げで自店客数減",
+          "value": null,
+          "status": "測定不能",
+          "reason": "較正条件・昼夜の仕組みの回答待ち: decision.entryTiming, decision.regularClosed, decision.partSaving, decision.referenceHours, decision.calibrationEntry"
+        }
+      ]
+    }
+  ]
+}

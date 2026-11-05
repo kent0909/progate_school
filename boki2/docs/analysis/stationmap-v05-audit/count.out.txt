@@ -1,0 +1,107 @@
+# 1. 駅・ピン
+駅 452 候補地 886 ピンの和 898
+段8 3 新宿・渋谷・池袋
+段6 2 東京・新橋
+段5 12 
+段4 34 
+段3 75 
+段2 109 
+段1 217 
+tier と foot の段が食い違う駅 []
+foot ≠ round(riders×adj) の駅 []
+pins − tier の和（閑静の枠） 6
+足りない駅 10 足りない本数 12
+新木場 1/3・東京テレポート 0/2・羽田空港第1・第2ターミナル 0/1・テレコムセンター 0/1・お台場海浜公園 0/1・有明テニスの森 0/1・羽田空港第3ターミナル 0/1・新整備場 0/1・青海 0/1・東京国際クルーズターミナル 0/1
+係数のある駅（json に名がある） 452 ない駅 0 
+adj が1ちょうど（json にあり） 171
+json と data の adj の食い違い []
+json の駅のうち data にない名 0
+riders の段→foot の段：下がる 71 上がる 0 同じ 381
+下がる駅のうち係数の json にある駅 71
+riders の段の駅の数 8:5 6:8 5:21 4:42 3:63 2:120 1:193
+段が2つ以上下がる駅 北千住 8→5・目黒 6→4・日暮里 5→3・押上 6→3・市ヶ谷 5→3・綾瀬 5→3・西日暮里 5→3・新木場 5→3・代々木上原 5→3・四ツ谷 5→2・小竹向原 5→2・新御徒町 3→1・羽田空港第1・第2ターミナル 4→1・赤羽岩淵 3→1
+
+# 2. 個別の駅（foot・adj・riders・段）
+新宿 riders 2713386 adj 0.4638 foot 1258468 段(riders) 8 段(foot) 8 pins 8 置けた 8 json A 2713386 gate13 1004740 used true
+渋谷 riders 2897703 adj 0.3467 foot 1004634 段(riders) 8 段(foot) 8 pins 9 置けた 9 json A 2897703 gate13 802076 used true
+池袋 riders 2364011 adj 0.4249 foot 1004468 段(riders) 8 段(foot) 8 pins 8 置けた 8 json A 2364011 gate13 801879 used true
+東京 riders 1262604 adj 0.529 foot 667918 段(riders) 8 段(foot) 6 pins 6 置けた 6 json A 1262604 gate13 533202 used true
+品川 riders 892969 adj 0.4727 foot 422106 段(riders) 6 段(foot) 5 pins 6 置けた 6 json A 892969 gate13 336961 used true
+北千住 riders 1434911 adj 0.1863 foot 267324 段(riders) 8 段(foot) 5 pins 5 置けた 5 json A 1434911 gate13 213444 used true
+上野 riders 529457 adj 0.4988 foot 264093 段(riders) 6 段(foot) 5 pins 6 置けた 6 json A 529457 gate13 210861 used true
+押上 riders 526053 adj 0.2003 foot 105368 段(riders) 6 段(foot) 3 pins 3 置けた 3 json A 526053 gate13 84125 used true
+下北沢 riders 229107 adj 0.4371 foot 100143 段(riders) 4 段(foot) 3 pins 3 置けた 3 json A 229107 gate13 79954 used true
+三軒茶屋 riders 167214 adj 0.8612 foot 144005 段(riders) 4 段(foot) 4 pins 4 置けた 4 json A 167214 gate13 114971 used true
+中目黒 riders 381738 adj 0.3189 foot 121736 段(riders) 5 段(foot) 4 pins 4 置けた 4 json A 381738 gate13 97203 used true
+高田馬場 riders 809212 adj 0.3703 foot 299651 段(riders) 6 段(foot) 5 pins 6 置けた 6 json A 809212 gate13 239239 used true
+秋葉原 riders 678406 adj 0.5821 foot 394900 段(riders) 6 段(foot) 5 pins 5 置けた 5 json A 678406 gate13 315283 used true
+新橋 riders 833450 adj 0.6055 foot 504654 段(riders) 6 段(foot) 6 pins 6 置けた 6 json A 833450 gate13 402879 used true
+恵比寿 riders 356771 adj 0.8785 foot 313423 段(riders) 5 段(foot) 5 pins 6 置けた 6 json A 356771 gate13 250235 used true
+田町 riders 359270 adj 0.9377 foot 336887 段(riders) 5 段(foot) 5 pins 6 置けた 6 json A 359270 gate13 268967 used true
+目黒 riders 565824 adj 0.3303 foot 186892 段(riders) 6 段(foot) 4 pins 4 置けた 4 json A 565824 gate13 149218 used true
+二子玉川 riders 140353 adj 1 foot 140353 段(riders) 4 段(foot) 4 pins 4 置けた 4 json A 140353 gate13 127125 used true
+とうきょうスカイツリー riders 0 adj 1 foot 0 段(riders) 1 段(foot) 1 pins 1 置けた 1 json A 0 gate13 9852 used true
+
+# 3. 属性
+hanka 36 地価の中央値(万円/㎡) 693.5
+shogyo 195 地価の中央値(万円/㎡) 355
+office 101 地価の中央値(万円/㎡) 275
+shoten 264 地価の中央値(万円/㎡) 126.5
+jutaku 268 地価の中央値(万円/㎡) 85.3
+kojo 22 地価の中央値(万円/㎡) 62.4
+地価300万未満 646 (72.9%) 300万以下 649
+
+# 4. 閑静の枠
+quiet の候補地 6
+渋谷（段8・foot 1004634）→ 松濤1丁目（渋谷区）type jutaku 地価 264万 zone 1低専 walk 960 / 大規模住宅、マンション等が多い閑静な住宅地域 / 公示 13113-000-005
+品川（段5・foot 422106）→ 高輪4丁目（港区）type jutaku 地価 202万 zone 1中専 walk 620 / 中低層共同住宅が多く見られる閑静な住宅地域 / 公示 13103-000-012
+田町（段5・foot 336887）→ 三田2丁目（港区）type jutaku 地価 298万 zone 1住居 walk 800 / 中高層のマンション等が建ち並ぶ閑静な住宅地域 / 公示 13103-000-023
+恵比寿（段5・foot 313423）→ 猿楽町（渋谷区）type jutaku 地価 230万 zone 2低専 walk 1150 / 一般住宅、共同住宅が建ち並ぶ閑静な住宅地域 / 調査 13113-000-003
+高田馬場（段5・foot 299651）→ 下落合2丁目（新宿区）type jutaku 地価 131万 zone 1低専 walk 1000 / 一般住宅、共同住宅が建ち並ぶ閑静な住宅地域 / 公示 13104-000-008
+上野（段5・foot 264093）→ 上野桜木1丁目（台東区）type jutaku 地価 118万 zone 1中専 walk 1230 / 中規模一般住宅が多い比較的閑静な住宅地域 / 公示 13106-000-004
+段5以上の駅 17 新宿・渋谷・池袋・東京・新橋・品川・秋葉原・有楽町・田町・大手町・恵比寿・高田馬場・浜松町・飯田橋・北千住・蒲田・上野
+段5以上で quiet なしの駅と、置かれた候補地（全駅のもの）で1.2km 以内の「閑静…」住宅地の数
+  新宿 0 
+  池袋 0 
+  東京 0 
+  新橋 0 
+  秋葉原 0 
+  有楽町 0 
+  大手町 0 
+  浜松町 0 
+  飯田橋 0 
+  北千住 0 
+  蒲田 0 
+quiet の文に語が入っているか 大規模住宅 閑静 閑静 閑静 閑静 閑静
+quiet の駅からの距離（x,y から m） 883 438 637 917 802 987
+
+# 5. 渋谷
+  宇田川町 hanka  3530 150
+  道玄坂2丁目 hanka  2700 200
+  道玄坂1丁目 shoten  775 230
+  神南1丁目 shogyo  2020 250
+  桜丘町 shogyo  445 240
+  渋谷3丁目 office  850 300
+  渋谷2丁目 shogyo  985 600
+  円山町 hanka  231 730
+  松濤1丁目 jutaku quiet 264 960
+
+# 6. 世田谷区・下北沢など
+世田谷区の駅 37
+下北沢 3 hanka,shoten,jutaku
+三軒茶屋 4 shoten,jutaku,jutaku,jutaku
+二子玉川 4 shoten,shogyo,jutaku,jutaku
+
+# 7. 段ごとの候補地の数と λ（4.3 の置き値）
+中心 c の分布 {"0":369,"1":416,"2":79,"3":16,"4":6} c=0 の候補地 369 (41.6%)
+0軒の期待の割合（くじの形どおり） 42.7%
+段8 候補地 25
+段6 候補地 12
+段5 候補地 65
+段4 候補地 136
+段3 候補地 223
+段2 候補地 216
+段1 候補地 209
+段3・〜500m・商店街の候補地 48
+段5 で λ×属性の四捨五入： hanka 2.10→2 shogyo 1.80→2 office 1.50→2 shoten 1.50→2 jutaku 0.90→1 kojo 0.60→1
+段3 商店街 λ 0.8 → 中心 1

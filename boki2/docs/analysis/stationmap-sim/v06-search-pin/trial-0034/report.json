@@ -1,0 +1,767 @@
+{
+  "input": {
+    "entryMode": "pin",
+    "K": 2,
+    "N": 3,
+    "seed": 20261104,
+    "overrides": {
+      "rival.lambdaMultiplier": 0.971703980001621,
+      "regular.retain.jutaku": 1.2123771086335182,
+      "regular.retain.hanka": 0.7011753960512579,
+      "rival.entryBase": 0.018895227841567247,
+      "rival.entrySuccess": 0.09131203453056513,
+      "hours.kappa": 0.31519668316468596,
+      "rent.R0": 40000,
+      "rent.b": 0.4
+    },
+    "parameters": {
+      "foot.tier.1": 0.7,
+      "foot.tier.2": 0.8,
+      "foot.tier.3": 0.9,
+      "foot.tier.4": 1,
+      "foot.tier.5": 1.15,
+      "foot.tier.6": 1.3,
+      "foot.tier.8": 1.5,
+      "foot.tierRatio": null,
+      "foot.dist.near": 1.15,
+      "foot.dist.mid": 1,
+      "foot.dist.far": 0.8,
+      "foot.distRatio": null,
+      "foot.attr.hanka": 1.15,
+      "foot.attr.shogyo": 1.1,
+      "foot.attr.office": 1,
+      "foot.attr.shoten": 1,
+      "foot.attr.jutaku": 0.8,
+      "foot.attr.kojo": 0.6,
+      "rival.lambdaTier.1": 0.3,
+      "rival.lambdaTier.2": 0.5,
+      "rival.lambdaTier.3": 0.8,
+      "rival.lambdaTier.4": 1.1,
+      "rival.lambdaTier.5": 1.5,
+      "rival.lambdaTier.6": 2,
+      "rival.lambdaTier.8": 2.6,
+      "rival.lambdaMultiplier": 0.971703980001621,
+      "rival.lambdaAttr.hanka": 1.4,
+      "rival.lambdaAttr.shogyo": 1.2,
+      "rival.lambdaAttr.office": 1,
+      "rival.lambdaAttr.shoten": 1,
+      "rival.lambdaAttr.jutaku": 0.6,
+      "rival.lambdaAttr.kojo": 0.4,
+      "rival.countProb.minus": 0.2,
+      "rival.countProb.center": 0.6,
+      "rival.countProb.plus": 0.2,
+      "rival.cap": 5,
+      "rival.typeWeight.hanka.cheap": 0.4,
+      "rival.typeWeight.hanka.kodawari": 0.4,
+      "rival.typeWeight.hanka.shinise": 0.2,
+      "rival.typeWeight.shogyo.cheap": 0.5,
+      "rival.typeWeight.shogyo.kodawari": 0.3,
+      "rival.typeWeight.shogyo.shinise": 0.2,
+      "rival.typeWeight.office.cheap": 0.5,
+      "rival.typeWeight.office.kodawari": 0.3,
+      "rival.typeWeight.office.shinise": 0.2,
+      "rival.typeWeight.shoten.cheap": 0.3,
+      "rival.typeWeight.shoten.kodawari": 0.3,
+      "rival.typeWeight.shoten.shinise": 0.4,
+      "rival.typeWeight.jutaku.cheap": 0.3,
+      "rival.typeWeight.jutaku.kodawari": 0.3,
+      "rival.typeWeight.jutaku.shinise": 0.4,
+      "rival.typeWeight.kojo.cheap": 0.3,
+      "rival.typeWeight.kojo.kodawari": 0.3,
+      "rival.typeWeight.kojo.shinise": 0.4,
+      "market.price.hanka": 950,
+      "market.price.shogyo": 900,
+      "market.price.office": 900,
+      "market.price.shoten": 850,
+      "market.price.jutaku": 850,
+      "market.price.kojo": 800,
+      "mix.hanka.office": 0.35,
+      "mix.hanka.family": 0.15,
+      "mix.hanka.student": 0.2,
+      "mix.hanka.tourist": 0.3,
+      "mix.shogyo.office": 0.5,
+      "mix.shogyo.family": 0.25,
+      "mix.shogyo.student": 0.1,
+      "mix.shogyo.tourist": 0.15,
+      "mix.office.office": 0.7,
+      "mix.office.family": 0.1,
+      "mix.office.student": 0.05,
+      "mix.office.tourist": 0.15,
+      "mix.shoten.office": 0.3,
+      "mix.shoten.family": 0.55,
+      "mix.shoten.student": 0.1,
+      "mix.shoten.tourist": 0.05,
+      "mix.jutaku.office": 0.15,
+      "mix.jutaku.family": 0.75,
+      "mix.jutaku.student": 0.1,
+      "mix.jutaku.tourist": 0,
+      "mix.kojo.office": 0.6,
+      "mix.kojo.family": 0.3,
+      "mix.kojo.student": 0.1,
+      "mix.kojo.tourist": 0,
+      "calendar.hanka": "kanko",
+      "calendar.shogyo": "shoten",
+      "calendar.office": "office",
+      "calendar.shoten": "shoten",
+      "calendar.jutaku": "jutaku",
+      "calendar.kojo": "office",
+      "rent.R0": 40000,
+      "rent.b": 0.4,
+      "rent.floor": 13000,
+      "rent.spread": 0.2,
+      "deposit.months": [
+        6,
+        8,
+        10
+      ],
+      "deposit.probabilities": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "fitout.ratio": 0.3,
+      "fitout.cap": 3000000,
+      "fitout.distribution": "zero10pct_else_ratio",
+      "hours.lunchCapacity": 0.45,
+      "hours.switchChurn": 0.01,
+      "hours.rivalLunchOnly.cheap": 0,
+      "hours.rivalLunchOnly.kodawari": 0,
+      "hours.rivalLunchOnly.shinise": 0.3,
+      "regular.retain.hanka": 0.7011753960512579,
+      "regular.churn.hanka": 1.25,
+      "regular.retain.shogyo": 1,
+      "regular.churn.shogyo": 1,
+      "regular.retain.office": 0.9,
+      "regular.churn.office": 1.1,
+      "regular.retain.shoten": 1.2,
+      "regular.churn.shoten": 0.85,
+      "regular.retain.jutaku": 1.2123771086335182,
+      "regular.churn.jutaku": 0.8,
+      "regular.retain.kojo": 1.1,
+      "regular.churn.kojo": 0.9,
+      "reference.tier": 3,
+      "reference.distance": "mid",
+      "reference.attribute": "shoten",
+      "reference.rivals": [
+        "shinise"
+      ],
+      "reference.target": 44,
+      "reference.reputation": 3,
+      "reference.quality": 3,
+      "reference.price": 850,
+      "reference.parts": 1,
+      "reference.advertising": 0,
+      "decision.simpleSelection": "uniform_eligible",
+      "decision.skilledBot": "independent_training_max36",
+      "decision.entryTiming": "delay2_active_cap5",
+      "decision.regularClosed": "normal_churn_plus_switch1pct",
+      "decision.partSaving": "hours1_worker2",
+      "decision.referenceHours": "both",
+      "decision.calibrationEntry": "none",
+      "decision.rivalCut": "shinise_minus50_t24_to26",
+      "rival.entryBase": 0.018895227841567247,
+      "rival.entrySuccess": 0.09131203453056513,
+      "rival.sameTypeProbability": 0.5,
+      "rival.entryDelay": 2,
+      "rival.successTarget": 44,
+      "hours.kappa": 0.31519668316468596,
+      "hours.foodMedian": 0.0708,
+      "hours.nightFloor": 0.05,
+      "hours.lunchHours": 4,
+      "hours.nightHours": 5,
+      "fitout.zeroProbability": 0.1,
+      "reference.lunchWeightMode": "median_shoten_sites",
+      "hours.costMode": "design",
+      "rival.entryMode": "pin"
+    }
+  },
+  "assessmentScope": "版0.6の未定の参入場所を両端で挟む測定。目標との比較は仮判定で、設計の最終合否・採用候補ではない",
+  "adoptionEligible": false,
+  "designStatus": "設計書の式",
+  "parameterSchemaSha256": "e5fbcdc639b783573b79701a9d81efe49140db01f1989ed906150215ab1ba270",
+  "gameSha256": {
+    "js/core.js": "5a33863a63172fada6062cbfbccdf36bf72882128b7b15a26eb283acd6c31dfa",
+    "docs/analysis/stationmap-sim/tokyo23-v06.js": "3ff44d05f2ed0650727d21dfe17c206fda4d8653ab54fe2bbfb81d745cc18fb3",
+    "js/sim/coef.js": "6e9d82729711529e05809919318ebc57e72d18cfe09992445890f1a137d3cc59",
+    "js/sim/world.js": "97525e94f5aae2254ae4741aa65322de63508797e3ead363f3ec6be90a4b6807",
+    "js/sim/bowl.js": "a9555381295ba8b3356906a133bf92db0056799f9d7e875679e61de18dfdccf4",
+    "js/sim/rivals.js": "a69ef1c3ac03512e5fb0ccc9798456b81f62c66e5db14f0198408962683543d3",
+    "js/sim/decide.js": "f690087073dcefc4409c5033bf307d69ee8e78d5eb9424de818f6e0913d17813",
+    "js/sim/cards.js": "7f4b01420436b2b3eca57e8d66dd29475154a1b3251d5554b5ee99cec26954c3",
+    "js/sim/scope-map.js": "adb1d4fbd1bdb9c88c87f7cbf6a7ca15709e5cf6675dd259b15cafbee8ddbd8c",
+    "js/sim/ramen-y1.js": "118b8f433e54d2e18aa76437722f0696414501f1029a9f59048d316e8babe2b7",
+    "js/sim/ramen-y2-books.js": "06ee75d29bdf1c8b2c78cf5097cce139a93f8ed855c656df606ba350f1ac22ce",
+    "js/sim/ramen-y2.js": "7c1d3957a748e656ec7a120e4f1ec2941da6b0fedf6ea48264511287ee156a57",
+    "js/sim/cards-y2.js": "999899c70d4f6eba77eddff0fc30bfd6b5fb066e4998d0037aeb42f3dc0f7ec9",
+    "js/sim/ramen-y2-items-stock.js": "3c0ad987d0ec2f6187853ca5ed2e0c49d2b3e488cf67a2ec3fd366da1548a5aa",
+    "js/sim/ramen-y2-assets.js": "8bac73040d37adb330a415f863320e2d8520857e547e9926ed1222f4b052e6a4",
+    "js/sim/ramen-y2-equipment.js": "62bf807a1d1704014e4d29baf93163a81a8d104a3863b05ff9e7482ff90783d0",
+    "js/sim/ramen-y2-people.js": "f54d8e6823544eb1758eb2376d093143ea009e9c60919f558e4f0341519a075b",
+    "js/sim/ramen-y2-sale.js": "a4b31a30da5deff0035044eb9cb07ca2b58cdc1b367d293566c71c3ff330c563",
+    "js/sim/ramen-y2-close.js": "58a7a687518d67f502ea66dbe750bdcaa986a41add53a41ecf18e316856b8a57",
+    "js/sim/ramen.js": "6dfb13e23957efe6f4e52b2ff94c7a6b8e51d85c27aead3b6d6feb665f5edb1a",
+    "js/sim/ramen-view.js": "ee6ed33ed63df34693031d09e49e2946255c3eea7465c80ad9d80002159ec62c"
+  },
+  "toolSha256": "25a8f51682c51ccc996f6d378f54b4aff30d2ac61ae2200a5f9a25ef9fef3015",
+  "siteCount": 981,
+  "calibration": {
+    "Pref": 161.2291906028986,
+    "eps": 1.2287547887579713,
+    "referenceSampleCount": 274,
+    "referenceLunchWeight": 0.261334814974988,
+    "referenceLunchWeightRule": "median_shoten_sites",
+    "N": 3,
+    "median": 44.000005004603125,
+    "target": 44,
+    "scope": "基準候補地の同一初期組・天気と仕込みを含むN周の3年目中央値",
+    "entry": "none",
+    "opening": [
+      {
+        "type": "shinise",
+        "lunchOnly": false
+      }
+    ]
+  },
+  "pending": [],
+  "summaries": [
+    {
+      "mode": "期待値（週の揺れ・仕込み誤差なし、参入と営業時間くじはseed付き条件）",
+      "rows": [
+        {
+          "number": 1,
+          "label": "3年目の客数中央値",
+          "value": 45.3534248495568,
+          "status": "合格",
+          "target": "40〜52人/日",
+          "reason": null
+        },
+        {
+          "number": 2,
+          "label": "上限70人を越える候補地",
+          "value": 7.237512742099898,
+          "status": "報告のみ",
+          "target": "目標なし",
+          "reason": null
+        },
+        {
+          "number": 3,
+          "label": "利益上位50の多様さ",
+          "value": {
+            "tiers": 6,
+            "attributes": 5,
+            "localSites": 30
+          },
+          "status": "合格",
+          "target": "段4以上・属性4以上・住宅地か商店街8以上",
+          "reason": null
+        },
+        {
+          "number": 4,
+          "label": "候補地内のくじの分散比",
+          "value": 0.08638149135068722,
+          "status": "合格",
+          "target": "40%以下",
+          "reason": null
+        },
+        {
+          "number": 5,
+          "label": "各世界上位50の0軒",
+          "value": {
+            "min": 31,
+            "max": 34,
+            "mean": 32.5,
+            "worlds": 2,
+            "over15": 2
+          },
+          "status": "不合格",
+          "target": "すべての世界で15以下",
+          "reason": null
+        },
+        {
+          "number": 6,
+          "label": "単純規則3つ/上手な選択",
+          "value": {
+            "ratios": [
+              -0.517199942360995,
+              -0.09502010983392711,
+              0.02695100776241814
+            ],
+            "skilled": 11937314,
+            "worlds": [
+              {
+                "selectedSite": "s068-1",
+                "skilledProfit": 12951976,
+                "profits": [
+                  -6298111.5,
+                  -1092982.8331374852,
+                  145742.24390243902
+                ],
+                "candidateCounts": [
+                  102,
+                  851,
+                  246
+                ]
+              },
+              {
+                "selectedSite": "s075-1",
+                "skilledProfit": 10922652,
+                "profits": [
+                  -6049844.725490196,
+                  -1175586.9416666667,
+                  497703.0406504065
+                ],
+                "candidateCounts": [
+                  102,
+                  840,
+                  246
+                ]
+              }
+            ]
+          },
+          "status": "合格",
+          "target": "3規則すべて85%未満",
+          "reason": null
+        },
+        {
+          "number": 7,
+          "label": "昼だけ・夜だけが得な候補地",
+          "value": {
+            "office": 0.5471698113207547,
+            "hanka": 0.027777777777777776
+          },
+          "status": "不合格",
+          "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+          "reason": null
+        },
+        {
+          "number": 8,
+          "label": "上限越えで増員が得な候補地",
+          "value": {
+            "share": 0.5352112676056338,
+            "denominator": 71
+          },
+          "status": "合格",
+          "target": "上限越え候補地の30〜70%",
+          "reason": null
+        },
+        {
+          "number": 9,
+          "label": "住宅地/繁華街の客数成長比",
+          "value": {
+            "ratio": 1.2466454510543044,
+            "jutaku": 1.550834782966607,
+            "hanka": 1.244006290365112
+          },
+          "status": "不合格",
+          "target": "住宅地/繁華街の成長比1.3倍以上",
+          "reason": null
+        },
+        {
+          "number": 10,
+          "label": "ライバルの値下げで自店客数減",
+          "value": {
+            "additions": {
+              "cheap": -0.2540251163989873,
+              "kodawari": -0.08505361051873361,
+              "shinise": -0.19660193171075546
+            },
+            "additionPass": false,
+            "additionConditions": "基準に通しの1軒を追加し、参入なし・同じ乱数で3年目の需要を比較",
+            "before": 45.176070836489934,
+            "after": 42.5413204955498,
+            "year3Before": 45.724921309324984,
+            "year3After": 45.02284709135434,
+            "window": "t24〜26の3か月平均客数/日",
+            "intervention": "3年目の初月から3か月だけ基準の老舗を50円値下げ。4か月目に復元。ほかの乱数は対で固定"
+          },
+          "status": "合格",
+          "target": "ライバル値下げ時に客数減",
+          "reason": null
+        }
+      ],
+      "worldZeroCounts": [
+        34,
+        31
+      ],
+      "byTier": [
+        {
+          "tier": 1,
+          "count": 234,
+          "customers": 45.7512228097839,
+          "annualProfit": 674416,
+          "monthlyRent": 153314
+        },
+        {
+          "tier": 2,
+          "count": 244,
+          "customers": 46.25183414290399,
+          "annualProfit": 659030,
+          "monthlyRent": 164664
+        },
+        {
+          "tier": 3,
+          "count": 245,
+          "customers": 46.434194609633465,
+          "annualProfit": 311167,
+          "monthlyRent": 189056
+        },
+        {
+          "tier": 4,
+          "count": 156,
+          "customers": 43.378066645844214,
+          "annualProfit": -589341.5,
+          "monthlyRent": 237001.5
+        },
+        {
+          "tier": 5,
+          "count": 65,
+          "customers": 41.26360570335089,
+          "annualProfit": -1223516.5,
+          "monthlyRent": 258688
+        },
+        {
+          "tier": 6,
+          "count": 12,
+          "customers": 33.948919488303844,
+          "annualProfit": -4025598.5,
+          "monthlyRent": 396178.5
+        },
+        {
+          "tier": 8,
+          "count": 25,
+          "customers": 46.59526336581802,
+          "annualProfit": -2119518,
+          "monthlyRent": 359510
+        }
+      ],
+      "byAttribute": [
+        {
+          "type": "hanka",
+          "count": 36,
+          "customers": 48.67805558886849,
+          "annualProfit": -1035717,
+          "monthlyRent": 323679
+        },
+        {
+          "type": "jutaku",
+          "count": 330,
+          "customers": 43.208295298605066,
+          "annualProfit": 385547.5,
+          "monthlyRent": 150689
+        },
+        {
+          "type": "kojo",
+          "count": 25,
+          "customers": 28.781718601459666,
+          "annualProfit": -1702581.5,
+          "monthlyRent": 138222
+        },
+        {
+          "type": "office",
+          "count": 106,
+          "customers": 36.22425969847837,
+          "annualProfit": -2148305,
+          "monthlyRent": 247054
+        },
+        {
+          "type": "shogyo",
+          "count": 210,
+          "customers": 42.520247065078976,
+          "annualProfit": -1398704.5,
+          "monthlyRent": 264885
+        },
+        {
+          "type": "shoten",
+          "count": 274,
+          "customers": 50.278573470410215,
+          "annualProfit": 1038922,
+          "monthlyRent": 170286
+        }
+      ],
+      "spearman": -0.0411648037933763,
+      "lossFraction": 0.4418960244648318,
+      "rivalAddition": {
+        "cheap": -0.2540251163989873,
+        "kodawari": -0.08505361051873361,
+        "shinise": -0.19660193171075546
+      },
+      "rivalAdditionPass": false,
+      "admissible": true,
+      "allPass": false
+    },
+    {
+      "mode": "乱数込み（N=3周、各候補地×開店くじごと）",
+      "rows": [
+        {
+          "number": 1,
+          "label": "3年目の客数中央値",
+          "value": 44.14929838825511,
+          "status": "合格",
+          "target": "40〜52人/日",
+          "reason": null
+        },
+        {
+          "number": 2,
+          "label": "上限70人を越える候補地",
+          "value": 4.1794087665647295,
+          "status": "報告のみ",
+          "target": "目標なし",
+          "reason": null
+        },
+        {
+          "number": 3,
+          "label": "利益上位50の多様さ",
+          "value": {
+            "tiers": 6,
+            "attributes": 5,
+            "localSites": 34
+          },
+          "status": "合格",
+          "target": "段4以上・属性4以上・住宅地か商店街8以上",
+          "reason": null
+        },
+        {
+          "number": 4,
+          "label": "候補地内のくじの分散比",
+          "value": 0.12801523311628082,
+          "status": "合格",
+          "target": "40%以下",
+          "reason": null
+        },
+        {
+          "number": 5,
+          "label": "各世界上位50の0軒",
+          "value": {
+            "min": 31,
+            "max": 36,
+            "mean": 33.833333333333336,
+            "worlds": 6,
+            "over15": 6
+          },
+          "status": "不合格",
+          "target": "すべての世界で15以下",
+          "reason": null
+        },
+        {
+          "number": 6,
+          "label": "単純規則3つ/上手な選択",
+          "value": {
+            "ratios": [
+              -0.6835449934071876,
+              -0.18955188481362484,
+              -0.05374064874683235
+            ],
+            "skilled": 10073497.333333334,
+            "worlds": [
+              {
+                "selectedSite": "s068-1",
+                "skilledProfit": 9218741.333333334,
+                "profits": [
+                  -6976170.333333336,
+                  -1886468.8715236972,
+                  -722317.6517615189
+                ],
+                "candidateCounts": [
+                  102,
+                  851,
+                  246
+                ]
+              },
+              {
+                "selectedSite": "s075-1",
+                "skilledProfit": 10928253.333333334,
+                "profits": [
+                  -6795207.003267973,
+                  -1932431.9408730168,
+                  -360394.9119241193
+                ],
+                "candidateCounts": [
+                  102,
+                  840,
+                  246
+                ]
+              }
+            ]
+          },
+          "status": "合格",
+          "target": "3規則すべて85%未満",
+          "reason": null
+        },
+        {
+          "number": 7,
+          "label": "昼だけ・夜だけが得な候補地",
+          "value": {
+            "office": 0.5471698113207547,
+            "hanka": 0.027777777777777776
+          },
+          "status": "不合格",
+          "target": "オフィス昼だけ・繁華街夜だけが各20%以上",
+          "reason": null
+        },
+        {
+          "number": 8,
+          "label": "上限越えで増員が得な候補地",
+          "value": {
+            "share": 0.6585365853658537,
+            "denominator": 41
+          },
+          "status": "合格",
+          "target": "上限越え候補地の30〜70%",
+          "reason": null
+        },
+        {
+          "number": 9,
+          "label": "住宅地/繁華街の客数成長比",
+          "value": {
+            "ratio": 1.2703954941482505,
+            "jutaku": 1.6035955103213981,
+            "hanka": 1.2622805399640882
+          },
+          "status": "不合格",
+          "target": "住宅地/繁華街の成長比1.3倍以上",
+          "reason": null
+        },
+        {
+          "number": 10,
+          "label": "ライバルの値下げで自店客数減",
+          "value": {
+            "additions": {
+              "cheap": -0.26498091671717144,
+              "kodawari": -0.08804084613554375,
+              "shinise": -0.20239800507725755
+            },
+            "additionPass": false,
+            "additionConditions": "基準に通しの1軒を追加し、参入なし・同じ乱数で3年目の需要を比較",
+            "before": 43.53473284454915,
+            "after": 40.87146369103541,
+            "year3Before": 44.256590115616575,
+            "year3After": 43.54440565439745,
+            "window": "t24〜26の3か月平均客数/日",
+            "intervention": "3年目の初月から3か月だけ基準の老舗を50円値下げ。4か月目に復元。ほかの乱数は対で固定"
+          },
+          "status": "合格",
+          "target": "ライバル値下げ時に客数減",
+          "reason": null
+        }
+      ],
+      "worldZeroCounts": [
+        33,
+        36,
+        34,
+        34,
+        31,
+        35
+      ],
+      "byTier": [
+        {
+          "tier": 1,
+          "count": 234,
+          "customers": 45.09697578995623,
+          "annualProfit": 517214.1666666667,
+          "monthlyRent": 153314
+        },
+        {
+          "tier": 2,
+          "count": 244,
+          "customers": 45.29357813951046,
+          "annualProfit": 411446.8333333333,
+          "monthlyRent": 164664
+        },
+        {
+          "tier": 3,
+          "count": 245,
+          "customers": 45.2555583281189,
+          "annualProfit": 294619.1666666666,
+          "monthlyRent": 189056
+        },
+        {
+          "tier": 4,
+          "count": 156,
+          "customers": 42.09049260349937,
+          "annualProfit": -812117.6666666667,
+          "monthlyRent": 237001.5
+        },
+        {
+          "tier": 5,
+          "count": 65,
+          "customers": 38.410576916879975,
+          "annualProfit": -1269336.3333333333,
+          "monthlyRent": 258688
+        },
+        {
+          "tier": 6,
+          "count": 12,
+          "customers": 33.639207144000764,
+          "annualProfit": -4125470.333333333,
+          "monthlyRent": 396178.5
+        },
+        {
+          "tier": 8,
+          "count": 25,
+          "customers": 43.199924650867615,
+          "annualProfit": -2353262.166666667,
+          "monthlyRent": 359510
+        }
+      ],
+      "byAttribute": [
+        {
+          "type": "hanka",
+          "count": 36,
+          "customers": 47.708119320595905,
+          "annualProfit": -1136388.1666666667,
+          "monthlyRent": 323679
+        },
+        {
+          "type": "jutaku",
+          "count": 330,
+          "customers": 41.981495878694744,
+          "annualProfit": 146014,
+          "monthlyRent": 150689
+        },
+        {
+          "type": "kojo",
+          "count": 25,
+          "customers": 26.22509734512408,
+          "annualProfit": -2157157,
+          "monthlyRent": 138222
+        },
+        {
+          "type": "office",
+          "count": 106,
+          "customers": 35.08516787366348,
+          "annualProfit": -2218672.5,
+          "monthlyRent": 247054
+        },
+        {
+          "type": "shogyo",
+          "count": 210,
+          "customers": 41.93534142498274,
+          "annualProfit": -1316713.8333333335,
+          "monthlyRent": 264885
+        },
+        {
+          "type": "shoten",
+          "count": 274,
+          "customers": 49.0188425241962,
+          "annualProfit": 932920.8333333334,
+          "monthlyRent": 170286
+        }
+      ],
+      "spearman": -0.013233376477457266,
+      "lossFraction": 0.48267074413863403,
+      "rivalAddition": {
+        "cheap": -0.26498091671717144,
+        "kodawari": -0.08804084613554375,
+        "shinise": -0.20239800507725755
+      },
+      "rivalAdditionPass": false,
+      "admissible": true,
+      "allPass": false
+    }
+  ],
+  "limitations": [
+    "天気・仕込みの条件付き期待値とN周の乱数込みは別の推定量",
+    "保証金と造作は初期キャッシュ項目であり、営業利益で測定したことにはしない",
+    "ランダム札と町の行事は回帰台本と同様に無効。参入は別の独立した抽選"
+  ]
+}

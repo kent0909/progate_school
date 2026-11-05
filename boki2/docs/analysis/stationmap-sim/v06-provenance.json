@@ -1,0 +1,29 @@
+{
+  "originalSourceCommit": "4ee866d0fcd6b3185acd7c123be3fb400f09a583",
+  "v06SourceCommit": "e3c9662683289445a8a788627d7b5678ef6cd181",
+  "v06DataSourcePath": "boki2/js/data/tokyo23.js",
+  "v06DataSnapshot": "boki2/docs/analysis/stationmap-sim/tokyo23-v06.js",
+  "v06DataBlob": "9ca42219913900bf7340cf2cef0d0cd97489598d",
+  "gameFilesCompared": 54,
+  "differences": [
+    {
+      "path": "boki2/js/data/tokyo23.js",
+      "localBlob": "0213a13553bf1639479e25242bc748c74ad0d1d5",
+      "upstreamBlob": "9ca42219913900bf7340cf2cef0d0cd97489598d",
+      "same": false
+    }
+  ],
+  "gameCoreSameAsV06": true,
+  "nativeChecksReused": {
+    "sim-check": 0,
+    "ramen-300": 0,
+    "validate": 0,
+    "lexicon": 0,
+    "coverage": 0,
+    "law": 0
+  },
+  "loaderV04RegressionByteEqual": true,
+  "frozenStationToolSha256": "7a90ed016f2d235d938a0925dd4b2b6de60afd8b40d66e6be95ecda2c69d3568",
+  "endpointImplementationCommit": "f595bc0bbce22c706a075f3be938d54f615cfff1",
+  "endpointToolSha256": "25a8f51682c51ccc996f6d378f54b4aff30d2ac61ae2200a5f9a25ef9fef3015"
+}

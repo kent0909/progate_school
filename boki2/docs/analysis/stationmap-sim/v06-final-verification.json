@@ -1,0 +1,47 @@
+{
+  "verifiedResultsTree": "0034b3afa6ff1e048ebac520b29c084cdf3fbfdd",
+  "remoteArtifactFilesVerified": 412,
+  "blobMismatches": [],
+  "changedFilesBeforeThisRecord": 436,
+  "outsideAllowedPaths": [],
+  "latestTarget": {
+    "commit": "93cd3ec34e8656ec0c5f765fe9849b4efb3fb842",
+    "tokyo23Blob": "4a6cef0ba74e9247b6766d7d2177ae576f5737ad",
+    "measurementInputsExactlyEqualToFrozenV06": true,
+    "stationsCompared": 452,
+    "stationFields": [
+      "id",
+      "tier"
+    ],
+    "sitesCompared": 981,
+    "siteFields": [
+      "id",
+      "st",
+      "type",
+      "walk",
+      "price",
+      "day",
+      "food",
+      "quiet"
+    ],
+    "note": "路線表示services等の更新。使用する全入力をJSON配列で直接比較し完全一致。固定データの差替・再測定は不要。"
+  },
+  "N300Repeat": {
+    "station": {
+      "JSON": 0,
+      "CSV": 0
+    },
+    "pin": {
+      "JSON": 0,
+      "CSV": 0
+    }
+  },
+  "archiveReassembly": {
+    "searchStation": true,
+    "searchPin": true,
+    "followupPlan": true,
+    "stationCSV": true,
+    "pinCSV": true
+  },
+  "gameFilesUnchanged": true
+}

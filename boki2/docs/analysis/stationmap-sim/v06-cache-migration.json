@@ -1,0 +1,21 @@
+{
+  "description": "station旧固定版の経路を、stationで数値不変のモード追加後に再利用。新しい需要計算を実施したという記録ではない",
+  "sourceCommit": "25fb784cb3d666d59cf44b4559927048681f54c4",
+  "sourceToolSha256": "7a90ed016f2d235d938a0925dd4b2b6de60afd8b40d66e6be95ecda2c69d3568",
+  "destinationToolSha256": "25a8f51682c51ccc996f6d378f54b4aff30d2ac61ae2200a5f9a25ef9fef3015",
+  "sites": 981,
+  "K": 2,
+  "N": 300,
+  "seed": 0,
+  "conversion": [
+    "stationPinsをv06データから付加",
+    "stationのoffPinEntries=0を付加"
+  ],
+  "independentStationRecalculation": {
+    "sites": 12,
+    "K": 2,
+    "N": 3,
+    "allSummariesAndExistingCSVColumnsEqual": true
+  },
+  "sourceReportSha256": "46377dfb5f43c2d2c2e981d6996cf5dbeae4e4e3332e1a957b3ac8c631ab20f6"
+}
