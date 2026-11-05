@@ -29,12 +29,19 @@ const STALE = [
   { key: 'Q5 (c)', note: '損を重くする推奨は取り下げ', words: ['社長が2店を見る損を重くする（推奨）', '3択＋社長が見る損を重く'] },
   { key: '大胆の数', note: 'オーナーに見せる数は名のとおりに数え直した', words: ['大胆な形」36', '形」36', '大胆な形 36'] },
   { key: 'V17', note: '最小に戻した', words: ['版0.3 で「最小」から変えた'] },
+  // 版0.5 で足した（J-D v04 H6・H5、R-D v04 Q2・Q5c・Y7）。直していない段落に残る古い文の型：点検の前の一括確定の秒・版0.3 の推奨の印・合わない行番号・線を直す推奨・物差しの違う比べ・Ec を主にした数
+  { key: '一括確定の秒（L297 の型）', note: '一括確定は1回の押下15秒＋点検', words: ['1回押すだけ：15秒'] },
+  { key: '版0.3 の推奨の印（L307 の型）', note: '版0.5 の推奨は Q2 (g)', words: ['D 降ろす仕組みを強める（推奨）'] },
+  { key: 'close.js の行番号（L422 の型）', note: ':40・:51・:33・:56〜58', words: ['ramen-y2-close.js:197', '`:162`・`:190`'] },
+  { key: 'Q2 (f) を推奨', note: '推奨は (g) 線を守る', words: ['「1周15〜18時間」に直す案を推奨', 'b.5 を「1周15〜18時間」に直し'] },
+  { key: '物差しの違う比べ（Q5c の型）', note: '23/60 と e.4 site2 の幅は比べない', words: ['の幅に入る【確かめた：L754】', '「黒字に乗る 30〜50」の幅に入る'] },
+  { key: '1ターン5〜10分を守る（Y7 の型）', note: '海外を入れた数で書く', words: ['1ターン5〜10分（PEDAGOGY 1.1）は守る（10年目の1か月 8.85分）'] },
 ];
 // 古い語を許す所：17〜20章（変更の一覧・対応表）と、14章のうち古い版への依頼の対応表（### の見出しに「版0.x→0.y」で y≦3）
-const histOf = (lines) => { let top = '', sub = ''; return lines.map((l) => { if (/^## /.test(l)) { top = l; sub = ''; } else if (/^### /.test(l)) sub = l; return /^## (17|18|19|20)\./.test(top) || (/^## 14\./.test(top) && /版0\.[0-2]→0\.[1-3]/.test(sub)); }); };
+const histOf = (lines) => { let top = '', sub = ''; return lines.map((l) => { if (/^## /.test(l)) { top = l; sub = ''; } else if (/^### /.test(l)) sub = l; return /^## (17|18|19|20|21)\./.test(top) || (/^## 14\./.test(top) && /版0\.[0-3]→0\.[1-4]/.test(sub)); }); };
 const HIST = histOf(doc);
 let sec = '', errors = 0; const out = [];
-const quoted = (line, w) => { const i = line.indexOf(w); const a = line.lastIndexOf('「', i), b = line.lastIndexOf('」', i); return a >= 0 && a > b && /版0\.[0-3][^「]{0,12}$/.test(line.slice(Math.max(0, a - 14), a)); };
+const quoted = (line, w) => { const i = line.indexOf(w); const a = line.lastIndexOf('「', i), b = line.lastIndexOf('」', i); return a >= 0 && a > b && /版0\.[0-4][^「]{0,12}$/.test(line.slice(Math.max(0, a - 14), a)); };
 out.push('[1] 古い語（本文に残っていればエラー。18〜20章と「版0.x の「…」」の引用は除く）');
 const hits = {};
 doc.forEach((line, i) => {

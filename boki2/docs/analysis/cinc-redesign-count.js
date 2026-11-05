@@ -176,15 +176,15 @@ if (xr) {
   //   検査：形ではなく検査の約束
   const restIds = bold.filter((r) => !lsmall.includes(r) && !dbl.includes(r) && !reduced.includes(r)).map((r) => r[0]);
   const NAMED = {
-    延長: { P1: 'c.4 の1つの財布', L2大: 'e.2 hours・limited（新しいのは席数）', V7: 'e.3 supplier の3択', R9: 'DESIGN-RAMEN L1237「3期比較」を最初から（D17 の決着）', R12: 'L1275「予告したことは必ず起こす」（D18 は言葉の分けの決着）', L11大: 'b.7 付帯目標・i.6 ③「会社を続ける」に項目を足す' },
+    延長: { P1: 'c.4 の1つの財布', L2大: 'e.2 hours・limited（新しいのは席数）', V7: 'e.3 supplier の3択', R9: 'DESIGN-RAMEN L1237「3期比較」を最初から（D17 の決着）', R12: 'L1275「予告したことは必ず起こす」（D18 は言葉の分けの決着）', L11大: 'b.7 付帯目標・i.6 ③「会社を続ける」に項目を足す', R14: '版0.5：A の程度「入」。新しいのは2号店から全店を地図に描くことだけ（J-D v04）', R5: '版0.5：e.5 delegate L773 の理由の書き換えと L1237「全店の一覧と前月比は最初から」のまま（J-D v04）' },
     束ね: { P4: 'T3 の年表＝L3大・L12大 の並べ', P5: 'R13・L10大・L12大 の並べ', R1: '6層＝ほかの行の層の並べ' },
-    重なり: { L5大: 'R6 と同じ方針の札', V32: 'R6 の欄の1つ（任せる額）', E1: 'R8 と同じ規模の利益', V5: 'R4 と同じ店の断面の席', E3: 'V21 と同じ議案と否決' },
+    重なり: { V22: '版0.5：P3 の借りる手の枠（T8.2-2 の1つの枠の規則）と同じ（J-D v04）', L5大: 'R6 と同じ方針の札', V32: 'R6 の欄の1つ（任せる額）', E1: 'R8 と同じ規模の利益', V5: 'R4 と同じ店の断面の席', E3: 'V21 と同じ議案と否決' },
     検査: { E2: '支配的な手の検査の約束' },
   };
   const minus = Object.values(NAMED).flatMap((o) => Object.keys(o));
   const bad = minus.filter((x) => !restIds.includes(x)); if (bad.length) err(`名のとおりの数で引く ID が残りの中に無い：${bad.join(' ')}`);
   const named = restIds.filter((x) => !minus.includes(x));
-  out.push(`名のとおりの数（新しく書いた、別々の、小さくしていない大胆な形）：${named.length}（残り ${restIds.length} − ${Object.entries(NAMED).map(([k, o]) => `${k} ${Object.keys(o).length}（${Object.keys(o).join(' ')}）`).join(' − ')}）：${named.join(' ')}`);
+  out.push(`名のとおりの数（1つの分け方の数。新しく書いた、別々の、小さくしていない大胆な形）：${named.length}（残り ${restIds.length} − ${Object.entries(NAMED).map(([k, o]) => `${k} ${Object.keys(o).length}（${Object.keys(o).join(' ')}）`).join(' − ')}）：${named.join(' ')}`);
 }
 // ---- 7. （版0.3）判定と検査への対応表が、判定書の指摘とちょうどそろうか ----
 {
@@ -246,6 +246,20 @@ if (xr) {
     const j47 = (between(t, 'J47') || []).filter((r) => /弱い/.test(r[3])).map((r) => 'J47-' + r[0]);
     cmp('J-D v03（G と47行の弱い）', [...G, ...j47], between(s, 'JD3'));
   } else err('J-D v03 の判定書が読めない');
+  // ---- 9. （版0.5）v04 の判定（J-D H1〜H6 と J8 の直った以外）と検査（R-D の弱い・不当＝V-、抜き取りの直った以外＝S-）への対応表 ----
+  const rd4 = path.join(auditDir, 'cinc-redesign-reasoning-v04.md'), jd4 = path.join(auditDir, 'cinc-redesign-fact-v04.md');
+  if (fs.existsSync(rd4)) {
+    const t = fs.readFileSync(rd4, 'utf8'); const V = between(t, 'VERDICTS') || [], SM = between(t, 'SAMPLE') || [];
+    const want = [...V.filter((r) => r[4] && r[4] !== '妥当').map((r) => 'V-' + r[0]), ...SM.filter((r) => r[2] && r[2] !== '直った').map((r) => 'S-' + r[0])];
+    const mine = between(s, 'RD4'); cmp('R-D v04（弱い・不当＝V-、抜き取りの直った以外＝S-）', want, mine);
+    for (const r of mine || []) { if (r[0].startsWith('V-')) { const vv = V.find((x) => 'V-' + x[0] === r[0]); if (vv && vv[4] !== r[1]) err(`R-D v04 ${r[0]} の判定の写しが違う（${r[1]}／${vv[4]}）`); } if (r[0].startsWith('S-')) { const vv = SM.find((x) => 'S-' + x[0] === r[0]); if (vv && vv[2] !== r[1]) err(`R-D v04 ${r[0]} の結果の写しが違う（${r[1]}／${vv[2]}）`); } }
+  } else err('R-D v04 の検査書が読めない');
+  if (fs.existsSync(jd4)) {
+    const t = fs.readFileSync(jd4, 'utf8');
+    const Hs = t.split('\n').filter((l) => /^\| H\d+ \|/.test(l)).map((l) => cells(l)[0]);
+    const j8 = (between(t, 'J8') || []).filter((r) => r[3] && r[3] !== '直った').map((r) => 'J8-' + r[0]);
+    cmp('J-D v04（H と J8 の直った以外）', [...Hs, ...j8], between(s, 'JD4'));
+  } else err('J-D v04 の判定書が読めない');
 }
 out.push(`エラー ${errs}`);
 console.log(out.join('\n'));
