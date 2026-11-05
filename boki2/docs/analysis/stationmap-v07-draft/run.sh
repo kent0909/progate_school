@@ -34,3 +34,7 @@ E="$REF,$RET,\"entryDelay\":2"
 (cd $R && node all6r.js 6 "{\"tierSpan\":8,\"lamMul\":2,$E,\"noise\":true}" > "$O/E2n.txt")
 (cd $R && node all6r.js 6 "{\"tierSpan\":6,\"lamMul\":2,\"p1\":0.12,$E,\"noise\":true}" > "$O/E4n.txt")
 grep -h "^SUMMARY" "$O"/*.txt > "$O/summary.txt"
+
+# 5. 効きの向き（同じ値段・同じ一杯の店に型の札だけ変えて足す）
+(node dir7.js "{}" > "$O/dir7_v06.txt")
+(node dir7.js "{\"tierSpan\":6,\"lamMul\":2,\"p1\":0.12,$E}" > "$O/dir7_E4.txt")
