@@ -26,6 +26,6 @@ def one(f):
 cols = ['name', 'K', 'SO', 'c1', 'c2', 'c3', 'c4', 'c5', 'c5pre', 'pre0', 'lift', 'c6', 'bot', 'c7', 'c8', 'c9', 'loss', 'fail', 'tier', 'off', 'kojo', 'b0', 'b1', 'b2']
 print('| ' + ' | '.join(cols) + ' |'); print('|' + '---|' * len(cols))
 for d in sys.argv[1:]:
-  for f in sorted(glob.glob(os.path.join(d, '*.txt'))):
+  for f in sorted(g for g in glob.glob(os.path.join(d, '*.txt')) if not g.endswith('summary.txt')):
     r = one(f)
     if r: print('| ' + ' | '.join(str(r[c]) for c in cols) + ' |')
