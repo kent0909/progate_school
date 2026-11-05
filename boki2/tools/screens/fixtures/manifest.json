@@ -1,0 +1,42 @@
+[
+  {
+    "file": "adverse-desktop-start.json",
+    "sha256": "7f00b428398c4ce6e3610f1331837e9b0d422a941b40510233d9a4edccd2e109",
+    "seed": 0,
+    "mi": 51,
+    "ei": 0,
+    "worldT": 36
+  },
+  {
+    "file": "adverse-mobile-start.json",
+    "sha256": "92681ef17ef67c07c135727605581e458f5586781ed0852c313952aa40d08e78",
+    "seed": 0,
+    "mi": 41,
+    "ei": 0,
+    "worldT": 26
+  },
+  {
+    "file": "bankrupt-desktop.json",
+    "sha256": "3e38bbad07e1122e507867f905421ba3ac3c525dc1475dcd29c8059cda0c3b22",
+    "seed": 0,
+    "mi": 56,
+    "ei": 17,
+    "worldT": 39
+  },
+  {
+    "file": "bankrupt-mobile.json",
+    "sha256": "189a1f9939189e8713822c4d95af724a73a0be101b6bb23b321fed5b9d3ee785",
+    "seed": 0,
+    "mi": 56,
+    "ei": 17,
+    "worldT": 39
+  },
+  {
+    "file": "normal-ending.json",
+    "sha256": "ed4eeb6e6678ec86336723878f2dc806d831a068bbb87f7ce6a6387967d37377",
+    "seed": 0,
+    "mi": 57,
+    "ei": 0,
+    "worldT": 39
+  }
+]

@@ -1,0 +1,1642 @@
+{
+  "typography": {
+    "under14": 338,
+    "under12": 323,
+    "byViewport": {
+      "390-light": 117,
+      "1280-light": 115,
+      "390-dark": 106
+    }
+  },
+  "darkNotCaptured": [
+    "倒産"
+  ],
+  "missingLight": [],
+  "timeCoverage": [
+    {
+      "width": 390,
+      "kind": "上部の情報",
+      "year": 1,
+      "month": 4,
+      "ids": [
+        "S029"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "上部の情報",
+      "year": 1,
+      "month": 9,
+      "ids": [
+        "S071"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "上部の情報",
+      "year": 1,
+      "month": 3,
+      "ids": [
+        "S077"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "上部の情報",
+      "year": 2,
+      "month": 4,
+      "ids": [
+        "S094"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "月報",
+      "year": 1,
+      "month": 4,
+      "ids": [
+        "S056"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "月報",
+      "year": 1,
+      "month": 9,
+      "ids": [
+        "S075"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "月報",
+      "year": 1,
+      "month": 3,
+      "ids": [
+        "S081"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "月報",
+      "year": 2,
+      "month": 4,
+      "ids": [
+        "S101"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "タブ・town",
+      "year": 1,
+      "month": 4,
+      "ids": [
+        "S031"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "タブ・town",
+      "year": 1,
+      "month": 9,
+      "ids": [
+        "S072"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "タブ・town",
+      "year": 1,
+      "month": 3,
+      "ids": [
+        "S078"
+      ]
+    },
+    {
+      "width": 390,
+      "kind": "タブ・town",
+      "year": 2,
+      "month": 4,
+      "ids": [
+        "S095"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "上部の情報",
+      "year": 1,
+      "month": 4,
+      "ids": [
+        "S133"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "上部の情報",
+      "year": 1,
+      "month": 9,
+      "ids": [
+        "S175"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "上部の情報",
+      "year": 1,
+      "month": 3,
+      "ids": [
+        "S181"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "上部の情報",
+      "year": 2,
+      "month": 4,
+      "ids": [
+        "S198"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "月報",
+      "year": 1,
+      "month": 4,
+      "ids": [
+        "S161"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "月報",
+      "year": 1,
+      "month": 9,
+      "ids": [
+        "S179"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "月報",
+      "year": 1,
+      "month": 3,
+      "ids": [
+        "S185"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "月報",
+      "year": 2,
+      "month": 4,
+      "ids": [
+        "S206"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "タブ・town",
+      "year": 1,
+      "month": 4,
+      "ids": [
+        "S135"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "タブ・town",
+      "year": 1,
+      "month": 9,
+      "ids": [
+        "S176"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "タブ・town",
+      "year": 1,
+      "month": 3,
+      "ids": [
+        "S182"
+      ]
+    },
+    {
+      "width": 1280,
+      "kind": "タブ・town",
+      "year": 2,
+      "month": 4,
+      "ids": [
+        "S199"
+      ]
+    }
+  ],
+  "missingTimes": [],
+  "screens": 338,
+  "byKind": {
+    "ふりかえり": 9,
+    "ふりかえり・順位": 3,
+    "ゲームの設定": 3,
+    "タイトル・セーブ枠": 3,
+    "タブ・book": 3,
+    "タブ・co": 3,
+    "タブ・log": 3,
+    "タブ・money": 3,
+    "タブ・shop": 3,
+    "タブ・town": 12,
+    "プロローグ・note": 6,
+    "プロローグ・sort/tap": 3,
+    "プロローグ・会話と操作": 12,
+    "ライバル": 12,
+    "一杯の組み立て": 3,
+    "上部の情報": 12,
+    "予想": 3,
+    "会社の棚と元帳": 3,
+    "会話": 3,
+    "作戦の机": 9,
+    "作戦の机・すべての手": 3,
+    "倒産": 14,
+    "倒産探索・作戦": 2,
+    "分かれ道の図": 3,
+    "判断・choice/card": 3,
+    "判断・結果": 3,
+    "受験年度": 3,
+    "名前の札": 6,
+    "屋号・名前": 3,
+    "思い出す": 6,
+    "成長の記録": 3,
+    "書類・docScreen": 7,
+    "書類・答え合わせ／名前": 2,
+    "月はじめ・開店": 3,
+    "月報": 15,
+    "月末の予想・締め": 3,
+    "検定会場・calc": 3,
+    "検定会場・memo": 3,
+    "検定会場・メニュー": 3,
+    "検定会場・本試験形式": 3,
+    "検定会場・第2問": 3,
+    "検定会場・第3問": 3,
+    "検定会場・第4問": 3,
+    "検定会場・第5問": 3,
+    "決算の作業台": 6,
+    "決算・株主資本等変動計算書": 4,
+    "決算書": 3,
+    "決算書・精算表": 9,
+    "町の地区": 12,
+    "発見": 7,
+    "発見・sort/tap": 3,
+    "発見・書類と会話": 6,
+    "発見・理由": 6,
+    "空き物件": 3,
+    "結末": 3,
+    "結末・全体のふりかえり": 2,
+    "締め": 9,
+    "締めの帯": 15,
+    "練習室": 3,
+    "練習室・items": 3,
+    "練習室・miss": 3,
+    "練習室・speed": 3,
+    "練習室・参考書": 3,
+    "考え方の地図": 3,
+    "計算の作業台": 6,
+    "銀行の審査": 3,
+    "開始記入": 9
+  },
+  "photosBytes": 27647118,
+  "sheetsBytes": 4811062,
+  "totalImageBytes": 32458180,
+  "coverageByProfile": [
+    {
+      "label": "タイトル",
+      "profiles": {
+        "390-light": [
+          "S001"
+        ],
+        "1280-light": [
+          "S105"
+        ],
+        "390-dark": [
+          "S211"
+        ]
+      }
+    },
+    {
+      "label": "ゲームの設定",
+      "profiles": {
+        "390-light": [
+          "S002"
+        ],
+        "1280-light": [
+          "S106"
+        ],
+        "390-dark": [
+          "S212"
+        ]
+      }
+    },
+    {
+      "label": "セーブの枠",
+      "profiles": {
+        "390-light": [
+          "S001"
+        ],
+        "1280-light": [
+          "S105"
+        ],
+        "390-dark": [
+          "S211"
+        ]
+      }
+    },
+    {
+      "label": "屋号・名前",
+      "profiles": {
+        "390-light": [
+          "S003"
+        ],
+        "1280-light": [
+          "S107"
+        ],
+        "390-dark": [
+          "S213"
+        ]
+      }
+    },
+    {
+      "label": "受験年度",
+      "profiles": {
+        "390-light": [
+          "S004"
+        ],
+        "1280-light": [
+          "S108"
+        ],
+        "390-dark": [
+          "S214"
+        ]
+      }
+    },
+    {
+      "label": "プロローグの会話",
+      "profiles": {
+        "390-light": [
+          "S005",
+          "S007",
+          "S008",
+          "S010"
+        ],
+        "1280-light": [
+          "S109",
+          "S111",
+          "S112",
+          "S114"
+        ],
+        "390-dark": [
+          "S215",
+          "S217",
+          "S218",
+          "S220"
+        ]
+      }
+    },
+    {
+      "label": "note",
+      "profiles": {
+        "390-light": [
+          "S011",
+          "S012"
+        ],
+        "1280-light": [
+          "S115",
+          "S116"
+        ],
+        "390-dark": [
+          "S221",
+          "S222"
+        ]
+      }
+    },
+    {
+      "label": "sort/tap",
+      "profiles": {
+        "390-light": [
+          "S009",
+          "S055"
+        ],
+        "1280-light": [
+          "S113",
+          "S159"
+        ],
+        "390-dark": [
+          "S219",
+          "S265"
+        ]
+      }
+    },
+    {
+      "label": "月の書類（docScreen）",
+      "profiles": {
+        "390-light": [
+          "S021",
+          "S022"
+        ],
+        "1280-light": [
+          "S125",
+          "S126"
+        ],
+        "390-dark": [
+          "S231",
+          "S232",
+          "S338"
+        ]
+      }
+    },
+    {
+      "label": "choice",
+      "profiles": {
+        "390-light": [
+          "S025"
+        ],
+        "1280-light": [
+          "S129"
+        ],
+        "390-dark": [
+          "S235"
+        ]
+      }
+    },
+    {
+      "label": "card",
+      "profiles": {
+        "390-light": [
+          "S025"
+        ],
+        "1280-light": [
+          "S129"
+        ],
+        "390-dark": [
+          "S235"
+        ]
+      }
+    },
+    {
+      "label": "理由",
+      "profiles": {
+        "390-light": [
+          "S055",
+          "S313",
+          "S314"
+        ],
+        "1280-light": [
+          "S120",
+          "S159",
+          "S160"
+        ],
+        "390-dark": [
+          "S265",
+          "S316",
+          "S317"
+        ]
+      }
+    },
+    {
+      "label": "予想",
+      "profiles": {
+        "390-light": [
+          "S014",
+          "S058"
+        ],
+        "1280-light": [
+          "S118",
+          "S163"
+        ],
+        "390-dark": [
+          "S224",
+          "S268"
+        ]
+      }
+    },
+    {
+      "label": "名前の札",
+      "profiles": {
+        "390-light": [
+          "S019",
+          "S020"
+        ],
+        "1280-light": [
+          "S123",
+          "S124"
+        ],
+        "390-dark": [
+          "S229",
+          "S230"
+        ]
+      }
+    },
+    {
+      "label": "作戦の机（値段・人・看板・問屋）",
+      "profiles": {
+        "390-light": [
+          "S025",
+          "S028",
+          "S067",
+          "S068"
+        ],
+        "1280-light": [
+          "S129",
+          "S132",
+          "S171",
+          "S172"
+        ],
+        "390-dark": [
+          "S235",
+          "S238",
+          "S277",
+          "S278"
+        ]
+      }
+    },
+    {
+      "label": "一杯の組み立て",
+      "profiles": {
+        "390-light": [
+          "S027"
+        ],
+        "1280-light": [
+          "S131"
+        ],
+        "390-dark": [
+          "S237"
+        ]
+      }
+    },
+    {
+      "label": "開店",
+      "profiles": {
+        "390-light": [
+          "S006",
+          "S018"
+        ],
+        "1280-light": [
+          "S110",
+          "S122"
+        ],
+        "390-dark": [
+          "S216",
+          "S228"
+        ]
+      }
+    },
+    {
+      "label": "月の途中の出来事",
+      "profiles": {
+        "390-light": [
+          "S025"
+        ],
+        "1280-light": [
+          "S129"
+        ],
+        "390-dark": [
+          "S235"
+        ]
+      }
+    },
+    {
+      "label": "月報",
+      "profiles": {
+        "390-light": [
+          "S056",
+          "S062",
+          "S075",
+          "S081",
+          "S101"
+        ],
+        "1280-light": [
+          "S161",
+          "S166",
+          "S179",
+          "S185",
+          "S206"
+        ],
+        "390-dark": [
+          "S266",
+          "S272",
+          "S285",
+          "S291",
+          "S311"
+        ]
+      }
+    },
+    {
+      "label": "締め",
+      "profiles": {
+        "390-light": [
+          "S057",
+          "S058",
+          "S063",
+          "S076",
+          "S082",
+          "S090",
+          "S091",
+          "S092",
+          "S102"
+        ],
+        "1280-light": [
+          "S162",
+          "S163",
+          "S167",
+          "S180",
+          "S186",
+          "S194",
+          "S195",
+          "S196",
+          "S207"
+        ],
+        "390-dark": [
+          "S267",
+          "S268",
+          "S273",
+          "S286",
+          "S292",
+          "S300",
+          "S301",
+          "S302",
+          "S312"
+        ]
+      }
+    },
+    {
+      "label": "開始記入",
+      "profiles": {
+        "390-light": [
+          "S098",
+          "S099",
+          "S100"
+        ],
+        "1280-light": [
+          "S202",
+          "S203",
+          "S204"
+        ],
+        "390-dark": [
+          "S308",
+          "S309",
+          "S310"
+        ]
+      }
+    },
+    {
+      "label": "決算",
+      "profiles": {
+        "390-light": [
+          "S085",
+          "S086",
+          "S087",
+          "S088"
+        ],
+        "1280-light": [
+          "S189",
+          "S190",
+          "S191",
+          "S192"
+        ],
+        "390-dark": [
+          "S295",
+          "S296",
+          "S297",
+          "S298"
+        ]
+      }
+    },
+    {
+      "label": "ふりかえり",
+      "profiles": {
+        "390-light": [
+          "S064",
+          "S065",
+          "S069",
+          "S070"
+        ],
+        "1280-light": [
+          "S168",
+          "S169",
+          "S173",
+          "S174"
+        ],
+        "390-dark": [
+          "S274",
+          "S275",
+          "S279",
+          "S280"
+        ]
+      }
+    },
+    {
+      "label": "上部の情報",
+      "profiles": {
+        "390-light": [
+          "S029",
+          "S071",
+          "S077",
+          "S094"
+        ],
+        "1280-light": [
+          "S133",
+          "S175",
+          "S181",
+          "S198"
+        ],
+        "390-dark": [
+          "S239",
+          "S281",
+          "S287",
+          "S304"
+        ]
+      }
+    },
+    {
+      "label": "お金",
+      "profiles": {
+        "390-light": [
+          "S030"
+        ],
+        "1280-light": [
+          "S134"
+        ],
+        "390-dark": [
+          "S240"
+        ]
+      }
+    },
+    {
+      "label": "町",
+      "profiles": {
+        "390-light": [
+          "S031",
+          "S072",
+          "S078",
+          "S095"
+        ],
+        "1280-light": [
+          "S135",
+          "S176",
+          "S182",
+          "S199"
+        ],
+        "390-dark": [
+          "S241",
+          "S282",
+          "S288",
+          "S305"
+        ]
+      }
+    },
+    {
+      "label": "店",
+      "profiles": {
+        "390-light": [
+          "S035"
+        ],
+        "1280-light": [
+          "S139"
+        ],
+        "390-dark": [
+          "S245"
+        ]
+      }
+    },
+    {
+      "label": "帳簿",
+      "profiles": {
+        "390-light": [
+          "S036"
+        ],
+        "1280-light": [
+          "S140"
+        ],
+        "390-dark": [
+          "S246"
+        ]
+      }
+    },
+    {
+      "label": "日誌",
+      "profiles": {
+        "390-light": [
+          "S037"
+        ],
+        "1280-light": [
+          "S141"
+        ],
+        "390-dark": [
+          "S247"
+        ]
+      }
+    },
+    {
+      "label": "ほか",
+      "profiles": {
+        "390-light": [
+          "S038"
+        ],
+        "1280-light": [
+          "S142"
+        ],
+        "390-dark": [
+          "S248"
+        ]
+      }
+    },
+    {
+      "label": "町の地図",
+      "profiles": {
+        "390-light": [
+          "S031",
+          "S072",
+          "S078",
+          "S095"
+        ],
+        "1280-light": [
+          "S135",
+          "S176",
+          "S182",
+          "S199"
+        ],
+        "390-dark": [
+          "S241",
+          "S282",
+          "S288",
+          "S305"
+        ]
+      }
+    },
+    {
+      "label": "ライバル",
+      "profiles": {
+        "390-light": [
+          "S032",
+          "S073",
+          "S079",
+          "S096"
+        ],
+        "1280-light": [
+          "S136",
+          "S177",
+          "S183",
+          "S200"
+        ],
+        "390-dark": [
+          "S242",
+          "S283",
+          "S289",
+          "S306"
+        ]
+      }
+    },
+    {
+      "label": "順位",
+      "profiles": {
+        "390-light": [
+          "S070"
+        ],
+        "1280-light": [
+          "S174"
+        ],
+        "390-dark": [
+          "S280"
+        ]
+      }
+    },
+    {
+      "label": "練習室",
+      "profiles": {
+        "390-light": [
+          "S042"
+        ],
+        "1280-light": [
+          "S146"
+        ],
+        "390-dark": [
+          "S252"
+        ]
+      }
+    },
+    {
+      "label": "検定会場",
+      "profiles": {
+        "390-light": [
+          "S048"
+        ],
+        "1280-light": [
+          "S152"
+        ],
+        "390-dark": [
+          "S258"
+        ]
+      }
+    },
+    {
+      "label": "成長の記録",
+      "profiles": {
+        "390-light": [
+          "S040"
+        ],
+        "1280-light": [
+          "S144"
+        ],
+        "390-dark": [
+          "S250"
+        ]
+      }
+    },
+    {
+      "label": "倒産",
+      "profiles": {
+        "390-light": [
+          "S321",
+          "S322",
+          "S323",
+          "S329",
+          "S330",
+          "S331",
+          "S332"
+        ],
+        "1280-light": [
+          "S326",
+          "S327",
+          "S328",
+          "S333",
+          "S334",
+          "S335",
+          "S336"
+        ],
+        "390-dark": []
+      }
+    },
+    {
+      "label": "結末",
+      "profiles": {
+        "390-light": [
+          "S093",
+          "S337"
+        ],
+        "1280-light": [
+          "S197",
+          "S210"
+        ],
+        "390-dark": [
+          "S303"
+        ]
+      }
+    }
+  ],
+  "limitBytes": 40000000,
+  "darkKinds": 62,
+  "missing": [],
+  "sheets": [
+    {
+      "file": "sheets/sheet-01.jpg",
+      "ids": [
+        "S002",
+        "S212",
+        "S001",
+        "S211",
+        "S036",
+        "S246",
+        "S038",
+        "S248",
+        "S037",
+        "S247",
+        "S030",
+        "S240"
+      ]
+    },
+    {
+      "file": "sheets/sheet-02.jpg",
+      "ids": [
+        "S035",
+        "S245",
+        "S031",
+        "S072",
+        "S078",
+        "S095",
+        "S241",
+        "S282",
+        "S288",
+        "S305",
+        "S064",
+        "S065"
+      ]
+    },
+    {
+      "file": "sheets/sheet-03.jpg",
+      "ids": [
+        "S069",
+        "S274",
+        "S275",
+        "S279",
+        "S070",
+        "S280",
+        "S011",
+        "S012",
+        "S221",
+        "S222",
+        "S009",
+        "S219"
+      ]
+    },
+    {
+      "file": "sheets/sheet-04.jpg",
+      "ids": [
+        "S005",
+        "S007",
+        "S008",
+        "S010",
+        "S215",
+        "S217",
+        "S218",
+        "S220",
+        "S032",
+        "S073",
+        "S079",
+        "S096"
+      ]
+    },
+    {
+      "file": "sheets/sheet-05.jpg",
+      "ids": [
+        "S242",
+        "S283",
+        "S289",
+        "S306",
+        "S027",
+        "S237",
+        "S003",
+        "S213",
+        "S041",
+        "S251",
+        "S018",
+        "S228"
+      ]
+    },
+    {
+      "file": "sheets/sheet-06.jpg",
+      "ids": [
+        "S098",
+        "S099",
+        "S100",
+        "S308",
+        "S309",
+        "S310",
+        "S089",
+        "S299",
+        "S033",
+        "S243",
+        "S060",
+        "S061"
+      ]
+    },
+    {
+      "file": "sheets/sheet-07.jpg",
+      "ids": [
+        "S270",
+        "S271",
+        "S103",
+        "S104",
+        "S083",
+        "S084",
+        "S293",
+        "S294",
+        "S088",
+        "S298",
+        "S085",
+        "S086"
+      ]
+    },
+    {
+      "file": "sheets/sheet-08.jpg",
+      "ids": [
+        "S087",
+        "S295",
+        "S296",
+        "S297",
+        "S093",
+        "S303",
+        "S337",
+        "S006",
+        "S216",
+        "S056",
+        "S062",
+        "S075"
+      ]
+    },
+    {
+      "file": "sheets/sheet-09.jpg",
+      "ids": [
+        "S081",
+        "S101",
+        "S266",
+        "S272",
+        "S285",
+        "S291",
+        "S311",
+        "S058",
+        "S268",
+        "S054",
+        "S264",
+        "S053"
+      ]
+    },
+    {
+      "file": "sheets/sheet-10.jpg",
+      "ids": [
+        "S263",
+        "S047",
+        "S257",
+        "S049",
+        "S259",
+        "S050",
+        "S260",
+        "S051",
+        "S261",
+        "S052",
+        "S262",
+        "S048"
+      ]
+    },
+    {
+      "file": "sheets/sheet-11.jpg",
+      "ids": [
+        "S258",
+        "S039",
+        "S249",
+        "S028",
+        "S067",
+        "S068",
+        "S238",
+        "S277",
+        "S278",
+        "S315",
+        "S318",
+        "S023"
+      ]
+    },
+    {
+      "file": "sheets/sheet-12.jpg",
+      "ids": [
+        "S024",
+        "S233",
+        "S234",
+        "S004",
+        "S214",
+        "S021",
+        "S022",
+        "S231",
+        "S232",
+        "S338",
+        "S319",
+        "S029"
+      ]
+    },
+    {
+      "file": "sheets/sheet-13.jpg",
+      "ids": [
+        "S071",
+        "S077",
+        "S094",
+        "S239",
+        "S281",
+        "S287",
+        "S304",
+        "S040",
+        "S250",
+        "S034",
+        "S074",
+        "S080"
+      ]
+    },
+    {
+      "file": "sheets/sheet-14.jpg",
+      "ids": [
+        "S097",
+        "S244",
+        "S284",
+        "S290",
+        "S307",
+        "S090",
+        "S091",
+        "S092",
+        "S300",
+        "S301",
+        "S302",
+        "S057"
+      ]
+    },
+    {
+      "file": "sheets/sheet-15.jpg",
+      "ids": [
+        "S063",
+        "S076",
+        "S082",
+        "S102",
+        "S267",
+        "S273",
+        "S286",
+        "S292",
+        "S312",
+        "S321",
+        "S322",
+        "S323"
+      ]
+    },
+    {
+      "file": "sheets/sheet-16.jpg",
+      "ids": [
+        "S329",
+        "S330",
+        "S331",
+        "S332",
+        "S320",
+        "S016",
+        "S017",
+        "S059",
+        "S226",
+        "S227",
+        "S269",
+        "S055"
+      ]
+    },
+    {
+      "file": "sheets/sheet-17.jpg",
+      "ids": [
+        "S265",
+        "S013",
+        "S015",
+        "S223",
+        "S225",
+        "S313",
+        "S314",
+        "S316",
+        "S317",
+        "S025",
+        "S235",
+        "S026"
+      ]
+    },
+    {
+      "file": "sheets/sheet-18.jpg",
+      "ids": [
+        "S236",
+        "S066",
+        "S276",
+        "S019",
+        "S020",
+        "S229",
+        "S230",
+        "S014",
+        "S224",
+        "S042",
+        "S252",
+        "S045"
+      ]
+    },
+    {
+      "file": "sheets/sheet-19.jpg",
+      "ids": [
+        "S255",
+        "S043",
+        "S253",
+        "S044",
+        "S254",
+        "S046",
+        "S256"
+      ]
+    }
+  ],
+  "journeys": [
+    {
+      "profile": "mobile-light",
+      "style": "skilled",
+      "seed": 0,
+      "result": {
+        "interrupted": "環境接続の切替で撮影プロセスが停止",
+        "lastLoggedStep": 1300
+      },
+      "final": {
+        "label": "3年目 3月",
+        "mi": null,
+        "ei": null
+      }
+    },
+    {
+      "profile": "desktop-light",
+      "style": "skilled",
+      "seed": 0,
+      "result": {
+        "steps": 1446,
+        "end": true,
+        "overflow": []
+      },
+      "final": {
+        "mi": 57,
+        "ei": 0,
+        "year": 1,
+        "month": null,
+        "label": "",
+        "phase": "event",
+        "type": "none",
+        "event": "",
+        "worldT": 39,
+        "bankrupt": false,
+        "markers": "data-again",
+        "classes": "s-main r-main|s-card",
+        "note": false,
+        "sort": false,
+        "doc": false,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      }
+    },
+    {
+      "profile": "mobile-dark",
+      "result": {
+        "stuck": true
+      },
+      "final": {
+        "mi": 31,
+        "ei": 1,
+        "year": 2,
+        "month": 11,
+        "label": "2年目 11月",
+        "phase": "event",
+        "type": "doc",
+        "event": "sale19",
+        "worldT": 20,
+        "bankrupt": false,
+        "markers": "data-ok",
+        "classes": "s-main r-main|s-card s-docscreen|map|share",
+        "note": false,
+        "sort": false,
+        "doc": true,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      },
+      "style": "skilled"
+    },
+    {
+      "profile": "mobile-light",
+      "style": "skilled",
+      "seed": 0,
+      "result": {
+        "steps": 623,
+        "stopped": true,
+        "overflow": []
+      },
+      "final": {
+        "mi": 24,
+        "ei": 3,
+        "year": 2,
+        "month": 4,
+        "label": "2年目 4月",
+        "phase": "event",
+        "type": "doc",
+        "event": "y2-reverse",
+        "worldT": 13,
+        "bankrupt": false,
+        "markers": "data-ok",
+        "classes": "s-main r-main|s-card s-docscreen|map|share",
+        "note": false,
+        "sort": false,
+        "doc": true,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      }
+    },
+    {
+      "profile": "mobile-dark",
+      "style": "skilled",
+      "seed": 0,
+      "result": {
+        "steps": 623,
+        "stopped": true,
+        "overflow": []
+      },
+      "final": {
+        "mi": 24,
+        "ei": 3,
+        "year": 2,
+        "month": 4,
+        "label": "2年目 4月",
+        "phase": "event",
+        "type": "doc",
+        "event": "y2-reverse",
+        "worldT": 13,
+        "bankrupt": false,
+        "markers": "data-ok",
+        "classes": "s-main r-main|s-card s-docscreen|map|share",
+        "note": false,
+        "sort": false,
+        "doc": true,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      }
+    },
+    {
+      "profile": "mobile-light",
+      "style": "idle",
+      "adverseAt": 36,
+      "seed": 0,
+      "result": {
+        "steps": 391,
+        "end": true,
+        "overflow": []
+      },
+      "final": {
+        "mi": 56,
+        "ei": 17,
+        "year": 4,
+        "month": 6,
+        "label": "4年目 6月",
+        "phase": "event",
+        "type": "ending",
+        "event": "r-final",
+        "worldT": 39,
+        "bankrupt": true,
+        "markers": "data-chk,data-restart",
+        "classes": "s-main r-main|s-card s-ending heavy|map|share",
+        "note": false,
+        "sort": false,
+        "doc": false,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      }
+    },
+    {
+      "profile": "desktop-light",
+      "style": "idle",
+      "adverseAt": 36,
+      "seed": 0,
+      "result": {
+        "steps": 141,
+        "end": true,
+        "overflow": []
+      },
+      "final": {
+        "mi": 56,
+        "ei": 17,
+        "year": 4,
+        "month": 6,
+        "label": "4年目 6月",
+        "phase": "event",
+        "type": "ending",
+        "event": "r-final",
+        "worldT": 39,
+        "bankrupt": true,
+        "markers": "data-chk,data-restart",
+        "classes": "s-main r-main|s-card s-ending heavy",
+        "note": false,
+        "sort": false,
+        "doc": false,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      }
+    },
+    {
+      "profile": "mobile-light",
+      "style": "idle",
+      "adverseAt": null,
+      "seed": 0,
+      "resume": {
+        "method": "画面のファイル入力",
+        "file": "checkpoint.json",
+        "sha256": "189a1f9939189e8713822c4d95af724a73a0be101b6bb23b321fed5b9d3ee785"
+      },
+      "result": {
+        "steps": 7,
+        "end": true,
+        "overflow": []
+      },
+      "final": {
+        "mi": 56,
+        "ei": 17,
+        "year": 4,
+        "month": 6,
+        "label": "4年目 6月",
+        "phase": "event",
+        "type": "ending",
+        "event": "r-final",
+        "worldT": 39,
+        "bankrupt": true,
+        "markers": "data-chk,data-restart",
+        "classes": "s-main r-main|s-card s-ending heavy|map|share",
+        "note": false,
+        "sort": false,
+        "doc": false,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      }
+    },
+    {
+      "profile": "desktop-light",
+      "style": "idle",
+      "adverseAt": null,
+      "seed": 0,
+      "resume": {
+        "method": "画面のファイル入力",
+        "file": "checkpoint.json",
+        "sha256": "3e38bbad07e1122e507867f905421ba3ac3c525dc1475dcd29c8059cda0c3b22"
+      },
+      "result": {
+        "steps": 7,
+        "end": true,
+        "overflow": []
+      },
+      "final": {
+        "mi": 56,
+        "ei": 17,
+        "year": 4,
+        "month": 6,
+        "label": "4年目 6月",
+        "phase": "event",
+        "type": "ending",
+        "event": "r-final",
+        "worldT": 39,
+        "bankrupt": true,
+        "markers": "data-chk,data-restart",
+        "classes": "s-main r-main|s-card s-ending heavy",
+        "note": false,
+        "sort": false,
+        "doc": false,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      }
+    },
+    {
+      "profile": "mobile-light",
+      "style": "skilled",
+      "adverseAt": null,
+      "seed": 0,
+      "resume": {
+        "method": "画面のファイル入力",
+        "file": "normal-ending-save.json",
+        "sha256": "ed4eeb6e6678ec86336723878f2dc806d831a068bbb87f7ce6a6387967d37377"
+      },
+      "result": {
+        "steps": 1,
+        "end": true,
+        "overflow": []
+      },
+      "final": {
+        "mi": 57,
+        "ei": 0,
+        "year": 1,
+        "month": null,
+        "label": "",
+        "phase": "event",
+        "type": "none",
+        "event": "",
+        "worldT": 39,
+        "bankrupt": false,
+        "markers": "data-again",
+        "classes": "s-main r-main|s-card",
+        "note": false,
+        "sort": false,
+        "doc": false,
+        "title": false,
+        "report": false,
+        "band": false,
+        "plan": false,
+        "bowl": false
+      }
+    }
+  ],
+  "errors": [
+    {
+      "profile": "mobile-dark",
+      "error": "page.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[data-s=\"cr\"][data-i=\"1\"]')\u001b[22m\n\n    at autoRun (/workspace/progate_school/boki2/tools/playtest/auto.js:227:19)\n    at async run (/workspace/progate_school/boki2/tools/screens/inventory.js:149:16)"
+    }
+  ]
+}

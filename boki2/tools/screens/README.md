@@ -1,0 +1,36 @@
+# 現行画面の写真集と目録
+
+依頼書: `boki2/docs/CODEX-TASK-uiref-screens.md`。
+取得元: `claude/keen-hawking-sfeg6f` / `37135cbc99cd4daa78913b9ee59bf1bdd42ea7ce`。
+
+ゲームのコードと既存の playtest ツールを変更しない。
+変更先は `boki2/docs/screens/` と `boki2/tools/screens/` のみ。
+
+## 再生成
+
+撮影と一覧生成にはNode.js、Playwright、Chromiumを使う。検証の `verify.js` はNode.jsの標準部品と同梱のJPEG見出し読取だけで動く。既存ツールと同様、Playwrightは `PIYO_PLAYWRIGHT`、Chromiumは `PIYO_CHROMIUM` で場所を指定できる。Sharpは不要。部品の出所とツール別の依存は [DEPENDENCIES.md](DEPENDENCIES.md) を参照。
+
+```sh
+PIYO_CHROMIUM=/usr/bin/chromium node boki2/tools/screens/inventory.js
+node boki2/tools/screens/catalog.js
+node boki2/tools/screens/verify.js
+```
+
+`inventory.js` が、固定seed=0・skilled・strategy=1で既存 `../playtest/auto.js` を呼ぶ。
+スマホlight、PC light、スマホdarkの後、倒産の探索としてスマホlightとPC lightをidleで進める（計5周）。各周は新しいコンテキスト。idleは開店で駅前・パート2人・大きい看板・高い問屋を選び、その後は前月のまま進め、4年目4月からは毎月パート+1人・値段-100円・仕込み多め・高い問屋・チラシ10万円・クーポン・衛生の手なしを、選べる範囲で押して確定する（倒産画面の探索）。
+localhostのHTTPサーバー以外のブラウザ要求を全て拒否し、外部フォントも取得しない。
+
+開始前だけ既存 `initialSave(0)` のseedのみの保存を置く。開始後の状態への直接書き込みや場面の飛ばしは行わない。
+右のタブはPCで常設、スマホでは上部のボタンから開く。SVGの地区は、物件に重ならない地区名の文字をクリックする。
+
+- `inventory.json`: 画面ごとの測定値・全文・画像SHA256・画面位置、操作と到達地点、ページエラー。
+- `verify.js`: 実画像の形式・幅・SHA・容量・行数を照合する。14px未満の数はJSONとINDEXの「最小px」列で別々に数える。
+- `compare.js`: 同一設定の2つのinventory.jsonを引数に渡すと、目録の列・本文・並びの差を検査する。写真自体の差は別に数える。
+- `merge.js`: 分けて撮影した場合、撮影フォルダを引数の順に統合する。画像のSHA256を検査する。
+- `catalog.js`: 最初の出現と指定4時点を残し、連番を付け直し、INDEX.md・summary.json・一覧画像を生成する。
+- スクリーンショットはJPEG品質55・全縦。一覧は12枚ずつ、幅1176px、品質55。
+- 一時的な記帳通知が自然に消えてから測定し、ゲームのDOMを撮影のために書き換えない。
+- 文字数はbody.innerText.length。文字サイズは表示Textノードと入力欄の計算値。スクロールで読める範囲を含み、disabledの操作部品は数えない。
+- `SCREEN_PROFILE` で `mobile-light` / `desktop-light` / `mobile-dark` の1本だけにできる。`SCREEN_OUTPUT` で作業用の出力先を指定できる。通常の再生成には不要。
+
+`catalog.js` は画像合計40,000,000 bytes以下・スマホdark10種類以上を機械で検査し、満たさなければ終了コード1にする。種類・時期別の不足と進行停止は隠さず目録へ記録する。再撮影前後は同じゲームソース・ブラウザ・フォントを使う。画像の最小文字やはみ出しの測定だけでは、読みやすさや重なりを保証しない。

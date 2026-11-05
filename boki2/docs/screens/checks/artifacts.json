@@ -1,0 +1,22 @@
+{
+  "screens": 338,
+  "indexRows": 338,
+  "byViewport": {
+    "390-light": 117,
+    "1280-light": 115,
+    "390-dark": 106
+  },
+  "photosBytes": 27647118,
+  "sheetsBytes": 4811062,
+  "totalImageBytes": 32458180,
+  "darkKinds": 62,
+  "missing": [],
+  "missingTimes": [],
+  "typography": {
+    "under14": 338,
+    "markdownUnder14": 338,
+    "under12": 323,
+    "markdownColumn": 11
+  },
+  "errors": []
+}

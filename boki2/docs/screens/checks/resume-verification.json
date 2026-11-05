@@ -1,0 +1,10 @@
+{
+  "method": "画面の[data-import]へゲーム標準の保存ファイルを選択",
+  "checkpointSha": "0fa1708bcf4a4d475ce8c59c9bc29eb2204e96ea2fa138b8187a40a1b4dfd274",
+  "mi": 19,
+  "ei": 0,
+  "seed": 0,
+  "ledgerEntries": 115,
+  "truthEntries": 115,
+  "mismatches": []
+}
