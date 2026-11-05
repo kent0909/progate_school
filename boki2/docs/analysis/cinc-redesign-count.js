@@ -7,6 +7,7 @@
 //     そろい、中身があるか。5列の表の行の数と、悪い面の欄が空の行
 //  3. オーナーへの問いの数と、各問いに選択肢・推奨・推奨の理由・失うもの
 //  4. PEDAGOGY との突き合わせの表の行、体験の検討の索引の行（5列の表の行の合計と同じか）
+//  5. （版0.2）読んだ範囲の表が DESIGN-RAMEN・DESIGN-UI-IDEAL の全行を隙間なく覆うか、ぶつかりの表と X の突き合わせの表がそろうか
 // 使い方：node cinc-redesign-count.js [設計書のパス]
 'use strict';
 const fs = require('fs');
@@ -111,6 +112,52 @@ const tableAfter = (re) => { const st = lines.findIndex((l) => re.test(l)); if (
 const ped = tableAfter(/^## .*PEDAGOGY との突き合わせ/); out.push(`PEDAGOGY との突き合わせの表：${ped ? ped.length : 0} 行`);
 const idx = tableAfter(/^## .*体験の検討/); out.push(`体験の検討の索引：${idx ? idx.length : 0} 行（5列の表の行の合計 ${fiveRowsTotal}）`);
 if (!idx || idx.length !== fiveRowsTotal) err('体験の検討の索引の行が5列の表の行の合計と合わない');
+// ---- 5. 読んだ範囲とぶつかり（版0.2）----
+//  ・<!-- READ --> の表：文書ごとに行の範囲が 1 から文書の最終行までを隙間なく・重ならずに覆うか。ぶつかりの欄が「あり」「なし」か。
+//    「あり」の行は K の番号を1つ以上持ち、その K が <!-- CONFLICT --> の表にあるか。
+//  ・<!-- CONFLICT --> の表：K が連番か、どの K も READ の「あり」の行から引かれているか、決着と反映先が空でないか、
+//    反映先に書いた Tn.k の欄が本文の見出しにあるか。
+//  ・<!-- XROWS --> の表：X1〜X42 がそろうか。
+const block = (tag) => { const i = s.indexOf(`<!-- ${tag} -->`), j = s.indexOf(`<!-- /${tag} -->`); return i < 0 || j < 0 ? null : s.slice(i, j).split('\n').filter((l) => /^\|/.test(l)).slice(2).map(cells); };
+const docsDir = path.join(path.dirname(file));
+const docLines = { 'DESIGN-RAMEN': null, 'DESIGN-UI-IDEAL': null };
+for (const k of Object.keys(docLines)) { const p = path.join(docsDir, k + '.md'); if (fs.existsSync(p)) { const t = fs.readFileSync(p, 'utf8'); docLines[k] = t.endsWith('\n') ? t.split('\n').length - 1 : t.split('\n').length; } }
+const read = block('READ'); const conf = block('CONFLICT'); const xr = block('XROWS');
+if (!read) err('READ の表がない');
+if (!conf) err('CONFLICT の表がない');
+const confIds = conf ? conf.map((r) => r[0]) : [];
+const usedK = new Set();
+if (read) {
+  for (const [doc, n] of Object.entries(docLines)) {
+    const rs = read.filter((r) => r[0] === doc).map((r) => ({ r, ab: r[2].split('-').map(Number) }));
+    let next = 1, gaps = 0; const per = { あり: 0, なし: 0 };
+    for (const { r, ab: [x, y] } of rs) {
+      if (x !== next) { gaps++; err(`${doc} の読んだ範囲が ${next} からでなく ${x} から（${r[1]}）`); }
+      if (!(y >= x)) err(`${doc} の範囲が逆（${r[2]}）`);
+      next = y + 1;
+      if (!['あり', 'なし'].includes(r[3])) err(`${doc} ${r[1]} のぶつかりの欄が「${r[3]}」`); else per[r[3]]++;
+      const ks = (r[5].match(/K\d+/g) || []);
+      if (r[3] === 'あり') { if (!ks.length) err(`${doc} ${r[1]} は「あり」なのに K がない`); ks.forEach((k) => { usedK.add(k); if (!confIds.includes(k)) err(`${k} がぶつかりの表にない`); }); }
+    }
+    if (n == null) err(`${doc}.md が読めない`); else if (next - 1 !== n) err(`${doc} の読んだ範囲の終わり ${next - 1} が文書の最終行 ${n} と違う`);
+    out.push(`読んだ範囲 ${doc}：節 ${rs.length} 行（ぶつかり あり ${per.あり}／なし ${per.なし}）、覆った行 1〜${next - 1}／文書 ${n} 行、隙間 ${gaps}`);
+  }
+}
+if (conf) {
+  conf.forEach((r, i) => {
+    if (r[0] !== `K${i + 1}`) err(`ぶつかりの表の ${i + 1} 行目が K${i + 1} でない（${r[0]}）`);
+    if (!usedK.has(r[0])) err(`${r[0]} がどの「あり」の行からも引かれていない`);
+    if (!r[3] || !r[4]) err(`${r[0]} の決着か反映先が空`);
+    for (const t of (r[4].match(/T\d+\.\d/g) || [])) { if (!lines.some((l) => l.startsWith(`#### ${t} `))) err(`${r[0]} の反映先 ${t} の見出しがない`); }
+  });
+  out.push(`ぶつかりの表：${conf.length} 件（${confIds.join(' ')}）`);
+}
+if (xr) {
+  const xs = xr.map((r) => r[0]); const wantX = []; for (let i = 1; i <= 42; i++) wantX.push('X' + i);
+  const miss = wantX.filter((x) => !xs.includes(x));
+  out.push(`(a-2)・g.6 の X の突き合わせ：${xr.length} 行（欠け ${miss.length}${miss.length ? '：' + miss.join(' ') : ''}）、K のある行 ${xr.filter((r) => /K\d+/.test(r[3])).length}`);
+  if (miss.length || xr.length !== 42) err('X の突き合わせが42行そろわない');
+} else err('XROWS の表がない');
 out.push(`エラー ${errs}`);
 console.log(out.join('\n'));
 process.exit(errs ? 1 : 0);
