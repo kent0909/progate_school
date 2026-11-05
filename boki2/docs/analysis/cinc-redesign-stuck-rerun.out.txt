@@ -1,0 +1,42 @@
+{
+ "runs": 300,
+ "stuckWithBorrow": [
+  34,
+  154
+ ],
+ "stuckNoBorrow": [
+  2,
+  34,
+  96,
+  138,
+  144,
+  154,
+  184
+ ],
+ "realCheckIsSameAsMine": "3672/3672",
+ "firstStuck": {
+  "34": {
+   "k": 9,
+   "cash": 185972,
+   "parts": 2,
+   "price": 850,
+   "short": 2000000,
+   "bankruptAtEnd": true,
+   "endT": 13
+  },
+  "154": {
+   "k": 8,
+   "cash": 407749,
+   "parts": 3,
+   "price": 700,
+   "short": 2000000,
+   "bankruptAtEnd": true,
+   "endT": 12
+  }
+ },
+ "pctWithBorrow": 0.7,
+ "pctNoBorrow": 2.3,
+ "first60WithBorrow": [
+  34
+ ]
+}
