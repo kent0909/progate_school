@@ -1,0 +1,72 @@
+ boki2/proto/desk/README.md                         |   50 +
+ boki2/proto/desk/check/gestures.cjs                |   48 +
+ boki2/proto/desk/check/inputs.cjs                  |   39 +
+ boki2/proto/desk/check/report.cjs                  |   40 +
+ boki2/proto/desk/check/results/autoplay.json       | 3080 +++++++++++++
+ boki2/proto/desk/check/results/gestures.json       |  338 ++
+ boki2/proto/desk/check/results/inputs.json         |  698 +++
+ boki2/proto/desk/check/results/measurements.json   | 4610 ++++++++++++++++++++
+ boki2/proto/desk/check/results/measurements.md     |   98 +
+ boki2/proto/desk/check/results/regression-1.log    |    1 +
+ boki2/proto/desk/check/results/regression-2.log    |  107 +
+ boki2/proto/desk/check/results/regression-3.log    |   13 +
+ boki2/proto/desk/check/results/regression-4.log    |   26 +
+ boki2/proto/desk/check/results/regression-5.log    |   79 +
+ boki2/proto/desk/check/results/regression-6.log    |    1 +
+ boki2/proto/desk/check/results/regression.json     |   32 +
+ boki2/proto/desk/check/results/report.md           |  252 ++
+ boki2/proto/desk/check/results/scope.txt           |   72 +
+ .../results/screenshots/diff-off-drag-1280-tx1.jpg |  Bin 0 -> 44116 bytes
+ .../results/screenshots/diff-off-drag-1280-tx4.jpg |  Bin 0 -> 54738 bytes
+ .../results/screenshots/diff-off-drag-390-tx1.jpg  |  Bin 0 -> 33231 bytes
+ .../results/screenshots/diff-off-drag-390-tx4.jpg  |  Bin 0 -> 42267 bytes
+ .../screenshots/diff-off-swipe-1280-tx1.jpg        |  Bin 0 -> 44116 bytes
+ .../screenshots/diff-off-swipe-1280-tx4.jpg        |  Bin 0 -> 54738 bytes
+ .../results/screenshots/diff-off-swipe-390-tx1.jpg |  Bin 0 -> 33231 bytes
+ .../results/screenshots/diff-off-swipe-390-tx4.jpg |  Bin 0 -> 42267 bytes
+ .../results/screenshots/diff-on-drag-1280-tx1.jpg  |  Bin 0 -> 50614 bytes
+ .../results/screenshots/diff-on-drag-1280-tx4.jpg  |  Bin 0 -> 68029 bytes
+ .../results/screenshots/diff-on-drag-390-tx1.jpg   |  Bin 0 -> 36051 bytes
+ .../results/screenshots/diff-on-drag-390-tx4.jpg   |  Bin 0 -> 50378 bytes
+ .../results/screenshots/diff-on-swipe-1280-tx1.jpg |  Bin 0 -> 50614 bytes
+ .../results/screenshots/diff-on-swipe-1280-tx4.jpg |  Bin 0 -> 68029 bytes
+ .../results/screenshots/diff-on-swipe-390-tx1.jpg  |  Bin 0 -> 36051 bytes
+ .../results/screenshots/diff-on-swipe-390-tx4.jpg  |  Bin 0 -> 50378 bytes
+ .../results/screenshots/none-off-drag-1280-tx1.jpg |  Bin 0 -> 43262 bytes
+ .../results/screenshots/none-off-drag-1280-tx4.jpg |  Bin 0 -> 53286 bytes
+ .../results/screenshots/none-off-drag-390-tx1.jpg  |  Bin 0 -> 32616 bytes
+ .../results/screenshots/none-off-drag-390-tx4.jpg  |  Bin 0 -> 41506 bytes
+ .../screenshots/none-off-swipe-1280-tx1.jpg        |  Bin 0 -> 43262 bytes
+ .../screenshots/none-off-swipe-1280-tx4.jpg        |  Bin 0 -> 53286 bytes
+ .../results/screenshots/none-off-swipe-390-tx1.jpg |  Bin 0 -> 32616 bytes
+ .../results/screenshots/none-off-swipe-390-tx4.jpg |  Bin 0 -> 41506 bytes
+ .../results/screenshots/none-on-drag-1280-tx1.jpg  |  Bin 0 -> 49997 bytes
+ .../results/screenshots/none-on-drag-1280-tx4.jpg  |  Bin 0 -> 66333 bytes
+ .../results/screenshots/none-on-drag-390-tx1.jpg   |  Bin 0 -> 35387 bytes
+ .../results/screenshots/none-on-drag-390-tx4.jpg   |  Bin 0 -> 49502 bytes
+ .../results/screenshots/none-on-swipe-1280-tx1.jpg |  Bin 0 -> 49997 bytes
+ .../results/screenshots/none-on-swipe-1280-tx4.jpg |  Bin 0 -> 66333 bytes
+ .../results/screenshots/none-on-swipe-390-tx1.jpg  |  Bin 0 -> 35387 bytes
+ .../results/screenshots/none-on-swipe-390-tx4.jpg  |  Bin 0 -> 49502 bytes
+ .../screenshots/scale-off-drag-1280-tx1.jpg        |  Bin 0 -> 44029 bytes
+ .../screenshots/scale-off-drag-1280-tx4.jpg        |  Bin 0 -> 54664 bytes
+ .../results/screenshots/scale-off-drag-390-tx1.jpg |  Bin 0 -> 33236 bytes
+ .../results/screenshots/scale-off-drag-390-tx4.jpg |  Bin 0 -> 42285 bytes
+ .../screenshots/scale-off-swipe-1280-tx1.jpg       |  Bin 0 -> 44029 bytes
+ .../screenshots/scale-off-swipe-1280-tx4.jpg       |  Bin 0 -> 54664 bytes
+ .../screenshots/scale-off-swipe-390-tx1.jpg        |  Bin 0 -> 33236 bytes
+ .../screenshots/scale-off-swipe-390-tx4.jpg        |  Bin 0 -> 42285 bytes
+ .../results/screenshots/scale-on-drag-1280-tx1.jpg |  Bin 0 -> 50550 bytes
+ .../results/screenshots/scale-on-drag-1280-tx4.jpg |  Bin 0 -> 67911 bytes
+ .../results/screenshots/scale-on-drag-390-tx1.jpg  |  Bin 0 -> 36064 bytes
+ .../results/screenshots/scale-on-drag-390-tx4.jpg  |  Bin 0 -> 50383 bytes
+ .../screenshots/scale-on-swipe-1280-tx1.jpg        |  Bin 0 -> 50550 bytes
+ .../screenshots/scale-on-swipe-1280-tx4.jpg        |  Bin 0 -> 67911 bytes
+ .../results/screenshots/scale-on-swipe-390-tx1.jpg |  Bin 0 -> 36064 bytes
+ .../results/screenshots/scale-on-swipe-390-tx4.jpg |  Bin 0 -> 50383 bytes
+ boki2/proto/desk/check/results/source-hashes.json  |    8 +
+ boki2/proto/desk/check/run.cjs                     |   88 +
+ boki2/proto/desk/desk.css                          |    5 +
+ boki2/proto/desk/desk.js                           |  173 +
+ boki2/proto/desk/index.html                        |   29 +
+ 71 files changed, 9887 insertions(+)

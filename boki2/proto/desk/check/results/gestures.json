@@ -1,0 +1,338 @@
+[
+  {
+    "band": "diff",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "diff",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "scale",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "on",
+    "input": "swipe",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "on",
+    "input": "drag",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "off",
+    "input": "swipe",
+    "transaction": 4,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 1,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 2,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 3,
+    "pass": true
+  },
+  {
+    "band": "none",
+    "shelf": "off",
+    "input": "drag",
+    "transaction": 4,
+    "pass": true
+  }
+]

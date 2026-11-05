@@ -1,0 +1,4610 @@
+[
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 674,
+    "confirmBottom": 722,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 858,
+    "confirmTop": 744,
+    "confirmBottom": 792,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 652,
+    "confirmBottom": 700,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 722,
+    "confirmBottom": 770,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 674,
+    "confirmBottom": 722,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 928,
+    "confirmTop": 814,
+    "confirmBottom": 862,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 951,
+    "confirmTop": 837,
+    "confirmBottom": 885,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1180,
+    "confirmTop": 1066,
+    "confirmBottom": 1114,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 656,
+    "confirmBottom": 704,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 656,
+    "confirmBottom": 704,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 840,
+    "confirmTop": 726,
+    "confirmBottom": 774,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 836,
+    "confirmTop": 722,
+    "confirmBottom": 770,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1045,
+    "confirmTop": 931,
+    "confirmBottom": 979,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 674,
+    "confirmBottom": 722,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 858,
+    "confirmTop": 744,
+    "confirmBottom": 792,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 652,
+    "confirmBottom": 700,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 722,
+    "confirmBottom": 770,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 674,
+    "confirmBottom": 722,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 928,
+    "confirmTop": 814,
+    "confirmBottom": 862,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 951,
+    "confirmTop": 837,
+    "confirmBottom": 885,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1180,
+    "confirmTop": 1066,
+    "confirmBottom": 1114,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 656,
+    "confirmBottom": 704,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 656,
+    "confirmBottom": 704,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 840,
+    "confirmTop": 726,
+    "confirmBottom": 774,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 836,
+    "confirmTop": 722,
+    "confirmBottom": 770,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1045,
+    "confirmTop": 931,
+    "confirmBottom": 979,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 636,
+    "confirmBottom": 684,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 564,
+    "confirmBottom": 612,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 614,
+    "confirmBottom": 662,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 870,
+    "confirmTop": 687,
+    "confirmBottom": 735,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 845,
+    "confirmTop": 662,
+    "confirmBottom": 710,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 995,
+    "confirmTop": 812,
+    "confirmBottom": 860,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 548,
+    "confirmBottom": 596,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 548,
+    "confirmBottom": 596,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 598,
+    "confirmBottom": 646,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 547,
+    "confirmBottom": 595,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 881,
+    "confirmTop": 698,
+    "confirmBottom": 746,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 636,
+    "confirmBottom": 684,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 564,
+    "confirmBottom": 612,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 614,
+    "confirmBottom": 662,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 870,
+    "confirmTop": 687,
+    "confirmBottom": 735,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 845,
+    "confirmTop": 662,
+    "confirmBottom": 710,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 995,
+    "confirmTop": 812,
+    "confirmBottom": 860,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 548,
+    "confirmBottom": 596,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 548,
+    "confirmBottom": 596,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 598,
+    "confirmBottom": 646,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 547,
+    "confirmBottom": 595,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "diff",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 881,
+    "confirmTop": 698,
+    "confirmBottom": 746,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 674,
+    "confirmBottom": 722,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 858,
+    "confirmTop": 744,
+    "confirmBottom": 792,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 652,
+    "confirmBottom": 700,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 722,
+    "confirmBottom": 770,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 674,
+    "confirmBottom": 722,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 928,
+    "confirmTop": 814,
+    "confirmBottom": 862,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 951,
+    "confirmTop": 837,
+    "confirmBottom": 885,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1180,
+    "confirmTop": 1066,
+    "confirmBottom": 1114,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 656,
+    "confirmBottom": 704,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 656,
+    "confirmBottom": 704,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 840,
+    "confirmTop": 726,
+    "confirmBottom": 774,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 836,
+    "confirmTop": 722,
+    "confirmBottom": 770,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1045,
+    "confirmTop": 931,
+    "confirmBottom": 979,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 674,
+    "confirmBottom": 722,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 858,
+    "confirmTop": 744,
+    "confirmBottom": 792,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 652,
+    "confirmBottom": 700,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 722,
+    "confirmBottom": 770,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 674,
+    "confirmBottom": 722,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 928,
+    "confirmTop": 814,
+    "confirmBottom": 862,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 951,
+    "confirmTop": 837,
+    "confirmBottom": 885,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1180,
+    "confirmTop": 1066,
+    "confirmBottom": 1114,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 656,
+    "confirmBottom": 704,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 656,
+    "confirmBottom": 704,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 840,
+    "confirmTop": 726,
+    "confirmBottom": 774,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 836,
+    "confirmTop": 722,
+    "confirmBottom": 770,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1045,
+    "confirmTop": 931,
+    "confirmBottom": 979,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 636,
+    "confirmBottom": 684,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 564,
+    "confirmBottom": 612,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 614,
+    "confirmBottom": 662,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 870,
+    "confirmTop": 687,
+    "confirmBottom": 735,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 845,
+    "confirmTop": 662,
+    "confirmBottom": 710,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 995,
+    "confirmTop": 812,
+    "confirmBottom": 860,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 548,
+    "confirmBottom": 596,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 548,
+    "confirmBottom": 596,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 598,
+    "confirmBottom": 646,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 547,
+    "confirmBottom": 595,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 881,
+    "confirmTop": 698,
+    "confirmBottom": 746,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 636,
+    "confirmBottom": 684,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 564,
+    "confirmBottom": 612,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 614,
+    "confirmBottom": 662,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 586,
+    "confirmBottom": 634,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 870,
+    "confirmTop": 687,
+    "confirmBottom": 735,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 845,
+    "confirmTop": 662,
+    "confirmBottom": 710,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 995,
+    "confirmTop": 812,
+    "confirmBottom": 860,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 548,
+    "confirmBottom": 596,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 548,
+    "confirmBottom": 596,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 498,
+    "confirmBottom": 546,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 598,
+    "confirmBottom": 646,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 547,
+    "confirmBottom": 595,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "scale",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 881,
+    "confirmTop": 698,
+    "confirmBottom": 746,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 36,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 634,
+    "confirmBottom": 682,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 704,
+    "confirmBottom": 752,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 612,
+    "confirmBottom": 660,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 682,
+    "confirmBottom": 730,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 634,
+    "confirmBottom": 682,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 888,
+    "confirmTop": 774,
+    "confirmBottom": 822,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 911,
+    "confirmTop": 797,
+    "confirmBottom": 845,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1140,
+    "confirmTop": 1026,
+    "confirmBottom": 1074,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 546,
+    "confirmBottom": 594,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 616,
+    "confirmBottom": 664,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 546,
+    "confirmBottom": 594,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 616,
+    "confirmBottom": 664,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 546,
+    "confirmBottom": 594,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 686,
+    "confirmBottom": 734,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 682,
+    "confirmBottom": 730,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1005,
+    "confirmTop": 891,
+    "confirmBottom": 939,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 634,
+    "confirmBottom": 682,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 704,
+    "confirmBottom": 752,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 612,
+    "confirmBottom": 660,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 682,
+    "confirmBottom": 730,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 634,
+    "confirmBottom": 682,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 888,
+    "confirmTop": 774,
+    "confirmBottom": 822,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 911,
+    "confirmTop": 797,
+    "confirmBottom": 845,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1140,
+    "confirmTop": 1026,
+    "confirmBottom": 1074,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 546,
+    "confirmBottom": 594,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 616,
+    "confirmBottom": 664,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 546,
+    "confirmBottom": 594,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 616,
+    "confirmBottom": 664,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 546,
+    "confirmBottom": 594,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 686,
+    "confirmBottom": 734,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 84,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 682,
+    "confirmBottom": 730,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "on",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 1005,
+    "confirmTop": 891,
+    "confirmBottom": 939,
+    "scroll": true,
+    "confirmRequiresScroll": true,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 171.19,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 546,
+    "confirmBottom": 594,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 596,
+    "confirmBottom": 644,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 524,
+    "confirmBottom": 572,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 574,
+    "confirmBottom": 622,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 546,
+    "confirmBottom": 594,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 647,
+    "confirmBottom": 695,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 622,
+    "confirmBottom": 670,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 955,
+    "confirmTop": 772,
+    "confirmBottom": 820,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 458,
+    "confirmBottom": 506,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 508,
+    "confirmBottom": 556,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 458,
+    "confirmBottom": 506,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 508,
+    "confirmBottom": 556,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 458,
+    "confirmBottom": 506,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 558,
+    "confirmBottom": 606,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 507,
+    "confirmBottom": 555,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "swipe"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 841,
+    "confirmTop": 658,
+    "confirmBottom": 706,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 546,
+    "confirmBottom": 594,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 596,
+    "confirmBottom": 644,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 524,
+    "confirmBottom": 572,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 574,
+    "confirmBottom": 622,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 546,
+    "confirmBottom": 594,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 844,
+    "confirmTop": 647,
+    "confirmBottom": 695,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 844,
+    "confirmTop": 622,
+    "confirmBottom": 670,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 955,
+    "confirmTop": 772,
+    "confirmBottom": 820,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 458,
+    "confirmBottom": 506,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 1,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 508,
+    "confirmBottom": 556,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 52,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 458,
+    "confirmBottom": 506,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 2,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 508,
+    "confirmBottom": 556,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 458,
+    "confirmBottom": 506,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 3,
+    "phase": "filled",
+    "height": 800,
+    "confirmTop": 558,
+    "confirmBottom": 606,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "empty",
+    "height": 800,
+    "confirmTop": 507,
+    "confirmBottom": 555,
+    "scroll": false,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  },
+  {
+    "config": {
+      "band": "none",
+      "shelf": "off",
+      "input": "drag"
+    },
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "transaction": 4,
+    "phase": "filled",
+    "height": 841,
+    "confirmTop": 658,
+    "confirmBottom": 706,
+    "scroll": true,
+    "confirmRequiresScroll": false,
+    "minFont": 14,
+    "minHitWidth": 69,
+    "minHitHeight": 44,
+    "bandHeight": 0,
+    "shelfHeight": 0,
+    "horizontalOverflow": false
+  }
+]
