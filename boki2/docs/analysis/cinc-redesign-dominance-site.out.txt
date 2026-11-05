@@ -1,0 +1,9 @@
+== ① 2号店の場所×形（家族を除く6通り）。町（seed 0〜9）×1号店の場所（商店街・駅前）×開いてからの月（24・72）の40通りで、会社の累計（2号店の営業の現金−1号店の食い合い−内装−保証金）が最大の組
+  いまの式：最大の組 jutaku・part1 40/40（100%）　内訳 {"jutaku・part1":40}　場所だけ jutaku 40/40（100%）　形だけ part1 40/40（100%）
+  S1 同じ町の認知の引き継ぎ：最大の組 jutaku・part1 40/40（100%）　内訳 {"jutaku・part1":40}　場所だけ jutaku 40/40（100%）　形だけ part1 40/40（100%）
+  S2 急拡大型が住宅地へ（3年目4月）：最大の組 shotengai・part1 19/40（48%）　内訳 {"jutaku・part1":12,"ekimae・part1":9,"shotengai・part1":19}　場所だけ shotengai 19/40（48%）　形だけ part1 40/40（100%）
+  S3 隣のエリアの少しの食い合い（5%）：最大の組 jutaku・part1 40/40（100%）　内訳 {"jutaku・part1":40}　場所だけ jutaku 40/40（100%）　形だけ part1 40/40（100%）
+  S1＋S2：最大の組 shotengai・part1 19/40（48%）　内訳 {"jutaku・part1":12,"ekimae・part1":9,"shotengai・part1":19}　場所だけ shotengai 19/40（48%）　形だけ part1 40/40（100%）
+  S1＋S2＋S3：最大の組 shotengai・part1 21/40（53%）　内訳 {"jutaku・part1":11,"ekimae・part1":8,"shotengai・part1":21}　場所だけ shotengai 21/40（53%）　形だけ part1 40/40（100%）
+  S4 パート2人で夜も開ける（夜の客）：最大の組 jutaku・part1 33/40（83%）　内訳 {"jutaku・part1":33,"ekimae・part2":5,"jutaku・part2":1,"shotengai・part2":1}　場所だけ jutaku 34/40（85%）　形だけ part1 33/40（83%）
+  S1＋S2＋S4：最大の組 shotengai・part1 16/40（40%）　内訳 {"jutaku・part1":10,"ekimae・part2":10,"ekimae・part1":1,"shotengai・part1":16,"shotengai・part2":3}　場所だけ shotengai 19/40（48%）　形だけ part1 27/40（68%）
