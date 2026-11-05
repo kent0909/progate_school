@@ -35,7 +35,12 @@
 //   O1 開く一杯を選ぶ（d.8 の組み立て。ゲームの2号店は社長の案の1つ目＝醤油で開く：cards-y2.js:95）：その状態で何もしないときに会社の累計が最大の案で開く（上手な人の仮定）
 //   時点（timing）：乱数ありの5回（noise）で、「22か月目に打つ」「26か月目の前の3か月の2号店の営業利益の合計が負なら打つ（待つ）」「何もしない」の期待値を比べる
 //   物差し：判断ごとに、分母は全部の状態（k.5 L1361）。「〜としたら」の判断（場所・形・人・一杯・看板・時点）も分母は全部の状態にそろえる。
-// 使い方：node cinc-redesign-break.js <site|staff|bowl|timing>
+// ■ 回したあとで足した直し（事前登録の外。値ではなく式の正しさの直しで、回す前の E の行もそのまま出す）
+//   Ec 急拡大型の「最初の競合なし」を、DESIGN-RAMEN c.2 L262 の較正の約束（潜在客 P_a は「平均の店（中央値44人/日）がシェアを取ったときの客数」から逆算）どおりに入れる：
+//      E は2号店の町を3軒で較正した潜在客のまま3軒を外したので、住宅地の平均の店が独り占めの客を得ていた（E の行の住宅地 88〜93% の一部はこの写しの誤り）。
+//      Ec は住宅地の潜在客を「競合0の町で平均の店が中央値44人/日」に較正し直してから急拡大型を入れる（world.js の calibrate と同じ式を、競合0で当てる）。
+//      これに気づいたのは E の出力を見たあと（2026-11-05）。Ec の値（較正の式・中央値44）は既存の係数で、新しい置き値はない。
+// 使い方：node cinc-redesign-break.js <site|staff|bowl|timing|site2|staff2>
 'use strict';
 global.window = global;
 const path = require('path');
@@ -79,14 +84,15 @@ function run(base, o) {
     if (o.openBowl) { const p = BW.presets.find((x) => x.id === o.openBowl); st.bowl = BW.create(p.spec, p.name); }
     if (m.S1 && o.area === home) st.A = (w.stores[0].A || 0) * 0.5;
     if (m.S4 && o.form === 'part2' && o.area !== home) w.town.areas[o.area].P *= 1 + ({ ekimae: 0.25, shotengai: 0.10, jutaku: 0.05 })[o.area];
-    if (m.E && o.area === 'jutaku' && home !== 'jutaku') w.rivals = w.rivals.filter((r) => r.area !== 'jutaku');
+    if ((m.E || m.Ec) && o.area === 'jutaku' && home !== 'jutaku') w.rivals = w.rivals.filter((r) => r.area !== 'jutaku');
+    if (m.Ec && o.area === 'jutaku' && home !== 'jutaku') { const a = w.town.areas.jutaku; const ref = { id: 'ref', price: a.pRef, R: 3, A: 0, L: 0, bowl: BW.create(BW.presets[0].spec), parts: 1, family: 0, ref: true }; const sh = Wd.sharesFor({ area: 'jutaku', town: { areas: { jutaku: a } } }, [ref], { neutralFit: true })[0]; a.P = C('median') * C('potentialScale') * (a.potentialMul || 1) / Math.max(1e-6, sh); a.epsScale = 1 / Math.max(0.5, 1 - sh); }
     if (staff === 'boss') { const s0 = w.stores[0]; s0.Q = BW.Q(s0.bowl, {}) - 0.3; }
     if (staff === 'novice') st.Q = BW.Q(st.bowl, {}) - 0.3;
   }
   const op1 = [], op2 = [], dep2 = []; let closedRenov = -1, lastFixed = 0, acted = false;
   for (let t = OPEN_T; t < OPEN_T + H; t++) {
     const st = w.stores[1];
-    if (st && m.E && o.area === 'jutaku') {
+    if (st && (m.E || m.Ec) && o.area === 'jutaku') {
       if (t === Math.max(ent.at, OPEN_T)) { const r = D.rivals.make('normal', 9); r.id = 'entrant'; r.area = 'jutaku'; w.rivals.push(r); }
       if (ent.fold && t === ent.at + 18) { const r = w.rivals.find((x) => x.id === 'entrant'); if (r) r.open = false; }
     }
@@ -128,8 +134,10 @@ const man = (x) => `${Math.round(x / 1e4)}万円`;
 const out = (x) => console.log(x);
 const STATES = []; for (const home of ['shotengai', 'ekimae']) for (let seed = 0; seed <= 29; seed++) STATES.push({ seed, home });
 
-if (mode === 'site' || mode === 'staff') {
-  const ROWS = mode === 'site'
+if (['site', 'staff', 'site2', 'staff2'].includes(mode)) {
+  const ROWS = mode === 'site2' ? [["Ec 急拡大型（c.2・f.1 の形、競合0で較正し直す）", { Ec: 1 }, ['owner']], ["P＋Ec＋S1（主の行・直し）", { P: 1, Ec: 1, S1: 1 }, ['owner']], ["P＋Ec＋S1＋S4（感度：夜の客は置き値）", { P: 1, Ec: 1, S1: 1, S4: 1 }, ['owner']]]
+    : mode === 'staff2' ? [["P＋Ec＋S1、人は e.5・c.3 の4つ＋出さない（主の行・直し）", { P: 1, Ec: 1, S1: 1 }, ['boss', 'pro', 'novice', 'thick']], ["P＋Ec＋S1＋S4、人は4つ＋出さない（感度）", { P: 1, Ec: 1, S1: 1, S4: 1 }, ['boss', 'pro', 'novice', 'thick']]]
+    : mode === 'site'
     ? [['いまの式（社長の働きはただ）', {}, ['owner']], ['P 区画の人通りと家賃', { P: 1 }, ['owner']], ['E 急拡大型（c.2・f.1 の形）', { E: 1 }, ['owner']], ['P＋E＋S1（主の行）', { P: 1, E: 1, S1: 1 }, ['owner']], ['P＋E＋S1＋S4（感度：夜の客は置き値）', { P: 1, E: 1, S1: 1, S4: 1 }, ['owner']]]
     : [['P＋E＋S1、人は e.5・c.3 の4つ＋出さない（主の行）', { P: 1, E: 1, S1: 1 }, ['boss', 'pro', 'novice', 'thick']], ['同じ、ただし社長の働きがただの道も入れる（比べ）', { P: 1, E: 1, S1: 1 }, ['owner', 'boss', 'pro', 'novice', 'thick']], ['いまの式の町で、人は4つ＋出さない（P・E なし）', {}, ['boss', 'pro', 'novice', 'thick']]];
   out(`== ${mode}：状態は町（seed 0〜29）×1号店の場所（商店街・駅前）の60、2号店は2年目11月に開いて72か月。会社の累計＝2号店の営業の現金−1号店の食い合い−内装−保証金（−人の費用）`);
@@ -157,10 +165,10 @@ if (mode === 'site' || mode === 'staff') {
     if (mech.P) out(`    規則の当たり：「人通りが一番多い区画」が最良 ${rule.maxU}/60（${Math.round(rule.maxU / 0.6)}%）、「家賃が一番安い区画」${rule.minR}/60（${Math.round(rule.minR / 0.6)}%）、「住宅地」${rule.jutaku}/60（${Math.round(rule.jutaku / 0.6)}%）`);
     if (staffs.length > 1) out(`    人の道ごとの会社の累計の中央値（場所×形の6つ×60状態＝360の中央値）：${Object.entries(stMed).map(([k, v]) => `${k} ${man(med(v))}`).join('・')}`);
   }
-  if (mode === 'staff') {
+  if (mode === 'staff' || mode === 'staff2') {
     // 2号店そのものの稼ぎ：社長の働きがただの道で、開いて25〜72か月目の2号店の月の営業利益（人の費用を引く前）の中央値
     const mo = [];
-    for (const S of STATES) { const base = warm(S.seed, S.home); for (const ar of AREAS) for (const fm of FORMS) { const r = run(base, { area: ar, form: fm, staff: 'owner', mech: { P: 1, E: 1, S1: 1 } }); mo.push(med(r.op2.slice(24))); } }
+    for (const S of STATES) { const base = warm(S.seed, S.home); for (const ar of AREAS) for (const fm of FORMS) { const r = run(base, { area: ar, form: fm, staff: 'owner', mech: mode === 'staff2' ? { P: 1, Ec: 1, S1: 1 } : { P: 1, E: 1, S1: 1 } }); mo.push(med(r.op2.slice(24))); } }
     out(`  2号店の月の営業利益（社長の働きはただ、開いて25〜72か月目の各組の中央値を、360組でさらに中央値）：${man(med(mo))}/月（上位25% ${man(mo.slice().sort((a, b) => a - b)[Math.floor(mo.length * 0.75)])}/月）。修業経験者の月25万・未経験の月20万と比べる`);
   }
 }
