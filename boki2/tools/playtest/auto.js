@@ -153,6 +153,11 @@ module.exports = async function autoRun(page, { choose = {}, broad = false, endM
       if (!style && !wrong.board) { wrong.board = true; await p.click(`[data-put="${tok}"][data-to="${to}"]`); await shot('board-wrong'); continue; }
       await p.click(`[data-put="${tok}"][data-to="${to}"]`); continue;
     }
+    if (await has('[data-j-sound]')) { await p.click('[data-j-sound="off"]'); continue; }
+    if (await has('[data-demo-skip]')) { await p.click('[data-demo-skip]'); continue; }
+    if (await has('[data-react-close]')) { await p.click('[data-react-close]'); continue; }
+    if (await has('[data-note-reason]')) { const k = await p.getAttribute('[data-note-reason]', 'data-note-reason'), li = k.split('-')[0], sel = `[data-note-reason="${li}-0"]`; await p.click(sel); await p.waitForSelector(sel, { state: 'detached' }); continue; }
+    // ask は札をつかんだ時点で出る。押して選ぶの取っ手でも同じ入口を使う。
     if (await has('[data-ask]')) { const k = await p.evaluate(() => { const S = window.__sim.S; const ev = window.__sim.events()[S.ei]; const st = ev.steps.find((s) => s.k === 'note'); const [li] = document.querySelector('[data-ask]').dataset.ask.split('-').map(Number); return `${li}-${st.lines[li].ask.opts.findIndex((o) => o.ok)}`; }); await p.click(`[data-ask="${k}"]`); continue; }
     if (await has('[data-note]')) {
       const [k, side] = await p.evaluate(() => { const S = window.__sim.S; const ev = window.__sim.events()[S.ei]; const n = document.querySelector('[data-note]'); const [li, ci] = n.dataset.note.split('-').map(Number); const st = ev.steps.find((s) => s.k === 'note'); return [n.dataset.note, st.lines[li].cards[ci].side]; });
