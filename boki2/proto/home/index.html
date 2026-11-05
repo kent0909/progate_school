@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E">
+  <title>店の前 — ホームの試作</title>
+  <link rel="stylesheet" href="home.css">
+  <script defer src="model.js"></script>
+  <script defer src="scenario.js"></script>
+  <script defer src="home.js"></script>
+</head>
+<body>
+  <header class="masthead"><span class="shop-mark" aria-hidden="true">暖</span><div><h1>暖簾の先へ</h1><p>店の前</p></div><span class="month">1年目・5月</span></header>
+  <nav id="variants" class="variants" aria-label="比べるホーム"></nav>
+  <nav id="stale-options" class="variants" aria-label="帳簿の遅れの切り替え"></nav>
+  <main id="home" tabindex="-1"></main>
+  <footer><p id="storage-status" role="status">記録はこの端末に保存します。</p><div class="utilities"><button id="export">記録を書き出す</button><button id="restart">もう一度遊ぶ</button></div></footer>
+  <dialog id="dialog" aria-labelledby="dialog-title"><div id="dialog-content"></div></dialog>
+  <noscript>この試作では JavaScript を有効にしてください。</noscript>
+</body>
+</html>

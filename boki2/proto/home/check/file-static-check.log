@@ -1,0 +1,3 @@
+command: ["rg", "-n", "-e", "type\\s*=\\s*[\"']module", "-e", "\\b(import|export)\\s", "-e", "\\bimport\\s*\\(", "-e", "\\bfetch\\s*\\(", "boki2/proto/home/index.html", "boki2/proto/home/model.js", "boki2/proto/home/scenario.js", "boki2/proto/home/home.js"]
+rg exit 1 (該当なし)
+結果: type=module / import / export / fetch の一致0
