@@ -10,7 +10,9 @@
 //      崩れ（f.1「1年の新店が今の店数を超えると崩れ 40〜60」の中ほど50%）は、seed が崩れの側なら t_e＋18 で2軒とも閉める。型の数は break.js の 'normal' のまま
 //   K 2号店にも作戦の机と方針の札（この設計の T2.2-2）：ゲームの2号店は policy0 の既定（チラシ0・LINE なし・値段は開店の850円のまま：world.js:213〜216）で回る。
 //      K は1号店と同じ手を2号店にも打つ：チラシ月3万（認知 A に月 0.3 を足し、2号店の営業利益から3万を引く）・LINE（churnLine）・値段は1号店と同じ（3年目から900円）。
-//      チラシの効きはゲームの式（A ← 0.2·A＋チラシ÷10万）を1か月遅れで写す【写しの近似】
+//      チラシの効きはゲームの式（A ← 0.2·A＋チラシ÷10万）をそのまま写す（月の前に A を「0.2 を掛けると今月の値になる数」に置く）。
+//      ■ 回す前の直し（2026-11-05、件名に「事前登録」）：最初の commit の実装は「月の後に 0.3 を足す」で、ゲームの式の定常の A 0.375 に対し 0.075 にしかならない写しの誤りだった
+//        （diag の K の行の A 0.08 で気づいた。site5 の K の行は1行も出力が出る前に止めた）。値（チラシ月3万）は変えていない
 //   ─ 感度の行（主の行に入れない。出どころの無い値）
 //   O 2号店のその他の固定費（15万／20万：W.otherFixed を店ごとに払う式）の半分を本部の費用とみなし、2号店の営業利益に戻す【置き値：店ごとの内訳の資料なし】
 //   B 屋号の認知を別のエリアにも：別のエリアの2号店は開いた月に1号店の認知 A の4分の1【置き値】（同じエリアは S1 の半分のまま）
@@ -72,7 +74,7 @@ function run(base, o) {
     if (staff === 'boss') { const s0 = w.stores[0]; s0.Q = BW.Q(s0.bowl, {}) - 0.3; }
     if (staff === 'novice') st.Q = BW.Q(st.bowl, {}) - 0.3;
   }
-  const op1 = [], op2 = [], dep2 = []; let closedRenov = -1, renovAt = -99, lastFixed = 0, chLeft = 0, rivalsBefore = null;
+  const op1 = [], op2 = [], dep2 = []; let Ad = o.area ? (w.stores[1].A || 0) : 0, closedRenov = -1, renovAt = -99, lastFixed = 0, chLeft = 0, rivalsBefore = null;
   for (let t = OPEN_T; t < OPEN_T + H; t++) {
     const st = w.stores[1];
     if (st && E && o.area === 'jutaku') {
@@ -83,7 +85,7 @@ function run(base, o) {
     if (st && m.RV && renovAt >= 0 && t - renovAt <= 12) { const ids = w.rivals.filter((r) => (r.area || w.area) === st.area && r.open !== false).map((r) => r.id); if (rivalsBefore && ids.some((x) => !rivalsBefore.includes(x))) { st.R = Math.max(1, st.R - 0.25); rivalsBefore = ids; } }
     if (st && staff === 'novice' && t === OPEN_T + 6) st.Q = null;
     if (st && closedRenov === t - 1) st.open = true;
-    if (st && m.K) st.price = price1(t);
+    if (st && m.K) { st.price = price1(t); Ad = C('adKeepFlyer') * Ad + 30000 / C('adUnit'); st.A = Ad / C('adKeepFlyer'); }
     if (st && chLeft > 0) { st.churnUp = (st.churnUp || 0) + 0.03; chLeft--; }
     if (o.close && o.close !== 'none' && t === o.cardT + 1 && st) {
       w.flags.y2CloseImprove = 'quality'; w.flags.y2CloseBowl = o.bowl || 'shoyu'; w.flags.y2CloseSign = o.sign || 'none'; w.flags.y2CloseQuote = {};
@@ -98,7 +100,6 @@ function run(base, o) {
     const a = r.res.stores ? r.res.stores[0] : r.res; let x1 = a.op; if (o.area && staff === 'thick') x1 -= 200000; op1.push(x1);
     const b = r.res.stores && r.res.stores[1];
     if (b && b.sales != null) {
-      if (m.K && w.stores[1]) w.stores[1].A = (w.stores[1].A || 0) + 30000 / C('adUnit');
       let y = b.op - (staff === 'pro' ? 250000 : staff === 'novice' ? 200000 : 0) - (plot.r - (w.rentMul || 1)) * C('rentPerTsubo')[o.area] * C('tsubo') - (m.K ? 30000 : 0) + (m.O ? 0.5 * w.otherFixed : 0);
       lastFixed = b.rent + b.labor + b.other + C('utilFixed');
       op2.push(y); dep2.push(b.dep || 0);
