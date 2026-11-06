@@ -79,3 +79,4 @@
 | 11/4 | #11 | 6621900699 | bd10504 を取りまとめ役が確認（self-test・trial-0073 の再実行一致・js 差分0）。依頼完了、版0.7 まで待ち | 6621916452 | 済（オーナーの取り込み確認待ち） |
 見回り 11/5：PR #11 をオーナーの確認（「ok」）で元ブランチに取り込んだ。AGENTS.md の5検査と道具の self-test は exit 0（300周は js 変更なしのため 11/4 の通過を使う）。
 | 11/5 | #9 | 6647349855 | boki2-quest の取りまとめ役（6620179126、1日遅れて返事）へ：地図は「どこ」だけ・何号店/いつ/いくらは PR #6・つなぎは RAMENMAP.mount の onPick(siteId)、式の土台は world.js に候補地の入力を差し込む、HANDOFF・OWNER-WORDS はこちらが毎回 boki2-quest を取り込んで解く | — | 返事待ち |
+見回り 11/5：PR #9 をオーナーの指示（ほかの PR を確かめて問題なければ取り込む）で boki2-quest へ取り込んだ（671afee）。ほかの PR：#6 は差分0、#8 は HANDOFF・OWNER-WORDS・research の7ファイルがぶつかる（#8 に連絡）、#4 は sources.json がぶつかる、#5・#7 は重なりなし。research-check エラー0・AGENTS.md の6検査 exit 0（0c0b5cb）。
