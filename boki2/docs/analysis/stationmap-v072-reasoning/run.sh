@@ -20,3 +20,6 @@ sv V5_g_save 6 12 "{$B,\"whiteSpace\":1}" &
 sv V6_a_save 6 12 "{$A}" &
 wait
 grep -h "^SUMMARY" "$O"/V*.txt > "$O/summary.txt"
+
+# 5 続き（δ の SAVE。9章 (a) の選択肢2・同じ駅の中の当たり・⑦B）
+./run2.sh
