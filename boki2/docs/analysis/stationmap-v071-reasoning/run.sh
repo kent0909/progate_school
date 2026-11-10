@@ -32,3 +32,6 @@ run X3_g_S79_refShinise 6 12 "{\"tierSpan\":7.9,\"lamMul\":1,\"entryDelay\":2,\"
 run X4_gd_decay_noise_k12 6 12 "{$BASE,\"whiteSpace\":1,\"demandSignal\":1,\"entryHit\":\"decay\",\"d0\":0.4,\"noise\":true}" &
 wait
 grep -h "^SUMMARY" "$O"/[SWULX]*.txt > "$O/summary.txt"
+
+# 6 続き（⑥ にない規則・主張4の分け・属性の倍率の端）
+./run2.sh
