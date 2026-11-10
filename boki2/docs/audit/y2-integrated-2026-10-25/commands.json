@@ -1,0 +1,106 @@
+{
+  "head": "8defe7edb35317cf9e4ed907e5538555ad4aec9f",
+  "root": "公開SHAのファイルを置いた作業場所。既存本体・道具は未修正",
+  "regressions": [
+    {
+      "command": [
+        "node",
+        "boki2/tools/sim-check.js"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "node",
+        "boki2/tools/sim-check.js",
+        "--ramen",
+        "--runs",
+        "300"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "node",
+        "boki2/tools/validate.js"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "node",
+        "boki2/tools/lexicon-check.js",
+        "--ramen"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "node",
+        "boki2/tools/coverage.js",
+        "--ramen",
+        "--stage",
+        "1"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "node",
+        "boki2/tools/law-check.js"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "node",
+        "boki2/tools/ramen-y2-check.js"
+      ],
+      "exit": 0
+    }
+  ],
+  "ramenSeconds": 1932.3,
+  "independent": [
+    {
+      "script": "inspector-y2-paths.js",
+      "args": [
+        "<公開SHAのboki2>",
+        "<出力JSON>",
+        "--legacy-late"
+      ],
+      "exit": 0
+    },
+    {
+      "script": "inspector-y2-paths.js",
+      "args": [
+        "<公開SHAのboki2>",
+        "<出力JSON>"
+      ],
+      "exit": 0
+    },
+    {
+      "script": "inspector-y2-integrated.js",
+      "args": [
+        "<公開SHAのboki2>",
+        "<出力JSON>"
+      ],
+      "exit": 0
+    },
+    {
+      "script": "inspector-y2-coupon-world.js",
+      "args": [
+        "<公開SHAのboki2>",
+        "<出力JSON>"
+      ],
+      "exit": 0
+    },
+    {
+      "script": "inspector-y2-display-fixtures.js",
+      "args": [
+        "<公開SHAのboki2>",
+        "<出力JSON>"
+      ],
+      "exit": 0
+    }
+  ]
+}

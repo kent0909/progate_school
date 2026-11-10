@@ -1,0 +1,67 @@
+[
+  {
+    "t": 5,
+    "out": "cheap",
+    "worldFx": 15000,
+    "documents": [
+      "bulk-doc0@6"
+    ],
+    "bookFx": 15000,
+    "difference": 0,
+    "monthAvailable": true
+  },
+  {
+    "t": 5,
+    "out": "spoil",
+    "worldFx": -20000,
+    "documents": [
+      "bulk-doc1@6"
+    ],
+    "bookFx": -20000,
+    "difference": 0,
+    "monthAvailable": true
+  },
+  {
+    "t": 5,
+    "out": "space",
+    "worldFx": -8000,
+    "documents": [
+      "bulk-doc2@6"
+    ],
+    "bookFx": -8000,
+    "difference": 0,
+    "monthAvailable": true
+  },
+  {
+    "t": 11,
+    "out": "cheap",
+    "worldFx": 15000,
+    "documents": [],
+    "bookFx": 0,
+    "difference": -15000,
+    "monthAvailable": false
+  },
+  {
+    "t": 11,
+    "out": "spoil",
+    "worldFx": -20000,
+    "documents": [],
+    "bookFx": 0,
+    "difference": 20000,
+    "monthAvailable": false
+  },
+  {
+    "t": 11,
+    "out": "space",
+    "worldFx": -8000,
+    "documents": [],
+    "bookFx": 0,
+    "difference": 8000,
+    "monthAvailable": false
+  }
+]
+在庫40経路の恒等式・非負・S不変を検査
+[{"seed":0,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":0,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":1,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":1,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":2,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":2,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":3,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":3,"paid":300000,"stock":315000,"genmo":750,"loss":12000,"back":302250},{"seed":4,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":4,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":5,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":5,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":6,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":6,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":7,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":7,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":8,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":8,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":9,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":9,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":10,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":10,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":11,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":11,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":12,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":12,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":13,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":13,"paid":300000,"stock":315000,"genmo":750,"loss":12000,"back":302250},{"seed":14,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":14,"paid":300000,"stock":315000,"genmo":750,"loss":12000,"back":302250},{"seed":15,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":15,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":16,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":16,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":17,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":17,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250},{"seed":18,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":18,"paid":300000,"stock":315000,"genmo":750,"loss":12000,"back":302250},{"seed":19,"paid":0,"stock":15000,"genmo":750,"loss":0,"back":14250},{"seed":19,"paid":300000,"stock":315000,"genmo":750,"loss":0,"back":314250}]
+{"zeroDoc":{"oldDocs":128,"newDocs":128,"covered":128,"checks":30720,"positiveVisible":25760,"lost":0}}
+bulkと他札の混在:132経路、入出金差0円
+全月書類の正解と自動仕訳から作った帳簿とworldの橋：[{"mode":"none","seed":0,"differences":[{"t":0,"rawDifference":-264910,"unexplained":0},{"t":1,"rawDifference":-266101,"unexplained":0},{"t":2,"rawDifference":-407161,"unexplained":0},{"t":3,"rawDifference":-421333,"unexplained":0},{"t":4,"rawDifference":-464169,"unexplained":0},{"t":5,"rawDifference":-306196,"unexplained":0},{"t":6,"rawDifference":-291105,"unexplained":0},{"t":7,"rawDifference":-324712,"unexplained":0},{"t":8,"rawDifference":-364888,"unexplained":0},{"t":9,"rawDifference":-374001,"unexplained":0},{"t":10,"rawDifference":-394745,"unexplained":0},{"t":11,"rawDifference":-445319,"unexplained":0}]},{"mode":"none","seed":14,"differences":[{"t":0,"rawDifference":-264722,"unexplained":0},{"t":1,"rawDifference":-269918,"unexplained":0},{"t":2,"rawDifference":-444130,"unexplained":0},{"t":3,"rawDifference":-488928,"unexplained":0},{"t":4,"rawDifference":-539783,"unexplained":0},{"t":5,"rawDifference":-319376,"unexplained":0},{"t":6,"rawDifference":-313186,"unexplained":0},{"t":7,"rawDifference":-363145,"unexplained":0},{"t":8,"rawDifference":-414685,"unexplained":0},{"t":9,"rawDifference":-458386,"unexplained":0},{"t":10,"rawDifference":-490777,"unexplained":0},{"t":11,"rawDifference":-534473,"unexplained":0}]},{"mode":"cheap","seed":0,"differences":[{"t":0,"rawDifference":-264910,"unexplained":0},{"t":1,"rawDifference":-266101,"unexplained":0},{"t":2,"rawDifference":-407161,"unexplained":0},{"t":3,"rawDifference":-421333,"unexplained":0},{"t":4,"rawDifference":-464169,"unexplained":0},{"t":5,"rawDifference":-306196,"unexplained":0},{"t":6,"rawDifference":-288336,"unexplained":0},{"t":7,"rawDifference":-324964,"unexplained":0},{"t":8,"rawDifference":-365138,"unexplained":0},{"t":9,"rawDifference":-374259,"unexplained":0},{"t":10,"rawDifference":-394986,"unexplained":0},{"t":11,"rawDifference":-445532,"unexplained":0}]},{"mode":"cheap","seed":14,"differences":[{"t":0,"rawDifference":-264722,"unexplained":0},{"t":1,"rawDifference":-269918,"unexplained":0},{"t":2,"rawDifference":-444130,"unexplained":0},{"t":3,"rawDifference":-488928,"unexplained":0},{"t":4,"rawDifference":-539783,"unexplained":0},{"t":5,"rawDifference":-319376,"unexplained":0},{"t":6,"rawDifference":-300307,"unexplained":0},{"t":7,"rawDifference":-363095,"unexplained":0},{"t":8,"rawDifference":-414352,"unexplained":0},{"t":9,"rawDifference":-457753,"unexplained":0},{"t":10,"rawDifference":-489921,"unexplained":0},{"t":11,"rawDifference":-533377,"unexplained":0}]},{"mode":"spoil","seed":0,"differences":[{"t":0,"rawDifference":-264910,"unexplained":0},{"t":1,"rawDifference":-266101,"unexplained":0},{"t":2,"rawDifference":-407161,"unexplained":0},{"t":3,"rawDifference":-421333,"unexplained":0},{"t":4,"rawDifference":-464169,"unexplained":0},{"t":5,"rawDifference":-306196,"unexplained":0},{"t":6,"rawDifference":-300823,"unexplained":0},{"t":7,"rawDifference":-324760,"unexplained":0},{"t":8,"rawDifference":-365268,"unexplained":0},{"t":9,"rawDifference":-374512,"unexplained":0},{"t":10,"rawDifference":-395438,"unexplained":0},{"t":11,"rawDifference":-446352,"unexplained":0}]},{"mode":"spoil","seed":14,"differences":[{"t":0,"rawDifference":-264722,"unexplained":0},{"t":1,"rawDifference":-269918,"unexplained":0},{"t":2,"rawDifference":-444130,"unexplained":0},{"t":3,"rawDifference":-488928,"unexplained":0},{"t":4,"rawDifference":-539783,"unexplained":0},{"t":5,"rawDifference":-319376,"unexplained":0},{"t":6,"rawDifference":-316662,"unexplained":0},{"t":7,"rawDifference":-363229,"unexplained":0},{"t":8,"rawDifference":-414865,"unexplained":0},{"t":9,"rawDifference":-458644,"unexplained":0},{"t":10,"rawDifference":-491118,"unexplained":0},{"t":11,"rawDifference":-534903,"unexplained":0}]},{"mode":"space","seed":0,"differences":[{"t":0,"rawDifference":-264910,"unexplained":0},{"t":1,"rawDifference":-266101,"unexplained":0},{"t":2,"rawDifference":-407161,"unexplained":0},{"t":3,"rawDifference":-421333,"unexplained":0},{"t":4,"rawDifference":-464169,"unexplained":0},{"t":5,"rawDifference":-306196,"unexplained":0},{"t":6,"rawDifference":-306396,"unexplained":0},{"t":7,"rawDifference":-324730,"unexplained":0},{"t":8,"rawDifference":-365331,"unexplained":0},{"t":9,"rawDifference":-374586,"unexplained":0},{"t":10,"rawDifference":-395570,"unexplained":0},{"t":11,"rawDifference":-446583,"unexplained":0}]},{"mode":"space","seed":14,"differences":[{"t":0,"rawDifference":-264722,"unexplained":0},{"t":1,"rawDifference":-269918,"unexplained":0},{"t":2,"rawDifference":-444130,"unexplained":0},{"t":3,"rawDifference":-488928,"unexplained":0},{"t":4,"rawDifference":-539783,"unexplained":0},{"t":5,"rawDifference":-319376,"unexplained":0},{"t":6,"rawDifference":-324097,"unexplained":0},{"t":7,"rawDifference":-363471,"unexplained":0},{"t":8,"rawDifference":-415239,"unexplained":0},{"t":9,"rawDifference":-459067,"unexplained":0},{"t":10,"rawDifference":-491643,"unexplained":0},{"t":11,"rawDifference":-535533,"unexplained":0}]},{"mode":"omen","seed":0,"differences":[{"t":0,"rawDifference":-264910,"unexplained":0},{"t":1,"rawDifference":-266101,"unexplained":0},{"t":2,"rawDifference":-407161,"unexplained":0},{"t":3,"rawDifference":-421333,"unexplained":0},{"t":4,"rawDifference":-464169,"unexplained":0},{"t":5,"rawDifference":-306196,"unexplained":0},{"t":6,"rawDifference":-291105,"unexplained":0},{"t":7,"rawDifference":-324712,"unexplained":0},{"t":8,"rawDifference":-364888,"unexplained":0},{"t":9,"rawDifference":-393234,"unexplained":0},{"t":10,"rawDifference":-399920,"unexplained":0},{"t":11,"rawDifference":-450994,"unexplained":0}]},{"mode":"omen","seed":14,"differences":[{"t":0,"rawDifference":-264722,"unexplained":0},{"t":1,"rawDifference":-269918,"unexplained":0},{"t":2,"rawDifference":-444130,"unexplained":0},{"t":3,"rawDifference":-488928,"unexplained":0},{"t":4,"rawDifference":-539783,"unexplained":0},{"t":5,"rawDifference":-319376,"unexplained":0},{"t":6,"rawDifference":-313186,"unexplained":0},{"t":7,"rawDifference":-363145,"unexplained":0},{"t":8,"rawDifference":-414685,"unexplained":0},{"t":9,"rawDifference":-454074,"unexplained":0},{"t":10,"rawDifference":-493272,"unexplained":0},{"t":11,"rawDifference":-537010,"unexplained":0}]}]

@@ -1,0 +1,49 @@
+{
+  "head": "70528428d9e4f3b9d09e6b2a0c03fd0f52eed708",
+  "commandSuffix": "--legacy-late --seed 4",
+  "exit": 1,
+  "details": [
+    {
+      "seed": 4,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": 4000,
+          "bookCardCash": -34000,
+          "difference": -38000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "habit",
+              "cash": 4000
+            }
+          ],
+          "entries": [
+            {
+              "id": "coupon_dual-doc0@23",
+              "cash": -38000
+            },
+            {
+              "id": "fx23",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 3340675,
+      "world": 2340536
+    }
+  ]
+}
