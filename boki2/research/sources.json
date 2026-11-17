@@ -624,6 +624,14 @@
      "expected": "ledger",
      "excluded": {},
      "parts": []
+    },
+    {
+     "id": "ramencount23",
+     "desc": "東京23区の駅のまわりのラーメン店の数（駅の大きさ別）・立地別の1店あたりの売上・工場と倉庫の町の昼の外食の資料：経済センサス（e-Stat・東京都の統計）の産業小分類・細分類と立地環境特性別、OpenStreetMap のラーメン店の点、業界・公的の調査（出店の地図 DESIGN-STATIONMAP 版0.7.3 の 4.1・4.3・9章(e)(b)、BIZ-RAMENCOUNT23）",
+     "need_notes": true,
+     "expected": "ledger",
+     "excluded": {},
+     "parts": []
     }
    ]
   },
