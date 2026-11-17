@@ -117,11 +117,11 @@
     { k: 'sort', say: [['piyo', 'スープの材料を小銭で買って、ぜんぶ使ったピヨ。小銭がへった。']], q: '「つかった」の札を、右の棚のどちらかに置こう。', dests: [{ id: 'R1', label: '返すお金' }, { id: 'R0', label: '返さないお金（じぶんのお金）' }],
       tokens: [{ id: 'use', label: 'つかった', amt: '-cost', coin: '-cost', ok: 'R0', react: '親方に返す1万円は、へっていないね。へったのは、じぶんのお金のほう' }],
       after: [['piyo', 'つかったぶん、じぶんのお金がへった。左と右は、やっぱり同じ数ピヨ。']] },
-    { k: 'note', say: [['piyo', '忘れないように、ノートに書いておこう。1つの出来事を、左と右の2つの列に分けて書くピヨ。']], q: 'それぞれの札を、ノートの左の列・右の列のどちらに書く？',
+    { k: 'note', say: [['piyo', '忘れないように、ノートに書いておこう。1つの出来事を、左と右の2つの列に分けて書くピヨ。']], q: '出来事ごとに、変わったものを左と右に分けて書こう。左の列は、左の棚（何があるか）が増えたとき。右の列は、右の棚（どこから来たか）が増えたとき。', demo: { line: 0, card: 0 },
       lines: [
-        { title: '親方に1万円借りた', cards: [{ label: '小銭が増えた', amt: 10000, side: 'L', kind: 'up-L' }, { label: '返すお金が増えた', amt: 10000, side: 'R', kind: 'up-R' }] },
-        { title: 'ラーメンが売れた', cards: [{ label: '小銭が増えた', amt: 'sale', side: 'L', kind: 'up-L' }, { label: 'かせいだ（じぶんのお金が増えた）', amt: 'sale', side: 'R', kind: 'up-R' }] },
-        { title: '材料を買って使った', cards: [{ label: '小銭がへった', amt: 'cost', side: 'R', kind: 'down-L' }, { label: 'つかった（じぶんのお金がへった）', amt: 'cost', side: 'L', kind: 'down-R' }],
+        { title: '親方に1万円借りた', cards: [{ label: '小銭', delta: 10000, side: 'L', kind: 'up-L' }, { label: '親方に返すお金', delta: 10000, side: 'R', kind: 'up-R' }] },
+        { title: 'ラーメンが売れた', cards: [{ label: '小銭', delta: 'sale', side: 'L', kind: 'up-L' }, { label: 'じぶんのお金（かせいだ）', delta: 'sale', side: 'R', kind: 'up-R' }] },
+        { title: '材料を買って使った', cards: [{ label: '小銭', delta: '-cost', side: 'R', kind: 'down-L' }, { label: 'じぶんのお金（つかった）', delta: '-cost', side: 'L', kind: 'down-R' }],
           ask: { say: [['piyo', 'あれ？ ノートには、マイナスの数は書かない約束ピヨ。小銭がへったことは、どう書けばいい？']], opts: [
             { t: '「小銭」を、反対の右の列に書く', ok: true, react: 'そう！ 左の列が「増えた」なら、反対の右の列は「へった」。マイナスを使わずに、へったことが書ける。' },
             { t: '左の列に「小銭」をマイナスで書く', react: 'マイナスは書かない約束だったね。左の列は「増えた」を書く場所。じゃあ、へったときは？' },

@@ -118,7 +118,7 @@
   // v3（ピヨ商店・レモネード）の保存はそのまま残し（index.html が読む）、v4 を初めて作るとき学びの記録だけ meta に写す（fromV3）
   const V4 = (ST.v4 = {});
   V4.SLOTS = 3;
-  V4.META = ['examLog', 'growth', 'speedLog', 'speedRuns', 'plan', 'hall', 'profile', 'profileOk', 'mode', 'modeOk', 'furigana', 'textScale', 'examExtra', 'examDate', 'scopeMet', 'runs'];
+  V4.META = ['motion', 'sound', 'soundAsked', 'examLog', 'growth', 'speedLog', 'speedRuns', 'plan', 'hall', 'profile', 'profileOk', 'mode', 'modeOk', 'furigana', 'textScale', 'examExtra', 'examDate', 'scopeMet', 'runs'];
   const clone = (x) => (x == null ? x : JSON.parse(JSON.stringify(x)));
   // 6386215737：ラーメンv4だけ、直近3件と結末が必要とする戻り先を保持する。
   V4.bookmarkLimit=3;
