@@ -1,0 +1,29 @@
+回した組の名：K0 K1 K123a K123h K123m K1K3 K1R2 K1R3 K1R4 K1hi K1hiK3 K2 K3 K5 K6 K7 K7hi K7m K7mT K7m_median K7m_noK2 K7m_noK3 K7m_noK5 K7m_noK6 repro_I_K7hi_daynull1
+あり K0
+あり K1
+なし K11
+なし K12
+あり K123a
+あり K123h
+あり K123m
+なし K17
+あり K1R2
+あり K1R3
+あり K1R4
+あり K1hi
+なし K1m
+あり K2
+あり K3
+あり K5
+あり K6
+あり K7
+あり K7hi
+なし K7hi_daynull1
+あり K7m
+あり K7mT
+あり K7m_median
+あり K7m_noK2
+あり K7m_noK3
+あり K7m_noK5
+あり K7m_noK6
+読み：「なし」の語は、K12（くじの世界の数 K＝12）・K11・K17（論証の検査の番号。表の中で〈〉の外に出る所）・K1m（K1 を m_C 1.93 にした部品の名。K123m・K7m に入る）・K7hi_daynull1（論証の検査役の組 I_K7hi_daynull1。out2/E_repro_I_K7hi_daynull1 で回してバイト一致）で、回していない組の数ではない（書き手が1語ずつ見た）

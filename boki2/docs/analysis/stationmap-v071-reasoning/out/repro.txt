@@ -1,0 +1,4 @@
+R2_a_save.txt と ../stationmap-v071-draft/out/T2_a.txt はバイト一致
+R4_g_save.txt と ../stationmap-v071-draft/out/T4_g_white.txt はバイト一致
+R5_d_save.txt と ../stationmap-v071-draft/out/T5_d_signal.txt はバイト一致
+R7_gd_save.txt と ../stationmap-v071-draft/out/T7_gd_decay.txt はバイト一致

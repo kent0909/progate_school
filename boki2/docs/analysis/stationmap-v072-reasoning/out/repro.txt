@@ -1,0 +1,3 @@
+V5_g_save.txt と ../stationmap-v072-draft/out/M_g.txt はバイト一致
+V6_a_save.txt と ../stationmap-v072-draft/out/M_a.txt はバイト一致
+V7_d_save.txt と ../stationmap-v072-draft/out/M_d.txt はバイト一致
