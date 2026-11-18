@@ -1,0 +1,19 @@
+{
+  "target": "959cb5780f33378e1bf45401f1d4225b7341cf22",
+  "base": "6ff66e66edf6ae375a0d72fbf4972f485eceb59a",
+  "seeds": [
+    0,
+    299
+  ],
+  "runs": 21000,
+  "python": "3.12.14",
+  "bootstrap": {
+    "resamples": 5000,
+    "seed": 20261024,
+    "method": "paired seed percentile"
+  },
+  "sha256": {
+    "summary.json": "8b0984101a6a6239ef6910f4ecf68c3ee9901d2537ebc33ad8b8c3f393630c24",
+    "runs.jsonl": "a11fac11e8ca3b8ecd4b61fe9feb1d40b8d72cc464acd05a83fbf0403947db1a"
+  }
+}

@@ -1,0 +1,5944 @@
+{
+  "head": "70528428d9e4f3b9d09e6b2a0c03fd0f52eed708",
+  "mode": "legacy-late",
+  "exit": 1,
+  "paths": 300,
+  "targets": 118,
+  "documents": 126552,
+  "coveredYear2DocIds": 412,
+  "reachedTargets": 0,
+  "missingTargets": [],
+  "cashDiscrepancyPaths": 122,
+  "failures": [],
+  "details": [
+    {
+      "seed": 0,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5503079,
+      "world": 4496496
+    },
+    {
+      "seed": 1,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12079662,
+      "world": 9932501
+    },
+    {
+      "seed": 2,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8502996,
+      "world": 7238129
+    },
+    {
+      "seed": 3,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12791875,
+      "world": 11196365
+    },
+    {
+      "seed": 4,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": 4000,
+          "bookCardCash": -34000,
+          "difference": -38000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "habit",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 3340675,
+      "world": 2340536
+    },
+    {
+      "seed": 5,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 412,
+      "reached": true,
+      "issues": [
+        {
+          "t": 21,
+          "worldCardCash": -6000,
+          "bookCardCash": -52000,
+          "difference": -46000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "ticket_items",
+              "option": "n10",
+              "outcome": "d14",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 13276855,
+      "world": 11105636
+    },
+    {
+      "seed": 6,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 416,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -21000,
+          "difference": -21000,
+          "choices": [
+            {
+              "card": "soup",
+              "option": "own",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 4036492,
+      "world": 2984007
+    },
+    {
+      "seed": 7,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 415,
+      "reached": true,
+      "issues": [],
+      "finalBank": 15872542,
+      "world": 13918561
+    },
+    {
+      "seed": 8,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [
+        {
+          "t": 17,
+          "worldCardCash": -30000,
+          "bookCardCash": -54000,
+          "difference": -24000,
+          "choices": [
+            {
+              "card": "good_jouren",
+              "option": "sign",
+              "outcome": "good",
+              "cash": 0
+            },
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "miss",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 4642878,
+      "world": 3727433
+    },
+    {
+      "seed": 9,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11992548,
+      "world": 10365903
+    },
+    {
+      "seed": 10,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9097383,
+      "world": 7623112
+    },
+    {
+      "seed": 11,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9804659,
+      "world": 8472159
+    },
+    {
+      "seed": 12,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -22000,
+          "difference": -22000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 8469374,
+      "world": 7248784
+    },
+    {
+      "seed": 13,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13183530,
+      "world": 11625279
+    },
+    {
+      "seed": 14,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6319189,
+      "world": 5251286
+    },
+    {
+      "seed": 15,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 12,
+          "worldCardCash": -120000,
+          "bookCardCash": -143000,
+          "difference": -23000,
+          "choices": [
+            {
+              "card": "maintain",
+              "option": "repair",
+              "outcome": "ok",
+              "cash": -120000
+            }
+          ]
+        }
+      ],
+      "finalBank": 9709669,
+      "world": 8181740
+    },
+    {
+      "seed": 16,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": 0,
+          "bookCardCash": -29000,
+          "difference": -29000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 6530047,
+      "world": 5414446
+    },
+    {
+      "seed": 17,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": 0,
+          "bookCardCash": -29000,
+          "difference": -29000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 8603477,
+      "world": 7413168
+    },
+    {
+      "seed": 18,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5573048,
+      "world": 4364705
+    },
+    {
+      "seed": 19,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 416,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": -10000,
+          "bookCardCash": -56000,
+          "difference": -46000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            }
+          ]
+        }
+      ],
+      "finalBank": 12995262,
+      "world": 10800096
+    },
+    {
+      "seed": 20,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [
+        {
+          "t": 13,
+          "worldCardCash": 4990000,
+          "bookCardCash": 4968000,
+          "difference": -22000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "issue",
+              "option": "s500",
+              "outcome": "paid",
+              "cash": 5000000
+            }
+          ]
+        }
+      ],
+      "finalBank": 11009037,
+      "world": 9560008
+    },
+    {
+      "seed": 21,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12310380,
+      "world": 10793078
+    },
+    {
+      "seed": 22,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11799019,
+      "world": 10255951
+    },
+    {
+      "seed": 23,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 417,
+      "reached": true,
+      "issues": [
+        {
+          "t": 12,
+          "worldCardCash": 0,
+          "bookCardCash": -22000,
+          "difference": -22000,
+          "choices": [
+            {
+              "card": "good_jouren",
+              "option": "sign",
+              "outcome": "small",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 4646137,
+      "world": 3582632
+    },
+    {
+      "seed": 24,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11838662,
+      "world": 10327602
+    },
+    {
+      "seed": 25,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13060885,
+      "world": 11496547
+    },
+    {
+      "seed": 26,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10304978,
+      "world": 8905030
+    },
+    {
+      "seed": 27,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": -10000,
+          "bookCardCash": -65000,
+          "difference": -55000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "good_jouren",
+              "option": "sign",
+              "outcome": "good",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 16296253,
+      "world": 14425978
+    },
+    {
+      "seed": 28,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8540486,
+      "world": 7293826
+    },
+    {
+      "seed": 29,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8145164,
+      "world": 7011574
+    },
+    {
+      "seed": 30,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 4414184,
+      "world": 3313040
+    },
+    {
+      "seed": 31,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -24000,
+          "difference": -24000,
+          "choices": [
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 9303716,
+      "world": 8077952
+    },
+    {
+      "seed": 32,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 415,
+      "reached": true,
+      "issues": [
+        {
+          "t": 28,
+          "worldCardCash": 0,
+          "bookCardCash": -33000,
+          "difference": -33000,
+          "choices": [
+            {
+              "card": "ev_summer_y2",
+              "option": "go",
+              "outcome": "good",
+              "cash": 60000
+            },
+            {
+              "card": "frozen_noodle",
+              "option": "outside",
+              "outcome": "success",
+              "cash": -60000
+            }
+          ]
+        }
+      ],
+      "finalBank": 8568151,
+      "world": 7327909
+    },
+    {
+      "seed": 33,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9987925,
+      "world": 8491729
+    },
+    {
+      "seed": 34,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5689246,
+      "world": 4698892
+    },
+    {
+      "seed": 35,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 415,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12610132,
+      "world": 10426649
+    },
+    {
+      "seed": 36,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6449012,
+      "world": 5204684
+    },
+    {
+      "seed": 37,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6304029,
+      "world": 5306392
+    },
+    {
+      "seed": 38,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11545801,
+      "world": 9785148
+    },
+    {
+      "seed": 39,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -22000,
+          "difference": -22000,
+          "choices": [
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 8698073,
+      "world": 7481232
+    },
+    {
+      "seed": 40,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13592874,
+      "world": 11913632
+    },
+    {
+      "seed": 41,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10637295,
+      "world": 9059163
+    },
+    {
+      "seed": 42,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8072830,
+      "world": 6851754
+    },
+    {
+      "seed": 43,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": 0,
+          "bookCardCash": -25000,
+          "difference": -25000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 5345516,
+      "world": 4251170
+    },
+    {
+      "seed": 44,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -27000,
+          "difference": -27000,
+          "choices": [
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 10845312,
+      "world": 9162031
+    },
+    {
+      "seed": 45,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13067278,
+      "world": 11472452
+    },
+    {
+      "seed": 46,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8386223,
+      "world": 6911916
+    },
+    {
+      "seed": 47,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8744260,
+      "world": 7522788
+    },
+    {
+      "seed": 48,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -30000,
+          "difference": -30000,
+          "choices": [
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 14521491,
+      "world": 12750252
+    },
+    {
+      "seed": 49,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3713170,
+      "world": 2715733
+    },
+    {
+      "seed": 50,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 430,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11854594,
+      "world": 10259844
+    },
+    {
+      "seed": 51,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6369401,
+      "world": 5161562
+    },
+    {
+      "seed": 52,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 29,
+          "worldCardCash": -30000,
+          "bookCardCash": -64000,
+          "difference": -34000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "mid",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 8614066,
+      "world": 7133300
+    },
+    {
+      "seed": 53,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 4531834,
+      "world": 3459961
+    },
+    {
+      "seed": 54,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 429,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": -52000,
+          "bookCardCash": -87000,
+          "difference": -35000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            },
+            {
+              "card": "staff_hire",
+              "option": "hire",
+              "outcome": "hired",
+              "cash": -50000
+            }
+          ]
+        }
+      ],
+      "finalBank": 4515353,
+      "world": 3632605
+    },
+    {
+      "seed": 55,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -787000,
+          "difference": -37000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "bad",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 13855573,
+      "world": 12202556
+    },
+    {
+      "seed": 56,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10389688,
+      "world": 8990463
+    },
+    {
+      "seed": 57,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": 0,
+          "bookCardCash": -41000,
+          "difference": -41000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 15043223,
+      "world": 13328629
+    },
+    {
+      "seed": 58,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -790000,
+          "difference": -40000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "bad",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 12120498,
+      "world": 10635054
+    },
+    {
+      "seed": 59,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": -2000,
+          "bookCardCash": -47000,
+          "difference": -45000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            }
+          ]
+        }
+      ],
+      "finalBank": 10336843,
+      "world": 8966664
+    },
+    {
+      "seed": 60,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8818366,
+      "world": 7538820
+    },
+    {
+      "seed": 61,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12691428,
+      "world": 11147695
+    },
+    {
+      "seed": 62,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5909467,
+      "world": 4879816
+    },
+    {
+      "seed": 63,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": -7000,
+          "bookCardCash": -43000,
+          "difference": -36000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "good_jouren",
+              "option": "sign",
+              "outcome": "small",
+              "cash": 0
+            },
+            {
+              "card": "items_stock_sale",
+              "option": "sell",
+              "outcome": "d8",
+              "cash": 3000
+            }
+          ]
+        }
+      ],
+      "finalBank": 8380088,
+      "world": 7024128
+    },
+    {
+      "seed": 64,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13627364,
+      "world": 11913671
+    },
+    {
+      "seed": 65,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 417,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12714634,
+      "world": 10601463
+    },
+    {
+      "seed": 66,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11099869,
+      "world": 9578361
+    },
+    {
+      "seed": 67,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [
+        {
+          "t": 12,
+          "worldCardCash": 8000,
+          "bookCardCash": -19000,
+          "difference": -27000,
+          "choices": [
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            }
+          ]
+        }
+      ],
+      "finalBank": 14242829,
+      "world": 12025005
+    },
+    {
+      "seed": 68,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9003669,
+      "world": 7710433
+    },
+    {
+      "seed": 69,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [
+        {
+          "t": 12,
+          "worldCardCash": 15000,
+          "bookCardCash": -9000,
+          "difference": -24000,
+          "choices": [
+            {
+              "card": "bulk",
+              "option": "bulk",
+              "outcome": "cheap",
+              "cash": 15000
+            }
+          ]
+        }
+      ],
+      "finalBank": 12409683,
+      "world": 10935415
+    },
+    {
+      "seed": 70,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13783543,
+      "world": 12057745
+    },
+    {
+      "seed": 71,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [
+        {
+          "t": 18,
+          "worldCardCash": -1650000,
+          "bookCardCash": -1671000,
+          "difference": -21000,
+          "choices": [
+            {
+              "card": "site2",
+              "option": "shotengai:family",
+              "outcome": "start",
+              "cash": -1650000
+            }
+          ]
+        }
+      ],
+      "finalBank": 4347382,
+      "world": 3488054
+    },
+    {
+      "seed": 72,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9098046,
+      "world": 7796737
+    },
+    {
+      "seed": 73,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 429,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": 0,
+          "bookCardCash": -42000,
+          "difference": -42000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "foodup",
+              "option": "raise",
+              "outcome": "small",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 9062395,
+      "world": 7624889
+    },
+    {
+      "seed": 74,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": -103000,
+          "bookCardCash": -129000,
+          "difference": -26000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "bad",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "quit",
+              "cash": 0
+            },
+            {
+              "card": "staff_leave",
+              "option": "leave",
+              "outcome": "left",
+              "cash": -103000
+            }
+          ]
+        }
+      ],
+      "finalBank": 6605589,
+      "world": 5528452
+    },
+    {
+      "seed": 75,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 16,
+          "worldCardCash": 50000,
+          "bookCardCash": 23000,
+          "difference": -27000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "ev_summer_y2",
+              "option": "go",
+              "outcome": "good",
+              "cash": 60000
+            }
+          ]
+        }
+      ],
+      "finalBank": 9312559,
+      "world": 8055536
+    },
+    {
+      "seed": 76,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7612767,
+      "world": 6448909
+    },
+    {
+      "seed": 77,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 34,
+          "worldCardCash": 0,
+          "bookCardCash": -24000,
+          "difference": -24000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 7069756,
+      "world": 6004944
+    },
+    {
+      "seed": 78,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 21,
+          "worldCardCash": 4000,
+          "bookCardCash": -39000,
+          "difference": -43000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "ticket_items",
+              "option": "n10",
+              "outcome": "d11",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 11257093,
+      "world": 9763914
+    },
+    {
+      "seed": 79,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 20,
+          "worldCardCash": 0,
+          "bookCardCash": -51000,
+          "difference": -51000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 11866348,
+      "world": 10442106
+    },
+    {
+      "seed": 80,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11362654,
+      "world": 9904425
+    },
+    {
+      "seed": 81,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11891082,
+      "world": 10429325
+    },
+    {
+      "seed": 82,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 417,
+      "reached": true,
+      "issues": [
+        {
+          "t": 20,
+          "worldCardCash": 34000,
+          "bookCardCash": -15000,
+          "difference": -49000,
+          "choices": [
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "habit",
+              "cash": 4000
+            },
+            {
+              "card": "menu",
+              "option": "set",
+              "outcome": "up",
+              "cash": 30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 12522343,
+      "world": 10923023
+    },
+    {
+      "seed": 83,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12221488,
+      "world": 10725859
+    },
+    {
+      "seed": 84,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13512710,
+      "world": 11847421
+    },
+    {
+      "seed": 85,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 14329277,
+      "world": 12680532
+    },
+    {
+      "seed": 86,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": -10000,
+          "bookCardCash": -31000,
+          "difference": -21000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 7137094,
+      "world": 5969798
+    },
+    {
+      "seed": 87,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": -7000,
+          "bookCardCash": -42000,
+          "difference": -35000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "haccp",
+              "option": "keep",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "items_stock_sale",
+              "option": "sell",
+              "outcome": "d13",
+              "cash": 3000
+            }
+          ]
+        }
+      ],
+      "finalBank": 9917292,
+      "world": 8621277
+    },
+    {
+      "seed": 88,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 417,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10890596,
+      "world": 9408400
+    },
+    {
+      "seed": 89,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 429,
+      "reached": true,
+      "issues": [],
+      "finalBank": 4192391,
+      "world": 3159878
+    },
+    {
+      "seed": 90,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 417,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -795000,
+          "difference": -45000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 12331793,
+      "world": 10096002
+    },
+    {
+      "seed": 91,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -794000,
+          "difference": -44000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 12555160,
+      "world": 11034539
+    },
+    {
+      "seed": 92,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 35,
+          "worldCardCash": -10000,
+          "bookCardCash": -42000,
+          "difference": -32000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "maintain_y2",
+              "option": "plan",
+              "outcome": "planned",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 8119295,
+      "world": 6882563
+    },
+    {
+      "seed": 93,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 13,
+          "worldCardCash": 5000000,
+          "bookCardCash": 4977000,
+          "difference": -23000,
+          "choices": [
+            {
+              "card": "freelance",
+              "option": "write",
+              "outcome": "late",
+              "cash": 0
+            },
+            {
+              "card": "issue",
+              "option": "s500",
+              "outcome": "paid",
+              "cash": 5000000
+            }
+          ]
+        }
+      ],
+      "finalBank": 7979371,
+      "world": 6801455
+    },
+    {
+      "seed": 94,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [
+        {
+          "t": 21,
+          "worldCardCash": -6000,
+          "bookCardCash": -48000,
+          "difference": -42000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "ticket_items",
+              "option": "n10",
+              "outcome": "d18",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 9577125,
+      "world": 8260816
+    },
+    {
+      "seed": 95,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9535591,
+      "world": 8262329
+    },
+    {
+      "seed": 96,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -800000,
+          "bookCardCash": -838000,
+          "difference": -38000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "bad",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            },
+            {
+              "card": "staff_hire",
+              "option": "hire",
+              "outcome": "hired",
+              "cash": -50000
+            }
+          ]
+        }
+      ],
+      "finalBank": 10022658,
+      "world": 8635453
+    },
+    {
+      "seed": 97,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 29,
+          "worldCardCash": -30000,
+          "bookCardCash": -61000,
+          "difference": -31000,
+          "choices": [
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "mid",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 9456554,
+      "world": 8169247
+    },
+    {
+      "seed": 98,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -790000,
+          "difference": -40000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "bad",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 10345489,
+      "world": 8942964
+    },
+    {
+      "seed": 99,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -784000,
+          "difference": -34000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 9877599,
+      "world": 8582600
+    },
+    {
+      "seed": 100,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10409510,
+      "world": 8983862
+    },
+    {
+      "seed": 101,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5713144,
+      "world": 4738317
+    },
+    {
+      "seed": 102,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6423708,
+      "world": 5344557
+    },
+    {
+      "seed": 103,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10150183,
+      "world": 8594287
+    },
+    {
+      "seed": 104,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7269539,
+      "world": 5922956
+    },
+    {
+      "seed": 105,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [
+        {
+          "t": 12,
+          "worldCardCash": 0,
+          "bookCardCash": -22000,
+          "difference": -22000,
+          "choices": [
+            {
+              "card": "soup",
+              "option": "own",
+              "outcome": "uneven",
+              "cash": 0
+            },
+            {
+              "card": "wholesale_offer",
+              "option": "no",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 10212802,
+      "world": 8878443
+    },
+    {
+      "seed": 106,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 29,
+          "worldCardCash": -40000,
+          "bookCardCash": -70000,
+          "difference": -30000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "miss",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 10042760,
+      "world": 8655114
+    },
+    {
+      "seed": 107,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 21,
+          "worldCardCash": -6000,
+          "bookCardCash": -42000,
+          "difference": -36000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "ticket_items",
+              "option": "n10",
+              "outcome": "d16",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 7322925,
+      "world": 6033173
+    },
+    {
+      "seed": 108,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 4268335,
+      "world": 3203992
+    },
+    {
+      "seed": 109,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6028107,
+      "world": 5019988
+    },
+    {
+      "seed": 110,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 13,
+          "worldCardCash": 5000000,
+          "bookCardCash": 4978000,
+          "difference": -22000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "issue",
+              "option": "s500",
+              "outcome": "paid",
+              "cash": 5000000
+            }
+          ]
+        }
+      ],
+      "finalBank": 7893007,
+      "world": 6686740
+    },
+    {
+      "seed": 111,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9241240,
+      "world": 7979279
+    },
+    {
+      "seed": 112,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 14333483,
+      "world": 11952948
+    },
+    {
+      "seed": 113,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12406756,
+      "world": 10862916
+    },
+    {
+      "seed": 114,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 417,
+      "reached": true,
+      "issues": [
+        {
+          "t": 33,
+          "worldCardCash": 4000,
+          "bookCardCash": -32000,
+          "difference": -36000,
+          "choices": [
+            {
+              "card": "ticket_items",
+              "option": "n10",
+              "outcome": "d16",
+              "cash": 4000
+            },
+            {
+              "card": "bonus",
+              "option": "standard",
+              "outcome": "promised",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 10101485,
+      "world": 8727323
+    },
+    {
+      "seed": 115,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [],
+      "finalBank": 16148284,
+      "world": 14199502
+    },
+    {
+      "seed": 116,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8116361,
+      "world": 6907165
+    },
+    {
+      "seed": 117,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 416,
+      "reached": true,
+      "issues": [
+        {
+          "t": 16,
+          "worldCardCash": 60000,
+          "bookCardCash": 23000,
+          "difference": -37000,
+          "choices": [
+            {
+              "card": "ev_summer_y2",
+              "option": "go",
+              "outcome": "good",
+              "cash": 60000
+            }
+          ]
+        }
+      ],
+      "finalBank": 14282265,
+      "world": 12130092
+    },
+    {
+      "seed": 118,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13738318,
+      "world": 12081904
+    },
+    {
+      "seed": 119,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": -6000,
+          "bookCardCash": -44000,
+          "difference": -38000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "foodup",
+              "option": "raise",
+              "outcome": "small",
+              "cash": 0
+            },
+            {
+              "card": "items_stock_sale",
+              "option": "sell",
+              "outcome": "d12",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 10038289,
+      "world": 8698732
+    },
+    {
+      "seed": 120,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8704399,
+      "world": 7394862
+    },
+    {
+      "seed": 121,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 17,
+          "worldCardCash": -40000,
+          "bookCardCash": -74000,
+          "difference": -34000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "mid",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 14854128,
+      "world": 13116830
+    },
+    {
+      "seed": 122,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3047602,
+      "world": 2075037
+    },
+    {
+      "seed": 123,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -798000,
+          "difference": -48000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "bad",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 15925588,
+      "world": 14145804
+    },
+    {
+      "seed": 124,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8463801,
+      "world": 7185391
+    },
+    {
+      "seed": 125,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -22000,
+          "difference": -22000,
+          "choices": [
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 8077833,
+      "world": 6918061
+    },
+    {
+      "seed": 126,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9317453,
+      "world": 8031991
+    },
+    {
+      "seed": 127,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9476624,
+      "world": 8170520
+    },
+    {
+      "seed": 128,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8046726,
+      "world": 6818091
+    },
+    {
+      "seed": 129,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7986134,
+      "world": 6831738
+    },
+    {
+      "seed": 130,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10809377,
+      "world": 9372837
+    },
+    {
+      "seed": 131,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 4951102,
+      "world": 3850124
+    },
+    {
+      "seed": 132,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": 0,
+          "bookCardCash": -38000,
+          "difference": -38000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 12443222,
+      "world": 10897142
+    },
+    {
+      "seed": 133,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9377392,
+      "world": 8098920
+    },
+    {
+      "seed": 134,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": -10000,
+          "bookCardCash": -51000,
+          "difference": -41000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            }
+          ]
+        }
+      ],
+      "finalBank": 7329826,
+      "world": 6167854
+    },
+    {
+      "seed": 135,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13766151,
+      "world": 11871432
+    },
+    {
+      "seed": 136,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8639525,
+      "world": 7351871
+    },
+    {
+      "seed": 137,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11427014,
+      "world": 9988103
+    },
+    {
+      "seed": 138,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 16,
+          "worldCardCash": 40000,
+          "bookCardCash": 17000,
+          "difference": -23000,
+          "choices": [
+            {
+              "card": "ev_summer_y2",
+              "option": "go",
+              "outcome": "tired",
+              "cash": 40000
+            }
+          ]
+        }
+      ],
+      "finalBank": 5740746,
+      "world": 4742785
+    },
+    {
+      "seed": 139,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7900551,
+      "world": 6756782
+    },
+    {
+      "seed": 140,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9273858,
+      "world": 7766030
+    },
+    {
+      "seed": 141,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11607959,
+      "world": 10127183
+    },
+    {
+      "seed": 142,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11299081,
+      "world": 9588080
+    },
+    {
+      "seed": 143,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 413,
+      "reached": true,
+      "issues": [
+        {
+          "t": 12,
+          "worldCardCash": 8000,
+          "bookCardCash": -16000,
+          "difference": -24000,
+          "choices": [
+            {
+              "card": "haccp",
+              "option": "keep",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            }
+          ]
+        }
+      ],
+      "finalBank": 11061534,
+      "world": 9049021
+    },
+    {
+      "seed": 144,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3595645,
+      "world": 2582525
+    },
+    {
+      "seed": 145,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7001006,
+      "world": 5928372
+    },
+    {
+      "seed": 146,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9880597,
+      "world": 8492344
+    },
+    {
+      "seed": 147,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5946452,
+      "world": 4978636
+    },
+    {
+      "seed": 148,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7329502,
+      "world": 5984656
+    },
+    {
+      "seed": 149,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6842618,
+      "world": 5793964
+    },
+    {
+      "seed": 150,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10435759,
+      "world": 9023865
+    },
+    {
+      "seed": 151,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7740314,
+      "world": 6599299
+    },
+    {
+      "seed": 152,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8036860,
+      "world": 6809808
+    },
+    {
+      "seed": 153,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12623857,
+      "world": 11059681
+    },
+    {
+      "seed": 154,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": 7000,
+          "bookCardCash": -28000,
+          "difference": -35000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "foodup",
+              "option": "raise",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "good_kouji",
+              "option": "take",
+              "outcome": "rush",
+              "cash": 16000
+            },
+            {
+              "card": "items_stock_sale",
+              "option": "sell",
+              "outcome": "d17",
+              "cash": 1000
+            }
+          ]
+        }
+      ],
+      "finalBank": 4618149,
+      "world": 3482814
+    },
+    {
+      "seed": 155,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 15,
+          "worldCardCash": -30000,
+          "bookCardCash": -52000,
+          "difference": -22000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "hours",
+              "option": "night",
+              "outcome": "tired",
+              "cash": -30000
+            },
+            {
+              "card": "good_jouren",
+              "option": "sign",
+              "outcome": "small",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 12609525,
+      "world": 11265727
+    },
+    {
+      "seed": 156,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 417,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": 0,
+          "bookCardCash": -32000,
+          "difference": -32000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "bad",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 8319396,
+      "world": 7100537
+    },
+    {
+      "seed": 157,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5269491,
+      "world": 4329219
+    },
+    {
+      "seed": 158,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9335448,
+      "world": 7848859
+    },
+    {
+      "seed": 159,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7018047,
+      "world": 5919115
+    },
+    {
+      "seed": 160,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": 0,
+          "bookCardCash": -36000,
+          "difference": -36000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "soup",
+              "option": "own",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 7139255,
+      "world": 5780661
+    },
+    {
+      "seed": 161,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [
+        {
+          "t": 21,
+          "worldCardCash": -9000,
+          "bookCardCash": -59000,
+          "difference": -50000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "ticket_items",
+              "option": "n10",
+              "outcome": "d7",
+              "cash": 1000
+            }
+          ]
+        }
+      ],
+      "finalBank": 16058750,
+      "world": 14117034
+    },
+    {
+      "seed": 162,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12767412,
+      "world": 11135979
+    },
+    {
+      "seed": 163,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12950435,
+      "world": 11367161
+    },
+    {
+      "seed": 164,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11123640,
+      "world": 9851974
+    },
+    {
+      "seed": 165,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 17,
+          "worldCardCash": -22000,
+          "bookCardCash": -47000,
+          "difference": -25000,
+          "choices": [
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            },
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "hit",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 8812821,
+      "world": 7581816
+    },
+    {
+      "seed": 166,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6825489,
+      "world": 5507307
+    },
+    {
+      "seed": 167,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": 2000,
+          "bookCardCash": -36000,
+          "difference": -38000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            },
+            {
+              "card": "items_stock_sale",
+              "option": "sell",
+              "outcome": "d9",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 7592739,
+      "world": 6458446
+    },
+    {
+      "seed": 168,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9083506,
+      "world": 7752371
+    },
+    {
+      "seed": 169,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 429,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": -10000,
+          "bookCardCash": -55000,
+          "difference": -45000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "wholesale_offer",
+              "option": "no",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 12503911,
+      "world": 11197948
+    },
+    {
+      "seed": 170,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11919553,
+      "world": 10406183
+    },
+    {
+      "seed": 171,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 430,
+      "reached": true,
+      "issues": [],
+      "finalBank": 4563032,
+      "world": 3518812
+    },
+    {
+      "seed": 172,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 16,
+          "worldCardCash": 50000,
+          "bookCardCash": 21000,
+          "difference": -29000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "ev_summer_y2",
+              "option": "go",
+              "outcome": "good",
+              "cash": 60000
+            }
+          ]
+        }
+      ],
+      "finalBank": 6537814,
+      "world": 5251295
+    },
+    {
+      "seed": 173,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 15,
+          "worldCardCash": -22000,
+          "bookCardCash": -46000,
+          "difference": -24000,
+          "choices": [
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            },
+            {
+              "card": "hours",
+              "option": "night",
+              "outcome": "even",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 9128909,
+      "world": 7898707
+    },
+    {
+      "seed": 174,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11798120,
+      "world": 10229352
+    },
+    {
+      "seed": 175,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13692098,
+      "world": 11450368
+    },
+    {
+      "seed": 176,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11882276,
+      "world": 10101226
+    },
+    {
+      "seed": 177,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [
+        {
+          "t": 15,
+          "worldCardCash": 0,
+          "bookCardCash": -30000,
+          "difference": -30000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 13094676,
+      "world": 11512828
+    },
+    {
+      "seed": 178,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [
+        {
+          "t": 17,
+          "worldCardCash": -30000,
+          "bookCardCash": -51000,
+          "difference": -21000,
+          "choices": [
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "mid",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 5137787,
+      "world": 4178750
+    },
+    {
+      "seed": 179,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11958929,
+      "world": 10461769
+    },
+    {
+      "seed": 180,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -18000,
+          "difference": -18000,
+          "choices": [
+            {
+              "card": "haccp",
+              "option": "keep",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 4714510,
+      "world": 3784522
+    },
+    {
+      "seed": 181,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [
+        {
+          "t": 15,
+          "worldCardCash": -30000,
+          "bookCardCash": -54000,
+          "difference": -24000,
+          "choices": [
+            {
+              "card": "hours",
+              "option": "night",
+              "outcome": "up",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 11188907,
+      "world": 9751970
+    },
+    {
+      "seed": 182,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 20,
+          "worldCardCash": 8000,
+          "bookCardCash": -27000,
+          "difference": -35000,
+          "choices": [
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            }
+          ]
+        }
+      ],
+      "finalBank": 4776742,
+      "world": 3844489
+    },
+    {
+      "seed": 183,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -783000,
+          "difference": -33000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 8125716,
+      "world": 6984015
+    },
+    {
+      "seed": 184,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [
+        {
+          "t": 17,
+          "worldCardCash": -30000,
+          "bookCardCash": -55000,
+          "difference": -25000,
+          "choices": [
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "mid",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 6242348,
+      "world": 4965014
+    },
+    {
+      "seed": 185,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9108239,
+      "world": 7636488
+    },
+    {
+      "seed": 186,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -791000,
+          "difference": -41000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "quit",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 10757142,
+      "world": 9387076
+    },
+    {
+      "seed": 187,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9912506,
+      "world": 8583644
+    },
+    {
+      "seed": 188,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 16,
+          "worldCardCash": 30000,
+          "bookCardCash": -6000,
+          "difference": -36000,
+          "choices": [
+            {
+              "card": "heat",
+              "option": "cold",
+              "outcome": "fill",
+              "cash": -10000
+            },
+            {
+              "card": "ev_summer_y2",
+              "option": "go",
+              "outcome": "tired",
+              "cash": 40000
+            }
+          ]
+        }
+      ],
+      "finalBank": 13488805,
+      "world": 11685421
+    },
+    {
+      "seed": 189,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -19000,
+          "difference": -19000,
+          "choices": [
+            {
+              "card": "haccp",
+              "option": "keep",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 4716743,
+      "world": 3635527
+    },
+    {
+      "seed": 190,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 12,
+          "worldCardCash": -120000,
+          "bookCardCash": -140000,
+          "difference": -20000,
+          "choices": [
+            {
+              "card": "haccp",
+              "option": "keep",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "maintain",
+              "option": "repair",
+              "outcome": "ok",
+              "cash": -120000
+            }
+          ]
+        }
+      ],
+      "finalBank": 3752961,
+      "world": 2695960
+    },
+    {
+      "seed": 191,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 17,
+          "worldCardCash": -30000,
+          "bookCardCash": -59000,
+          "difference": -29000,
+          "choices": [
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "mid",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 11972099,
+      "world": 10466898
+    },
+    {
+      "seed": 192,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": -10000,
+          "bookCardCash": -52000,
+          "difference": -42000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            }
+          ]
+        }
+      ],
+      "finalBank": 10129782,
+      "world": 8699291
+    },
+    {
+      "seed": 193,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 34,
+          "worldCardCash": 4000,
+          "bookCardCash": -34000,
+          "difference": -38000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "habit",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 11219455,
+      "world": 9583486
+    },
+    {
+      "seed": 194,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 430,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": -60000,
+          "bookCardCash": -87000,
+          "difference": -27000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "staff_hire",
+              "option": "hire",
+              "outcome": "hired",
+              "cash": -50000
+            }
+          ]
+        }
+      ],
+      "finalBank": 5348084,
+      "world": 4550662
+    },
+    {
+      "seed": 195,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -23000,
+          "difference": -23000,
+          "choices": [
+            {
+              "card": "president_cash",
+              "option": "stop",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 11766473,
+      "world": 9672752
+    },
+    {
+      "seed": 196,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11740878,
+      "world": 10223676
+    },
+    {
+      "seed": 197,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8519749,
+      "world": 7318947
+    },
+    {
+      "seed": 198,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 4731783,
+      "world": 3803029
+    },
+    {
+      "seed": 199,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10274596,
+      "world": 8905258
+    },
+    {
+      "seed": 200,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3161615,
+      "world": 2170594
+    },
+    {
+      "seed": 201,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 416,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -793000,
+          "difference": -43000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "quit",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 13091150,
+      "world": 10900165
+    },
+    {
+      "seed": 202,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10424941,
+      "world": 8992799
+    },
+    {
+      "seed": 203,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13943230,
+      "world": 12271963
+    },
+    {
+      "seed": 204,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9404657,
+      "world": 8055004
+    },
+    {
+      "seed": 205,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [
+        {
+          "t": 21,
+          "worldCardCash": 1000,
+          "bookCardCash": -42000,
+          "difference": -43000,
+          "choices": [
+            {
+              "card": "ticket_items",
+              "option": "n10",
+              "outcome": "d7",
+              "cash": 1000
+            }
+          ]
+        }
+      ],
+      "finalBank": 14413270,
+      "world": 12184187
+    },
+    {
+      "seed": 206,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10726511,
+      "world": 9265714
+    },
+    {
+      "seed": 207,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 412,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": 0,
+          "bookCardCash": -37000,
+          "difference": -37000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 13449164,
+      "world": 11850927
+    },
+    {
+      "seed": 208,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7882479,
+      "world": 6764646
+    },
+    {
+      "seed": 209,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": -10000,
+          "bookCardCash": -51000,
+          "difference": -41000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "foodup",
+              "option": "raise",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 14089599,
+      "world": 12460733
+    },
+    {
+      "seed": 210,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11765208,
+      "world": 10234935
+    },
+    {
+      "seed": 211,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9246909,
+      "world": 7977270
+    },
+    {
+      "seed": 212,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": 0,
+          "bookCardCash": -32000,
+          "difference": -32000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 6999468,
+      "world": 5844615
+    },
+    {
+      "seed": 213,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 15202931,
+      "world": 13471654
+    },
+    {
+      "seed": 214,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8649229,
+      "world": 7376678
+    },
+    {
+      "seed": 215,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9353042,
+      "world": 8065149
+    },
+    {
+      "seed": 216,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12836725,
+      "world": 11190872
+    },
+    {
+      "seed": 217,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 29,
+          "worldCardCash": -40000,
+          "bookCardCash": -72000,
+          "difference": -32000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "mid",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 11290253,
+      "world": 9672320
+    },
+    {
+      "seed": 218,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12253829,
+      "world": 10697417
+    },
+    {
+      "seed": 219,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11978651,
+      "world": 10471603
+    },
+    {
+      "seed": 220,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [
+        {
+          "t": 20,
+          "worldCardCash": -10000,
+          "bookCardCash": -43000,
+          "difference": -33000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            }
+          ]
+        }
+      ],
+      "finalBank": 4607172,
+      "world": 3487159
+    },
+    {
+      "seed": 221,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 415,
+      "reached": true,
+      "issues": [
+        {
+          "t": 16,
+          "worldCardCash": 76000,
+          "bookCardCash": 44000,
+          "difference": -32000,
+          "choices": [
+            {
+              "card": "good_kouji",
+              "option": "take",
+              "outcome": "rush",
+              "cash": 16000
+            },
+            {
+              "card": "ev_summer_y2",
+              "option": "go",
+              "outcome": "good",
+              "cash": 60000
+            }
+          ]
+        }
+      ],
+      "finalBank": 13552862,
+      "world": 11380775
+    },
+    {
+      "seed": 222,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 417,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9964308,
+      "world": 8636896
+    },
+    {
+      "seed": 223,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6477597,
+      "world": 5450672
+    },
+    {
+      "seed": 224,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11355151,
+      "world": 9819631
+    },
+    {
+      "seed": 225,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 413,
+      "reached": true,
+      "issues": [
+        {
+          "t": 15,
+          "worldCardCash": -30000,
+          "bookCardCash": -51000,
+          "difference": -21000,
+          "choices": [
+            {
+              "card": "hours",
+              "option": "night",
+              "outcome": "up",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 6746127,
+      "world": 5694046
+    },
+    {
+      "seed": 226,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5999051,
+      "world": 4747364
+    },
+    {
+      "seed": 227,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [],
+      "finalBank": 14617167,
+      "world": 12577777
+    },
+    {
+      "seed": 228,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8157999,
+      "world": 6952738
+    },
+    {
+      "seed": 229,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8679549,
+      "world": 7238563
+    },
+    {
+      "seed": 230,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9262041,
+      "world": 7920119
+    },
+    {
+      "seed": 231,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 416,
+      "reached": true,
+      "issues": [
+        {
+          "t": 13,
+          "worldCardCash": 5000000,
+          "bookCardCash": 4975000,
+          "difference": -25000,
+          "choices": [
+            {
+              "card": "issue",
+              "option": "s500",
+              "outcome": "paid",
+              "cash": 5000000
+            }
+          ]
+        }
+      ],
+      "finalBank": 13284078,
+      "world": 11740045
+    },
+    {
+      "seed": 232,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 21,
+          "worldCardCash": 4000,
+          "bookCardCash": -35000,
+          "difference": -39000,
+          "choices": [
+            {
+              "card": "ticket_items",
+              "option": "n10",
+              "outcome": "d11",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 7337224,
+      "world": 5934547
+    },
+    {
+      "seed": 233,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 15289788,
+      "world": 13237214
+    },
+    {
+      "seed": 234,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 4554434,
+      "world": 3453663
+    },
+    {
+      "seed": 235,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10338461,
+      "world": 8944071
+    },
+    {
+      "seed": 236,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13852514,
+      "world": 11479084
+    },
+    {
+      "seed": 237,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [
+        {
+          "t": 29,
+          "worldCardCash": -30000,
+          "bookCardCash": -64000,
+          "difference": -34000,
+          "choices": [
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "hit",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 10842507,
+      "world": 9494386
+    },
+    {
+      "seed": 238,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13998008,
+      "world": 12273847
+    },
+    {
+      "seed": 239,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9386875,
+      "world": 8106103
+    },
+    {
+      "seed": 240,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -25000,
+          "difference": -25000,
+          "choices": [
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 11043847,
+      "world": 9567170
+    },
+    {
+      "seed": 241,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7614593,
+      "world": 6500476
+    },
+    {
+      "seed": 242,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11949381,
+      "world": 10404658
+    },
+    {
+      "seed": 243,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10597719,
+      "world": 9242915
+    },
+    {
+      "seed": 244,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": -10000,
+          "bookCardCash": -63000,
+          "difference": -53000,
+          "choices": [
+            {
+              "card": "premium",
+              "option": "small",
+              "outcome": "ok",
+              "cash": -10000
+            }
+          ]
+        }
+      ],
+      "finalBank": 14183247,
+      "world": 12493366
+    },
+    {
+      "seed": 245,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10085630,
+      "world": 8737309
+    },
+    {
+      "seed": 246,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": -6000,
+          "bookCardCash": -56000,
+          "difference": -50000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "habit",
+              "cash": 4000
+            },
+            {
+              "card": "premium",
+              "option": "small",
+              "outcome": "ok",
+              "cash": -10000
+            }
+          ]
+        }
+      ],
+      "finalBank": 10740003,
+      "world": 9153779
+    },
+    {
+      "seed": 247,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13349561,
+      "world": 11744136
+    },
+    {
+      "seed": 248,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9146049,
+      "world": 7660069
+    },
+    {
+      "seed": 249,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7896044,
+      "world": 6784271
+    },
+    {
+      "seed": 250,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 417,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 30000,
+          "bookCardCash": 7000,
+          "difference": -23000,
+          "choices": [
+            {
+              "card": "menu",
+              "option": "set",
+              "outcome": "up",
+              "cash": 30000
+            },
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 11103117,
+      "world": 9606212
+    },
+    {
+      "seed": 251,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": 0,
+          "bookCardCash": -43000,
+          "difference": -43000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 10240116,
+      "world": 8887053
+    },
+    {
+      "seed": 252,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10048462,
+      "world": 8473136
+    },
+    {
+      "seed": 253,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 19,
+          "worldCardCash": -750000,
+          "bookCardCash": -789000,
+          "difference": -39000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y2",
+              "option": "min",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "site2_complete",
+              "option": "complete",
+              "outcome": "open",
+              "cash": -750000
+            }
+          ]
+        }
+      ],
+      "finalBank": 12327157,
+      "world": 10866757
+    },
+    {
+      "seed": 254,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9296793,
+      "world": 7940880
+    },
+    {
+      "seed": 255,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8681513,
+      "world": 7480520
+    },
+    {
+      "seed": 256,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [
+        {
+          "t": 17,
+          "worldCardCash": -40000,
+          "bookCardCash": -71000,
+          "difference": -31000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "bowl_limited_y2",
+              "option": "season",
+              "outcome": "mid",
+              "cash": -30000
+            }
+          ]
+        }
+      ],
+      "finalBank": 11322659,
+      "world": 9823718
+    },
+    {
+      "seed": 257,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 414,
+      "reached": true,
+      "issues": [
+        {
+          "t": 31,
+          "worldCardCash": 0,
+          "bookCardCash": -50000,
+          "difference": -50000,
+          "choices": [
+            {
+              "card": "supplier",
+              "option": "cheap",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "minwage_y3",
+              "option": "min",
+              "outcome": "quit",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 10640162,
+      "world": 8634095
+    },
+    {
+      "seed": 258,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [
+        {
+          "t": 16,
+          "worldCardCash": 40000,
+          "bookCardCash": 7000,
+          "difference": -33000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "president_cash",
+              "option": "stop",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "ev_summer_y2",
+              "option": "go",
+              "outcome": "tired",
+              "cash": 40000
+            }
+          ]
+        }
+      ],
+      "finalBank": 13726145,
+      "world": 12025931
+    },
+    {
+      "seed": 259,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6485090,
+      "world": 5493331
+    },
+    {
+      "seed": 260,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": -10000,
+          "bookCardCash": -35000,
+          "difference": -25000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 11182408,
+      "world": 9718795
+    },
+    {
+      "seed": 261,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12421639,
+      "world": 10874271
+    },
+    {
+      "seed": 262,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11561807,
+      "world": 10065925
+    },
+    {
+      "seed": 263,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [
+        {
+          "t": 33,
+          "worldCardCash": 2000,
+          "bookCardCash": -38000,
+          "difference": -40000,
+          "choices": [
+            {
+              "card": "ticket_items",
+              "option": "n10",
+              "outcome": "d8",
+              "cash": 2000
+            },
+            {
+              "card": "bonus",
+              "option": "standard",
+              "outcome": "promised",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 13960979,
+      "world": 12098443
+    },
+    {
+      "seed": 264,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10704436,
+      "world": 9064323
+    },
+    {
+      "seed": 265,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10835673,
+      "world": 9449907
+    },
+    {
+      "seed": 266,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7166057,
+      "world": 5838997
+    },
+    {
+      "seed": 267,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": 8000,
+          "bookCardCash": -32000,
+          "difference": -40000,
+          "choices": [
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            }
+          ]
+        }
+      ],
+      "finalBank": 12116757,
+      "world": 10674681
+    },
+    {
+      "seed": 268,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": 8000,
+          "bookCardCash": -33000,
+          "difference": -41000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            }
+          ]
+        }
+      ],
+      "finalBank": 8031189,
+      "world": 6669371
+    },
+    {
+      "seed": 269,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 14361537,
+      "world": 12142471
+    },
+    {
+      "seed": 270,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 417,
+      "reached": true,
+      "issues": [
+        {
+          "t": 28,
+          "worldCardCash": 0,
+          "bookCardCash": -37000,
+          "difference": -37000,
+          "choices": [
+            {
+              "card": "ev_summer_y2",
+              "option": "go",
+              "outcome": "good",
+              "cash": 60000
+            },
+            {
+              "card": "frozen_noodle",
+              "option": "outside",
+              "outcome": "success",
+              "cash": -60000
+            }
+          ]
+        }
+      ],
+      "finalBank": 8995539,
+      "world": 7557067
+    },
+    {
+      "seed": 271,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 425,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8668026,
+      "world": 7232923
+    },
+    {
+      "seed": 272,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 428,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3628939,
+      "world": 2789542
+    },
+    {
+      "seed": 273,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [
+        {
+          "t": 28,
+          "worldCardCash": -20000,
+          "bookCardCash": -53000,
+          "difference": -33000,
+          "choices": [
+            {
+              "card": "ev_summer_y2",
+              "option": "go",
+              "outcome": "tired",
+              "cash": 40000
+            },
+            {
+              "card": "frozen_noodle",
+              "option": "outside",
+              "outcome": "success",
+              "cash": -60000
+            }
+          ]
+        }
+      ],
+      "finalBank": 9399914,
+      "world": 7949846
+    },
+    {
+      "seed": 274,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [
+        {
+          "t": 23,
+          "worldCardCash": 6000,
+          "bookCardCash": -41000,
+          "difference": -47000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "good_kouji",
+              "option": "take",
+              "outcome": "good",
+              "cash": 16000
+            }
+          ]
+        }
+      ],
+      "finalBank": 12090596,
+      "world": 10551297
+    },
+    {
+      "seed": 275,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 9878973,
+      "world": 8530651
+    },
+    {
+      "seed": 276,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10576574,
+      "world": 9105276
+    },
+    {
+      "seed": 277,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 430,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8324016,
+      "world": 7137223
+    },
+    {
+      "seed": 278,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 429,
+      "reached": true,
+      "issues": [
+        {
+          "t": 12,
+          "worldCardCash": 0,
+          "bookCardCash": -23000,
+          "difference": -23000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "wholesale_offer",
+              "option": "no",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 8462475,
+      "world": 7209865
+    },
+    {
+      "seed": 279,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11483115,
+      "world": 9391139
+    },
+    {
+      "seed": 280,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 414,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11535338,
+      "world": 9986725
+    },
+    {
+      "seed": 281,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [
+        {
+          "t": 22,
+          "worldCardCash": -10000,
+          "bookCardCash": -43000,
+          "difference": -33000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "foodup",
+              "option": "raise",
+              "outcome": "ok",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 4374631,
+      "world": 3311811
+    },
+    {
+      "seed": 282,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 11015917,
+      "world": 9307725
+    },
+    {
+      "seed": 283,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 418,
+      "reached": true,
+      "issues": [
+        {
+          "t": 12,
+          "worldCardCash": -18000,
+          "bookCardCash": -40000,
+          "difference": -22000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "bulk",
+              "option": "bulk",
+              "outcome": "space",
+              "cash": -8000
+            }
+          ]
+        }
+      ],
+      "finalBank": 8588025,
+      "world": 7411239
+    },
+    {
+      "seed": 284,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 426,
+      "reached": true,
+      "issues": [
+        {
+          "t": 20,
+          "worldCardCash": -10000,
+          "bookCardCash": -59000,
+          "difference": -49000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "late",
+              "cash": -10000
+            },
+            {
+              "card": "good_jouren",
+              "option": "sign",
+              "outcome": "good",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 12953934,
+      "world": 11333085
+    },
+    {
+      "seed": 285,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [],
+      "finalBank": 6420088,
+      "world": 5403273
+    },
+    {
+      "seed": 286,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 419,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12536673,
+      "world": 10954574
+    },
+    {
+      "seed": 287,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 423,
+      "reached": true,
+      "issues": [],
+      "finalBank": 16697108,
+      "world": 15050363
+    },
+    {
+      "seed": 288,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 427,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -23000,
+          "difference": -23000,
+          "choices": [
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 9926293,
+      "world": 8565329
+    },
+    {
+      "seed": 289,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 7481954,
+      "world": 6383008
+    },
+    {
+      "seed": 290,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 430,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5592171,
+      "world": 4610626
+    },
+    {
+      "seed": 291,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 414,
+      "reached": true,
+      "issues": [],
+      "finalBank": 13808859,
+      "world": 12185902
+    },
+    {
+      "seed": 292,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 416,
+      "reached": true,
+      "issues": [
+        {
+          "t": 14,
+          "worldCardCash": 0,
+          "bookCardCash": -27000,
+          "difference": -27000,
+          "choices": [
+            {
+              "card": "dividend",
+              "option": "none",
+              "outcome": "paid",
+              "cash": 0
+            }
+          ]
+        }
+      ],
+      "finalBank": 13054478,
+      "world": 11432875
+    },
+    {
+      "seed": 293,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [
+        {
+          "t": 18,
+          "worldCardCash": -1642000,
+          "bookCardCash": -1675000,
+          "difference": -33000,
+          "choices": [
+            {
+              "card": "waste",
+              "option": "timesale",
+              "outcome": "ok",
+              "cash": 8000
+            },
+            {
+              "card": "site2",
+              "option": "shotengai:family",
+              "outcome": "start",
+              "cash": -1650000
+            }
+          ]
+        }
+      ],
+      "finalBank": 11833032,
+      "world": 10330757
+    },
+    {
+      "seed": 294,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 415,
+      "reached": true,
+      "issues": [
+        {
+          "t": 21,
+          "worldCardCash": 4000,
+          "bookCardCash": -36000,
+          "difference": -40000,
+          "choices": [
+            {
+              "card": "defect",
+              "option": "return",
+              "outcome": "ok",
+              "cash": 0
+            },
+            {
+              "card": "ticket_items",
+              "option": "n10",
+              "outcome": "d15",
+              "cash": 4000
+            }
+          ]
+        }
+      ],
+      "finalBank": 8621192,
+      "world": 7371739
+    },
+    {
+      "seed": 295,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 415,
+      "reached": true,
+      "issues": [],
+      "finalBank": 12446767,
+      "world": 10005681
+    },
+    {
+      "seed": 296,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 424,
+      "reached": true,
+      "issues": [],
+      "finalBank": 3525465,
+      "world": 2682271
+    },
+    {
+      "seed": 297,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 422,
+      "reached": true,
+      "issues": [],
+      "finalBank": 10894542,
+      "world": 9487995
+    },
+    {
+      "seed": 298,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 420,
+      "reached": true,
+      "issues": [],
+      "finalBank": 5159504,
+      "world": 4224237
+    },
+    {
+      "seed": 299,
+      "mode": "2026",
+      "target": null,
+      "alternate": false,
+      "documents": 421,
+      "reached": true,
+      "issues": [],
+      "finalBank": 8139640,
+      "world": 6785597
+    }
+  ],
+  "seenOutcomes": [
+    "bonus/standard/promised",
+    "bonus_pay/pay/paid",
+    "bowl_limited/go/hit",
+    "bowl_limited/go/mid",
+    "bowl_limited/go/miss",
+    "bowl_limited_y2/season/hit",
+    "bowl_limited_y2/season/mid",
+    "bowl_limited_y2/season/miss",
+    "bulk/bulk/cheap",
+    "bulk/bulk/space",
+    "bulk/bulk/spoil",
+    "chain_hire/notice/hiring",
+    "chain_hire/notice/quiet",
+    "close/close/closed",
+    "close_restore/pay/paid",
+    "costOmen/switch/ok",
+    "coupon_dual/check/fine",
+    "coupon_dual/check/ok",
+    "defect/return/late",
+    "defect/return/ok",
+    "dividend/none/paid",
+    "due/make/catch",
+    "due/make/ok",
+    "equip/quality/quoted",
+    "ev_spring/prep/busy",
+    "ev_spring/prep/rain",
+    "ev_summer/go/good",
+    "ev_summer/go/tired",
+    "ev_summer_y2/go/good",
+    "ev_summer_y2/go/tired",
+    "ev_year/join/busy",
+    "ev_year/join/flat",
+    "family_sick/close/long",
+    "family_sick/close/rest",
+    "finance_asset/cash/bought",
+    "foodup/raise/ok",
+    "foodup/raise/small",
+    "freelance/write/late",
+    "freelance/write/ok",
+    "frozen_noodle/outside/failed",
+    "frozen_noodle/outside/success",
+    "good_jouren/sign/good",
+    "good_jouren/sign/small",
+    "good_kouji/take/good",
+    "good_kouji/take/rush",
+    "haccp/keep/ok",
+    "haccp/keep/sick",
+    "heat/cold/fill",
+    "heat/cold/waste",
+    "hours/night/even",
+    "hours/night/tired",
+    "hours/night/up",
+    "insurance/full/ok",
+    "issue/s500/paid",
+    "items_stock_sale/sell/d10",
+    "items_stock_sale/sell/d11",
+    "items_stock_sale/sell/d12",
+    "items_stock_sale/sell/d13",
+    "items_stock_sale/sell/d14",
+    "items_stock_sale/sell/d15",
+    "items_stock_sale/sell/d16",
+    "items_stock_sale/sell/d17",
+    "items_stock_sale/sell/d18",
+    "items_stock_sale/sell/d6",
+    "items_stock_sale/sell/d7",
+    "items_stock_sale/sell/d8",
+    "items_stock_sale/sell/d9",
+    "kyoshitsu/go/held",
+    "maintain/repair/again",
+    "maintain/repair/ok",
+    "maintain_replace/sell/sold",
+    "maintain_y2/plan/planned",
+    "mayfund/list/ok",
+    "mayfund/list/tight",
+    "menu/set/mid",
+    "menu/set/up",
+    "menu/set/waste",
+    "minwage/min/ok",
+    "minwage/min/quit",
+    "minwage_y2/min/ok",
+    "minwage_y2/min/quit",
+    "minwage_y3/min/ok",
+    "minwage_y3/min/quit",
+    "premium/small/none",
+    "premium/small/ok",
+    "president_cash/stop/ok",
+    "president_cash/stop/sulk",
+    "repair_pay/pay/paid",
+    "rival_open/tweak/hold",
+    "rival_open/tweak/lose",
+    "site2/shotengai:family/start",
+    "site2_complete/complete/open",
+    "soup/own/ok",
+    "soup/own/uneven",
+    "staff_hire/hire/hired",
+    "staff_leave/leave/left",
+    "supplier/cheap/bad",
+    "supplier/cheap/ok",
+    "ticket_items/n10/d10",
+    "ticket_items/n10/d11",
+    "ticket_items/n10/d12",
+    "ticket_items/n10/d13",
+    "ticket_items/n10/d14",
+    "ticket_items/n10/d15",
+    "ticket_items/n10/d16",
+    "ticket_items/n10/d17",
+    "ticket_items/n10/d18",
+    "ticket_items/n10/d6",
+    "ticket_items/n10/d7",
+    "ticket_items/n10/d8",
+    "ticket_items/n10/d9",
+    "waste/timesale/habit",
+    "waste/timesale/ok",
+    "wholesale_offer/no/later",
+    "wholesale_offer/no/ok"
+  ],
+  "languageWarnings": [],
+  "missingNames": [
+    "貸倒引当金戻入"
+  ]
+}

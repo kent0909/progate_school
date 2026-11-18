@@ -1,0 +1,6716 @@
+{
+  "head": "8defe7edb35317cf9e4ed907e5538555ad4aec9f",
+  "legacy": {
+    "paths": 300,
+    "targets": 131,
+    "documents": 126503,
+    "coveredYear2DocIds": 424,
+    "cashDiscrepancyPaths": 0,
+    "failures": [],
+    "missingNames": [],
+    "maxDifference": 0
+  },
+  "legacyPaths": [
+    {
+      "seed": 0,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 1,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 2,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 3,
+      "documents": 426,
+      "issues": []
+    },
+    {
+      "seed": 4,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 5,
+      "documents": 412,
+      "issues": []
+    },
+    {
+      "seed": 6,
+      "documents": 416,
+      "issues": []
+    },
+    {
+      "seed": 7,
+      "documents": 415,
+      "issues": []
+    },
+    {
+      "seed": 8,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 9,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 10,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 11,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 12,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 13,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 14,
+      "documents": 426,
+      "issues": []
+    },
+    {
+      "seed": 15,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 16,
+      "documents": 426,
+      "issues": []
+    },
+    {
+      "seed": 17,
+      "documents": 428,
+      "issues": []
+    },
+    {
+      "seed": 18,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 19,
+      "documents": 416,
+      "issues": []
+    },
+    {
+      "seed": 20,
+      "documents": 427,
+      "issues": []
+    },
+    {
+      "seed": 21,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 22,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 23,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 24,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 25,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 26,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 27,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 28,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 29,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 30,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 31,
+      "documents": 428,
+      "issues": []
+    },
+    {
+      "seed": 32,
+      "documents": 415,
+      "issues": []
+    },
+    {
+      "seed": 33,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 34,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 35,
+      "documents": 415,
+      "issues": []
+    },
+    {
+      "seed": 36,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 37,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 38,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 39,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 40,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 41,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 42,
+      "documents": 426,
+      "issues": []
+    },
+    {
+      "seed": 43,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 44,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 45,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 46,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 47,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 48,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 49,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 50,
+      "documents": 430,
+      "issues": []
+    },
+    {
+      "seed": 51,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 52,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 53,
+      "documents": 426,
+      "issues": []
+    },
+    {
+      "seed": 54,
+      "documents": 429,
+      "issues": []
+    },
+    {
+      "seed": 55,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 56,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 57,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 58,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 59,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 60,
+      "documents": 428,
+      "issues": []
+    },
+    {
+      "seed": 61,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 62,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 63,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 64,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 65,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 66,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 67,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 68,
+      "documents": 428,
+      "issues": []
+    },
+    {
+      "seed": 69,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 70,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 71,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 72,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 73,
+      "documents": 429,
+      "issues": []
+    },
+    {
+      "seed": 74,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 75,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 76,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 77,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 78,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 79,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 80,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 81,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 82,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 83,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 84,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 85,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 86,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 87,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 88,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 89,
+      "documents": 429,
+      "issues": []
+    },
+    {
+      "seed": 90,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 91,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 92,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 93,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 94,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 95,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 96,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 97,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 98,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 99,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 100,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 101,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 102,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 103,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 104,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 105,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 106,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 107,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 108,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 109,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 110,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 111,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 112,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 113,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 114,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 115,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 116,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 117,
+      "documents": 415,
+      "issues": []
+    },
+    {
+      "seed": 118,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 119,
+      "documents": 428,
+      "issues": []
+    },
+    {
+      "seed": 120,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 121,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 122,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 123,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 124,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 125,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 126,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 127,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 128,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 129,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 130,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 131,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 132,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 133,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 134,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 135,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 136,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 137,
+      "documents": 426,
+      "issues": []
+    },
+    {
+      "seed": 138,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 139,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 140,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 141,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 142,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 143,
+      "documents": 413,
+      "issues": []
+    },
+    {
+      "seed": 144,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 145,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 146,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 147,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 148,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 149,
+      "documents": 428,
+      "issues": []
+    },
+    {
+      "seed": 150,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 151,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 152,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 153,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 154,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 155,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 156,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 157,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 158,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 159,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 160,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 161,
+      "documents": 426,
+      "issues": []
+    },
+    {
+      "seed": 162,
+      "documents": 426,
+      "issues": []
+    },
+    {
+      "seed": 163,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 164,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 165,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 166,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 167,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 168,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 169,
+      "documents": 429,
+      "issues": []
+    },
+    {
+      "seed": 170,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 171,
+      "documents": 430,
+      "issues": []
+    },
+    {
+      "seed": 172,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 173,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 174,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 175,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 176,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 177,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 178,
+      "documents": 427,
+      "issues": []
+    },
+    {
+      "seed": 179,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 180,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 181,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 182,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 183,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 184,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 185,
+      "documents": 427,
+      "issues": []
+    },
+    {
+      "seed": 186,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 187,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 188,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 189,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 190,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 191,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 192,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 193,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 194,
+      "documents": 429,
+      "issues": []
+    },
+    {
+      "seed": 195,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 196,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 197,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 198,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 199,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 200,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 201,
+      "documents": 416,
+      "issues": []
+    },
+    {
+      "seed": 202,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 203,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 204,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 205,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 206,
+      "documents": 428,
+      "issues": []
+    },
+    {
+      "seed": 207,
+      "documents": 412,
+      "issues": []
+    },
+    {
+      "seed": 208,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 209,
+      "documents": 428,
+      "issues": []
+    },
+    {
+      "seed": 210,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 211,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 212,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 213,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 214,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 215,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 216,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 217,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 218,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 219,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 220,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 221,
+      "documents": 415,
+      "issues": []
+    },
+    {
+      "seed": 222,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 223,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 224,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 225,
+      "documents": 413,
+      "issues": []
+    },
+    {
+      "seed": 226,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 227,
+      "documents": 427,
+      "issues": []
+    },
+    {
+      "seed": 228,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 229,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 230,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 231,
+      "documents": 416,
+      "issues": []
+    },
+    {
+      "seed": 232,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 233,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 234,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 235,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 236,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 237,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 238,
+      "documents": 427,
+      "issues": []
+    },
+    {
+      "seed": 239,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 240,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 241,
+      "documents": 427,
+      "issues": []
+    },
+    {
+      "seed": 242,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 243,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 244,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 245,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 246,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 247,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 248,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 249,
+      "documents": 427,
+      "issues": []
+    },
+    {
+      "seed": 250,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 251,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 252,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 253,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 254,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 255,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 256,
+      "documents": 421,
+      "issues": []
+    },
+    {
+      "seed": 257,
+      "documents": 414,
+      "issues": []
+    },
+    {
+      "seed": 258,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 259,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 260,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 261,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 262,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 263,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 264,
+      "documents": 419,
+      "issues": []
+    },
+    {
+      "seed": 265,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 266,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 267,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 268,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 269,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 270,
+      "documents": 417,
+      "issues": []
+    },
+    {
+      "seed": 271,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 272,
+      "documents": 428,
+      "issues": []
+    },
+    {
+      "seed": 273,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 274,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 275,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 276,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 277,
+      "documents": 430,
+      "issues": []
+    },
+    {
+      "seed": 278,
+      "documents": 429,
+      "issues": []
+    },
+    {
+      "seed": 279,
+      "documents": 424,
+      "issues": []
+    },
+    {
+      "seed": 280,
+      "documents": 414,
+      "issues": []
+    },
+    {
+      "seed": 281,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 282,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 283,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 284,
+      "documents": 425,
+      "issues": []
+    },
+    {
+      "seed": 285,
+      "documents": 427,
+      "issues": []
+    },
+    {
+      "seed": 286,
+      "documents": 418,
+      "issues": []
+    },
+    {
+      "seed": 287,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 288,
+      "documents": 427,
+      "issues": []
+    },
+    {
+      "seed": 289,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 290,
+      "documents": 430,
+      "issues": []
+    },
+    {
+      "seed": 291,
+      "documents": 414,
+      "issues": []
+    },
+    {
+      "seed": 292,
+      "documents": 416,
+      "issues": []
+    },
+    {
+      "seed": 293,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 294,
+      "documents": 415,
+      "issues": []
+    },
+    {
+      "seed": 295,
+      "documents": 415,
+      "issues": []
+    },
+    {
+      "seed": 296,
+      "documents": 423,
+      "issues": []
+    },
+    {
+      "seed": 297,
+      "documents": 422,
+      "issues": []
+    },
+    {
+      "seed": 298,
+      "documents": 420,
+      "issues": []
+    },
+    {
+      "seed": 299,
+      "documents": 421,
+      "issues": []
+    }
+  ],
+  "year2Outcomes": {
+    "paths": 144,
+    "documents": 61769,
+    "required": [
+      "issue/s500/paid",
+      "issue/s100/paid",
+      "issue/s50/paid",
+      "issue/s25/paid",
+      "dividend/none/paid",
+      "dividend/half/paid",
+      "dividend/eighty/paid",
+      "site2/shotengai:family/start",
+      "site2/shotengai:part1/start",
+      "site2/shotengai:part2/start",
+      "site2/ekimae:family/start",
+      "site2/ekimae:part1/start",
+      "site2/ekimae:part2/start",
+      "site2/jutaku:family/start",
+      "site2/jutaku:part1/start",
+      "site2/jutaku:part2/start",
+      "site2/wait/wait",
+      "site2_complete/complete/open",
+      "minwage_y2/min/ok",
+      "minwage_y2/min/quit",
+      "minwage_y2/plus/ok",
+      "minwage_y2/plus/same",
+      "minwage_y3/min/ok",
+      "minwage_y3/min/quit",
+      "minwage_y3/plus/ok",
+      "minwage_y3/plus/same",
+      "bowl_limited_y2/season/hit",
+      "bowl_limited_y2/season/mid",
+      "bowl_limited_y2/season/miss",
+      "bowl_limited_y2/cold/hit",
+      "bowl_limited_y2/cold/mid",
+      "bowl_limited_y2/cold/miss",
+      "bowl_limited_y2/collab/hit",
+      "bowl_limited_y2/collab/mid",
+      "bowl_limited_y2/collab/miss",
+      "bowl_limited_y2/no/keep",
+      "ev_summer_y2/go/good",
+      "ev_summer_y2/go/tired",
+      "ev_summer_y2/no/ok",
+      "ev_summer_y2/no/quiet",
+      "kyoshitsu/go/held",
+      "kyoshitsu/no/keep",
+      "frozen_noodle/outside/success",
+      "frozen_noodle/outside/failed",
+      "frozen_noodle/own/success",
+      "frozen_noodle/own/failed",
+      "frozen_noodle/no/keep",
+      "ticket_items/n10/d6",
+      "ticket_items/n10/d7",
+      "ticket_items/n10/d8",
+      "ticket_items/n10/d9",
+      "ticket_items/n10/d10",
+      "ticket_items/n10/d11",
+      "ticket_items/n10/d12",
+      "ticket_items/n10/d13",
+      "ticket_items/n10/d14",
+      "ticket_items/n10/d15",
+      "ticket_items/n10/d16",
+      "ticket_items/n10/d17",
+      "ticket_items/n10/d18",
+      "ticket_items/n20/d6",
+      "ticket_items/n20/d7",
+      "ticket_items/n20/d8",
+      "ticket_items/n20/d9",
+      "ticket_items/n20/d10",
+      "ticket_items/n20/d11",
+      "ticket_items/n20/d12",
+      "ticket_items/n20/d13",
+      "ticket_items/n20/d14",
+      "ticket_items/n20/d15",
+      "ticket_items/n20/d16",
+      "ticket_items/n20/d17",
+      "ticket_items/n20/d18",
+      "ticket_items/n40/d6",
+      "ticket_items/n40/d7",
+      "ticket_items/n40/d8",
+      "ticket_items/n40/d9",
+      "ticket_items/n40/d10",
+      "ticket_items/n40/d11",
+      "ticket_items/n40/d12",
+      "ticket_items/n40/d13",
+      "ticket_items/n40/d14",
+      "ticket_items/n40/d15",
+      "ticket_items/n40/d16",
+      "ticket_items/n40/d17",
+      "ticket_items/n40/d18",
+      "ticket_items/no/keep",
+      "items_stock_sale/sell/d6",
+      "items_stock_sale/sell/d7",
+      "items_stock_sale/sell/d8",
+      "items_stock_sale/sell/d9",
+      "items_stock_sale/sell/d10",
+      "items_stock_sale/sell/d11",
+      "items_stock_sale/sell/d12",
+      "items_stock_sale/sell/d13",
+      "items_stock_sale/sell/d14",
+      "items_stock_sale/sell/d15",
+      "items_stock_sale/sell/d16",
+      "items_stock_sale/sell/d17",
+      "items_stock_sale/sell/d18",
+      "bonus/token/promised",
+      "bonus/standard/promised",
+      "bonus/generous/promised",
+      "maintain_y2/plan/planned",
+      "maintain_y2/break/wait",
+      "bonus_pay/pay/paid",
+      "repair_pay/pay/paid",
+      "repair_failure/check/broken",
+      "repair_failure/check/ok",
+      "equip/quality/quoted",
+      "equip/capacity/quoted",
+      "equip/used/quoted",
+      "finance_asset/cash/bought",
+      "finance_asset/installment/bought",
+      "finance_asset/loan/borrowed",
+      "equipment_purchase/pay/paid",
+      "equipment_principal/pay/paid",
+      "equipment_interest/pay/paid",
+      "staff_leave/leave/left",
+      "staff_hire/hire/hired",
+      "chain_hire/notice/hiring",
+      "chain_hire/notice/quiet",
+      "maintain_replace/sell/sold",
+      "maintain_replace/keep/kept",
+      "spare_storage/pay/paid",
+      "close/close/closed",
+      "close/renovate/renovated",
+      "close/format/changed",
+      "close/stick/stayed",
+      "close_equipment/pay/paid",
+      "close_restore/pay/paid"
+    ],
+    "observedRequired": [
+      "bonus/generous/promised",
+      "bonus/standard/promised",
+      "bonus/token/promised",
+      "bonus_pay/pay/paid",
+      "bowl_limited_y2/cold/hit",
+      "bowl_limited_y2/cold/mid",
+      "bowl_limited_y2/cold/miss",
+      "bowl_limited_y2/collab/hit",
+      "bowl_limited_y2/collab/mid",
+      "bowl_limited_y2/collab/miss",
+      "bowl_limited_y2/no/keep",
+      "bowl_limited_y2/season/hit",
+      "bowl_limited_y2/season/mid",
+      "bowl_limited_y2/season/miss",
+      "chain_hire/notice/hiring",
+      "chain_hire/notice/quiet",
+      "close/close/closed",
+      "close/format/changed",
+      "close/renovate/renovated",
+      "close/stick/stayed",
+      "close_equipment/pay/paid",
+      "close_restore/pay/paid",
+      "dividend/eighty/paid",
+      "dividend/half/paid",
+      "dividend/none/paid",
+      "equip/capacity/quoted",
+      "equip/quality/quoted",
+      "equip/used/quoted",
+      "equipment_interest/pay/paid",
+      "equipment_principal/pay/paid",
+      "equipment_purchase/pay/paid",
+      "ev_summer_y2/go/good",
+      "ev_summer_y2/go/tired",
+      "ev_summer_y2/no/ok",
+      "ev_summer_y2/no/quiet",
+      "finance_asset/cash/bought",
+      "finance_asset/installment/bought",
+      "finance_asset/loan/borrowed",
+      "frozen_noodle/no/keep",
+      "frozen_noodle/outside/failed",
+      "frozen_noodle/outside/success",
+      "frozen_noodle/own/failed",
+      "frozen_noodle/own/success",
+      "issue/s100/paid",
+      "issue/s25/paid",
+      "issue/s50/paid",
+      "issue/s500/paid",
+      "items_stock_sale/sell/d10",
+      "items_stock_sale/sell/d11",
+      "items_stock_sale/sell/d12",
+      "items_stock_sale/sell/d13",
+      "items_stock_sale/sell/d14",
+      "items_stock_sale/sell/d15",
+      "items_stock_sale/sell/d16",
+      "items_stock_sale/sell/d17",
+      "items_stock_sale/sell/d18",
+      "items_stock_sale/sell/d6",
+      "items_stock_sale/sell/d7",
+      "items_stock_sale/sell/d8",
+      "items_stock_sale/sell/d9",
+      "kyoshitsu/go/held",
+      "kyoshitsu/no/keep",
+      "maintain_replace/keep/kept",
+      "maintain_replace/sell/sold",
+      "maintain_y2/break/wait",
+      "maintain_y2/plan/planned",
+      "minwage_y2/min/ok",
+      "minwage_y2/min/quit",
+      "minwage_y2/plus/ok",
+      "minwage_y2/plus/same",
+      "minwage_y3/min/ok",
+      "minwage_y3/min/quit",
+      "minwage_y3/plus/ok",
+      "minwage_y3/plus/same",
+      "repair_failure/check/broken",
+      "repair_failure/check/ok",
+      "repair_pay/pay/paid",
+      "site2/ekimae:family/start",
+      "site2/ekimae:part1/start",
+      "site2/ekimae:part2/start",
+      "site2/jutaku:family/start",
+      "site2/jutaku:part1/start",
+      "site2/jutaku:part2/start",
+      "site2/shotengai:family/start",
+      "site2/shotengai:part1/start",
+      "site2/shotengai:part2/start",
+      "site2/wait/wait",
+      "site2_complete/complete/open",
+      "spare_storage/pay/paid",
+      "staff_hire/hire/hired",
+      "staff_leave/leave/left",
+      "ticket_items/n10/d10",
+      "ticket_items/n10/d11",
+      "ticket_items/n10/d12",
+      "ticket_items/n10/d13",
+      "ticket_items/n10/d14",
+      "ticket_items/n10/d15",
+      "ticket_items/n10/d16",
+      "ticket_items/n10/d17",
+      "ticket_items/n10/d18",
+      "ticket_items/n10/d6",
+      "ticket_items/n10/d7",
+      "ticket_items/n10/d8",
+      "ticket_items/n10/d9",
+      "ticket_items/n20/d10",
+      "ticket_items/n20/d11",
+      "ticket_items/n20/d12",
+      "ticket_items/n20/d13",
+      "ticket_items/n20/d14",
+      "ticket_items/n20/d15",
+      "ticket_items/n20/d16",
+      "ticket_items/n20/d17",
+      "ticket_items/n20/d18",
+      "ticket_items/n20/d6",
+      "ticket_items/n20/d7",
+      "ticket_items/n20/d8",
+      "ticket_items/n20/d9",
+      "ticket_items/n40/d10",
+      "ticket_items/n40/d11",
+      "ticket_items/n40/d12",
+      "ticket_items/n40/d13",
+      "ticket_items/n40/d14",
+      "ticket_items/n40/d15",
+      "ticket_items/n40/d16",
+      "ticket_items/n40/d17",
+      "ticket_items/n40/d18",
+      "ticket_items/n40/d6",
+      "ticket_items/n40/d7",
+      "ticket_items/n40/d8",
+      "ticket_items/n40/d9",
+      "ticket_items/no/keep"
+    ],
+    "missingRequired": [],
+    "cashDiscrepancyPaths": 0,
+    "failures": [],
+    "targetPathNotReached": [
+      {
+        "card": "finance_asset",
+        "option": "loan",
+        "outcome": "borrowed"
+      },
+      {
+        "card": "equipment_purchase",
+        "option": "pay",
+        "outcome": "paid",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "loan",
+          "maintain_replace": "keep",
+          "close": "format",
+          "site2": "wait"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        },
+        "lowCost": true
+      },
+      {
+        "card": "equipment_principal",
+        "option": "pay",
+        "outcome": "paid",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "loan",
+          "maintain_replace": "keep",
+          "close": "format",
+          "site2": "wait"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        },
+        "lowCost": true
+      },
+      {
+        "card": "staff_leave",
+        "option": "leave",
+        "outcome": "left",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      {
+        "card": "staff_hire",
+        "option": "hire",
+        "outcome": "hired",
+        "decisions": {
+          "ticket_items": "n20",
+          "maintain_y2": "break",
+          "finance_asset": "installment",
+          "maintain_replace": "keep",
+          "close": "format"
+        },
+        "forceMap": {
+          "ticket_items": "d6"
+        }
+      },
+      {
+        "card": "finance_asset",
+        "option": "loan",
+        "outcome": "borrowed",
+        "decisions": {
+          "site2": "wait"
+        },
+        "lowCost": true
+      }
+    ],
+    "languageWarnings": [],
+    "missingNames": []
+  },
+  "bulk": {
+    "cases": 60,
+    "maxDifference": 0
+  },
+  "bulkCases": [
+    {
+      "seed": 0,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 0,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 0,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 1,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 1,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 1,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 2,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 2,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 2,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 3,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 3,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 3,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 4,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 4,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 4,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 5,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 5,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 5,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 6,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 6,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 6,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 7,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 7,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 7,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 8,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 8,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 8,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 9,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 9,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 9,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 10,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 10,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 10,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 11,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 11,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 11,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 12,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 12,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 12,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 13,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 13,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 13,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 14,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 14,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 14,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 15,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 15,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 15,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 16,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 16,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 16,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 17,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 17,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 17,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 18,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 18,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 18,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 19,
+      "outcome": "cheap",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc0@12",
+      "world": 15000,
+      "book": 15000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 19,
+      "outcome": "spoil",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc1@12",
+      "world": -20000,
+      "book": -20000,
+      "auto": 0,
+      "difference": 0
+    },
+    {
+      "seed": 19,
+      "outcome": "space",
+      "decisionT": 11,
+      "resultT": 12,
+      "bookYear": 2,
+      "date": "4月末",
+      "doc": "bulk-doc2@12",
+      "world": -8000,
+      "book": -8000,
+      "auto": 0,
+      "difference": 0
+    }
+  ],
+  "inventory": {
+    "cases": 17,
+    "maxDifference": 0
+  },
+  "inventoryCases": [
+    {
+      "seed": 0,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 338190,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 1,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 352630,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 2,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 348160,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 4,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 344170,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 5,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 360700,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 6,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 344930,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 7,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 358230,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 8,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 342650,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 10,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 356810,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 11,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 347500,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 12,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 351110,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 13,
+      "paid": 300000,
+      "loss": 12000,
+      "carrying": 288000,
+      "used": 270000,
+      "discarded": 18000,
+      "back": 346710,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 14,
+      "paid": 300000,
+      "loss": 12000,
+      "carrying": 288000,
+      "used": 270000,
+      "discarded": 18000,
+      "back": 336350,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 15,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 347400,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 16,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 349590,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 17,
+      "paid": 300000,
+      "loss": 0,
+      "carrying": 300000,
+      "used": 270000,
+      "discarded": 30000,
+      "back": 353770,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    },
+    {
+      "seed": 18,
+      "paid": 300000,
+      "loss": 12000,
+      "carrying": 288000,
+      "used": 270000,
+      "discarded": 18000,
+      "back": 344620,
+      "bookT": 12,
+      "year": 2,
+      "difference": 0
+    }
+  ],
+  "year1Bridge": {
+    "paths": 300,
+    "points": 7200,
+    "maxRest": 0,
+    "unknown": 0,
+    "perMonth": [
+      {
+        "t": 0,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 0,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 1,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 1,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 2,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 2,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 3,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 3,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 4,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 4,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 5,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 5,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 6,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 6,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 7,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 7,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 8,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 8,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 9,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 9,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 10,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 10,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 11,
+        "phase": "before",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      },
+      {
+        "t": 11,
+        "phase": "after",
+        "count": 300,
+        "maxRest": 0,
+        "unknown": 0
+      }
+    ]
+  },
+  "negativeControls": [
+    {
+      "errorRest": -1000,
+      "unknownRest": -1000,
+      "unknownCount": 1
+    },
+    {
+      "errorRest": -1000,
+      "unknownRest": -1000,
+      "unknownCount": 1
+    }
+  ],
+  "couponNatural": {
+    "paths": 300,
+    "cases": 300,
+    "year1": 156,
+    "year2plus": 144,
+    "maxDifference": 0,
+    "minDiscount": 12000,
+    "maxDiscount": 59000,
+    "details": [
+      {
+        "seed": 0,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -14000,
+        "world": -14000,
+        "book": -14000,
+        "difference": 0
+      },
+      {
+        "seed": 1,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 2,
+        "t": 4,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -15000,
+        "world": -15000,
+        "book": -15000,
+        "difference": 0
+      },
+      {
+        "seed": 3,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 4,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -38000,
+        "world": -38000,
+        "book": -38000,
+        "difference": 0
+      },
+      {
+        "seed": 5,
+        "t": 22,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -46000,
+        "world": -46000,
+        "book": -46000,
+        "difference": 0
+      },
+      {
+        "seed": 6,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 7,
+        "t": 4,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 8,
+        "t": 18,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 9,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -26000,
+        "world": -26000,
+        "book": -26000,
+        "difference": 0
+      },
+      {
+        "seed": 10,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 11,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 12,
+        "t": 15,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 13,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 14,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -14000,
+        "world": -14000,
+        "book": -14000,
+        "difference": 0
+      },
+      {
+        "seed": 15,
+        "t": 13,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 16,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -29000,
+        "world": -29000,
+        "book": -29000,
+        "difference": 0
+      },
+      {
+        "seed": 17,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -29000,
+        "world": -29000,
+        "book": -29000,
+        "difference": 0
+      },
+      {
+        "seed": 18,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 19,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -46000,
+        "world": -46000,
+        "book": -46000,
+        "difference": 0
+      },
+      {
+        "seed": 20,
+        "t": 14,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 21,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -26000,
+        "world": -26000,
+        "book": -26000,
+        "difference": 0
+      },
+      {
+        "seed": 22,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -26000,
+        "world": -26000,
+        "book": -26000,
+        "difference": 0
+      },
+      {
+        "seed": 23,
+        "t": 13,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 24,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 25,
+        "t": 4,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 26,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 27,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -55000,
+        "world": -55000,
+        "book": -55000,
+        "difference": 0
+      },
+      {
+        "seed": 28,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 29,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 30,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 31,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 32,
+        "t": 29,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -33000,
+        "world": -33000,
+        "book": -33000,
+        "difference": 0
+      },
+      {
+        "seed": 33,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 34,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 35,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 36,
+        "t": 5,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 37,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 38,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 39,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 40,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 41,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 42,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 43,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 44,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -27000,
+        "world": -27000,
+        "book": -27000,
+        "difference": 0
+      },
+      {
+        "seed": 45,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -14000,
+        "world": -14000,
+        "book": -14000,
+        "difference": 0
+      },
+      {
+        "seed": 46,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 47,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -15000,
+        "world": -15000,
+        "book": -15000,
+        "difference": 0
+      },
+      {
+        "seed": 48,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -30000,
+        "world": -30000,
+        "book": -30000,
+        "difference": 0
+      },
+      {
+        "seed": 49,
+        "t": 10,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -15000,
+        "world": -15000,
+        "book": -15000,
+        "difference": 0
+      },
+      {
+        "seed": 50,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 51,
+        "t": 12,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 52,
+        "t": 30,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -34000,
+        "world": -34000,
+        "book": -34000,
+        "difference": 0
+      },
+      {
+        "seed": 53,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 54,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -35000,
+        "world": -35000,
+        "book": -35000,
+        "difference": 0
+      },
+      {
+        "seed": 55,
+        "t": 20,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -37000,
+        "world": -37000,
+        "book": -37000,
+        "difference": 0
+      },
+      {
+        "seed": 56,
+        "t": 10,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 57,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -41000,
+        "world": -41000,
+        "book": -41000,
+        "difference": 0
+      },
+      {
+        "seed": 58,
+        "t": 20,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -40000,
+        "world": -40000,
+        "book": -40000,
+        "difference": 0
+      },
+      {
+        "seed": 59,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -45000,
+        "world": -45000,
+        "book": -45000,
+        "difference": 0
+      },
+      {
+        "seed": 60,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 61,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 62,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 63,
+        "t": 23,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -36000,
+        "world": -36000,
+        "book": -36000,
+        "difference": 0
+      },
+      {
+        "seed": 64,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 65,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 66,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -14000,
+        "world": -14000,
+        "book": -14000,
+        "difference": 0
+      },
+      {
+        "seed": 67,
+        "t": 13,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -27000,
+        "world": -27000,
+        "book": -27000,
+        "difference": 0
+      },
+      {
+        "seed": 68,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 69,
+        "t": 13,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 70,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -28000,
+        "world": -28000,
+        "book": -28000,
+        "difference": 0
+      },
+      {
+        "seed": 71,
+        "t": 19,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 72,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -14000,
+        "world": -14000,
+        "book": -14000,
+        "difference": 0
+      },
+      {
+        "seed": 73,
+        "t": 23,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -42000,
+        "world": -42000,
+        "book": -42000,
+        "difference": 0
+      },
+      {
+        "seed": 74,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -26000,
+        "world": -26000,
+        "book": -26000,
+        "difference": 0
+      },
+      {
+        "seed": 75,
+        "t": 17,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -27000,
+        "world": -27000,
+        "book": -27000,
+        "difference": 0
+      },
+      {
+        "seed": 76,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 77,
+        "t": 35,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 78,
+        "t": 22,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -43000,
+        "world": -43000,
+        "book": -43000,
+        "difference": 0
+      },
+      {
+        "seed": 79,
+        "t": 21,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -51000,
+        "world": -51000,
+        "book": -51000,
+        "difference": 0
+      },
+      {
+        "seed": 80,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -26000,
+        "world": -26000,
+        "book": -26000,
+        "difference": 0
+      },
+      {
+        "seed": 81,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -26000,
+        "world": -26000,
+        "book": -26000,
+        "difference": 0
+      },
+      {
+        "seed": 82,
+        "t": 21,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -49000,
+        "world": -49000,
+        "book": -49000,
+        "difference": 0
+      },
+      {
+        "seed": 83,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 84,
+        "t": 4,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 85,
+        "t": 5,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -26000,
+        "world": -26000,
+        "book": -26000,
+        "difference": 0
+      },
+      {
+        "seed": 86,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 87,
+        "t": 23,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -35000,
+        "world": -35000,
+        "book": -35000,
+        "difference": 0
+      },
+      {
+        "seed": 88,
+        "t": 8,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 89,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -12000,
+        "world": -12000,
+        "book": -12000,
+        "difference": 0
+      },
+      {
+        "seed": 90,
+        "t": 20,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -45000,
+        "world": -45000,
+        "book": -45000,
+        "difference": 0
+      },
+      {
+        "seed": 91,
+        "t": 20,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -44000,
+        "world": -44000,
+        "book": -44000,
+        "difference": 0
+      },
+      {
+        "seed": 92,
+        "t": 36,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -32000,
+        "world": -32000,
+        "book": -32000,
+        "difference": 0
+      },
+      {
+        "seed": 93,
+        "t": 14,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 94,
+        "t": 22,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -42000,
+        "world": -42000,
+        "book": -42000,
+        "difference": 0
+      },
+      {
+        "seed": 95,
+        "t": 5,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 96,
+        "t": 20,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -38000,
+        "world": -38000,
+        "book": -38000,
+        "difference": 0
+      },
+      {
+        "seed": 97,
+        "t": 30,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -31000,
+        "world": -31000,
+        "book": -31000,
+        "difference": 0
+      },
+      {
+        "seed": 98,
+        "t": 20,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -40000,
+        "world": -40000,
+        "book": -40000,
+        "difference": 0
+      },
+      {
+        "seed": 99,
+        "t": 20,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -34000,
+        "world": -34000,
+        "book": -34000,
+        "difference": 0
+      },
+      {
+        "seed": 100,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -15000,
+        "world": -15000,
+        "book": -15000,
+        "difference": 0
+      },
+      {
+        "seed": 101,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -12000,
+        "world": -12000,
+        "book": -12000,
+        "difference": 0
+      },
+      {
+        "seed": 102,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 103,
+        "t": 11,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 104,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 105,
+        "t": 13,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 106,
+        "t": 30,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -30000,
+        "world": -30000,
+        "book": -30000,
+        "difference": 0
+      },
+      {
+        "seed": 107,
+        "t": 22,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -36000,
+        "world": -36000,
+        "book": -36000,
+        "difference": 0
+      },
+      {
+        "seed": 108,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 109,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 110,
+        "t": 14,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 111,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -12000,
+        "world": -12000,
+        "book": -12000,
+        "difference": 0
+      },
+      {
+        "seed": 112,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 113,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 114,
+        "t": 34,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -36000,
+        "world": -36000,
+        "book": -36000,
+        "difference": 0
+      },
+      {
+        "seed": 115,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -28000,
+        "world": -28000,
+        "book": -28000,
+        "difference": 0
+      },
+      {
+        "seed": 116,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -14000,
+        "world": -14000,
+        "book": -14000,
+        "difference": 0
+      },
+      {
+        "seed": 117,
+        "t": 17,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -37000,
+        "world": -37000,
+        "book": -37000,
+        "difference": 0
+      },
+      {
+        "seed": 118,
+        "t": 6,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 119,
+        "t": 23,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -38000,
+        "world": -38000,
+        "book": -38000,
+        "difference": 0
+      },
+      {
+        "seed": 120,
+        "t": 6,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -15000,
+        "world": -15000,
+        "book": -15000,
+        "difference": 0
+      },
+      {
+        "seed": 121,
+        "t": 18,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -34000,
+        "world": -34000,
+        "book": -34000,
+        "difference": 0
+      },
+      {
+        "seed": 122,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 123,
+        "t": 20,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -48000,
+        "world": -48000,
+        "book": -48000,
+        "difference": 0
+      },
+      {
+        "seed": 124,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 125,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 126,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 127,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -15000,
+        "world": -15000,
+        "book": -15000,
+        "difference": 0
+      },
+      {
+        "seed": 128,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -12000,
+        "world": -12000,
+        "book": -12000,
+        "difference": 0
+      },
+      {
+        "seed": 129,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 130,
+        "t": 6,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 131,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -14000,
+        "world": -14000,
+        "book": -14000,
+        "difference": 0
+      },
+      {
+        "seed": 132,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -38000,
+        "world": -38000,
+        "book": -38000,
+        "difference": 0
+      },
+      {
+        "seed": 133,
+        "t": 3,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -12000,
+        "world": -12000,
+        "book": -12000,
+        "difference": 0
+      },
+      {
+        "seed": 134,
+        "t": 24,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -41000,
+        "world": -41000,
+        "book": -41000,
+        "difference": 0
+      },
+      {
+        "seed": 135,
+        "t": 5,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 136,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 137,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -27000,
+        "world": -27000,
+        "book": -27000,
+        "difference": 0
+      },
+      {
+        "seed": 138,
+        "t": 17,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 139,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 140,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 141,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 142,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 143,
+        "t": 13,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 144,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 145,
+        "t": 10,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 146,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 147,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 148,
+        "t": 12,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 149,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 150,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 151,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 152,
+        "t": 12,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 153,
+        "t": 8,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 154,
+        "t": 23,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -35000,
+        "world": -35000,
+        "book": -35000,
+        "difference": 0
+      },
+      {
+        "seed": 155,
+        "t": 16,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 156,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -32000,
+        "world": -32000,
+        "book": -32000,
+        "difference": 0
+      },
+      {
+        "seed": 157,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 158,
+        "t": 9,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 159,
+        "t": 8,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -15000,
+        "world": -15000,
+        "book": -15000,
+        "difference": 0
+      },
+      {
+        "seed": 160,
+        "t": 23,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -36000,
+        "world": -36000,
+        "book": -36000,
+        "difference": 0
+      },
+      {
+        "seed": 161,
+        "t": 22,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -50000,
+        "world": -50000,
+        "book": -50000,
+        "difference": 0
+      },
+      {
+        "seed": 162,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 163,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 164,
+        "t": 5,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 165,
+        "t": 18,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 166,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 167,
+        "t": 23,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -38000,
+        "world": -38000,
+        "book": -38000,
+        "difference": 0
+      },
+      {
+        "seed": 168,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 169,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -45000,
+        "world": -45000,
+        "book": -45000,
+        "difference": 0
+      },
+      {
+        "seed": 170,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 171,
+        "t": 4,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -15000,
+        "world": -15000,
+        "book": -15000,
+        "difference": 0
+      },
+      {
+        "seed": 172,
+        "t": 17,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -29000,
+        "world": -29000,
+        "book": -29000,
+        "difference": 0
+      },
+      {
+        "seed": 173,
+        "t": 16,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 174,
+        "t": 11,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 175,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 176,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 177,
+        "t": 16,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -30000,
+        "world": -30000,
+        "book": -30000,
+        "difference": 0
+      },
+      {
+        "seed": 178,
+        "t": 18,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 179,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 180,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 181,
+        "t": 16,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 182,
+        "t": 21,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -35000,
+        "world": -35000,
+        "book": -35000,
+        "difference": 0
+      },
+      {
+        "seed": 183,
+        "t": 20,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -33000,
+        "world": -33000,
+        "book": -33000,
+        "difference": 0
+      },
+      {
+        "seed": 184,
+        "t": 18,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 185,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 186,
+        "t": 20,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -41000,
+        "world": -41000,
+        "book": -41000,
+        "difference": 0
+      },
+      {
+        "seed": 187,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 188,
+        "t": 17,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -36000,
+        "world": -36000,
+        "book": -36000,
+        "difference": 0
+      },
+      {
+        "seed": 189,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 190,
+        "t": 13,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 191,
+        "t": 18,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -29000,
+        "world": -29000,
+        "book": -29000,
+        "difference": 0
+      },
+      {
+        "seed": 192,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -42000,
+        "world": -42000,
+        "book": -42000,
+        "difference": 0
+      },
+      {
+        "seed": 193,
+        "t": 35,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -38000,
+        "world": -38000,
+        "book": -38000,
+        "difference": 0
+      },
+      {
+        "seed": 194,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -27000,
+        "world": -27000,
+        "book": -27000,
+        "difference": 0
+      },
+      {
+        "seed": 195,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 196,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 197,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 198,
+        "t": 10,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 199,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 200,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 201,
+        "t": 20,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -43000,
+        "world": -43000,
+        "book": -43000,
+        "difference": 0
+      },
+      {
+        "seed": 202,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 203,
+        "t": 8,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 204,
+        "t": 11,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 205,
+        "t": 22,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -43000,
+        "world": -43000,
+        "book": -43000,
+        "difference": 0
+      },
+      {
+        "seed": 206,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 207,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -37000,
+        "world": -37000,
+        "book": -37000,
+        "difference": 0
+      },
+      {
+        "seed": 208,
+        "t": 8,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 209,
+        "t": 23,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -41000,
+        "world": -41000,
+        "book": -41000,
+        "difference": 0
+      },
+      {
+        "seed": 210,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -14000,
+        "world": -14000,
+        "book": -14000,
+        "difference": 0
+      },
+      {
+        "seed": 211,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 212,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -32000,
+        "world": -32000,
+        "book": -32000,
+        "difference": 0
+      },
+      {
+        "seed": 213,
+        "t": 6,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -28000,
+        "world": -28000,
+        "book": -28000,
+        "difference": 0
+      },
+      {
+        "seed": 214,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 215,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -12000,
+        "world": -12000,
+        "book": -12000,
+        "difference": 0
+      },
+      {
+        "seed": 216,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 217,
+        "t": 30,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -32000,
+        "world": -32000,
+        "book": -32000,
+        "difference": 0
+      },
+      {
+        "seed": 218,
+        "t": 5,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 219,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 220,
+        "t": 21,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -33000,
+        "world": -33000,
+        "book": -33000,
+        "difference": 0
+      },
+      {
+        "seed": 221,
+        "t": 17,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -32000,
+        "world": -32000,
+        "book": -32000,
+        "difference": 0
+      },
+      {
+        "seed": 222,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 223,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 224,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 225,
+        "t": 16,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 226,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 227,
+        "t": 8,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 228,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 229,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 230,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 231,
+        "t": 14,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 232,
+        "t": 22,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -39000,
+        "world": -39000,
+        "book": -39000,
+        "difference": 0
+      },
+      {
+        "seed": 233,
+        "t": 37,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -59000,
+        "world": -59000,
+        "book": -59000,
+        "difference": 0
+      },
+      {
+        "seed": 234,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 235,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 236,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 237,
+        "t": 30,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -34000,
+        "world": -34000,
+        "book": -34000,
+        "difference": 0
+      },
+      {
+        "seed": 238,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 239,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 240,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 241,
+        "t": 8,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 242,
+        "t": 6,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 243,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 244,
+        "t": 23,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -53000,
+        "world": -53000,
+        "book": -53000,
+        "difference": 0
+      },
+      {
+        "seed": 245,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -12000,
+        "world": -12000,
+        "book": -12000,
+        "difference": 0
+      },
+      {
+        "seed": 246,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -50000,
+        "world": -50000,
+        "book": -50000,
+        "difference": 0
+      },
+      {
+        "seed": 247,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 248,
+        "t": 11,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 249,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 250,
+        "t": 15,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 251,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -43000,
+        "world": -43000,
+        "book": -43000,
+        "difference": 0
+      },
+      {
+        "seed": 252,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 253,
+        "t": 20,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -39000,
+        "world": -39000,
+        "book": -39000,
+        "difference": 0
+      },
+      {
+        "seed": 254,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 255,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 256,
+        "t": 18,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -31000,
+        "world": -31000,
+        "book": -31000,
+        "difference": 0
+      },
+      {
+        "seed": 257,
+        "t": 32,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -50000,
+        "world": -50000,
+        "book": -50000,
+        "difference": 0
+      },
+      {
+        "seed": 258,
+        "t": 17,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -33000,
+        "world": -33000,
+        "book": -33000,
+        "difference": 0
+      },
+      {
+        "seed": 259,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 260,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 261,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -15000,
+        "world": -15000,
+        "book": -15000,
+        "difference": 0
+      },
+      {
+        "seed": 262,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 263,
+        "t": 34,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -40000,
+        "world": -40000,
+        "book": -40000,
+        "difference": 0
+      },
+      {
+        "seed": 264,
+        "t": 11,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 265,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -16000,
+        "world": -16000,
+        "book": -16000,
+        "difference": 0
+      },
+      {
+        "seed": 266,
+        "t": 10,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 267,
+        "t": 23,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -40000,
+        "world": -40000,
+        "book": -40000,
+        "difference": 0
+      },
+      {
+        "seed": 268,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -41000,
+        "world": -41000,
+        "book": -41000,
+        "difference": 0
+      },
+      {
+        "seed": 269,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -28000,
+        "world": -28000,
+        "book": -28000,
+        "difference": 0
+      },
+      {
+        "seed": 270,
+        "t": 29,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -37000,
+        "world": -37000,
+        "book": -37000,
+        "difference": 0
+      },
+      {
+        "seed": 271,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -21000,
+        "world": -21000,
+        "book": -21000,
+        "difference": 0
+      },
+      {
+        "seed": 272,
+        "t": 8,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -15000,
+        "world": -15000,
+        "book": -15000,
+        "difference": 0
+      },
+      {
+        "seed": 273,
+        "t": 29,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -33000,
+        "world": -33000,
+        "book": -33000,
+        "difference": 0
+      },
+      {
+        "seed": 274,
+        "t": 24,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -47000,
+        "world": -47000,
+        "book": -47000,
+        "difference": 0
+      },
+      {
+        "seed": 275,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -20000,
+        "world": -20000,
+        "book": -20000,
+        "difference": 0
+      },
+      {
+        "seed": 276,
+        "t": 4,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 277,
+        "t": 12,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 278,
+        "t": 13,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 279,
+        "t": 9,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 280,
+        "t": 3,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 281,
+        "t": 23,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -33000,
+        "world": -33000,
+        "book": -33000,
+        "difference": 0
+      },
+      {
+        "seed": 282,
+        "t": 5,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -24000,
+        "world": -24000,
+        "book": -24000,
+        "difference": 0
+      },
+      {
+        "seed": 283,
+        "t": 13,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -22000,
+        "world": -22000,
+        "book": -22000,
+        "difference": 0
+      },
+      {
+        "seed": 284,
+        "t": 21,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -49000,
+        "world": -49000,
+        "book": -49000,
+        "difference": 0
+      },
+      {
+        "seed": 285,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 286,
+        "t": 5,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -29000,
+        "world": -29000,
+        "book": -29000,
+        "difference": 0
+      },
+      {
+        "seed": 287,
+        "t": 8,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -25000,
+        "world": -25000,
+        "book": -25000,
+        "difference": 0
+      },
+      {
+        "seed": 288,
+        "t": 15,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 289,
+        "t": 7,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      },
+      {
+        "seed": 290,
+        "t": 3,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 291,
+        "t": 10,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 292,
+        "t": 15,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -27000,
+        "world": -27000,
+        "book": -27000,
+        "difference": 0
+      },
+      {
+        "seed": 293,
+        "t": 19,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -33000,
+        "world": -33000,
+        "book": -33000,
+        "difference": 0
+      },
+      {
+        "seed": 294,
+        "t": 22,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -40000,
+        "world": -40000,
+        "book": -40000,
+        "difference": 0
+      },
+      {
+        "seed": 295,
+        "t": 10,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -23000,
+        "world": -23000,
+        "book": -23000,
+        "difference": 0
+      },
+      {
+        "seed": 296,
+        "t": 5,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -13000,
+        "world": -13000,
+        "book": -13000,
+        "difference": 0
+      },
+      {
+        "seed": 297,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -19000,
+        "world": -19000,
+        "book": -19000,
+        "difference": 0
+      },
+      {
+        "seed": 298,
+        "t": 11,
+        "option": "check",
+        "outcome": "fine",
+        "expected": -17000,
+        "world": -17000,
+        "book": -17000,
+        "difference": 0
+      },
+      {
+        "seed": 299,
+        "t": 6,
+        "option": "check",
+        "outcome": "ok",
+        "expected": -18000,
+        "world": -18000,
+        "book": -18000,
+        "difference": 0
+      }
+    ]
+  },
+  "couponWorld": {
+    "head": "8defe7edb35317cf9e4ed907e5538555ad4aec9f",
+    "cases": 1200,
+    "maxDifference": 0,
+    "minDiscount": 16000,
+    "maxDiscount": 38000
+  },
+  "couponWorldByResult": [
+    {
+      "option": "check",
+      "outcome": "ok",
+      "cases": 300,
+      "maxDifference": 0
+    },
+    {
+      "option": "check",
+      "outcome": "fine",
+      "cases": 300,
+      "maxDifference": 0
+    },
+    {
+      "option": "post",
+      "outcome": "ok",
+      "cases": 300,
+      "maxDifference": 0
+    },
+    {
+      "option": "post",
+      "outcome": "warn",
+      "cases": 300,
+      "maxDifference": 0
+    }
+  ],
+  "displayFixtures": {
+    "head": "8defe7edb35317cf9e4ed907e5538555ad4aec9f",
+    "fixtures": 12,
+    "maxDifference": 0,
+    "returnNaming": true,
+    "rows": [
+      {
+        "cost": 600000,
+        "paid": 0,
+        "unpaid": 660000,
+        "prepaid": 60000,
+        "currentUnpaid": 330000,
+        "longUnpaid": 330000,
+        "currentInterest": 30000,
+        "longInterest": 30000,
+        "difference": 0
+      },
+      {
+        "cost": 600000,
+        "paid": 9,
+        "unpaid": 412500,
+        "prepaid": 37500,
+        "currentUnpaid": 330000,
+        "longUnpaid": 82500,
+        "currentInterest": 30000,
+        "longInterest": 7500,
+        "difference": 0
+      },
+      {
+        "cost": 600000,
+        "paid": 12,
+        "unpaid": 330000,
+        "prepaid": 30000,
+        "currentUnpaid": 330000,
+        "longUnpaid": 0,
+        "currentInterest": 30000,
+        "longInterest": 0,
+        "difference": 0
+      },
+      {
+        "cost": 600000,
+        "paid": 13,
+        "unpaid": 302500,
+        "prepaid": 27500,
+        "currentUnpaid": 302500,
+        "longUnpaid": 0,
+        "currentInterest": 27500,
+        "longInterest": 0,
+        "difference": 0
+      },
+      {
+        "cost": 600000,
+        "paid": 23,
+        "unpaid": 27500,
+        "prepaid": 2500,
+        "currentUnpaid": 27500,
+        "longUnpaid": 0,
+        "currentInterest": 2500,
+        "longInterest": 0,
+        "difference": 0
+      },
+      {
+        "cost": 600000,
+        "paid": 24,
+        "unpaid": 0,
+        "prepaid": 0,
+        "currentUnpaid": 0,
+        "longUnpaid": 0,
+        "currentInterest": 0,
+        "longInterest": 0,
+        "difference": 0
+      },
+      {
+        "cost": 1200000,
+        "paid": 0,
+        "unpaid": 1320000,
+        "prepaid": 120000,
+        "currentUnpaid": 660000,
+        "longUnpaid": 660000,
+        "currentInterest": 60000,
+        "longInterest": 60000,
+        "difference": 0
+      },
+      {
+        "cost": 1200000,
+        "paid": 9,
+        "unpaid": 825000,
+        "prepaid": 75000,
+        "currentUnpaid": 660000,
+        "longUnpaid": 165000,
+        "currentInterest": 60000,
+        "longInterest": 15000,
+        "difference": 0
+      },
+      {
+        "cost": 1200000,
+        "paid": 12,
+        "unpaid": 660000,
+        "prepaid": 60000,
+        "currentUnpaid": 660000,
+        "longUnpaid": 0,
+        "currentInterest": 60000,
+        "longInterest": 0,
+        "difference": 0
+      },
+      {
+        "cost": 1200000,
+        "paid": 13,
+        "unpaid": 605000,
+        "prepaid": 55000,
+        "currentUnpaid": 605000,
+        "longUnpaid": 0,
+        "currentInterest": 55000,
+        "longInterest": 0,
+        "difference": 0
+      },
+      {
+        "cost": 1200000,
+        "paid": 23,
+        "unpaid": 55000,
+        "prepaid": 5000,
+        "currentUnpaid": 55000,
+        "longUnpaid": 0,
+        "currentInterest": 5000,
+        "longInterest": 0,
+        "difference": 0
+      },
+      {
+        "cost": 1200000,
+        "paid": 24,
+        "unpaid": 0,
+        "prepaid": 0,
+        "currentUnpaid": 0,
+        "longUnpaid": 0,
+        "currentInterest": 0,
+        "longInterest": 0,
+        "difference": 0
+      }
+    ]
+  },
+  "sourceVerification": {
+    "head": "8defe7edb35317cf9e4ed907e5538555ad4aec9f",
+    "verifiedFiles": {
+      "boki2/classic.html": "b7644bc4f48d16b8f00cf6dc7416d4e0714aec72",
+      "boki2/ramen.html": "8f73f68dcc2e5748b5d74b671a12de0c60d75555",
+      "boki2/index.html": "68ab40e78d1acd94e048283371d69f27147c5fac",
+      "boki2/css/ramen.css": "d9376d1e121d2723af1e2effb5219d9603e810f9",
+      "boki2/tools/crawl.js": "ac3b672f4a48e7ce87df9302864c3a2334c39126",
+      "boki2/tools/research-import.js": "e6301b3d9bae25aaa21b3031431253e98e66e807",
+      "boki2/tools/ramen-files.js": "977b251597f61ee8ce48cdec84248432fb1eb9a7",
+      "boki2/tools/law-check.js": "c35be3e46c01d3372755311bb7d51764d959c698",
+      "boki2/tools/compare-crawl.js": "c7604f0d346458b22281a0172b2a31db5279168e",
+      "boki2/tools/robots-audit.js": "55878a57bf3486305f29c5658411af4b684677c6",
+      "boki2/tools/sheet-text.py": "29c17aa919030808caacb6313179f401d1dd11d0",
+      "boki2/tools/after-restart.sh": "f16cd0ce7a3d11db5fd1e48d583ea2504d9b5af9",
+      "boki2/tools/validate.js": "934d56321cf762938e0816328fb6aae056c2cc8a",
+      "boki2/tools/research-check.js": "c7edc7eded33353ee117b570b44c36f5b8eaaa71",
+      "boki2/tools/lexicon-check.js": "bf768b73e178e0407e265c480139e18c6d06449a",
+      "boki2/tools/coverage-ramen.js": "a60a7e4f8a03d66a44f015bd843d88b836469718",
+      "boki2/tools/research-fetch.js": "67c730ffa4c3bfe986d18bcb5b4031c63b4ee365",
+      "boki2/tools/sim-check.js": "cb0366f72b80c78566a05ba4e222b8d5e04c2a53",
+      "boki2/tools/report-check.js": "a89367ef113aa1269786818ba8f0d3b583ee45a8",
+      "boki2/tools/wip-sync.sh": "5896f68c888c7851bc9c405f63e53f2029ce810e",
+      "boki2/tools/sim-ramen.js": "9df65f50f3eb6151e5f2cbe28f40e5c37fb7acd3",
+      "boki2/tools/coverage.js": "59b4b769844f0f3a28368d893b2004bb2ba67c94",
+      "boki2/tools/ramen-y2-check.js": "c8fcdeebdd5b980d1aa7bc78984e98751ebdd709",
+      "boki2/tools/ramen-view-check.js": "e188ae10a1ebb4a7edb8c522fef034e7ece68828",
+      "boki2/tools/build.js": "16c3a2141b1fdcc2af6da66330e0c43f7042e111",
+      "boki2/js/core.js": "3b771a13cb16fd71e82831c2a615da117fb3cf7c",
+      "boki2/js/app.js": "8489e2b4b7ab17729c862fbf67d34d9cfe262ebd",
+      "boki2/js/hall.js": "692949db57258245581c689adc08946bdb7a5524",
+      "boki2/js/scope.js": "32db9a95494c850ffb9b133338cec17f6229d0e2",
+      "boki2/research/notes/law/primary/accountant-kentei-157-2.md": "8712330263fb9c785fdd91bd85307d7f48d5765d",
+      "boki2/research/notes/law/primary/hs-sample-q42-s2.md": "ad5b5368cc7cb9ea86bec20c974ad1149ca590a0",
+      "boki2/research/notes/law/primary/mext-top.md": "54e23690361ccf511c59289f4c892aaafa97e769",
+      "boki2/research/notes/law/primary/hs-sample-q5-s5.md": "2eafe0b38875991f99c63b6923bf2e670ef0a7ae",
+      "boki2/research/notes/law/primary/mhlw-gyomukaizen.md": "621bf925311544214176d7b1fd43afa4108c2bec",
+      "boki2/research/notes/law/primary/r4-law-caa-yuuri.md": "536edfd2eb65bb6794ddf855a20a4d1136f0f18d",
+      "boki2/research/notes/law/primary/zengin-electronic.md": "61b9b38b20f29d1c4bebb9d2a30076cdf907a5cf",
+      "boki2/research/notes/law/primary/r2-access-mext-press2022.md": "bc5392106f83c9eddc252f9dc67c55868d12c60d",
+      "boki2/research/notes/law/primary/r2-accountant-keisan22.md": "9a069e71f73dc1e185b4f8ce6535f11c0bae90e6",
+      "boki2/research/notes/law/primary/hs-sample-q1-s5.md": "3dda4d39833bacaa617ca3e98b0503f382ae5741",
+      "boki2/research/notes/law/primary/r5-blr-jpx-kairikiya-1s.md": "4e4eddc1350bf104a14b7bb3337a7ce24e77a2e3",
+      "boki2/research/notes/law/primary/r4-calib-egov-hojinrei133-2.md": "39bc7c4c2f28803e6fa59f071089a5a4c43f1a29",
+      "boki2/research/notes/law/primary/r2-retaker-class2exam.md": "769f997c18b097f6c8d64486d766a609319bd9fc",
+      "boki2/research/notes/law/primary/retaker-kentei-2q42-s5-q.md": "70193edab1110f1f0670a230f4fba6bd665b714e",
+      "boki2/research/notes/law/primary/egov-tegata-ho.md": "422cd7825c9dea92fc5ee2efe72c3ad0c81b094d",
+      "boki2/research/notes/law/primary/egov-sotoku-ho.md": "7928c6add15f32795bb19cffa4f57f81eeeacdbb",
+      "boki2/research/notes/law/primary/r4-law-mhlw-haccp-kangae.md": "1c038b911ac61adbe4288a242d49e67ea13146bb",
+      "boki2/research/notes/law/primary/r4-mkt-soumu-sns-r07.md": "7fd11776d264e3fa90907994406d44593767b06a",
+      "boki2/research/notes/law/primary/r4-law-hojokin-tekiseika.md": "27659e599a91915234aa5154d0d913ac1a46b193",
+      "boki2/research/notes/law/primary/r4-calib-egov-hojin42.md": "3cd1638d48d01353cdf8d87710b158df0248fd96",
+      "boki2/research/notes/law/primary/r5-blr-egov-kenpo.md": "7f719e857d13e4803c96d37f2d7e2fc75801a65e",
+      "boki2/research/notes/law/primary/r2-accountant-zeikouka.md": "4533289e6a7dae257df6c8aed2556757a4c100e1",
+      "boki2/research/notes/law/primary/r5-growth-jpx-iji-growth.md": "0168bf14a1dd00b524e486ddc6b1ee159ea733cc",
+      "boki2/research/notes/law/primary/hs-nissho-kouhyou-157.md": "937d5a9f28ab6cd1f0b6eeacd414c0d4fb7a9a42",
+      "boki2/research/notes/law/primary/retaker-kentei-157-2-kouhyou.md": "fc47a716ce956e27d2c000e8e88bcdd923eaed66",
+      "boki2/research/notes/law/primary/egov-chinkaku-ho.md": "0efac85f8d2bd3d5b4203c42238b9d3bc2a70d41",
+      "boki2/research/notes/law/primary/accountant-kentei-s5-q3.md": "d8962687ebe3b3c5573fd0bbc1fc1efc6011bd2f",
+      "boki2/research/notes/law/primary/hs-sample-q41-s5.md": "0fdbcb2c3e7653d513bc9c9ccbfb8866ffda39df",
+      "boki2/research/notes/law/primary/r4-mgmt-mhlw-koyou.md": "2cfb53a97ca6c78f3f872b83512fb9cc8e491053",
+      "boki2/research/notes/law/primary/hs-sample-q42-s1.md": "4571438496c5b5e4945f453f3884bd78e26320e7",
+      "boki2/research/notes/law/primary/egov-kaishaho-issue-309.md": "dd32cd7f99424836c4ea6587a581f97be844b72f",
+      "boki2/research/notes/law/primary/densai-provision.md": "3a1bd4d25a9763577a5ccf0a598e8ffa29773fea",
+      "boki2/research/notes/law/primary/child2-gakunen-kanji.md": "85662781be935587793a4aedf85e6c8d990db217",
+      "boki2/research/notes/law/primary/r4-law-stema-kijun#blr.md": "886d0bbc200630503b6f336623b31d322af3b440",
+      "boki2/research/notes/law/primary/r2-access-mext-survey2022b.md": "3041adcefe2a56c731d3b6e67af521535ebb4374",
+      "boki2/research/notes/law/primary/r2-accountant-2027kamoku.md": "b53f36cf01e0b01b31164c76088ca22a009d4249",
+      "boki2/research/notes/law/primary/accountant-keisan-22.md": "bb9d1c7c9fb1bd9d106970c3a6b7561539d2a1ad",
+      "boki2/research/notes/law/primary/retaker-kentei-2q2-s5-q.md": "37a018f256882cc205af26685c8ddb790e96bfed",
+      "boki2/research/notes/law/primary/r5-blr-caa-unyou-r7.md": "1a293852219aa0c7fcb7c3988de99dab6290b117",
+      "boki2/research/notes/law/primary/r5-blr-egov-shoshinkou-kisoku.md": "5139d8560dd92977802088efcd93444f1fc24270",
+      "boki2/research/notes/law/primary/egov-kaishaho-432.md": "5a455e1ad386ffe10c93dd359b0382f09b1c6f2c",
+      "boki2/research/notes/law/primary/accountant-kaishaho-445.md": "ff88a6f9a47a65893288fd7f8d0c9e1e74c7373d",
+      "boki2/research/notes/law/primary/hs-sample-q5-s2.md": "4a1c0079858d48e05b3205f699ccb8e81d1cb80b",
+      "boki2/research/notes/law/primary/learner-sample-q2-s5.md": "4abdc0ec4645e3eb03f8bcb892586ae18494633e",
+      "boki2/research/notes/law/primary/r5-blr-egov-keihyo8.md": "02e6e92591875c8771cd291a1fd13a03b9559af6",
+      "boki2/research/notes/law/primary/r4-mgmt-mhlw-minwage.md": "fecd8a8884f740b422543c9f0002f58d61672b3d",
+      "boki2/research/notes/law/primary/accountant-cpaaob-2025shiken.md": "1bd79dd6025369873b8910df0f793c7295d7e6c8",
+      "boki2/research/notes/law/primary/egov-minpo.md": "69cd9c7d6c1f71caf9680c98ecf655a5cfe598df",
+      "boki2/research/notes/law/primary/r4-law-shokuhyo-qa-kakou#blr.md": "99ab6ffa99f8b16a24e8215dbd953f89bc5810a8",
+      "boki2/research/notes/law/primary/accountant-fsa-zeikouka-kijun.md": "fcb457a35581b951008516a83ef729ab69c767b7",
+      "boki2/research/notes/law/primary/r2-accountant-kaisha445.md": "4974c419001100bc82778405cc8cd8fa1d35faca",
+      "boki2/research/notes/law/primary/r4-calib-egov-keihyo4.md": "c3bb6b72ce46b470555168f3348842ff4588a4e9",
+      "boki2/research/notes/law/primary/jpx-delisting.md": "11c209924eb72bba6efd2c612dfd327795ba5793",
+      "boki2/research/notes/law/primary/r4-calib-egov-minpo563.md": "041b3e0893c7c230ea900cfdca46c10d33edcb39",
+      "boki2/research/notes/law/primary/r2-teen15-chu-gakushu.md": "f15d32c3bdada93aad286dbfd90931639a558fde",
+      "boki2/research/notes/law/primary/egov-keiho.md": "fef1cd32c178d28b6a3b61b5d1f569bc7e9e1c63",
+      "boki2/research/notes/law/primary/r5-growth-jpx-shinki-standard.md": "a40b6c5f392e887a5a6403c555008c03d0abc842",
+      "boki2/research/notes/law/primary/egov-roudou-keiyaku.md": "fcd3f74e5752e57d9187ab354bed1ede338febd8",
+      "boki2/research/notes/law/primary/r2-accountant-nta5759.md": "0af8b84264550a6498a922c1e22bce4eecffd471",
+      "boki2/research/notes/law/primary/r4-mkt-caa-stealth.md": "a0c4a561d36047950a64fda66325c0e353ee5253",
+      "boki2/research/notes/law/primary/r5-growth-jpx-shinki-kijun.md": "968e5d9c68055e54173a36bb983daefdd6f1bd3e",
+      "boki2/research/notes/law/primary/courts-hasan-hiyou.md": "a3d698d30a63d4d857061989923c44dad544e97a",
+      "boki2/research/notes/law/primary/hs-sample-q42-s4.md": "845904468268b33b0ba3b91c1c05f99d1e256ff2",
+      "boki2/research/notes/law/primary/zengin-koukan-rules.md": "299450cf4ff8a2e8acf9ef0735cf77b44eeeb424",
+      "boki2/research/notes/law/primary/r4-mgmt-mhlw-chuka#calib.md": "2ec60019648912807a4c8fbd0c291f3b8b76c374",
+      "boki2/research/notes/law/primary/hs-sample-q1-s1.md": "4304562fd2e8e26a21fd57252138dd9f9eb0b1f5",
+      "boki2/research/notes/law/primary/hs-nissho-sample-two.md": "016d6d951dbe09bfe135009ad8c9ffff962a4e7c",
+      "boki2/research/notes/law/primary/hs-sample-q5-s1.md": "6fccca381578ac8a0377ff842f88330847646dbe",
+      "boki2/research/notes/law/primary/r2-designer-kentei-examlist.md": "34523fd5cf064c231a91a6805a63c8d56846e732",
+      "boki2/research/notes/law/primary/hs-sample-q41-s3.md": "c7b1264fa06de03afd53b85c2623c670949dd09f",
+      "boki2/research/notes/law/primary/egov-koueki-20261201-full.md": "17f1fe1845a30e6ac0b132d7f3c5c6e4dbbd7d25",
+      "boki2/research/notes/law/primary/accountant-fsa-1a923.md": "c8cd1d54e82806fd53e71d2b9d2cb3df96c237cb",
+      "boki2/research/notes/law/primary/jpx-regulations-index.md": "3f69610bcf194eccbc98d456fcaf6116660ee994",
+      "boki2/research/notes/law/primary/r5-cal-egov-sotoku42-3-2.md": "3883243811695a23eed0c95de01e12b0384d3936",
+      "boki2/research/notes/law/primary/accountant-kentei-class2.md": "19376422edd8601845993546911ca4c1e5b1d899",
+      "boki2/research/notes/law/primary/egov-kaisha-keisan-kisoku.md": "278c3bc06b3b1ff2e096528e2f394ec5ff4b97ba",
+      "boki2/research/notes/law/primary/retaker-kentei-2q3-s2-q.md": "e6dc4c0a673c7b3fc803eb324960267fb54853b2",
+      "boki2/research/notes/law/primary/r4-law-caa-keihin.md": "2705ed2c0be613c8eb2880640213562630b37a48",
+      "boki2/research/notes/law/primary/r5-blr-egov-shohi-full.md": "1825e342b5b12427237c7716f8e19b517ac46fd3",
+      "boki2/research/notes/law/primary/r5-blr-mhlw-shokuchu-inshoku.md": "b9840d0ec3b49b38a5000e3259598d0133f9c997",
+      "boki2/research/notes/law/primary/accountant-kentei-s5-q2.md": "12e94c1f6eaf7eba0599d3e2b18168c8e2444a7b",
+      "boki2/research/notes/law/primary/accountant-kentei-s5-q1.md": "28e43d7a0a30e01bfa1e82385796c5a17169dd77",
+      "boki2/research/notes/law/primary/r4-law-keihyo-kaisei2024#blr.md": "c6266e7eb4da09deaa2f8440540d62d73cf4d6c7",
+      "boki2/research/notes/law/primary/r2-accountant-examlist.md": "6abd18aa5ff88eade2750078777278be31f0cb7b",
+      "boki2/research/notes/law/primary/r4-calib-egov-shotoku205.md": "551b332d227ca7d940f0776c838bfda33cae923a",
+      "boki2/research/notes/law/primary/r2-retaker-kogen2022.md": "72d5e39d5387e46eb80d6acdaa13d9259ed7f0ac",
+      "boki2/research/notes/law/primary/kentei-exam-list.md": "98e8728e77dc22f0cfe2945eb29b3185c315565e",
+      "boki2/research/notes/law/primary/r4-law-moj-saiken-leaflet#blr.md": "7cc7b96bed332e3d7339a96d2e4d0deeb2515159",
+      "boki2/research/notes/law/primary/r2-accountant-class2exam.md": "3b994a5610ff5107cb80c9b2756aa6b064dfe0c3",
+      "boki2/research/notes/law/primary/retaker-kentei-2q3-s5-q.md": "97b47560ac87b5dc30fbf4d07c4422f14bf557b1",
+      "boki2/research/notes/law/primary/r4-law-moj-kashi-minaoshi.md": "ee09f24387e252a7b859ba9b6251170ecb0aee92",
+      "boki2/research/notes/law/primary/r4-law-caa-violation.md": "531be8136013c05ce9a46edc360051cc18bfbddf",
+      "boki2/research/notes/law/primary/nta-6375.md": "803613c800e328d2bedce4ae10158d40c7c3b29e",
+      "boki2/research/notes/law/primary/r2-teen15-kaisetsu-shakai.md": "2395a069c8510fb39ec25de3f5339f770df85ab5",
+      "boki2/research/notes/law/primary/egov-hasanho.md": "aef15457534a9279bfc215d2f1393520b71e4431",
+      "boki2/research/notes/law/primary/r4-law-stema-yuushinkai.md": "e1f2259c16d31c66984debcb72e4577b194ced4d",
+      "boki2/research/notes/law/primary/r4-calib-egov-minpo566.md": "08d33d1071660198536c8ff12354542bc9000916",
+      "boki2/research/notes/law/primary/hs-nissho-class2.md": "6e0529e239c0a9670459159199c34459f3bb2e81",
+      "boki2/research/notes/law/primary/accountant-kentei-s5-q5.md": "6a9310a51a6cda95bd52918f43b6bd11901999b4",
+      "boki2/research/notes/law/primary/hs-sample-q42-s3.md": "c6058830343ec8dc265c47ba3c615f4cad56a945",
+      "boki2/research/notes/law/primary/nta-sozei-taino-r7.md": "c117e86a0f3a1b719be5e69edea834c033fd561a",
+      "boki2/research/notes/law/primary/retaker-kentei-2q2-s1-q.md": "62ee31bd1beda12338e862a18626ebcd58492d8c",
+      "boki2/research/notes/law/primary/egov-kaishaho-issue-454.md": "cf01be50879d29cb43e5d2e709bb31651b4c2fd9",
+      "boki2/research/notes/law/primary/hs-sample-q41-s1.md": "15e9378f4a9041c986a4cb526982d15fad25868e",
+      "boki2/research/notes/law/primary/r2-teen15-kaisetsu-gijutsukatei.md": "e7949226fbad4d313e812b70f02d1fea81773ee0",
+      "boki2/research/notes/law/primary/hs-sample-q5-s4.md": "24c18bbe29bbc963fe4105f150f435d448e219d0",
+      "boki2/research/notes/law/primary/r4-calib-egov-shotoku204b.md": "4080bff85b8737579179d101a9b297504487a5d2",
+      "boki2/research/notes/law/primary/r4-law-freelance-setsumei.md": "82170a6592e9eb19eda2cfa6b6605f3c1a194cd0",
+      "boki2/research/notes/law/primary/nta-5265.md": "489c2dca77a7ebbc98bb8dd03e967587c3f2022d",
+      "boki2/research/notes/law/primary/kentei-class2.md": "d1797666ec0de33cc2b4f2537ab98fa54ee42fe3",
+      "boki2/research/notes/law/primary/accountant-fsa-gaika-kijun.md": "ebe860aaca51d366b36375e776170ebe7f9ffe73",
+      "boki2/research/notes/law/primary/r5-blr-egov-kaisha-full.md": "7f449646583d6b59e33ea2feff2ccc31ca3076f7",
+      "boki2/research/notes/law/primary/nta-hikisage-leaflet.md": "f0593d535f820eebc3164b7258c3123c34ef1d54",
+      "boki2/research/notes/law/primary/r2-retaker-data3.md": "cc241eccda2646f0d3bd0177a579b149699731e1",
+      "boki2/research/notes/law/primary/egov-shokuhin-eisei.md": "9e5d4aec09d47a762b86713d67c65d0e67525332",
+      "boki2/research/notes/law/primary/egov-kokuzei-tsusoku.md": "3723b40f195b77bf9b2554ea53d06eb22ae5fa60",
+      "boki2/research/notes/law/primary/hs-sample-q3-s2.md": "24cc103cfd25cc885b77c5d6a91031da80e293a7",
+      "boki2/research/notes/law/primary/r2-accountant-zeikouka-a.md": "d5d0fd75d3575b4e0d608aac207c88c56478f402",
+      "boki2/research/notes/law/primary/hs-nissho-kubun-current.md": "7109ff0dd6d9bc79422ea550fa761faa075a8a53",
+      "boki2/research/notes/law/primary/r5-blr-mhlw-fubarai-r6-pdf.md": "cd7315ff72a1d52cfbf2071c3772b47e2ae3cfe5",
+      "boki2/research/notes/law/primary/kentei-2027-setsumeishiryo.md": "a9effc07c5e4f1b906bbd43602734f65e0713d30",
+      "boki2/research/notes/law/primary/hs-sample-q2-s4.md": "4cdcc57c8e6b7cdb437995da47902b673c716ff6",
+      "boki2/research/notes/law/primary/mhlw-koyochosei.md": "ab595af4d7773f85ede169c7de577aa176ada5fb",
+      "boki2/research/notes/law/primary/zengin-electronic-rules.md": "21296318b664992774acfa930b1521816e6a6db3",
+      "boki2/research/notes/law/primary/kentei-news.md": "e935d7fc88bc92d54116b3bce0202b60f139588b",
+      "boki2/research/notes/law/primary/mhlw-koyochosei-corona.md": "4c0a11b882b8197eab32beedf80261e3460811a3",
+      "boki2/research/notes/law/primary/r4-calib-egov-shokuhyo4.md": "6eaa4384646fa46ca4e11dc16739a6ad69131291",
+      "boki2/research/notes/law/primary/fsa-top.md": "fec30a3626f177d26b16cb6e38d24de9b00cd237",
+      "boki2/research/notes/law/primary/r2-lowvision-mhlw-seikatsu-h28.md": "c479508d3d9594c4a74e3f4c599f8b96ffc884dc",
+      "boki2/research/notes/law/primary/r5-blr-egov-fukyouhou.md": "754e0cd9a029969ed29cd8199bbfc5e693a8a8d1",
+      "boki2/research/notes/law/primary/r4-law-kakaku-gl#blr.md": "9d15020a2c8e87e17177d446d08111168030746a",
+      "boki2/research/notes/law/primary/r5-blr-egov-shakuchi.md": "efa945a3190898e27c6d4c752fdbdafb09263ebb",
+      "boki2/research/notes/law/primary/egov-gaitame-ho.md": "c8fe4465c31c74a0e9ce58e0930ede3df8755426",
+      "boki2/research/notes/law/primary/r2-retaker-netdata.md": "07df3027687bdf66af93be4b71086e7e89299d84",
+      "boki2/research/notes/law/primary/nta-release-index.md": "1f00a91018fe16a7fd0d8527031b04d87a2add57",
+      "boki2/research/notes/law/primary/r5-blr-mhlw-chojikan-r6.md": "d5a111368440cef5d7d340d7aa4ea47f65ebfc28",
+      "boki2/research/notes/law/primary/egov-gaitame-rei.md": "7d9061b70c1aef8a71f3c2c053f50b1023f839aa",
+      "boki2/research/notes/law/primary/r2-retaker-examlist.md": "2198406ca08955d42ac258aae3e28a3d129658f5",
+      "boki2/research/notes/law/primary/egov-minji-saisei.md": "fea17d69b54643cf5be52a68d661e089496d54f7",
+      "boki2/research/notes/law/primary/accountant-kentei-s5-q41.md": "ae15caba979adfbbe03350c1290a74848e9650a4",
+      "boki2/research/notes/law/primary/r5-blr-egov-fueihou.md": "64951bd81ce207bcf3716c6d5a2c119e890b66c5",
+      "boki2/research/notes/law/primary/r2-accountant-zeisenmon.md": "49ab2e84bd014bed48dee159ecdcb06424d64903",
+      "boki2/research/notes/law/primary/hs-sample-q5-s3.md": "7021c35e0fb1d75097a62c21bdbb86bda418091f",
+      "boki2/research/notes/law/primary/accountant-kentei-kubun2027.md": "2b44baae40b2a574c3434eb0201c1f2a917f8eb7",
+      "boki2/research/notes/law/primary/nta-6480.md": "5f4a5ccf31f5ba7c4b168416575f60c2cf6cc81c",
+      "boki2/research/notes/law/primary/retaker-kentei-2q2-s2-q.md": "e8634567c15d1c92a1850003404492cffd04f19c",
+      "boki2/research/notes/law/primary/kentei-2027-kaitei-shushi.md": "1e34037a9b7985ba69bd2c6a53865b26c9e9db4c",
+      "boki2/research/notes/law/primary/hs-sample-q2-s1.md": "563cdbb2b8521bd87d8993ca293f7c18f9c1521e",
+      "boki2/research/notes/law/primary/r2-designer-kentei-class2-exam.md": "816bffdc4941f8f0fa30974db8d1ab90f723a61b",
+      "boki2/research/notes/law/primary/moj-top.md": "1aa99b7c4f4a76a07b875904afb6fc9dfbfb7998",
+      "boki2/research/notes/law/primary/zengin-kessai.md": "4ce37605716463ae587621451ecbb74fea5419f4",
+      "boki2/research/notes/law/primary/nta-tsutatsu-7-8.md": "723339d8074ca8e2aacac7218bd50c4735654363",
+      "boki2/research/notes/law/primary/egov-naibu-furei-full.md": "caca21a0ea1192e97416d828a5b54babc0787c70",
+      "boki2/research/notes/law/primary/accountant-cpaaob-r07goukakusha.md": "b3d67042d7fd164fd8dabc03438ee713a2b6c40a",
+      "boki2/research/notes/law/primary/r2-accountant-kaikei-kai2.md": "f0e40c8bd252304e0f0bfa56205aa56777058022",
+      "boki2/research/notes/law/primary/mhlw-tatekae-gaiyo.md": "293e416c8d8d7e107476f287728acb23b780ad49",
+      "boki2/research/notes/law/primary/r5-blr-egov-takken.md": "a195e5b5ecf12e6a0a58150bde8ab2c3bdd38409",
+      "boki2/research/notes/law/primary/egov-kaisha-keisan-issue-158.md": "16d116faf3f80d4a187130bfeeba3ff076b09bf0",
+      "boki2/research/notes/law/primary/hs-sample-q3-s1.md": "ec7e4e6ba88688c7b2eb00c61ddae8b67166ce2a",
+      "boki2/research/notes/law/primary/learner-sample-q1-s5.md": "bba44916812c4f657c4b941076e6840d4c40e2ab",
+      "boki2/research/notes/law/primary/r2-retaker-data2.md": "83b1d7f90861a82eccb5f0a8dc1050002066b4a0",
+      "boki2/research/notes/law/primary/learner-sample-q1-s2.md": "ef87f94cce9828b991c2a2b12866eebdaea535e1",
+      "boki2/research/notes/law/primary/r2-teen15-chu-shakai.md": "db2f0adef72670b914e9e442fcb2a596da4bd6e4",
+      "boki2/research/notes/law/primary/r2-lowvision-mhlw-toukyu.md": "fdbd9d3193de470a9e175a61a65a859423a5d002",
+      "boki2/research/notes/law/primary/nta-zeiritsuhikisage.md": "7354eadf16f113f10960f009ef206f7cf8b2bf9f",
+      "boki2/research/notes/law/primary/jpx-rules-top.md": "7e8d0caecb0201cad5a914939447ee78ee7f8f38",
+      "boki2/research/notes/law/primary/courts-tokyo-min20.md": "a571e74e5e1dd5c91809e1f0c5e4bbd89d6e3341",
+      "boki2/research/notes/law/primary/r4-calib-egov-tokusho11.md": "083d0d068370ebe87b4806e2e37c1d5eae32be4b",
+      "boki2/research/notes/law/primary/r5-blr-egov-kounen.md": "96bbdbcf04eab54b1502963b0358dc8d963d16b8",
+      "boki2/research/notes/law/primary/r2-lowvision-mhlw-shikaku-minaoshi.md": "1b2c65ad941336380838b472ef8a86f0e42a9d1e",
+      "boki2/research/notes/law/primary/egov-kashikingyo-ho.md": "2f5ce4367dc154ccfbcc47e1451e306290df3f88",
+      "boki2/research/notes/law/primary/retaker-kentei-sample-two.md": "1c48ef2e33ebdc3758a51d5c899feaf8b7242b83",
+      "boki2/research/notes/law/primary/r4-calib-egov-minpo565.md": "552e60fa898ca51fdff4b1aae5bfafcdefb83139",
+      "boki2/research/notes/law/primary/accountant-fsa-kai2.md": "ef3c67ce8aa022dcf33c9180652aa079d402a19f",
+      "boki2/research/notes/law/primary/r4-law-kakaku-gl.md": "4d367c9d120252db83d94c1f4dd7cdf7257aa903",
+      "boki2/research/notes/law/primary/egov-chinkaku-rei.md": "84788fb3c10751ffd215d53046b0cd220af647d5",
+      "boki2/research/notes/law/primary/r2-teen15-chu-kaisetsu-index.md": "6e1e68a60321f5d96c469ff4f8e6a4421ee6bc2d",
+      "boki2/research/notes/law/primary/retaker-kentei-2027-shushi.md": "f1d707f8ade341120bbfd0090f07bfbd651a487d",
+      "boki2/research/notes/law/primary/r5-blr-egov-minpo-full.md": "22e1a7324e524c549a4d21c96711a26a3b499486",
+      "boki2/research/notes/law/primary/hs-sample-q1-s3.md": "b7492c822852f2eefec171acab62b25e6cd50fb1",
+      "boki2/research/notes/law/primary/retaker-kentei-2q2-s3-q.md": "0b0e691b3de7753862ebae18ea05bed9635db4d1",
+      "boki2/research/notes/law/primary/r5-blr-mhlw-fubarai-r6.md": "b161b52b54da041594bd7d569d2188cc9abab3ff",
+      "boki2/research/notes/law/primary/r5-blr-egov-pl.md": "98aae406bda3f0fe590ff220f3a166cd21f3e6f4",
+      "boki2/research/notes/law/primary/retaker-kentei-data-class2.md": "3a1cc6b66cd974de8d7a7a4761629fa5306bc773",
+      "boki2/research/notes/law/primary/mhlw-tatekae-page.md": "6c7263acb6840b162cb46e25ceb68b43e73de53a",
+      "boki2/research/notes/law/primary/r5-growth-jpx-shinki-growth.md": "fca00eff1f5b375f72bbbf40fbba6d7adb85e123",
+      "boki2/research/notes/law/primary/egov-hojinzei-rei.md": "eae3b744d400fda5bb2e2ed9571943cc781b46f7",
+      "boki2/research/notes/law/primary/hs-sample-q3-s4.md": "5825619e05078461576abc60db04167f0dc7a15e",
+      "boki2/research/notes/law/primary/r4-calib-egov-hojinrei133.md": "e2ca2afe2bcb59c6a16c2f0eff82b6f442e456d4",
+      "boki2/research/notes/law/primary/retaker-kentei-sample-list.md": "002258c6b39e5f536904b56f2a916123dfbee6b9",
+      "boki2/research/notes/law/primary/egov-gaitame-hokoku-shorei.md": "a1b363cc33ee01ed3eff08c300e8c38bd90aee40",
+      "boki2/research/notes/law/primary/soumu-terms.md": "8f25fbf0589f4fc56bb26f2de46029bea90b1bec",
+      "boki2/research/notes/law/primary/r2-learner-candidate.md": "0e77248bd6b7e47f03b7205178c27437273ab5c7",
+      "boki2/research/notes/law/primary/egov-kaishaho-sekou-kisoku.md": "7033dbbef0aa22501f5030a5cbb68d0d9e1ae261",
+      "boki2/research/notes/law/primary/r5-blr-egov-shokuei-rei.md": "92c33d9069c550e85b1240a7b2e9c8f1fac7fcd4",
+      "boki2/research/notes/law/primary/accountant-kentei-kaitei2027.md": "39db780c06aeff2783eabc375455321183828fef",
+      "boki2/research/notes/law/primary/hs-sample-q42-s5.md": "c4caa2117d685a2acaf9824b6fc3e9fad0bf15f0",
+      "boki2/research/notes/law/primary/egov-shohizei-ho.md": "da3bb629eed13bae8c8be91f97fa38e1da792d72",
+      "boki2/research/notes/law/primary/r4-mkt-caa-premium.md": "5aba425bbaf2b0d0f7bbaffc633f5dee59605d9c",
+      "boki2/research/notes/law/primary/accountant-cpaaob-r07goukaku.md": "a29701296dfdc0b89de544640df9bf7b81dbf5d8",
+      "boki2/research/notes/law/primary/r4-mkt-mhlw-shinkoshishin.md": "8a00be05a3bb0b3c239fce4d2c448a177f6f755b",
+      "boki2/research/notes/law/primary/egov-roudou-kijun.md": "e0c033d45cd3b157cb78ade15bcae3f7393ea10e",
+      "boki2/research/notes/law/primary/r5-blr-egov-dokkinhou.md": "d0dcc67353bc0c09a12b02a4d58020acba3deb73",
+      "boki2/research/notes/law/primary/retaker-kentei-2q5-s5-q.md": "df5221cf2f80921701ffc24c197bce698c4db939",
+      "boki2/research/notes/law/primary/r5-blr-egov-tousan-kyosai.md": "df26675045c1af09e8514e5722363e1952a0e5ff",
+      "boki2/research/notes/law/primary/accountant-cpaaob-kakoshiken.md": "477ca96145f809512286b2a76082eef656b2d393",
+      "boki2/research/notes/law/primary/densai-rules.md": "7f1e7cadedaa71c9169f85e8242d90c943e88278",
+      "boki2/research/notes/law/primary/egov-kinsho-ho.md": "c8067f69f8790ddd28649fe9e732cde06f5413c7",
+      "boki2/research/notes/law/primary/r2-designer-kentei-sample2.md": "1f2abdd5658cf18554fa4e213ffe12e6eda9a597",
+      "boki2/research/notes/law/primary/egov-kokuzei-choshu.md": "abd07cd11bc01ad1e50b49b22e8c97d49351eb6f",
+      "boki2/research/notes/law/primary/r4-law-mhlw-shokueihou-kaisei.md": "b6db66b8b69d0625e680a8b16b1cdd8cb7a455b4",
+      "boki2/research/notes/law/primary/jpx-delisting-details.md": "225831363f22168edebea005e24e1581e8026a2f",
+      "boki2/research/notes/law/primary/accountant-kentei-kogen2022.md": "bc3eae7cd10f88043bb656b738a61dc1fac9d989",
+      "boki2/research/notes/law/primary/jpx-regulations-ose.md": "f80f90eaa4b785bcbc458ea72e2272d303f8a2b4",
+      "boki2/research/notes/law/primary/r2-retaker-class2.md": "14306eeed7331e1944362bbe474464c97c4f35e0",
+      "boki2/research/notes/law/primary/r4-law-moj-saiken-leaflet.md": "a0dc2db27f480bf3e92dd52f94d35b1cb078900e",
+      "boki2/research/notes/law/primary/r2-designer-kentei-candidate.md": "eb2e08a8c56e26d56998fd74bd423589841315c4",
+      "boki2/research/notes/law/primary/r2-access-shobo-kubun.md": "1c7b54023728e5d919da7d07aaabed03d1760453",
+      "boki2/research/notes/law/primary/r4-mgmt-mhlw-chuka#growth.md": "b86758752c1a8a478fe281c052ce0bd5b5847574",
+      "boki2/research/notes/law/primary/egov-servicer-ho.md": "fb6cc826f99f0de924ab9588ed9a24cd51eefc96",
+      "boki2/research/notes/law/primary/r4-calib-mhlw-shokuchu-r7.md": "7a4bd4aa87d09728b9bbae34cb938ea907786e21",
+      "boki2/research/notes/law/primary/hs-nissho-candidate-data.md": "d12fbe70536dc9fa157028d03988d485f3e60faa",
+      "boki2/research/notes/law/primary/accountant-kentei-s5-a3.md": "9a04ad32a12ef59571ddc5fe93a7b3fd584de130",
+      "boki2/research/notes/law/primary/r2-accountant-zeikouka-b.md": "01da7f5c734cc1a504480cf9a2d74201fdc7753f",
+      "boki2/research/notes/law/primary/retaker-kentei-candidate-data.md": "435da622cdc83156694308663e401ce9b945ac95",
+      "boki2/research/notes/law/primary/accountant-fsa-zeikouka.md": "af5b361f727f0b12f6fbcdaa0221f6952530792c",
+      "boki2/research/notes/law/primary/r2-designer-kentei-2027setsumei.md": "c513c22fe84e631c9a1c9c65b8fb778b26dc8f16",
+      "boki2/research/notes/law/primary/r5-blr-egov-kenzou.md": "d36495f29f02e0aed5b0418ce5f93d0effbf6874",
+      "boki2/research/notes/law/primary/accountant-kentei-sample2.md": "3babd37eccaf48725ff34dc09685e8da7392bc9e",
+      "boki2/research/notes/law/primary/hs-sample-q3-s5.md": "336c242cbabf10ab80a33c6db0ba8307de35bce2",
+      "boki2/research/notes/law/primary/r4-law-stema-kokuji.md": "52cfef8a2a582736fac176d7cee108e21c62e597",
+      "boki2/research/notes/law/primary/hs-nissho-class2-exam.md": "28ce37e246c4cf72877e72f0ec0ba996a56cb570",
+      "boki2/research/notes/law/primary/r4-calib-egov-shohou526.md": "384183c62e921d218dab2df771216c61233af37b",
+      "boki2/research/notes/law/primary/r4-mgmt-mhlw-chuka.md": "fcb323896a8b63547cc348ec4fe9f203cf286bd9",
+      "boki2/research/notes/law/primary/r4-calib-egov-keihyo5.md": "a37b46ceaf9ff934671f9e16fd1228ea63dda71a",
+      "boki2/research/notes/law/primary/hs-sample-q2-s2.md": "37f8a510aa50a539f816f0d2e42e1a1be64cc575",
+      "boki2/research/notes/law/primary/jpx-listing-prime.md": "1d93886861ff30dda535441280b4a5a7620eeb70",
+      "boki2/research/notes/law/primary/r4-law-caa-nijuu.md": "f1e3754df8c1c14a7676791be84e4dfa5f2ea23a",
+      "boki2/research/notes/law/primary/r4-law-kachoukin-8jou#blr.md": "ec5894341336d7d4090f5109f0a87318281eb2b9",
+      "boki2/research/notes/law/primary/kentei-kubun-2022.md": "60b88a2fe5c304c74f86c6c6363b435bdbaf344b",
+      "boki2/research/notes/law/primary/moj-hotei-riritsu.md": "fc175aa22eac333c64c0216ff1866881e88d34a6",
+      "boki2/research/notes/law/primary/r4-law-stema-yuushinkai#blr.md": "fa386363db064ffefb307ff93ab0a7c080ee71d8",
+      "boki2/research/notes/law/primary/egov-koueki-tsuho.md": "1bc472c7d859a6862556d1dab2f0a617a24c9ad0",
+      "boki2/research/notes/law/primary/learner-sample-q2-s2.md": "3bad6622325bae2c20663b28bc6a3fb4eb68012d",
+      "boki2/research/notes/law/primary/r2-accountant-kogen.md": "1568295a9e0647c809f9e1d0ed7702cf930a598f",
+      "boki2/research/notes/law/primary/r2-designer-kentei-class2.md": "1606677e9fb970dbfa86c295998dc4505e60a535",
+      "boki2/research/notes/law/primary/kentei-2027kubunhyo-fixed.md": "5a73cb7d13d8609555a4370189afe5a2f6cb71a0",
+      "boki2/research/notes/law/primary/accountant-fsa-gaika-ikensho.md": "02d320f1711afd6374f3ae34caa3dd25a688debe",
+      "boki2/research/notes/law/primary/mhlw-chingin-index.md": "0a22d50c22b5ff60dd35a0716ae4d5c1faa145e0",
+      "boki2/research/notes/law/primary/r5-blr-egov-shoshinkou.md": "e9d4ea1f71a14e2c9f2a81adb33170e7ee289bf6",
+      "boki2/research/notes/law/primary/r4-calib-egov-fukkou28.md": "abb1739ca9ef00a55d1e0e2c2708acfb7a5258d6",
+      "boki2/research/notes/law/primary/r5-blr-egov-roukihou.md": "22af878512cf4610455c5ed988698f51e1b38fe6",
+      "boki2/research/notes/law/primary/hs-sample-q41-s4.md": "58acc1bace1fa459d381a43dbbe341744d557b33",
+      "boki2/research/notes/law/primary/learner-sample-q2-s1.md": "a3ade24c34622b34a04626f6650ffa8a69c4333f",
+      "boki2/research/notes/law/primary/egov-hojinzei.md": "35f5ce272dc3da2dcd1498e346e37c803b9244ec",
+      "boki2/research/notes/law/primary/retaker-kentei-2q1-s5-q.md": "da76ca725a5123037d1987bae2368d2bfead7737",
+      "boki2/research/notes/law/primary/r4-mgmt-mhlw-kissaten#growth.md": "90ae5c104f1ee2d0d3e649439f1f44b6a90cd9df",
+      "boki2/research/notes/law/primary/learner-kentei-candidate-data.md": "e425d691e55a1326fe88e85ea85784fca548725d",
+      "boki2/research/notes/law/primary/mext-terms-1351168.md": "1b82597e78f4efe46aa058907931eac81225d6bb",
+      "boki2/research/notes/law/primary/zengin-tegata-haishi.md": "abf0d8c30dd612aeff906715831c8519ea3d5c3c",
+      "boki2/research/notes/law/primary/kentei-51147.md": "304072bb4cda352f19eb809d5bff5462523c95dd",
+      "boki2/research/notes/law/primary/r4-law-caa-hyouji.md": "c2b7c8a3f4ee31bdc844af365e5784798d7edc82",
+      "boki2/research/notes/law/primary/hs-sample-q2-s3.md": "516bc6721d17147d3d9734843964fb8b3b850e53",
+      "boki2/research/notes/law/primary/jpx-delisting-outline.md": "47d8e806f04b0ca285c677bdaef3a7c4153f3e18",
+      "boki2/research/notes/law/primary/accountant-kentei-kubun2022.md": "36c1c45bea6f389a95a0b6dd242196deb7b55d76",
+      "boki2/research/notes/law/primary/egov-zeirishi-ho.md": "2e67cb1631864293a58bf70a96162b9010a4f592",
+      "boki2/research/notes/law/primary/r4-mgmt-caa-foodloss.md": "0fe57b1642c1b82771334883e8865e1da806a7e7",
+      "boki2/research/notes/law/primary/r5-blr-egov-shokuhyo-kijun.md": "6403e0e8300990a9c50a0c789eee2b4c9930fec6",
+      "boki2/research/notes/law/primary/kentei-top.md": "50b81ecc3fbf32be306d29c1afd3474904cfcaef",
+      "boki2/research/notes/law/primary/egov-kaishaho-issue-458.md": "5b391e9706f9e5a816643ca55919faa21090cde3",
+      "boki2/research/notes/law/primary/r2-accountant-class2.md": "f77230d163542ae780b4c85b71af8bf13eb4bbd6",
+      "boki2/research/notes/law/primary/hs-nissho-kogen-2022.md": "dcd85274428961ee9c757294ea7b7122917c1096",
+      "boki2/research/notes/law/primary/r5-cal-mhlw-minwage-trend.md": "4d226af290e3901858fd74c37c2a2248d18a2b06",
+      "boki2/research/notes/law/primary/r2-designer-kentei-2027kubun.md": "7f8dca7df6bf70e6b9652b7c2d2e90c0370a62ab",
+      "boki2/research/notes/law/primary/accountant-kentei-s5-q42.md": "1258a1fecaea81dc550bddc8861df8cde7868a9d",
+      "boki2/research/notes/law/primary/r2-accountant-2027kubun.md": "ed15572bd75c390a065bc77c135dcfdced9f8df3",
+      "boki2/research/notes/law/primary/r4-mgmt-mhlw-chuka#mktr.md": "fba12addb7276eb7c0657c3f7be5664324cb5acd",
+      "boki2/research/notes/law/primary/r4-law-kachoukin-8jou.md": "05f7abe293861c2750926da0d5d9330a44394dd1",
+      "boki2/research/notes/law/primary/densai-top.md": "c289bbe1e87e69190aa2fd180f1e321f85ccc99a",
+      "boki2/research/notes/law/primary/accountant-kentei-kaitei2021.md": "0c9d05c54756219b91f6b65393926c9ceb6ef40e",
+      "boki2/research/notes/law/primary/retaker-kentei-class2.md": "2d9204347f3b906943ec087d03d083b934e7530f",
+      "boki2/research/notes/law/primary/hs-sample-q1-s4.md": "982887c2b0f0affe8bb8028ad6173a120b9ef688",
+      "boki2/research/notes/law/primary/moj-minji.md": "226f9dd4c8a7f5b207eb4b0f1cd9e302d4babfd5",
+      "boki2/research/notes/law/primary/moj-saiken.md": "24fbf2f0019a1f68cbee123577cdb7601c7ac86d",
+      "boki2/research/notes/law/primary/accountant-kentei-class2-exam.md": "01c73099e3156cdc318336ac6df2ddd1b9a9d7d2",
+      "boki2/research/notes/law/primary/r5-blr-egov-hojin-full.md": "d42a09a7861617402101db718dc3a9c385d6f3f2",
+      "boki2/research/notes/law/primary/accountant-kentei-review.md": "28bdb3e67e624b24a0a762f9a5bc00e11873c568",
+      "boki2/research/notes/law/primary/learner-sample-q1-s1.md": "f750b649b2b26c464e66dd8fe7065664ac314a04",
+      "boki2/research/notes/law/primary/r2-hs-mext-index.md": "683a0f3a54806e2e4daf488021f1cf569f99f50a",
+      "boki2/research/notes/law/primary/r4-mgmt-mhlw-kissaten.md": "a40b3d907b5048266761b7ff722a475f2cdd66d2",
+      "boki2/research/notes/law/primary/zengin-top.md": "4291b3ccf60bc15d57d038597e36e0374dd34149",
+      "boki2/research/notes/law/primary/retaker-kentei-2q3-s1-q.md": "ce6606734b9312c1b1a1c488412889717f07b794",
+      "boki2/research/notes/law/primary/r2-designer-soumu-tsushin2024.md": "2efd48f7c11a196a90c1cd7a9b242cc1ff133637",
+      "boki2/research/notes/law/primary/egov-minji-shikko.md": "c30f3dc35698b6c9bc65a256ec3159fdfd28bcce",
+      "boki2/research/notes/law/primary/accountant-kentei-examlist.md": "48135f4f6083a52f8e9a77c402d9fc3fae9dfaf3",
+      "boki2/research/notes/law/primary/hs-nissho-kubun-2027.md": "23eacb2b9f3ac741f413b7d04418b5fe1899f2e4",
+      "boki2/research/notes/law/primary/retaker-kentei-2q41-s5-q.md": "178adab57d3d62a0717893ebe3759921345c89f9",
+      "boki2/research/notes/law/primary/r4-law-freelance-setsumei#blr.md": "726b6f6e05d0213ddc2696328d93a10116a3252f",
+      "boki2/research/notes/law/primary/hs-sample-q41-s2.md": "de9e7e7e492acbd564406bb2ae9a7a2b7f17d62a",
+      "boki2/research/notes/law/primary/r2-accountant-genkaqa.md": "1ded84e2ab5221c2ccd6f246570c23063e3291d8",
+      "boki2/research/notes/law/primary/accountant-cpaaob-r07gaiyou.md": "2a5a7c60a55eeb18898281e2379fd6bce0b13253",
+      "boki2/research/notes/law/primary/r5-blr-egov-nyukan.md": "484ff813ae861b3da2b29b7001b43d6f10f213d8",
+      "boki2/research/notes/law/primary/nta-9205.md": "cfbab87b905812768ebdbdf08b94048c9f07402f",
+      "boki2/research/notes/law/primary/accountant-kentei-156-2.md": "3ded367103358927baf4ec361dbcfd682cc258fa",
+      "boki2/research/notes/law/primary/r5-blr-egov-keihyo-rei.md": "85ca12841827e4c69ea3eeac516f052fb3f3f92e",
+      "boki2/research/notes/law/primary/r2-teen15-mext-index.md": "7beb6edaa64c44acff5c1457ded72389c50c3c0a",
+      "boki2/research/notes/law/primary/retaker-kentei-156-2-kouhyou.md": "9e6571dc158d342df4f7a82176b1ff1273d930ad",
+      "boki2/research/notes/law/primary/r5-blr-egov-shokuei-full.md": "a67500487d1274096703c14bb116868deb2ae161",
+      "boki2/research/notes/law/primary/r4-law-shokuhyo-qa-kakou.md": "4d03b2c83e1de683f3fd9663125cb5d907450e89",
+      "boki2/research/notes/law/primary/child2-soumu-jitaku-2018.md": "11dbf32416ddd993e7c71f297de1668a82d918a1",
+      "boki2/research/notes/law/primary/r2-teen15-kaisetsu-sugaku.md": "d28b4928dacb94bf51978959b33916e0d4100b76",
+      "boki2/research/notes/law/primary/r6-cal-mhlw-minwage-pref2026.md": "79ab26bc8d0b179cbab9c58a9dbe88961b12ed34",
+      "boki2/research/notes/law/primary/egov-torikitekiho.md": "a6d9d5bf86401db25e91321f78db71441b9ca0bc",
+      "boki2/research/notes/law/primary/r2-retaker-kubun2022.md": "9e687d1e6e65bd2deb20d8d82e33b34ac1362bd2",
+      "boki2/research/notes/law/primary/egov-minji-hozen.md": "859d9e7904434341ce90e5e5b3b7ef14c5e4dd1c",
+      "boki2/research/notes/law/primary/r4-law-stema-kijun.md": "42546b8f8ea9d8fc4d1b9c979dd8f135fabb5bb4",
+      "boki2/research/notes/law/primary/nta-tsutatsu-7-8#blr.md": "9ab2a6488dbdc342ef8dece1a968ff00e9d62dde",
+      "boki2/research/notes/law/primary/r2-accountant-kaisha461.md": "88187cddbd71e21b21d4df8085a08d3c3e3965a4",
+      "boki2/research/notes/law/primary/r5-blr-egov-sotoku-full.md": "ee49eb3d37619286e2498608449a8e0bb11dbf1b",
+      "boki2/research/notes/law/primary/r2-retaker-class3.md": "19e5f483363d4b2ae0604b5f906103c413f222ad",
+      "boki2/research/notes/law/primary/jpx-listing-growth.md": "a2a9b2c2bcc84f169fcc65026ef1505f55a62455",
+      "boki2/research/notes/law/primary/hs-sample-q2-s5.md": "c1230a7b852f218b30aef7465128d888a9427492",
+      "boki2/research/notes/law/primary/r4-calib-egov-minpo564.md": "20c14982cf973a1f3c157fef7c0dc1e27ddd9ec5",
+      "boki2/research/notes/law/primary/accountant-kaishaho-461.md": "9927b5ca4806b7999215ff8c72851217c17b8898",
+      "boki2/research/notes/law/primary/r4-law-keihyo-kaisei2024.md": "d2ba8ae54b6837866cc37ce621edc9110e401497",
+      "boki2/research/notes/law/primary/r5-cal-mhlw-minwage-2025.md": "3e4300a7734b32ac0a31079274ed49489056fad4",
+      "boki2/research/notes/law/primary/r5-blr-egov-toriteki.md": "5b35ff74d20d2c5bd640cd6dac0062cb6f6e1007",
+      "boki2/research/notes/law/primary/hs-sample-q3-s3.md": "a27a19cd258be6687a92e0e654d4dc4cc6425f7c",
+      "boki2/research/notes/law/primary/r5-cal-egov-hojin66.md": "1dd78e06ff73e1930f50c0f77220e02718489007",
+      "boki2/research/notes/law/primary/r4-law-caa-stema.md": "f6a7fdec4c700be54f40520bd7b01dce011bf9e1",
+      "boki2/research/notes/law/primary/r4-calib-egov-sotoku67-5.md": "bc4ce0debbc14774513075ffd2df090713af0de4",
+      "boki2/research/notes/law/primary/nta-6375#blr.md": "a9c624c29bc7ce6d2666f7346376de8f4315ddf4",
+      "boki2/research/notes/law/primary/r2-accountant-2027shushi.md": "d10b7fcd38ac9d895e21d9a0fbcd8168d47ce2f9",
+      "boki2/research/notes/law/primary/retaker-kentei-data-class3.md": "3907f8f185d7103c514375def136764d50b1eebd",
+      "boki2/research/notes/law/primary/accountant-kentei-3q-haiten.md": "f35febcb2b2d4da0417f1ba8fb16a938ef1da099",
+      "boki2/research/notes/law/primary/r2-accountant-soumu-r6.md": "5ae17d1f27c2421f9cc0a144aa66f40c861518a1",
+      "boki2/research/notes/law/primary/r4-law-hojokin-tekiseika#blr.md": "3a227571670dd4fc918862bbb3151a4cb57fb743",
+      "boki2/research/notes/law/primary/r4-calib-egov-minpo562.md": "ace1a38e9f933c00174d540f39c0e312fb813aac",
+      "boki2/research/notes/law/primary/hs-sample-q1-s2.md": "bbef526dac20e5cae25f92ce942276422b355422",
+      "boki2/research/notes/law/primary/r6-fc-nta-6102.md": "4ac704e9049770901a7331da801aaeb500bc3dfa",
+      "boki2/research/notes/law/primary/egov-kaishaho.md": "4077893b2850ab5766befde173e9a7f274749275",
+      "boki2/research/notes/law/primary/r4-calib-egov-shokuhyo5.md": "5889ba7892214809d456696d09a7811f89acec7c",
+      "boki2/research/notes/law/primary/r2-hs-mext-youryo.md": "0afe49083d0461659140147be0bb14fb2f733a7b",
+      "boki2/research/notes/law/primary/r4-law-caa-yuuryou.md": "6d66f3b49b7260ee6c38931db84bce93341dadf8",
+      "boki2/tools/playtest/auto.js": "bb03d3219a76123ea8d945df1f3a68d2d6b1190c",
+      "boki2/tools/playtest/archive.js": "9c30b9eac190688f6c13c3f04a7587646e42e425",
+      "boki2/tools/playtest/redraw.js": "8e7a4643dbe71a13760a21c3543887946021cadd",
+      "boki2/tools/playtest/verify.js": "45fe6c3ce64155e290392afa679775f0041972bd",
+      "boki2/tools/playtest/harness.js": "2cd57bdaf9a94acc56a61b147c2846fde289bab1",
+      "boki2/tools/playtest/serve.js": "4e1f5ebdee550239d15a0cb964a4fdf50ce32039",
+      "boki2/tools/playtest/bot-runs.js": "d4a66ff9428376cfc3a489939c9e38c094288dc0",
+      "boki2/tools/playtest/collect.js": "9dd16fc596cdd010f95395febf08a902370b09d7",
+      "boki2/js/ramen/art.js": "1a72eaa6e497293aea714e7d8a5b0b6f1e5b294b",
+      "boki2/js/ramen/ui.js": "550cda00830037642d090e3ae8fc661315c86bbe",
+      "boki2/js/data/exam6b.js": "788eb3e630592a8511cfa0e81880f75da7105b8f",
+      "boki2/js/data/exam3b.js": "6d45ee2d3a068adf4f7b77be96bbabdfacd7a533",
+      "boki2/js/data/c46.js": "507961bde69a27200129b24f8519a3a33f4c2117",
+      "boki2/js/data/accounts.js": "244ea4e486b506167dd5963974e7b95fb51bd701",
+      "boki2/js/data/w9.js": "61d7e92be5f72fb345e2c97c7d0c0562453716a9",
+      "boki2/js/data/exam345.js": "083eda1cf28365b719aad01006df945fc7e42276",
+      "boki2/js/data/c00.js": "da5505ecbcb803c91e96996998a0888006b5f729",
+      "boki2/js/data/exam2b.js": "030ef8fa3d5c6e3b0433776512803dd97124680c",
+      "boki2/js/data/exam6c.js": "0e6d9ab3209704dcd819e07cfe536e6ff5dc9479",
+      "boki2/js/data/w1.js": "f4c1aef4212490d74f62e0e563dda91c9f92be6e",
+      "boki2/js/data/exam6d.js": "83dd855ae8cfece62a304fb685f86c1e7c78e97b",
+      "boki2/js/data/w8.js": "1300fe251629fed55e93975315bfb8dc70eab2b7",
+      "boki2/js/data/c47.js": "f778ef1bcfe8f9b9360c5274e68cf111fba503aa",
+      "boki2/js/data/exam45b.js": "c8335ec9d005ccf07b9022a63cb1345c1417c0c8",
+      "boki2/js/data/w7.js": "2784cb8f800bdf0984986fbf11314fc9f5d76949",
+      "boki2/js/data/x6c.js": "f975ea25093795202001a3012b12d83b49dcc12b",
+      "boki2/js/data/w6.js": "0f2590b7b3c7485377f4138593a332d4c8afdc8d",
+      "boki2/js/data/w3.js": "dc005d306a54e6fded1774f2b9213eaac206673e",
+      "boki2/js/data/exam45c.js": "4756dee061a43eefd676e43829eb535f5dc638cd",
+      "boki2/js/data/kubun.js": "faafe3861d219c70ab6aaa6937f147a26941dae6",
+      "boki2/js/data/exam6a.js": "2979b79bc322ec7bf9537f80db10911b92750771",
+      "boki2/js/data/siblings.js": "dbc79af25daed618c0efbd24a237943153a5386a",
+      "boki2/js/data/w2.js": "b01e1454254534207a6fa70b55377adc372382d1",
+      "boki2/js/data/w5.js": "19e1aeab4aa7d8b2fa75c9133b47cd4511b055cc",
+      "boki2/js/data/exam2.js": "8c3b70e13a3e979dc0ec5400484594e26fe9d40a",
+      "boki2/js/data/exam2c3c.js": "afe0ddf40289773c4095e8688a6cf712600b3f83",
+      "boki2/js/data/w4.js": "6381bfd89076e393ddf2a443fe0e04de06ad4457",
+      "boki2/js/sim/scenario.js": "ee9f5211d4ced69ffc3ba2d06b912c43351836d6",
+      "boki2/js/sim/ramen.js": "65a896445902b04742450568ad9b5f487a6f8f49",
+      "boki2/js/sim/cards-y2.js": "e800c2102b7a9dc4b78dedbad4c8ddf7aa9ddd79",
+      "boki2/js/sim/ramen-y2-assets.js": "f1af2041583897859e91b20a17f09b9b17432d80",
+      "boki2/js/sim/cards.js": "6e97138fef0a5c5af1e8c9a59889166e4eb5622a",
+      "boki2/js/sim/rivals.js": "77dd9671f4d4efe46fcab2525f9382962a3c932a",
+      "boki2/js/sim/engine.js": "10f27075c6b7bfac91a9f3a800b77e754f5ae787",
+      "boki2/js/sim/ramen-y2-sale.js": "fa4ab7d95ec3fbca215104394e8a353e5c9dd764",
+      "boki2/js/sim/bowl.js": "c470d31a9ce3bb3197f188e685cdcbd444441581",
+      "boki2/js/sim/ramen-y2-people.js": "4dc2a72258d18cf36cb8521eda2667b6c0fd5016",
+      "boki2/js/sim/year2.js": "494fe7ab7b4e899f2cdfd1157e812667a62a1a17",
+      "boki2/js/sim/decide.js": "2750858385d2cc33b0bdb7cea15a1f6cb9a9ba44",
+      "boki2/js/sim/coef.js": "a4ea1ab68186c7b1cca4400e0fabc02100c22923",
+      "boki2/js/sim/ramen-y2-close.js": "fd7f6ca24649cba25f37496a3dfb4928014607b9",
+      "boki2/js/sim/store.js": "fde18ac9a866c5db2f3e24ec3addd74657fad1d9",
+      "boki2/js/sim/lexicon.js": "3690805e25366ce8a333682094008e6ab22e0d20",
+      "boki2/js/sim/ramen-y2.js": "95410a645b371c0f617cccddf04a48bae22aea3d",
+      "boki2/js/sim/ramen-y2-equipment.js": "34ac2270e9abb08dbff487fef2a510952e50ebee",
+      "boki2/js/sim/world.js": "9eeb3bd0dfc7ac5189a5ef6b239d97e8c4fdb003",
+      "boki2/js/sim/ramen-y2-items-stock.js": "b8fc9502f36ba8262aca7301c6232c8cc1fc442d",
+      "boki2/js/sim/ramen-view.js": "3e7067b404b71b8ee287240cb57af43abcf30fe3",
+      "boki2/js/sim/scope-map.js": "4995575db676156e0047f1592eb7ab18d2910591",
+      "boki2/js/sim/ramen-y2-books.js": "b18809075723c07390a08a07354771b48a88f7aa",
+      "boki2/js/sim/ramen-y1.js": "3a1336f08b7980af890e71066da5bd65cba4f770",
+      "boki2/js/sim/growth.js": "955b43c91066639882b6cfe651e4733ea160da47",
+      "boki2/js/sim/testforms.js": "ced17f2e6942fea18cfde68d503eb59b4b5f0173"
+    },
+    "changedJS": [
+      "boki2/js/data/accounts.js",
+      "boki2/js/data/exam2.js",
+      "boki2/js/data/kubun.js",
+      "boki2/js/ramen/ui.js",
+      "boki2/js/sim/cards-y2.js",
+      "boki2/js/sim/cards.js",
+      "boki2/js/sim/engine.js",
+      "boki2/js/sim/ramen-view.js",
+      "boki2/js/sim/ramen-y1.js",
+      "boki2/js/sim/ramen-y2-assets.js",
+      "boki2/js/sim/ramen-y2-books.js",
+      "boki2/js/sim/ramen-y2-close.js",
+      "boki2/js/sim/ramen-y2-equipment.js",
+      "boki2/js/sim/ramen-y2-items-stock.js",
+      "boki2/js/sim/ramen-y2-people.js",
+      "boki2/js/sim/ramen-y2-sale.js",
+      "boki2/js/sim/ramen-y2.js",
+      "boki2/js/sim/ramen.js",
+      "boki2/js/sim/scope-map.js",
+      "boki2/js/sim/store.js",
+      "boki2/js/sim/world.js",
+      "boki2/tools/coverage-ramen.js",
+      "boki2/tools/lexicon-check.js",
+      "boki2/tools/ramen-y2-check.js",
+      "boki2/tools/sim-ramen.js"
+    ],
+    "nodeCheckExit": 0,
+    "truncationGrepExit": 1,
+    "method": "fetch proxy8080失敗、GitHub連携の公開確定SHA指定取得"
+  },
+  "rawOutputSHA256": {
+    "legacy": "dcf0bbc72d4ef620c09d02164105ce40c71c3705b904b53074e4d037e9e65110",
+    "paths": "95ecfc829f7a8958a8eabdf77fbe271baeefe087fe880496d6aba6ead48a9e8c",
+    "integrated": "e00efeeeb194e71e0efc670d9ffdea5e509e126de5eab3354918780f15c8e2ce",
+    "coupon-world": "cc1c3282d642cf42b31653461ca47d053d2ff843fcc89ede6cc48e926d201ec4",
+    "displays": "b00a352924a8e73d05c177564f49d6d9ef9506819319257a8b089825183c1552"
+  }
+}
