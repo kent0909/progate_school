@@ -1,0 +1,55 @@
+{
+ "rule": "X4",
+ "replace": "P3",
+ "removed": [
+  {
+   "st": "s119",
+   "stName": "新木場",
+   "town": "新木場4丁目",
+   "no": "調査 13108-009-002"
+  },
+  {
+   "st": "s257",
+   "stName": "辰巳",
+   "town": "辰巳3丁目",
+   "no": "公示 13108-009-004"
+  },
+  {
+   "st": "s372",
+   "stName": "東京ビッグサイト",
+   "town": "有明3丁目",
+   "no": "公示 13108-009-001"
+  }
+ ],
+ "replaced": [],
+ "moved": [],
+ "dropped": [
+  {
+   "st": "s119",
+   "town": "新木場4丁目"
+  },
+  {
+   "st": "s257",
+   "town": "辰巳3丁目"
+  },
+  {
+   "st": "s372",
+   "town": "有明3丁目"
+  }
+ ],
+ "p1_pre_excluded": [],
+ "counts": {
+  "sites": 978,
+  "types": {
+   "shogyo": 210,
+   "hanka": 36,
+   "office": 106,
+   "jutaku": 330,
+   "shoten": 274,
+   "kojo": 22
+  },
+  "quiet": 98,
+  "short_total": 17,
+  "stations_zero": 12
+ }
+}

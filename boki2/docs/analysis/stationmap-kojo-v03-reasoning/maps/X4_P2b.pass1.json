@@ -1,0 +1,76 @@
+{
+ "rule": "X4",
+ "replace": "P2b",
+ "removed": [
+  {
+   "st": "s119",
+   "stName": "新木場",
+   "town": "新木場4丁目",
+   "no": "調査 13108-009-002"
+  },
+  {
+   "st": "s257",
+   "stName": "辰巳",
+   "town": "辰巳3丁目",
+   "no": "公示 13108-009-004"
+  },
+  {
+   "st": "s372",
+   "stName": "東京ビッグサイト",
+   "town": "有明3丁目",
+   "no": "公示 13108-009-001"
+  }
+ ],
+ "replaced": [],
+ "moved": [
+  {
+   "fromSt": "s119",
+   "fromName": "新木場",
+   "from": "新木場4丁目",
+   "toSt": "s129",
+   "toName": "南砂町",
+   "to": "南砂3丁目",
+   "toType": "shoten",
+   "toNo": "公示 13108-005-001",
+   "stDist": 2542
+  },
+  {
+   "fromSt": "s257",
+   "fromName": "辰巳",
+   "from": "辰巳3丁目",
+   "toSt": "s110",
+   "toName": "木場",
+   "to": "東陽1丁目",
+   "toType": "jutaku",
+   "toNo": "公示 13108-000-004",
+   "stDist": 2632
+  },
+  {
+   "fromSt": "s372",
+   "fromName": "東京ビッグサイト",
+   "from": "有明3丁目",
+   "toSt": "s085",
+   "toName": "勝どき",
+   "to": "晴海3丁目",
+   "toType": "office",
+   "toNo": "調査 13102-005-024",
+   "stDist": 3436
+  }
+ ],
+ "dropped": [],
+ "p1_pre_excluded": [],
+ "counts": {
+  "sites": 981,
+  "types": {
+   "shogyo": 210,
+   "hanka": 36,
+   "office": 107,
+   "jutaku": 331,
+   "shoten": 275,
+   "kojo": 22
+  },
+  "quiet": 98,
+  "short_total": 17,
+  "stations_zero": 12
+ }
+}
