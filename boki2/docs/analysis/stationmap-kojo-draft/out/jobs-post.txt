@@ -1,0 +1,8 @@
+P_K1K3 6 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":1.59,"c":0.27},"big":1.32}}
+P_K1hiK3 6 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":2.54,"c":0.27},"big":1.32}}
+P_K7hi_noK2 6 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":2.54,"c":0.27},"big":1.32,"night":0.25,"ret":[1.5,0.7]}}
+P_K7hi_noK6 6 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":2.54,"c":0.27},"void":{"e":0.5},"big":1.32,"night":0.25}}
+P_K7hi_noK5 6 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":2.54,"c":0.27},"void":{"e":0.5},"big":1.32,"ret":[1.5,0.7]}}
+P_K7hi_noK3 6 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":2.54,"c":0.27},"void":{"e":0.5},"night":0.25,"ret":[1.5,0.7]}}
+P_K7hi_c50 6 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":2.54,"c":0.5},"void":{"e":0.5},"big":1.32,"night":0.25,"ret":[1.5,0.7]}}
+P_K0_bigAll 6 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","big":1.59}}

@@ -2428,5 +2428,25 @@
   "verdict": "gray",
   "basis": "東京メトロ：robots.txt を含めて取得の道具に 403（Akamai の Access Denied）を返す。規約の確認もできないので取らない（WANTED.md）。2026-10-30",
   "checked": "2026-10-30"
+ },
+ "www.toukei.metro.tokyo.lg.jp": {
+  "verdict": "gray",
+  "basis": "東京都の統計（総務局統計部）。robots.txt は research-fetch が自動で確かめる。都の公表統計で自動取得を明示に禁じる条項は見当たらない（利用案内の頁は未確認のため gray）。少数・間隔を守る（2026-11-17）",
+  "checked": "2026-11-17"
+ },
+ "overpass-api.de": {
+  "verdict": "gray",
+  "basis": "Overpass API（overpass-api.de、OpenStreetMap のデータの読み出し窓口）。自動の問い合わせのための API で、公開インスタンスの使い方の目安（1日1万回・1GB 未満）を守る。データは ODbL（出典 © OpenStreetMap contributors を書く）。robots.txt は research-fetch が自動で確かめる。1回だけ問い合わせる（2026-11-17）",
+  "checked": "2026-11-17"
+ },
+ "overpass.kumi.systems": {
+  "verdict": "gray",
+  "basis": "Overpass API の公開の写し（overpass.kumi.systems、OpenStreetMap のデータの読み出し窓口）。自動の問い合わせのための API で使い方の目安を守る。データは ODbL（© OpenStreetMap contributors）。robots.txt は research-fetch が自動で確かめる。1回だけ（2026-11-17）",
+  "checked": "2026-11-17"
+ },
+ "www.toshiseibi.metro.tokyo.lg.jp": {
+  "verdict": "gray",
+  "basis": "東京都都市整備局。robots.txt は research-fetch が自動で確かめる。都の公表ページで自動取得を明示に禁じる条項は見当たらない（利用規約の頁は未確認のため gray）。少数・間隔を守る（2026-11-25）",
+  "checked": "2026-11-25"
  }
 }

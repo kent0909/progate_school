@@ -1,0 +1,3 @@
+P_K7hi_noK2 6 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":2.54,"c":0.27},"big":1.32,"night":0.25,"ret":[1.5,0.7]}}
+K0_s45 6 {"tierSpan":4.5,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1}
+K2_s79_so18 18 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","void":{"e":0.5}}}

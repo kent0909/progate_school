@@ -1,0 +1,57 @@
+{
+ "rule": "X2",
+ "replace": "P2a",
+ "removed": [
+  {
+   "st": "s262",
+   "stName": "葛西臨海公園",
+   "town": "臨海町3丁目",
+   "no": "公示 13123-009-004"
+  },
+  {
+   "st": "s334",
+   "stName": "流通センター",
+   "town": "平和島3丁目",
+   "no": "調査 13111-009-002"
+  }
+ ],
+ "replaced": [
+  {
+   "st": "s262",
+   "stName": "葛西臨海公園",
+   "from": "臨海町3丁目",
+   "to": "南葛西5丁目",
+   "toType": "jutaku",
+   "toNo": "公示 13123-000-017",
+   "radius": "SITE_M2",
+   "d": 1085
+  },
+  {
+   "st": "s334",
+   "stName": "流通センター",
+   "from": "平和島3丁目",
+   "to": "東海2丁目",
+   "toType": "kojo",
+   "toNo": "公示 13111-009-002",
+   "radius": "SITE_M",
+   "d": 491
+  }
+ ],
+ "moved": [],
+ "dropped": [],
+ "p1_pre_excluded": [],
+ "counts": {
+  "sites": 981,
+  "types": {
+   "shogyo": 210,
+   "hanka": 36,
+   "office": 106,
+   "jutaku": 331,
+   "shoten": 274,
+   "kojo": 24
+  },
+  "quiet": 98,
+  "short_total": 14,
+  "stations_zero": 9
+ }
+}

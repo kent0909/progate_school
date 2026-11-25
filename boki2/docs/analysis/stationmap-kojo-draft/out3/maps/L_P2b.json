@@ -1,0 +1,124 @@
+{
+ "rule": "L",
+ "replace": "P2b",
+ "removed": [
+  {
+   "st": "s119",
+   "stName": "新木場",
+   "town": "新木場4丁目",
+   "no": "調査 13108-009-002"
+  },
+  {
+   "st": "s236",
+   "stName": "潮見",
+   "town": "新砂1丁目",
+   "no": "調査 13108-009-001"
+  },
+  {
+   "st": "s262",
+   "stName": "葛西臨海公園",
+   "town": "臨海町3丁目",
+   "no": "公示 13123-009-004"
+  },
+  {
+   "st": "s334",
+   "stName": "流通センター",
+   "town": "平和島3丁目",
+   "no": "調査 13111-009-002"
+  },
+  {
+   "st": "s372",
+   "stName": "東京ビッグサイト",
+   "town": "有明3丁目",
+   "no": "公示 13108-009-001"
+  },
+  {
+   "st": "s438",
+   "stName": "整備場",
+   "town": "東糀谷6丁目",
+   "no": "公示 13111-009-001"
+  }
+ ],
+ "replaced": [
+  {
+   "st": "s236",
+   "stName": "潮見",
+   "from": "新砂1丁目",
+   "to": "東陽1丁目",
+   "toType": "jutaku",
+   "toNo": "公示 13108-000-004",
+   "radius": "SITE_M2",
+   "d": 1071
+  },
+  {
+   "st": "s262",
+   "stName": "葛西臨海公園",
+   "from": "臨海町3丁目",
+   "to": "南葛西5丁目",
+   "toType": "jutaku",
+   "toNo": "公示 13123-000-017",
+   "radius": "SITE_M2",
+   "d": 1085
+  },
+  {
+   "st": "s334",
+   "stName": "流通センター",
+   "from": "平和島3丁目",
+   "to": "東海2丁目",
+   "toType": "kojo",
+   "toNo": "公示 13111-009-002",
+   "radius": "SITE_M",
+   "d": 491
+  },
+  {
+   "st": "s438",
+   "stName": "整備場",
+   "from": "東糀谷6丁目",
+   "to": "大森南2丁目",
+   "toType": "shoten",
+   "toNo": "調査 13111-005-015",
+   "radius": "SITE_M2",
+   "d": 1084
+  }
+ ],
+ "moved": [
+  {
+   "fromSt": "s119",
+   "fromName": "新木場",
+   "from": "新木場4丁目",
+   "toSt": "s129",
+   "toName": "南砂町",
+   "to": "南砂3丁目",
+   "toType": "shoten",
+   "toNo": "公示 13108-005-001",
+   "stDist": 2542
+  },
+  {
+   "fromSt": "s372",
+   "fromName": "東京ビッグサイト",
+   "from": "有明3丁目",
+   "toSt": "s085",
+   "toName": "勝どき",
+   "to": "晴海3丁目",
+   "toType": "office",
+   "toNo": "調査 13102-005-024",
+   "stDist": 3436
+  }
+ ],
+ "dropped": [],
+ "p1_pre_excluded": [],
+ "counts": {
+  "sites": 981,
+  "types": {
+   "shogyo": 210,
+   "hanka": 36,
+   "office": 107,
+   "jutaku": 332,
+   "shoten": 276,
+   "kojo": 20
+  },
+  "quiet": 98,
+  "short_total": 16,
+  "stations_zero": 11
+ }
+}

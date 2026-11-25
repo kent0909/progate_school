@@ -1,0 +1,52 @@
+{
+ "rule": "X3",
+ "replace": "P2a",
+ "removed": [
+  {
+   "st": "s257",
+   "stName": "辰巳",
+   "town": "辰巳3丁目",
+   "no": "公示 13108-009-004"
+  },
+  {
+   "st": "s334",
+   "stName": "流通センター",
+   "town": "平和島3丁目",
+   "no": "調査 13111-009-002"
+  }
+ ],
+ "replaced": [
+  {
+   "st": "s334",
+   "stName": "流通センター",
+   "from": "平和島3丁目",
+   "to": "大森北3丁目",
+   "toType": "jutaku",
+   "toNo": "公示 13111-000-001",
+   "radius": "SITE_M2",
+   "d": 1322
+  }
+ ],
+ "moved": [],
+ "dropped": [
+  {
+   "st": "s257",
+   "town": "辰巳3丁目"
+  }
+ ],
+ "p1_pre_excluded": [],
+ "counts": {
+  "sites": 980,
+  "types": {
+   "shogyo": 210,
+   "hanka": 36,
+   "office": 106,
+   "jutaku": 331,
+   "shoten": 274,
+   "kojo": 23
+  },
+  "quiet": 98,
+  "short_total": 15,
+  "stations_zero": 10
+ }
+}

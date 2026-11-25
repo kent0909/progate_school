@@ -81,3 +81,4 @@
 | 11/5 | #9 | 6647349855 | boki2-quest の取りまとめ役（6620179126、1日遅れて返事）へ：地図は「どこ」だけ・何号店/いつ/いくらは PR #6・つなぎは RAMENMAP.mount の onPick(siteId)、式の土台は world.js に候補地の入力を差し込む、HANDOFF・OWNER-WORDS はこちらが毎回 boki2-quest を取り込んで解く | — | 返事待ち |
 
 見回り 11/10：PR #7 は取り込み済み（3367df6）。PR #6 の版3（6568916887）は 11/4 から動きなし、オーナーに一言を依頼中。段2は保留。
+見回り 11/5：PR #9 をオーナーの指示（ほかの PR を確かめて問題なければ取り込む）で boki2-quest へ取り込んだ（671afee）。ほかの PR：#6 は差分0、#8 は HANDOFF・OWNER-WORDS・research の7ファイルがぶつかる（#8 に連絡）、#4 は sources.json がぶつかる、#5・#7 は重なりなし。research-check エラー0・AGENTS.md の6検査 exit 0（0c0b5cb）。

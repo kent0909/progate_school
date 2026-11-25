@@ -1,0 +1,78 @@
+{
+ "rule": "X2b",
+ "replace": "P2a",
+ "removed": [
+  {
+   "st": "s236",
+   "stName": "潮見",
+   "town": "新砂1丁目",
+   "no": "調査 13108-009-001"
+  },
+  {
+   "st": "s257",
+   "stName": "辰巳",
+   "town": "辰巳3丁目",
+   "no": "公示 13108-009-004"
+  },
+  {
+   "st": "s334",
+   "stName": "流通センター",
+   "town": "平和島3丁目",
+   "no": "調査 13111-009-002"
+  },
+  {
+   "st": "s374",
+   "stName": "台場",
+   "town": "港南5丁目",
+   "no": "調査 13103-009-001"
+  }
+ ],
+ "replaced": [
+  {
+   "st": "s236",
+   "stName": "潮見",
+   "from": "新砂1丁目",
+   "to": "東陽1丁目",
+   "toType": "jutaku",
+   "toNo": "公示 13108-000-004",
+   "radius": "SITE_M2",
+   "d": 1071
+  },
+  {
+   "st": "s334",
+   "stName": "流通センター",
+   "from": "平和島3丁目",
+   "to": "東海2丁目",
+   "toType": "kojo",
+   "toNo": "公示 13111-009-002",
+   "radius": "SITE_M",
+   "d": 491
+  }
+ ],
+ "moved": [],
+ "dropped": [
+  {
+   "st": "s257",
+   "town": "辰巳3丁目"
+  },
+  {
+   "st": "s374",
+   "town": "港南5丁目"
+  }
+ ],
+ "p1_pre_excluded": [],
+ "counts": {
+  "sites": 979,
+  "types": {
+   "shogyo": 210,
+   "hanka": 36,
+   "office": 106,
+   "jutaku": 331,
+   "shoten": 274,
+   "kojo": 22
+  },
+  "quiet": 98,
+  "short_total": 16,
+  "stations_zero": 11
+ }
+}

@@ -1,0 +1,4 @@
+I_K7_mC193 6 - {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":1.93,"c":0.27},"void":{"e":0.5},"big":1.32,"night":0.25,"ret":[1.5,0.7]}}
+I_K7hi_Tflat 6 KTFLAT=1 {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":2.54,"c":0.27},"void":{"e":0.5},"big":1.32,"night":0.25,"ret":[1.5,0.7]}}
+I_K7hi_Tflat_s214 6 KTFLAT=1 {"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":2.54,"c":0.27},"void":{"e":0.5},"big":1.32,"night":0.25,"ret":[1.5,0.7]}}
+I_K7hi_retmid 6 - {"tierSpan":7.9,"lamMul":1,"entryDelay":2,"calMode":"map","whiteSpace":1,"kojo":{"set":"R1","K1":{"mC":2.54,"c":0.27},"void":{"e":0.5},"big":1.32,"night":0.25,"ret":[1.3,0.8]}}
